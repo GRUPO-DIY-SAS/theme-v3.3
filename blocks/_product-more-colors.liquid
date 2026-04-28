@@ -1,0 +1,71 @@
+{% liquid
+  assign block_st = block.settings
+  assign section_st = section.settings
+  assign enable_skeleton_loading = section_st.enable_skeleton_loading
+  assign product = closest.product
+%}
+{% if product.metafields.custom.more_colors != blank %}
+  <div
+    class="more-colors mb-25{% if enable_skeleton_loading %} skeleton-loading{% endif %}"
+    {{ block.shopify_attributes }}
+  >
+    <h3 class="text-size heading-letter-spacing mt-0 mb-12">{{ block_st.heading }}</h3>
+    <div class="more-colors-products flex gap-10 flex-wrap">
+      {%- for product in product.metafields.custom.more_colors.value -%}
+        <div
+          class="more-colors-product_item rounded-5 overflow-hidden w-custom fs-0 border transition"
+          style="--custom-width: {{ block_st.image_width }}px"
+        >
+          <a
+            href="{{ product.url }}"
+            class="more-colors-product_link"
+            data-sizes="auto"
+            data-parent-fit="contain"
+          >
+            {% if product.featured_image != blank %}
+              {%- assign width = block_st.image_width -%}
+              {{
+                product.featured_image
+                | image_url: width: width
+                | image_tag: height: product.featured_image.height, title: product.featured_image.alt
+              }}
+            {% else %}
+              {%- render 'placeholder-render' -%}
+            {% endif %}
+          </a>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+{% endif %}
+{% schema %}
+{
+  "name": "t:blocks.product.more_colors.name",
+  "tag": null,
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "t:sections.main-product.blocks.more_colors.settings.info"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "t:sections.main-product.blocks.more_colors.settings.heading"
+    },
+    {
+      "type": "range",
+      "min": 40,
+      "max": 100,
+      "step": 5,
+      "default": 40,
+      "id": "image_width",
+      "label": "t:sections.main-product.blocks.more_colors.settings.image_width"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:blocks.product.more_colors.name"
+    }
+  ]
+}
+{% endschema %}

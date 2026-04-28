@@ -1,0 +1,291 @@
+{{ 'banner.css' | asset_url | stylesheet_tag }}
+{%- liquid
+  assign section_st = section.settings
+  assign section_width = section_st.section_width
+  assign color_scheme = section_st.color_scheme
+  if section_st.reset_spacing
+    assign reset_spacing = ' remove_spacing'
+  endif
+  assign column_gap = section_st.column_gap
+  assign show_view_all_button = section_st.show_view_all_button
+  assign heading = section_st.heading
+  assign description = section_st.description
+  assign header_size = ''
+  if section_st.header_size == 'small'
+    assign header_size = 'h3'
+  elsif section_st.header_size == 'large'
+    assign header_size = 'h1-size'
+  endif
+  assign reveal = section_st.reveal
+  assign scroll_animation = settings.scroll_animation
+  assign animate_delay = 0
+-%}
+{%- capture style -%}
+    --section-pt: {{ section_st.padding_top }}; --section-pb: {{ section_st.padding_bottom }};{% if column_gap < 31 %}--col-gap: {{ column_gap }}px;{% else %}--col-gap: 15px;--col-gap-desktop: {{  column_gap }}px;{% endif %}
+  {%- endcapture -%}
+<div
+  class="section{% if section_st.padding_top < 30 %} pt-min{% endif %}{% if section_st.padding_bottom < 30 %} pb-min{% endif %} sec__products-carousel color-{{ color_scheme }} gradient{{ reset_spacing }}{% if reveal %} overflow-hidden{% endif %}"
+  style="{{ style | strip | strip_newlines }}"
+>
+  <div class="{{ section_width }}">
+    {%- if heading != blank or description != blank -%}
+      <div
+        class="section__header mb-33 mb-sm-20 text-{{ section_st.header_alignment }}{% if section_st.section_width == 'full_width' %} px-20{% endif %}{% if show_view_all_button %} flex gap-15 gap-md-30 flex-wrap {% if section_st.header_alignment == 'center'  %} justify-content-{{ section_st.header_alignment }} {% else %} justify-between {% endif %} align-center{% if section_st.header_alignment == 'right' %} flex-row-reverse{% endif %}{% endif %}"
+      >
+        {%- if heading != blank or description != blank -%}
+          <div class="secion__header-inner">
+            {%- if section_st.heading != blank -%}
+              <motion-element
+                data-motion="{{ scroll_animation }}"
+                {% if scroll_animation == 'none' %}
+                  hold
+                {% endif %}
+                data-motion-delay="{{ animate_delay }}"
+                class="block"
+              >
+                <h2
+                  class="section__header-heading heading-letter-spacing  {{ header_size  }} mt-0{% if section_st.description != blank %} mb-10{% else %} mb-0{% endif %}"
+                >
+                  {{ section.settings.heading }}
+                </h2>
+              </motion-element>
+            {% endif %}
+            {%- if section_st.description != blank -%}
+              {%- assign animate_delay = animate_delay | plus: 50 -%}
+              <motion-element
+                data-motion="{{ scroll_animation }}"
+                data-motion-delay="{{ animate_delay }}"
+                {% if scroll_animation == 'none' %}
+                  hold
+                {% endif %}
+                class="block"
+              >
+                <div
+                  class="section__header-des rich__text-m0"
+                >
+                  {{ section.settings.description }}
+                </div>
+              </motion-element>
+            {% endif %}
+          </div>
+        {% endif %}
+        {% if show_view_all_button and section_st.header_alignment != 'center' %}
+          <a
+            class="btn_view-all no-underline inline-flex btn-link"
+            href="{{ section_st.view_all_url }}"
+            aria-label="{{- 'general.view_all' | t -}}"
+          >
+            {{- 'general.view_all' | t -}}
+          </a>
+        {% endif %}
+      </div>
+    {% endif %}
+    <banner-packery
+      class="banner-packery {{ settings.hover_effect }} blocks-size-{{ section.blocks.size }}"
+    >
+      {% content_for 'blocks' %}
+    </banner-packery>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.banner-packery.name",
+  "tag": "section",
+  "max_blocks": 4,
+  "disabled_on": {
+    "groups": ["header", "footer", "custom.overlay"]
+  },
+  "settings": [
+    {
+      "type": "select",
+      "id": "section_width",
+      "label": "t:sections.all.section_width.label",
+      "default": "fluid_container",
+      "options": [
+        {
+          "value": "container",
+          "label": "t:sections.all.section_width.container.label"
+        },
+        {
+          "value": "fluid_container",
+          "label": "t:sections.all.section_width.fluid_container.label"
+        },
+        {
+          "value": "stretch_width",
+          "label": "t:sections.all.section_width.stretch_width.label"
+        },
+        {
+          "value": "full_width",
+          "label": "t:sections.all.section_width.full_width.label"
+        }
+      ]
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.color_scheme.label",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.section_header.label"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "t:sections.all.section_header.heading.label"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "t:sections.all.section_header.description.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_view_all_button",
+      "label": "t:sections.all.section_header.show_view_all_button.label"
+    },
+    {
+      "type": "url",
+      "id": "view_all_url",
+      "label": "t:sections.all.section_header.show_view_all_button.label_link"
+    },
+    {
+      "type": "select",
+      "id": "header_size",
+      "label": "t:sections.all.section_header.header_size.label",
+      "default": "medium",
+      "options": [
+        {
+          "value": "small",
+          "label": "t:sections.all.section_header.header_size.small.label"
+        },
+        {
+          "value": "medium",
+          "label": "t:sections.all.section_header.header_size.medium.label"
+        },
+        {
+          "value": "large",
+          "label": "t:sections.all.section_header.header_size.large.label"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "header_alignment",
+      "label": "t:sections.all.section_header.alignment.label",
+      "default": "left",
+      "options": [
+        {
+          "value": "left",
+          "label": "t:sections.all.section_header.alignment.left.label"
+        },
+        {
+          "value": "center",
+          "label": "t:sections.all.section_header.alignment.center.label"
+        },
+        {
+          "value": "right",
+          "label": "t:sections.all.section_header.alignment.right.label"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "column_gap",
+      "label": "t:sections.all.items.column_gap.label",
+      "default": 30,
+      "min": 0,
+      "max": 50,
+      "step": 5,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.section_padding.label"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "t:sections.all.section_padding.top.label",
+      "default": 0,
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "t:sections.all.section_padding.bottom.label",
+      "default": 0,
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px"
+    },
+    {
+      "type": "checkbox",
+      "id": "reset_spacing",
+      "label": "t:sections.all.section_padding.reset_spacing.label",
+      "default": false
+    }
+  ],
+  "blocks": [
+    {
+      "type": "_group-image-overlay"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.banner-packery.name",
+      "category": "t:categories.banners",
+      "blocks": [
+        {
+          "type": "_group-image-overlay",
+          "blocks": [
+            {
+              "type": "subheading"
+            },
+            {
+              "type": "heading"
+            },
+            {
+              "type": "button"
+            }
+          ]
+        },
+        {
+          "type": "_group-image-overlay",
+          "blocks": [
+            {
+              "type": "subheading"
+            },
+            {
+              "type": "heading"
+            },
+            {
+              "type": "button"
+            }
+          ]
+        },
+        {
+          "type": "_group-image-overlay",
+          "blocks": [
+            {
+              "type": "subheading"
+            },
+            {
+              "type": "heading"
+            },
+            {
+              "type": "button"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

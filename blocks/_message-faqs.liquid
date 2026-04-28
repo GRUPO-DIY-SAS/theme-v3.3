@@ -1,0 +1,45 @@
+{% liquid
+  assign theme_st = settings
+  assign scroll_animation = theme_st.scroll_animation
+%}
+
+<motion-element
+  data-motion="{{ scroll_animation }}"
+  {% if scroll_animation == 'none' %}
+    hold
+  {% endif %}
+  class="col-md-w-custom block rounded-style"
+  style="--col-width: 35%;"
+>
+  <div class="faq_contact rounded sticky top-30">
+    {% content_for 'blocks' %}
+  </div>
+</motion-element>
+{% schema %}
+{
+  "name": "t:sections.faq.settings.block.add_faq",
+  "tag": null,
+  "blocks": [
+    {
+      "type": "description"
+    },
+    {
+      "type": "heading"
+    },
+    {
+      "type": "button"
+    },
+    {
+      "type": "subheading"
+    },
+    {
+      "type": "image"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.faq.settings.block.add_faq"
+    }
+  ]
+}
+{% endschema %}

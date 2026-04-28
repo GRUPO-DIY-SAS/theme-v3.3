@@ -1,0 +1,29 @@
+{% liquid
+  assign block_st = block.settings
+  assign section_st = section.settings
+  assign enable_skeleton_loading = section_st.enable_skeleton_loading
+%}
+<div
+  class="{% if enable_skeleton_loading %} skeleton-loading{% endif %}"
+  {{ block.shopify_attributes }}
+>
+  {{ block_st.custom_liquid }}
+</div>
+{% schema %}
+{
+  "name": "t:blocks.general.custom_liquid.name",
+  "settings": [
+    {
+      "type": "textarea",
+      "id": "custom_liquid",
+      "label": "t:blocks.general.custom_liquid.name"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:blocks.general.custom_liquid.name",
+      "category": "t:categories.custom"
+    }
+  ]
+}
+{% endschema %}

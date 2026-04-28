@@ -1,0 +1,64 @@
+{% liquid
+  assign block_st = block.settings
+%}
+
+<div
+  class="ticker-text__image overflow-hidden relative w-custom"
+  style="--custom-width: {{ block_st.image_width }}px;"
+  {{ block.shopify_attributes }}
+>
+  {%- assign sizes = block_st.image_width | append: 'px' -%}
+  {%- assign image_alt = block_st.image_block.alt | default: '' -%}
+  {%- if block_st.image_link != blank -%}
+    <a class="block" href="{{ block_st.image_link }}">
+  {%- endif -%}
+  {% if block_st.image_block != blank %}
+    {% render 'responsive-image',
+      type: 'other',
+      image: block_st.image_block,
+      image_alt: image_alt,
+      sizes: sizes,
+      width: block_st.image_width,
+      no_animate: true
+    -%}
+  {%- else -%}
+    {%- render 'placeholder-render' -%}
+  {%- endif -%}
+  {%- if block_st.image_link != blank -%}
+    </a>
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.all.image.label",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image_block",
+      "label": "t:sections.all.image.label"
+    },
+    {
+      "type": "range",
+      "id": "image_width",
+      "min": 10,
+      "max": 500,
+      "step": 5,
+      "unit": "px",
+      "label": "t:sections.footer.blocks.store_info.settings.image_width",
+      "default": 30
+    },
+    {
+      "type": "url",
+      "id": "image_link",
+      "label": "t:sections.all.image.link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.all.image.label",
+      "category": "t:categories.basic"
+    }
+  ]
+}
+{% endschema %}

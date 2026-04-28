@@ -1,0 +1,243 @@
+{%- liquid
+  assign section_st = section.settings
+  assign section_width = section_st.section_width
+  assign color_scheme = section_st.color_scheme
+  if section_st.reset_spacing
+    assign reset_spacing = ' remove_spacing'
+  endif
+  assign scroll_animation = settings.scroll_animation
+-%}
+{%- capture style -%}
+  --section-pt: {{ section_st.padding_top }}; --section-pb: {{ section_st.padding_bottom }};--max-width: {{ section_st.content_max_width }}%;
+{%- endcapture -%}
+<div
+  class="section{% if section_st.padding_top < 30 %} pt-min{% endif %}{% if section_st.padding_bottom < 30 %} pb-min{% endif %} sec__rich-text rich-text-{{ section.id }} color-{{ color_scheme }} gradient{{ reset_spacing }}"
+  style="{{ style | strip | strip_newlines }}"
+>
+  <div class="{{ section_width }}">
+    <div
+      class="sec__content-inner{% if section_st.enable_expand_content %} rich-text-expand-content{% endif %} max-w-custom overflow-hidden mx-auto text-{{ section_st.content_alignment }}"
+    >
+      {% content_for 'blocks' %}
+    </div>
+  </div>
+  {% if section_st.enable_expand_content and section_st.content_max_height > 0 %}
+    <motion-element
+      data-motion="{{ scroll_animation }}"
+      {% if scroll_animation == 'none' %}
+        hold
+      {% endif %}
+      class="accordion {{ section_width }} block text-{{ section_st.content_alignment }} gradient-effect relative hidden"
+    >
+      <div class="max-w-custom mx-auto">
+        <button class="btn-link btn-reset pt-22" aria-label="{{ 'rich_text.see_all' | t }}">
+          {% if section_st.expand_content_button != blank %}
+            {{ section_st.expand_content_button }}
+          {% else %}
+            {{ 'rich_text.see_all' | t }}
+          {% endif %}
+        </button>
+      </div>
+    </motion-element>
+  {%- endif %}
+</div>
+{% if section_st.enable_expand_content and section_st.content_max_height > 0 %}
+  <script>
+    var cp = document.querySelectorAll('.rich-text-{{ section.id }} .rich-text-expand-content');
+    if (cp !== null) {
+      cp.forEach((e) => {
+        if ((e.scrollHeight + 1) > {{ section_st.content_max_height }}) {
+          e.style.maxHeight = '{{ section_st.content_max_height }}px';
+          e.closest('.sec__rich-text').querySelector('.accordion').classList.remove("hidden");
+        }
+      });
+    }
+    var expand_content_button = "{{ 'rich_text.see_all' | t }}";
+    var hide_less_button = "{{ 'rich_text.hide_less' | t }}";
+    if ("{{ section_st.expand_content_button }}") {
+      expand_content_button = "{{ section_st.expand_content_button }}";
+    }
+    var acc = document.getElementsByClassName('accordion');
+    var i;
+    for (i = 0; i < acc.length; i++) {
+      acc[i].onclick = function () {
+        var panel = this.closest('.sec__rich-text').querySelector('.rich-text-expand-content');
+        if (this.classList.contains("hide-less")) {
+          this.classList.remove("hide-less")
+          panel.style.maxHeight = '{{ section_st.content_max_height }}px';
+          this.querySelector('button').innerHTML = expand_content_button;
+        } else {
+          this.classList.add("hide-less")
+          panel.style.maxHeight = panel.scrollHeight + 'px';
+          this.querySelector('button').innerHTML = hide_less_button;
+        }
+      };
+    }
+  </script>
+{% endif %}
+{% schema %}
+{
+  "name": "t:sections.rich_text.name",
+  "tag": "section",
+  "disabled_on": {
+    "groups": ["header", "footer", "custom.overlay"]
+  },
+  "settings": [
+    {
+      "type": "select",
+      "id": "section_width",
+      "label": "t:sections.all.section_width.label",
+      "default": "container",
+      "options": [
+        {
+          "value": "container",
+          "label": "t:sections.all.section_width.container.label"
+        },
+        {
+          "value": "fluid_container",
+          "label": "t:sections.all.section_width.fluid_container.label"
+        },
+        {
+          "value": "stretch_width",
+          "label": "t:sections.all.section_width.stretch_width.label"
+        },
+        {
+          "value": "full_width",
+          "label": "t:sections.all.section_width.full_width.label"
+        }
+      ]
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.color_scheme.label",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.content_settings.label"
+    },
+    {
+      "type": "select",
+      "id": "content_alignment",
+      "label": "t:sections.all.content_settings.content_alignment.label",
+      "default": "center",
+      "options": [
+        {
+          "value": "left",
+          "label": "t:sections.all.content_settings.content_alignment.left.label"
+        },
+        {
+          "value": "center",
+          "label": "t:sections.all.content_settings.content_alignment.center.label"
+        },
+        {
+          "value": "right",
+          "label": "t:sections.all.content_settings.content_alignment.right.label"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "content_max_width",
+      "min": 40,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "default": 100,
+      "label": "t:sections.all.content_settings.max_width.label",
+      "info": "t:sections.all.content_settings.max_width.info"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.rich_text.expand_content.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_expand_content",
+      "label": "t:sections.rich_text.expand_content.enable_expand_content.label",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "expand_content_button",
+      "label": "t:sections.footer.blocks.newsletter.settings.button_label.label",
+      "default": "See all Information",
+      "visible_if": "{{ section.settings.enable_expand_content }}"
+    },
+    {
+      "type": "number",
+      "id": "content_max_height",
+      "label": "t:sections.all.content_settings.max_height.label",
+      "visible_if": "{{ section.settings.enable_expand_content }}"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.section_padding.label"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "t:sections.all.section_padding.top.label",
+      "default": 0,
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "t:sections.all.section_padding.bottom.label",
+      "default": 0,
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px"
+    },
+    {
+      "type": "checkbox",
+      "id": "reset_spacing",
+      "label": "t:sections.all.section_padding.reset_spacing.label",
+      "default": false
+    }
+  ],
+  "blocks": [
+    {
+      "type": "heading"
+    },
+    {
+      "type": "description"
+    },
+    {
+      "type": "subheading"
+    },
+    {
+      "type": "highlight-text"
+    },
+    {
+      "type": "button"
+    },
+    {
+      "type": "custom-html"
+    },
+    {
+      "type": "spacing"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.rich_text.name",
+      "category": "t:categories.storytelling",
+      "blocks": [
+        {
+          "type": "heading"
+        },
+        {
+          "type": "description"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

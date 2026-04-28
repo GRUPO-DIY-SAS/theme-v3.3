@@ -1,0 +1,23 @@
+{% liquid
+  assign product = closest.product
+  assign section_st = section.settings
+  assign enable_skeleton_loading = section_st.enable_skeleton_loading
+%}
+<div
+  id="price-{{ section.id }}"
+  class="product-detail__price mb-10{% if enable_skeleton_loading %} skeleton-loading{% endif %}"
+  {{ block.shopify_attributes }}
+>
+  {%- render 'price', scope: 'detail', product: product, class: 'price-large', show_badges: false -%}
+</div>
+{% schema %}
+{
+  "name": "t:blocks.product.price.name",
+  "tag": null,
+  "presets": [
+    {
+      "name": "t:blocks.product.price.name"
+    }
+  ]
+}
+{% endschema %}

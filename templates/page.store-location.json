@@ -1,0 +1,172 @@
+{
+  "sections": {
+    "page-heading": {
+      "type": "page-heading",
+      "blocks": {
+        "breadcrumb_kg6gTP": {
+          "type": "breadcrumb",
+          "settings": {}
+        },
+        "heading_fmyy8C": {
+          "type": "heading",
+          "settings": {
+            "page_title": "Encuentra nuestras Tiendas de Vapeo 🔍",
+            "header_size": "default"
+          }
+        },
+        "description_TfxHmk": {
+          "type": "description",
+          "settings": {
+            "description": "<p>Por favor, utiliza el siguiente mapa para ubicar nuestras tiendas en Colombia. También puedes comunicarte con nuestro servicio al cliente al <a href=\"https:\/\/wa.me\/573206682351\" target=\"_blank\" title=\"WhatsApp DIY Vape Shop\">+57 320 668 2351<\/a>. 📞<\/p>"
+          }
+        }
+      },
+      "block_order": [
+        "breadcrumb_kg6gTP",
+        "heading_fmyy8C",
+        "description_TfxHmk"
+      ],
+      "settings": {
+        "section_width": "stretch_width",
+        "color_scheme": "",
+        "alignment": "center",
+        "overlay_opacity": 0,
+        "height": "adapt",
+        "padding_top": 40,
+        "padding_bottom": 0
+      }
+    },
+    "main": {
+      "type": "pages-store-location",
+      "blocks": {
+        "item_giQMbx": {
+          "type": "item",
+          "settings": {
+            "store_lng": "4.670566709396871",
+            "store_lat": "-74.05390530442642",
+            "store_name": "DIY Vape Shop 85",
+            "store_address": "Cra. 14 #85-86, Chapinero, Bogotá, Cundinamarca",
+            "store_phone": "+57 3206682351"
+          }
+        },
+        "item_MBNhGC": {
+          "type": "item",
+          "settings": {
+            "store_lng": "4.717451962883182",
+            "store_lat": "-74.0309958595927",
+            "store_name": "DIY Vape Shop 140",
+            "store_address": "Calle 140#7C-10 Local 11 CC Monteverde, Bogotá, Cundinamarca",
+            "store_phone": "+57 3206682351"
+          }
+        },
+        "item_mfcfch": {
+          "type": "item",
+          "settings": {
+            "store_lng": "4.6556184997027",
+            "store_lat": "-74.1124600487282",
+            "store_name": "DIY Vape Shop Salitre",
+            "store_address": "Ac. 24 #69A - 15, Salitre, Bogotá",
+            "store_phone": "+57 3206682351"
+          }
+        },
+        "item_YCqqCe": {
+          "type": "item",
+          "settings": {
+            "store_lng": "4.726667149887443",
+            "store_lat": "-74.0605713585472",
+            "store_name": "DIY Vape Shop Colina",
+            "store_address": "Parque Comercial la Colina 138, Cl. 138 #55-49 Local 55-49, Bogotá",
+            "store_phone": "+57 3206682351"
+          }
+        }
+      },
+      "block_order": [
+        "item_giQMbx",
+        "item_MBNhGC",
+        "item_mfcfch",
+        "item_YCqqCe"
+      ],
+      "settings": {
+        "section_width": "fluid_container",
+        "heading": "",
+        "description": "",
+        "header_size": "medium",
+        "header_alignment": "center",
+        "padding_top": 0,
+        "padding_bottom": 30
+      }
+    },
+    "divider_rA9tNb": {
+      "type": "divider",
+      "settings": {
+        "section_width": "full_width",
+        "border_height": 1,
+        "border_color": "#ebebeb",
+        "reset_spacing": true
+      }
+    },
+    "rich_text_bMdMgn": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_hmwJCg": {
+          "type": "heading",
+          "settings": {
+            "heading": "Navega a nuestras Tiendas de Vapeo",
+            "font_size": 36,
+            "font_weight": "heading_weight",
+            "uppercase": false,
+            "spacing_bottom": 24
+          }
+        },
+        "description_xbrTUn": {
+          "type": "description",
+          "settings": {
+            "font_size": 14,
+            "font_weight": "body_weight",
+            "spacing_bottom": 10
+          }
+        }
+      },
+      "block_order": [
+        "heading_hmwJCg",
+        "description_xbrTUn"
+      ],
+      "settings": {
+        "section_width": "container",
+        "color_scheme": "",
+        "content_alignment": "center",
+        "content_max_width": 100,
+        "enable_expand_content": false,
+        "expand_content_button": "See all Information",
+        "padding_top": 50,
+        "padding_bottom": 0,
+        "reset_spacing": true
+      }
+    },
+    "custom_html_x8Qf4g": {
+      "type": "custom-html",
+      "custom_css": [
+        ".map-grid {display: grid; grid-template-columns: 1fr; gap: 30px; padding: 20px 0;}",
+        "@media (min-width: 768px) {.map-grid {grid-template-columns: 1fr 1fr; }}",
+        ".map-item {background: #f9f9f9; padding: 15px; border-radius: 12px; box-shadow: 0 4px 12px;}",
+        ".map-item h3 {font-size: 1em; margin-bottom: 15px; text-align: center;}",
+        ".map-item iframe {width: 100%; height: 350px; border: 0; border-radius: 8px;}"
+      ],
+      "settings": {
+        "section_width": "container",
+        "color_scheme": "",
+        "html_custom": "<div class=\"map-grid\">\n  <div class=\"map-item\">\n    <h3>DIY Vape Shop 85<\/h3>\n    <iframe src=\"https:\/\/www.google.com\/maps\/embed?pb=!1m18!1m12!1m3!1d31811.839618531667!2d-74.09237244092294!3d4.686336647209894!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e3f9af4b1912557%3A0xe9049930242f8a4c!2sDIY%20Vape%20Shop%2085!5e0!3m2!1ses!2sco!4v1743197769744!5m2!1ses!2sco\" loading=\"lazy\" allowfullscreen=\"\" referrerpolicy=\"no-referrer-when-downgrade\"><\/iframe>\n  <\/div>\n\n  <div class=\"map-item\">\n    <h3>DIY Vape Shop 140<\/h3>\n    <iframe src=\"https:\/\/www.google.com\/maps\/embed?pb=!1m18!1m12!1m3!1d3976.30329140253!2d-74.0335975876332!3d4.7172862414899965!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e3f85b064310e4d%3A0x37f8f2521d6275b3!2sDIY%20Vape%20Shop%20140!5e0!3m2!1ses!2sco!4v1743449244304!5m2!1ses!2sco\" loading=\"lazy\" allowfullscreen=\"\" referrerpolicy=\"no-referrer-when-downgrade\"><\/iframe>\n  <\/div>\n\n  <div class=\"map-item\">\n    <h3>DIY Vape Shop Colina<\/h3>\n    <iframe src=\"https:\/\/www.google.com\/maps\/embed?pb=!1m18!1m12!1m3!1d3976.2506508801894!2d-74.06320528763321!3d4.726469341410052!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e3f8508719bd34b%3A0x77f6ce0a91cac3cd!2sDIY%20Vape%20Shop%20Colina!5e0!3m2!1ses!2sco!4v1743449383835!5m2!1ses!2sco\" loading=\"lazy\" allowfullscreen=\"\" referrerpolicy=\"no-referrer-when-downgrade\"><\/iframe>\n  <\/div>\n\n  <div class=\"map-item\">\n    <h3>DIY Vape Shop Salitre<\/h3>\n    <iframe src=\"https:\/\/www.google.com\/maps\/embed?pb=!1m18!1m12!1m3!1d3976.6553891450612!2d-74.11502298763313!3d4.655398342025332!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e3f85cde01babd7%3A0x1e3ac9490bb5ab86!2sDIY%20Vape%20Shop%20Salitre!5e0!3m2!1ses!2sco!4v1743449332133!5m2!1ses!2sco\" loading=\"lazy\" allowfullscreen=\"\" referrerpolicy=\"no-referrer-when-downgrade\"><\/iframe>\n  <\/div>\n<\/div>",
+        "padding_top": 30,
+        "padding_bottom": 30,
+        "reset_spacing": true
+      }
+    }
+  },
+  "order": [
+    "page-heading",
+    "main",
+    "divider_rA9tNb",
+    "rich_text_bMdMgn",
+    "custom_html_x8Qf4g"
+  ]
+}

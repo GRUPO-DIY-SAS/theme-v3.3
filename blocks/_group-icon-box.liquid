@@ -1,0 +1,233 @@
+{% liquid
+  assign theme_st = settings
+  assign section_st = section.settings
+  assign block_st = block.settings
+  assign image = block_st.icon_image
+  assign image_2 = block_st.icon_image2
+  assign scroll_animation = theme_st.scroll_animation
+  if section_st.items_per_row_mobile == 1
+    assign w_mobile = 'w-full'
+  elsif section_st.items_per_row_mobile == 2
+    assign w_mobile = 'w-50-percent'
+  endif
+%}
+<motion-element
+  data-motion="{{ scroll_animation }}"
+  {% if scroll_animation == 'none' %}
+    hold
+  {% endif %}
+  class="align-self-{{ section_st.vertical_align }} section__block {{ theme_st.hover_effect }} {{ w_mobile }} col-md-w-custom {% if block_st.content_width == '20%' or block_st.content_width == '25%' or block_st.content_width == '66.6666%' or block_st.content_width == '75%' or block_st.content_width == '80%' %} col-md-w-custom-50{% endif %}"
+  style="--col-width: {{ block_st.content_width }};"
+  {{ block.shopify_attributes }}
+>
+  <div
+    class="sec__icon-box-item flex flex-column align-center"
+  >
+    {%- if image != blank -%}
+      <div
+        class="sec__icon-box-content-icon lh-1{% if image != blank %} w-custom max-w-100 flex-auto mb-20 {% endif %}"
+        style="--custom-width: {{ block_st.icon_size }}px"
+      >
+        {%- if image != blank -%}
+          {%- assign sizes = block_st.icon_size | append: 'px' -%}
+          {%- assign image_alt = image.alt | default: 'images' -%}
+          {% render 'responsive-image',
+            type: 'other',
+            image: image,
+            image_alt: image_alt,
+            sizes: sizes,
+            custom_widths: '185, 120, 60, 30',
+            no_animate: true
+          %}
+        {% endif %}
+      </div>
+    {% endif %}
+    {% if block_st.heading != blank or block_st.description != blank %}
+      <div class="sec__icon-box-content text-center word-break">
+        {% if block_st.heading != blank %}
+          <h3
+            class="sec__icon-box-content-heading mt-0 mb-10 fs-18"
+          >
+            {{ block_st.heading }}
+          </h3>
+        {% endif %}
+        {% if block_st.description != blank %}
+          <div
+            class="sec__icon-box-content-des rich__text-m0 fs-custom"
+            style="--font-size: 15;"
+          >
+            {{ block_st.description }}
+          </div>
+        {% endif %}
+      </div>
+    {% endif %}
+  </div>
+
+  <div
+    class="sec__icon-switch-slide py-20 flex flex-column gap-custom align-center justify-center "
+  >
+    <div
+      class="sec__icon-box-item flex flex-column align-center"
+    >
+      {%- if image_2 != blank -%}
+        <div
+          class="sec__icon-box-content-icon lh-1{% if image != blank %} w-custom max-w-100 flex-auto mb-20 {% endif %}"
+          style="--custom-width: {{ block_st.icon_size2 }}px"
+        >
+          {%- if image_2 != blank -%}
+            {%- assign sizes = block_st.icon_size2 | append: 'px' -%}
+            {%- assign image_alt = image_2.alt | default: 'images' -%}
+            {% render 'responsive-image',
+              type: 'other',
+              image: image_2,
+              image_alt: image_alt,
+              sizes: sizes,
+              custom_widths: '185, 120, 60, 30',
+              no_animate: true
+            %}
+          {% endif %}
+        </div>
+      {% endif %}
+      {% if block_st.heading2 != blank or block_st.description2 != blank %}
+        <div class="sec__icon-box-content text-center word-break">
+          {% if block_st.heading2 != blank %}
+            <h3
+              class="sec__icon-box-content-heading mt-0 mb-10 fs-18"
+            >
+              {{ block_st.heading2 }}
+            </h3>
+          {% endif %}
+          {% if block_st.description2 != blank %}
+            <div
+              class="sec__icon-box-content-des rich__text-m0 fs-custom"
+              style="--font-size: 15;"
+            >
+              {{ block_st.description2 }}
+            </div>
+          {% endif %}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</motion-element>
+{% schema %}
+{
+  "name": "t:sections.icon_box.name",
+  "tag": null,
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.color_scheme.label",
+      "default": "scheme-1"
+    },
+    {
+      "type": "select",
+      "id": "content_width",
+      "label": "t:sections.all.content_setting.width.label",
+      "default": "50%",
+      "options": [
+        {
+          "value": "20%",
+          "label": "20%"
+        },
+        {
+          "value": "25%",
+          "label": "25%"
+        },
+        {
+          "value": "33.3333%",
+          "label": "33%"
+        },
+        {
+          "value": "50%",
+          "label": "50%"
+        },
+        {
+          "value": "66.6666%",
+          "label": "66%"
+        },
+        {
+          "value": "75%",
+          "label": "75%"
+        },
+        {
+          "value": "80%",
+          "label": "80%"
+        },
+        {
+          "value": "100%",
+          "label": "100%"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "t:settings.icon_1"
+    },
+    {
+      "type": "image_picker",
+      "id": "icon_image",
+      "label": "t:sections.all.image.label"
+    },
+    {
+      "type": "range",
+      "id": "icon_size",
+      "label": "t:sections.icon_box.settings.icon_size.label",
+      "default": 32,
+      "min": 10,
+      "max": 60,
+      "step": 1,
+      "unit": "px"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "t:sections.all.contents.heading.label",
+      "default": "This is heading text"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "t:sections.all.contents.description.label",
+      "default": "<p>Tell about your service.</p>"
+    },
+    {
+      "type": "header",
+      "content": "t:settings.icon_2"
+    },
+    {
+      "type": "image_picker",
+      "id": "icon_image2",
+      "label": "t:sections.all.image.label"
+    },
+    {
+      "type": "range",
+      "id": "icon_size2",
+      "label": "t:sections.icon_box.settings.icon_size.label",
+      "default": 32,
+      "min": 10,
+      "max": 60,
+      "step": 1,
+      "unit": "px"
+    },
+    {
+      "type": "text",
+      "id": "heading2",
+      "label": "t:sections.all.contents.heading.label",
+      "default": "This is heading text"
+    },
+    {
+      "type": "richtext",
+      "id": "description2",
+      "label": "t:sections.all.contents.description.label",
+      "default": "<p>Tell about your service.</p>"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.icon_box.name"
+    }
+  ]
+}
+{% endschema %}

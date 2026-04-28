@@ -1,0 +1,54 @@
+{% liquid
+  assign theme_st = settings
+  assign scroll_animation = theme_st.scroll_animation
+  assign block_st = block.settings
+  assign mb_custom = ''
+  if block_st.spacing_bottom > 41
+    assign mb_custom = 'mb-big'
+  elsif block_st.spacing_bottom > 30
+    assign mb_custom = 'mb-medium'
+  else
+    assign mb_custom = 'mb-custom'
+  endif
+%}
+<motion-element
+  data-motion="{{ scroll_animation }}"
+  {% if scroll_animation == 'none' %}
+    hold
+  {% endif %}
+  class="{{ mb_custom }} block"
+  style="--space-bottom: {{ block_st.spacing_bottom }};"
+  {{ block.shopify_attributes }}
+>
+  {{ block.settings.html_custom }}
+</motion-element>
+{% schema %}
+{
+  "name": "t:sections.html_custom.html.label",
+  "settings": [
+    {
+      "type": "html",
+      "id": "html_custom",
+      "label": "t:sections.html_custom.html.label",
+      "info": "t:sections.html_custom.html.info",
+      "default": "<div class=\"py-10 px-15 border\" style=\"color: #111;\">This is Custom HTML section</div>"
+    },
+    {
+      "type": "range",
+      "id": "spacing_bottom",
+      "label": "t:sections.all.content_settings.spacing.spacing_bottom.label",
+      "default": 24,
+      "min": 0,
+      "max": 30,
+      "step": 1,
+      "unit": "px"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.html_custom.html.label",
+      "category": "t:categories.custom"
+    }
+  ]
+}
+{% endschema %}

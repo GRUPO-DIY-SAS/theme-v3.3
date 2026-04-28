@@ -1,0 +1,157 @@
+{
+  "sections": {
+    "page-heading": {
+      "type": "page-heading",
+      "blocks": {
+        "breadcrumb_kg6gTP": {
+          "type": "breadcrumb",
+          "settings": {}
+        },
+        "heading_fmyy8C": {
+          "type": "heading",
+          "settings": {
+            "page_title": "Contáctanos",
+            "header_size": "default"
+          }
+        },
+        "description_TfxHmk": {
+          "type": "description",
+          "settings": {
+            "description": "<p>Usa el formulario a continuación. Puedes contactar a nuestro equipo de servicio al cliente al <a href=\"https:\/\/wa.me\/573205682351\" target=\"_blank\" title=\"https:\/\/wa.me\/573205682351\">+57 3205682351<\/a>.<\/p>"
+          }
+        }
+      },
+      "block_order": [
+        "breadcrumb_kg6gTP",
+        "heading_fmyy8C",
+        "description_TfxHmk"
+      ],
+      "settings": {
+        "section_width": "container",
+        "color_scheme": "",
+        "alignment": "center",
+        "overlay_opacity": 0,
+        "height": "adapt",
+        "padding_top": 74,
+        "padding_bottom": 0
+      }
+    },
+    "main": {
+      "type": "page-contact",
+      "blocks": {
+        "text_block_bYNRjF": {
+          "type": "text_block",
+          "settings": {
+            "heading_text_block": "Centros de Ayuda al Cliente",
+            "description_text_block": "<p>¿Tienes preguntas? Contáctate con nuestro equipo de servicio al cliente. Estamos aquí para resolver todas tus inquietudes relacionadas al vapeo o tus pedidos. <\/p>",
+            "content": "<p><strong>Tiendas de Vapeo en Colombia<\/strong><\/p><p>📍 <strong>DIY Vape Shop 140:  <\/strong><a href=\"https:\/\/maps.app.goo.gl\/YgihotxpQBdcH34Q8\" target=\"_blank\" title=\"https:\/\/maps.app.goo.gl\/YgihotxpQBdcH34Q8\">Cll. 140 # 7C-10 LC11<\/a><\/p><p>📍 <strong>DIY Vape Shop 85: <\/strong><a href=\"https:\/\/maps.app.goo.gl\/akrmyuGcYpQu6or88\" target=\"_blank\" title=\"https:\/\/maps.app.goo.gl\/akrmyuGcYpQu6or88\">CRA. 14 # 85- 86<\/a> <\/p><p>📍 <strong>DIY Vape Shop Colina: <\/strong><a href=\"https:\/\/maps.app.goo.gl\/pM2KGBtTopCELAgj8\" target=\"_blank\" title=\"DIY Vape Shop Colina Camprestre\">Cll 138 # 55-49  <\/a><\/p><p>📍 <strong>DIY Vape Shop Salitre: <\/strong><a href=\"https:\/\/maps.app.goo.gl\/SqqrBSKbaTjdETmD9\" target=\"_blank\" title=\"https:\/\/maps.app.goo.gl\/SqqrBSKbaTjdETmD9\">AC. 24 #69A-15<\/a><\/p><p><strong>Servicio al Cliente:<br\/><\/strong>Teléfono: <a href=\"https:\/\/wa.me\/573205682351\" target=\"_blank\" title=\"https:\/\/wa.me\/573205682351\">+57 3205682351<\/a><br\/>Email: info@diyvape.co<br\/>Horarios de Atención: Lunes a Sábados 10:00am - 7:30pm<\/p><p><strong>Ventas al Por Mayor:<br\/><\/strong>Email: ventas@diyvape.co<br\/><br\/><\/p>"
+          }
+        },
+        "contact_E6FKVE": {
+          "type": "contact",
+          "settings": {
+            "heading": "Contáctanos",
+            "description": "<p>Nos encantaría saber de usted. Si tiene excelentes productos o desea trabajar con nosotros, escríbanos.<\/p>",
+            "show_privacy": true,
+            "name": "Su nombre",
+            "email": "Email",
+            "your_comment": "Mensaje.",
+            "button_label": "Enviar Formulario"
+          }
+        }
+      },
+      "block_order": [
+        "text_block_bYNRjF",
+        "contact_E6FKVE"
+      ],
+      "custom_css": [
+        ".support_customer p strong {font-size: 16px; margin-block-end: 15px;}"
+      ],
+      "settings": {
+        "section_width": "container",
+        "color_scheme": "",
+        "iframe": "",
+        "column_gap": 100,
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "reset_spacing": true
+      }
+    },
+    "rich_text_7ecYU9": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_kU4B3P": {
+          "type": "heading",
+          "settings": {
+            "heading": "Consigue Ayuda en Nuestras Tiendas de Vapeo",
+            "font_size": 36,
+            "font_weight": "heading_weight",
+            "uppercase": false,
+            "spacing_bottom": 15
+          }
+        },
+        "button_JGf9jK": {
+          "type": "button",
+          "settings": {
+            "first_button_label": "Ver todas las tiendas de vapeo",
+            "first_button_link": "shopify:\/\/pages\/nuestras-tiendas",
+            "first_button_type": "primary",
+            "second_button_label": "",
+            "second_button_link": "",
+            "second_button_type": "primary",
+            "spacing_bottom": 10
+          }
+        },
+        "description_T9VCRx": {
+          "type": "description",
+          "settings": {
+            "font_size": 14,
+            "font_weight": "body_weight",
+            "spacing_bottom": 10
+          }
+        }
+      },
+      "block_order": [
+        "heading_kU4B3P",
+        "button_JGf9jK",
+        "description_T9VCRx"
+      ],
+      "settings": {
+        "section_width": "container",
+        "color_scheme": "",
+        "content_alignment": "center",
+        "content_max_width": 100,
+        "enable_expand_content": true,
+        "expand_content_button": "Ver más",
+        "padding_top": 30,
+        "padding_bottom": 30,
+        "reset_spacing": true
+      }
+    },
+    "custom_html_nid84V": {
+      "type": "custom-html",
+      "custom_css": [
+        ".map-grid {display: grid; grid-template-columns: 1fr; gap: 30px; padding: 20px 0;}",
+        "@media (min-width: 768px) {.map-grid {grid-template-columns: 1fr 1fr; }}",
+        ".map-item {background: #f9f9f9; padding: 15px; border-radius: 12px; box-shadow: 0 4px 12px;}",
+        ".map-item h3 {font-size: 1em; margin-bottom: 15px; text-align: center;}",
+        ".map-item iframe {width: 100%; height: 350px; border: 0; border-radius: 8px;}"
+      ],
+      "name": "t:sections.html_custom.name",
+      "settings": {
+        "section_width": "container",
+        "color_scheme": "",
+        "html_custom": "<div class=\"map-grid\">\n  <div class=\"map-item\">\n    <h3>DIY Vape Shop 85<\/h3>\n    <iframe src=\"https:\/\/www.google.com\/maps\/embed?pb=!1m18!1m12!1m3!1d31811.839618531667!2d-74.09237244092294!3d4.686336647209894!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e3f9af4b1912557%3A0xe9049930242f8a4c!2sDIY%20Vape%20Shop%2085!5e0!3m2!1ses!2sco!4v1743197769744!5m2!1ses!2sco\" loading=\"lazy\" allowfullscreen=\"\" referrerpolicy=\"no-referrer-when-downgrade\"><\/iframe>\n  <\/div>\n\n  <div class=\"map-item\">\n    <h3>DIY Vape Shop 140<\/h3>\n    <iframe src=\"https:\/\/www.google.com\/maps\/embed?pb=!1m18!1m12!1m3!1d3976.30329140253!2d-74.0335975876332!3d4.7172862414899965!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e3f85b064310e4d%3A0x37f8f2521d6275b3!2sDIY%20Vape%20Shop%20140!5e0!3m2!1ses!2sco!4v1743449244304!5m2!1ses!2sco\" loading=\"lazy\" allowfullscreen=\"\" referrerpolicy=\"no-referrer-when-downgrade\"><\/iframe>\n  <\/div>\n\n  <div class=\"map-item\">\n    <h3>DIY Vape Shop Colina<\/h3>\n    <iframe src=\"https:\/\/www.google.com\/maps\/embed?pb=!1m18!1m12!1m3!1d3976.2506508801894!2d-74.06320528763321!3d4.726469341410052!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e3f8508719bd34b%3A0x77f6ce0a91cac3cd!2sDIY%20Vape%20Shop%20Colina!5e0!3m2!1ses!2sco!4v1743449383835!5m2!1ses!2sco\" loading=\"lazy\" allowfullscreen=\"\" referrerpolicy=\"no-referrer-when-downgrade\"><\/iframe>\n  <\/div>\n\n  <div class=\"map-item\">\n    <h3>DIY Vape Shop Salitre<\/h3>\n    <iframe src=\"https:\/\/www.google.com\/maps\/embed?pb=!1m18!1m12!1m3!1d3976.6553891450612!2d-74.11502298763313!3d4.655398342025332!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e3f85cde01babd7%3A0x1e3ac9490bb5ab86!2sDIY%20Vape%20Shop%20Salitre!5e0!3m2!1ses!2sco!4v1743449332133!5m2!1ses!2sco\" loading=\"lazy\" allowfullscreen=\"\" referrerpolicy=\"no-referrer-when-downgrade\"><\/iframe>\n  <\/div>\n<\/div>",
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "reset_spacing": false
+      }
+    }
+  },
+  "order": [
+    "page-heading",
+    "main",
+    "rich_text_7ecYU9",
+    "custom_html_nid84V"
+  ]
+}

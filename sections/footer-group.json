@@ -1,0 +1,94 @@
+{
+  "name": "t:sections.footer.name",
+  "type": "footer",
+  "sections": {
+    "footer": {
+      "type": "footer",
+      "blocks": {
+        "store_info_tUhcyD": {
+          "type": "store_info",
+          "settings": {
+            "image_width": 50,
+            "store_heading": "TIENDAS DE VAPEO",
+            "store_description": "<p>Visita nuestras sedes y recibe asesoría personalizada en Vapeo. <\/p><p>📍<a href=\"https:\/\/maps.app.goo.gl\/YgihotxpQBdcH34Q8\" target=\"_blank\" title=\"https:\/\/maps.app.goo.gl\/YgihotxpQBdcH34Q8\"><strong>DIY 140<\/strong><\/a> <\/p><p>📍<a href=\"https:\/\/maps.app.goo.gl\/akrmyuGcYpQu6or88\" target=\"_blank\" title=\"https:\/\/maps.app.goo.gl\/akrmyuGcYpQu6or88\"><strong>DIY 85<\/strong><\/a><\/p><p>📍<a href=\"https:\/\/maps.app.goo.gl\/pM2KGBtTopCELAgj8\" target=\"_blank\" title=\"https:\/\/maps.app.goo.gl\/pM2KGBtTopCELAgj8\"><strong>DIY COLINA <\/strong><\/a><\/p><p>📍<a href=\"https:\/\/maps.app.goo.gl\/SqqrBSKbaTjdETmD9\" target=\"_blank\" title=\"https:\/\/maps.app.goo.gl\/SqqrBSKbaTjdETmD9\"><strong>DIY SALITRE<\/strong><\/a><\/p><p>Horario: Lunes a Sábado  <\/p><p>10:00 AM - 7:30 PM <\/p><p>WhatsApp: <a href=\"https:\/\/wa.me\/573161616713\" target=\"_blank\" title=\"https:\/\/wa.me\/573161616713\">+57 3161616713<\/a><\/p>",
+            "store_address": false,
+            "store_phone": true,
+            "store_email": true,
+            "content_width": "25%"
+          }
+        },
+        "link_list_JTq77M": {
+          "type": "link_list",
+          "settings": {
+            "heading": "ATENCIÓN AL CLIENTE",
+            "menu": "footer",
+            "content_width": "25%"
+          }
+        },
+        "link_list_x4zwRH": {
+          "type": "link_list",
+          "settings": {
+            "heading": "TODO EN VAPEO",
+            "menu": "main-menu",
+            "content_width": "16%"
+          }
+        },
+        "newsletter_Rk8BD6": {
+          "type": "newsletter",
+          "settings": {
+            "heading": "COMUNIDAD DE VAPEO",
+            "description": "En DIY estamos comprometidos con impulsar el vapeo en Colombia. Somos la tienda especializada de vapeo más grande en Colombia. Llevamos 11 años entregandole a nuestros clientes los mejores productos de Vapeo del mercado.",
+            "email_placeholder": "Ingresar Correo",
+            "button_label": "Suscribirse",
+            "note": "<strong>🔞 CONTENIDO EXCLUSIVO PARA MAYORES DE EDAD. +18 VAPEO RESPONSABLE<\/strong>",
+            "content_width": "33.333%"
+          }
+        }
+      },
+      "block_order": [
+        "store_info_tUhcyD",
+        "link_list_JTq77M",
+        "link_list_x4zwRH",
+        "newsletter_Rk8BD6"
+      ],
+      "settings": {
+        "section_width": "fluid_container",
+        "color_scheme": "scheme-3c376871-4978-462b-aa78-be06bb77863d",
+        "enable_back_top": true,
+        "separator_line": "inner_page",
+        "enable_country_selector": false,
+        "enable_language_selector": false,
+        "enable_follow_on_shop": false,
+        "menu_store_policies": "",
+        "show_social": true,
+        "payment_enable": true,
+        "payment_image": "shopify:\/\/shop_images\/Payment_6ca1a29f-0fb4-4fbe-a624-35dfe7ae119f.png",
+        "payment_width": 340,
+        "copyright_text": "© 2026 Grupo DIY S.A.S. - NIT: 901.476.931-3",
+        "same_line_with_country_language": false,
+        "footer_heading_size": 16,
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "reset_spacing_on_homepage": false
+      }
+    },
+    "custom_html_BPV7QP": {
+      "type": "custom-html",
+      "custom_css": [
+        "img {max-width: 120px;}"
+      ],
+      "settings": {
+        "section_width": "container",
+        "color_scheme": "scheme-3c376871-4978-462b-aa78-be06bb77863d",
+        "html_custom": "<div style=\"text-align: center;\">\n  <img src=\"https:\/\/cdn.shopify.com\/s\/files\/1\/0166\/9493\/5652\/files\/sic.png?v=1663108988\" alt=\"Logo Superintendencia de Industria y Comercio\" loading=\"lazy\" style=\"display: inline-block;\">\n<\/div>",
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "reset_spacing": true
+      }
+    }
+  },
+  "order": [
+    "footer",
+    "custom_html_BPV7QP"
+  ]
+}

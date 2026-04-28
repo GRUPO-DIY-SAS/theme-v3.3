@@ -1,0 +1,152 @@
+{% liquid
+  assign theme_st = settings
+  assign scroll_animation = theme_st.scroll_animation
+  assign block_st = block.settings
+  assign mb_custom = ''
+  if block_st.spacing_bottom > 41
+    assign mb_custom = 'mb-big'
+  elsif block_st.spacing_bottom > 30
+    assign mb_custom = 'mb-medium'
+  else
+    assign mb_custom = 'mb-custom'
+  endif
+%}
+{% if block_st.first_button_label != blank or block_st.second_button_label != blank %}
+  <motion-element
+    {{ block.shopify_attributes }}
+    data-motion="{{ scroll_animation }}"
+    {% if scroll_animation == 'none' %}
+      hold
+    {% endif %}
+    class="sec__content-btn align-center flex flex-wrap gap-15 {{ mb_custom }}{% if block.settings.show_full_width and block.settings.first_button_label != blank and block.settings.second_button_label != blank %} flex-column w-full{% endif %} {% if section.settings.content_alignment_mobile %}md-justify-{{ section.settings.content_alignment }} mb-justify-{{ section.settings.content_alignment_mobile }}{% else %}{% if section.settings.content_alignment %}justify-{{ section.settings.content_alignment }}{% endif %}{% endif %}"
+    style="--space-bottom: {{ block_st.spacing_bottom }};"
+  >
+    {% if block_st.first_button_label != blank %}
+      <a
+        {% if block_st.first_button_link == blank %}
+          role="link" aria-disabled="true"
+        {% else %}
+          href="{{ block_st.first_button_link | default: "#" }}"
+        {% endif %}
+        aria-label="{{ block_st.first_button_label }}"
+        class="inline-flex no-underline justify-center btn-{{ block_st.first_button_type }}{% if block.settings.show_full_width %} flex-1 w-full justify-content-center{% endif %}"
+      >
+        {{ block.settings.first_button_label }}
+      </a>
+    {% endif %}
+    {% if block_st.second_button_label != blank %}
+      <a
+        {% if block_st.second_button_link == blank %}
+          role="link" aria-disabled="true"
+        {% else %}
+          href="{{ block_st.second_button_link | default: "#" }}"
+        {% endif %}
+        aria-label="{{ block_st.second_button_label }}"
+        class="inline-flex no-underline justify-center btn-{{ block_st.second_button_type }}{% if block.settings.show_full_width %} flex-1 w-full justify-content-center{% endif %}"
+      >
+        {{ block.settings.second_button_label }}
+      </a>
+    {% endif %}
+  </motion-element>
+{% endif %}
+{% schema %}
+{
+  "name": "t:sections.all.contents.button.label",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "t:sections.all.contents.button.button_width.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_full_width",
+      "default": false,
+      "label": "t:sections.all.contents.button.show_full.label"
+    },
+    {
+      "type": "header",
+      "content": "t:settings_schema.cookies.settings.content_settings.label"
+    },
+    {
+      "type": "text",
+      "id": "first_button_label",
+      "default": "Button label",
+      "label": "t:sections.all.contents.button.first_button_label.label",
+      "info": "t:sections.all.contents.button.first_button_label.info"
+    },
+    {
+      "type": "url",
+      "id": "first_button_link",
+      "label": "t:sections.all.contents.button.first_button_link.label"
+    },
+    {
+      "type": "select",
+      "id": "first_button_type",
+      "label": "t:sections.all.contents.button.button_type.label",
+      "default": "primary",
+      "options": [
+        {
+          "value": "primary",
+          "label": "t:sections.all.contents.button.button_type.primary.label"
+        },
+        {
+          "value": "outline",
+          "label": "t:sections.all.contents.button.button_type.outline.label"
+        },
+        {
+          "value": "link",
+          "label": "t:sections.all.contents.button.button_type.link.label"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "id": "second_button_label",
+      "label": "t:sections.all.contents.button.secondary_button_label.label",
+      "info": "t:sections.all.contents.button.secondary_button_label.info"
+    },
+    {
+      "type": "url",
+      "id": "second_button_link",
+      "label": "t:sections.all.contents.button.secondary_button_link.label"
+    },
+    {
+      "type": "select",
+      "id": "second_button_type",
+      "label": "t:sections.all.contents.button.button_type.label",
+      "default": "primary",
+      "options": [
+        {
+          "value": "primary",
+          "label": "t:sections.all.contents.button.button_type.primary.label"
+        },
+        {
+          "value": "outline",
+          "label": "t:sections.all.contents.button.button_type.outline.label"
+        },
+        {
+          "value": "link",
+          "label": "t:sections.all.contents.button.button_type.link.label"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "spacing_bottom",
+      "label": "t:sections.all.content_settings.spacing.spacing_bottom.label",
+      "default": 10,
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.all.contents.button.label",
+      "category": "t:categories.basic"
+    }
+  ]
+}
+{% endschema %}

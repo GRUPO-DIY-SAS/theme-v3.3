@@ -1,0 +1,113 @@
+{% liquid
+  assign block_st = block.settings
+  assign mb_custom = ''
+  if block_st.spacing_bottom > 41
+    assign mb_custom = 'mb-big'
+  elsif block_st.spacing_bottom > 30
+    assign mb_custom = 'mb-medium'
+  else
+    assign mb_custom = 'mb-custom'
+  endif
+  assign fs_custom = ''
+  if block_st.font_size > 41
+    assign fs_custom = 'fs-big'
+  elsif block_st.font_size > 24
+    assign fs_custom = 'fs-medium'
+  else
+    assign fs_custom = 'fs-custom'
+  endif
+  assign font_weight = block_st.font_weight
+  assign starting_number = block_st.starting_number
+  assign ending_number = block_st.ending_number
+  assign unit = block_st.unit
+%}
+<h3
+  class="counter-inner mt-0 {{ mb_custom }} {{ fs_custom }} {{ font_weight }}"
+  style="--font-size: {{ block_st.font_size }};--space-bottom: {{ block_st.spacing_bottom }};"
+  {{ block.shopify_attributes }}
+  data-module="countup"
+>
+  {%- if ending_number -%}
+    <span
+      class="counter-number"
+      data-start-number="{{ starting_number }}"
+      data-end-number="{{ ending_number }}"
+    >
+      {{ starting_number }}
+    </span>
+  {% endif %}
+  {%- if unit -%}
+    <span>{{ unit }}</span>
+  {% endif %}
+</h3>
+{% schema %}
+{
+  "name": "t:blocks.names.counter",
+  "tag": null,
+  "settings": [
+    {
+      "type": "number",
+      "id": "starting_number",
+      "label": "t:settings.start_number",
+      "default": 0
+    },
+    {
+      "type": "number",
+      "id": "ending_number",
+      "label": "t:settings.end_number",
+      "default": 50
+    },
+    {
+      "type": "text",
+      "id": "unit",
+      "label": "t:settings.unit"
+    },
+    {
+      "type": "range",
+      "id": "font_size",
+      "label": "t:sections.all.content_settings.font_size.label",
+      "default": 36,
+      "min": 24,
+      "max": 100,
+      "step": 1,
+      "unit": "px"
+    },
+    {
+      "type": "select",
+      "id": "font_weight",
+      "label": "t:sections.all.content_settings.font_weight.label",
+      "default": "heading_weight",
+      "options": [
+        {
+          "value": "body_weight",
+          "label": "t:sections.all.content_settings.font_weight.body_weight.label"
+        },
+        {
+          "value": "subheading_weight",
+          "label": "t:sections.all.content_settings.font_weight.subheading_weight.label"
+        },
+        {
+          "value": "heading_weight",
+          "label": "t:sections.all.content_settings.font_weight.heading_weight.label"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "spacing_bottom",
+      "label": "t:sections.all.content_settings.spacing.spacing_bottom.label",
+      "default": 20,
+      "min": 0,
+      "max": 30,
+      "step": 1,
+      "unit": "px"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:blocks.names.counter",
+      "category": "t:categories.basic"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,33 @@
+{% liquid
+  assign block_st = block.settings
+  assign section_st = section.settings
+  assign product = closest.product
+  assign enable_skeleton_loading = section_st.enable_skeleton_loading
+%}
+{%- if product.metafields.custom.short_description -%}
+  <div
+    {{ block.shopify_attributes }}
+    class="product_detail-des mb-22{% if enable_skeleton_loading %} skeleton-loading{% endif %}"
+  >
+    {{ product.metafields.custom.short_description | truncate: block_st.excerpt_length }}
+  </div>
+{% endif %}
+{% schema %}
+{
+  "name": "t:blocks.product.short_description.name",
+  "tag": null,
+  "settings": [
+    {
+      "type": "number",
+      "id": "excerpt_length",
+      "label": "t:sections.main-product.blocks.short_description.settings.excerpt_length",
+      "default": 150
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:blocks.product.short_description.name"
+    }
+  ]
+}
+{% endschema %}

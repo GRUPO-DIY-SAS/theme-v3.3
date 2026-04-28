@@ -1,0 +1,70 @@
+{% liquid
+  assign block_st = block.settings
+  assign product = closest.product
+  assign product_form_id = 'product-form-' | append: section.id
+%}
+{%- if product.metafields.custom.external_affiliate == blank -%}
+  <div
+    class="product-detail__buy-buttons button-trigger__sticky mb-20"
+    {{ block.shopify_attributes }}
+  >
+    {%- render 'buy-buttons',
+      block: block,
+      product: product,
+      product_form_id: product_form_id,
+      section_id: section.id,
+      show_wishlist: block_st.show_wishlist,
+      show_compare: block_st.show_compare,
+      formClass: 'feature-product-form',
+      type: 'main_product'
+    -%}
+  </div>
+{%- else -%}
+  <a
+    href="{{ product.metafields.custom.external_affiliate.value.external_link }}"
+    rel="nofollow"
+    target="_blank"
+    class="btn product-form__submit relative text-center w-full whitespace-nowrap animation flash-move block btn-primary no-underline"
+  >
+    {{- product.metafields.custom.external_affiliate.value.button_text -}}
+  </a>
+{%- endif -%}
+{% schema %}
+{
+  "name": "t:blocks.product.buy_buttons.name",
+  "tag": null,
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_dynamic_checkout",
+      "default": true,
+      "label": "t:sections.main-product.blocks.buy_buttons.settings.show_dynamic_checkout.label",
+      "info": "t:sections.main-product.blocks.buy_buttons.settings.show_dynamic_checkout.info"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_gift_card_recipient",
+      "default": true,
+      "label": "t:sections.main-product.blocks.buy_buttons.settings.show_gift_card_recipient.label",
+      "info": "t:sections.main-product.blocks.buy_buttons.settings.show_gift_card_recipient.info"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_wishlist",
+      "default": true,
+      "label": "t:sections.main-product.blocks.buy_buttons.settings.show_wishlist"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_compare",
+      "default": true,
+      "label": "t:sections.main-product.blocks.buy_buttons.settings.show_compare"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:blocks.product.buy_buttons.name"
+    }
+  ]
+}
+{% endschema %}

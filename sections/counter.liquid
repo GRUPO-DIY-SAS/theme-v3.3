@@ -1,0 +1,361 @@
+{%- liquid
+  assign section_st = section.settings
+  assign section_width = section_st.section_width
+  assign color_scheme = section_st.color_scheme
+  if section_st.reset_spacing
+    assign reset_spacing = ' remove_spacing'
+  endif
+  assign heading = section_st.heading
+  assign description = section_st.description
+  assign header_size = ''
+  if section_st.header_size == 'small'
+    assign header_size = 'h3'
+  elsif section_st.header_size == 'large'
+    assign header_size = 'h1-size'
+  endif
+  assign column_gap = section_st.column_gap
+  assign items_per_row = section_st.items_per_row
+  assign scroll_animation = settings.scroll_animation
+  assign animate_delay = 0
+-%}
+{%- capture style -%}
+  --section-pt: {{ section_st.padding_top }}; --section-pb: {{ section_st.padding_bottom }};
+{%- endcapture -%}
+{%- capture col_style -%}
+--col-desktop: {{ items_per_row }};--col-number: 1;{% if items_per_row > 3 %}--col-tablet: 3;{% else %}--col-tablet: {{ items_per_row }};{% endif %}
+{% if column_gap < 15 %}--col-gap: {{ column_gap }}px;{% else %}--col-gap: 15px;--col-gap-desktop: {{  column_gap }}px;{% endif %}--repeat: {{ section.blocks.size }}; --col-mobile: 1;
+{%- endcapture -%}
+<section
+  class="section{% if section_st.padding_top < 30 %} pt-min{% endif %}{% if section_st.padding_bottom < 30 %} pb-min{% endif %} sec__counter color-{{ color_scheme }} gradient{{ reset_spacing }}"
+  style="{{ style | strip | strip_newlines }}"
+>
+  <div class="{{ section_width }}">
+    {%- if heading != blank or description != blank -%}
+      <div class="section__header mb-33 mb-sm-20 text-{{ section_st.header_alignment }}{% if section_st.section_width == 'full_width' %} px-20{% endif %}{% if section_st.show_view_all != blank and section_st.header_alignment != 'center' %} flex gap-15 gap-md-30 flex-wrap justify-content-{{ section_st.header_alignment }}{% if section_st.header_alignment == 'right' %} flex-row-reverse{% endif %}{% endif %}">
+        {%- if section_st.heading != blank -%}
+          <motion-element
+            data-motion="{{ scroll_animation }}"
+            data-motion-delay="{{ animate_delay }}"
+            {% if scroll_animation == 'none' %}
+              hold
+            {% endif %}
+            class="block"
+          >
+            <h2
+              class="section__header-heading heading-letter-spacing   {{ header_size  }} mt-0{% if section_st.description != blank %} mb-10{% else %} mb-0{% endif %}"
+            >
+              {{ section.settings.heading }}
+            </h2>
+          </motion-element>
+        {% endif %}
+        {%- if section_st.description != blank -%}
+          {% assign animate_delay = animate_delay | plus: 50 %}
+          <motion-element
+            data-motion="{{ scroll_animation }}"
+            data-motion-delay="{{ animate_delay }}"
+            {% if scroll_animation == 'none' %}
+              hold
+            {% endif %}
+            class="section__header-des block rich__text-m0"
+          >
+            {{ section.settings.description }}
+          </motion-element>
+        {% endif %}
+      </div>
+    {% endif %}
+    <div
+      class="grid grid-cols gap"
+      style="{{ col_style | strip | strip_newlines }}"
+    >
+      {% content_for 'blocks' %}
+    </div>
+  </div>
+</section>
+<script type="module">
+
+</script>
+{% schema %}
+{
+  "name": "t:sections.counter.name",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer", "custom.overlay"]
+  },
+  "settings": [
+    {
+      "type": "select",
+      "id": "section_width",
+      "options": [
+        {
+          "value": "container",
+          "label": "t:sections.all.section_width.container.label"
+        },
+        {
+          "value": "fluid_container",
+          "label": "t:sections.all.section_width.fluid_container.label"
+        },
+        {
+          "value": "stretch_width",
+          "label": "t:sections.all.section_width.stretch_width.label"
+        },
+        {
+          "value": "full_width",
+          "label": "t:sections.all.section_width.full_width.label"
+        }
+      ],
+      "default": "container",
+      "label": "t:sections.all.section_width.label"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.color_scheme.label",
+      "default": "default-color-scheme"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.section_header.label"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "t:sections.all.section_header.heading.label"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "t:sections.all.section_header.description.label"
+    },
+    {
+      "type": "select",
+      "id": "header_size",
+      "label": "t:sections.all.section_header.header_size.label",
+      "default": "medium",
+      "options": [
+        {
+          "value": "small",
+          "label": "t:sections.all.section_header.header_size.small.label"
+        },
+        {
+          "value": "medium",
+          "label": "t:sections.all.section_header.header_size.medium.label"
+        },
+        {
+          "value": "large",
+          "label": "t:sections.all.section_header.header_size.large.label"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "header_alignment",
+      "label": "t:sections.all.section_header.alignment.label",
+      "default": "center",
+      "options": [
+        {
+          "value": "left",
+          "label": "t:sections.all.content_settings.content_alignment.left.label"
+        },
+        {
+          "value": "center",
+          "label": "t:sections.all.content_settings.content_alignment.center.label"
+        },
+        {
+          "value": "right",
+          "label": "t:sections.all.content_settings.content_alignment.right.label"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "t:sections.counter.settings.label"
+    },
+    {
+      "type": "range",
+      "id": "items_per_row",
+      "label": "t:sections.all.items.items_per_row.label",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "range",
+      "id": "column_gap",
+      "label": "t:sections.all.items.column_gap.label",
+      "min": 0,
+      "max": 50,
+      "step": 5,
+      "default": 30,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.content_settings.label"
+    },
+    {
+      "type": "select",
+      "id": "content_alignment",
+      "label": "t:sections.all.content_settings.content_alignment.label",
+      "default": "center",
+      "options": [
+        {
+          "value": "left",
+          "label": "t:sections.all.content_settings.content_alignment.left.label"
+        },
+        {
+          "value": "center",
+          "label": "t:sections.all.content_settings.content_alignment.center.label"
+        },
+        {
+          "value": "right",
+          "label": "t:sections.all.content_settings.content_alignment.right.label"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.section_padding.label"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "t:sections.all.section_padding.top.label",
+      "default": 0,
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "t:sections.all.section_padding.bottom.label",
+      "default": 0,
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px"
+    },
+    {
+      "type": "checkbox",
+      "id": "reset_spacing",
+      "label": "t:sections.all.section_padding.reset_spacing.label",
+      "default": false
+    }
+  ],
+  "blocks": [
+    {
+      "type": "_group-counter-item"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.counter.name",
+      "category": "t:categories.marketing",
+      "blocks": [
+        {
+          "type": "_group-counter-item",
+          "blocks": [
+            {
+              "type": "counter",
+              "settings": {
+                "starting_number": 0,
+                "ending_number": 53,
+                "font_size": 36,
+                "unit": "k",
+                "spacing_bottom": 20
+              }
+            },
+            {
+              "type": "heading",
+              "settings": {
+                "heading": "Products for Sale",
+                "font_size": 18,
+                "font_weight": "heading_weight",
+                "spacing_bottom": 20
+              }
+            },
+            {
+              "type": "description",
+              "settings": {
+                "text": "<p>That’s why we strive to offer a diverse range of products that cater to all styles.</p>",
+                "font_size": 14,
+                "font_weight": "body_weight",
+                "spacing_bottom": 0
+              }
+            }
+          ]
+        },
+        {
+          "type": "_group-counter-item",
+          "blocks": [
+            {
+              "type": "counter",
+              "settings": {
+                "starting_number": 0,
+                "ending_number": 8.5,
+                "font_size": 36,
+                "unit": "k",
+                "spacing_bottom": 20
+              }
+            },
+            {
+              "type": "heading",
+              "settings": {
+                "heading": "Happy Customer",
+                "font_size": 18,
+                "font_weight": "heading_weight",
+                "spacing_bottom": 20
+              }
+            },
+            {
+              "type": "description",
+              "settings": {
+                "text": "<p>We pride ourselves on creating great products and experiences with our valued customers.</p>",
+                "font_size": 14,
+                "font_weight": "body_weight",
+                "spacing_bottom": 0
+              }
+            }
+          ]
+        },
+        {
+          "type": "_group-counter-item",
+          "blocks": [
+            {
+              "type": "counter",
+              "settings": {
+                "starting_number": 0,
+                "ending_number": 13,
+                "font_size": 36,
+                "unit": "k",
+                "spacing_bottom": 20
+              }
+            },
+            {
+              "type": "heading",
+              "settings": {
+                "heading": "Partner Brand",
+                "font_size": 18,
+                "font_weight": "heading_weight",
+                "spacing_bottom": 20
+              }
+            },
+            {
+              "type": "description",
+              "settings": {
+                "text": "<p>Partner with brands that share our values, striving to protect our environment.</p>",
+                "font_size": 14,
+                "font_weight": "body_weight",
+                "spacing_bottom": 0
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

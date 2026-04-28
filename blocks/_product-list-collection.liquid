@@ -1,0 +1,78 @@
+{% liquid
+  assign section_st = section.settings
+  assign items_per_row = section_st.items_per_row
+  assign block_st = block.settings
+  assign collection_title = block_st.collection_title
+%}
+<div
+  class="products-list__column grid-custom-item motion-item"
+  {{ block.shopify_attributes }}
+>
+  {% if section_st.framed != true %}
+    {% if collection_title != blank %}
+      <h3 class="h5 mb-30 mt-0">{{ block.settings.collection_title }}</h3>
+    {% else %}
+      <h3 class="h5 mb-30 mt-0">{{ block.settings.collection.title }}</h3>
+    {% endif %}
+  {% endif %}
+  <div class="products-list__column-items flex flex-column gap-30">
+    {% if block.settings.collection.products.size > 0 %}
+      {% for product in block.settings.collection.products limit: items_per_row %}
+        <div class="product-list__column-block-item {% if section_st.framed %} border p-15 rounded{% endif %}">
+          {% render 'product-item',
+            card_product: product,
+            section_id: section.id,
+            template_enable_action: false,
+            template_enable_product_vendor: false,
+            template_enable_rate: true,
+            template_enable_product_short_description: false,
+            template_enable_color_swatches: false,
+            template_enable_price: true,
+            type: 'list',
+            lazy_product: false
+          %}
+        </div>
+      {% endfor %}
+    {% else %}
+      {% for i in (1..items_per_row) %}
+        <div class="product-list__column-block-item {% if section_st.framed %} border p-15 rounded{% endif %}">
+          {% render 'product-item',
+            section_id: section.id,
+            template_enable_action: false,
+            template_enable_product_vendor: false,
+            template_enable_rate: true,
+            template_enable_product_short_description: false,
+            template_enable_color_swatches: false,
+            template_enable_price: true,
+            type: 'list',
+            lazy_product: false
+          %}
+        </div>
+      {% endfor %}
+    {% endif %}
+  </div>
+</div>
+{% schema %}
+{
+  "name": "t:names.collection",
+  "tag": null,
+  "settings": [
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "t:sections.products-list.blocks.collection"
+    },
+    {
+      "type": "text",
+      "id": "collection_title",
+      "label": "t:sections.products-list.blocks.collection_title.label",
+      "info": "t:sections.products-list.blocks.collection_title.info"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:names.collection"
+    }
+  ]
+}
+{% endschema %}

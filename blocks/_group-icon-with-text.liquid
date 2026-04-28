@@ -1,0 +1,148 @@
+{% liquid
+  assign theme_st = settings
+  assign section_st = section.settings
+  assign block_st = block.settings
+  if section_st.items_per_row_mobile == 1
+    assign w_mobile = 'w-full'
+  elsif section_st.items_per_row_mobile == 2
+    assign w_mobile = 'w-50-percent'
+  endif
+%}
+<div
+  class="{% if section_st.equal_height_adjustment == false %} align-self-{{ section_st.vertical_align }}{% endif %} section__block {{ theme_st.hover_effect }} {{ w_mobile }} col-md-w-custom {% if block_st.content_width == '20%' or block_st.content_width == '25%' or block_st.content_width == '66.6666%' or block_st.content_width == '75%' or block_st.content_width == '80%' %} col-md-w-custom-50{% endif %}"
+  style="--col-width: {{ block_st.content_width }};"
+  {{ block.shopify_attributes }}
+>
+  <div
+    class="sec__content-inner flex flex-column align-{{ block_st.content_alignment }} rounded color-{{ block_st.color_scheme }} gradient py-custom px-custom relative{% if block_st.content_padding_inline < 35 %} x-min-value{% endif %}{% if block_st.content_padding_block < 35 %} y-min-value{% endif %} w-full {% if section_st.equal_height_adjustment %} h-full{% endif %}"
+
+    style="--padding-inline: {{ block_st.content_padding_inline }};--padding-block: {{ block_st.content_padding_block }};"
+  >
+    {% content_for 'blocks' %}
+  </div>
+</div>
+{% schema %}
+{
+  "name": "t:blocks.names.icon_with_text",
+  "tag": null,
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.color_scheme.label",
+      "default": "scheme-1"
+    },
+    {
+      "type": "select",
+      "id": "content_width",
+      "label": "t:sections.all.content_setting.width.label",
+      "default": "50%",
+      "options": [
+        {
+          "value": "20%",
+          "label": "20%"
+        },
+        {
+          "value": "25%",
+          "label": "25%"
+        },
+        {
+          "value": "33.3333%",
+          "label": "33%"
+        },
+        {
+          "value": "50%",
+          "label": "50%"
+        },
+        {
+          "value": "66.6666%",
+          "label": "66%"
+        },
+        {
+          "value": "75%",
+          "label": "75%"
+        },
+        {
+          "value": "80%",
+          "label": "80%"
+        },
+        {
+          "value": "100%",
+          "label": "100%"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.content_setting.label"
+    },
+    {
+      "type": "select",
+      "id": "content_alignment",
+      "label": "t:sections.all.content_settings.content_alignment.label",
+      "default": "start",
+      "options": [
+        {
+          "value": "start",
+          "label": "t:sections.all.content_settings.content_alignment.left.label"
+        },
+        {
+          "value": "center",
+          "label": "t:sections.all.content_settings.content_alignment.center.label"
+        },
+        {
+          "value": "end",
+          "label": "t:sections.all.content_settings.content_alignment.right.label"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "content_padding_block",
+      "min": 10,
+      "max": 60,
+      "step": 1,
+      "unit": "px",
+      "default": 30,
+      "label": "t:sections.all.content_settings.content_padding_block.label"
+    },
+    {
+      "type": "range",
+      "id": "content_padding_inline",
+      "min": 10,
+      "max": 60,
+      "step": 1,
+      "unit": "px",
+      "default": 30,
+      "label": "t:sections.all.content_settings.content_padding_inline.label"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "heading"
+    },
+    {
+      "type": "subheading"
+    },
+    {
+      "type": "description"
+    },
+    {
+      "type": "_icon-group"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:blocks.names.icon_with_text",
+      "blocks": [
+        {
+          "type": "heading"
+        },
+        {
+          "type": "_icon-group"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

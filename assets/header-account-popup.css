@@ -1,0 +1,91 @@
+.header-account-popup shopify-account {
+  --buttons-radius: var(--btn-radius);
+  --shopify-account-font-heading: var(--heading-font);
+  --shopify-account-font-heading-weight: var(--heading-weight);
+  --shopify-account-font-body: var(--body-font-family);
+  --shopify-account-font-body-weight: var(--body-font-weight);
+  --shopify-account-avatar-size: 4.4rem;
+  --shopify-account-radius-button: var(--btn-radius);
+  --shopify-account-radius-button-small: var(--btn-radius);
+  --shopify-account-radius-dialog: var(--drawer-rounded, var(--img-rounded));
+  --shopify-account-radius-input: var(--btn-radius);
+  --shopify-account-color-background: var(--color-background);
+  --shopify-account-color-background-subdued: color-mix(in srgb, var(--shopify-account-color-background) 90%, #ffffff 10%);
+  --shopify-account-color-text: var(--color-text);
+  --shopify-account-color-text-subdued: var(--color-grey);
+  --shopify-account-color-accent: var(--btn-primary-bg-color);
+  --shopify-account-color-accent-hover: var(--btn-primary-bg-color);
+  --shopify-account-color-accent-text: var(--btn-primary-color);
+  --shopify-account-color-border: color-mix(in srgb, var(--shopify-account-color-background) 85%, var(--shopify-account-color-text) 15%);
+  --shopify-account-color-card-background: var(--color-background);
+  --shopify-account-color-card-text: var(--color-text);
+  --shopify-account-color-control-background: var(--color-background-2);
+  --shopify-account-color-control-text: var(--color-text);
+  --shopify-account-color-shadow: rgba(0, 0, 0, 0.08);
+  --shopify-account-dialog-position-top: calc(
+    var(--header-height, 0px) + 1.2rem
+  );
+  --shopify-account-signed-in-avatar-size: 28px;
+  --shopify-account-signed-in-avatar-color-background: var(
+    --btn-primary-bg-color
+  );
+  --shopify-account-signed-in-avatar-color-text: var(--btn-primary-color);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: inherit;
+  isolation: isolate;
+}
+
+.header-account-popup shopify-account[data-account-sheet-open="true"] {
+  position: relative;
+  z-index: 32;
+}
+.header-account-popup shopify-account:not(:defined) {
+  min-width: 4.4rem;
+  min-height: 4.4rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.header-account-popup shopify-account::part(signed-out-avatar),
+.header-account-popup shopify-account::part(signed-in-avatar) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 4.4rem;
+  height: 4.4rem;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  border-radius: 50%;
+  transition:
+    background-color 0.3s ease,
+    transform 0.35s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.header-account-popup:hover shopify-account::part(signed-in-avatar) {
+  background: var(--color-background-2);
+}
+
+.header-account-popup__avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 4.4rem;
+  height: 4.4rem;
+  pointer-events: none;
+  gap: 4px;
+}
+
+.header-account-popup shopify-account::part(signed-in-avatar) {
+  width: 28px;
+  height: 28px;
+}
+
+.icon-account-mega {
+  margin-right: -10px;
+}

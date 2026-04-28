@@ -1,0 +1,52 @@
+{
+  "sections": {
+    "page-heading": {
+      "type": "page-heading",
+      "blocks": {
+        "breadcrumb_6nAPEU": {
+          "type": "breadcrumb",
+          "settings": {}
+        },
+        "heading_BYBdxq": {
+          "type": "heading",
+          "settings": {
+            "page_title": "Productos Vistos Recientemente",
+            "header_size": "default"
+          }
+        },
+        "description_6w74gE": {
+          "type": "description",
+          "settings": {
+            "description": ""
+          }
+        }
+      },
+      "block_order": [
+        "breadcrumb_6nAPEU",
+        "heading_BYBdxq",
+        "description_6w74gE"
+      ],
+      "settings": {
+        "section_width": "stretch_width",
+        "color_scheme": "",
+        "alignment": "center",
+        "overlay_opacity": 0,
+        "height": "adapt",
+        "padding_top": 80,
+        "padding_bottom": 40
+      }
+    },
+    "main": {
+      "type": "page-recently-viewed",
+      "settings": {
+        "section_width": "fluid_container",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    }
+  },
+  "order": [
+    "page-heading",
+    "main"
+  ]
+}

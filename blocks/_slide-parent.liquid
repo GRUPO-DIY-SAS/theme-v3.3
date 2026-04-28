@@ -1,0 +1,188 @@
+{% liquid
+  assign block_st = block.settings
+  assign autoplay = block_st.autoplay
+  assign autorotate_speed = block_st.autorotate_speed
+  assign slide_effect = block_st.slide_effect
+  assign show_arrow = block_st.show_arrow
+  assign carousel_pagination = block_st.carousel_pagination
+%}
+<div class="slide__wrapper">
+  <slide-section
+    id="swiper-{{ section.id }}"
+    class="swiper slideshow lazy-loading-swiper-before"
+    data-section-id="{{ section.id }}"
+    data-autoplay="{{ autoplay }}"
+    data-autoplay-speed="{{ autorotate_speed }}"
+    data-effect="{{ slide_effect }}"
+    data-loop="true"
+    data-speed="600"
+    data-slideshow="true"
+    data-mobile="1"
+    data-tablet="1"
+    data-desktop="1"
+    data-auto-height="true"
+    data-slide-motion-host="true"
+  >
+    <div class="swiper-wrapper swiper-wrapper_parent">
+      {% content_for 'blocks' %}
+    </div>
+    {% if show_arrow %}
+      {%- render 'swiper-navigation', class: 'original-style' -%}
+    {% endif %}
+    {%- if carousel_pagination == 'show_dots' or carousel_pagination == 'show_dots_on_mobile' -%}
+      <motion-element
+        data-motion="fade-up"
+        hold
+        class="swiper-pagination flex flex-wrap px-15 lh-1 bottom-30 {% if carousel_pagination == 'show_dots_on_mobile' %} hidden-md{% endif %} justify-content-{{ block_st.pagination_position }}"
+        style="--swiper-pagination-bottom: clamp(1.2rem, 2vw, 3rem);--swiper-pagination-position: absolute;"
+      ></motion-element>
+    {% endif %}
+  </slide-section>
+</div>
+{% schema %}
+{
+  "name": "t:sections.slideshow.name",
+  "tag": null,
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.color_scheme.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.carousel_settings.label"
+    },
+    {
+      "type": "select",
+      "id": "slide_effect",
+      "label": "t:sections.all.carousel_settings.slide_effect.label",
+      "options": [
+        {
+          "value": "fade",
+          "label": "t:sections.all.carousel_settings.slide_effect.fadein"
+        },
+        {
+          "value": "slide",
+          "label": "t:sections.all.carousel_settings.slide_effect.slide"
+        }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "show_arrow",
+      "label": "t:sections.all.carousel_settings.show-next-back.label",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "carousel_pagination",
+      "label": "t:sections.all.carousel_settings.pagination.label",
+      "options": [
+        {
+          "value": "disable",
+          "label": "t:sections.all.carousel_settings.pagination.disable.label"
+        },
+        {
+          "value": "show_dots",
+          "label": "t:sections.all.carousel_settings.pagination.show_dots.label"
+        },
+        {
+          "value": "show_dots_on_mobile",
+          "label": "t:sections.all.carousel_settings.pagination.show_dots_on_mobile.label"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "pagination_position",
+      "label": "t:sections.all.carousel_settings.pagination_position.label",
+      "default": "center",
+      "options": [
+        {
+          "value": "left",
+          "label": "t:sections.all.carousel_settings.pagination_position.left.label"
+        },
+        {
+          "value": "center",
+          "label": "t:sections.all.carousel_settings.pagination_position.center.label"
+        },
+        {
+          "value": "right",
+          "label": "t:sections.all.carousel_settings.pagination_position.right.label"
+        }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "t:sections.all.carousel_settings.auto_change.label",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "autorotate_speed",
+      "label": "t:sections.all.carousel_settings.change_slides_every.label",
+      "max": 6,
+      "min": 2,
+      "step": 1,
+      "unit": "s",
+      "default": 5
+    }
+  ],
+  "blocks": [
+    {
+      "type": "_slide-item"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.slideshow.name",
+      "blocks": [
+        {
+          "type": "_slide-item",
+          "blocks": [
+            {
+              "type": "_subheading-slide"
+            },
+            {
+              "type": "_heading-slide"
+            },
+            {
+              "type": "_button-slide"
+            }
+          ]
+        },
+        {
+          "type": "_slide-item",
+          "blocks": [
+            {
+              "type": "_subheading-slide"
+            },
+            {
+              "type": "_heading-slide"
+            },
+            {
+              "type": "_button-slide"
+            }
+          ]
+        },
+        {
+          "type": "_slide-item",
+          "blocks": [
+            {
+              "type": "_subheading-slide"
+            },
+            {
+              "type": "_heading-slide"
+            },
+            {
+              "type": "_button-slide"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

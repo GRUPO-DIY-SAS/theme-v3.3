@@ -1,0 +1,147 @@
+{% # theme-check-disable ContentForHeaderModification %}
+{%- capture content_for_query_string -%}
+  {{ content_for_header }}
+{%- endcapture -%}
+{% # theme-check-enable ContentForHeaderModification %}
+{%- assign page_url = content_for_query_string
+  | split: '"pageurl":"'
+  | last
+  | split: '"'
+  | first
+  | split: request.host
+  | last
+  | replace: '\/', '/'
+  | replace: '%20', ' '
+  | replace: '\u0026', '&'
+-%}
+{% liquid
+  assign first_3_d_model = product.media | where: 'media_type', 'model' | first
+  assign image_list = ''
+  assign filtered_images = ''
+  assign page_query_string = page_url | split: '?' | last
+%}
+{%- if page_query_string contains 'ajax=1' -%}
+  {% for image in product.media %}
+    {% if image.alt == 'image-360' and image.media_type == 'image' %}
+      {% capture filtered_images %}{{ filtered_images }}{{ image.preview_image | image_url }},{% endcapture %}
+    {% endif %}
+  {% endfor %}
+  {% assign filtered_images = filtered_images | split: ',' | compact %}
+  {% for image in filtered_images %}
+    {% capture image_json %}"{{ image }}"{%- unless forloop.last -%},{%- endunless -%}{% endcapture %}
+    {% capture image_list %}{{ image_list }}{{ image_json }}{% endcapture %}
+  {% endfor %}
+  <div
+    class="product-quickview__content hidden bls-image-js product__item-js"
+    data-color-trigger="{{ settings.color_swatch_trigger }}"
+    data-section="{{ section.id }}"
+    data-zoom="no_zoom"
+    data-type-element="feature_product"
+    data-desktop-layout="hidden_thumbnail"
+    data-update-url="false"
+  >
+    {{ 'component-deferred-media.css' | asset_url | stylesheet_tag }}
+    {%- if first_3_d_model -%}
+      {{ 'component-product-model.css' | asset_url | stylesheet_tag }}
+      <link
+        id="ModelViewerStyle"
+        rel="stylesheet"
+        href="https://cdn.shopify.com/shopifycloud/model-viewer-ui/assets/v1.0/model-viewer-ui.css"
+        media="print"
+        onload="this.media='all'"
+      >
+      <link
+        id="ModelViewerOverride"
+        rel="stylesheet"
+        href="{{ 'component-model-viewer-ui.css' | asset_url }}"
+        media="print"
+        onload="this.media='all'"
+      >
+    {% endif %}
+    {% if image_list.size != 0 %}
+      <script src="{{ 'js-cloudimage-360-view.min.js' | asset_url }}" defer="defer"></script>
+    {% endif %}
+    {% capture children %}
+      {% content_for 'blocks' %}
+    {% endcapture %}
+    {% render 'product-single-layout', section: section, type: 'quickview', children: children, product: closest.product %}
+    {%- unless product.has_only_default_variant -%}
+      <script type="application/json" class="productVariantsQty">
+        [
+        {%- for variant in product.variants -%}
+          {%- assign op = variant.option1 | replace: '"', '\"' -%}
+          {%- liquid
+              assign id = '"id":' | append: variant.id
+              assign option = '"option":"' | append: op | append: '"'
+              assign quantity = '"qty":' | append: variant.inventory_quantity
+              assign available = '"available":' | append: variant.available
+              assign mamagement = '"mamagement":"' | append: variant.inventory_management | append: '"'
+          -%}
+          { {{ id }},{{ option }},{{ quantity }},{{ available }},{{ mamagement }}}
+          {%- unless forloop.last -%},{%- endunless forloop.last -%}
+        {%- endfor -%}
+        ]
+      </script>
+    {%- endunless -%}
+    {%- if first_3_d_model -%}
+      <script type="application/json" id="ProductJSON-{{ product.id }}">
+        {{ product.media | where: 'media_type', 'model' | json }}
+      </script>
+      <script src="{{ 'product-model.js' | asset_url }}" defer></script>
+    {% endif %}
+  </div>
+{% endif %}
+{% schema %}
+{
+  "name": "t:sections.quickview.name",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "t:sections.quickview.settings.paragraph"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.main-product.settings.color_swatches.header"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "@app"
+    },
+    {
+      "type": "_product-title"
+    },
+    {
+      "type": "_product-price"
+    },
+    {
+      "type": "_product-meta"
+    },
+    {
+      "type": "_product-quickview-variant-picker"
+    },
+    {
+      "type": "_product-countdown-timer"
+    },
+    {
+      "type": "_product-custom-field"
+    },
+    {
+      "type": "_review-quickview"
+    },
+    {
+      "type": "_feature-product-description"
+    },
+    {
+      "type": "_product-quickview-buy-buttons"
+    },
+    {
+      "type": "_product-badges"
+    },
+    {
+      "type": "custom-liquid"
+    }
+  ]
+}
+{% endschema %}

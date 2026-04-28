@@ -1,0 +1,80 @@
+{% liquid
+  assign background_media = settings.background_media
+  assign image = settings.image
+  assign video_local = settings.video_local
+%}
+<div
+  class="banner-background__image"
+>
+  {% if background_media == 'image' %}
+    {%- liquid
+      assign alt_default = 'accessibility.promotion_banner' | t
+      assign alt = image.alt | default: alt_default | escape
+    -%}
+    {% if image != blank %}
+      {% render 'responsive-image',
+        type: 'banner',
+        container: section_st.section_width,
+        image: image,
+        image_alt: alt,
+        motion: false
+      -%}
+    {%- else %}
+      {%- render 'placeholder-render', type: 'lifestyle-2', class: 'img-placeholder h-full w-full' -%}
+    {% endif %}
+  {% elsif background_media == 'video' %}
+    {% liquid
+      assign poster = video_local.preview_image | default: video_local.preview_image
+      assign source = video_local.sources
+      assign source_url = ''
+      for s in source
+        if s.format == 'mp4'
+          assign source_url = s.url
+          break
+        endif
+      endfor
+    %}
+    {%- if video_local != blank -%}
+      <video
+        class="rounded w-full"
+        loop="true"
+        muted="true"
+        playsinline="true"
+        autoplay="true"
+        src="{{ source_url }}"
+        poster="{{ poster | image_url: width: 1920 }}"
+      ></video>
+    {% else %}
+      {%- render 'placeholder-render', class: 'rounded' -%}
+    {% endif %}
+  {% endif %}
+</div>
+{% style %}
+  .banner-background__image,
+  .banner-background__image img,
+  .banner-background__image svg,
+  .banner-background__image video {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+{% endstyle %}
+<script>
+  document.querySelectorAll('video.lazy-video').forEach((el) => {
+    if (el.getBoundingClientRect().top < 150) {
+      const poster = el.dataset.poster;
+      const src = el.dataset.src;
+      if (poster) {
+        el.setAttribute('poster', poster);
+        el.removeAttribute('data-poster');
+        el.setAttribute('src', src);
+        el.removeAttribute('data-src');
+      }
+    }
+  });
+</script>

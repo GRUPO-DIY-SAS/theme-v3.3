@@ -1,0 +1,24 @@
+{
+  "sections": {
+    "page-heading": {
+      "type": "page-heading",
+      "settings": {
+        "section_width": "stretch_width",
+        "color_scheme": "",
+        "alignment": "center",
+        "overlay_opacity": 0,
+        "height": "adapt",
+        "padding_top": 40,
+        "padding_bottom": 40
+      }
+    },
+    "main": {
+      "type": "main-addresses",
+      "settings": {}
+    }
+  },
+  "order": [
+    "main",
+    "page-heading"
+  ]
+}

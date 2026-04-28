@@ -1,0 +1,23 @@
+<div
+  class="sale_badge"
+  {{ block.shopify_attributes }}
+  data-sale-color="{{ settings.sale_color }}"
+  data-sold-out-color="{{ settings.sold_out_color }}"
+  data-pre-order-color="{{ settings.pre_order_color }}"
+  data-sale-bg="{{ settings.sale_background }}"
+  data-sold-out-bg="{{ settings.sold_out_background }}"
+  data-pre-order-bg="{{ settings.pre_order_background }}"
+>
+  {% render 'product-badges', card_product: closest.product, type: 'price_badges' %}
+</div>
+{% schema %}
+{
+  "name": "t:blocks.product.badge.name",
+  "tag": null,
+  "presets": [
+    {
+      "name": "t:blocks.product.badge.name"
+    }
+  ]
+}
+{% endschema %}

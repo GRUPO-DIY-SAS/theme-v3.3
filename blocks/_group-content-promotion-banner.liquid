@@ -1,0 +1,57 @@
+<div
+  class="flex gap-custom flex-wrap flex-xl-nowrap col-md-w-custom gap-20 {% if promotion_style == 'vertical' %}flex-column{% else %}align-center{% endif %}"
+  style="--col-width: 50%;"
+>
+  {% content_for 'blocks' %}
+</div>
+{% schema %}
+{
+  "name": "t:sections.promotion_banner.block.name",
+  "tag": null,
+  "blocks": [
+    {
+      "type": "heading"
+    },
+    {
+      "type": "subheading"
+    },
+    {
+      "type": "description"
+    },
+    {
+      "type": "timer"
+    }
+  ],
+  "settings": [
+    {
+      "type": "select",
+      "id": "promotion_style",
+      "options": [
+        {
+          "value": "horizontal",
+          "label": "t:sections.header.settings.blocks.promotion.style.style_1"
+        },
+        {
+          "value": "vertical",
+          "label": "t:sections.header.settings.blocks.promotion.style.style_2"
+        }
+      ],
+      "default": "horizontal",
+      "label": "t:settings_schema.badges.settings.sale.countdown_style.label"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.promotion_banner.block.name",
+      "blocks": [
+        {
+          "type": "heading"
+        },
+        {
+          "type": "description"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

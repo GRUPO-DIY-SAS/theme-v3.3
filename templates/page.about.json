@@ -1,0 +1,1007 @@
+{
+  "sections": {
+    "page-heading": {
+      "type": "page-heading",
+      "blocks": {
+        "breadcrumb_UKcBAE": {
+          "type": "breadcrumb",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "breadcrumb_UKcBAE"
+      ],
+      "settings": {
+        "section_width": "container",
+        "color_scheme": "",
+        "alignment": "left",
+        "overlay_opacity": 0,
+        "height": "adapt",
+        "padding_top": 24,
+        "padding_bottom": 0
+      }
+    },
+    "rich_text_WLG8gd": {
+      "type": "rich-text",
+      "blocks": {
+        "subheading_M4t8Gr": {
+          "type": "subheading",
+          "name": "t:sections.all.contents.subheading.label",
+          "settings": {
+            "subheading": "Welcome to Glozin",
+            "font_size": 15,
+            "font_weight": "heading_weight",
+            "uppercase": false,
+            "spacing_bottom": 10
+          },
+          "blocks": {}
+        },
+        "heading_KFBPWL": {
+          "type": "heading",
+          "settings": {
+            "heading": "Best Store<br> Available to Everyone!",
+            "font_size": 50,
+            "font_weight": "heading_weight",
+            "uppercase": false,
+            "spacing_bottom": 10
+          },
+          "blocks": {}
+        },
+        "text_QGr9pJ": {
+          "type": "description",
+          "settings": {
+            "text": "<p>Over 15 years of experience, we have meticulously curated collections that transcend fleeting trends, <br\/>embodying a timeless elegance that resonates with our discerning clientele.<\/p>",
+            "font_size": 15,
+            "font_weight": "body_weight",
+            "spacing_bottom": 10
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "subheading_M4t8Gr",
+        "heading_KFBPWL",
+        "text_QGr9pJ"
+      ],
+      "name": "t:sections.rich_text.name",
+      "settings": {
+        "section_width": "container",
+        "color_scheme": "",
+        "content_alignment": "center",
+        "content_max_width": 100,
+        "enable_expand_content": false,
+        "expand_content_button": "See all Information",
+        "padding_top": 0,
+        "padding_bottom": 43,
+        "reset_spacing": true
+      }
+    },
+    "multi_content_ycQBqB": {
+      "type": "multi-content",
+      "blocks": {
+        "group_media_content_ptTxad": {
+          "type": "_group-media-content",
+          "settings": {
+            "color_scheme": "",
+            "content_width": "100%",
+            "media_type": "image",
+            "image": "shopify:\/\/shop_images\/about-us-banner.jpg",
+            "image_link": "",
+            "video_url": "https:\/\/www.youtube.com\/watch?v=_9VUPq3SxOc",
+            "autoplay": true,
+            "video_ratio": "16\/9",
+            "overlay_opacity": 0,
+            "content_type": "overlay",
+            "content_alignment": "start",
+            "content_position": "top-left",
+            "content_padding_block": 30,
+            "content_padding_inline": 30,
+            "content_mobile_image": false
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "group_media_content_ptTxad"
+      ],
+      "name": "t:sections.multi_content.name",
+      "settings": {
+        "section_width": "container",
+        "color_scheme": "",
+        "heading": "",
+        "description": "",
+        "header_size": "medium",
+        "header_alignment": "center",
+        "column_gap": 30,
+        "equal_height_adjustment": false,
+        "vertical_align": "start",
+        "carousel_on_mobile": false,
+        "items_per_row_mobile": 1,
+        "padding_top": 0,
+        "padding_bottom": 72,
+        "reset_spacing": true
+      }
+    },
+    "counter_AfQqyA": {
+      "type": "counter",
+      "blocks": {
+        "group_counter_item_4pmBnX": {
+          "type": "_group-counter-item",
+          "settings": {},
+          "blocks": {
+            "counter_ydChrm": {
+              "type": "counter",
+              "settings": {
+                "starting_number": 0,
+                "ending_number": 53,
+                "unit": "k",
+                "font_size": 36,
+                "font_weight": "subheading_weight",
+                "spacing_bottom": 13
+              },
+              "blocks": {}
+            },
+            "heading_cKHyrc": {
+              "type": "heading",
+              "settings": {
+                "heading": "Products for Sale",
+                "font_size": 18,
+                "font_weight": "heading_weight",
+                "uppercase": false,
+                "spacing_bottom": 12
+              },
+              "blocks": {}
+            },
+            "text_4iJTbz": {
+              "type": "description",
+              "settings": {
+                "text": "<p>That’s why we strive to offer a diverse range of products that cater to all styles.<\/p>",
+                "font_size": 15,
+                "font_weight": "body_weight",
+                "spacing_bottom": 0
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "counter_ydChrm",
+            "heading_cKHyrc",
+            "text_4iJTbz"
+          ]
+        },
+        "group_counter_item_y7CmB3": {
+          "type": "_group-counter-item",
+          "settings": {},
+          "blocks": {
+            "counter_zriLTE": {
+              "type": "counter",
+              "settings": {
+                "starting_number": 0,
+                "ending_number": 8.5,
+                "unit": "k",
+                "font_size": 36,
+                "font_weight": "subheading_weight",
+                "spacing_bottom": 12
+              },
+              "blocks": {}
+            },
+            "heading_Y77Txr": {
+              "type": "heading",
+              "settings": {
+                "heading": "Happy Customer",
+                "font_size": 18,
+                "font_weight": "heading_weight",
+                "uppercase": false,
+                "spacing_bottom": 13
+              },
+              "blocks": {}
+            },
+            "text_tnDHKr": {
+              "type": "description",
+              "settings": {
+                "text": "<p>We pride ourselves on creating great products and experiences with our valued customers.<\/p>",
+                "font_size": 15,
+                "font_weight": "body_weight",
+                "spacing_bottom": 0
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "counter_zriLTE",
+            "heading_Y77Txr",
+            "text_tnDHKr"
+          ]
+        },
+        "group_counter_item_ceTGdM": {
+          "type": "_group-counter-item",
+          "settings": {},
+          "blocks": {
+            "counter_WXaUJd": {
+              "type": "counter",
+              "settings": {
+                "starting_number": 0,
+                "ending_number": 13,
+                "unit": "k",
+                "font_size": 36,
+                "font_weight": "subheading_weight",
+                "spacing_bottom": 12
+              },
+              "blocks": {}
+            },
+            "heading_9cLfEf": {
+              "type": "heading",
+              "settings": {
+                "heading": "Partner Brand",
+                "font_size": 18,
+                "font_weight": "heading_weight",
+                "uppercase": false,
+                "spacing_bottom": 13
+              },
+              "blocks": {}
+            },
+            "text_tVKUUB": {
+              "type": "description",
+              "settings": {
+                "text": "<p>Partner with brands that share our values, striving to protect our environment.<\/p>",
+                "font_size": 15,
+                "font_weight": "body_weight",
+                "spacing_bottom": 0
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "counter_WXaUJd",
+            "heading_9cLfEf",
+            "text_tVKUUB"
+          ]
+        }
+      },
+      "block_order": [
+        "group_counter_item_4pmBnX",
+        "group_counter_item_y7CmB3",
+        "group_counter_item_ceTGdM"
+      ],
+      "name": "t:sections.counter.name",
+      "settings": {
+        "section_width": "container",
+        "color_scheme": "",
+        "heading": "",
+        "description": "",
+        "header_size": "medium",
+        "header_alignment": "center",
+        "items_per_row": 3,
+        "column_gap": 30,
+        "content_alignment": "center",
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "reset_spacing": false
+      }
+    },
+    "divider_7DLMey": {
+      "type": "divider",
+      "name": "t:sections.divider.name",
+      "settings": {
+        "section_width": "container",
+        "border_height": 1,
+        "border_color": "#ebebeb",
+        "reset_spacing": false
+      }
+    },
+    "rich_text_zQGWT6": {
+      "type": "rich-text",
+      "blocks": {
+        "subheading_Efyf9n": {
+          "type": "subheading",
+          "name": "t:sections.all.contents.subheading.label",
+          "settings": {
+            "subheading": "Why Choose Us",
+            "font_size": 15,
+            "font_weight": "heading_weight",
+            "uppercase": false,
+            "spacing_bottom": 10
+          },
+          "blocks": {}
+        },
+        "heading_LwN98G": {
+          "type": "heading",
+          "settings": {
+            "heading": "Our Peculiar Things",
+            "font_size": 36,
+            "font_weight": "heading_weight",
+            "uppercase": false,
+            "spacing_bottom": 10
+          },
+          "blocks": {}
+        },
+        "text_UCwhjX": {
+          "type": "description",
+          "settings": {
+            "text": "<p>Our fashion products are characterized by innovative and on—trend designs. We pride ourselves in pushing the <br\/>boundaries of conventional fashion, delivering new, bold and captivating styles.<\/p>",
+            "font_size": 15,
+            "font_weight": "body_weight",
+            "spacing_bottom": 10
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "subheading_Efyf9n",
+        "heading_LwN98G",
+        "text_UCwhjX"
+      ],
+      "name": "t:sections.rich_text.name",
+      "settings": {
+        "section_width": "container",
+        "color_scheme": "",
+        "content_alignment": "center",
+        "content_max_width": 70,
+        "enable_expand_content": false,
+        "expand_content_button": "See all Information",
+        "padding_top": 0,
+        "padding_bottom": 25,
+        "reset_spacing": true
+      }
+    },
+    "multi_content_XkgfLy": {
+      "type": "multi-content",
+      "blocks": {
+        "group_media_content_JVbLBC": {
+          "type": "_group-media-content",
+          "settings": {
+            "color_scheme": "",
+            "content_width": "33.3333%",
+            "media_type": "image",
+            "image": "shopify:\/\/shop_images\/about_banner_1.jpg",
+            "image_link": "",
+            "video_url": "https:\/\/www.youtube.com\/watch?v=_9VUPq3SxOc",
+            "autoplay": true,
+            "video_ratio": "16\/9",
+            "overlay_opacity": 0,
+            "content_type": "below",
+            "content_alignment": "center",
+            "content_position": "top-left",
+            "content_padding_block": 30,
+            "content_padding_inline": 10,
+            "content_mobile_image": false
+          },
+          "blocks": {
+            "heading_3eYdRJ": {
+              "type": "heading",
+              "settings": {
+                "heading": "Cultural Standards",
+                "font_size": 18,
+                "font_weight": "heading_weight",
+                "uppercase": false,
+                "spacing_bottom": 10
+              },
+              "blocks": {}
+            },
+            "text_6UHARp": {
+              "type": "description",
+              "name": "t:blocks.general.text.name",
+              "settings": {
+                "text": "<p>We are committed to setting high ethical standards in production and ensuring mindful manufacturing through audits, training and education.<\/p>",
+                "font_size": 15,
+                "font_weight": "body_weight",
+                "spacing_bottom": 0
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "heading_3eYdRJ",
+            "text_6UHARp"
+          ]
+        },
+        "group_media_content_3Knn4t": {
+          "type": "_group-media-content",
+          "settings": {
+            "color_scheme": "",
+            "content_width": "33.3333%",
+            "media_type": "image",
+            "image": "shopify:\/\/shop_images\/about_banner_2.jpg",
+            "image_link": "",
+            "video_url": "https:\/\/www.youtube.com\/watch?v=_9VUPq3SxOc",
+            "autoplay": true,
+            "video_ratio": "16\/9",
+            "overlay_opacity": 0,
+            "content_type": "below",
+            "content_alignment": "center",
+            "content_position": "top-left",
+            "content_padding_block": 30,
+            "content_padding_inline": 10,
+            "content_mobile_image": false
+          },
+          "blocks": {
+            "heading_Km3pBK": {
+              "type": "heading",
+              "settings": {
+                "heading": "Designed to Last",
+                "font_size": 18,
+                "font_weight": "heading_weight",
+                "uppercase": false,
+                "spacing_bottom": 10
+              },
+              "blocks": {}
+            },
+            "text_m6RcmP": {
+              "type": "description",
+              "name": "t:blocks.general.text.name",
+              "settings": {
+                "text": "<p>From traditional tailoring to the most informal pieces. Our Glozin collections feature the latest trends with the maximum comfort.<\/p>",
+                "font_size": 15,
+                "font_weight": "body_weight",
+                "spacing_bottom": 0
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "heading_Km3pBK",
+            "text_m6RcmP"
+          ]
+        },
+        "group_media_content_pWH36h": {
+          "type": "_group-media-content",
+          "settings": {
+            "color_scheme": "",
+            "content_width": "33.3333%",
+            "media_type": "image",
+            "image": "shopify:\/\/shop_images\/about_banner_3.jpg",
+            "image_link": "",
+            "video_url": "https:\/\/www.youtube.com\/watch?v=_9VUPq3SxOc",
+            "autoplay": true,
+            "video_ratio": "16\/9",
+            "overlay_opacity": 0,
+            "content_type": "below",
+            "content_alignment": "center",
+            "content_position": "top-left",
+            "content_padding_block": 30,
+            "content_padding_inline": 10,
+            "content_mobile_image": false
+          },
+          "blocks": {
+            "heading_fEWzzY": {
+              "type": "heading",
+              "settings": {
+                "heading": "Freedom for Everyone",
+                "font_size": 18,
+                "font_weight": "heading_weight",
+                "uppercase": false,
+                "spacing_bottom": 10
+              },
+              "blocks": {}
+            },
+            "text_kWTFjN": {
+              "type": "description",
+              "name": "t:blocks.general.text.name",
+              "settings": {
+                "text": "<p>The designs have been created adopting the current trends, while leaving room for personal expression among young people.<\/p>",
+                "font_size": 15,
+                "font_weight": "body_weight",
+                "spacing_bottom": 0
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "heading_fEWzzY",
+            "text_kWTFjN"
+          ]
+        }
+      },
+      "block_order": [
+        "group_media_content_JVbLBC",
+        "group_media_content_3Knn4t",
+        "group_media_content_pWH36h"
+      ],
+      "name": "t:sections.multi_content.name",
+      "settings": {
+        "section_width": "container",
+        "color_scheme": "",
+        "heading": "",
+        "description": "",
+        "header_size": "medium",
+        "header_alignment": "center",
+        "column_gap": 30,
+        "equal_height_adjustment": false,
+        "vertical_align": "start",
+        "carousel_on_mobile": true,
+        "items_per_row_mobile": 1,
+        "padding_top": 0,
+        "padding_bottom": 70,
+        "reset_spacing": true
+      }
+    },
+    "rich_text_TbLB4J": {
+      "type": "rich-text",
+      "blocks": {
+        "custom_html_MEieRf": {
+          "type": "custom-html",
+          "name": "t:sections.html_custom.html.label",
+          "settings": {
+            "html_custom": "<div class=\"text-center\" style=\"color: #111;\">\n<svg xmlns=\"http:\/\/www.w3.org\/2000\/svg\" width=\"16\" height=\"16\" viewbox=\"0 0 16 16\" fill=\"none\">\n<path d=\"M15.9566 6.05028C16.0087 6.21336 16.0139 6.38188 15.9722 6.55583C15.9305 6.72978 15.8419 6.87656 15.7065 6.99615L12.2206 10.1925L13.2523 14.9219C13.2835 15.0958 13.2679 15.2643 13.2054 15.4274C13.1533 15.5905 13.0595 15.7264 12.924 15.8351C12.7781 15.9438 12.6218 15.9982 12.4551 15.9982C12.2883 16.0091 12.132 15.971 11.9861 15.884L8 13.3889L4.0139 15.884C3.95137 15.9166 3.87842 15.9438 3.79505 15.9656C3.7221 15.9873 3.64915 15.9982 3.57621 15.9982C3.49284 15.9982 3.40426 15.9819 3.31046 15.9493C3.2271 15.9275 3.14894 15.8895 3.07599 15.8351C2.94051 15.7264 2.84151 15.5905 2.77898 15.4274C2.72688 15.2643 2.71646 15.0958 2.74772 14.9219L3.77942 10.1925L0.29353 6.99615C0.158055 6.87656 0.0694746 6.72978 0.0277898 6.55583C-0.0138949 6.38188 -0.00868433 6.21336 0.0434216 6.05028C0.0955276 5.87633 0.184108 5.73499 0.309162 5.62627C0.444637 5.51755 0.595745 5.45232 0.762484 5.43058L5.38949 5.00657L7.21841 0.538165C7.28094 0.375085 7.38515 0.244621 7.53105 0.146772C7.67694 0.0489241 7.83326 0 8 0C8.16674 0 8.32306 0.0489241 8.46895 0.146772C8.61485 0.244621 8.71906 0.375085 8.78159 0.538165L10.6105 5.00657L15.2375 5.43058C15.4043 5.45232 15.5502 5.51755 15.6752 5.62627C15.8107 5.73499 15.9045 5.87633 15.9566 6.05028Z\" fill=\"#F3FC81\"><\/path>\n<\/svg>\n<svg xmlns=\"http:\/\/www.w3.org\/2000\/svg\" width=\"16\" height=\"16\" viewbox=\"0 0 16 16\" fill=\"none\">\n<path d=\"M15.9566 6.05028C16.0087 6.21336 16.0139 6.38188 15.9722 6.55583C15.9305 6.72978 15.8419 6.87656 15.7065 6.99615L12.2206 10.1925L13.2523 14.9219C13.2835 15.0958 13.2679 15.2643 13.2054 15.4274C13.1533 15.5905 13.0595 15.7264 12.924 15.8351C12.7781 15.9438 12.6218 15.9982 12.4551 15.9982C12.2883 16.0091 12.132 15.971 11.9861 15.884L8 13.3889L4.0139 15.884C3.95137 15.9166 3.87842 15.9438 3.79505 15.9656C3.7221 15.9873 3.64915 15.9982 3.57621 15.9982C3.49284 15.9982 3.40426 15.9819 3.31046 15.9493C3.2271 15.9275 3.14894 15.8895 3.07599 15.8351C2.94051 15.7264 2.84151 15.5905 2.77898 15.4274C2.72688 15.2643 2.71646 15.0958 2.74772 14.9219L3.77942 10.1925L0.29353 6.99615C0.158055 6.87656 0.0694746 6.72978 0.0277898 6.55583C-0.0138949 6.38188 -0.00868433 6.21336 0.0434216 6.05028C0.0955276 5.87633 0.184108 5.73499 0.309162 5.62627C0.444637 5.51755 0.595745 5.45232 0.762484 5.43058L5.38949 5.00657L7.21841 0.538165C7.28094 0.375085 7.38515 0.244621 7.53105 0.146772C7.67694 0.0489241 7.83326 0 8 0C8.16674 0 8.32306 0.0489241 8.46895 0.146772C8.61485 0.244621 8.71906 0.375085 8.78159 0.538165L10.6105 5.00657L15.2375 5.43058C15.4043 5.45232 15.5502 5.51755 15.6752 5.62627C15.8107 5.73499 15.9045 5.87633 15.9566 6.05028Z\" fill=\"#F3FC81\"><\/path>\n<\/svg>\n<svg xmlns=\"http:\/\/www.w3.org\/2000\/svg\" width=\"16\" height=\"16\" viewbox=\"0 0 16 16\" fill=\"none\">\n<path d=\"M15.9566 6.05028C16.0087 6.21336 16.0139 6.38188 15.9722 6.55583C15.9305 6.72978 15.8419 6.87656 15.7065 6.99615L12.2206 10.1925L13.2523 14.9219C13.2835 15.0958 13.2679 15.2643 13.2054 15.4274C13.1533 15.5905 13.0595 15.7264 12.924 15.8351C12.7781 15.9438 12.6218 15.9982 12.4551 15.9982C12.2883 16.0091 12.132 15.971 11.9861 15.884L8 13.3889L4.0139 15.884C3.95137 15.9166 3.87842 15.9438 3.79505 15.9656C3.7221 15.9873 3.64915 15.9982 3.57621 15.9982C3.49284 15.9982 3.40426 15.9819 3.31046 15.9493C3.2271 15.9275 3.14894 15.8895 3.07599 15.8351C2.94051 15.7264 2.84151 15.5905 2.77898 15.4274C2.72688 15.2643 2.71646 15.0958 2.74772 14.9219L3.77942 10.1925L0.29353 6.99615C0.158055 6.87656 0.0694746 6.72978 0.0277898 6.55583C-0.0138949 6.38188 -0.00868433 6.21336 0.0434216 6.05028C0.0955276 5.87633 0.184108 5.73499 0.309162 5.62627C0.444637 5.51755 0.595745 5.45232 0.762484 5.43058L5.38949 5.00657L7.21841 0.538165C7.28094 0.375085 7.38515 0.244621 7.53105 0.146772C7.67694 0.0489241 7.83326 0 8 0C8.16674 0 8.32306 0.0489241 8.46895 0.146772C8.61485 0.244621 8.71906 0.375085 8.78159 0.538165L10.6105 5.00657L15.2375 5.43058C15.4043 5.45232 15.5502 5.51755 15.6752 5.62627C15.8107 5.73499 15.9045 5.87633 15.9566 6.05028Z\" fill=\"#F3FC81\"><\/path>\n<\/svg>\n<svg xmlns=\"http:\/\/www.w3.org\/2000\/svg\" width=\"16\" height=\"16\" viewbox=\"0 0 16 16\" fill=\"none\">\n<path d=\"M15.9566 6.05028C16.0087 6.21336 16.0139 6.38188 15.9722 6.55583C15.9305 6.72978 15.8419 6.87656 15.7065 6.99615L12.2206 10.1925L13.2523 14.9219C13.2835 15.0958 13.2679 15.2643 13.2054 15.4274C13.1533 15.5905 13.0595 15.7264 12.924 15.8351C12.7781 15.9438 12.6218 15.9982 12.4551 15.9982C12.2883 16.0091 12.132 15.971 11.9861 15.884L8 13.3889L4.0139 15.884C3.95137 15.9166 3.87842 15.9438 3.79505 15.9656C3.7221 15.9873 3.64915 15.9982 3.57621 15.9982C3.49284 15.9982 3.40426 15.9819 3.31046 15.9493C3.2271 15.9275 3.14894 15.8895 3.07599 15.8351C2.94051 15.7264 2.84151 15.5905 2.77898 15.4274C2.72688 15.2643 2.71646 15.0958 2.74772 14.9219L3.77942 10.1925L0.29353 6.99615C0.158055 6.87656 0.0694746 6.72978 0.0277898 6.55583C-0.0138949 6.38188 -0.00868433 6.21336 0.0434216 6.05028C0.0955276 5.87633 0.184108 5.73499 0.309162 5.62627C0.444637 5.51755 0.595745 5.45232 0.762484 5.43058L5.38949 5.00657L7.21841 0.538165C7.28094 0.375085 7.38515 0.244621 7.53105 0.146772C7.67694 0.0489241 7.83326 0 8 0C8.16674 0 8.32306 0.0489241 8.46895 0.146772C8.61485 0.244621 8.71906 0.375085 8.78159 0.538165L10.6105 5.00657L15.2375 5.43058C15.4043 5.45232 15.5502 5.51755 15.6752 5.62627C15.8107 5.73499 15.9045 5.87633 15.9566 6.05028Z\" fill=\"#F3FC81\"><\/path>\n<\/svg>\n<svg xmlns=\"http:\/\/www.w3.org\/2000\/svg\" width=\"16\" height=\"16\" viewbox=\"0 0 16 16\" fill=\"none\">\n<path d=\"M15.9566 6.05028C16.0087 6.21336 16.0139 6.38188 15.9722 6.55583C15.9305 6.72978 15.8419 6.87656 15.7065 6.99615L12.2206 10.1925L13.2523 14.9219C13.2835 15.0958 13.2679 15.2643 13.2054 15.4274C13.1533 15.5905 13.0595 15.7264 12.924 15.8351C12.7781 15.9438 12.6218 15.9982 12.4551 15.9982C12.2883 16.0091 12.132 15.971 11.9861 15.884L8 13.3889L4.0139 15.884C3.95137 15.9166 3.87842 15.9438 3.79505 15.9656C3.7221 15.9873 3.64915 15.9982 3.57621 15.9982C3.49284 15.9982 3.40426 15.9819 3.31046 15.9493C3.2271 15.9275 3.14894 15.8895 3.07599 15.8351C2.94051 15.7264 2.84151 15.5905 2.77898 15.4274C2.72688 15.2643 2.71646 15.0958 2.74772 14.9219L3.77942 10.1925L0.29353 6.99615C0.158055 6.87656 0.0694746 6.72978 0.0277898 6.55583C-0.0138949 6.38188 -0.00868433 6.21336 0.0434216 6.05028C0.0955276 5.87633 0.184108 5.73499 0.309162 5.62627C0.444637 5.51755 0.595745 5.45232 0.762484 5.43058L5.38949 5.00657L7.21841 0.538165C7.28094 0.375085 7.38515 0.244621 7.53105 0.146772C7.67694 0.0489241 7.83326 0 8 0C8.16674 0 8.32306 0.0489241 8.46895 0.146772C8.61485 0.244621 8.71906 0.375085 8.78159 0.538165L10.6105 5.00657L15.2375 5.43058C15.4043 5.45232 15.5502 5.51755 15.6752 5.62627C15.8107 5.73499 15.9045 5.87633 15.9566 6.05028Z\" fill=\"#F3FC81\"><\/path>\n<\/svg>\n<\/div>",
+            "spacing_bottom": 12
+          },
+          "blocks": {}
+        },
+        "text_6VerDc": {
+          "type": "description",
+          "name": "t:blocks.general.text.name",
+          "settings": {
+            "text": "<p><em>\" Glozin will become an example of the responsible business model by doing business with kindness, profit and bringing practical and long—term values to customers, employees, partners, the community for the environment and for shareholders. \"<\/em><\/p>",
+            "font_size": 18,
+            "font_weight": "body_weight",
+            "spacing_bottom": 15
+          },
+          "blocks": {}
+        },
+        "subheading_DmqiRF": {
+          "type": "subheading",
+          "name": "t:sections.all.contents.subheading.label",
+          "settings": {
+            "subheading": "Carie—Gosée Hera",
+            "font_size": 16,
+            "font_weight": "heading_weight",
+            "uppercase": false,
+            "spacing_bottom": 0
+          },
+          "blocks": {}
+        },
+        "text_y83fYU": {
+          "type": "description",
+          "settings": {
+            "text": "<p>CEO and Founder Glozin Store<\/p>",
+            "font_size": 14,
+            "font_weight": "body_weight",
+            "spacing_bottom": 0
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "custom_html_MEieRf",
+        "text_6VerDc",
+        "subheading_DmqiRF",
+        "text_y83fYU"
+      ],
+      "name": "t:sections.rich_text.name",
+      "settings": {
+        "section_width": "container",
+        "color_scheme": "scheme-bb1431b0-be4a-4b03-a450-f572c07e3904",
+        "content_alignment": "center",
+        "content_max_width": 70,
+        "enable_expand_content": false,
+        "expand_content_button": "See all Information",
+        "padding_top": 80,
+        "padding_bottom": 70,
+        "reset_spacing": false
+      }
+    },
+    "multi_content_dqCWgd": {
+      "type": "multi-content",
+      "blocks": {
+        "group_media_content_rybexq": {
+          "type": "_group-media-content",
+          "settings": {
+            "color_scheme": "",
+            "content_width": "50%",
+            "media_type": "image",
+            "image": "shopify:\/\/shop_images\/about_banner_4.jpg",
+            "image_link": "",
+            "video_url": "https:\/\/www.youtube.com\/watch?v=_9VUPq3SxOc",
+            "autoplay": true,
+            "video_ratio": "16\/9",
+            "overlay_opacity": 0,
+            "content_type": "overlay",
+            "content_alignment": "start",
+            "content_position": "top-left",
+            "content_padding_block": 30,
+            "content_padding_inline": 30,
+            "content_mobile_image": false
+          },
+          "blocks": {}
+        },
+        "group_text_kJbPi8": {
+          "type": "_group-text",
+          "name": "t:blocks.names.text",
+          "settings": {
+            "color_scheme": "",
+            "content_width": "50%",
+            "content_alignment": "center",
+            "vertical_align": "start",
+            "content_padding_block": 30,
+            "content_padding_inline": 30
+          },
+          "blocks": {
+            "subheading_ChwTPm": {
+              "type": "subheading",
+              "settings": {
+                "subheading": "Our Factories",
+                "font_size": 15,
+                "font_weight": "heading_weight",
+                "uppercase": false,
+                "spacing_bottom": 8
+              },
+              "blocks": {}
+            },
+            "heading_XFxiMn": {
+              "type": "heading",
+              "settings": {
+                "heading": "The Best Product",
+                "font_size": 36,
+                "font_weight": "heading_weight",
+                "uppercase": false,
+                "spacing_bottom": 25
+              },
+              "blocks": {}
+            },
+            "text_P34EpB": {
+              "type": "description",
+              "name": "t:blocks.general.text.name",
+              "settings": {
+                "text": "<p>We spend a lot of time finding the best factories around the world—the samefactories that make your favorite designer brands. We visit them regularly and build strong personal relationships with the owners. Each factory is audited for compliance to assess factors such as fair wages.<\/p>",
+                "font_size": 15,
+                "font_weight": "body_weight",
+                "spacing_bottom": 30
+              },
+              "blocks": {}
+            },
+            "button_rmHEqD": {
+              "type": "button",
+              "settings": {
+                "show_full_width": false,
+                "first_button_label": "Learn More",
+                "first_button_link": "shopify:\/\/collections",
+                "first_button_type": "primary",
+                "second_button_label": "",
+                "second_button_link": "",
+                "second_button_type": "primary",
+                "spacing_bottom": 10
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "subheading_ChwTPm",
+            "heading_XFxiMn",
+            "text_P34EpB",
+            "button_rmHEqD"
+          ]
+        }
+      },
+      "block_order": [
+        "group_media_content_rybexq",
+        "group_text_kJbPi8"
+      ],
+      "name": "t:sections.multi_content.name",
+      "settings": {
+        "section_width": "container",
+        "color_scheme": "",
+        "heading": "",
+        "description": "",
+        "header_size": "medium",
+        "header_alignment": "center",
+        "column_gap": 30,
+        "equal_height_adjustment": false,
+        "vertical_align": "center",
+        "carousel_on_mobile": false,
+        "items_per_row_mobile": 1,
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "reset_spacing": false
+      }
+    },
+    "multi_content_Y4j9Rm": {
+      "type": "multi-content",
+      "blocks": {
+        "group_text_3pnrCc": {
+          "type": "_group-text",
+          "name": "t:blocks.names.text",
+          "settings": {
+            "color_scheme": "",
+            "content_width": "50%",
+            "content_alignment": "center",
+            "vertical_align": "start",
+            "content_padding_block": 30,
+            "content_padding_inline": 30
+          },
+          "blocks": {
+            "subheading_w7G4T9": {
+              "type": "subheading",
+              "settings": {
+                "subheading": "Our Products",
+                "font_size": 15,
+                "font_weight": "heading_weight",
+                "uppercase": false,
+                "spacing_bottom": 8
+              },
+              "blocks": {}
+            },
+            "heading_R6cFPW": {
+              "type": "heading",
+              "settings": {
+                "heading": "The Best Product",
+                "font_size": 36,
+                "font_weight": "heading_weight",
+                "uppercase": false,
+                "spacing_bottom": 25
+              },
+              "blocks": {}
+            },
+            "text_GTCGpn": {
+              "type": "description",
+              "name": "t:blocks.general.text.name",
+              "settings": {
+                "text": "<p>At Glozin, we’re not big on trends. We want you to wear our pieces for years, even decades, to come. That’s why we source the finest materials and factories for our timeless products— like our Grade-A cashmere sweaters, Italian shoes, and Peruvian Pima tees.<\/p>",
+                "font_size": 15,
+                "font_weight": "body_weight",
+                "spacing_bottom": 30
+              },
+              "blocks": {}
+            },
+            "button_zUjnUP": {
+              "type": "button",
+              "settings": {
+                "show_full_width": false,
+                "first_button_label": "Learn More",
+                "first_button_link": "shopify:\/\/collections",
+                "first_button_type": "primary",
+                "second_button_label": "",
+                "second_button_link": "",
+                "second_button_type": "primary",
+                "spacing_bottom": 10
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "subheading_w7G4T9",
+            "heading_R6cFPW",
+            "text_GTCGpn",
+            "button_zUjnUP"
+          ]
+        },
+        "group_media_content_A9mxaX": {
+          "type": "_group-media-content",
+          "settings": {
+            "color_scheme": "",
+            "content_width": "50%",
+            "media_type": "image",
+            "image": "shopify:\/\/shop_images\/about_banner_5.jpg",
+            "image_link": "",
+            "video_url": "https:\/\/www.youtube.com\/watch?v=_9VUPq3SxOc",
+            "autoplay": true,
+            "video_ratio": "16\/9",
+            "overlay_opacity": 0,
+            "content_type": "overlay",
+            "content_alignment": "start",
+            "content_position": "top-left",
+            "content_padding_block": 30,
+            "content_padding_inline": 30,
+            "content_mobile_image": false
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "group_text_3pnrCc",
+        "group_media_content_A9mxaX"
+      ],
+      "name": "t:sections.multi_content.name",
+      "settings": {
+        "section_width": "container",
+        "color_scheme": "",
+        "heading": "",
+        "description": "",
+        "header_size": "medium",
+        "header_alignment": "center",
+        "column_gap": 30,
+        "equal_height_adjustment": false,
+        "vertical_align": "center",
+        "carousel_on_mobile": false,
+        "items_per_row_mobile": 1,
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "reset_spacing": false
+      }
+    },
+    "divider_BUBdbP": {
+      "type": "divider",
+      "name": "t:sections.divider.name",
+      "settings": {
+        "section_width": "container",
+        "border_height": 1,
+        "border_color": "#ebebeb",
+        "reset_spacing": false
+      }
+    },
+    "multi_content_zDKjFk": {
+      "type": "multi-content",
+      "blocks": {
+        "group_media_content_W3k6Fq": {
+          "type": "_group-media-content",
+          "settings": {
+            "color_scheme": "",
+            "content_width": "33.3333%",
+            "media_type": "image",
+            "image": "shopify:\/\/shop_images\/about_banner_6.jpg",
+            "image_link": "",
+            "video_url": "https:\/\/www.youtube.com\/watch?v=_9VUPq3SxOc",
+            "autoplay": true,
+            "video_ratio": "16\/9",
+            "overlay_opacity": 0,
+            "content_type": "below",
+            "content_alignment": "center",
+            "content_position": "top-left",
+            "content_padding_block": 30,
+            "content_padding_inline": 10,
+            "content_mobile_image": false
+          },
+          "blocks": {
+            "heading_JkFEj4": {
+              "type": "heading",
+              "settings": {
+                "heading": "The Core of Us",
+                "font_size": 18,
+                "font_weight": "heading_weight",
+                "uppercase": false,
+                "spacing_bottom": 10
+              },
+              "blocks": {}
+            },
+            "text_Jbg8zi": {
+              "type": "description",
+              "name": "t:blocks.general.text.name",
+              "settings": {
+                "text": "<p>Adipisicing elit sed do eiusmod tempor labore et dolore dignissimos cumque. Excepteur sint occaecat cupidatat proident.<\/p>",
+                "font_size": 15,
+                "font_weight": "body_weight",
+                "spacing_bottom": 0
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "heading_JkFEj4",
+            "text_Jbg8zi"
+          ]
+        },
+        "group_media_content_nhyaCi": {
+          "type": "_group-media-content",
+          "settings": {
+            "color_scheme": "",
+            "content_width": "33.3333%",
+            "media_type": "image",
+            "image": "shopify:\/\/shop_images\/about_banner_7.jpg",
+            "image_link": "",
+            "video_url": "https:\/\/www.youtube.com\/watch?v=_9VUPq3SxOc",
+            "autoplay": true,
+            "video_ratio": "16\/9",
+            "overlay_opacity": 0,
+            "content_type": "below",
+            "content_alignment": "center",
+            "content_position": "top-left",
+            "content_padding_block": 30,
+            "content_padding_inline": 10,
+            "content_mobile_image": false
+          },
+          "blocks": {
+            "heading_K4n4E9": {
+              "type": "heading",
+              "settings": {
+                "heading": "Our Products",
+                "font_size": 18,
+                "font_weight": "heading_weight",
+                "uppercase": false,
+                "spacing_bottom": 10
+              },
+              "blocks": {}
+            },
+            "text_TehgJ8": {
+              "type": "description",
+              "name": "t:blocks.general.text.name",
+              "settings": {
+                "text": "<p>Adipisicing elit sed do eiusmod tempor labore et dolore dignissimos cumque. Excepteur sint occaecat cupidatat proident.<\/p>",
+                "font_size": 15,
+                "font_weight": "body_weight",
+                "spacing_bottom": 0
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "heading_K4n4E9",
+            "text_TehgJ8"
+          ]
+        },
+        "group_media_content_63MXWi": {
+          "type": "_group-media-content",
+          "settings": {
+            "color_scheme": "",
+            "content_width": "33.3333%",
+            "media_type": "image",
+            "image": "shopify:\/\/shop_images\/about_banner_8.jpg",
+            "image_link": "",
+            "video_url": "https:\/\/www.youtube.com\/watch?v=_9VUPq3SxOc",
+            "autoplay": true,
+            "video_ratio": "16\/9",
+            "overlay_opacity": 0,
+            "content_type": "below",
+            "content_alignment": "center",
+            "content_position": "top-left",
+            "content_padding_block": 30,
+            "content_padding_inline": 10,
+            "content_mobile_image": false
+          },
+          "blocks": {
+            "heading_4yqC3j": {
+              "type": "heading",
+              "settings": {
+                "heading": "Our Careers",
+                "font_size": 18,
+                "font_weight": "heading_weight",
+                "uppercase": false,
+                "spacing_bottom": 10
+              },
+              "blocks": {}
+            },
+            "text_LemnpM": {
+              "type": "description",
+              "name": "t:blocks.general.text.name",
+              "settings": {
+                "text": "<p>Adipisicing elit sed do eiusmod tempor labore et dolore dignissimos cumque. Excepteur sint occaecat cupidatat proident.<\/p>",
+                "font_size": 15,
+                "font_weight": "body_weight",
+                "spacing_bottom": 0
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "heading_4yqC3j",
+            "text_LemnpM"
+          ]
+        }
+      },
+      "block_order": [
+        "group_media_content_W3k6Fq",
+        "group_media_content_nhyaCi",
+        "group_media_content_63MXWi"
+      ],
+      "name": "t:sections.multi_content.name",
+      "settings": {
+        "section_width": "container",
+        "color_scheme": "",
+        "heading": "",
+        "description": "",
+        "header_size": "medium",
+        "header_alignment": "center",
+        "column_gap": 30,
+        "equal_height_adjustment": false,
+        "vertical_align": "start",
+        "carousel_on_mobile": true,
+        "items_per_row_mobile": 1,
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "reset_spacing": false
+      }
+    }
+  },
+  "order": [
+    "page-heading",
+    "rich_text_WLG8gd",
+    "multi_content_ycQBqB",
+    "counter_AfQqyA",
+    "divider_7DLMey",
+    "rich_text_zQGWT6",
+    "multi_content_XkgfLy",
+    "rich_text_TbLB4J",
+    "multi_content_dqCWgd",
+    "multi_content_Y4j9Rm",
+    "divider_BUBdbP",
+    "multi_content_zDKjFk"
+  ]
+}

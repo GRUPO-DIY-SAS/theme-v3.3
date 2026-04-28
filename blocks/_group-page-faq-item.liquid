@@ -1,0 +1,83 @@
+{% liquid
+  assign block_st = block.settings
+  assign mb_custom = ''
+  if block_st.spacing_bottom > 41
+    assign mb_custom = 'mb-big'
+  elsif block_st.spacing_bottom > 30
+    assign mb_custom = 'mb-medium'
+  else
+    assign mb_custom = 'mb-custom'
+  endif
+%}
+
+<div
+  class="{{ mb_custom }}"
+  style="--space-bottom: {{ block_st.spacing_bottom }};"
+  {{ block.shopify_attributes }}
+>
+  {% content_for 'blocks' %}
+</div>
+{% schema %}
+{
+  "name": "t:sections.faqs-page.blocks.question.group_faq_item",
+  "tag": null,
+  "settings": [
+    {
+      "type": "range",
+      "id": "spacing_bottom",
+      "label": "t:sections.all.content_settings.spacing.spacing_bottom.label",
+      "default": 30,
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "_faq-item"
+    },
+    {
+      "type": "heading"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.faqs-page.blocks.question.group_faq_item",
+      "blocks": [
+        {
+          "type": "heading",
+          "settings": {
+            "heading": "Questions heading",
+            "font_size": 24,
+            "font_weight": "heading_weight",
+            "uppercase": false,
+            "spacing_bottom": 10
+          }
+        },
+        {
+          "type": "_faq-item",
+          "settings": {
+            "faq_title": "Frequently Asked Questions?",
+            "faq_content": "Lorem ipsum dolor sit amet conse ctetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore."
+          }
+        },
+        {
+          "type": "_faq-item",
+          "settings": {
+            "faq_title": "Frequently Asked Questions?",
+            "faq_content": "Lorem ipsum dolor sit amet conse ctetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore."
+          }
+        },
+        {
+          "type": "_faq-item",
+          "settings": {
+            "faq_title": "Frequently Asked Questions?",
+            "faq_content": "Lorem ipsum dolor sit amet conse ctetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

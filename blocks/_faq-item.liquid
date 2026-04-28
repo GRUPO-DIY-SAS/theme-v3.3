@@ -1,0 +1,43 @@
+{% liquid
+  assign block_st = block.settings
+%}
+<collapsible-block
+  tabindex="0"
+  {{ block.shopify_attributes }}
+  class="faq-section-items bls-toggle relative block"
+>
+  <h3 class="faq-section-title h6 my-0 pointer py-20 relative collapsible-heading text-color hover-heading-color transition pe-12">
+    {{- block_st.faq_title }}
+    <span class="open-children-toggle absolute inset-0 flex flex-end pointer">
+      <span class="icon_plus-animation"> </span>
+    </span>
+  </h3>
+  <div class="faq-section-content overflow-hidden collapsible-content mb-20" style="display: none;">
+    <div class="faq_content-inner rich__text-m0">{{ block_st.faq_content }}</div>
+  </div>
+</collapsible-block>
+{% schema %}
+{
+  "name": "t:sections.faqs-page.blocks.question.name",
+  "tag": null,
+  "settings": [
+    {
+      "type": "text",
+      "id": "faq_title",
+      "default": "Frequently Asked Questions?",
+      "label": "t:sections.faq.settings.block.title_question"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "faq_content",
+      "default": "Lorem ipsum dolor sit amet conse ctetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore.",
+      "label": "t:sections.faq.settings.block.content_quenstion"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.faqs-page.blocks.question.name"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,190 @@
+{% liquid
+  assign block_st = block.settings
+  assign section_st = section.settings
+  assign enable_skeleton_loading = section_st.enable_skeleton_loading
+%}
+{% if block_st.delivery_content != blank or block_st.return_content != blank or block_st.discount_content != blank %}
+  {% liquid
+    if block_st.delivery_design == 'horizontal'
+      assign class = 'border-md-inline-end border-bottom border-bottom-md-0 py-20 py-md-0 px-0 px-md-20'
+    else
+      assign class = 'flex py-15'
+      assign last_block = class
+      assign block_content = 'flex-1 align-center text-left'
+    endif
+  %}
+  <div
+    class="delivery-return {{  block_st.delivery_design }} flex flex-wrap flex-md-nowrap px-20 {% if block_st.delivery_design == 'horizontal' %}px-md-0{% endif %} py-0 py-md-20 border text-center mb-20 rounded-5{% if enable_skeleton_loading %} skeleton-loading{% endif %}"
+    {{ block.shopify_attributes }}
+  >
+    {% if block_st.delivery_content != blank %}
+      <div class="delivery {{ class }} flex-1 rich__text-m0">
+        {%- if block_st.delivery_content_icon != 'none' -%}
+          {% render 'icon_svg_list', icon: block_st.delivery_content_icon, custom_width: 25 %}
+        {% endif %}
+        <div class="rich__text-m0 {{ block_content }}">
+          {{ block_st.delivery_content }}
+        </div>
+      </div>
+    {% endif %}
+    {% if block_st.discount_content != blank %}
+      <div class="discount {{ class }} flex-1 rich__text-m0">
+        {%- if block_st.discount_content_icon != 'none' -%}
+          {% render 'icon_svg_list', icon: block_st.discount_content_icon, custom_width: 25, custom_height: 25 %}
+        {% endif %}
+        <div class="rich__text-m0 {{ block_content }}">
+          {{ block_st.discount_content }}
+        </div>
+      </div>
+    {% endif %}
+    {% if block_st.return_content != blank %}
+      <div class="return {{ last_block }} flex-1 rich__text-m0 {% if block_st.delivery_design == 'horizontal' %}py-20 py-md-0 px-0 px-md-20{% endif %}">
+        {%- if block_st.return_content_icon != 'none' -%}
+          {% render 'icon_svg_list', icon: block_st.return_content_icon, custom_width: 25 %}
+        {% endif %}
+        <div class="rich__text-m0 {{ block_content }}">
+          {{ block_st.return_content }}
+        </div>
+      </div>
+    {% endif %}
+  </div>
+{% endif %}
+{% schema %}
+{
+  "name": "t:blocks.product.delivery_return.name",
+  "tag": null,
+  "settings": [
+    {
+      "type": "select",
+      "id": "delivery_design",
+      "label": "t:sections.main-product.blocks.delivery_return.settings.design_type.label",
+      "default": "horizontal",
+      "options": [
+        {
+          "value": "vertical",
+          "label": "t:sections.main-product.blocks.delivery_return.settings.design_type.option__1"
+        },
+        {
+          "value": "horizontal",
+          "label": "t:sections.main-product.blocks.delivery_return.settings.design_type.option__2"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "t:sections.main-product.blocks.delivery_return.settings.delivery_content.header"
+    },
+    {
+      "type": "select",
+      "id": "delivery_content_icon",
+      "label": "t:sections.all.svg.label",
+      "default": "boat",
+      "options": [
+        {
+          "value": "none",
+          "label": "t:sections.all.icon.none.label"
+        },
+        {
+          "value": "free_shipping",
+          "label": "t:sections.all.icon.free_shipping.label"
+        },
+        {
+          "value": "check_badge",
+          "label": "t:sections.all.icon.check_badge.label"
+        },
+        {
+          "value": "message_communications",
+          "label": "t:sections.all.icon.message_communications.label"
+        },
+        {
+          "value": "boat",
+          "label": "t:sections.all.icon.boat.label"
+        },
+        {
+          "value": "truck",
+          "label": "t:sections.all.icon.truck.label"
+        }
+      ]
+    },
+    {
+      "type": "richtext",
+      "id": "delivery_content",
+      "label": "t:sections.main-product.blocks.delivery_return.settings.delivery_content.content",
+      "default": "<p>Estimate delivery times: <strong>3-5 days International.</strong></p>"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.main-product.blocks.delivery_return.settings.discount_content.header"
+    },
+    {
+      "type": "select",
+      "id": "discount_content_icon",
+      "label": "t:sections.all.svg.label",
+      "default": "discount",
+      "options": [
+        {
+          "value": "none",
+          "label": "t:sections.all.icon.none.label"
+        },
+        {
+          "value": "discount",
+          "label": "t:sections.all.icon.discount.label"
+        }
+      ]
+    },
+    {
+      "type": "richtext",
+      "id": "discount_content",
+      "label": "t:sections.main-product.blocks.delivery_return.settings.discount_content.content",
+      "default": "<p>Use code <strong>'WELCOME15'</strong> for discount 15% on your first order.</p>"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.main-product.blocks.delivery_return.settings.return_content.header"
+    },
+    {
+      "type": "select",
+      "id": "return_content_icon",
+      "label": "t:sections.all.svg.label",
+      "default": "free_shipping",
+      "options": [
+        {
+          "value": "none",
+          "label": "t:sections.all.icon.none.label"
+        },
+        {
+          "value": "free_shipping",
+          "label": "t:sections.all.icon.free_shipping.label"
+        },
+        {
+          "value": "check_badge",
+          "label": "t:sections.all.icon.check_badge.label"
+        },
+        {
+          "value": "message_communications",
+          "label": "t:sections.all.icon.message_communications.label"
+        },
+        {
+          "value": "boat",
+          "label": "t:sections.all.icon.boat.label"
+        },
+        {
+          "value": "truck",
+          "label": "t:sections.all.icon.truck.label"
+        }
+      ]
+    },
+    {
+      "type": "richtext",
+      "id": "return_content",
+      "label": "t:sections.main-product.blocks.delivery_return.settings.return_content.content",
+      "default": "<p>Free shipping and returns: <strong>On all orders over $150.</strong></p>"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:blocks.product.delivery_return.name"
+    }
+  ]
+}
+{% endschema %}

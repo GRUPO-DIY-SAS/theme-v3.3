@@ -1,0 +1,34 @@
+{%- liquid
+  assign scroll_animation = settings.scroll_animation
+-%}
+<motion-element
+  data-motion="{{ scroll_animation }}"
+  {% if scroll_animation == 'none' %}
+    hold
+  {% endif %}
+  class="faqs-right relative flex-1 mb-0-important"
+>
+  {% content_for 'blocks' %}
+</motion-element>
+{% style %}
+  .faqs-right .faq-section-items {
+    border-bottom: 1px solid var(--color-border);
+  }
+{% endstyle %}
+
+{% schema %}
+{
+  "name": "t:sections.faqs-page.blocks.question.group_faq_content",
+  "tag": null,
+  "blocks": [
+    {
+      "type": "_group-page-faq-item"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.faqs-page.blocks.question.group_faq_content"
+    }
+  ]
+}
+{% endschema %}

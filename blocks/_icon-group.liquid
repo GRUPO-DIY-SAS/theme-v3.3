@@ -1,0 +1,624 @@
+{%- liquid
+  assign block_st = block.settings
+  assign carousel_on_mobile = block_st.carousel_on_mobile
+  assign scroll_animation = settings.scroll_animation
+  assign type = block_st.type
+  assign column_gap = block_st.column_gap
+  assign icon_size = block_st.icon_size
+  assign content_size = block_st.content_size
+  assign icon_position = ''
+  if block_st.icon_position == 'left'
+    assign icon_position = 'flex-row'
+  elsif block_st.icon_position == 'right'
+    assign icon_position = 'flex-row-reverse'
+  elsif block_st.icon_position == 'top'
+    assign icon_position = 'flex-column'
+  elsif block_st.icon_position == 'bottom'
+    assign icon_position = 'flex-column-reverse'
+  endif
+-%}
+<motion-element
+  data-motion="{{ scroll_animation }}"
+  {% if scroll_animation == 'none' %}
+    hold
+  {% endif %}
+  class="mt-custom mb-bottom"
+  style="--space-bottom: {{ block.settings.padding_bottom }};--space-top: {{ block.settings.padding_top }};"
+>
+  <carousel-mobile
+    class="block__icon-box-inner type-{{ type }} size-{{ content_size }} {% if carousel_on_mobile %}carousel-on-mobile{% endif %}"
+    data-enable="{{ carousel_on_mobile }}"
+    data-mobile="1"
+    data-spacing="{{ column_gap }}"
+    style="--spacing: {{ column_gap }}px"
+    data-custom-pagination="swiper-pagination-{{ block.id }}"
+    data-id="{{ block.id }}"
+  >
+    {% for i in (1..4) %}
+      {% liquid
+        assign image_id = 'icon_image_' | append: i
+        assign image = block_st[image_id]
+        assign icon_svg_id = 'icon_svg_' | append: i
+        assign icon_svg = block_st[icon_svg_id]
+        assign heading_id = 'heading_' | append: i
+        assign heading = block_st[heading_id]
+        assign description_id = 'description_' | append: i
+        assign description = block_st[description_id]
+      %}
+      <div class="sec__icon-switch-slide">
+        <div
+          class="sec__icon-box-item flex {{ icon_position }}{% if block_st.icon_position == 'top' or block_st.icon_position == 'bottom' and block_st.content_alignment == 'center' %} align-center{% endif %}{% if block_st.content_alignment == 'right' %}{% if block_st.icon_position == 'top' or block_st.icon_position == 'bottom' %} align-end{% endif %}{% endif %}{% if block_st.content_alignment == 'left' %}{% if block_st.icon_position == 'top' or block_st.icon_position == 'bottom' %} align-start{% endif %}{% endif %} {% if block_st.icon_position == 'top' and block_st.content_alignment == 'center' %} align-center{% endif %}"
+        >
+          {%- if image != blank or block_st.icon_svg != 'none' or block_st.custom_svg != blank -%}
+            <div
+              class="sec__icon-box-content-icon w-custom-svg lh-1 {% if image == blank and icon_svg == 'none' %}w-custom {% endif %}{% if image != blank %} w-custom max-w-100 flex-auto {% endif %}{% if block_st.icon_position == 'left' or  block_st.content_alignment == 'right' %} align-self-center{% endif %}"
+              style="--custom-width: {{ icon_size }}px"
+            >
+              {%- if image != blank -%}
+                {%- assign sizes = icon_size | append: 'px' -%}
+                {%- assign image_alt = image.alt | default: 'images' -%}
+                {% render 'responsive-image',
+                  type: 'other',
+                  image: image,
+                  image_alt: image_alt,
+                  sizes: sizes,
+                  custom_widths: '185, 120, 60, 30',
+                  no_animate: true
+                %}
+              {%- elsif icon_svg != 'none' -%}
+                {% render 'icon_svg_list', icon: icon_svg, custom_width: icon_size %}
+              {%- else -%}
+                {% render 'placeholder-render' %}
+              {% endif %}
+            </div>
+          {% endif %}
+          {% if heading != blank or description != blank %}
+            <div class="block-icon-box__content text-{{ block_st.content_alignment }} word-break{% if block_st.icon_position == 'left' or  block_st.content_alignment == 'right' %} align-self-center{% endif %}">
+              {% if heading != blank %}
+                <h3
+                  class="block-icon-box__heading"
+                >
+                  {{ heading }}
+                </h3>
+              {% endif %}
+              {% if description != blank %}
+                <div
+                  class="block-icon-box__description"
+                >
+                  {{ description }}
+                </div>
+              {% endif %}
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    {% endfor %}
+  </carousel-mobile>
+</motion-element>
+{% schema %}
+{
+  "name": "t:blocks.names.icon",
+  "class": "w-full max-w-100",
+  "settings": [
+    {
+      "type": "select",
+      "id": "type",
+      "label": "t:sections.icon_box.settings.type.label",
+      "default": "default",
+      "options": [
+        {
+          "value": "default",
+          "label": "t:sections.icon_box.settings.type.default.label"
+        },
+        {
+          "value": "frame",
+          "label": "t:sections.icon_box.settings.type.frame.label"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "column_gap",
+      "label": "t:sections.all.items.column_gap.label",
+      "default": 30,
+      "min": 0,
+      "max": 50,
+      "step": 5,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.icon_box.settings.icon_setting.label"
+    },
+    {
+      "type": "select",
+      "id": "icon_position",
+      "label": "t:settings.position",
+      "default": "top",
+      "options": [
+        {
+          "value": "top",
+          "label": "t:sections.icon_box.settings.icon_position.top.label"
+        },
+        {
+          "value": "right",
+          "label": "t:sections.icon_box.settings.icon_position.right.label"
+        },
+        {
+          "value": "bottom",
+          "label": "t:sections.icon_box.settings.icon_position.bottom.label"
+        },
+        {
+          "value": "left",
+          "label": "t:sections.icon_box.settings.icon_position.left.label"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "icon_size",
+      "label": "t:settings.size",
+      "default": 32,
+      "min": 10,
+      "max": 60,
+      "step": 1,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.content_settings.label"
+    },
+    {
+      "type": "select",
+      "id": "content_alignment",
+      "label": "t:sections.all.content_settings.content_alignment.label",
+      "default": "center",
+      "options": [
+        {
+          "value": "left",
+          "label": "t:sections.all.content_settings.content_alignment.left.label"
+        },
+        {
+          "value": "center",
+          "label": "t:sections.all.content_settings.content_alignment.center.label"
+        },
+        {
+          "value": "right",
+          "label": "t:sections.all.content_settings.content_alignment.right.label"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "content_size",
+      "label": "t:settings.size",
+      "default": "medium",
+      "options": [
+        {
+          "value": "small",
+          "label": "t:settings.small"
+        },
+        {
+          "value": "medium",
+          "label": "t:settings.medium"
+        },
+        {
+          "value": "large",
+          "label": "t:settings.large"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "t:settings.icon_1"
+    },
+    {
+      "type": "image_picker",
+      "id": "icon_image_1",
+      "label": "t:sections.all.image.label"
+    },
+    {
+      "type": "select",
+      "id": "icon_svg_1",
+      "label": "t:sections.all.svg.label",
+      "default": "none",
+      "options": [
+        {
+          "value": "none",
+          "label": "t:sections.all.icon.none.label"
+        },
+        {
+          "value": "free_shipping",
+          "label": "t:sections.all.icon.free_shipping.label"
+        },
+        {
+          "value": "check_badge",
+          "label": "t:sections.all.icon.check_badge.label"
+        },
+        {
+          "value": "message_communications",
+          "label": "t:sections.all.icon.message_communications.label"
+        },
+        {
+          "value": "payment",
+          "label": "t:sections.all.icon.payment.label"
+        },
+        {
+          "value": "boat",
+          "label": "t:sections.all.icon.boat.label"
+        },
+        {
+          "value": "truck",
+          "label": "t:sections.all.icon.truck.label"
+        },
+        {
+          "value": "location",
+          "label": "t:sections.all.icon.location.label"
+        },
+        {
+          "value": "leaf",
+          "label": "t:sections.all.icon.leaf.label"
+        },
+        {
+          "value": "blossom",
+          "label": "t:sections.all.icon.blossom.label"
+        },
+        {
+          "value": "phone",
+          "label": "t:sections.all.icon.phone.label"
+        },
+        {
+          "value": "email",
+          "label": "t:sections.all.icon.email.label"
+        },
+        {
+          "value": "chat",
+          "label": "t:sections.all.icon.chat.label"
+        },
+        {
+          "value": "bag",
+          "label": "t:sections.all.icon.bag.label"
+        },
+        {
+          "value": "support",
+          "label": "t:sections.all.icon.support.label"
+        },
+        {
+          "value": "tree",
+          "label": "t:sections.all.icon.tree.label"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "id": "heading_1",
+      "label": "t:sections.all.contents.heading.label",
+      "default": "This is heading text"
+    },
+    {
+      "type": "richtext",
+      "id": "description_1",
+      "label": "t:sections.all.contents.description.label",
+      "default": "<p>Tell about your service.</p>"
+    },
+    {
+      "type": "header",
+      "content": "t:settings.icon_2"
+    },
+    {
+      "type": "image_picker",
+      "id": "icon_image_2",
+      "label": "t:sections.all.image.label"
+    },
+    {
+      "type": "select",
+      "id": "icon_svg_2",
+      "label": "t:sections.all.svg.label",
+      "default": "none",
+      "options": [
+        {
+          "value": "none",
+          "label": "t:sections.all.icon.none.label"
+        },
+        {
+          "value": "free_shipping",
+          "label": "t:sections.all.icon.free_shipping.label"
+        },
+        {
+          "value": "check_badge",
+          "label": "t:sections.all.icon.check_badge.label"
+        },
+        {
+          "value": "message_communications",
+          "label": "t:sections.all.icon.message_communications.label"
+        },
+        {
+          "value": "payment",
+          "label": "t:sections.all.icon.payment.label"
+        },
+        {
+          "value": "boat",
+          "label": "t:sections.all.icon.boat.label"
+        },
+        {
+          "value": "truck",
+          "label": "t:sections.all.icon.truck.label"
+        },
+        {
+          "value": "location",
+          "label": "t:sections.all.icon.location.label"
+        },
+        {
+          "value": "leaf",
+          "label": "t:sections.all.icon.leaf.label"
+        },
+        {
+          "value": "blossom",
+          "label": "t:sections.all.icon.blossom.label"
+        },
+        {
+          "value": "phone",
+          "label": "t:sections.all.icon.phone.label"
+        },
+        {
+          "value": "email",
+          "label": "t:sections.all.icon.email.label"
+        },
+        {
+          "value": "chat",
+          "label": "t:sections.all.icon.chat.label"
+        },
+        {
+          "value": "bag",
+          "label": "t:sections.all.icon.bag.label"
+        },
+        {
+          "value": "support",
+          "label": "t:sections.all.icon.support.label"
+        },
+        {
+          "value": "tree",
+          "label": "t:sections.all.icon.tree.label"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "id": "heading_2",
+      "label": "t:sections.all.contents.heading.label",
+      "default": "This is heading text"
+    },
+    {
+      "type": "richtext",
+      "id": "description_2",
+      "label": "t:sections.all.contents.description.label",
+      "default": "<p>Tell about your service.</p>"
+    },
+    {
+      "type": "header",
+      "content": "t:settings.icon_3"
+    },
+    {
+      "type": "image_picker",
+      "id": "icon_image_3",
+      "label": "t:sections.all.image.label"
+    },
+    {
+      "type": "select",
+      "id": "icon_svg_3",
+      "label": "t:sections.all.svg.label",
+      "default": "none",
+      "options": [
+        {
+          "value": "none",
+          "label": "t:sections.all.icon.none.label"
+        },
+        {
+          "value": "free_shipping",
+          "label": "t:sections.all.icon.free_shipping.label"
+        },
+        {
+          "value": "check_badge",
+          "label": "t:sections.all.icon.check_badge.label"
+        },
+        {
+          "value": "message_communications",
+          "label": "t:sections.all.icon.message_communications.label"
+        },
+        {
+          "value": "payment",
+          "label": "t:sections.all.icon.payment.label"
+        },
+        {
+          "value": "boat",
+          "label": "t:sections.all.icon.boat.label"
+        },
+        {
+          "value": "truck",
+          "label": "t:sections.all.icon.truck.label"
+        },
+        {
+          "value": "location",
+          "label": "t:sections.all.icon.location.label"
+        },
+        {
+          "value": "leaf",
+          "label": "t:sections.all.icon.leaf.label"
+        },
+        {
+          "value": "blossom",
+          "label": "t:sections.all.icon.blossom.label"
+        },
+        {
+          "value": "phone",
+          "label": "t:sections.all.icon.phone.label"
+        },
+        {
+          "value": "email",
+          "label": "t:sections.all.icon.email.label"
+        },
+        {
+          "value": "chat",
+          "label": "t:sections.all.icon.chat.label"
+        },
+        {
+          "value": "bag",
+          "label": "t:sections.all.icon.bag.label"
+        },
+        {
+          "value": "support",
+          "label": "t:sections.all.icon.support.label"
+        },
+        {
+          "value": "tree",
+          "label": "t:sections.all.icon.tree.label"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "id": "heading_3",
+      "label": "t:sections.all.contents.heading.label",
+      "default": "This is heading text"
+    },
+    {
+      "type": "richtext",
+      "id": "description_3",
+      "label": "t:sections.all.contents.description.label",
+      "default": "<p>Tell about your service.</p>"
+    },
+    {
+      "type": "header",
+      "content": "t:settings.icon_4"
+    },
+    {
+      "type": "image_picker",
+      "id": "icon_image_4",
+      "label": "t:sections.all.image.label"
+    },
+    {
+      "type": "select",
+      "id": "icon_svg_4",
+      "label": "t:sections.all.svg.label",
+      "default": "none",
+      "options": [
+        {
+          "value": "none",
+          "label": "t:sections.all.icon.none.label"
+        },
+        {
+          "value": "free_shipping",
+          "label": "t:sections.all.icon.free_shipping.label"
+        },
+        {
+          "value": "check_badge",
+          "label": "t:sections.all.icon.check_badge.label"
+        },
+        {
+          "value": "message_communications",
+          "label": "t:sections.all.icon.message_communications.label"
+        },
+        {
+          "value": "payment",
+          "label": "t:sections.all.icon.payment.label"
+        },
+        {
+          "value": "boat",
+          "label": "t:sections.all.icon.boat.label"
+        },
+        {
+          "value": "truck",
+          "label": "t:sections.all.icon.truck.label"
+        },
+        {
+          "value": "location",
+          "label": "t:sections.all.icon.location.label"
+        },
+        {
+          "value": "leaf",
+          "label": "t:sections.all.icon.leaf.label"
+        },
+        {
+          "value": "blossom",
+          "label": "t:sections.all.icon.blossom.label"
+        },
+        {
+          "value": "phone",
+          "label": "t:sections.all.icon.phone.label"
+        },
+        {
+          "value": "email",
+          "label": "t:sections.all.icon.email.label"
+        },
+        {
+          "value": "chat",
+          "label": "t:sections.all.icon.chat.label"
+        },
+        {
+          "value": "bag",
+          "label": "t:sections.all.icon.bag.label"
+        },
+        {
+          "value": "support",
+          "label": "t:sections.all.icon.support.label"
+        },
+        {
+          "value": "tree",
+          "label": "t:sections.all.icon.tree.label"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "id": "heading_4",
+      "label": "t:sections.all.contents.heading.label",
+      "default": "This is heading text"
+    },
+    {
+      "type": "richtext",
+      "id": "description_4",
+      "label": "t:sections.all.contents.description.label",
+      "default": "<p>Tell about your service.</p>"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.mobile_options.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "carousel_on_mobile",
+      "label": "t:sections.all.mobile_options.carousel_on_mobile.label",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "t:settings.block_padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "t:sections.all.section_padding.top.label",
+      "default": 20,
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "t:sections.all.section_padding.bottom.label",
+      "default": 20,
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:blocks.names.icon"
+    }
+  ]
+}
+{% endschema %}

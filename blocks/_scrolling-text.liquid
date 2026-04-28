@@ -1,0 +1,77 @@
+{% liquid
+  assign block_st = block.settings
+  assign uppercase = ''
+  if block_st.uppercase
+    assign uppercase = 'uppercase'
+  endif
+  assign fs_custom = ''
+  if block_st.font_size > 41
+    assign fs_custom = 'fs-big'
+  elsif block_st.font_size > 24
+    assign fs_custom = 'fs-medium'
+  else
+    assign fs_custom = 'fs-custom'
+  endif
+  assign font_weight = block_st.font_weight
+%}
+<div
+  class="ticker-text__text whitespace-nowrap heading-letter-spacing {{ uppercase }} {{ fs_custom }} {{ font_weight }} rich__text-m0"
+  style="--font-size: {{ block_st.font_size }};"
+  {{ block.shopify_attributes }}
+>
+  {{ block.settings.text }}
+</div>
+{% schema %}
+{
+  "name": "t:sections.announcement-bar.blocks.announcement.settings.text.label",
+  "tag": null,
+  "settings": [
+    {
+      "type": "text",
+      "id": "text",
+      "label": "t:sections.announcement-bar.blocks.announcement.settings.text.label",
+      "default": "Up to 50% Off"
+    },
+    {
+      "type": "range",
+      "id": "font_size",
+      "label": "t:sections.all.content_settings.font_size.label",
+      "default": 20,
+      "min": 16,
+      "max": 100,
+      "step": 1,
+      "unit": "px"
+    },
+    {
+      "type": "select",
+      "id": "font_weight",
+      "label": "t:sections.all.content_settings.font_weight.label",
+      "default": "heading_weight",
+      "options": [
+        {
+          "value": "body_weight",
+          "label": "t:sections.all.content_settings.font_weight.body_weight.label"
+        },
+        {
+          "value": "subheading_weight",
+          "label": "t:sections.all.content_settings.font_weight.subheading_weight.label"
+        },
+        {
+          "value": "heading_weight",
+          "label": "t:sections.all.content_settings.font_weight.heading_weight.label"
+        }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "uppercase",
+      "label": "t:sections.all.text_transform.uppercase.label"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.announcement-bar.blocks.announcement.settings.text.label"
+    }
+  ]
+}
+{% endschema %}

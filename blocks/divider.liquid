@@ -1,0 +1,64 @@
+<div
+  class="block-divider pb-custom pt-custom spacing-style"
+  {{ block.shopify_attributes }}
+  style="--border-width: {{ block.settings.border_width }}px; --length: {{ block.settings.length }}%;  --space-bottom: {{ block.settings.padding_bottom }};--space-top: {{ block.settings.padding_top }};"
+></div>
+
+{% schema %}
+{
+  "name": "t:blocks.names.divider",
+  "tag": null,
+  "settings": [
+    {
+      "type": "range",
+      "id": "border_width",
+      "min": 1,
+      "max": 10,
+      "step": 0.5,
+      "unit": "px",
+      "label": "t:sections.flex_section.settings.border_thickness",
+      "default": 1
+    },
+    {
+      "type": "range",
+      "id": "length",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "label": "t:sections.flex_section.settings.border_opacity",
+      "default": 100
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.content_settings.spacing.label"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "t:sections.all.content_settings.spacing.spacing_top.label",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "t:sections.all.content_settings.spacing.spacing_bottom.label",
+      "default": 48
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:blocks.names.divider",
+      "category": "t:categories.layout"
+    }
+  ]
+}
+{% endschema %}

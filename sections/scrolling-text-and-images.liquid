@@ -1,0 +1,293 @@
+{{ 'marquee.css' | asset_url | stylesheet_tag }}
+{%- liquid
+  assign section_st = section.settings
+  assign section_width = section_st.section_width
+  assign color_scheme = section_st.color_scheme
+  assign is_right = false
+  if section_st.direction == 'right' or section_st.direction == 'ticker--animation-to-right'
+    assign is_right = true
+  endif
+  assign primary_direction_class = ''
+  assign primary_data_direction = ''
+  assign reflection_direction_class = 'ticker--animation-to-right'
+  assign reflection_data_direction = 'right'
+  if is_right
+    assign primary_direction_class = 'ticker--animation-to-right'
+    assign primary_data_direction = 'right'
+    assign reflection_direction_class = ''
+    assign reflection_data_direction = ''
+  endif
+  if section_st.reset_spacing
+    assign reset_spacing = ' remove_spacing'
+  endif
+-%}
+{% style %}
+  #theme-section-{{ section.id }} .ticker-text__container > * {
+    margin-left: {{ section_st.space_between_text }}px;
+  }
+  #theme-section-{{ section.id }} .ticker-text__image img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  #theme-section-{{ section.id }} .ticker-text__image {
+    border-radius: {{ section_st.image_roundness }}px;
+  }
+   #theme-section-{{ section.id }} .ticker-text-dual:not(:only-child) {
+    opacity: {{ section_st.opacity | divided_by: 100.0 }};
+  }
+  @supports (overflow: clip) {
+    #theme-section-{{ section.id }} {
+      overflow-x: clip;
+      overflow-y: visible;
+    }
+  }
+{% endstyle %}
+{%- capture style -%}
+  --section-pt: {{ section_st.padding_top }}; --section-pb: {{ section_st.padding_bottom }};
+{%- endcapture -%}
+{%- capture content -%}
+  {% content_for 'blocks' %}
+{%- endcapture -%}
+
+<div
+  class="section{% if section_st.padding_top < 30 %} pt-min{% endif %}{% if section_st.padding_bottom < 30 %} pb-min{% endif %} sec__scrolling-text relative z-5 color-{{ color_scheme }} gradient{{ reset_spacing }}"
+  style="{{ style | strip | strip_newlines }}"
+>
+  <div class="{{ section_width }}">
+    <div
+      id="theme-section-{{ section.id }}"
+      class="ticker-section__container{% if section_st['swap-direction'] %} ticker-section__container--swap{% endif %}"
+    >
+      <div
+        class="ticker-text relative z-1 bg-component-ticker py-custom"
+        style="--bg-component-ticker: {{ section_st.bg-component-ticker }}; --padding-block: {{ section_st.content_padding_block }};"
+      >
+        <component-ticker
+          class="ticker"
+          {% if primary_data_direction != blank %}
+            data-direction="{{ primary_data_direction }}"
+          {% endif %}
+          style="--ticker-delay:{{ section_st.speed }}s;"
+          data-script="{{ 'motion.min.js' | asset_url }}"
+        >
+          <div class="ticker__container ticker__container--js ticker-text__container {{ primary_direction_class }}">
+            {%- for i in (1..2) -%}
+              {{ content }}
+            {%- endfor -%}
+          </div>
+        </component-ticker>
+      </div>
+      {%- if section_st.enable_reflection -%}
+        <div
+          class="ticker-text ticker-text-dual z-0 py-custom"
+          style="--bg-component-ticker: {{ section_st.bg-component-ticker }}; --padding-block: {{ section_st.content_padding_block }};"
+        >
+          <component-ticker
+            class="ticker"
+            {% if reflection_data_direction != blank %}
+              data-direction="{{ reflection_data_direction }}"
+            {% endif %}
+            style="--ticker-delay:{{ section_st.speed }}s"
+            data-script="{{ 'motion.min.js' | asset_url }}"
+          >
+            <div class="ticker__container ticker__container--js ticker-text__container {{ reflection_direction_class }}">
+              {%- for i in (1..2) -%}
+                {{ content }}
+              {%- endfor -%}
+            </div>
+          </component-ticker>
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.scrolling-text-and-images.name",
+  "tag": "section",
+  "disabled_on": {
+    "groups": ["header", "footer", "custom.overlay"]
+  },
+  "blocks": [
+    {
+      "type": "_scrolling-image"
+    },
+    {
+      "type": "_scrolling-text"
+    }
+  ],
+  "settings": [
+    {
+      "type": "select",
+      "id": "section_width",
+      "label": "t:sections.all.section_width.label",
+      "default": "full_width",
+      "options": [
+        {
+          "value": "container",
+          "label": "t:sections.all.section_width.container.label"
+        },
+        {
+          "value": "fluid_container",
+          "label": "t:sections.all.section_width.fluid_container.label"
+        },
+        {
+          "value": "stretch_width",
+          "label": "t:sections.all.section_width.stretch_width.label"
+        },
+        {
+          "value": "full_width",
+          "label": "t:sections.all.section_width.full_width.label"
+        }
+      ]
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.color_scheme.label",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.scrolling-text-and-images.settings.scrolling-settings"
+    },
+    {
+      "type": "select",
+      "id": "direction",
+      "label": "t:sections.scrolling_text.settings.direction.label",
+      "default": "left",
+      "options": [
+        {
+          "value": "left",
+          "label": "t:sections.scrolling_text.settings.direction.left.label"
+        },
+        {
+          "value": "right",
+          "label": "t:sections.scrolling_text.settings.direction.right.label"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "speed",
+      "label": "t:sections.scrolling_text.settings.speed.label",
+      "default": 10,
+      "min": 3,
+      "max": 30,
+      "step": 1,
+      "unit": "s"
+    },
+    {
+      "type": "range",
+      "id": "space_between_text",
+      "label": "t:sections.scrolling-text-and-images.settings.gap",
+      "default": 60,
+      "min": 30,
+      "max": 150,
+      "step": 5,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "image_roundness",
+      "label": "t:sections.scrolling-text-and-images.settings.image-roundness",
+      "default": 30,
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px"
+    },
+    {
+      "type": "color",
+      "id": "bg-component-ticker",
+      "label": "t:settings_schema.badges.settings.background_color.label",
+      "default": "#FFEA54"
+    },
+    {
+      "type": "range",
+      "id": "content_padding_block",
+      "min": 0,
+      "max": 60,
+      "step": 1,
+      "unit": "px",
+      "default": 5,
+      "label": "t:sections.all.content_settings.content_padding_block.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.scrolling-text-and-images.settings.reflection-settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_reflection",
+      "default": true,
+      "label": "t:sections.scrolling-text-and-images.settings.enable-reflection",
+    },
+    {
+      "type": "checkbox",
+      "id": "swap-direction",
+      "label": "t:sections.scrolling-text-and-images.settings.swap-direction",
+      "default": true,
+      "visible_if": "{{section.settings.enable_reflection==true}}"
+    },
+    {
+      "type": "range",
+      "id": "opacity",
+      "label": "t:sections.scrolling-text-and-images.settings.opacity",
+      "default": 40,
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "visible_if": "{{section.settings.enable_reflection==true}}"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.section_padding.label"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "t:sections.all.section_padding.top.label",
+      "default": 60,
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "t:sections.all.section_padding.bottom.label",
+      "default": 60,
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px"
+    },
+    {
+      "type": "checkbox",
+      "id": "reset_spacing",
+      "label": "t:sections.all.section_padding.reset_spacing.label",
+      "default": false
+    }
+  ],
+
+  "presets": [
+    {
+      "name": "t:sections.scrolling-text-and-images.name",
+      "category": "t:categories.storytelling",
+      "blocks": [
+        {
+          "type": "_scrolling-image"
+        },
+        {
+          "type": "_scrolling-text"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

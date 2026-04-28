@@ -1,0 +1,162 @@
+{% liquid
+  assign theme_st = settings
+  assign scroll_animation = theme_st.scroll_animation
+  assign block_st = block.settings
+  assign mb_custom = ''
+  if block_st.spacing_bottom > 41
+    assign mb_custom = 'mb-big'
+  elsif block_st.spacing_bottom > 30
+    assign mb_custom = 'mb-medium'
+  else
+    assign mb_custom = 'mb-custom'
+  endif
+  assign image = block_st.icon_image
+%}
+<motion-element
+  data-motion="{{ scroll_animation }}"
+  {% if scroll_animation == 'none' %}
+    hold
+  {% endif %}
+  class="block flex md-justify-{{ section.settings.content_alignment }} justify-{{ section.settings.content_alignment_mobile }} mb-justify-{{ section.settings.content_alignment_mobile }}"
+>
+  <div
+    class="{{ mb_custom }} lh-1 w-custom max-w-100 heading-color w-custom-svg"
+    style="--space-bottom: {{ block_st.spacing_bottom }};--custom-width: {{ block_st.icon_size }}px;"
+    {{ block.shopify_attributes }}
+  >
+    {%- if image != blank -%}
+      {%- assign sizes = block_st.icon_size | append: 'px' -%}
+      {%- assign image_alt = image.alt | default: 'images' -%}
+      {% render 'responsive-image',
+        type: 'other',
+        image: image,
+        image_alt: image_alt,
+        sizes: sizes,
+        custom_widths: '185, 120, 60, 30',
+        no_animate: true
+      %}
+    {%- elsif block_st.custom_svg != blank -%}
+      <span class="custom-svg">
+        {{ block_st.custom_svg }}
+      </span>
+    {%- elsif block_st.icon_svg != 'none' -%}
+      {% render 'icon_svg_list', icon: block_st.icon_svg, custom_width: block_st.icon_size %}
+    {% endif %}
+  </div>
+</motion-element>
+{% schema %}
+{
+  "name": "t:blocks.names.icon",
+  "settings": [
+    {
+      "type": "range",
+      "id": "icon_size",
+      "label": "t:sections.icon_box.settings.icon_size.label",
+      "default": 32,
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "unit": "px"
+    },
+    {
+      "type": "image_picker",
+      "id": "icon_image",
+      "label": "t:sections.all.image.label"
+    },
+    {
+      "type": "select",
+      "id": "icon_svg",
+      "label": "t:sections.all.svg.label",
+      "default": "free_shipping",
+      "options": [
+        {
+          "value": "none",
+          "label": "t:sections.all.icon.none.label"
+        },
+        {
+          "value": "free_shipping",
+          "label": "t:sections.all.icon.free_shipping.label"
+        },
+        {
+          "value": "check_badge",
+          "label": "t:sections.all.icon.check_badge.label"
+        },
+        {
+          "value": "message_communications",
+          "label": "t:sections.all.icon.message_communications.label"
+        },
+        {
+          "value": "payment",
+          "label": "t:sections.all.icon.payment.label"
+        },
+        {
+          "value": "boat",
+          "label": "t:sections.all.icon.boat.label"
+        },
+        {
+          "value": "truck",
+          "label": "t:sections.all.icon.truck.label"
+        },
+        {
+          "value": "location",
+          "label": "t:sections.all.icon.location.label"
+        },
+        {
+          "value": "leaf",
+          "label": "t:sections.all.icon.leaf.label"
+        },
+        {
+          "value": "blossom",
+          "label": "t:sections.all.icon.blossom.label"
+        },
+        {
+          "value": "phone",
+          "label": "t:sections.all.icon.phone.label"
+        },
+        {
+          "value": "email",
+          "label": "t:sections.all.icon.email.label"
+        },
+        {
+          "value": "chat",
+          "label": "t:sections.all.icon.chat.label"
+        },
+        {
+          "value": "bag",
+          "label": "t:sections.all.icon.bag.label"
+        },
+        {
+          "value": "support",
+          "label": "t:sections.all.icon.support.label"
+        },
+        {
+          "value": "tree",
+          "label": "t:sections.all.icon.tree.label"
+        }
+      ]
+    },
+    {
+      "type": "textarea",
+      "id": "custom_svg",
+      "label": "t:sections.all.svg.custom_svg.label",
+      "info": "t:sections.all.svg.custom_svg.info"
+    },
+    {
+      "type": "range",
+      "id": "spacing_bottom",
+      "label": "t:sections.all.content_settings.spacing.spacing_bottom.label",
+      "default": 0,
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:blocks.names.icon",
+      "category": "t:categories.basic"
+    }
+  ]
+}
+{% endschema %}

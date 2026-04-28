@@ -1,0 +1,73 @@
+{% liquid
+  assign block_st = block.settings
+  assign product = closest.product
+  assign section_st = section.settings
+  assign enable_skeleton_loading = section_st.enable_skeleton_loading
+%}
+{{ 'countdown.css' | asset_url | stylesheet_tag }}
+{%- if product.metafields.custom.countdown_timer and product.metafields.custom.countdown_timer != blank -%}
+  <div
+    class="countdown-timer mb-20 inline-flex flex-column{% if block_st.timer_style != 'default' %} gap-custom{% else %} gap-5{% endif %}{% if block_st.content != blank %} product-timer rounded-5 p-20 pt-15{% endif %} {{ block_st.timer_style }}{% if enable_skeleton_loading %} skeleton-loading{% endif %}"
+    {% if block_st.timer_style != 'default' %}
+      style="--gap: 7;"
+    {% endif %}
+  >
+    {% if block_st.content != blank %}
+      <div class="countdown-messeage ln-normal heading-style">
+        {{ block_st.content }}
+      </div>
+    {% endif %}
+    <countdown-timer
+      class="hidden flex flex-wrap fs-18{% if block_st.timer_style == 'default' %} primary-color{% endif %}{% if block_st.content == blank %} product-timer rounded-5 p-20{% endif %} {{ block_st.timer_style }}"
+      {{ block.shopify_attributes }}
+      data-endtime="{{ product.metafields.custom.countdown_timer }}"
+      data-days="{{ 'products.product.countdown.days' | t }}"
+      data-hours="{{ 'products.product.countdown.hours' | t }}"
+      data-mins="{{ 'products.product.countdown.mins' | t }}"
+      data-secs="{{ 'products.product.countdown.secs' | t }}"
+      {% if block_st.timer_style == 'default' %}
+        style="--color-heading: var(--color-primary);"
+      {% endif %}
+    >
+    </countdown-timer>
+  </div>
+{% endif %}
+{% schema %}
+{
+  "name": "t:blocks.general.countdown.name",
+  "tag": null,
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "t:sections.main-product.blocks.countdown_timer.settings.info"
+    },
+    {
+      "type": "select",
+      "id": "timer_style",
+      "options": [
+        {
+          "value": "default",
+          "label": "t:sections.main-product.blocks.countdown_timer.settings.timer_style.default"
+        },
+        {
+          "value": "highlight",
+          "label": "t:sections.main-product.blocks.countdown_timer.settings.timer_style.highlight"
+        }
+      ],
+      "default": "default",
+      "label": "t:sections.main-product.blocks.countdown_timer.settings.timer_style.label"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "content",
+      "label": "t:sections.main-product.blocks.countdown_timer.settings.content",
+      "default": "🔥 Hurry Up! Sale ends in:"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:blocks.general.countdown.name"
+    }
+  ]
+}
+{% endschema %}

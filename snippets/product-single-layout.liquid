@@ -1,0 +1,166 @@
+{{ 'countdown.css' | asset_url | stylesheet_tag }}
+{% liquid
+  assign theme_st = settings
+  assign desktop_layout = section.settings.desktop_layout
+  assign desktop_media_width = section.settings.desktop_media_width
+  assign desktop_main_image_position = section.settings.desktop_main_image_position
+  assign media = product.media
+  if theme_st.color_swatch_trigger != blank and theme_st.enable_color_swatches != false
+    assign option_color_name = theme_st.color_swatch_trigger | split: ','
+  else
+    assign option_color_name = 'Color'
+  endif
+  assign position = 1
+  for opt in product.options_with_values
+    for color_trigger_name in option_color_name
+      if opt.name == color_trigger_name
+        assign position = opt.position
+      endif
+    endfor
+  endfor
+  assign default_color_option = ''
+  if position == 1
+    assign default_color_option = product.selected_or_first_available_variant.option1
+  elsif position == 2
+    assign default_color_option = product.selected_or_first_available_variant.option2
+  elsif position == 3
+    assign default_color_option = product.selected_or_first_available_variant.option3
+  endif
+  if product.metafields.custom.use_variants_image_group != blank and product.metafields.custom.use_variants_image_group
+    assign alt_tags = ''
+    assign first = true
+    for image in product.media
+      if image.alt != blank
+        assign exclude_image = false
+        for option in product.options_with_values
+          for value in option.values
+            if image.alt == value
+              assign exclude_image = true
+            endif
+          endfor
+        endfor
+        if exclude_image == false
+          if first
+            assign alt_tags = image.alt
+            assign first = false
+          else
+            assign alt_tags = alt_tags | append: ', ' | append: image.alt
+          endif
+        endif
+      endif
+    endfor
+    assign variant_media = product.media | where: 'alt', default_color_option
+    assign alt_tags_list = alt_tags | split: ', '
+    assign other_media = ''
+    assign added_alts = ''
+    for image in product.media
+      for alt_tag in alt_tags_list
+        if image.alt == alt_tag
+          if added_alts contains alt_tag
+          else
+            assign other_media = other_media | append: image.alt | append: ','
+            assign added_alts = added_alts | append: alt_tag | append: ','
+          endif
+        endif
+      endfor
+    endfor
+    assign combined_media = variant_media
+    assign other_media_array = other_media | split: ','
+    for alt_tag in other_media_array
+      assign media_to_add = product.media | where: 'alt', alt_tag
+      assign combined_media = combined_media | concat: media_to_add
+    endfor
+    assign media = combined_media
+  endif
+  if media.size == 0
+    assign media = product.media
+  endif
+  assign scroll_animation = settings.scroll_animation | strip
+%}
+{% liquid
+  assign enable_rtl = settings.rtl
+  assign iso_code = request.locale.iso_code
+  assign lis_language_rtl = settings.language_rtl
+  if lis_language_rtl != blank
+    if lis_language_rtl contains iso_code
+      assign enable_rtl = true
+    else
+      assign enable_rtl = false
+    endif
+  endif
+%}
+<div
+  class="{% if type != 'single' %}grid grid-cols{% else %}flex flex-cols gap flex-wrap section{% if desktop_main_image_position == 'right' %} flex-row-reverse{% endif %}{% endif %}"
+  style="{% if type != 'single' %}{%- if product.media.size > 0 -%}--col-number: 1;--col-desktop: 2;--col-desktop-small: 2;{%- else -%}--col-number: 1{%- endif -%}{% else %}--col-gap: 30px;--col-width: {{ desktop_media_width }}%;{% endif %}"
+>
+  {% assign product_media = product.media %}
+  {% comment %} Product media {% endcomment %}
+
+  {% comment %} Case product has image {% endcomment %}
+  {%- if product_media.size > 0 -%}
+    <div
+      class="{% if type != 'single' %}product-single__media{% else %}product-detail__media col-md-w-custom w-full{% endif %}"
+    >
+      {% comment %} logic check ratio of image{% endcomment %}
+      {%- liquid
+        assign default_position = 0
+        unless product.has_only_default_variant
+          assign default_position = product.selected_or_first_available_variant.featured_image.position | minus: 1
+        endunless
+      -%}
+      {% render 'media-gallery',
+        images: media,
+        section_st: section.settings,
+        theme_st: theme_st,
+        product: product,
+        section: section,
+        position_index: default_position,
+        desktop_layout: desktop_layout,
+        type: type
+      %}
+    </div>
+  {%- else -%}
+    {% if type == 'single' %}
+      <div
+        class="product-detail__media col-md-w-custom w-full rounded"
+      >
+        {% render 'placeholder-render' %}
+      </div>
+    {% endif %}
+  {%- endif -%}
+
+  {% comment %} Product infomration {% endcomment %}
+  <motion-element
+    class="{% if type != 'single' %}product-single__information w-full relative white-gradient   {% else %}product-detail__information col-md-remaining w-full{% endif %} product-featured"
+    data-motion-delay="{% if type == "quickview" %} 0 {% else %} 0 {% endif %}"
+    data-motion="fade-up"
+  >
+    <div
+      {% if type != 'single' %}
+        class="{% if product_media.size > 0 %} absolute-md  inset-0 custom-scrollbar overflow-x-hidden {% endif %} px-15 px-md-30 py-30 "
+      {% endif %}
+    >
+      {{ children }}
+      <a
+        {% if product == blank %}
+          role="link" aria-disabled="true"
+        {% else %}
+          href="{{ product.url }}"
+        {% endif %}
+        aria-label="{{ 'products.product.general.view_full_details' | t }}"
+        class="mt-25 product-singe__view-all-button reversed-links heading_weight heading-color inline-flex align-center gap-5 no-underline lh-normal"
+      >
+        {{ 'products.product.general.view_full_details' | t }}
+        {% if enable_rtl %}
+          <svg width="12" height="9" fill="none">
+            <path fill="#111" d="M4.717 8.783c.152.14.334.211.545.211.199 0 .369-.07.51-.21A.724.724 0 0 0 6 8.255a.688.688 0 0 0-.229-.527L2.555 4.494 5.77 1.277A.688.688 0 0 0 6 .75a.688.688 0 0 0-.229-.527.669.669 0 0 0-.51-.229.744.744 0 0 0-.544.229L.973 3.967a.744.744 0 0 0-.229.545c0 .199.076.369.229.51l3.744 3.761Zm5.256 0c.14.14.316.211.527.211.21 0 .387-.07.527-.21a.724.724 0 0 0 .229-.528.688.688 0 0 0-.229-.527L7.811 4.494l3.216-3.217a.688.688 0 0 0 .229-.527.688.688 0 0 0-.229-.527.688.688 0 0 0-.527-.229.688.688 0 0 0-.527.229L6.229 3.967A.744.744 0 0 0 6 4.512c0 .199.076.369.229.51l3.744 3.761Z"/>
+          </svg>
+        {% else %}
+          <svg width="12" height="9" fill="none">
+            <path fill="currentColor" d="M7.283 8.783a.776.776 0 0 1-.545.211c-.199 0-.369-.07-.51-.21A.724.724 0 0 1 6 8.255c0-.211.076-.387.229-.527l3.216-3.235L6.23 1.277A.688.688 0 0 1 6 .75c0-.21.076-.387.229-.527a.669.669 0 0 1 .51-.229c.21 0 .392.076.544.229l3.744 3.744a.744.744 0 0 1 .229.545c0 .199-.076.369-.229.51L7.283 8.782Zm-5.256 0a.715.715 0 0 1-.527.211.715.715 0 0 1-.527-.21.724.724 0 0 1-.229-.528c0-.211.076-.387.229-.527l3.216-3.235L.973 1.277A.688.688 0 0 1 .744.75C.744.54.82.363.973.223A.688.688 0 0 1 1.5-.006c.21 0 .387.076.527.229l3.744 3.744A.744.744 0 0 1 6 4.512c0 .199-.076.369-.229.51L2.027 8.782Z"/>
+          </svg>
+        {% endif %}
+      </a>
+    </div>
+  </motion-element>
+</div>

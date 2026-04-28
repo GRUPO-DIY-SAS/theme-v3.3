@@ -1,0 +1,17 @@
+<div
+class="review_sold flex flex-wrap gap-20 align-center"
+style="--space-top: 2;--space-bottom: 13"
+>
+    {%- render 'review', product: closest.product, block: block, class: 'mb-custom lh-normal mt-custom' -%}
+</div>
+{% schema %}
+{
+    "name": "t:blocks.product.review",
+    "tag": null,
+    "presets": [
+        {
+            "name": "t:blocks.product.review"
+        }
+    ]
+}
+{% endschema %}

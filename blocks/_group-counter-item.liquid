@@ -1,0 +1,26 @@
+<div
+  class="counter-content block text-{{ section.settings.content_alignment }}"
+>
+  {% content_for 'blocks' %}
+</div>
+{% schema %}
+{
+  "name": "t:blocks.names.counter_item",
+  "blocks": [
+    {
+      "type": "heading"
+    },
+    {
+      "type": "description"
+    },
+    {
+      "type": "counter"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:blocks.names.counter_item"
+    }
+  ]
+}
+{% endschema %}

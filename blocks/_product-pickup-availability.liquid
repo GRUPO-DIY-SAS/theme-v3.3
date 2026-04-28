@@ -1,0 +1,22 @@
+{% liquid
+  assign section_st = section.settings
+  assign product = closest.product
+  assign enable_skeleton_loading = section_st.enable_skeleton_loading
+%}
+<div
+  class="pickup_avaiability mb-25{% if enable_skeleton_loading %} skeleton-loading{% endif %}"
+  {{ block.shopify_attributes }}
+>
+  {%- render 'pickup-availability', product: product -%}
+</div>
+{% schema %}
+{
+  "name": "t:blocks.product.pickup_availability.name",
+  "tag": null,
+  "presets": [
+    {
+      "name": "t:blocks.product.pickup_availability.name"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,95 @@
+<div
+  {{ block.shopify_attributes }}
+  class="bls__subcribe-submit"
+  style="--mb: {{ block.settings.bottom }}px; --mt:{{  block.settings.top }}px"
+>
+  {%- form 'customer', class: 'subscribe-form' -%}
+    <input
+      type="hidden"
+      name="contact[tags]"
+      value="newsletter"
+    >
+    <div class=" flex flex-wrap gap-10">
+      <input
+        type="email"
+        required
+        name="contact[email]"
+        value="{% if customer %}{{ customer.email }}{% endif %}"
+        placeholder="{{ block.settings.email_placeholder }}"
+        class="bls__subcribe-input btn-radius mr-10 flex-fill"
+      >
+      <button
+        type="submit"
+        name="commit"
+        class="bls__subcribe-button btn btn-{{ block.settings.button_type }} "
+      >
+        {{ block.settings.btn_label }}
+      </button>
+    </div>
+  {%- endform -%}
+</div>
+{% schema %}
+{
+  "name": "t:blocks.names.form_subscribe",
+  "settings": [
+    {
+      "type": "text",
+      "id": "email_placeholder",
+      "label": "t:settings.email_placeholder",
+      "default": "Enter your email..."
+    },
+    {
+      "type": "text",
+      "id": "btn_label",
+      "label": "t:settings.button_label",
+      "default": "Subscribe"
+    },
+    {
+      "type": "select",
+      "id": "button_type",
+      "label": "t:sections.all.contents.button.button_type.label",
+      "default": "primary",
+      "options": [
+        {
+          "value": "primary",
+          "label": "t:sections.all.contents.button.button_type.primary.label"
+        },
+        {
+          "value": "outline",
+          "label": "t:sections.all.contents.button.button_type.outline.label"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "t:settings.spacing"
+    },
+    {
+      "type": "range",
+      "id": "top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0,
+      "label": "t:settings.top"
+    },
+    {
+      "type": "range",
+      "id": "bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 25,
+      "label": "t:settings.bottom"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:blocks.names.form_subscribe",
+      "category": "t:categories.form"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,62 @@
+{% liquid
+  assign block_st = block.settings
+%}
+{% if block_st.image_block != blank %}
+  <div class="w-full flex md-justify-{{ section.settings.content_alignment }} mb-justify-{{ section.settings.content_alignment_mobile }}">
+    <div
+      class="sec__content-img block w-custom mb-custom"
+      style="--custom-width: {{ block_st.image_width }}px; --space-bottom: {{ block_st.spacing_bottom }};"
+    >
+      {%- assign sizes = block_st.image_width | append: 'px' -%}
+      {%- assign image_alt = block_st.image.alt | default: '' -%}
+
+      {% render 'responsive-image',
+        type: 'other',
+        image: block_st.image_block,
+        image_alt: image_alt,
+        sizes: sizes,
+        width: block_st.image_width,
+        no_animate: true
+      %}
+    </div>
+  </div>
+{% endif %}
+
+{% schema %}
+{
+  "name": "t:sections.all.image.label",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image_block",
+      "label": "t:sections.all.image.label"
+    },
+    {
+      "type": "range",
+      "id": "image_width",
+      "min": 10,
+      "max": 500,
+      "step": 5,
+      "unit": "px",
+      "label": "t:sections.footer.blocks.store_info.settings.image_width",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "spacing_bottom",
+      "label": "t:sections.all.content_settings.spacing.spacing_bottom.label",
+      "default": 30,
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.all.image.label",
+      "category": "t:categories.basic"
+    }
+  ]
+}
+{% endschema %}

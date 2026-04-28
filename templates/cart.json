@@ -1,0 +1,71 @@
+{
+  "sections": {
+    "heading": {
+      "type": "page-heading",
+      "blocks": {
+        "breadcrumb_fkLpBa": {
+          "type": "breadcrumb",
+          "settings": {}
+        },
+        "heading_f6yAbL": {
+          "type": "heading",
+          "settings": {
+            "page_title": "",
+            "header_size": "default"
+          }
+        },
+        "description_Uyfq9Y": {
+          "type": "description",
+          "settings": {
+            "description": "<p>Revisa los productos seleccionados antes de finalizar tu compra. ¡Disfruta una experiencia de compra sin complicaciones! <\/p>"
+          }
+        }
+      },
+      "block_order": [
+        "breadcrumb_fkLpBa",
+        "heading_f6yAbL",
+        "description_Uyfq9Y"
+      ],
+      "settings": {
+        "section_width": "stretch_width",
+        "color_scheme": "",
+        "alignment": "center",
+        "overlay_opacity": 0,
+        "height": "adapt",
+        "padding_top": 20,
+        "padding_bottom": 0
+      }
+    },
+    "cart-items": {
+      "type": "main-cart-items",
+      "settings": {
+        "section_width": "fluid_container",
+        "enable_cart_note": true,
+        "enable_discount_code": false,
+        "show_estimate_shipping": false,
+        "icon_svg_1": "question",
+        "heading_1": "¿Tienes preguntas?",
+        "description_1": "<p>¡Nuestros expertos están aquí para ayudarte! Llámanos o escríbenos gratis y con gusto te atenderemos.<\/p><p><em>Nadie entiende de vapeo como nosotros<\/em><\/p>",
+        "icon_svg_2": "secure",
+        "heading_2": "Información de Entrega",
+        "description_2": "<p>Realiza tus pedidos de <strong>lunes a sábado antes de la 1:30 p.m.<\/strong> para que sean despachados el mismo día. <\/p><p><em>No ofrecemos atención al público domingos y festivos<\/em>.<\/p>",
+        "icon_svg_3": "free_shipping",
+        "heading_3": "Envío gratis",
+        "description_3": "<p>En <strong>compras superiores<\/strong> a <strong>$80.000<\/strong> en <strong>Bogotá<\/strong> y Cercanías y desde <strong>$250.000<\/strong> a nivel Nacional.  <em>Hasta 3 Kg de Peso y en ciudades principales. <\/em><\/p><p><\/p>",
+        "heading_delivery": "Venta y entrega exclusivas para mayores de 18 años.",
+        "description_delivery": "<p>Al continuar con el proceso de compra, el usuario <strong>autoriza la verificación de su información<\/strong> durante el proceso de compra y despacho. Esta verificación constituye un <strong>requisito obligatorio<\/strong> para la aprobación y entrega del pedido.<br\/><br\/>Adicionalmente, el usuario reconoce y acepta que <strong>el domiciliario solo entregará el producto a una persona mayor de edad<\/strong>, previa <strong>exhibición del documento de identidad<\/strong> al momento de la entrega.<\/p><p>En caso de que la información suministrada no pueda ser validada, resulte inconsistente o no sea posible acreditar la mayoría de edad en la entrega, <strong>GRUPO DIY S.A.S. podrá cancelar el pedido y abstenerse de realizar el despacho<\/strong>, sin que ello genere lugar a reclamaciones.<\/p>",
+        "heading_guarantee": "",
+        "description_guarantee": "<p><br\/><br\/><br\/><\/p>",
+        "heading_payment": "Métodos de pago",
+        "payment_image": "shopify:\/\/shop_images\/Payment_6ca1a29f-0fb4-4fbe-a624-35dfe7ae119f.png",
+        "payment_width": 340,
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    }
+  },
+  "order": [
+    "heading",
+    "cart-items"
+  ]
+}

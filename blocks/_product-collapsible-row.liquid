@@ -1,0 +1,72 @@
+{% liquid
+  assign block_st = block.settings
+  assign product = closest.product
+  assign section_st = section.settings
+  assign enable_skeleton_loading = section_st.enable_skeleton_loading
+%}
+<collapsible-block
+  tabindex="0"
+  {{ block.shopify_attributes }}
+  class="bls-toggle {% if block_st.open == true %} active {% endif %} relative border-bottom block{% if enable_skeleton_loading %} skeleton-loading{% endif %}"
+>
+  <h3 class="h6 my-0 pointer py-17 relative collapsible-heading heading-letter-spacing">
+    {{- block_st.heading }}
+    <span class="open-children-toggle absolute inset-0 flex flex-end pointer">
+      <span class="icon_plus-animation"> </span>
+    </span>
+  </h3>
+  <div
+    class="overflow-hidden {% if block_st.open == true %} open_collab {% endif %} collapsible-content"
+    {% if block_st.open != true %}
+      style="display: none;"
+    {% endif %}
+  >
+    <div class="collapsible-content_inner mb-12 rich__text-mt-0{% if block_st.use_product_description == true %} product_description{% endif %}">
+      {% if block_st.use_product_description == true %}
+        {%- if product != blank -%}
+          {{ product.description }}
+        {%- else -%}
+          {{ 'onboarding.default_description' | t }}
+        {% endif %}
+      {% else %}
+        {{ block_st.content }}
+      {% endif %}
+    </div>
+  </div>
+</collapsible-block>
+{% schema %}
+{
+  "name": "t:blocks.general.collapsible_row.name",
+  "tag": null,
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "default": "Collapsible row",
+      "label": "t:sections.main-product.blocks.collapsible_row.settings.heading"
+    },
+    {
+      "type": "richtext",
+      "id": "content",
+      "label": "t:sections.main-product.blocks.collapsible_row.settings.content"
+    },
+    {
+      "type": "checkbox",
+      "id": "use_product_description",
+      "default": false,
+      "label": "t:sections.main-product.blocks.collapsible_row.settings.use_product_description"
+    },
+    {
+      "type": "checkbox",
+      "id": "open",
+      "default": false,
+      "label": "t:sections.main-product.blocks.collapsible_row.settings.open.label"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:blocks.general.collapsible_row.name"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,111 @@
+{% liquid
+  assign block_st = block.settings
+  assign section_st = section.settings
+  assign enable_skeleton_loading = section_st.enable_skeleton_loading
+%}
+{%- if block_st.heading != blank -%}
+  <h2 class="h5 product-recommendations-heading heading-letter-spacing{% if enable_skeleton_loading %} skeleton-loading{% endif %} mt-30">
+    {{ block_st.heading }}
+  </h2>
+{% endif %}
+<product-recommendations
+  class="swiper block mb-25{% if enable_skeleton_loading %} skeleton-loading{% endif %}{% if block_st.heading == blank %} mt-30{% endif %}"
+  data-section-id="{{ section.id }}"
+  data-effect="slide"
+  data-speed="500"
+  data-desktop="{{ block_st.products_per_page }}"
+  data-mobile="2"
+  data-tablet="3"
+  {{ block.shopify_attributes }}
+  data-url="{{ routes.product_recommendations_url }}?section_id={{ section.id }}&product_id={{ product.id }}&intent=complementary&limit={{ block.settings.product_list_limit }}"
+>
+  {%- if recommendations.performed and recommendations.products_count > 0 -%}
+    <div class="swiper-wrapper">
+      {%- for product in recommendations.products limit: block_st.product_list_limit %}
+        {% render 'product-item',
+          card_product: product,
+          section_id: section.id,
+          template_enable_product_vendor: false,
+          template_enable_rate: false,
+          template_enable_product_short_description: false,
+          template_enable_color_swatches: false,
+          template_enable_add_cart: block_st.enable_quick_add,
+          template_enable_action: block_st.enable_quick_add,
+          template_enable_price: true,
+          class: ' swiper-slide'
+        %}
+      {%- endfor -%}
+    </div>
+    {% if block_st.show_navigation %}
+      {%- render 'swiper-navigation' -%}
+    {% endif %}
+    {%- if block_st.show_pagination -%}
+      <div
+        class="swiper-pagination position-bottom"
+      ></div>
+    {% endif %}
+  {% endif %}
+</product-recommendations>
+{% schema %}
+{
+  "name": "t:blocks.product.complementary_products.name",
+  "tag": null,
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "t:sections.main-product.blocks.complementary_products.settings.paragraph.content"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "default": "Pairs well with",
+      "label": "t:sections.main-product.blocks.complementary_products.settings.heading.label"
+    },
+    {
+      "type": "range",
+      "id": "product_list_limit",
+      "min": 1,
+      "max": 10,
+      "step": 1,
+      "default": 10,
+      "label": "t:sections.main-product.blocks.complementary_products.settings.product_list_limit.label"
+    },
+    {
+      "type": "range",
+      "id": "products_per_page",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "default": 3,
+      "label": "t:sections.main-product.blocks.complementary_products.settings.products_per_page.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_navigation",
+      "default": false,
+      "label": "t:sections.main-product.blocks.complementary_products.settings.show_navigation"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_pagination",
+      "default": false,
+      "label": "t:sections.main-product.blocks.complementary_products.settings.show_pagination"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.main-product.blocks.complementary_products.settings.product_card.header"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_quick_add",
+      "label": "t:sections.main-product.blocks.complementary_products.settings.product_card.enable_quick_add",
+      "default": false
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:blocks.product.complementary_products.name"
+    }
+  ]
+}
+{% endschema %}

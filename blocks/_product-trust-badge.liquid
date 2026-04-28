@@ -1,0 +1,65 @@
+{% liquid
+  assign block_st = block.settings
+  assign section_st = section.settings
+  assign enable_skeleton_loading = section_st.enable_skeleton_loading
+%}
+{% if block_st.message != blank or block_st.trust_badge_image != blank %}
+  <div
+    class="trust-badge text-center mb-20 p-20 grey-bg rounded lh-normal{% if enable_skeleton_loading %} skeleton-loading{% endif %}"
+    {{ block.shopify_attributes }}
+  >
+    {% if block_st.message != blank %}
+      <div class="trust-badge__message h6 heading-letter-spacing lh-normal mt-0 fs-big-1">
+        {{ block_st.message }}
+      </div>
+    {% endif %}
+    {% if block_st.trust_badge_image != blank %}
+      <div
+        class="trust-badge__image mx-auto w-custom max-w-100"
+        style="--custom-width: {{ block_st.image_width }}px"
+      >
+        {%- assign image_alt = block_st.trust_badge_image.alt | default: 'trusted_page' | escape -%}
+        {% render 'responsive-image',
+          type: 'banner',
+          image: block_st.trust_badge_image,
+          image_alt: image_alt,
+          no_animate: true
+        %}
+      </div>
+    {% endif %}
+  </div>
+{% endif %}
+{% schema %}
+{
+  "name": "t:blocks.product.trust_badge.name",
+  "tag": null,
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "message",
+      "label": "t:sections.main-product.blocks.trust_badge.settings.message",
+      "default": "Guarantee safe checkout"
+    },
+    {
+      "type": "image_picker",
+      "id": "trust_badge_image",
+      "label": "t:sections.main-product.blocks.trust_badge.settings.trust_badge_image"
+    },
+    {
+      "type": "range",
+      "id": "image_width",
+      "label": "t:sections.main-product.blocks.trust_badge.settings.image_width",
+      "min": 80,
+      "max": 400,
+      "unit": "px",
+      "default": 200,
+      "step": 10
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:blocks.product.trust_badge.name"
+    }
+  ]
+}
+{% endschema %}

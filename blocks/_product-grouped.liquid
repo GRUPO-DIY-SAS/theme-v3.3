@@ -1,0 +1,47 @@
+{% liquid
+  assign block_st = block.settings
+  assign section_st = section.settings
+  assign enable_skeleton_loading = section_st.enable_skeleton_loading
+  assign product = closest.product
+  assign products_group = product.metafields.custom.product_grouped | split: ',' | uniq
+%}
+{% if products_group.size > 0 %}
+  {% if enable_skeleton_loading %}<div class="skeleton-loading">{% endif %}
+  <h2 class="h5 mt-0 heading-letter-spacing">
+    {{ block_st.heading }}
+  </h2>
+  <product-group
+    class="block mb-25"
+    {{ block.shopify_attributes }}
+  >
+    <script type="application/json" class="productGroup">
+      {%- liquid
+          assign products_grouped = product.metafields.custom.product_grouped | split: ','
+      -%}
+      [{{ product.id }},{%- for item in products_grouped -%}{{ item | split: 'Product/' | last | split: '"' | first }}{%- unless forloop.last -%},{%- endunless forloop.last -%}{%- endfor -%}]
+    </script>
+  </product-group>
+  {% if enable_skeleton_loading %}</div>{% endif %}
+{% endif %}
+{% schema %}
+{
+  "name": "t:blocks.product.product_grouped.name",
+  "tag": null,
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "t:sections.main-product.blocks.product_grouped.settings.info"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "t:sections.main-product.blocks.product_grouped.settings.heading"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:blocks.product.product_grouped.name"
+    }
+  ]
+}
+{% endschema %}

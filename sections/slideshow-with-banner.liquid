@@ -1,0 +1,227 @@
+<link rel="stylesheet" href="{{ 'banner.css' | asset_url }}" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="{{ 'slideshow.css' | asset_url }}" media="print" onload="this.media='all'">
+{% liquid
+  assign section_st = section.settings
+  assign section_width = section_st.section_width
+  if section_st.reset_spacing
+    assign reset_spacing = ' remove_spacing'
+  endif
+  assign background = section_st.background
+%}
+{%- capture style -%}
+--section-pt: {{ section_st.padding_top }};--section-pb: {{ section_st.padding_bottom }};--content_bg_color: {{ background }};
+{%- endcapture -%}
+<div
+  id="{{ section.id }}"
+  class="section{% if section_st.padding_top < 30 %} pt-min{% endif %}{% if section_st.padding_bottom < 30 %} pb-min{% endif %} background-custom slideshow {{ reset_spacing }}"
+  style="{{ style | strip | strip_newlines }}"
+  data-id="{{ section.id }}"
+>
+  <div class="{{ section_width }}">
+    <div class="section-slide-with-banner" style="--slide-width: {{ section_st.slide_width }}%;--coloumn-gap: {{  section_st.column_gap }}px;">
+      {% content_for 'blocks' %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.slideshow-with-banner.name",
+  "tag": "section",
+  "disabled_on": {
+    "groups": ["header", "footer", "custom.overlay"]
+  },
+  "settings": [
+    {
+      "type": "select",
+      "id": "section_width",
+      "options": [
+        {
+          "value": "container",
+          "label": "t:sections.all.section_width.container.label"
+        },
+        {
+          "value": "fluid_container",
+          "label": "t:sections.all.section_width.fluid_container.label"
+        },
+        {
+          "value": "stretch_width",
+          "label": "t:sections.all.section_width.stretch_width.label"
+        },
+        {
+          "value": "full_width",
+          "label": "t:sections.all.section_width.full_width.label"
+        }
+      ],
+      "default": "stretch_width",
+      "label": "t:sections.all.section_width.label"
+    },
+    {
+      "type": "color",
+      "alpha": false,
+      "id": "background",
+      "label": "t:settings.background_color"
+    },
+    {
+      "type": "range",
+      "id": "column_gap",
+      "label": "t:sections.all.items.column_gap.label",
+      "min": 0,
+      "max": 50,
+      "step": 5,
+      "default": 30,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "slide_width",
+      "label": "t:sections.slideshow-with-banner.blocks.slide_width.label",
+      "min": 0,
+      "max": 70,
+      "step": 1,
+      "default": 50,
+      "unit": "%"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.section_padding.label"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "t:sections.all.section_padding.top.label",
+      "default": 0,
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "t:sections.all.section_padding.bottom.label",
+      "default": 0,
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px"
+    },
+    {
+      "type": "checkbox",
+      "id": "reset_spacing",
+      "label": "t:sections.all.section_padding.reset_spacing.label",
+      "default": false
+    }
+  ],
+  "blocks": [
+    {
+      "type": "_banner-parent"
+    },
+    {
+      "type": "_slide-parent"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.slideshow-with-banner.name",
+      "category": "t:categories.banners",
+      "blocks": [
+        {
+          "type": "_banner-parent",
+          "blocks": [
+            {
+              "type": "_banner-item",
+              "blocks": [
+                {
+                  "type": "subheading"
+                },
+                {
+                  "type": "heading"
+                },
+                {
+                  "type": "button"
+                }
+              ]
+            },
+            {
+              "type": "_banner-item",
+              "blocks": [
+                {
+                  "type": "subheading"
+                },
+                {
+                  "type": "heading"
+                },
+                {
+                  "type": "button"
+                }
+              ]
+            },
+            {
+              "type": "_banner-item",
+              "blocks": [
+                {
+                  "type": "subheading"
+                },
+                {
+                  "type": "heading"
+                },
+                {
+                  "type": "button"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "_slide-parent",
+          "blocks": [
+            {
+              "type": "_slide-item",
+              "blocks": [
+                {
+                  "type": "_subheading-slide"
+                },
+                {
+                  "type": "_heading-slide"
+                },
+                {
+                  "type": "_button-slide"
+                }
+              ]
+            },
+            {
+              "type": "_slide-item",
+              "blocks": [
+                {
+                  "type": "_subheading-slide"
+                },
+                {
+                  "type": "_heading-slide"
+                },
+                {
+                  "type": "_button-slide"
+                }
+              ]
+            },
+            {
+              "type": "_slide-item",
+              "blocks": [
+                {
+                  "type": "_subheading-slide"
+                },
+                {
+                  "type": "_heading-slide"
+                },
+                {
+                  "type": "_button-slide"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

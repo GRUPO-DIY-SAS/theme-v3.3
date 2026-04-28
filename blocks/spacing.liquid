@@ -1,0 +1,38 @@
+<div
+  {{ block.shopify_attributes }}
+  class="bls__spacing"
+  style="--desktop-height: {{ block.settings.desktop_spacing }}px;--mobile-height: {{ block.settings.mobile_spacing }}px;"
+></div>
+{% schema %}
+{
+  "name": "t:sections.all.content_settings.spacing.label",
+  "settings": [
+    {
+      "type": "range",
+      "id": "desktop_spacing",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "label": "t:sections.all.content_settings.spacing.desktop_spacing.label",
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "mobile_spacing",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "default": 10,
+      "label": "t:sections.all.content_settings.spacing.mobile_spacing.label"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.all.content_settings.spacing.label",
+      "category": "t:categories.layout"
+    }
+  ]
+}
+{% endschema %}

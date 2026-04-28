@@ -1,0 +1,208 @@
+{% liquid
+  assign block_st = block.settings
+  assign borders = block_st.borders
+  assign border_width = block_st.border_width
+  assign border_opacity = block_st.border_opacity
+  assign border_radius = block_st.border_radius
+%}
+{% style %}
+  {% if block.settings.show_divider %}
+    .faq-block .block:not(:last-child) {
+        border-bottom: 1px solid var(--color-border);
+    }
+  {% endif %}
+{% endstyle %}
+{% capture style %}
+  --summary-font-family: var(--font-{{ block.settings.type_preset }}--font-family);
+  --summary-font-size: var(--font-{{ block.settings.type_preset }}--size);
+  --summary-font-line-height: var(--font-{{ block.settings.type_preset }}--line-height);
+  --summary-font-case: var(--font-{{ block.settings.type_preset }}--text-transform);
+  --space-bottom: {{ block.settings.padding_bottom }};--space-top: {{ block.settings.padding_top }};
+  --border-style: {{ borders }};
+  --border-width: {{ border_width }}px;
+  --border-color: rgba(from var(--color-border) r g b / {{ border_opacity | divided_by: 100.0 }});
+  --border-radius: {{ border_radius }}px;
+{% endcapture %}
+<div
+  class="faqs-right block faq-block relative mb-0-important rounded-style rounded-15 bg-white pb-custom pt-custom spacing-style accordion accordion-{{ block.id }} {% if block.settings.inherit_color_scheme == false %}color-{{ block.settings.color_scheme }}{% endif %} gradient border-style{% if request.visual_preview_mode %} w-500 p-sp-5 rounded-5{% endif %}"
+  {{ block.shopify_attributes }}
+  style="{{ style | strip | strip_newlines }}"
+>
+  {% content_for 'blocks' %}
+</div>
+{% schema %}
+{
+  "name": "t:blocks.names.accordion",
+  "tag": null,
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_divider",
+      "label": "t:sections.all.divider.show_divider",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "inherit_color_scheme",
+      "label": "t:settings.inherit_color_scheme",
+      "default": true
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.color_scheme.label",
+      "default": "scheme-1",
+      "visible_if": "{{ block.settings.inherit_color_scheme == false }}"
+    },
+    {
+      "type": "header",
+      "content": "t:settings_schema.colors.settings.border_color.label"
+    },
+    {
+      "type": "select",
+      "id": "borders",
+      "options": [
+        {
+          "value": "none",
+          "label": "t:sections.all.icon.none.label"
+        },
+        {
+          "value": "solid",
+          "label": "t:settings_schema.colors.settings.solid.label"
+        }
+      ],
+      "default": "none",
+      "label": "t:settings_schema.colors.settings.border_color.label"
+    },
+    {
+      "type": "range",
+      "id": "border_width",
+      "min": 1,
+      "max": 10,
+      "step": 0.5,
+      "unit": "px",
+      "label": "t:sections.flex_section.settings.border_thickness",
+      "default": 1,
+      "visible_if": "{{ section.settings.borders == 'solid' }}"
+    },
+    {
+      "type": "range",
+      "id": "border_opacity",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "label": "t:sections.flex_section.settings.border_opacity",
+      "default": 100,
+      "visible_if": "{{ section.settings.borders == 'solid' }}"
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "t:sections.flex_section.settings.corner_radius",
+      "default": 0
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_background_overlay",
+      "label": "t:sections.flex_section.settings.background_overlay",
+      "default": false
+    },
+    {
+      "type": "color",
+      "id": "background_overlay_color",
+      "label": "t:sections.flex_section.settings.overlay_color",
+      "default": "#000000",
+      "visible_if": "{{ section.settings.enable_background_overlay }}",
+      "alpha": true
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.section_padding.label"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "t:sections.all.section_padding.top.label",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "t:sections.all.section_padding.bottom.label",
+      "default": 20
+    }
+  ],
+  "blocks": [
+    {
+      "type": "_accordion-row"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:blocks.names.accordion",
+      "category": "t:categories.layout",
+      "blocks": {
+        "row-1": {
+          "type": "_accordion-row",
+          "settings": {
+            "heading": "Return policy"
+          },
+          "blocks": {
+            "text-1": {
+              "type": "description",
+              "settings": {
+                "text": "<p>Our goal is for every customer to be totally satisfied with their purchase. If this isn't the case, let us know and we'll do our best to work with you to make it right.</p>"
+              }
+            }
+          },
+          "block_order": ["text-1"]
+        },
+        "row-2": {
+          "type": "_accordion-row",
+          "settings": {
+            "heading": "Shipping"
+          },
+          "blocks": {
+            "text-1": {
+              "type": "description",
+              "settings": {
+                "text": "<p>We will work quickly to ship your order as soon as possible. Once your order has shipped, you will receive an email with further information. Delivery times vary depending on your location.</p>"
+              }
+            }
+          },
+          "block_order": ["text-1"]
+        },
+        "row-3": {
+          "type": "_accordion-row",
+          "settings": {
+            "heading": "Manufacturing"
+          },
+          "blocks": {
+            "text-1": {
+              "type": "description",
+              "settings": {
+                "text": "<p>Our products are manufactured both locally and globally. We carefully select our manufacturing partners to ensure our products are high quality and a fair value.</p>"
+              }
+            }
+          },
+          "block_order": ["text-1"]
+        }
+      },
+      "block_order": ["row-1", "row-2", "row-3"]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,39 @@
+{% liquid
+  assign block_st = block.settings
+  assign product = closest.product
+  assign section_st = section.settings
+  assign enable_skeleton_loading = section_st.enable_skeleton_loading
+%}
+{% if block_st.show_vendor and product.vendor != blank %}
+  <p class="product-detail__meta-value heading-color mt-0 mb-2 no-underline {% if enable_skeleton_loading %} skeleton-loading{% endif %}">
+    {{- product.vendor | link_to_vendor -}}
+  </p>
+{% endif %}
+<h1
+  class="product-detail__title heading-letter-spacing fs-26 mt-0 mb-10{% if enable_skeleton_loading %} skeleton-loading{% endif %}"
+  {{ block.shopify_attributes }}
+>
+  {%- if product.title != blank -%}
+    {{ product.title | escape }}
+  {%- else -%}
+    {{ 'onboarding.product_title_example' | t }}
+  {% endif %}
+</h1>
+{% schema %}
+{
+  "name": "t:blocks.product.title.name",
+  "tag": null,
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_vendor",
+      "label": "t:sections.product-single-layout.blocks.product_meta.settings.show_vendor"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:blocks.product.title.name"
+    }
+  ]
+}
+{% endschema %}

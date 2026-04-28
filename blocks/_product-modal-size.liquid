@@ -1,0 +1,85 @@
+{% liquid
+  assign section_st = section.settings
+  assign product = closest.product
+  assign enable_skeleton_loading = section_st.enable_skeleton_loading
+%}
+{%- if product.metafields.custom.model_size -%}
+  <div
+    {{ block.shopify_attributes }}
+    class="product_model-size flex align-center pb-20 border-bottom mb-25{% if enable_skeleton_loading %} skeleton-loading{% endif %}"
+  >
+    {% if product.metafields.custom.model_size.value.model_avatar != blank %}
+      <div class="model-avatar">
+        <img
+          src="{{ product.metafields.custom.model_size.value.model_avatar | image_url }}"
+          alt="{{ product.title }}"
+          width="80"
+          height="80"
+        >
+      </div>
+    {% endif %}
+    <div class="model-information">
+      {% if product.metafields.custom.model_size.value.model_is_wearing != blank %}
+        <div class="model-size">
+          <span class="model-title">{{ 'products.product.model_size_title.model_size' | t }}</span>
+          <strong class="model-value">
+            {{- product.metafields.custom.model_size.value.model_is_wearing -}}
+          </strong>
+        </div>
+      {% endif %}
+      <div class="flex flex-wrap">
+        <div class="model-info-left">
+          {% if product.metafields.custom.model_size.value.model_height != blank %}
+            <div class="model-height">
+              <span class="model-title">{{ 'products.product.model_size_title.model_height' | t }}</span>
+              <strong class="model-value">
+                {{- product.metafields.custom.model_size.value.model_height -}}
+              </strong>
+            </div>
+          {% endif %}
+          {% if product.metafields.custom.model_size.value.model_shoulder_width != blank %}
+            <div class="model-shoulder-width">
+              <span class="model-title">
+                {{- 'products.product.model_size_title.model_shoulder_width' | t -}}
+              </span>
+              <strong class="model-value">
+                {{- product.metafields.custom.model_size.value.model_shoulder_width -}}
+              </strong>
+            </div>
+          {% endif %}
+        </div>
+        <div class="model-info-right">
+          {% if product.metafields.custom.model_size.value.model_weight != blank %}
+            <div class="model-weight">
+              <span class="model-title">{{ 'products.product.model_size_title.model_weight' | t }}</span>
+              <strong class="model-value">
+                {{- product.metafields.custom.model_size.value.model_weight -}}
+              </strong>
+            </div>
+          {% endif %}
+          {% if product.metafields.custom.model_size.value.model_three_round_measurements != blank %}
+            <div class="model-three-round-measurements">
+              <span class="model-title">
+                {{- 'products.product.model_size_title.model_bust_waist_hips' | t -}}
+              </span>
+              <strong class="model-value">
+                {{- product.metafields.custom.model_size.value.model_three_round_measurements -}}
+              </strong>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+{% endif %}
+{% schema %}
+{
+  "name": "t:blocks.product.model_size.name",
+  "tag": null,
+  "presets": [
+    {
+      "name": "t:blocks.product.model_size.name"
+    }
+  ]
+}
+{% endschema %}

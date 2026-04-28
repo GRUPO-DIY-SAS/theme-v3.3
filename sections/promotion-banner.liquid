@@ -1,0 +1,210 @@
+{%- liquid
+  assign section_st = section.settings
+  assign section_width = section_st.section_width
+  assign color_scheme = section_st.color_scheme
+  if section_st.reset_spacing
+    assign reset_spacing = ' remove_spacing'
+  endif
+-%}
+{%- capture style -%}
+    --section-pt: {{ section_st.padding_top }}; --section-pb: {{ section_st.padding_bottom }};
+  {%- endcapture -%}
+<div
+  class="section{% if section_st.padding_top < 30 %} pt-min{% endif %}{% if section_st.padding_bottom < 30 %} pb-min{% endif %} sec__rich-text rich-text-{{ section.id }} color-{{ color_scheme }} gradient{{ reset_spacing }}"
+  style="{{ style | strip | strip_newlines }}"
+>
+  <div class="{{ section_width }}">
+    <div class="relative mh-120 flex justify-content-center flex-column">
+      {%- liquid
+        assign image = section_st.background_image | default: section_st.image_mobile
+        assign image_mobile = section_st.image_mobile | default: image
+        assign alt = image.alt | default: image_mobile.alt
+        assign ratio_dk = image.aspect_ratio
+        assign ratio_mb = image_mobile.aspect_ratio
+      %}
+      {% if image != blank or image_mobile != blank %}
+        <div
+          class="background_image absolute inset-0 lg:rounded rounded"
+          style="--aspect-ratio: {{ ratio_dk }};--aspect-ratio-mb: {{ ratio_mb }};--point:{{ image.presentation.focal_point }};--rounded-radius-lg: {{ section_st.background_rounded }}px;"
+        >
+          {% render 'responsive-image',
+            type: 'banner',
+            container: section_width,
+            image: section_st.background_image,
+            image_mobile: image_mobile,
+            image_alt: alt
+          %}
+        </div>
+      {% else %}
+        <div class="background_image absolute inset-0 rounded" style="--aspect-ratio: 9.5;--aspect-ratio-mb: 16/9">
+          {%- render 'placeholder-render', class: 'absolute inset-0 w-full h-full object-fit-cover' -%}
+        </div>
+      {% endif %}
+
+      <div
+        class="sec__content-inner mb-content_alignment-{{ section_st.content_alignment_mobile }} relative flex flex-lg-row flex-column align-lg-center justify-center justify-between-1025 gap-10 p-20 px-30"
+      >
+        {% content_for 'blocks' %}
+      </div>
+    </div>
+  </div>
+</div>
+{% schema %}
+{
+  "name": "t:sections.promotion_banner.name",
+  "tag": "section",
+  "disabled_on": {
+    "groups": ["header", "footer", "custom.overlay"]
+  },
+  "blocks": [
+    {
+      "type": "_button-promotion-banner"
+    },
+    {
+      "type": "_group-content-promotion-banner"
+    }
+  ],
+  "settings": [
+    {
+      "type": "select",
+      "id": "section_width",
+      "label": "t:sections.all.section_width.label",
+      "default": "fluid_container",
+      "options": [
+        {
+          "value": "container",
+          "label": "t:sections.all.section_width.container.label"
+        },
+        {
+          "value": "fluid_container",
+          "label": "t:sections.all.section_width.fluid_container.label"
+        },
+        {
+          "value": "stretch_width",
+          "label": "t:sections.all.section_width.stretch_width.label"
+        },
+        {
+          "value": "full_width",
+          "label": "t:sections.all.section_width.full_width.label"
+        }
+      ]
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.color_scheme.label",
+      "default": "scheme-1"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "t:sections.promotion_banner.settings.background_image.label"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_mobile",
+      "label": "t:sections.all.image.mobile_image.label"
+    },
+    {
+      "type": "range",
+      "id": "background_rounded",
+      "label": "t:settings.background_rounded",
+      "default": 0,
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "info": "t:info.rounded_lg"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.mobile_options.label"
+    },
+    {
+      "type": "select",
+      "id": "content_alignment_mobile",
+      "label": "t:sections.all.content_settings.content_alignment.label",
+      "default": "left",
+      "options": [
+        {
+          "value": "left",
+          "label": "t:sections.all.content_settings.content_alignment.left.label"
+        },
+        {
+          "value": "center",
+          "label": "t:sections.all.content_settings.content_alignment.center.label"
+        },
+        {
+          "value": "right",
+          "label": "t:sections.all.content_settings.content_alignment.right.label"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.section_padding.label"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "t:sections.all.section_padding.top.label",
+      "default": 0,
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "t:sections.all.section_padding.bottom.label",
+      "default": 0,
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px"
+    },
+    {
+      "type": "checkbox",
+      "id": "reset_spacing",
+      "label": "t:sections.all.section_padding.reset_spacing.label",
+      "default": false
+    }
+  ],
+
+  "presets": [
+    {
+      "name": "t:sections.promotion_banner.name",
+      "category": "t:categories.banners",
+      "blocks": [
+        {
+          "type": "_group-content-promotion-banner",
+          "blocks": [
+            {
+              "type": "heading",
+              "settings": {
+                "heading": "Big Promotion<br>Grab Your Vouchers!",
+                "spacing_bottom": 0
+              }
+            },
+            {
+              "type": "description",
+              "settings": {
+                "text": "<p>Up to 35% Off everything code.<br>Limited time only. Excludes selected lines.</p>",
+                "spacing_bottom": 0
+              }
+            }
+          ]
+        },
+        {
+          "type": "_button-promotion-banner",
+          "settings": {
+            "copy_button_label": "Copy Code",
+            "button_label": "Shop Now"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

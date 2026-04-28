@@ -1,0 +1,21 @@
+<div class="banner__wrapper">
+  <div class="banner__inner banner-parent flex flex-wrap justify-content-center">
+    {% content_for 'blocks' %}
+  </div>
+</div>
+{% schema %}
+{
+  "name": "t:names.banner",
+  "tag": null,
+  "blocks": [
+    {
+      "type": "_banner-item"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:names.banner"
+    }
+  ]
+}
+{% endschema %}

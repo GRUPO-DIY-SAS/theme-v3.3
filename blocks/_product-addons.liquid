@@ -1,0 +1,212 @@
+{% liquid
+  assign block_st = block.settings
+  assign section_st = section.settings
+  assign theme_st = settings
+  assign product = closest.product
+  assign enable_skeleton_loading = section_st.enable_skeleton_loading
+  assign products_group = product.metafields.custom.product_grouped
+  if theme_st.color_swatch_trigger != blank and theme_st.enable_color_swatches != false
+    assign option_color_name = theme_st.color_swatch_trigger | split: ','
+  else
+    assign option_color_name = 'Color'
+  endif
+  assign color = false
+  for option in product.options_with_values
+    for itemColor in option_color_name
+      if option.name == itemColor
+        assign color = true
+      endif
+    endfor
+  endfor
+%}
+{% if block_st.show_ask_question == true or block_st.show_share == true or block_st.show_compare_color == true %}
+  <div
+    class="product-addons flex flex-wrap gap-30 align-center pb-25 mb-20 border-bottom row-gap-custom{% if enable_skeleton_loading %} skeleton-loading{% endif %}"
+    style="--row-gap: 15px;"
+    {{ block.shopify_attributes }}
+  >
+    {% if block_st.show_compare_color == true and color and products_group == blank %}
+      <product-addons
+        data-text-header="{{ 'products.product.addons.compare_colors_header' | t }}"
+        data-custom-class="compare-colors"
+        class="product-addons__compare-colors pointer inline-flex"
+      >
+        <div class="inline-flex align-center gap-10 lh-normal hover-heading-color">
+          <svg width="18" height="18" fill="none" class="text-color hover-heading-color">
+            <path fill="#09A1E5" d="M6.61 13.142v3.654H4.5A9.044 9.044 0 0 1 1.205 13.5v-2.11h3.654a4.805 4.805 0 0 0 1.75 1.75Z"/><path fill="#962B7C" d="M4.86 6.61H1.204V4.5A9.044 9.044 0 0 1 4.5 1.205h2.11V4.86a4.804 4.804 0 0 0-1.75 1.75Z"/><path fill="#FF9259" d="M11.391 4.86V1.204h2.11A9.044 9.044 0 0 1 16.795 4.5v2.11h-3.654a4.804 4.804 0 0 0-1.75-1.75Z"/><path fill="#3EC3FF" d="m9 13.783 2.11 2.109L9 18.002a8.959 8.959 0 0 1-4.5-1.205l2.109-3.654a4.76 4.76 0 0 0 2.391.64Z"/><path fill="#49B296" d="M13.141 11.392h3.654v2.11a9.044 9.044 0 0 1-3.294 3.294h-1.506l-.604-3.654a4.804 4.804 0 0 0 1.75-1.75Z"/><path fill="#077CCC" d="M4.219 9.001c0 .871.233 1.688.64 2.39l-3.654 2.11A8.958 8.958 0 0 1 0 9.002l2.11-1.406L4.219 9Z"/><path fill="#2897B1" d="m11.39 13.143 2.11 3.654A8.958 8.958 0 0 1 9 18v-4.218a4.76 4.76 0 0 0 2.39-.64Z"/><path fill="#89C247" d="m13.781 9.001 2.11-1.055L18 9.001c0 1.64-.439 3.177-1.205 4.5l-3.654-2.109a4.76 4.76 0 0 0 .64-2.391Z"/><path fill="#622876" d="M4.219 9.002H0C0 7.362.44 5.825 1.205 4.5l3.654 2.11A4.76 4.76 0 0 0 4.219 9Z"/><path fill="#CB2E81" d="M6.61 4.86 4.5 1.206A8.958 8.958 0 0 1 9 0l2.11 2.11L9 4.22a4.76 4.76 0 0 0-2.39.64Z"/><path fill="#FF5178" d="M9 4.22V0c1.639 0 3.176.439 4.5 1.205L11.39 4.86A4.76 4.76 0 0 0 9 4.22Z"/><path fill="#FFD23B" d="m13.141 6.61 3.654-2.109A8.958 8.958 0 0 1 18 9.001h-4.219a4.76 4.76 0 0 0-.64-2.39Z"/>
+          </svg>
+          {{ 'products.product.addons.compare_colors' | t }}
+        </div>
+        <div class="product-addons__content compare-colors__content hidden">
+          {%- render 'color-swatches', product: product, type: 'item', is_compare: true -%}
+          <div
+            class="compare__items flex flex-cols gap-15 flex-wrap"
+            style="--col-desktop: 3; --col-number: 2;"
+          >
+            {% if product.selected_or_first_available_variant.featured_media != null %}
+              {%- assign featured_media = product.selected_or_first_available_variant.featured_media -%}
+              <div class="compare__items-inner">
+                <img
+                  width="300px"
+                  height="300px"
+                  src="{{ featured_media.preview_image | image_url }}"
+                  alt="{{ featured_media.alt }}"
+                >
+                <p class="mb-0 mt-10 heading-style capitalize">
+                  {{ product.selected_or_first_available_variant.title }}
+                </p>
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      </product-addons>
+    {% endif %}
+    {% if block_st.show_ask_question == true %}
+      <product-addons
+        data-text-header="{{ 'products.product.addons.ask_question_header' | t }}"
+        data-custom-class="ask-question"
+        class="product-addons__ask-question pointer inline-flex"
+      >
+        <div class="inline-flex align-center gap-10 lh-normal hover-heading-color">
+          <svg width="18" height="18" fill="none" class="text-color hover-heading-color">
+            <path fill="currentColor" d="M18 8.991c0-.613-.058-1.214-.173-1.802a9.26 9.26 0 0 0-.537-1.686 8.072 8.072 0 0 0-.825-1.534 8.506 8.506 0 0 0-1.094-1.342 10.22 10.22 0 0 0-1.343-1.092A9.11 9.11 0 0 0 12.512.71a8.344 8.344 0 0 0-1.689-.517A8.566 8.566 0 0 0 9 0c-.627 0-1.235.064-1.823.192A8.345 8.345 0 0 0 5.488.71a9.114 9.114 0 0 0-1.516.825c-.486.332-.934.696-1.343 1.092-.41.41-.774.856-1.094 1.342a8.958 8.958 0 0 0-.844 1.534C.473 6.039.3 6.602.173 7.189A9.353 9.353 0 0 0 0 8.991c0 .627.058 1.234.173 1.822.128.587.3 1.15.518 1.686.23.537.512 1.048.844 1.534.32.473.685.914 1.094 1.323.41.409.857.773 1.343 1.092a8.36 8.36 0 0 0 3.205 1.361A8.573 8.573 0 0 0 9 18.001c.627 0 1.235-.064 1.823-.192a8.351 8.351 0 0 0 3.205-1.36 8.51 8.51 0 0 0 1.343-1.093c.41-.41.774-.85 1.094-1.323a8.07 8.07 0 0 0 .825-1.534c.23-.536.41-1.099.537-1.687A9.458 9.458 0 0 0 18 8.992Zm-1.631 0c0 1.023-.192 1.981-.576 2.876a7.385 7.385 0 0 1-1.573 2.338 7.63 7.63 0 0 1-2.36 1.572 7.1 7.1 0 0 1-2.86.575 7.237 7.237 0 0 1-2.878-.575 7.695 7.695 0 0 1-2.342-1.571 7.386 7.386 0 0 1-1.573-2.34 7.215 7.215 0 0 1-.576-2.875c0-1.01.192-1.961.576-2.856A7.385 7.385 0 0 1 3.78 3.797a7.692 7.692 0 0 1 2.342-1.572A7.035 7.035 0 0 1 9 1.63c1.024 0 1.977.198 2.86.595a7.628 7.628 0 0 1 2.36 1.571 7.384 7.384 0 0 1 1.573 2.34c.384.894.576 1.846.576 2.855Zm-8.98-2.185a1.655 1.655 0 0 1 1.44-1.073c.216-.026.433 0 .65.076.193.064.359.16.5.288.14.128.262.268.364.422a1.593 1.593 0 0 1 .23.843.512.512 0 0 1-.038.192 1.092 1.092 0 0 1-.057.191 5.286 5.286 0 0 1-.135.211 3.113 3.113 0 0 1-1.151.863l-.518.23a.754.754 0 0 0-.48.402.738.738 0 0 0-.038.614.836.836 0 0 0 .403.48.782.782 0 0 0 .633.037l.73-.306a4.796 4.796 0 0 0 1.42-.978 9.26 9.26 0 0 0 .306-.364c.115-.14.211-.294.288-.46.09-.166.154-.339.192-.518.051-.191.077-.39.077-.594a3.187 3.187 0 0 0-.46-1.687c-.193-.32-.436-.6-.73-.843a2.92 2.92 0 0 0-.998-.556 2.962 2.962 0 0 0-1.286-.173 3.185 3.185 0 0 0-1.209.307 3.225 3.225 0 0 0-1.017.748c-.294.319-.511.69-.652 1.111a.833.833 0 0 0 .02.633.823.823 0 0 0 .479.422c.204.064.41.05.614-.039a.823.823 0 0 0 .422-.479ZM9 13.9c.23 0 .422-.077.576-.23a.79.79 0 0 0 .25-.575.75.75 0 0 0-.25-.575.751.751 0 0 0-.576-.25.813.813 0 0 0-.595.25.78.78 0 0 0-.23.575c0 .217.077.409.23.575.166.153.365.23.595.23Z"/>
+          </svg>
+          {{ 'products.product.addons.ask_question' | t }}
+        </div>
+
+        <div class="product-addons__content ask-question__content hidden">
+          {%- render 'ask-question-form' -%}
+        </div>
+      </product-addons>
+    {% endif %}
+    {% if block_st.show_share == true %}
+      <product-addons
+        data-text-header="{{ 'products.product.addons.share.copy_link' | t }}"
+        data-custom-class="share"
+        class="product-addons__share pointer inline-flex"
+      >
+        <div class="inline-flex align-center gap-10 lh-normal hover-heading-color">
+          <svg width="14" height="15" fill="none" class="text-color hover-heading-color">
+            <path fill="currentColor" d="M9.813 11.407a.835.835 0 0 0-.11.281 1.59 1.59 0 0 0-.031.313c0 .188.031.365.094.531.073.156.171.292.296.406.115.125.25.224.407.297a1.5 1.5 0 0 0 .531.094c.188 0 .36-.031.516-.094.166-.073.307-.171.421-.296.126-.115.22-.25.282-.407a1.31 1.31 0 0 0 0-1.047 1.075 1.075 0 0 0-.281-.421 1.074 1.074 0 0 0-.422-.282 1.31 1.31 0 0 0-1.047 0 1.098 1.098 0 0 0-.406.281l-.094.094a.418.418 0 0 0-.078.11c0 .01-.006.02-.016.03-.01.011-.016.022-.016.032l-.03.031a.12.12 0 0 1-.017.047Zm.062-8.031c.02.042.047.083.078.125a.544.544 0 0 0 .11.11c.114.124.25.223.406.296a1.5 1.5 0 0 0 .531.094c.188 0 .36-.031.516-.094.166-.073.307-.172.421-.297a1.25 1.25 0 0 0 .282-.422 1.274 1.274 0 0 0 0-1.03 1.216 1.216 0 0 0-.281-.438 1.359 1.359 0 0 0-.422-.282 1.31 1.31 0 0 0-1.047 0 1.414 1.414 0 0 0-.406.282c-.126.125-.224.27-.297.437a1.376 1.376 0 0 0-.094.516c0 .114.01.224.031.328.031.104.073.203.125.297v.031c.01 0 .016.005.016.016.01 0 .015.005.015.015l.016.016Zm-5.75 3.25a.82.82 0 0 0-.078-.125.544.544 0 0 0-.11-.11 1.074 1.074 0 0 0-.421-.28 1.31 1.31 0 0 0-1.047 0 1.098 1.098 0 0 0-.407.28c-.124.126-.223.271-.296.438a1.334 1.334 0 0 0-.094.5c0 .188.031.365.094.531.073.157.171.297.296.422a1.311 1.311 0 0 0 1.453.281c.167-.072.308-.166.423-.28l.109-.11a.612.612 0 0 0 .078-.14h.016c0-.011.005-.022.015-.032.01-.01.016-.02.016-.031a1.02 1.02 0 0 0 .11-.297c.03-.115.046-.23.046-.344 0-.114-.016-.224-.047-.328a1.02 1.02 0 0 0-.11-.297c0-.01-.004-.016-.015-.016v-.03h-.015c0-.011-.006-.022-.016-.032Zm4.313-3.234a4.078 4.078 0 0 1-.079-.344 2.68 2.68 0 0 1 .172-1.422c.146-.323.339-.604.578-.844.24-.24.521-.427.844-.562a2.584 2.584 0 0 1 2.078 0c.334.135.62.323.86.562.24.24.427.521.562.844.146.323.219.672.219 1.047 0 .364-.073.708-.219 1.031a2.603 2.603 0 0 1-.562.844 2.64 2.64 0 0 1-1.89.781c-.366 0-.715-.068-1.048-.203a2.825 2.825 0 0 1-.844-.578L5.563 6.61c.03.115.057.235.078.36a2.277 2.277 0 0 1 0 .734 3.64 3.64 0 0 1-.079.36l3.547 2.062v-.016c.24-.24.521-.427.844-.562a2.585 2.585 0 0 1 2.078 0c.334.135.62.323.86.562.24.24.427.526.562.86a2.584 2.584 0 0 1 0 2.078 2.604 2.604 0 0 1-.562.844c-.24.24-.526.427-.86.562a2.585 2.585 0 0 1-2.078 0 2.603 2.603 0 0 1-.844-.562c-.24-.24-.432-.521-.578-.844A2.756 2.756 0 0 1 8.328 12c0-.125.01-.245.031-.36.021-.124.047-.25.079-.374L4.89 9.204v.016A2.64 2.64 0 0 1 3 10c-.366 0-.715-.068-1.048-.203a2.825 2.825 0 0 1-.844-.578c-.24-.24-.432-.521-.578-.844a2.68 2.68 0 0 1-.203-1.047c0-.364.068-.708.203-1.031.146-.323.339-.604.578-.844.24-.24.521-.427.844-.562a2.584 2.584 0 0 1 2.078 0c.334.135.62.323.86.562l3.546-2.062Z"/>
+          </svg>
+          {{ 'products.product.addons.share.share' | t }}
+        </div>
+        <div class="product-addons__content share__content hidden">
+          {% assign share_url = product.selected_variant.url | default: product.url | prepend: request.origin %}
+          <div class="flex gap-10 mb-20">
+            <div
+              class="copy__url input-style flex-1 align-center whitespace-nowrap overflow-hidden inline-flex fs-small-1 light-dark-grey"
+              style="--input-color:rgba(var(--color-heading-rgb), 0.6);"
+            >
+              <span class="text-overflow-ellipsis w-full overflow-hidden">
+                {{- share_url -}}
+              </span>
+            </div>
+            <copy-button
+              data-content="{{ share_url }}"
+              id="Share-{{ section.id }}"
+              class="pointer w-50 h-50 inline-flex content-center rounded-50 bg-dark color-white"
+            >
+              <svg
+                width="11"
+                height="14"
+                viewBox="0 0 11 14"
+                fill="none"
+                class="active-hide"
+              >
+                <path d="M1.5 2H7.5C7.89769 2.00044 8.27897 2.15861 8.56018 2.43982C8.84139 2.72103 8.99956 3.10231 9 3.5V12.5C8.99956 12.8977 8.84139 13.279 8.56018 13.5602C8.27897 13.8414 7.89769 13.9996 7.5 14H1.5C1.10231 13.9996 0.721032 13.8414 0.439822 13.5602C0.158612 13.279 0.000436783 12.8977 0 12.5V3.5C0.000436783 3.10231 0.158612 2.72103 0.439822 2.43982C0.721032 2.15861 1.10231 2.00044 1.5 2ZM1 12.5C1.00012 12.6326 1.05284 12.7597 1.14658 12.8534C1.24032 12.9472 1.36743 12.9999 1.5 13H7.5C7.63257 12.9999 7.75968 12.9472 7.85342 12.8534C7.94716 12.7597 7.99988 12.6326 8 12.5V3.5C7.99988 3.36743 7.94716 3.24032 7.85342 3.14658C7.75968 3.05284 7.63257 3.00012 7.5 3H1.5C1.36743 3.00012 1.24032 3.05284 1.14658 3.14658C1.05284 3.24032 1.00012 3.36743 1 3.5V12.5Z" fill="white"></path>
+                <path d="M3 1C2.86739 1 2.74021 0.947322 2.64645 0.853553C2.55268 0.759785 2.5 0.632608 2.5 0.5C2.5 0.367392 2.55268 0.240215 2.64645 0.146447C2.74021 0.0526784 2.86739 0 3 0H8.5C9.1628 0.000780725 9.79823 0.264423 10.2669 0.733095C10.7356 1.20177 10.9992 1.8372 11 2.5V11C11 11.1326 10.9473 11.2598 10.8536 11.3536C10.7598 11.4473 10.6326 11.5 10.5 11.5C10.3674 11.5 10.2402 11.4473 10.1464 11.3536C10.0527 11.2598 10 11.1326 10 11V2.5C9.99956 2.10231 9.84139 1.72103 9.56018 1.43982C9.27897 1.15861 8.89769 1.00044 8.5 1H3Z" fill="white"></path>
+              </svg>
+              <svg
+                width="16"
+                height="12"
+                viewBox="0 0 16 12"
+                fill="none"
+                class="active-show hidden"
+              >
+                <path d="M5.5 9.17578L14.3281 0.308594L15.5 1.48047L5.5 11.4805L0.851562 6.83203L1.98438 5.66016L5.5 9.17578Z" fill="#fff"></path>
+              </svg>
+            </copy-button>
+          </div>
+          <h6 class="share-title mb-15 mt-0">
+            {{ 'products.product.addons.share.share_popup' | t }}
+          </h6>
+          <div class="flex flex-wrap gap-10">
+            <button
+              class="no-js-hidden relative w-40 h-40 btn-reset inline-flex heading-color content-center tooltip"
+              tabindex="0"
+              aria-label="{{ 'general.social.links.facebook' | t }}"
+              onclick="window.open('https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href), 'facebook-share-dialog', 'width=436,height=436'); return false;"
+            >
+              <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                <circle cx="20" cy="20" r="19.5" stroke="currentColor"/><path fill="currentColor" d="M18.333 16.667V18H17v2h1.333v6H21v-6h1.773L23 18h-2v-1.167c0-.54.053-.826.887-.826H23V14h-1.787c-2.133 0-2.88 1-2.88 2.667Z"/>
+              </svg>
+              <span class="tooltip-content invisible rounded-3 absolute pointer-none tooltip-top">
+                {{- 'general.social.links.facebook' | t -}}
+              </span>
+            </button>
+            <button
+              tabindex="0"
+              aria-label="{{ 'general.social.links.twitter' | t }}"
+              class="no-js-hidden relative w-40 h-40 btn-reset inline-flex heading-color content-center tooltip"
+              onclick="window.open('http://twitter.com/home/?status='+encodeURIComponent(location.href), 'twitter-share-dialog', 'width=436,height=436'); return false;"
+            >
+              <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                <circle cx="20" cy="20" r="19.5" stroke="currentColor"/>
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M17.9184 14H14.066L18.5298 20.6281L14 26H15.5877L19.2347 21.6747L22.1476 26H26L21.3764 19.1347L25.7059 14H24.1183L20.6714 18.0879L17.9184 14ZM19.4993 19.9239L16.2821 15.2286H17.2134L19.9508 19.2237L20.3878 19.8614L23.7755 24.8054H22.8442L19.9793 20.6242L19.4993 19.9239Z" fill="currentColor"/>
+              </svg>
+              <span class="tooltip-content invisible rounded-3 absolute pointer-none tooltip-top">
+                {{- 'general.social.links.twitter' | t -}}
+              </span>
+            </button>
+            <button
+              tabindex="0"
+              aria-label="{{ 'general.social.links.pinterest' | t }}"
+              class="no-js-hidden relative w-40 h-40 btn-reset inline-flex heading-color content-center tooltip"
+              onclick="window.open('http://pinterest.com/pin/create/button/?url='+encodeURIComponent(location.href), 'pinterest-share-dialog', 'width=436,height=436'); return false;"
+            >
+              <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                <circle cx="20" cy="20" r="19.5" stroke="currentColor"/>
+                <path d="M20.1674 14C16.7934 14.0005 15 16.108 15 18.4061C15 19.4716 15.6108 20.8011 16.5888 21.2226C16.8678 21.3451 16.8309 21.1956 17.0709 20.3006C17.0899 20.2261 17.0801 20.1616 17.0186 20.0921C15.6205 18.5156 16.7457 15.2745 19.9679 15.2745C24.6313 15.2745 23.7599 21.5656 20.7793 21.5656C20.011 21.5656 19.4387 20.9776 19.6197 20.2501C19.8392 19.3836 20.269 18.4521 20.269 17.8276C20.269 16.2535 17.8637 16.487 17.8637 18.5726C17.8637 19.2171 18.0976 19.6521 18.0976 19.6521C18.0976 19.6521 17.3237 22.7001 17.1801 23.2696C16.937 24.2336 17.2129 25.7942 17.237 25.9287C17.2519 26.0027 17.337 26.0262 17.3847 25.9652C17.4612 25.8677 18.3966 24.5667 18.6586 23.6261C18.754 23.2836 19.1453 21.8936 19.1453 21.8936C19.4033 22.3476 20.1469 22.7276 20.9393 22.7276C23.2963 22.7276 25 20.7076 25 18.2011C24.9918 15.798 22.8825 14 20.1674 14Z" fill="currentColor"/>
+              </svg>
+              <span class="tooltip-content invisible rounded-3 absolute pointer-none tooltip-top">
+                {{- 'general.social.links.pinterest' | t -}}
+              </span>
+            </button>
+          </div>
+        </div>
+      </product-addons>
+    {% endif %}
+  </div>
+{% endif %}
+{% schema %}
+{
+  "name": "t:blocks.product.product_addons.name",
+  "tag": null,
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_compare_color",
+      "default": true,
+      "label": "t:sections.main-product.blocks.product_addons.settings.show_compare_color"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_ask_question",
+      "default": true,
+      "label": "t:sections.main-product.blocks.product_addons.settings.show_ask_question"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_share",
+      "default": true,
+      "label": "t:sections.main-product.blocks.product_addons.settings.show_share"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:blocks.product.product_addons.name"
+    }
+  ]
+}
+{% endschema %}

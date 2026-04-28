@@ -1,0 +1,22 @@
+#privacy:not(:checked) ~ button {
+  opacity: 0.4;
+  pointer-events: none;
+}
+#contact_form {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+.contact-container {
+  gap: clamp(3rem, 4vw, var(--column_gap));
+}
+.map iframe {
+  width: 100%;
+  border-radius: var(--rounded-radius);
+}
+@media (min-width: 768px) {
+  .support_customer {
+    width: 35%;
+    max-width: 40rem;
+  }
+}

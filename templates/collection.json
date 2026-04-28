@@ -1,0 +1,261 @@
+{
+  "sections": {
+    "collection_list_i9XW4C": {
+      "type": "collection-list",
+      "blocks": {
+        "collection_Qh8dPV": {
+          "type": "collection",
+          "settings": {
+            "collection": "pods-desechables",
+            "collection_image": "{{ block.settings.collection.metafields.custom.collection_image_icon.value }}",
+            "collection_title": ""
+          }
+        },
+        "collection_yaxhJP": {
+          "type": "collection",
+          "settings": {
+            "collection": "pod-system",
+            "collection_image": "{{ block.settings.collection.metafields.custom.collection_image_icon.value }}",
+            "collection_title": "Pod Recargable"
+          }
+        },
+        "collection_x7RCwh": {
+          "type": "collection",
+          "settings": {
+            "collection": "kits-de-inicio",
+            "collection_image": "{{ block.settings.collection.metafields.custom.collection_image_icon.value }}",
+            "collection_title": "Kit de Vapeo"
+          }
+        },
+        "collection_y3einU": {
+          "type": "collection",
+          "settings": {
+            "collection": "salt-nic-ejuice",
+            "collection_image": "{{ block.settings.collection.metafields.custom.collection_image_icon.value }}",
+            "collection_title": ""
+          }
+        },
+        "collection_HVULkV": {
+          "type": "collection",
+          "settings": {
+            "collection": "base-libre",
+            "collection_image": "{{ block.settings.collection.metafields.custom.collection_image_icon.value }}",
+            "collection_title": ""
+          }
+        },
+        "collection_ABnXwx": {
+          "type": "collection",
+          "settings": {
+            "collection": "resistencias-comerciales",
+            "collection_image": "{{ block.settings.collection.metafields.custom.collection_image_icon.value }}",
+            "collection_title": "Coils y Pods"
+          }
+        },
+        "collection_TYic8Q": {
+          "type": "collection",
+          "settings": {
+            "collection": "alquimia",
+            "collection_image": "{{ block.settings.collection.metafields.custom.collection_image_icon.value }}",
+            "collection_title": "Prepara tu Eliquid"
+          }
+        },
+        "collection_NKVbYN": {
+          "type": "collection",
+          "settings": {
+            "collection": "pouches-de-nicotina-y-cafeina",
+            "collection_image": "{{ block.settings.collection.metafields.custom.collection_image_icon.value }}",
+            "collection_title": "Pouches"
+          }
+        }
+      },
+      "block_order": [
+        "collection_Qh8dPV",
+        "collection_yaxhJP",
+        "collection_x7RCwh",
+        "collection_y3einU",
+        "collection_HVULkV",
+        "collection_ABnXwx",
+        "collection_TYic8Q",
+        "collection_NKVbYN"
+      ],
+      "disabled": true,
+      "settings": {
+        "section_width": "fluid_container",
+        "color_scheme": "scheme-3c376871-4978-462b-aa78-be06bb77863d",
+        "heading": "",
+        "description": "",
+        "show_view_all_button": false,
+        "header_size": "medium",
+        "header_alignment": "center",
+        "display_mode": "carousel",
+        "image_ratio": "adapt",
+        "custom_ratio": "",
+        "items_per_row": 8,
+        "column_gap": 10,
+        "show_arrow": false,
+        "carousel_pagination": "show_dots_on_mobile",
+        "infinite": false,
+        "autoplay": false,
+        "autorotate_speed": 5,
+        "reveal": false,
+        "items_per_row_mobile": 3,
+        "design": "morden",
+        "collection_information_position": "below_image",
+        "text_alignment": "center",
+        "show_product_count": false,
+        "show_icon": true,
+        "show_description": false,
+        "font_size": 14,
+        "font_weight": "subheading_weight",
+        "information_spacing": 12,
+        "rounded_image": false,
+        "image_custom_width": true,
+        "image_width": 115,
+        "padding_top": 30,
+        "padding_bottom": 20,
+        "reset_spacing": true
+      }
+    },
+    "subcollection": {
+      "type": "subcollection-list",
+      "settings": {
+        "section_width": "fluid_container",
+        "color_scheme": "scheme-3c376871-4978-462b-aa78-be06bb77863d",
+        "heading": "",
+        "description": "<p>Encuentra otros productos relacionados con {{ collection.title }} y todo para vapeo en DIY.<\/p>",
+        "header_size": "small",
+        "header_alignment": "left",
+        "image_ratio": "adapt",
+        "custom_ratio": "",
+        "items_per_row": 6,
+        "column_gap": 10,
+        "collection_information_position": "below_image",
+        "design": "morden",
+        "text_alignment": "center",
+        "show_product_count": false,
+        "font_size": 14,
+        "font_weight": "heading_weight",
+        "information_spacing": 12,
+        "rounded_image": true,
+        "image_custom_width": true,
+        "image_width": 150,
+        "show_arrow": true,
+        "carousel_pagination": "show_dots_on_mobile",
+        "infinite": false,
+        "autoplay": false,
+        "autorotate_speed": 5,
+        "reveal": false,
+        "items_per_row_mobile": 3,
+        "padding_top": 60,
+        "padding_bottom": 20
+      }
+    },
+    "banner": {
+      "type": "main-collection-heading",
+      "blocks": {
+        "breadcrumb_MJHLQb": {
+          "type": "breadcrumb",
+          "settings": {}
+        },
+        "heading_fntt9G": {
+          "type": "heading",
+          "settings": {
+            "page_title": "",
+            "header_size": "default"
+          }
+        }
+      },
+      "block_order": [
+        "breadcrumb_MJHLQb",
+        "heading_fntt9G"
+      ],
+      "settings": {
+        "section_width": "fluid_container",
+        "color_scheme": "default",
+        "alignment": "right",
+        "show_collection_image": false,
+        "overlay_opacity": 0,
+        "height": "adapt",
+        "padding_top": 20,
+        "padding_bottom": 0
+      }
+    },
+    "main": {
+      "type": "main-collection-product",
+      "blocks": {
+        "categories_LYDr6p": {
+          "type": "categories",
+          "settings": {
+            "title": "Categoría",
+            "menu": "main-menu"
+          }
+        },
+        "filter_giBtHK": {
+          "type": "filter",
+          "settings": {}
+        },
+        "image_banner_UUJxtT": {
+          "type": "image_banner",
+          "settings": {
+            "image": "{{ collection.metafields.custom.collection_image_icon.value }}",
+            "url": "shopify:\/\/collections",
+            "open_link": true
+          }
+        },
+        "popular_product_Xwjqcf": {
+          "type": "popular_product",
+          "settings": {
+            "title": "Productos destacados",
+            "collection": "{{ collection }}",
+            "items_to_show": 3
+          }
+        }
+      },
+      "block_order": [
+        "categories_LYDr6p",
+        "filter_giBtHK",
+        "image_banner_UUJxtT",
+        "popular_product_Xwjqcf"
+      ],
+      "settings": {
+        "section_width": "fluid_container",
+        "enable_filtering": true,
+        "show_filter_counts": true,
+        "default_filter": "first_open",
+        "filter_layout": "vertical",
+        "vertical_posion": "left",
+        "number_products_per_page": true,
+        "sorting": true,
+        "grid_list": true,
+        "items_to_show": 16,
+        "items_per_row": 4,
+        "column_gap": 30,
+        "pagination": "default",
+        "button_show_more": "Ver más",
+        "promotion_link": "",
+        "promotion_postion": 1,
+        "items_per_row_mobile": "2",
+        "padding_top": 0,
+        "padding_bottom": 50
+      }
+    },
+    "custom_liquid_8hxMrp": {
+      "type": "custom-liquid",
+      "settings": {
+        "section_width": "fluid_container",
+        "color_scheme": "scheme-cad2a0ec-e8e4-4844-b669-ed3f593863ca",
+        "custom_liquid": "{%- if collection.description != blank -%}\n<style>\n  .diy-collapsible-wrap {\n    --lab-red:  #C8102E;\n    --carbon:   #0A0A0A;\n    --bone:     #F5F2EC;\n    --steel:    #AAAAAA;\n    background: var(--carbon);\n    border-radius: 2px;\n    padding: 0;\n    position: relative;\n    margin: 2rem 0;\n    border-left: 3px solid var(--lab-red);\n  }\n  .diy-toggle-btn {\n    display: flex; align-items: center; justify-content: space-between;\n    gap: 16px; width: 100%; background: none; border: none;\n    border-bottom: 1px solid #1f1f1f;\n    padding: 18px 24px 18px 28px; cursor: pointer; text-align: left;\n    transition: background 0.2s;\n  }\n  .diy-toggle-btn:hover { background: rgba(200,16,46,0.04); }\n  .diy-eyebrow {\n    font-size: 10px; font-weight: 700; letter-spacing: 0.2em;\n    text-transform: uppercase; color: var(--lab-red);\n    display: block; margin-bottom: 6px;\n  }\n  .diy-title-text {\n    font-size: 14px; font-weight: 600; color: var(--bone);\n    line-height: 1.4; transition: color 0.2s; display: block;\n  }\n  .diy-toggle-btn:hover .diy-title-text { color: #FFFFFF; }\n  .diy-icon {\n    flex-shrink: 0; width: 26px; height: 26px;\n    border: 1px solid #2e2e2e; border-radius: 50%;\n    display: flex; align-items: center; justify-content: center;\n    position: relative; transition: border-color 0.2s;\n  }\n  .diy-toggle-btn:hover .diy-icon,\n  .diy-toggle-btn.open .diy-icon { border-color: var(--lab-red); }\n  .diy-icon-bar {\n    position: absolute; background: #555; border-radius: 1px;\n    transition: transform 0.28s ease, opacity 0.28s ease, background 0.2s;\n  }\n  .diy-icon-bar.h { width: 10px; height: 1.5px; }\n  .diy-icon-bar.v { width: 1.5px; height: 10px; }\n  .diy-toggle-btn:hover .diy-icon-bar,\n  .diy-toggle-btn.open .diy-icon-bar { background: var(--lab-red); }\n  .diy-toggle-btn.open .diy-icon-bar.v { transform: rotate(90deg); opacity: 0; }\n  .diy-content-outer {\n    overflow: hidden; max-height: 0; opacity: 0;\n    transition: max-height 0.42s cubic-bezier(0.4,0,0.2,1), opacity 0.32s ease;\n  }\n  .diy-content-outer.open { opacity: 1; }\n  .diy-content-inner { padding: 20px 28px 28px; line-height: 1.8; }\n  .diy-divider {\n    display: block; height: 1px; margin-bottom: 20px; opacity: 0.5;\n    background: linear-gradient(to right, var(--lab-red) 0%, #2a0008 60%, transparent 100%);\n  }\n  .diy-rich-text * { color: var(--steel) !important; }\n  .diy-rich-text h1, .diy-rich-text h2,\n  .diy-rich-text h3, .diy-rich-text h4 {\n    font-size: 15px !important; font-weight: 700 !important;\n    color: var(--bone) !important; margin: 0 0 14px !important;\n    line-height: 1.35 !important;\n  }\n  .diy-rich-text p {\n    color: var(--steel) !important;\n    margin: 0 0 12px !important; font-size: 14px !important;\n  }\n  .diy-rich-text p:last-child { margin-bottom: 0 !important; }\n  .diy-rich-text a {\n    color: var(--lab-red) !important;\n    text-decoration: underline !important;\n    text-underline-offset: 3px !important;\n  }\n  .diy-rich-text a:hover { color: #ff2040 !important; }\n  .diy-rich-text strong, .diy-rich-text b {\n    color: var(--bone) !important; font-weight: 600 !important;\n  }\n  .diy-rich-text ul, .diy-rich-text ol {\n    color: var(--steel) !important;\n    padding-left: 18px !important; margin: 0 0 12px !important;\n  }\n  .diy-rich-text li { color: var(--steel) !important; margin-bottom: 4px !important; }\n<\/style>\n\n<div class=\"diy-collapsible-wrap\">\n  <button\n    class=\"diy-toggle-btn\"\n    id=\"diyToggle-{{ collection.id }}\"\n    onclick=\"toggleDiyBlock('{{ collection.id }}')\"\n    aria-expanded=\"false\"\n    aria-controls=\"diyContent-{{ collection.id }}\"\n  >\n    <span>\n      <span class=\"diy-eyebrow\">DIY Vape Shop · Guía de colección<\/span>\n      <span class=\"diy-title-text\">\n        ¿Quieres saber más de\n        <em style=\"font-style:normal;color:var(--lab-red);\">{{ collection.title }}<\/em>\n        y todo lo relacionado con el mundo del Vapeo?\n      <\/span>\n    <\/span>\n    <span class=\"diy-icon\" id=\"diyIcon-{{ collection.id }}\">\n      <span class=\"diy-icon-bar h\"><\/span>\n      <span class=\"diy-icon-bar v\"><\/span>\n    <\/span>\n  <\/button>\n\n  <div class=\"diy-content-outer\" id=\"diyContent-{{ collection.id }}\">\n    <div class=\"diy-content-inner\">\n      <span class=\"diy-divider\"><\/span>\n      <div class=\"diy-rich-text\">\n        {{ collection.description }}\n      <\/div>\n    <\/div>\n  <\/div>\n<\/div>\n\n<script>\nfunction toggleDiyBlock(id) {\n  var btn = document.getElementById('diyToggle-' + id);\n  var content = document.getElementById('diyContent-' + id);\n  var isOpen = btn.classList.contains('open');\n  if (isOpen) {\n    content.style.maxHeight = content.scrollHeight + 'px';\n    requestAnimationFrame(function() {\n      content.style.maxHeight = '0px';\n      content.classList.remove('open');\n      btn.classList.remove('open');\n      btn.setAttribute('aria-expanded','false');\n    });\n  } else {\n    btn.classList.add('open');\n    content.classList.add('open');\n    content.style.maxHeight = content.scrollHeight + 'px';\n    btn.setAttribute('aria-expanded','true');\n    content.addEventListener('transitionend', function() {\n      if (btn.classList.contains('open')) content.style.maxHeight = 'none';\n    }, { once: true });\n  }\n}\n<\/script>\n{%- endif -%}",
+        "padding_top": 30,
+        "padding_bottom": 0,
+        "reset_spacing": true
+      }
+    }
+  },
+  "order": [
+    "collection_list_i9XW4C",
+    "subcollection",
+    "banner",
+    "main",
+    "custom_liquid_8hxMrp"
+  ]
+}

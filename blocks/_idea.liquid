@@ -1,0 +1,191 @@
+{%- liquid
+  assign section_st = section.settings
+  assign section_width = section_st.section_width
+  assign items_per_row = section_st.items_per_row
+  assign image_ratio = section_st.image_ratio
+  assign custom_ratio = section_st.custom_ratio
+  assign carousel_on_mobile = section_st.carousel_on_mobile
+  assign image = block.settings.image
+-%}
+
+{%- capture style_ratio -%}
+  {%- liquid
+    assign ratio = ''
+    if image_ratio != 'adapt'
+      case image_ratio
+        when 'square'
+          assign ratio = '1/1'
+        when 'landscape'
+          assign ratio = '4/3'
+        when 'portrait'
+          assign ratio = '3/4'
+        else
+          if custom_ratio != empty
+            assign ratio = custom_ratio | replace: ':', '/'
+          else
+            assign ratio = '3/2'
+          endif
+      endcase
+    else
+      assign ratio = '3/2'
+    endif
+  -%}
+  --aspect-ratio: {{ ratio }};
+{%- endcapture -%}
+
+<div
+  class="relative block motion-item"
+>
+  <div
+    class=" mb-0 mb-md-0 rounded h-full"
+    style="{% if image_ratio == "adapt" and image != blank %} --aspect-ratio: {{ image.aspect_ratio }}  {% else %} {{ style_ratio | strip | strip_newlines }}  {% endif %}"
+  >
+    {% if image != blank %}
+      {%- assign image_alt = image.alt | escape | default: 'Images' -%}
+      {% render 'responsive-image',
+        type: 'banner',
+        container: section_width,
+        colunm: items_per_row,
+        image: image,
+        image_alt: image_alt
+      %}
+    {% else %}
+      {%- render 'placeholder-render' -%}
+    {% endif %}
+  </div>
+  {% assign show_product = false %}
+  {% for i in (1..5) %}
+    {%- capture product -%}product_{{i}}{%- endcapture -%}
+    {%- assign product = block.settings[product] -%}
+    {%- if product != blank -%}
+      {% assign show_product = true %}
+    {%- endif -%}
+  {% endfor %}
+  <idea-product
+    class="idea-product"
+    data-popup="{{ carousel_on_mobile }}"
+    data-content-header="{{ 'general.outfit-idea.shop_the_look' | t }}"
+  >
+    <div class="flex absolute  bottom-0 left-0 mb-30 ms-30 pointer gap-10 justify-center align-center view_idea_product items-center btn btn-idea btn-white">
+      <svg xmlns="http://www.w3.org/2000/svg" width="15" height="16" viewBox="0 0 15 16" fill="none">
+        <use href="#icon-bag" />
+      </svg>
+      <span>{{ 'general.outfit-idea.view_products' | t }}</span>
+    </div>
+    <div class="idea-product-list absolute z-5  bottom-0 left-0 p-20 bg-white z-1 shadow">
+      <div class="idea-product-list_header flex justify-between items-center mb-20 border-bottom">
+        <h4 class="m-0 fs-18">{{ 'general.outfit-idea.shop_the_look' | t }}</h4>
+
+        <div class="close pointer">
+          <svg xmlns="http://www.w3.org/2000/svg" width="13" height="14" viewBox="0 0 13 14" fill="none">
+            <use  href="#icon-close" />
+          </svg>
+        </div>
+      </div>
+      <div class="custom-scrollbar">
+        {% for i in (1..5) %}
+          {%- capture product -%}product_{{i}}{%- endcapture -%}
+          {%- assign product = block.settings[product] -%}
+          {%- if product != blank -%}
+            {% render 'product-item',
+              card_product: product,
+              template_enable_rate: true,
+              template_enable_price: true,
+              custom_widths: '240, 120, 60',
+              type: 'list',
+              sizes: '60px',
+              lazy_product: false
+            %}
+          {%- endif -%}
+        {% endfor %}
+        {% if show_product == false %}
+          {% for i in (1..2) %}
+            {% render 'product-item',
+              template_enable_rate: true,
+              template_enable_price: true,
+              custom_widths: '240, 120, 60',
+              type: 'list',
+              sizes: '60px',
+              lazy_product: false
+            %}
+          {% endfor %}
+        {% endif %}
+      </div>
+    </div>
+    <template>
+      <div class="content-popup-mobile bls-image-js">
+        {% for i in (1..5) %}
+          {%- capture product -%}product_{{i}}{%- endcapture -%}
+          {%- assign product = block.settings[product] -%}
+          {%- if product != blank -%}
+            {% render 'product-item',
+              card_product: product,
+              template_enable_rate: true,
+              template_enable_price: true,
+              custom_widths: '240, 120, 60',
+              type: 'list',
+              sizes: '60px',
+              lazy_product: false
+            %}
+          {%- endif -%}
+        {% endfor %}
+        {% if show_product == false %}
+          {% for i in (1..2) %}
+            {% render 'product-item',
+              template_enable_rate: true,
+              template_enable_price: true,
+              custom_widths: '240, 120, 60',
+              type: 'list',
+              sizes: '60px',
+              lazy_product: false
+            %}
+          {% endfor %}
+        {% endif %}
+      </div>
+    </template>
+  </idea-product>
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.outfit-idea.settings.block.add_idea",
+  "class": "sec__icon-switch-slide",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "t:sections.outfit-idea.settings.block.image"
+    },
+    {
+      "type": "product",
+      "id": "product_1",
+      "label": "t:sections.outfit-idea.settings.select_product"
+    },
+    {
+      "type": "product",
+      "id": "product_2",
+      "label": "t:sections.outfit-idea.settings.select_product"
+    },
+    {
+      "type": "product",
+      "id": "product_3",
+      "label": "t:sections.outfit-idea.settings.select_product"
+    },
+    {
+      "type": "product",
+      "id": "product_4",
+      "label": "t:sections.outfit-idea.settings.select_product"
+    },
+    {
+      "type": "product",
+      "id": "product_5",
+      "label": "t:sections.outfit-idea.settings.select_product"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.outfit-idea.settings.block.add_idea"
+    }
+  ]
+}
+{% endschema %}

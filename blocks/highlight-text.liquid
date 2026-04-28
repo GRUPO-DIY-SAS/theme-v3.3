@@ -1,0 +1,206 @@
+{% liquid
+  assign theme_st = settings
+  assign scroll_animation = theme_st.scroll_animation
+  assign block_st = block.settings
+  assign mb_custom = ''
+  if block_st.spacing_bottom > 41
+    assign mb_custom = 'mb-big'
+  elsif block_st.spacing_bottom > 30
+    assign mb_custom = 'mb-medium'
+  else
+    assign mb_custom = 'mb-custom'
+  endif
+  assign uppercase = ''
+  if block_st.uppercase
+    assign uppercase = 'uppercase'
+  endif
+  assign fs_custom = ''
+  if block_st.font_size > 41
+    assign fs_custom = 'fs-big'
+  elsif block_st.font_size > 24
+    assign fs_custom = 'fs-medium'
+  else
+    assign fs_custom = 'fs-custom'
+  endif
+  assign font_weight = block_st.font_weight
+  assign drawn_underline = block_st.drawn_underline
+  assign drawn_underline_type = block_st.drawn_underline_type
+  assign drawn_underline_color = block_st.drawn_underline_color
+  if drawn_underline
+    assign scroll_animation = 'disable'
+  endif
+  assign heading = block.settings.heading
+%}
+{% if scroll_animation != 'disable' or drawn_underline %}
+  <motion-element
+    data-motion="{% if scroll_animation != 'disable' %}{{ scroll_animation }}{% else %}highlighted-text{% endif %}"
+    {% if scroll_animation == 'none' %}
+      hold
+    {% endif %}
+    class="block highlighted-text-block"
+  >
+{% endif %}
+<h2
+  class="mt-0 sec__content-heading heading-letter-spacing text-mb-{{section.settings.content_alignment_mobile}} text-md-{{ section.settings.content_alignment }} {{ mb_custom }} {{ uppercase }} {{ fs_custom }} {{ font_weight }}"
+  style="--font-size: {{ block_st.font_size }};--space-bottom: {{ block_st.spacing_bottom }};"
+  {{ block.shopify_attributes }}
+>
+  {% if drawn_underline %}
+    {%- capture squiggle_svg_1 -%}
+      <svg viewBox="0 0 184 26" fill="none"><path class="squiggle-path" d="M3.4731 10.026 C62.9099 0.429911 121.991 0.984108 180.805 4.45276 C134.905 5.8 89.6567 6.9 46.332 11.0 C73.7081 10.5 100.473 11.9 126.453 15.0" fill="none" stroke="currentColor" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" /></svg>
+    {%- endcapture -%}
+    {%- capture squiggle_svg_2 -%}
+      <svg viewBox="0 0 186 24" fill="none"><path class="squiggle-path" d="M3 10.1757C34.8447 4.68511 117.175 -1.00265 203 6.88134C162.353 5.94011 127.5 5.5 68 14C91.6893 11.6469 142.5 8.5 186.5 23.5" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"></path> </svg>
+    {%- endcapture -%}
+    {%- capture squiggle_svg_3 -%}
+      <svg viewBox="0 0 186 24" fill="none"><path class="squiggle-path" d="M3.4731 10.026 C62.9099 0.429911 121.991 0.984108 180.805 4.45276 C134.905 5.8 89.6567 6.9 46.332 11.0 C73.7081 10.5 100.473 11.9 126.453 15.0" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" /></svg>
+    {%- endcapture -%}
+    {%- capture squiggle_svg_4 -%}
+      <svg viewBox="0 0 220 20"fill="none"><path class="squiggle-path" d="M5 15 C70 0, 150 5, 210 15" stroke="currentColor" stroke-width="5" stroke-linecap="round" fill="none"/></svg>
+    {%- endcapture -%}
+    {%- capture squiggle_svg_5 -%}
+      <svg viewBox="0 0 140 24" fill="none" role="presentation" preserveAspectRatio="none"><path class="squiggle-path" d="M5 16 C 20 10, 32 10, 48 16 S 78 22, 96 16 S 120 10, 135 14" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" /></svg>
+    {%- endcapture -%}
+    {%- assign result = heading -%}
+    {%- assign parts = result | split: '<em>' -%}
+    {%- assign em_count = parts | size | minus: 1 -%}
+
+    {%- for i in (1..em_count) -%}
+      {%- assign idx = i | plus: 0 -%}
+      {%- assign chunk = parts[idx] | default: '' -%}
+      {%- assign text = chunk | split: '</em>' | first | strip_html | strip -%}
+      {%- assign len_text = text | size -%}
+      {%- capture open_em -%}
+        {%- liquid
+          if drawn_underline_type == 'text_color_only'
+            assign svg = '</em>'
+          elsif drawn_underline_type == 'simple_underline'
+            assign svg = squiggle_svg_4 | append: '</em>'
+          elsif drawn_underline_type == 'curve_underline'
+            assign svg = squiggle_svg_5 | append: '</em>'
+          else
+            if len_text <= 4
+              assign svg = squiggle_svg_1 | append: '</em>'
+            elsif len_text <= 6
+              assign svg = squiggle_svg_2 | append: '</em>'
+            else
+              assign svg = squiggle_svg_3 | append: '</em>'
+            endif
+          endif
+        -%}
+        <em class="highlighted-text relative inline-flex{% if drawn_underline_type == 'simple_underline' %} simple_underline{% endif %} {{ drawn_underline_type }} not-italic" style="--animate-color:{{ drawn_underline_color }};{% if drawn_underline_type == 'text_color_only' %}color:var(--animate-color);{% endif %}">{{ svg }}</em>
+      {%- endcapture -%}
+      {%- assign open_em = open_em | remove: '</em>' -%}
+      {%- assign heading = heading | replace_first: '<em>', open_em -%}
+    {%- endfor -%}
+  {% endif %}
+  {{- heading -}}
+</h2>
+{% if scroll_animation != 'disable' or drawn_underline %}
+  </motion-element>
+{% endif %}
+{% schema %}
+{
+  "name": "t:sections.all.contents.highlight_text.label",
+  "tag": null,
+  "settings": [
+    {
+      "type": "richtext",
+      "id": "heading",
+      "label": "t:sections.all.contents.highlight_text.label",
+      "default": "<p>Talk about your brand</p>"
+    },
+    {
+      "type": "checkbox",
+      "id": "drawn_underline",
+      "default": true,
+      "label": "t:sections.all.contents.drawn_underline.label",
+      "info": "t:sections.all.contents.drawn_underline.info"
+    },
+    {
+      "type": "select",
+      "id": "drawn_underline_type",
+      "label": "t:sections.all.contents.drawn_underline.type",
+      "default": "squiggle_underline",
+      "visible_if": "{{ block.settings.drawn_underline != false }}",
+      "options": [
+        {
+          "value": "simple_underline",
+          "label": "t:sections.all.contents.drawn_underline.value.simple_underline"
+        },
+        {
+          "value": "curve_underline",
+          "label": "t:sections.all.contents.drawn_underline.value.curve_underline"
+        },
+        {
+          "value": "squiggle_underline",
+          "label": "t:sections.all.contents.drawn_underline.value.squiggle_underline"
+        },
+        {
+          "value": "text_color_only",
+          "label": "t:sections.all.contents.drawn_underline.value.text_color_only"
+        }
+      ]
+    },
+    {
+      "type": "color",
+      "id": "drawn_underline_color",
+      "label": "t:sections.all.contents.drawn_underline.color",
+      "default": "#FFB005",
+      "alpha": true,
+      "visible_if": "{{ block.settings.drawn_underline != false }}"
+    },
+    {
+      "type": "range",
+      "id": "font_size",
+      "label": "t:sections.all.content_settings.font_size.label",
+      "default": 36,
+      "min": 16,
+      "max": 100,
+      "step": 1,
+      "unit": "px"
+    },
+    {
+      "type": "select",
+      "id": "font_weight",
+      "label": "t:sections.all.content_settings.font_weight.label",
+      "default": "heading_weight",
+      "options": [
+        {
+          "value": "body_weight",
+          "label": "t:sections.all.content_settings.font_weight.body_weight.label"
+        },
+        {
+          "value": "subheading_weight",
+          "label": "t:sections.all.content_settings.font_weight.subheading_weight.label"
+        },
+        {
+          "value": "heading_weight",
+          "label": "t:sections.all.content_settings.font_weight.heading_weight.label"
+        }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "uppercase",
+      "label": "t:sections.all.text_transform.uppercase.label"
+    },
+    {
+      "type": "range",
+      "id": "spacing_bottom",
+      "label": "t:sections.all.content_settings.spacing.spacing_bottom.label",
+      "default": 20,
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.all.contents.highlight_text.label",
+      "category": "t:categories.basic"
+    }
+  ]
+}
+{% endschema %}

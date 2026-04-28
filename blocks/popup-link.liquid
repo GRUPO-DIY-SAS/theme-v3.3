@@ -1,0 +1,107 @@
+<div
+  class="pb-custom pt-custom"
+  style=" --space-bottom: {{ block.settings.padding_bottom }};--space-top: {{ block.settings.padding_top }};"
+>
+  <popup-link
+    class="popup-link pointer btn-link"
+    data-popup-width="{{ block.settings.popup_width }}px"
+  >
+    {{ block.settings.text }}
+    <template>
+      <div class="popup-link__content">
+        {% content_for 'blocks' %}
+      </div>
+    </template>
+  </popup-link>
+</div>
+{% schema %}
+{
+  "name": "t:blocks.names.popup_link",
+  "tag": null,
+  "settings": [
+    {
+      "type": "text",
+      "id": "text",
+      "default": "Learn more",
+      "label": "t:settings_schema.terms_conditions.settings.text_terms_conditions.label"
+    },
+    {
+      "type": "range",
+      "id": "popup_width",
+      "min": 300,
+      "max": 1200,
+      "step": 10,
+      "unit": "px",
+      "label": "t:settings.popup_max_width",
+      "default": 600
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.section_padding.label"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "t:sections.all.section_padding.top.label",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "t:sections.all.section_padding.bottom.label",
+      "default": 20
+    }
+  ],
+  "blocks": [
+    {
+      "type": "@app"
+    },
+    {
+      "type": "heading"
+    },
+    {
+      "type": "description"
+    },
+    {
+      "type": "image"
+    },
+    {
+      "type": "button"
+    },
+    {
+      "type": "timer"
+    },
+    {
+      "type": "divider"
+    },
+    {
+      "type": "spacing"
+    },
+    {
+      "type": "form-subscribe"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:blocks.names.popup_link",
+      "category": "t:categories.link",
+      "blocks": [
+        {
+          "type": "heading"
+        },
+        {
+          "type": "description"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

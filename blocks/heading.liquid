@@ -1,0 +1,106 @@
+{% liquid
+  assign theme_st = settings
+  assign scroll_animation = theme_st.scroll_animation
+  assign block_st = block.settings
+  assign mb_custom = ''
+  if block_st.spacing_bottom > 41
+    assign mb_custom = 'mb-big'
+  elsif block_st.spacing_bottom > 30
+    assign mb_custom = 'mb-medium'
+  else
+    assign mb_custom = 'mb-custom'
+  endif
+  assign uppercase = ''
+  if block_st.uppercase
+    assign uppercase = 'uppercase'
+  endif
+  assign fs_custom = ''
+  if block_st.font_size > 41
+    assign fs_custom = 'fs-big'
+  elsif block_st.font_size > 24
+    assign fs_custom = 'fs-medium'
+  else
+    assign fs_custom = 'fs-custom'
+  endif
+  assign font_weight = block_st.font_weight
+%}
+<motion-element
+  data-motion="{{ scroll_animation }}"
+  {% if scroll_animation == 'none' %}
+    hold
+  {% endif %}
+  class="block"
+>
+  <h2
+    class="mt-0 sec__content-heading heading-letter-spacing text-mb-{{section.settings.content_alignment_mobile}} text-md-{{ section.settings.content_alignment }} {{ mb_custom }} {{ uppercase }} {{ fs_custom }} {{ font_weight }}"
+    style="--font-size: {{ block_st.font_size }};--space-bottom: {{ block_st.spacing_bottom }};"
+    {{ block.shopify_attributes }}
+  >
+    {{ block.settings.heading }}
+  </h2>
+</motion-element>
+{% schema %}
+{
+  "name": "t:sections.all.contents.heading.label",
+  "tag": null,
+  "settings": [
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "t:sections.all.contents.heading.label",
+      "default": "Talk about your brand"
+    },
+    {
+      "type": "range",
+      "id": "font_size",
+      "label": "t:sections.all.content_settings.font_size.label",
+      "default": 36,
+      "min": 16,
+      "max": 100,
+      "step": 1,
+      "unit": "px"
+    },
+    {
+      "type": "select",
+      "id": "font_weight",
+      "label": "t:sections.all.content_settings.font_weight.label",
+      "default": "heading_weight",
+      "options": [
+        {
+          "value": "body_weight",
+          "label": "t:sections.all.content_settings.font_weight.body_weight.label"
+        },
+        {
+          "value": "subheading_weight",
+          "label": "t:sections.all.content_settings.font_weight.subheading_weight.label"
+        },
+        {
+          "value": "heading_weight",
+          "label": "t:sections.all.content_settings.font_weight.heading_weight.label"
+        }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "uppercase",
+      "label": "t:sections.all.text_transform.uppercase.label"
+    },
+    {
+      "type": "range",
+      "id": "spacing_bottom",
+      "label": "t:sections.all.content_settings.spacing.spacing_bottom.label",
+      "default": 20,
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.all.contents.heading.label",
+      "category": "t:categories.basic"
+    }
+  ]
+}
+{% endschema %}

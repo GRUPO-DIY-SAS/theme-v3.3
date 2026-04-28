@@ -1,0 +1,127 @@
+{% liquid
+  assign block_st = block.settings
+  assign uppercase = ''
+  if block_st.uppercase
+    assign uppercase = 'uppercase'
+  endif
+  assign fs_custom = ''
+  if block_st.font_size > 41
+    assign fs_custom = 'fs-big'
+  elsif block_st.font_size > 24
+    assign fs_custom = 'fs-medium'
+  else
+    assign fs_custom = 'fs-custom'
+  endif
+  assign font_weight = block_st.font_weight
+%}
+{%- style -%}
+  .prose .sec__content-des {
+    text-align: start !important;
+  }
+{%- endstyle -%}
+<collapsible-block
+  tabindex="0"
+  {{ block.shopify_attributes }}
+  class="faq-section-items bls-toggle relative text-start block{% if block_st.open %} active{% endif %}"
+>
+  <h3
+    class="{{ uppercase }} {{ fs_custom }} {{ font_weight }} faq-section-title my-0 pointer py-20 relative collapsible-heading text-color hover-heading-color transition pe-12"
+    style="--font-size: {{ block_st.font_size }};"
+  >
+    {{ block.settings.heading }}
+    <span class="open-children-toggle absolute inset-0 flex flex-end pointer">
+      <span class="icon_plus-animation"> </span>
+    </span>
+  </h3>
+  <div
+    class="faq-section-content overflow-hidden collapsible-content mb-20"
+    {% if block_st.open != true %}
+      style="display: none;"
+    {% endif %}
+  >
+    <div class="prose">
+      {% content_for 'blocks' %}
+    </div>
+  </div>
+</collapsible-block>
+
+{% schema %}
+{
+  "name": "t:blocks.names.accordion_row",
+  "tag": null,
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "t:sections.all.contents.heading.label",
+      "default": "Heading"
+    },
+    {
+      "type": "range",
+      "id": "font_size",
+      "label": "t:sections.all.content_settings.font_size.label",
+      "default": 24,
+      "min": 16,
+      "max": 100,
+      "step": 1,
+      "unit": "px"
+    },
+    {
+      "type": "select",
+      "id": "font_weight",
+      "label": "t:sections.all.content_settings.font_weight.label",
+      "default": "heading_weight",
+      "options": [
+        {
+          "value": "body_weight",
+          "label": "t:sections.all.content_settings.font_weight.body_weight.label"
+        },
+        {
+          "value": "subheading_weight",
+          "label": "t:sections.all.content_settings.font_weight.subheading_weight.label"
+        },
+        {
+          "value": "heading_weight",
+          "label": "t:sections.all.content_settings.font_weight.heading_weight.label"
+        }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "uppercase",
+      "label": "t:sections.all.text_transform.uppercase.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "open",
+      "label": "t:settings.open_default",
+      "default": false
+    }
+  ],
+  "blocks": [
+    {
+      "type": "@theme"
+    },
+    {
+      "type": "@app"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:blocks.names.accordion_row",
+      "blocks": {
+        "text-1": {
+          "type": "description",
+          "settings": {
+            "text": "<p>We will work quickly to ship your order as soon as possible. Once your order has shipped, you will receive an email with further information. Delivery times vary depending on your location.</p>"
+          }
+        }
+      },
+      "block_order": ["text-1"],
+      "settings": {
+        "heading": "When will I get my order?"
+      }
+    }
+  ]
+}
+{% endschema %}

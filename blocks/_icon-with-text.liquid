@@ -1,0 +1,422 @@
+{% liquid
+  assign block_st = block.settings
+  assign section_st = section.settings
+  assign enable_skeleton_loading = section_st.enable_skeleton_loading
+  assign icon_image_start = block_st.icon_image_start
+  assign icon_image_middle = block_st.icon_image_middle
+  assign icon_image_end = block_st.icon_image_end
+%}
+{% if block_st.icon_with_text_content_start != blank
+  or block_st.icon_with_text_content_middle != blank
+  or block_st.icon_with_text_content_end != blank
+%}
+  {% liquid
+    if block_st.layout_type == 'horizontal'
+      assign class = 'border-inline-end py-0 px-0 px-md-20'
+    else
+      assign class = 'flex py-15'
+      assign last_block = class
+      assign block_content = 'flex-1 align-center text-left'
+    endif
+  %}
+  <div
+    class="icon-with-text {{  block_st.layout_type }} flex {% if block_st.layout_type == 'horizontal' %}flex-nowrap{% else %}flex-wrap flex-md-nowrap{% endif %} px-20 {% if block_st.layout_type == 'horizontal' %}px-md-0{% endif %} {% if block_st.type == "frame" %} border {% endif %} py-0 py-md-20 text-center mb-20 rounded-5 {% if enable_skeleton_loading %} skeleton-loading{% endif %}"
+    style="--custom-width: {{ block_st.icon_size }}px"
+    {{ block.shopify_attributes }}
+  >
+    {% if block_st.icon_with_text_content_start != blank %}
+      <div
+        class="icon-with-text-start {{ class }} flex-1 rich__text-m0 {% if block_st.layout_type == "vertical" and icon_image_start != blank and block_st.icon_svg == 'none'%}gap-10{% endif %}"
+      >
+        {%- if icon_image_start != blank and block_st.icon_svg == 'none' -%}
+          {%- assign sizes = block_st.icon_size | append: 'px' -%}
+          {%- assign image_alt = icon_image_start.alt | default: 'images' -%}
+          {% render 'responsive-image',
+            type: 'other',
+            image: icon_image_start,
+            image_alt: image_alt,
+            width: block_st.icon_size,
+            sizes: sizes,
+            custom_widths: '185, 120, 60, 30',
+            no_animate: true
+          %}
+        {%- elsif block_st.icon_svg != 'none' -%}
+          {% render 'icon_svg_list', icon: block_st.icon_svg, custom_width: block_st.icon_size %}
+        {% endif %}
+        <div class="rich__text-m0 {{ block_content }}">
+          {{ block_st.icon_with_text_content_start }}
+        </div>
+      </div>
+    {% endif %}
+    {% if block_st.icon_with_text_content_middle != blank %}
+      <div class="icon-with-text-middle {{ class }} flex-1 rich__text-m0 {% if block_st.layout_type == "vertical" and icon_image_middle != blank and block_st.icon_svg_middle == 'none'%}gap-10{% endif %}">
+        {%- if icon_image_middle != blank and block_st.icon_svg_middle == 'none' -%}
+          {%- assign sizes = block_st.icon_size | append: 'px' -%}
+          {%- assign image_alt = icon_image_middle.alt | default: 'images' -%}
+          {% render 'responsive-image',
+            type: 'other',
+            image: icon_image_middle,
+            image_alt: image_alt,
+            width: block_st.icon_size,
+            sizes: sizes,
+            custom_widths: '185, 120, 60, 30',
+            no_animate: true
+          %}
+        {%- elsif block_st.icon_svg_middle != 'none' -%}
+          {% render 'icon_svg_list',
+            icon: block_st.icon_svg_middle,
+            custom_width: block_st.icon_size,
+            custom_height: block_st.icon_size
+          %}
+        {% endif %}
+        <div class="rich__text-m0 {{ block_content }}">
+          {{ block_st.icon_with_text_content_middle }}
+        </div>
+      </div>
+    {% endif %}
+    {% if block_st.icon_with_text_content_end != blank %}
+      <div class="icon-with-text-end {{ last_block }} flex-1 rich__text-m0 {% if block_st.layout_type == 'horizontal' %}py-0 px-0 px-md-20{% endif %} {% if block_st.layout_type == "vertical" and icon_image_end != blank and block_st.icon_svg_end == 'none'%}gap-10{% endif %}">
+        {%- if icon_image_end != blank and block_st.icon_svg_end == 'none' -%}
+          {%- assign sizes = block_st.icon_size | append: 'px' -%}
+          {%- assign image_alt = icon_image_end.alt | default: 'images' -%}
+          {% render 'responsive-image',
+            type: 'other',
+            image: icon_image_end,
+            image_alt: image_alt,
+            width: block_st.icon_size,
+            sizes: sizes,
+            custom_widths: '185, 120, 60, 30',
+            no_animate: true
+          %}
+        {%- elsif block_st.icon_svg_end != 'none' -%}
+          {% render 'icon_svg_list',
+            icon: block_st.icon_svg_end,
+            custom_width: block_st.icon_size,
+            custom_height: block_st.icon_size
+          %}
+        {% endif %}
+        <div class="rich__text-m0 {{ block_content }}">
+          {{ block_st.icon_with_text_content_end }}
+        </div>
+      </div>
+    {% endif %}
+  </div>
+{% endif %}
+{% schema %}
+{
+  "name": "t:blocks.names.icon_with_text",
+  "settings": [
+    {
+      "type": "select",
+      "id": "layout_type",
+      "label": "t:settings_schema.layout.name",
+      "default": "horizontal",
+      "options": [
+        {
+          "value": "vertical",
+          "label": "t:sections.featured-product.blocks.icon_with_text.settings.layout_type.option__1"
+        },
+        {
+          "value": "horizontal",
+          "label": "t:sections.featured-product.blocks.icon_with_text.settings.layout_type.option__2"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "type",
+      "label": "t:sections.featured-product.settings.type.label",
+      "default": "default",
+      "options": [
+        {
+          "value": "default",
+          "label": "t:sections.featured-product.settings.type.default.label"
+        },
+        {
+          "value": "frame",
+          "label": "t:sections.featured-product.settings.type.frame.label"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "icon_size",
+      "label": "t:sections.featured-product.blocks.icon_size.label",
+      "default": 20,
+      "min": 10,
+      "max": 60,
+      "step": 1,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.featured-product.blocks.icon_with_text_1.header"
+    },
+    {
+      "type": "image_picker",
+      "id": "icon_image_start",
+      "label": "t:sections.all.image.label"
+    },
+    {
+      "type": "select",
+      "id": "icon_svg",
+      "label": "t:sections.all.svg.label",
+      "default": "none",
+      "info": "t:sections.featured-product.blocks.info",
+      "options": [
+        {
+          "value": "none",
+          "label": "t:sections.all.icon.none.label"
+        },
+        {
+          "value": "free_shipping",
+          "label": "t:sections.all.icon.free_shipping.label"
+        },
+        {
+          "value": "check_badge",
+          "label": "t:sections.all.icon.check_badge.label"
+        },
+        {
+          "value": "message_communications",
+          "label": "t:sections.all.icon.message_communications.label"
+        },
+        {
+          "value": "payment",
+          "label": "t:sections.all.icon.payment.label"
+        },
+        {
+          "value": "boat",
+          "label": "t:sections.all.icon.boat.label"
+        },
+        {
+          "value": "truck",
+          "label": "t:sections.all.icon.truck.label"
+        },
+        {
+          "value": "location",
+          "label": "t:sections.all.icon.location.label"
+        },
+        {
+          "value": "leaf",
+          "label": "t:sections.all.icon.leaf.label"
+        },
+        {
+          "value": "blossom",
+          "label": "t:sections.all.icon.blossom.label"
+        },
+        {
+          "value": "phone",
+          "label": "t:sections.all.icon.phone.label"
+        },
+        {
+          "value": "email",
+          "label": "t:sections.all.icon.email.label"
+        },
+        {
+          "value": "chat",
+          "label": "t:sections.all.icon.chat.label"
+        },
+        {
+          "value": "bag",
+          "label": "t:sections.all.icon.bag.label"
+        },
+        {
+          "value": "support",
+          "label": "t:sections.all.icon.support.label"
+        },
+        {
+          "value": "tree",
+          "label": "t:sections.all.icon.tree.label"
+        }
+      ],
+    },
+    {
+      "type": "richtext",
+      "id": "icon_with_text_content_start",
+      "label": "t:sections.featured-product.blocks.content",
+      "default": "<p>Raw Hemp</p>"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.featured-product.blocks.icon_with_text_2.header"
+    },
+    {
+      "type": "image_picker",
+      "id": "icon_image_middle",
+      "label": "t:sections.all.image.label"
+    },
+    {
+      "type": "select",
+      "id": "icon_svg_middle",
+      "label": "t:sections.all.svg.label",
+      "default": "none",
+      "info": "t:sections.featured-product.blocks.info",
+      "options": [
+        {
+          "value": "none",
+          "label": "t:sections.all.icon.none.label"
+        },
+        {
+          "value": "free_shipping",
+          "label": "t:sections.all.icon.free_shipping.label"
+        },
+        {
+          "value": "check_badge",
+          "label": "t:sections.all.icon.check_badge.label"
+        },
+        {
+          "value": "message_communications",
+          "label": "t:sections.all.icon.message_communications.label"
+        },
+        {
+          "value": "payment",
+          "label": "t:sections.all.icon.payment.label"
+        },
+        {
+          "value": "boat",
+          "label": "t:sections.all.icon.boat.label"
+        },
+        {
+          "value": "truck",
+          "label": "t:sections.all.icon.truck.label"
+        },
+        {
+          "value": "location",
+          "label": "t:sections.all.icon.location.label"
+        },
+        {
+          "value": "leaf",
+          "label": "t:sections.all.icon.leaf.label"
+        },
+        {
+          "value": "blossom",
+          "label": "t:sections.all.icon.blossom.label"
+        },
+        {
+          "value": "phone",
+          "label": "t:sections.all.icon.phone.label"
+        },
+        {
+          "value": "email",
+          "label": "t:sections.all.icon.email.label"
+        },
+        {
+          "value": "chat",
+          "label": "t:sections.all.icon.chat.label"
+        },
+        {
+          "value": "bag",
+          "label": "t:sections.all.icon.bag.label"
+        },
+        {
+          "value": "support",
+          "label": "t:sections.all.icon.support.label"
+        },
+        {
+          "value": "tree",
+          "label": "t:sections.all.icon.tree.label"
+        }
+      ],
+    },
+    {
+      "type": "richtext",
+      "id": "icon_with_text_content_middle",
+      "label": "t:sections.featured-product.blocks.content",
+      "default": "<p>Risk-Free</p>"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.featured-product.blocks.icon_with_text_3.header"
+    },
+    {
+      "type": "image_picker",
+      "id": "icon_image_end",
+      "label": "t:sections.all.image.label"
+    },
+    {
+      "type": "select",
+      "id": "icon_svg_end",
+      "label": "t:sections.all.svg.label",
+      "default": "none",
+      "info": "t:sections.featured-product.blocks.info",
+      "options": [
+        {
+          "value": "none",
+          "label": "t:sections.all.icon.none.label"
+        },
+        {
+          "value": "free_shipping",
+          "label": "t:sections.all.icon.free_shipping.label"
+        },
+        {
+          "value": "check_badge",
+          "label": "t:sections.all.icon.check_badge.label"
+        },
+        {
+          "value": "message_communications",
+          "label": "t:sections.all.icon.message_communications.label"
+        },
+        {
+          "value": "payment",
+          "label": "t:sections.all.icon.payment.label"
+        },
+        {
+          "value": "boat",
+          "label": "t:sections.all.icon.boat.label"
+        },
+        {
+          "value": "truck",
+          "label": "t:sections.all.icon.truck.label"
+        },
+        {
+          "value": "location",
+          "label": "t:sections.all.icon.location.label"
+        },
+        {
+          "value": "leaf",
+          "label": "t:sections.all.icon.leaf.label"
+        },
+        {
+          "value": "blossom",
+          "label": "t:sections.all.icon.blossom.label"
+        },
+        {
+          "value": "phone",
+          "label": "t:sections.all.icon.phone.label"
+        },
+        {
+          "value": "email",
+          "label": "t:sections.all.icon.email.label"
+        },
+        {
+          "value": "chat",
+          "label": "t:sections.all.icon.chat.label"
+        },
+        {
+          "value": "bag",
+          "label": "t:sections.all.icon.bag.label"
+        },
+        {
+          "value": "support",
+          "label": "t:sections.all.icon.support.label"
+        },
+        {
+          "value": "tree",
+          "label": "t:sections.all.icon.tree.label"
+        }
+      ],
+    },
+    {
+      "type": "richtext",
+      "id": "icon_with_text_content_end",
+      "label": "t:sections.featured-product.blocks.content",
+      "default": "<p>Non-Toxic</p>"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Icon with text"
+    }
+  ]
+}
+{% endschema %}

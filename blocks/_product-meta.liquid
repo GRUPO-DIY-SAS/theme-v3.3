@@ -1,0 +1,143 @@
+{% liquid
+  assign block_st = block.settings
+  assign section_st = section.settings
+  assign enable_skeleton_loading = section_st.enable_skeleton_loading
+  assign product = closest.product
+%}
+<ul
+  class="product-detail__meta list-none p-0 mt-0 mb-20{% if enable_skeleton_loading %} skeleton-loading{% endif %}"
+  {{ block.shopify_attributes }}
+>
+  {% if block_st.show_barcode %}
+    <li class="mb-2">
+      <span class="product-detail__meta-label inline-block">{{ 'products.product.barcode' | t }}:</span>
+      <span class="product-detail__meta-value heading-color">
+        {{- product.selected_or_first_available_variant.barcode | default: 'N/A' -}}
+      </span>
+    </li>
+  {% endif %}
+  {% if block_st.show_sku %}
+    <li class="mb-2">
+      <span class="product-detail__meta-label inline-block">{{- 'products.product.general.sku' | t }}:</span>
+      <span
+        class="product__sku product-detail__meta-value heading-color no-underline{% if product.selected_or_first_available_variant.sku.size == 0 %} visibility-hidden{% endif %}"
+        role="status"
+      >
+        {{- product.selected_or_first_available_variant.sku | default: 'N/A' -}}
+      </span>
+    </li>
+  {% endif %}
+  {% if block_st.show_available %}
+    <li class="mb-2">
+      {%- liquid
+        assign lable_stock = 'products.product.general.instock' | t
+        if product.selected_or_first_available_variant.inventory_management != null
+          if product.selected_or_first_available_variant.available and product.selected_or_first_available_variant.inventory_quantity < 1
+            assign lable_stock = 'products.product.general.pre_order' | t
+          elsif product.selected_or_first_available_variant.available
+            assign lable_stock = 'products.product.general.instock' | t
+          else
+            assign lable_stock = 'products.product.general.outstock' | t
+          endif
+        endif
+      -%}
+      <span class="product-detail__meta-label inline-block">{{- 'products.product.general.available' | t }}:</span>
+      <span class="product-detail__meta-value heading-color no-underline">{{- lable_stock -}}</span>
+    </li>
+  {% endif %}
+
+  {% if block_st.show_collections %}
+    <li class="mb-2">
+      <span class="product-detail__meta-label inline-block">{{- 'products.product.general.collections' | t }}:</span>
+      <span class="product-detail__meta-value heading-color no-underline">
+        {% if product.collections.size > 0 %}
+          {% for collection in product.collections %}
+            <a
+              href="{{ collection.url }}"
+              aria-label="{{- collection.title -}}"
+              class="no-underline"
+            >
+              {{- collection.title -}}
+              {%- if forloop.last != true -%},{% endif %}
+            </a>
+          {% endfor %}
+        {%- else -%}
+          N/A
+        {% endif %}
+      </span>
+    </li>
+  {% endif %}
+  {% if block_st.show_tags %}
+    <li class="mb-2">
+      <span class="product-detail__meta-label inline-block">{{- 'products.product.general.tags' | t }}:</span>
+      <span class="product-detail__meta-value heading-color no-underline">
+        {% if product.tags != blank %}
+          {% for tags in product.tags %}
+            {{- tags -}}
+            {%- if forloop.last != true -%},{% endif %}
+          {% endfor %}
+        {%- else -%}
+          N/A
+        {% endif %}
+      </span>
+    </li>
+  {% endif %}
+  {% if block_st.show_type and product.type != blank %}
+    <li class="mb-2">
+      <span class="product-detail__meta-label inline-block">{{- 'products.product.general.type' | t }}:</span>
+      <span class="product-detail__meta-value heading-color no-underline">
+        {{- product.type | link_to_type -}}
+      </span>
+    </li>
+  {% endif %}
+</ul>
+{% schema %}
+{
+  "name": "t:blocks.product.product_meta.name",
+  "tag": null,
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_barcode",
+      "label": "t:sections.main-product.blocks.product_meta.settings.show_barcode",
+      "info": "t:sections.main-product.blocks.product_meta.settings.barcode_info",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_sku",
+      "label": "t:sections.main-product.blocks.product_meta.settings.show_sku",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_available",
+      "label": "t:sections.main-product.blocks.product_meta.settings.show_available",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_tags",
+      "label": "t:sections.main-product.blocks.product_meta.settings.show_tags",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_type",
+      "label": "t:sections.main-product.blocks.product_meta.settings.show_type",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_collections",
+      "label": "t:sections.main-product.blocks.product_meta.settings.show_collections",
+      "default": true
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:blocks.product.product_meta.name"
+    }
+  ]
+}
+{% endschema %}

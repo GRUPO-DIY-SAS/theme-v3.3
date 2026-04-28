@@ -1,0 +1,62 @@
+{%- if block.settings.menu != blank or block.settings.heading != blank -%}
+  <collapsible-block tabindex="0">
+    {%- if block.settings.menu != blank or block.settings.heading != blank -%}
+      <h3
+        class="footer__block-heading collapsible-heading text-left heading-letter-spacing relative fs-custom my-0 py-20 mb-md-5"
+      >
+        <span>
+          {{ block.settings.heading }}
+        </span>
+        {%- if block.settings.menu != blank -%}
+          <span class="open-children-toggle hidden-md absolute inset-0 flex flex-end">
+            <span class="icon_plus-animation"> </span>
+          </span>
+        {% endif %}
+      </h3>
+      {%- if block.settings.menu != blank -%}
+        <div class="footer-block collapsible-content text-left mb-12 mb-md-0">
+          <ul class="list-unstyled">
+            {%- for link in block.settings.menu.links -%}
+              <li class="pb-8">
+                <a
+                  href="{{ link.url }}"
+                  aria-label="{{ link.title }}"
+                  class="no-underline word-break reversed-links relative"
+                >
+                  {{ link.title }}
+                </a>
+              </li>
+            {%- endfor -%}
+          </ul>
+        </div>
+      {% endif %}
+    {% endif %}
+  </collapsible-block>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "t:blocks.names.menu",
+  "tag": null,
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "default": "Menu",
+      "label": "t:sections.all.contents.heading.label"
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "default": "main-menu",
+      "label": "t:settings_schema.typography.settings.menu.label"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:blocks.names.menu",
+      "category": "t:categories.link"
+    }
+  ]
+}
+{% endschema %}

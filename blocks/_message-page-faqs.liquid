@@ -1,0 +1,124 @@
+{{ 'banner.css' | asset_url | stylesheet_tag }}
+{% liquid
+  assign theme_st = settings
+  assign scroll_animation = theme_st.scroll_animation
+%}
+
+<motion-element
+  data-motion="{{ scroll_animation }}"
+  {% if scroll_animation == 'none' %}
+    hold
+  {% endif %}
+  class="col-md-w-custom rounded-style"
+  style="--col-width: 35%;"
+>
+  <div
+    class="background-custom faq_contact rounded sticky top-30 py-custom px-custom"
+    style="--content_bg_color: {{ block.settings.background_color }}; --padding-inline: {{ block.settings.content_padding_inline }};--padding-block: {{ block.settings.content_padding_block }};"
+  >
+    {% content_for 'blocks' %}
+  </div>
+</motion-element>
+{% schema %}
+{
+  "name": "t:sections.faq.settings.block.add_faq",
+  "tag": null,
+  "blocks": [
+    {
+      "type": "description"
+    },
+    {
+      "type": "heading"
+    },
+    {
+      "type": "button"
+    },
+    {
+      "type": "subheading"
+    },
+    {
+      "type": "image"
+    }
+  ],
+  "settings": [
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "t:settings_schema.badges.settings.background_color.label",
+      "default": "#f5f5f5"
+    },
+    {
+      "type": "range",
+      "id": "content_padding_block",
+      "min": 15,
+      "max": 150,
+      "step": 5,
+      "unit": "px",
+      "default": 40,
+      "label": "t:sections.all.content_settings.content_padding_block.label"
+    },
+    {
+      "type": "range",
+      "id": "content_padding_inline",
+      "min": 0,
+      "max": 150,
+      "step": 5,
+      "unit": "px",
+      "default": 40,
+      "label": "t:sections.all.content_settings.content_padding_inline.label"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.faq.settings.block.add_faq",
+      "blocks": [
+        {
+          "type": "heading",
+          "name": "t:sections.all.contents.heading.label",
+          "settings": {
+            "heading": "Contact Us",
+            "font_size": 24,
+            "font_weight": "heading_weight",
+            "uppercase": false,
+            "spacing_bottom": 20
+          }
+        },
+        {
+          "type": "description",
+          "name": "t:blocks.general.text.name",
+          "settings": {
+            "text": "<p>If you have an issue or question that requires immediate assistance, you can click the button below to chat live with a Customer Service representative.</p>",
+            "font_size": 14,
+            "font_weight": "body_weight",
+            "spacing_bottom": 10
+          }
+        },
+        {
+          "type": "description",
+          "name": "t:blocks.general.text.name",
+          "settings": {
+            "text": "<p>Please allow 3 - 5 business days from the time your package arrives back to us for a refund to be issued.</p>",
+            "font_size": 14,
+            "font_weight": "body_weight",
+            "spacing_bottom": 10
+          }
+        },
+        {
+          "type": "button",
+          "name": "t:sections.all.contents.button.label",
+          "settings": {
+            "show_full_width": true,
+            "first_button_label": "Contact Us",
+            "first_button_link": "",
+            "first_button_type": "outline",
+            "second_button_label": "About us",
+            "second_button_link": "",
+            "second_button_type": "primary",
+            "spacing_bottom": 10
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

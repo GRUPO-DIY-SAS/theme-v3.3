@@ -1,0 +1,955 @@
+{
+  "sections": {
+    "video_width_text_ovlerlay_X7pQm2": {
+      "type": "video-width-text-ovlerlay",
+      "blocks": {
+        "subheading_T3kP9a": {
+          "type": "subheading",
+          "name": "t:sections.all.contents.subheading.label",
+          "settings": {
+            "subheading": "Calidad y Servicio insuperable",
+            "font_size": 19,
+            "font_weight": "subheading_weight",
+            "uppercase": false,
+            "spacing_bottom": 5
+          },
+          "blocks": {}
+        },
+        "heading_N8vL1c": {
+          "type": "heading",
+          "settings": {
+            "heading": "Somos la tienda de vapeo líder en Colombia",
+            "font_size": 60,
+            "font_weight": "heading_weight",
+            "uppercase": false,
+            "spacing_bottom": 17
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "subheading_T3kP9a",
+        "heading_N8vL1c"
+      ],
+      "custom_css": [],
+      "name": "t:sections.video_with_text_overlay.name",
+      "settings": {
+        "section_width": "stretch_width",
+        "color_scheme": "scheme-cad2a0ec-e8e4-4844-b669-ed3f593863ca",
+        "video_url": "",
+        "video_local": "shopify:\/\/files\/videos\/video-hero-diy-optimizado.mp4",
+        "video_poster": "shopify:\/\/shop_images\/imagen-banner-682229870258a.webp",
+        "overlay_opacity": 10,
+        "image_height": "custom",
+        "desktop_height": 600,
+        "mobile_height": 550,
+        "product_list": [],
+        "content_alignment": "left",
+        "content_position": "bottom-left",
+        "content_width": "fluid_container",
+        "content_max_width": 100,
+        "content_padding_block": 50,
+        "content_padding_inline": 50,
+        "show_content_background": false,
+        "content_background": "#ffffff",
+        "content_box_opacity": 100,
+        "content_below_image": false,
+        "content_alignment_mobile": "left",
+        "padding_top": 10,
+        "padding_bottom": 0,
+        "reset_spacing": true
+      }
+    },
+    "scrolling_text_M4aZq9": {
+      "type": "scrolling-text",
+      "blocks": {
+        "scrolling_text_1aQw7P": {
+          "type": "scrolling_text",
+          "settings": {
+            "content": "La opción Nº1 en productos de Vapeo"
+          }
+        },
+        "scrolling_text_2bWs8R": {
+          "type": "scrolling_text",
+          "settings": {
+            "content": "Todo en vapeo un solo lugar"
+          }
+        },
+        "scrolling_text_3cEt9S": {
+          "type": "scrolling_text",
+          "settings": {
+            "content": "+18 Vapeo Responsable"
+          }
+        },
+        "scrolling_text_4dRu0T": {
+          "type": "scrolling_text",
+          "settings": {
+            "content": "La mejor Vape Shop de Colombia"
+          }
+        }
+      },
+      "block_order": [
+        "scrolling_text_1aQw7P",
+        "scrolling_text_2bWs8R",
+        "scrolling_text_3cEt9S",
+        "scrolling_text_4dRu0T"
+      ],
+      "name": "t:sections.scrolling_text.name",
+      "settings": {
+        "section_width": "stretch_width",
+        "color_scheme": "scheme-3c376871-4978-462b-aa78-be06bb77863d",
+        "direction": "left",
+        "icon_between_item": "star",
+        "icon_width": 20,
+        "speed": 14,
+        "space_between_text": 60,
+        "font_size": 15,
+        "font_weight": "heading_weight",
+        "uppercase": false,
+        "use_heading_font": false,
+        "padding_top": 30,
+        "padding_bottom": 30,
+        "reset_spacing": true
+      }
+    },
+    "rich_text_R2tVm6": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_8kLmP1": {
+          "type": "heading",
+          "settings": {
+            "heading": "Todo en vapeo: desechables, equipos, líquidos y accesorios en un solo lugar",
+            "font_size": 36,
+            "font_weight": "heading_weight",
+            "uppercase": false,
+            "spacing_bottom": 10
+          },
+          "blocks": {}
+        },
+        "description_3nQxZ7": {
+          "type": "description",
+          "settings": {
+            "text": "<p><em>En DIY Vape Shop siempre encontrarás vaporizadores, líquidos y accesorios pensados para que puedas disfrutar tu experiencia de vapeo a tu manera.<\/em><\/p>",
+            "font_size": 15,
+            "font_weight": "body_weight",
+            "spacing_bottom": 0
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "heading_8kLmP1",
+        "description_3nQxZ7"
+      ],
+      "name": "t:sections.rich_text.name",
+      "settings": {
+        "section_width": "container",
+        "color_scheme": "scheme-3c376871-4978-462b-aa78-be06bb77863d",
+        "content_alignment": "center",
+        "content_max_width": 100,
+        "enable_expand_content": true,
+        "expand_content_button": "",
+        "padding_top": 40,
+        "padding_bottom": 20,
+        "reset_spacing": true
+      }
+    },
+    "collection_list_P9kYx3": {
+      "type": "collection-list",
+      "blocks": {
+        "collection_01AaBc": {
+          "type": "collection",
+          "settings": {
+            "collection": "pods-desechables",
+            "collection_image": "{{ block.settings.collection.metafields.custom.collection_image_icon.value }}",
+            "collection_title": ""
+          }
+        },
+        "collection_02DdEf": {
+          "type": "collection",
+          "settings": {
+            "collection": "pod-system",
+            "collection_image": "{{ block.settings.collection.metafields.custom.collection_image_icon.value }}",
+            "collection_title": ""
+          }
+        },
+        "collection_03GgHi": {
+          "type": "collection",
+          "settings": {
+            "collection": "kits-de-inicio",
+            "collection_image": "{{ block.settings.collection.metafields.custom.collection_image_icon.value }}",
+            "collection_title": "Kit de Vapeo"
+          }
+        },
+        "collection_04JjKk": {
+          "type": "collection",
+          "settings": {
+            "collection": "salt-nic-ejuice",
+            "collection_image": "{{ block.settings.collection.metafields.custom.collection_image_icon.value }}",
+            "collection_title": ""
+          }
+        },
+        "collection_05LlMm": {
+          "type": "collection",
+          "settings": {
+            "collection": "base-libre",
+            "collection_image": "{{ block.settings.collection.metafields.custom.collection_image_icon.value }}",
+            "collection_title": ""
+          }
+        },
+        "collection_06NnOo": {
+          "type": "collection",
+          "settings": {
+            "collection": "resistencias-comerciales",
+            "collection_image": "{{ block.settings.collection.metafields.custom.collection_image_icon.value }}",
+            "collection_title": "Resistencias y Pods"
+          }
+        },
+        "collection_07PpQq": {
+          "type": "collection",
+          "settings": {
+            "collection": "alquimia",
+            "collection_image": "{{ block.settings.collection.metafields.custom.collection_image_icon.value }}",
+            "collection_title": "Prepara tus Elíquidos"
+          }
+        },
+        "collection_08RrSs": {
+          "type": "collection",
+          "settings": {
+            "collection": "pouches-de-nicotina-y-cafeina",
+            "collection_image": "{{ block.settings.collection.metafields.custom.collection_image_icon.value }}",
+            "collection_title": "Bolsas de Nicotina"
+          }
+        },
+        "collection_09TtUu": {
+          "type": "collection",
+          "settings": {
+            "collection": "vaporizadores-herbales",
+            "collection_image": "{{ block.settings.collection.metafields.custom.collection_image_icon.value }}",
+            "collection_title": ""
+          }
+        },
+        "collection_10VvWw": {
+          "type": "collection",
+          "settings": {
+            "collection": "iqos",
+            "collection_image": "{{ block.settings.collection.metafields.custom.collection_image_icon.value }}",
+            "collection_title": "Tabaco Calentado"
+          }
+        }
+      },
+      "block_order": [
+        "collection_01AaBc",
+        "collection_02DdEf",
+        "collection_03GgHi",
+        "collection_04JjKk",
+        "collection_05LlMm",
+        "collection_06NnOo",
+        "collection_07PpQq",
+        "collection_08RrSs",
+        "collection_09TtUu",
+        "collection_10VvWw"
+      ],
+      "settings": {
+        "section_width": "fluid_container",
+        "color_scheme": "scheme-3c376871-4978-462b-aa78-be06bb77863d",
+        "heading": "",
+        "description": "",
+        "show_view_all_button": false,
+        "header_size": "medium",
+        "header_alignment": "center",
+        "display_mode": "carousel",
+        "image_ratio": "square",
+        "custom_ratio": "",
+        "items_per_row": 7,
+        "column_gap": 20,
+        "show_arrow": true,
+        "carousel_pagination": "show_dots",
+        "infinite": false,
+        "autoplay": false,
+        "autorotate_speed": 5,
+        "reveal": false,
+        "items_per_row_mobile": 2.5,
+        "design": "morden",
+        "collection_information_position": "below_image",
+        "text_alignment": "center",
+        "show_product_count": false,
+        "show_icon": true,
+        "show_description": false,
+        "font_size": 14,
+        "font_weight": "heading_weight",
+        "information_spacing": 12,
+        "rounded_image": true,
+        "image_custom_width": true,
+        "image_width": 185,
+        "padding_top": 0,
+        "padding_bottom": 40,
+        "reset_spacing": true
+      }
+    },
+    "divider_K1mQe8": {
+      "type": "divider",
+      "settings": {
+        "section_width": "full_width",
+        "border_height": 1,
+        "border_color": "#ebebeb",
+        "reset_spacing": true
+      }
+    },
+    "products_carousel_A1b2C3": {
+      "type": "products-carousel",
+      "name": "t:sections.products-carousel.name",
+      "settings": {
+        "section_width": "fluid_container",
+        "color_scheme": "",
+        "heading": "Estrenos y lanzamientos en nuestra tienda de vapeo",
+        "description": "<em>Mantente siempre al día con lo último en el mundo del vapeo. Descubre nuestras novedades y sé el primero en probar lo mejor de nuestra tienda.<\/em>",
+        "show_view_all_button": true,
+        "header_size": "small",
+        "header_alignment": "left",
+        "collection": "novedades",
+        "items_to_show": 4,
+        "items_per_row": 4,
+        "column_gap": 10,
+        "show_banner": true,
+        "sticky_banner": true,
+        "banner_width": 20,
+        "position": "right",
+        "banner_link": "{{ section.settings.collection.url }}",
+        "banner_type": "video",
+        "banner_image": "{{ section.settings.collection.metafields.custom.collection_image_icon.value }}",
+        "video_url": "",
+        "local_video": "shopify:\/\/files\/videos\/logo-movil-optimizado.mp4",
+        "video_autoplay": true,
+        "show_arrow": true,
+        "carousel_pagination": "show_dots_on_mobile",
+        "infinite": false,
+        "autoplay": false,
+        "autorotate_speed": 5,
+        "reveal": true,
+        "items_per_row_mobile": 2,
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "reset_spacing": true
+      }
+    },
+    "products_carousel_D4e5F6": {
+      "type": "products-carousel",
+      "name": "t:sections.products-carousel.name",
+      "settings": {
+        "section_width": "fluid_container",
+        "color_scheme": "",
+        "heading": "Los mejores vapes desechables en DIY",
+        "description": "<em>En DIY Vape Shop reunimos los vapes desechables más populares y confiables del mercado. Variedad de marcas, sabores y presentaciones para que siempre tengas uno listo cuando lo necesites.<\/em>",
+        "show_view_all_button": true,
+        "header_size": "small",
+        "header_alignment": "right",
+        "collection": "pods-desechables",
+        "items_to_show": 5,
+        "items_per_row": 5,
+        "column_gap": 30,
+        "show_banner": false,
+        "sticky_banner": true,
+        "banner_width": 20,
+        "position": "left",
+        "banner_link": "{{ section.settings.collection.url }}",
+        "banner_type": "image",
+        "banner_image": "{{ section.settings.collection.metafields.custom.collection_image_icon.value }}",
+        "video_url": "",
+        "video_autoplay": true,
+        "show_arrow": true,
+        "carousel_pagination": "show_dots_on_mobile",
+        "infinite": false,
+        "autoplay": false,
+        "autorotate_speed": 4,
+        "reveal": true,
+        "items_per_row_mobile": 2,
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "reset_spacing": true
+      }
+    },
+    "products_carousel_G7h8I9": {
+      "type": "products-carousel",
+      "name": "t:sections.products-carousel.name",
+      "settings": {
+        "section_width": "fluid_container",
+        "color_scheme": "",
+        "heading": "Equipos recargables: los preferidos por nuestros clientes",
+        "description": "<em>Para quienes buscan una experiencia de vapeo personalizada, nuestros vapes recargables ofrecen potencia, diseño y libertad para elegir sabores y niveles de nicotina<\/em>",
+        "show_view_all_button": false,
+        "header_size": "small",
+        "header_alignment": "left",
+        "collection": "pod-system",
+        "items_to_show": 4,
+        "items_per_row": 4,
+        "column_gap": 30,
+        "show_banner": true,
+        "sticky_banner": true,
+        "banner_width": 20,
+        "position": "left",
+        "banner_link": "{{ section.settings.collection.url }}",
+        "banner_type": "video",
+        "banner_image": "{{ section.settings.collection.metafields.custom.collection_image_icon.value }}",
+        "video_url": "",
+        "local_video": "shopify:\/\/files\/videos\/Vprime.mp4",
+        "video_autoplay": true,
+        "show_arrow": true,
+        "carousel_pagination": "show_dots_on_mobile",
+        "infinite": false,
+        "autoplay": false,
+        "autorotate_speed": 5,
+        "reveal": true,
+        "items_per_row_mobile": 2,
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "reset_spacing": true
+      }
+    },
+    "collection_tab_J2k3L4": {
+      "type": "collection-tab",
+      "blocks": {
+        "collection_Aa1Bb2": {
+          "type": "collection",
+          "settings": {
+            "collection": "salt-nic-ejuice",
+            "collection_title": ""
+          }
+        },
+        "collection_Cc3Dd4": {
+          "type": "collection",
+          "settings": {
+            "collection": "base-libre",
+            "collection_title": "Base Libre"
+          }
+        }
+      },
+      "block_order": [
+        "collection_Aa1Bb2",
+        "collection_Cc3Dd4"
+      ],
+      "name": "t:sections.collection-tab.name",
+      "settings": {
+        "section_width": "fluid_container",
+        "color_scheme": "",
+        "heading": "La mejor selección de líquidos y sales premium para vapear",
+        "description": "<p>En DIY Vape Shop reunimos las mejores marcas de líquidos y sales premium. Variedad de presentaciones y sabores para que siempre tengas algo nuevo por probar.<\/p>",
+        "show_view_all_button": true,
+        "header_size": "small",
+        "header_alignment": "right",
+        "tab_header_style": "horizontal",
+        "horizontal_tab_style": "fill",
+        "tab_header_postion": "horizontal_header",
+        "display_mode": "carousel",
+        "items_to_show": 10,
+        "items_per_row": 5,
+        "column_gap": 30,
+        "show_arrow": false,
+        "carousel_pagination": "show_progress_bar",
+        "infinite": true,
+        "autoplay": true,
+        "autorotate_speed": 3,
+        "reveal": false,
+        "rows": 2,
+        "show_load_more_button": true,
+        "button_label": "Ver más",
+        "carousel_on_mobile": true,
+        "items_per_row_mobile": 2,
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "reset_spacing": true
+      }
+    },
+    "collection_tab_M5n6O7": {
+      "type": "collection-tab",
+      "blocks": {
+        "collection_Ee5Ff6": {
+          "type": "collection",
+          "settings": {
+            "collection": "vaporizadores-herbales",
+            "collection_title": "Herbales"
+          }
+        },
+        "collection_Gg7Hh8": {
+          "type": "collection",
+          "settings": {
+            "collection": "baterias-destilados",
+            "collection_title": "Destilados"
+          }
+        }
+      },
+      "block_order": [
+        "collection_Ee5Ff6",
+        "collection_Gg7Hh8"
+      ],
+      "name": "t:sections.collection-tab.name",
+      "settings": {
+        "section_width": "fluid_container",
+        "color_scheme": "",
+        "heading": "Los mejores Vaporizadores de Cannabis y Concentrados están aquí.",
+        "description": "<p><em>Compra tu vaporizador herbal con los mejores en Colombia. Las mejores marcas del mercado en un solo lugar. <\/em><\/p>",
+        "show_view_all_button": true,
+        "header_size": "small",
+        "header_alignment": "right",
+        "tab_header_style": "horizontal",
+        "horizontal_tab_style": "fill",
+        "tab_header_postion": "horizontal_header",
+        "display_mode": "carousel",
+        "items_to_show": 8,
+        "items_per_row": 4,
+        "column_gap": 30,
+        "show_arrow": true,
+        "carousel_pagination": "show_progress_bar",
+        "infinite": true,
+        "autoplay": true,
+        "autorotate_speed": 3,
+        "reveal": false,
+        "rows": 2,
+        "show_load_more_button": false,
+        "button_label": "Ver más",
+        "carousel_on_mobile": true,
+        "items_per_row_mobile": 2,
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "reset_spacing": true
+      }
+    },
+    "rich_text_P8q7R6": {
+      "type": "rich-text",
+      "blocks": {
+        "subheading_S1t2U3": {
+          "type": "subheading",
+          "name": "t:sections.all.contents.subheading.label",
+          "settings": {
+            "subheading": "LA MEJOR CALIDAD—LOS MEJORES VAPES",
+            "font_size": 13,
+            "font_weight": "subheading_weight",
+            "uppercase": true,
+            "spacing_bottom": 12
+          },
+          "blocks": {}
+        },
+        "heading_V4w5X6": {
+          "type": "heading",
+          "settings": {
+            "heading": "Vape Shops  y Tienda Online No. 1 en Vapeo en Colombia",
+            "font_size": 36,
+            "font_weight": "heading_weight",
+            "uppercase": false,
+            "spacing_bottom": 10
+          },
+          "blocks": {}
+        },
+        "description_Y7z8A9": {
+          "type": "description",
+          "settings": {
+            "text": "<p>La mejor asesoría para escoger tu equipo de Vapeo y los mejores Vaporizadores —Satisfacción garantizada en nuestro servicio.<\/p><p>La empresa más confiable para la compra de todos tus productos de vapeo. Recibelos en la comodidad de tu casa. <\/p>",
+            "font_size": 17,
+            "font_weight": "body_weight",
+            "spacing_bottom": 10
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "subheading_S1t2U3",
+        "heading_V4w5X6",
+        "description_Y7z8A9"
+      ],
+      "name": "t:sections.rich_text.name",
+      "settings": {
+        "section_width": "container",
+        "color_scheme": "",
+        "content_alignment": "center",
+        "content_max_width": 100,
+        "enable_expand_content": false,
+        "expand_content_button": "See all Information",
+        "padding_top": 30,
+        "padding_bottom": 30,
+        "reset_spacing": true
+      }
+    },
+    "multi_content_B3c4D5": {
+      "type": "multi-content",
+      "blocks": {
+        "group_media_content_1a2b3c": {
+          "type": "_group-media-content",
+          "name": "t:blocks.names.media_with_text",
+          "settings": {
+            "color_scheme": "",
+            "content_width": "25%",
+            "media_type": "image",
+            "image": "shopify:\/\/shop_images\/3-67813891cdbcb.webp",
+            "mobile_image": "shopify:\/\/shop_images\/3-67813891cdbcb.webp",
+            "image_link": "https:\/\/maps.app.goo.gl\/akrmyuGcYpQu6or88",
+            "video_url": "https:\/\/www.youtube.com\/watch?v=_9VUPq3SxOc",
+            "autoplay": true,
+            "video_ratio": "16\/9",
+            "overlay_opacity": 0,
+            "content_type": "below",
+            "content_alignment": "center",
+            "content_position": "top-left",
+            "content_padding_block": 10,
+            "content_padding_inline": 10,
+            "content_mobile_image": false
+          },
+          "blocks": {
+            "heading_aa11bb": {
+              "type": "heading",
+              "settings": {
+                "heading": "DIY Vape Shop 85",
+                "font_size": 16,
+                "font_weight": "heading_weight",
+                "uppercase": false,
+                "spacing_bottom": 20
+              },
+              "blocks": {}
+            },
+            "description_cc22dd": {
+              "type": "description",
+              "name": "t:blocks.general.text.name",
+              "settings": {
+                "text": "<p><a href=\"https:\/\/maps.app.goo.gl\/akrmyuGcYpQu6or88\" target=\"_blank\" title=\"DIY Vape Shop 85\">CRA. 14 # 85- 86<\/a><\/p>",
+                "font_size": 14,
+                "font_weight": "body_weight",
+                "spacing_bottom": 10
+              },
+              "blocks": {}
+            },
+            "button_ee33ff": {
+              "type": "button",
+              "settings": {
+                "show_full_width": false,
+                "first_button_label": "Ver ubicación",
+                "first_button_link": "https:\/\/maps.app.goo.gl\/akrmyuGcYpQu6or88",
+                "first_button_type": "outline",
+                "second_button_label": "",
+                "second_button_link": "",
+                "second_button_type": "primary",
+                "spacing_bottom": 10
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "heading_aa11bb",
+            "description_cc22dd",
+            "button_ee33ff"
+          ]
+        },
+        "group_media_content_4d5e6f": {
+          "type": "_group-media-content",
+          "name": "t:blocks.names.media_with_text",
+          "settings": {
+            "color_scheme": "",
+            "content_width": "25%",
+            "media_type": "image",
+            "image": "shopify:\/\/shop_images\/2-67813891ce266.webp",
+            "mobile_image": "shopify:\/\/shop_images\/2-67813891ce266.webp",
+            "image_link": "https:\/\/maps.app.goo.gl\/YgihotxpQBdcH34Q8",
+            "video_url": "https:\/\/www.youtube.com\/watch?v=_9VUPq3SxOc",
+            "autoplay": true,
+            "video_ratio": "16\/9",
+            "overlay_opacity": 0,
+            "content_type": "below",
+            "content_alignment": "center",
+            "content_position": "top-left",
+            "content_padding_block": 10,
+            "content_padding_inline": 10,
+            "content_mobile_image": false
+          },
+          "blocks": {
+            "heading_gg44hh": {
+              "type": "heading",
+              "settings": {
+                "heading": "DIY Vape Shop 140",
+                "font_size": 16,
+                "font_weight": "heading_weight",
+                "uppercase": false,
+                "spacing_bottom": 20
+              },
+              "blocks": {}
+            },
+            "description_ii55jj": {
+              "type": "description",
+              "name": "t:blocks.general.text.name",
+              "settings": {
+                "text": "<p><a href=\"https:\/\/maps.app.goo.gl\/YgihotxpQBdcH34Q8\" target=\"_blank\" title=\"DIY Vape Shop 140\">Cll. 140 # 7C-10 LC11<\/a><\/p>",
+                "font_size": 14,
+                "font_weight": "body_weight",
+                "spacing_bottom": 10
+              },
+              "blocks": {}
+            },
+            "button_kk66ll": {
+              "type": "button",
+              "settings": {
+                "show_full_width": false,
+                "first_button_label": "Ver ubicación",
+                "first_button_link": "https:\/\/maps.app.goo.gl\/YgihotxpQBdcH34Q8",
+                "first_button_type": "outline",
+                "second_button_label": "",
+                "second_button_link": "",
+                "second_button_type": "primary",
+                "spacing_bottom": 10
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "heading_gg44hh",
+            "description_ii55jj",
+            "button_kk66ll"
+          ]
+        },
+        "group_media_content_7g8h9i": {
+          "type": "_group-media-content",
+          "name": "t:blocks.names.media_with_text",
+          "settings": {
+            "color_scheme": "",
+            "content_width": "25%",
+            "media_type": "image",
+            "image": "shopify:\/\/shop_images\/4-6781389287839.webp",
+            "mobile_image": "shopify:\/\/shop_images\/4-6781389287839.webp",
+            "image_link": "https:\/\/maps.app.goo.gl\/SqqrBSKbaTjdETmD9",
+            "video_url": "https:\/\/www.youtube.com\/watch?v=_9VUPq3SxOc",
+            "autoplay": true,
+            "video_ratio": "16\/9",
+            "overlay_opacity": 0,
+            "content_type": "below",
+            "content_alignment": "center",
+            "content_position": "top-left",
+            "content_padding_block": 10,
+            "content_padding_inline": 10,
+            "content_mobile_image": false
+          },
+          "blocks": {
+            "heading_mm77nn": {
+              "type": "heading",
+              "settings": {
+                "heading": "DIY Vape Shop Colina",
+                "font_size": 16,
+                "font_weight": "heading_weight",
+                "uppercase": false,
+                "spacing_bottom": 20
+              },
+              "blocks": {}
+            },
+            "description_oo88pp": {
+              "type": "description",
+              "name": "t:blocks.general.text.name",
+              "settings": {
+                "text": "<p><a href=\"https:\/\/maps.app.goo.gl\/SqqrBSKbaTjdETmD9\" target=\"_blank\" title=\"DIY Vape Shop Salitre\">AC. 24 #69A-15<\/a><\/p>",
+                "font_size": 14,
+                "font_weight": "body_weight",
+                "spacing_bottom": 10
+              },
+              "blocks": {}
+            },
+            "button_qq99rr": {
+              "type": "button",
+              "settings": {
+                "show_full_width": false,
+                "first_button_label": "Ver ubicación",
+                "first_button_link": "https:\/\/maps.app.goo.gl\/SqqrBSKbaTjdETmD9",
+                "first_button_type": "outline",
+                "second_button_label": "",
+                "second_button_link": "",
+                "second_button_type": "primary",
+                "spacing_bottom": 10
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "heading_mm77nn",
+            "description_oo88pp",
+            "button_qq99rr"
+          ]
+        },
+        "group_media_content_j1k2l3": {
+          "type": "_group-media-content",
+          "name": "t:blocks.names.media_with_text",
+          "settings": {
+            "color_scheme": "",
+            "content_width": "25%",
+            "media_type": "image",
+            "image": "shopify:\/\/shop_images\/5-678138928ec68.webp",
+            "mobile_image": "shopify:\/\/shop_images\/5-678138928ec68.webp",
+            "image_link": "https:\/\/maps.app.goo.gl\/pM2KGBtTopCELAgj8",
+            "video_url": "https:\/\/www.youtube.com\/watch?v=_9VUPq3SxOc",
+            "autoplay": true,
+            "video_ratio": "16\/9",
+            "overlay_opacity": 0,
+            "content_type": "below",
+            "content_alignment": "center",
+            "content_position": "top-left",
+            "content_padding_block": 10,
+            "content_padding_inline": 10,
+            "content_mobile_image": false
+          },
+          "blocks": {
+            "heading_ss00tt": {
+              "type": "heading",
+              "settings": {
+                "heading": "DIY Vape Shop Salitre",
+                "font_size": 16,
+                "font_weight": "heading_weight",
+                "uppercase": false,
+                "spacing_bottom": 20
+              },
+              "blocks": {}
+            },
+            "description_uu11vv": {
+              "type": "description",
+              "name": "t:blocks.general.text.name",
+              "settings": {
+                "text": "<p><a href=\"https:\/\/maps.app.goo.gl\/pM2KGBtTopCELAgj8\" target=\"_blank\" title=\"DIY Vape Shop Colina Camprestre\">Cll 138 # 55-49<\/a><\/p>",
+                "font_size": 14,
+                "font_weight": "body_weight",
+                "spacing_bottom": 10
+              },
+              "blocks": {}
+            },
+            "button_ww22xx": {
+              "type": "button",
+              "settings": {
+                "show_full_width": false,
+                "first_button_label": "Ver ubicación",
+                "first_button_link": "https:\/\/maps.app.goo.gl\/pM2KGBtTopCELAgj8",
+                "first_button_type": "outline",
+                "second_button_label": "",
+                "second_button_link": "",
+                "second_button_type": "primary",
+                "spacing_bottom": 10
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "heading_ss00tt",
+            "description_uu11vv",
+            "button_ww22xx"
+          ]
+        }
+      },
+      "block_order": [
+        "group_media_content_1a2b3c",
+        "group_media_content_4d5e6f",
+        "group_media_content_7g8h9i",
+        "group_media_content_j1k2l3"
+      ],
+      "disabled": true,
+      "name": "t:sections.multi_content.name",
+      "settings": {
+        "section_width": "fluid_container",
+        "color_scheme": "",
+        "heading": "",
+        "description": "",
+        "show_view_all_button": false,
+        "link_view_all_button": "",
+        "space_between_header": true,
+        "header_size": "medium",
+        "header_alignment": "center",
+        "column_gap": 30,
+        "equal_height_adjustment": true,
+        "vertical_align": "start",
+        "carousel_on_mobile": true,
+        "items_per_row_mobile": 2,
+        "padding_top": 10,
+        "padding_bottom": 30,
+        "reset_spacing": true
+      }
+    },
+    "icon_box_Z9y8X7": {
+      "type": "icon-box",
+      "blocks": {
+        "icon_box_1x2y3z": {
+          "type": "icon_box",
+          "settings": {
+            "icon_svg": "payment",
+            "custom_svg": "",
+            "heading": "Todos los métodos de pago",
+            "description": "<p>Todos los métodos de pago! Tarjeta, Efectivo y Contra entrega. Compra con tranquilidad compra 100% protegida. <\/p>"
+          }
+        },
+        "icon_box_4a5b6c": {
+          "type": "icon_box",
+          "settings": {
+            "icon_svg": "truck",
+            "custom_svg": "",
+            "heading": "Cobertura en todo Colombia",
+            "description": "<p>Recibe tus productos de vapeo en la comodidad de tu casa. Contamos con envíos rápidos en Colombia.<\/p>"
+          }
+        },
+        "icon_box_7d8e9f": {
+          "type": "icon_box",
+          "settings": {
+            "icon_svg": "message_communications",
+            "custom_svg": "",
+            "heading": "Asesoría Personalizada",
+            "description": "<p>Recibe la mejor asesoría en productos de vapeo a tráves de nuestros canales digitales o en nuestros vape lounges.<\/p>"
+          }
+        }
+      },
+      "block_order": [
+        "icon_box_1x2y3z",
+        "icon_box_4a5b6c",
+        "icon_box_7d8e9f"
+      ],
+      "name": "t:sections.icon_box.name",
+      "settings": {
+        "section_width": "container",
+        "color_scheme": "",
+        "type": "default",
+        "column_gap": 30,
+        "icon_position": "top",
+        "icon_size": 32,
+        "spacing": 11,
+        "show_border": false,
+        "enable_background": false,
+        "background": "",
+        "content_alignment": "center",
+        "heading_font_size": 16,
+        "heading_font_weight": "heading_weight",
+        "heading_uppercase": false,
+        "heading_spacing_bottom": 10,
+        "des_font_size": 14,
+        "des_font_weight": "body_weight",
+        "carousel_on_mobile": true,
+        "items_per_row_mobile": "1",
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "reset_spacing": true
+      }
+    },
+    "custom_liquid_L6AjW3": {
+      "type": "custom-liquid",
+      "name": "t:sections.custom_liquid.name",
+      "settings": {
+        "section_width": "container",
+        "color_scheme": "scheme-cad2a0ec-e8e4-4844-b669-ed3f593863ca",
+        "custom_liquid": "{%- if page.title != blank -%}\n<style>\n  .diy-collapsible-wrap {\n    --lab-red:  #C8102E;\n    --carbon:   #0A0A0A;\n    --bone:     #F5F2EC;\n    --steel:    #AAAAAA;\n    background: var(--carbon);\n    border-radius: 2px;\n    padding: 0;\n    position: relative;\n    margin: 2rem 0;\n    border-left: 3px solid var(--lab-red);\n  }\n  .diy-toggle-btn {\n    display: flex; align-items: center; justify-content: space-between;\n    gap: 16px; width: 100%; background: none; border: none;\n    border-bottom: 1px solid #1f1f1f;\n    padding: 18px 24px 18px 28px; cursor: pointer; text-align: left;\n    transition: background 0.2s;\n  }\n  .diy-toggle-btn:hover { background: rgba(200,16,46,0.04); }\n  .diy-eyebrow {\n    font-size: 10px; font-weight: 700; letter-spacing: 0.2em;\n    text-transform: uppercase; color: var(--lab-red);\n    display: block; margin-bottom: 6px;\n  }\n  .diy-title-text {\n    font-size: 14px; font-weight: 600; color: var(--bone);\n    line-height: 1.4; transition: color 0.2s; display: block;\n  }\n  .diy-toggle-btn:hover .diy-title-text { color: #FFFFFF; }\n  .diy-icon {\n    flex-shrink: 0; width: 26px; height: 26px;\n    border: 1px solid #2e2e2e; border-radius: 50%;\n    display: flex; align-items: center; justify-content: center;\n    position: relative; transition: border-color 0.2s;\n  }\n  .diy-toggle-btn:hover .diy-icon,\n  .diy-toggle-btn.open .diy-icon { border-color: var(--lab-red); }\n  .diy-icon-bar {\n    position: absolute; background: #555; border-radius: 1px;\n    transition: transform 0.28s ease, opacity 0.28s ease, background 0.2s;\n  }\n  .diy-icon-bar.h { width: 10px; height: 1.5px; }\n  .diy-icon-bar.v { width: 1.5px; height: 10px; }\n  .diy-toggle-btn:hover .diy-icon-bar,\n  .diy-toggle-btn.open .diy-icon-bar { background: var(--lab-red); }\n  .diy-toggle-btn.open .diy-icon-bar.v { transform: rotate(90deg); opacity: 0; }\n  .diy-content-outer {\n    overflow: hidden; max-height: 0; opacity: 0;\n    transition: max-height 0.42s cubic-bezier(0.4,0,0.2,1), opacity 0.32s ease;\n  }\n  .diy-content-outer.open { opacity: 1; }\n  .diy-content-inner { padding: 20px 28px 28px; line-height: 1.8; }\n  .diy-divider {\n    display: block; height: 1px; margin-bottom: 20px; opacity: 0.5;\n    background: linear-gradient(to right, var(--lab-red) 0%, #2a0008 60%, transparent 100%);\n  }\n  .diy-rich-text * { color: var(--steel) !important; }\n  .diy-rich-text h1, .diy-rich-text h2,\n  .diy-rich-text h3, .diy-rich-text h4 {\n    font-size: 15px !important; font-weight: 700 !important;\n    color: var(--bone) !important; margin: 0 0 14px !important;\n    line-height: 1.35 !important;\n  }\n  .diy-rich-text p {\n    color: var(--steel) !important;\n    margin: 0 0 12px !important; font-size: 14px !important;\n  }\n  .diy-rich-text p:last-child { margin-bottom: 0 !important; }\n  .diy-rich-text a {\n    color: var(--lab-red) !important;\n    text-decoration: underline !important;\n    text-underline-offset: 3px !important;\n  }\n  .diy-rich-text a:hover { color: #ff2040 !important; }\n  .diy-rich-text strong, .diy-rich-text b {\n    color: var(--bone) !important; font-weight: 600 !important;\n  }\n  .diy-rich-text ul, .diy-rich-text ol {\n    color: var(--steel) !important;\n    padding-left: 18px !important; margin: 0 0 12px !important;\n  }\n  .diy-rich-text li { color: var(--steel) !important; margin-bottom: 4px !important; }\n<\/style>\n\n<div class=\"diy-collapsible-wrap\">\n  <button\n    class=\"diy-toggle-btn\"\n    id=\"diyToggle-{{ page.id }}\"\n    onclick=\"toggleDiyBlock('{{ page.id }}')\"\n    aria-expanded=\"false\"\n    aria-controls=\"diyContent-{{ page.id }}\"\n  >\n    <span>\n      <span class=\"diy-eyebrow\">DIY Vape Shop · Guía de colección<\/span>\n      <span class=\"diy-title-text\">\n        #1 en Colombia |\n        <em style=\"font-style:normal;color:var(--lab-red);\">{{ page.title }}<\/em>\n        | Tienda de Vapeo\n      <\/span>\n    <\/span>\n    <span class=\"diy-icon\" id=\"diyIcon-{{ page.id }}\">\n      <span class=\"diy-icon-bar h\"><\/span>\n      <span class=\"diy-icon-bar v\"><\/span>\n    <\/span>\n  <\/button>\n\n  <div class=\"diy-content-outer\" id=\"diyContent-{{ page.id }}\">\n    <div class=\"diy-content-inner\">\n      <span class=\"diy-divider\"><\/span>\n      <div class=\"diy-rich-text\">\n        {{ page.content }}\n      <\/div>\n    <\/div>\n  <\/div>\n<\/div>\n\n<script>\nfunction toggleDiyBlock(id) {\n  var btn = document.getElementById('diyToggle-' + id);\n  var content = document.getElementById('diyContent-' + id);\n  if (!btn || !content) return;\n  var isOpen = btn.classList.contains('open');\n  if (isOpen) {\n    content.style.maxHeight = content.scrollHeight + 'px';\n    requestAnimationFrame(function() {\n      content.style.maxHeight = '0px';\n      content.classList.remove('open');\n      btn.classList.remove('open');\n      btn.setAttribute('aria-expanded','false');\n    });\n  } else {\n    btn.classList.add('open');\n    content.classList.add('open');\n    content.style.maxHeight = content.scrollHeight + 'px';\n    btn.setAttribute('aria-expanded','true');\n    content.addEventListener('transitionend', function() {\n      if (btn.classList.contains('open')) content.style.maxHeight = 'none';\n    }, { once: true });\n  }\n}\n<\/script>\n{%- endif -%}",
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "reset_spacing": false
+      }
+    }
+  },
+  "order": [
+    "video_width_text_ovlerlay_X7pQm2",
+    "scrolling_text_M4aZq9",
+    "rich_text_R2tVm6",
+    "collection_list_P9kYx3",
+    "divider_K1mQe8",
+    "products_carousel_A1b2C3",
+    "products_carousel_D4e5F6",
+    "products_carousel_G7h8I9",
+    "collection_tab_J2k3L4",
+    "collection_tab_M5n6O7",
+    "rich_text_P8q7R6",
+    "multi_content_B3c4D5",
+    "icon_box_Z9y8X7",
+    "custom_liquid_L6AjW3"
+  ]
+}

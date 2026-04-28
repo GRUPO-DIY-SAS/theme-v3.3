@@ -1,0 +1,452 @@
+{
+  "sections": {
+    "page-heading": {
+      "type": "page-heading",
+      "blocks": {
+        "breadcrumb_kg6gTP": {
+          "type": "breadcrumb",
+          "settings": {}
+        },
+        "heading_fmyy8C": {
+          "type": "heading",
+          "settings": {
+            "page_title": "Visita Nuestras Tiendas de Vapeo en Bogotá",
+            "header_size": "default"
+          }
+        },
+        "description_TfxHmk": {
+          "type": "description",
+          "settings": {
+            "description": "<p>Por favor, utiliza el siguiente formulario. También puedes comunicarte con nuestro servicio al cliente al <a href=\"https:\/\/wa.me\/573206682351\" target=\"_blank\" title=\"WhatsApp DIY Vape Shop\">+57 320 668 2351<\/a>. 📞<\/p>"
+          }
+        }
+      },
+      "block_order": [
+        "breadcrumb_kg6gTP",
+        "heading_fmyy8C",
+        "description_TfxHmk"
+      ],
+      "settings": {
+        "section_width": "stretch_width",
+        "color_scheme": "",
+        "alignment": "center",
+        "overlay_opacity": 0,
+        "height": "adapt",
+        "padding_top": 68,
+        "padding_bottom": 0
+      }
+    },
+    "multi_content_cYtzUK": {
+      "type": "multi-content",
+      "blocks": {
+        "group_media_content_McBRLQ": {
+          "type": "_group-media-content",
+          "settings": {
+            "color_scheme": "",
+            "content_width": "50%",
+            "media_type": "image",
+            "image": "shopify:\/\/shop_images\/DIY_Vape_85_Interior.webp",
+            "image_link": "https:\/\/maps.app.goo.gl\/nSZGnsrF2qNNwZqo9",
+            "video_url": "https:\/\/www.youtube.com\/watch?v=_9VUPq3SxOc",
+            "autoplay": true,
+            "video_ratio": "16\/9",
+            "overlay_opacity": 10,
+            "content_type": "below",
+            "content_alignment": "start",
+            "content_position": "top-left",
+            "content_padding_block": 30,
+            "content_padding_inline": 30,
+            "content_mobile_image": false
+          },
+          "blocks": {
+            "heading_HtAQPR": {
+              "type": "heading",
+              "settings": {
+                "heading": "DIY Vape Shop 85",
+                "font_size": 20,
+                "font_weight": "heading_weight",
+                "uppercase": false,
+                "spacing_bottom": 20
+              },
+              "blocks": {}
+            },
+            "description_nALx6P": {
+              "type": "description",
+              "name": "t:blocks.general.text.name",
+              "settings": {
+                "text": "<p><a href=\"https:\/\/maps.app.goo.gl\/nSZGnsrF2qNNwZqo9\" target=\"_blank\" title=\"DIY Vape Shop 85\">Carrera 14 # 85 - 86<\/a>, Bogotá D.C., Colombia, <br\/><a href=\"https:\/\/wa.me\/573206682351\" target=\"_blank\" title=\"WhatsApp DIY Vape Shop \">+57 3206682351<\/a><br\/>info@diyvape.co<\/p><p>Envíanos un <a href=\"https:\/\/wa.me\/573206682351\/\" target=\"_blank\" title=\"WhatsApp DIY Vape Shop\">mensaje<\/a> y uno de nuestros asesores especializados te atenderá en su horario laboral. <\/p><p>Nuestro vape lounge está abierto de:<\/p><ul><li>Lunes a Sábado de 10:00 a.m. a 7:30pm<\/li><li>Domingos y Festivos: Cerrado<\/li><\/ul>",
+                "font_size": 14,
+                "font_weight": "body_weight",
+                "spacing_bottom": 10
+              },
+              "blocks": {}
+            },
+            "button_HT4jiV": {
+              "type": "button",
+              "settings": {
+                "show_full_width": true,
+                "first_button_label": "Obtener Ubicación",
+                "first_button_link": "https:\/\/maps.app.goo.gl\/nSZGnsrF2qNNwZqo9",
+                "first_button_type": "outline",
+                "second_button_label": "",
+                "second_button_link": "",
+                "second_button_type": "outline",
+                "spacing_bottom": 10
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "heading_HtAQPR",
+            "description_nALx6P",
+            "button_HT4jiV"
+          ]
+        },
+        "group_media_content_TRNAYb": {
+          "type": "_group-media-content",
+          "settings": {
+            "color_scheme": "",
+            "content_width": "50%",
+            "media_type": "image",
+            "image": "shopify:\/\/shop_images\/DIY_Vape_140_Interior.webp",
+            "image_link": "https:\/\/maps.app.goo.gl\/6Pmxd8NvW8q1937s8",
+            "video_url": "https:\/\/www.youtube.com\/watch?v=_9VUPq3SxOc",
+            "autoplay": true,
+            "video_ratio": "16\/9",
+            "overlay_opacity": 10,
+            "content_type": "below",
+            "content_alignment": "start",
+            "content_position": "top-left",
+            "content_padding_block": 30,
+            "content_padding_inline": 30,
+            "content_mobile_image": false
+          },
+          "blocks": {
+            "heading_tHmVPr": {
+              "type": "heading",
+              "settings": {
+                "heading": "DIY Vape Shop 140",
+                "font_size": 20,
+                "font_weight": "heading_weight",
+                "uppercase": false,
+                "spacing_bottom": 20
+              },
+              "blocks": {}
+            },
+            "description_4Bp8VC": {
+              "type": "description",
+              "name": "t:blocks.general.text.name",
+              "settings": {
+                "text": "<p><a href=\"https:\/\/maps.app.goo.gl\/6Pmxd8NvW8q1937s8\" target=\"_blank\" title=\"DIY Vape Shop 140\">Cll 140 # 7C-10 LC 11 CC Monteverde<\/a>, Bogotá D.C., Colombia, <br\/><a href=\"https:\/\/wa.me\/573206682351\" target=\"_blank\" title=\"WhatsApp DIY Vape Shop \">+57 3206682351<\/a><br\/>info@diyvape.co<\/p><p>Envíanos un <a href=\"https:\/\/wa.me\/573206682351\/\" target=\"_blank\" title=\"WhatsApp DIY Vape Shop\">mensaje<\/a> y uno de nuestros asesores especializados te atenderá en su horario laboral. <\/p><p>Nuestro vape lounge está abierto de:<\/p><ul><li>Lunes a Sábado de 10:00 a.m. a 7:30pm<\/li><li>Domingos y Festivos: Cerrado<\/li><\/ul>",
+                "font_size": 14,
+                "font_weight": "body_weight",
+                "spacing_bottom": 10
+              },
+              "blocks": {}
+            },
+            "button_whQfik": {
+              "type": "button",
+              "settings": {
+                "show_full_width": true,
+                "first_button_label": "Obtener Ubicación",
+                "first_button_link": "https:\/\/maps.app.goo.gl\/6Pmxd8NvW8q1937s8",
+                "first_button_type": "outline",
+                "second_button_label": "",
+                "second_button_link": "",
+                "second_button_type": "outline",
+                "spacing_bottom": 10
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "heading_tHmVPr",
+            "description_4Bp8VC",
+            "button_whQfik"
+          ]
+        }
+      },
+      "block_order": [
+        "group_media_content_McBRLQ",
+        "group_media_content_TRNAYb"
+      ],
+      "name": "t:sections.multi_content.name",
+      "settings": {
+        "section_width": "fluid_container",
+        "color_scheme": "",
+        "heading": "",
+        "description": "",
+        "show_view_all_button": false,
+        "link_view_all_button": "",
+        "space_between_header": true,
+        "header_size": "medium",
+        "header_alignment": "center",
+        "column_gap": 30,
+        "equal_height_adjustment": false,
+        "vertical_align": "center",
+        "carousel_on_mobile": true,
+        "items_per_row_mobile": 1.5,
+        "padding_top": 0,
+        "padding_bottom": 50,
+        "reset_spacing": true
+      }
+    },
+    "multi_content_qXFXrm": {
+      "type": "multi-content",
+      "blocks": {
+        "group_media_content_4a7ByK": {
+          "type": "_group-media-content",
+          "settings": {
+            "color_scheme": "",
+            "content_width": "50%",
+            "media_type": "image",
+            "image": "shopify:\/\/shop_images\/DIY_Vape_Salitre_Interior.webp",
+            "image_link": "https:\/\/maps.app.goo.gl\/6Pmxd8NvW8q1937s8",
+            "video_url": "https:\/\/www.youtube.com\/watch?v=_9VUPq3SxOc",
+            "autoplay": true,
+            "video_ratio": "16\/9",
+            "overlay_opacity": 10,
+            "content_type": "below",
+            "content_alignment": "start",
+            "content_position": "top-left",
+            "content_padding_block": 30,
+            "content_padding_inline": 30,
+            "content_mobile_image": false
+          },
+          "blocks": {
+            "heading_KMMjLT": {
+              "type": "heading",
+              "settings": {
+                "heading": "DIY Vape Shop Salitre",
+                "font_size": 20,
+                "font_weight": "heading_weight",
+                "uppercase": false,
+                "spacing_bottom": 20
+              },
+              "blocks": {}
+            },
+            "description_Rzn6Uk": {
+              "type": "description",
+              "name": "t:blocks.general.text.name",
+              "settings": {
+                "text": "<p><a href=\"https:\/\/maps.app.goo.gl\/6Pmxd8NvW8q1937s8\" target=\"_blank\" title=\"DIY Vape Shop Salitre\">Ac. 24 # 69A - 15<\/a>, Bogotá D.C., Colombia, <br\/><a href=\"https:\/\/wa.me\/573206682351\" target=\"_blank\" title=\"WhatsApp DIY Vape Shop \">+57 3206682351<\/a><br\/>info@diyvape.co<\/p><p>Envianos un <a href=\"https:\/\/wa.me\/573206682351\/\" target=\"_blank\" title=\"WhatsApp DIY Vape Shop\">mensaje<\/a> y uno de nuestros asesores especializados te atenderá en su horario laboral. <\/p><p>Nuestro vape lounge está abierto de:<\/p><ul><li>Lunes a Sábado de 10:30 a.m. a 7:00pm<\/li><li>Domingos y Festivos: Cerrado<\/li><\/ul>",
+                "font_size": 14,
+                "font_weight": "body_weight",
+                "spacing_bottom": 10
+              },
+              "blocks": {}
+            },
+            "button_tPBGwQ": {
+              "type": "button",
+              "settings": {
+                "show_full_width": true,
+                "first_button_label": "Obtener Ubicación",
+                "first_button_link": "https:\/\/maps.app.goo.gl\/dWMuJXrwebLMx1N69",
+                "first_button_type": "outline",
+                "second_button_label": "",
+                "second_button_link": "",
+                "second_button_type": "outline",
+                "spacing_bottom": 10
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "heading_KMMjLT",
+            "description_Rzn6Uk",
+            "button_tPBGwQ"
+          ]
+        },
+        "group_media_content_YY7i8x": {
+          "type": "_group-media-content",
+          "settings": {
+            "color_scheme": "",
+            "content_width": "50%",
+            "media_type": "image",
+            "image": "shopify:\/\/shop_images\/DIY_Vape_Colina_Interior.webp",
+            "image_link": "https:\/\/maps.app.goo.gl\/eeXu8zcRo2mdsZQW6",
+            "video_url": "https:\/\/www.youtube.com\/watch?v=_9VUPq3SxOc",
+            "autoplay": true,
+            "video_ratio": "16\/9",
+            "overlay_opacity": 10,
+            "content_type": "below",
+            "content_alignment": "start",
+            "content_position": "top-left",
+            "content_padding_block": 30,
+            "content_padding_inline": 30,
+            "content_mobile_image": false
+          },
+          "blocks": {
+            "heading_8tcKmH": {
+              "type": "heading",
+              "settings": {
+                "heading": "DIY Vape Shop Colina",
+                "font_size": 20,
+                "font_weight": "heading_weight",
+                "uppercase": false,
+                "spacing_bottom": 20
+              },
+              "blocks": {}
+            },
+            "description_xnimXQ": {
+              "type": "description",
+              "name": "t:blocks.general.text.name",
+              "settings": {
+                "text": "<p><a href=\"https:\/\/maps.app.goo.gl\/eeXu8zcRo2mdsZQW6\" target=\"_blank\" title=\"DIY Vape Shop Colina\">Calle 138 # 55-49 Parque Comercial La Colina 138<\/a>, Bogotá D.C., Colombia, <br\/><a href=\"https:\/\/wa.me\/573206682351\" target=\"_blank\" title=\"WhatsApp DIY Vape Shop \">+57 3206682351<\/a><br\/>info@diyvape.co<\/p><p>Envíanos un <a href=\"https:\/\/wa.me\/573206682351\/\" target=\"_blank\" title=\"WhatsApp DIY Vape Shop\">mensaje<\/a> y uno de nuestros asesores especializados te atenderá en su horario laboral. <\/p><p>Nuestro vape lounge está abierto de:<\/p><ul><li>Lunes a Sábado de 11:00 a.m. a 7:30pm<\/li><li>Domingos y Festivos: Cerrado<\/li><\/ul>",
+                "font_size": 14,
+                "font_weight": "body_weight",
+                "spacing_bottom": 10
+              },
+              "blocks": {}
+            },
+            "button_zzQeH9": {
+              "type": "button",
+              "settings": {
+                "show_full_width": true,
+                "first_button_label": "Obtener Ubicación",
+                "first_button_link": "https:\/\/maps.app.goo.gl\/eeXu8zcRo2mdsZQW6",
+                "first_button_type": "outline",
+                "second_button_label": "",
+                "second_button_link": "",
+                "second_button_type": "outline",
+                "spacing_bottom": 10
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "heading_8tcKmH",
+            "description_xnimXQ",
+            "button_zzQeH9"
+          ]
+        }
+      },
+      "block_order": [
+        "group_media_content_4a7ByK",
+        "group_media_content_YY7i8x"
+      ],
+      "name": "t:sections.multi_content.name",
+      "settings": {
+        "section_width": "fluid_container",
+        "color_scheme": "",
+        "heading": "",
+        "description": "",
+        "show_view_all_button": false,
+        "link_view_all_button": "",
+        "space_between_header": true,
+        "header_size": "medium",
+        "header_alignment": "center",
+        "column_gap": 30,
+        "equal_height_adjustment": false,
+        "vertical_align": "center",
+        "carousel_on_mobile": true,
+        "items_per_row_mobile": 1.5,
+        "padding_top": 0,
+        "padding_bottom": 50,
+        "reset_spacing": true
+      }
+    },
+    "divider_JCzkx9": {
+      "type": "divider",
+      "settings": {
+        "section_width": "full_width",
+        "border_height": 2,
+        "border_color": "#ebebeb",
+        "reset_spacing": false
+      }
+    },
+    "rich_text_CKyFbA": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_8epWAD": {
+          "type": "heading",
+          "settings": {
+            "heading": "Navega a nuestras Tiendas de Vapeo",
+            "font_size": 36,
+            "font_weight": "heading_weight",
+            "uppercase": false,
+            "spacing_bottom": 24
+          },
+          "blocks": {}
+        },
+        "description_EwDNHE": {
+          "type": "description",
+          "settings": {
+            "text": "<p>Navega a nuestras Tiendas de Vapeo y descubre la experiencia DIYVAPE.CO cerca de ti . 🧭💨 También puedes comunicarte con nuestro servicio al cliente al <a href=\"https:\/\/wa.me\/573206682351\" target=\"_blank\" title=\"WhatsApp DIY Vape Shop\">+57 320 668 2351<\/a>. 📞<\/p>",
+            "font_size": 14,
+            "font_weight": "body_weight",
+            "spacing_bottom": 10
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "heading_8epWAD",
+        "description_EwDNHE"
+      ],
+      "settings": {
+        "section_width": "container",
+        "color_scheme": "",
+        "content_alignment": "center",
+        "content_max_width": 100,
+        "enable_expand_content": false,
+        "expand_content_button": "See all Information",
+        "padding_top": 0,
+        "padding_bottom": 20,
+        "reset_spacing": true
+      }
+    },
+    "custom_html_pxk6CJ": {
+      "type": "custom-html",
+      "custom_css": [
+        ".map-grid {display: grid; grid-template-columns: 1fr; gap: 30px; padding: 20px 0;}",
+        "@media (min-width: 768px) {.map-grid {grid-template-columns: 1fr 1fr; }}",
+        ".map-item {background: #f9f9f9; padding: 15px; border-radius: 12px; box-shadow: 0 4px 12px;}",
+        ".map-item h3 {font-size: 1em; margin-bottom: 15px; text-align: center;}",
+        ".map-item iframe {width: 100%; height: 350px; border: 0; border-radius: 8px;}"
+      ],
+      "settings": {
+        "section_width": "fluid_container",
+        "color_scheme": "",
+        "html_custom": "<div class=\"map-grid\">\n  <div class=\"map-item\">\n    <h3>DIY Vape Shop 85<\/h3>\n    <iframe src=\"https:\/\/www.google.com\/maps\/embed?pb=!1m18!1m12!1m3!1d31811.839618531667!2d-74.09237244092294!3d4.686336647209894!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e3f9af4b1912557%3A0xe9049930242f8a4c!2sDIY%20Vape%20Shop%2085!5e0!3m2!1ses!2sco!4v1743197769744!5m2!1ses!2sco\" loading=\"lazy\" allowfullscreen=\"\" referrerpolicy=\"no-referrer-when-downgrade\"><\/iframe>\n  <\/div>\n\n  <div class=\"map-item\">\n    <h3>DIY Vape Shop 140<\/h3>\n    <iframe src=\"https:\/\/www.google.com\/maps\/embed?pb=!1m18!1m12!1m3!1d3976.30329140253!2d-74.0335975876332!3d4.7172862414899965!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e3f85b064310e4d%3A0x37f8f2521d6275b3!2sDIY%20Vape%20Shop%20140!5e0!3m2!1ses!2sco!4v1743449244304!5m2!1ses!2sco\" loading=\"lazy\" allowfullscreen=\"\" referrerpolicy=\"no-referrer-when-downgrade\"><\/iframe>\n  <\/div>\n\n  <div class=\"map-item\">\n    <h3>DIY Vape Shop Colina<\/h3>\n    <iframe src=\"https:\/\/www.google.com\/maps\/embed?pb=!1m18!1m12!1m3!1d3976.2506508801894!2d-74.06320528763321!3d4.726469341410052!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e3f8508719bd34b%3A0x77f6ce0a91cac3cd!2sDIY%20Vape%20Shop%20Colina!5e0!3m2!1ses!2sco!4v1743449383835!5m2!1ses!2sco\" loading=\"lazy\" allowfullscreen=\"\" referrerpolicy=\"no-referrer-when-downgrade\"><\/iframe>\n  <\/div>\n\n  <div class=\"map-item\">\n    <h3>DIY Vape Shop Salitre<\/h3>\n    <iframe src=\"https:\/\/www.google.com\/maps\/embed?pb=!1m18!1m12!1m3!1d3976.6553891450612!2d-74.11502298763313!3d4.655398342025332!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e3f85cde01babd7%3A0x1e3ac9490bb5ab86!2sDIY%20Vape%20Shop%20Salitre!5e0!3m2!1ses!2sco!4v1743449332133!5m2!1ses!2sco\" loading=\"lazy\" allowfullscreen=\"\" referrerpolicy=\"no-referrer-when-downgrade\"><\/iframe>\n  <\/div>\n<\/div>",
+        "padding_top": 0,
+        "padding_bottom": 30,
+        "reset_spacing": true
+      }
+    },
+    "custom_html_wAmKAp": {
+      "type": "custom-html",
+      "name": "t:sections.html_custom.name",
+      "settings": {
+        "section_width": "container",
+        "color_scheme": "",
+        "html_custom": "<script type=\"application\/ld+json\">\n[\n  {\n    \"@context\": \"https:\/\/schema.org\",\n    \"@type\": \"LocalBusiness\",\n    \"@id\": \"https:\/\/diyvape.co#diy85\",\n    \"name\": \"DIY Vape Shop 85\",\n    \"description\": \"Tienda de vapeo en Bogotá. Vapeadores, líquidos, sales de nicotina y accesorios con asesoría personalizada.\",\n    \"image\": \"https:\/\/cdn.shopify.com\/s\/files\/1\/0166\/9493\/5652\/files\/3-67813891cdbcb.webp\",\n    \"address\": {\n      \"@type\": \"PostalAddress\",\n      \"streetAddress\": \"CRA. 14 # 85-86\",\n      \"addressLocality\": \"Bogotá\",\n      \"addressRegion\": \"Cundinamarca\",\n      \"addressCountry\": \"CO\"\n    },\n    \"geo\": {\n      \"@type\": \"GeoCoordinates\",\n      \"latitude\": 4.6691,\n      \"longitude\": -74.0572\n    },\n    \"url\": \"https:\/\/diyvape.co\/pages\/nuestras-tiendas\",\n    \"telephone\": \"+573206682351\",\n    \"priceRange\": \"$$\",\n    \"openingHoursSpecification\": [\n      {\n        \"@type\": \"OpeningHoursSpecification\",\n        \"dayOfWeek\": [\"Monday\",\"Tuesday\",\"Wednesday\",\"Thursday\",\"Friday\",\"Saturday\"],\n        \"opens\": \"10:00\",\n        \"closes\": \"19:30\"\n      }\n    ],\n    \"parentOrganization\": {\n      \"@id\": \"https:\/\/diyvape.co#store\"\n    }\n  },\n  {\n    \"@context\": \"https:\/\/schema.org\",\n    \"@type\": \"LocalBusiness\",\n    \"@id\": \"https:\/\/diyvape.co#diy140\",\n    \"name\": \"DIY Vape Shop 140\",\n    \"description\": \"Tienda de vapeo en el norte de Bogotá. Equipos recargables, desechables, líquidos premium y accesorios.\",\n    \"image\": \"https:\/\/cdn.shopify.com\/s\/files\/1\/0166\/9493\/5652\/files\/2-67813891ce266.webp\",\n    \"address\": {\n      \"@type\": \"PostalAddress\",\n      \"streetAddress\": \"Cll. 140 # 7C-10 LC11\",\n      \"addressLocality\": \"Bogotá\",\n      \"addressRegion\": \"Cundinamarca\",\n      \"addressCountry\": \"CO\"\n    },\n    \"url\": \"https:\/\/diyvape.co\/pages\/nuestras-tiendas\",\n    \"telephone\": \"+573206682351\",\n    \"priceRange\": \"$$\",\n    \"openingHoursSpecification\": [\n      {\n        \"@type\": \"OpeningHoursSpecification\",\n        \"dayOfWeek\": [\"Monday\",\"Tuesday\",\"Wednesday\",\"Thursday\",\"Friday\",\"Saturday\"],\n        \"opens\": \"10:00\",\n        \"closes\": \"19:30\"\n      }\n    ],\n    \"parentOrganization\": {\n      \"@id\": \"https:\/\/diyvape.co#store\"\n    }\n  },\n  {\n    \"@context\": \"https:\/\/schema.org\",\n    \"@type\": \"LocalBusiness\",\n    \"@id\": \"https:\/\/diyvape.co#diysalitre\",\n    \"name\": \"DIY Vape Shop Salitre\",\n    \"description\": \"Tienda de vapeo en zona de Salitre, Bogotá. Todo en vapeo: desechables, kits de inicio, líquidos y más.\",\n    \"image\": \"https:\/\/cdn.shopify.com\/s\/files\/1\/0166\/9493\/5652\/files\/4-6781389287839.webp\",\n    \"address\": {\n      \"@type\": \"PostalAddress\",\n      \"streetAddress\": \"AC. 24 #69A-15\",\n      \"addressLocality\": \"Bogotá\",\n      \"addressRegion\": \"Cundinamarca\",\n      \"addressCountry\": \"CO\"\n    },\n    \"url\": \"https:\/\/diyvape.co\/pages\/nuestras-tiendas\",\n    \"telephone\": \"+573206682351\",\n    \"priceRange\": \"$$\",\n    \"openingHoursSpecification\": [\n      {\n        \"@type\": \"OpeningHoursSpecification\",\n        \"dayOfWeek\": [\"Monday\",\"Tuesday\",\"Wednesday\",\"Thursday\",\"Friday\",\"Saturday\"],\n        \"opens\": \"10:00\",\n        \"closes\": \"19:30\"\n      }\n    ],\n    \"parentOrganization\": {\n      \"@id\": \"https:\/\/diyvape.co#store\"\n    }\n  },\n  {\n    \"@context\": \"https:\/\/schema.org\",\n    \"@type\": \"LocalBusiness\",\n    \"@id\": \"https:\/\/diyvape.co#diycolina\",\n    \"name\": \"DIY Vape Shop Colina\",\n    \"description\": \"Tienda de vapeo en Colina Campestre, Bogotá. Vapes desechables, recargables, líquidos y asesoría experta.\",\n    \"image\": \"https:\/\/cdn.shopify.com\/s\/files\/1\/0166\/9493\/5652\/files\/5-678138928ec68.webp\",\n    \"address\": {\n      \"@type\": \"PostalAddress\",\n      \"streetAddress\": \"Cll 138 # 55-49\",\n      \"addressLocality\": \"Bogotá\",\n      \"addressRegion\": \"Cundinamarca\",\n      \"addressCountry\": \"CO\"\n    },\n    \"url\": \"https:\/\/diyvape.co\/pages\/nuestras-tiendas\",\n    \"telephone\": \"+573206682351\",\n    \"priceRange\": \"$$\",\n    \"openingHoursSpecification\": [\n      {\n        \"@type\": \"OpeningHoursSpecification\",\n        \"dayOfWeek\": [\"Monday\",\"Tuesday\",\"Wednesday\",\"Thursday\",\"Friday\",\"Saturday\"],\n        \"opens\": \"10:00\",\n        \"closes\": \"19:30\"\n      }\n    ],\n    \"parentOrganization\": {\n      \"@id\": \"https:\/\/diyvape.co#store\"\n    }\n  }\n]\n<\/script>",
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "reset_spacing": true
+      }
+    },
+    "custom_html_C3Mhdj": {
+      "type": "custom-html",
+      "name": "t:sections.html_custom.name",
+      "settings": {
+        "section_width": "container",
+        "color_scheme": "",
+        "html_custom": "<div style=\"margin-top: 40px; padding: 20px; background: #f9f9f9; border-radius: 8px;\">\n  <h2>Explora nuestros productos más vendidos<\/h2>\n  <p>En todas nuestras sedes encontrarás asesoría experta para elegir el producto ideal:<\/p>\n  <ul>\n    <li>\n<a href=\"\/collections\/pods-desechables\"><strong>Vapes Desechables<\/strong><\/a> — Los más vendidos en todas nuestras sedes<\/li>\n    <li>\n<a href=\"\/collections\/equipos\"><strong>Equipos Recargables<\/strong><\/a> — Kits completos con asesoría en tienda<\/li>\n    <li>\n<a href=\"\/collections\/salt-nic-ejuice\"><strong>Sales de Nicotina<\/strong><\/a> — Variedad premium disponible en cada sede<\/li>\n    <li>\n<a href=\"\/collections\/e-liquid\"><strong>Líquidos Base Libre<\/strong><\/a> — Prueba sabores directamente en nuestras tiendas<\/li>\n    <li>\n<a href=\"\/collections\/vaporizadores-herbales\"><strong>Vaporizadores Herbales<\/strong><\/a> — Demostración en vivo en tienda<\/li>\n  <\/ul>\n  <p><em>Advertencia: Los productos contienen nicotina, una sustancia adictiva. Venta exclusiva para mayores de 18 años.<\/em><\/p>\n<\/div>",
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "reset_spacing": true
+      }
+    }
+  },
+  "order": [
+    "page-heading",
+    "multi_content_cYtzUK",
+    "multi_content_qXFXrm",
+    "divider_JCzkx9",
+    "rich_text_CKyFbA",
+    "custom_html_pxk6CJ",
+    "custom_html_wAmKAp",
+    "custom_html_C3Mhdj"
+  ]
+}

@@ -1,0 +1,44 @@
+<motion-element
+  data-motion="{{ settings.scroll_animation }}"
+  {% if settings.scroll_animation == 'none' %}
+    hold
+  {% endif %}
+ class="block testimonial-product_comparison">
+  {% render 'product-item',
+    card_product: block.settings.select_product,
+    template_enable_price: true,
+    template_enable_rate: true,
+    custom_widths: '240, 120, 80',
+    type: 'list',
+    sizes: '80px',
+    lazy_product: false
+  %}
+</motion-element>
+{% schema %}
+{
+  "name": "t:blocks.names.product",
+  "tag": null,
+  "settings": [
+    {
+      "type": "product",
+      "id": "select_product",
+      "label": "t:sections.testimonials_product.settings.select_product"
+    },
+    {
+      "type": "range",
+      "id": "spacing_bottom",
+      "label": "t:sections.all.content_settings.spacing.spacing_bottom.label",
+      "default": 10,
+      "min": 0,
+      "max": 30,
+      "step": 1,
+      "unit": "px"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:blocks.names.product"
+    }
+  ]
+}
+{% endschema %}

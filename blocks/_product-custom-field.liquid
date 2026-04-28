@@ -1,0 +1,127 @@
+{% liquid
+  assign block_st = block.settings
+  assign section_st = section.settings
+  assign enable_skeleton_loading = section_st.enable_skeleton_loading
+  assign product = closest.product
+  assign products_group = product.metafields.custom.product_grouped
+%}
+{% if products_group == blank %}
+  <div
+    class="mb-20{% if enable_skeleton_loading %} skeleton-loading{% endif %}"
+    {{ block.shopify_attributes }}
+  >
+    {% if block_st.heading != blank or block_st.description != blank %}
+      <h2 class="product_custom__field-heading h6 heading-letter-spacing mt-0">
+        {{- block_st.heading -}}
+      </h2>
+      {% if block_st.description != blank %}
+        <div class="product_custom__field-description mb-15">
+          {{- block_st.description -}}
+        </div>
+      {% endif %}
+    {% endif %}
+    <product-property class="product-input-property mb-25 d-block">
+      {%- if block_st.enable_field_text == true -%}
+        {% liquid
+          assign default_name_text = 'products.product.actions.property.custom_text' | t
+          if block_st.field_label != blank
+            assign default_name_text = block_st.field_label
+          endif
+        %}
+        <div class="form-floating">
+          <input
+            type="text"
+            placeholder="{{ block_st.field_label }}"
+            name="properties[{{ default_name_text }}]"
+            class="form-input text w-full mb-15 form-control"
+          >
+          <label class="form">
+            {{ block_st.field_label }}
+          </label>
+        </div>
+      {% endif %}
+      {%- if block_st.enable_field_image == true -%}
+        {% liquid
+          assign default_name_image = 'products.product.actions.property.custom_image' | t
+          if block_st.field_image_label != blank
+            assign default_name_image = block_st.field_image_label
+          endif
+        %}
+        <div class="btn-upload-cloud ps-20 w-full pointer text-center lh-1 border btn-rounded flex relative">
+          <input
+            id="custom-image-upload"
+            placeholder="{{ block_st.field_image_label }}"
+            type="file"
+            accept="image/*"
+            name="properties[{{ default_name_image }}]"
+            class="form-input pointer file flex-1"
+          >
+          <label
+            for="custom-image-upload"
+            class="custom-file-upload pointer transition-short inline-flex gap-5 content-center border-inline-start absolute inset-y-0 right-0 h-full px-20 z-2 grey-bg btn-hover heading-color"
+          >
+            <svg width="21" height="18" fill="none">
+              <g fill="currentColor"><path d="M15.71 4.687a5.341 5.341 0 0 0-10.362-.006 5.348 5.348 0 0 0 .501 10.673h2.006a.669.669 0 0 0 0-1.337H5.849a4.01 4.01 0 1 1-.023-8.022.694.694 0 0 0 .735-.57 4.005 4.005 0 0 1 7.93 0 .722.722 0 0 0 .717.57 4.011 4.011 0 1 1 0 8.022h-2.005a.668.668 0 1 0 0 1.337h2.005a5.348 5.348 0 0 0 .502-10.667Z"/><path d="M13.399 10.478a.668.668 0 0 0 .945-.945l-3.342-3.342a.668.668 0 0 0-.946 0L6.714 9.533a.668.668 0 0 0 .945.945l2.202-2.2v8.413a.669.669 0 0 0 1.336 0V8.277l2.202 2.201Z"/></g>
+            </svg>
+            {{ block_st.field_image_label }}
+          </label>
+        </div>
+      {% endif %}
+    </product-property>
+  </div>
+{% endif %}
+{% schema %}
+{
+  "name": "t:blocks.product.product_custom_field.name",
+  "tag": null,
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "t:sections.main-product.blocks.product_custom_field.settings.heading",
+      "default": "Add your personalization:"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "description",
+      "label": "t:sections.main-product.blocks.product_custom_field.settings.description",
+      "default": "Add your name, note or upload your customized idea image to personalise your item. Custom items cannot be returned or exchanged."
+    },
+    {
+      "type": "header",
+      "content": "t:sections.main-product.blocks.product_custom_field.settings.field_type.text"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_field_text",
+      "label": "t:sections.main-product.blocks.product_custom_field.settings.field_type.enable_field_text",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "field_label",
+      "label": "t:sections.main-product.blocks.product_custom_field.settings.field_label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.main-product.blocks.product_custom_field.settings.field_type.field_image"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_field_image",
+      "label": "t:sections.main-product.blocks.product_custom_field.settings.field_type.enable_field_image",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "field_image_label",
+      "label": "t:sections.main-product.blocks.product_custom_field.settings.field_label"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:blocks.product.product_custom_field.name"
+    }
+  ]
+}
+{% endschema %}

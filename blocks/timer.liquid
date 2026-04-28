@@ -1,0 +1,112 @@
+{% liquid
+  assign theme_st = settings
+  assign scroll_animation = theme_st.scroll_animation
+  assign block_st = block.settings
+  assign mb_custom = ''
+  if block_st.spacing_bottom > 41
+    assign mb_custom = 'mb-big'
+  elsif block_st.spacing_bottom > 30
+    assign mb_custom = 'mb-medium'
+  else
+    assign mb_custom = 'mb-custom'
+  endif
+  assign uppercase = ''
+  if block_st.uppercase
+    assign uppercase = 'uppercase'
+  endif
+  assign fs_custom = ''
+  if block_st.font_size > 41
+    assign fs_custom = 'fs-big'
+  elsif block_st.font_size > 24
+    assign fs_custom = 'fs-medium'
+  else
+    assign fs_custom = 'fs-custom'
+  endif
+  assign font_weight = block_st.font_weight
+%}
+{{ 'countdown.css' | asset_url | stylesheet_tag }}
+{% if block_st.timer != blank %}
+  <motion-element
+    data-motion="{{ scroll_animation }}"
+    {% if scroll_animation == 'none' %}
+      hold
+    {% endif %}
+    class="timer flex md-justify-{{ section.settings.content_alignment }} mb-justify-{{ section.settings.content_alignment_mobile }} block {{ block_st.style }} {{ mb_custom }} {{ uppercase }} {{ fs_custom }} {{ font_weight }}"
+    style="--font-size: {{ block_st.font_size }};--space-bottom: {{ block_st.spacing_bottom }};"
+  >
+    <countdown-timer
+      class="hidden flex flex-wrap justify-content-{{ section.settings.content_alignment_mobile }} justify-content-md-{{ section.settings.content_alignment }} {% if block_st.uppercase %} uppercase{% endif %}"
+      data-endtime="{{ block_st.timer }}"
+      data-timeout-message="{{ block_st.expired_message }}"
+      data-format="dd:hh:mm:ss"
+      data-days="{{ 'sections.times_bn.days' | t }}"
+      data-hours="{{ 'sections.times_bn.hour' | t }}"
+      data-mins="{{ 'sections.times_bn.mins' | t }}"
+      data-secs="{{ 'sections.times_bn.secs' | t }}"
+    >
+    </countdown-timer>
+  </motion-element>
+{% endif %}
+{% schema %}
+{
+  "name": "t:blocks.general.countdown.name",
+  "settings": [
+    {
+      "type": "text",
+      "id": "timer",
+      "label": "t:sections.image_with_text_overlay.blocks.timer.settings.end_time.label",
+      "info": "t:sections.image_with_text_overlay.blocks.timer.settings.end_time.info",
+      "default": "09-22-2026"
+    },
+    {
+      "type": "text",
+      "id": "expired_message",
+      "default": "Time expired",
+      "label": "t:sections.image_with_text_overlay.blocks.timer.settings.expired_message.label",
+      "info": "t:sections.image_with_text_overlay.blocks.timer.settings.expired_message.info"
+    },
+    {
+      "type": "select",
+      "id": "style",
+      "label": "t:sections.image_with_text_overlay.blocks.timer.settings.style.label",
+      "default": "default",
+      "options": [
+        {
+          "value": "default",
+          "label": "t:sections.image_with_text_overlay.blocks.timer.settings.style.normal"
+        },
+        {
+          "value": "highlight",
+          "label": "t:sections.image_with_text_overlay.blocks.timer.settings.style.highlight"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "font_size",
+      "label": "t:sections.all.content_settings.font_size.label",
+      "default": 36,
+      "min": 24,
+      "max": 60,
+      "step": 1,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "spacing_bottom",
+      "label": "t:sections.all.content_settings.spacing.spacing_bottom.label",
+      "default": 30,
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:blocks.general.countdown.name",
+      "category": "t:categories.basic"
+    }
+  ]
+}
+{% endschema %}

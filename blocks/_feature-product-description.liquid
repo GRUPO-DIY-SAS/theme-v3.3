@@ -1,0 +1,27 @@
+{% assign product = closest.product %}
+{%- if product != blank -%}
+  {%- if product.metafields.custom.short_description -%}
+    <div class="product-single__short-description mb-15" {{ block.shopify_attributes }}>
+      {{ product.metafields.custom.short_description }}
+    </div>
+  {%- else -%}
+    <div class="product-single__description mb-15" {{ block.shopify_attributes }}>
+      {{ product.description }}
+    </div>
+  {%- endif -%}
+{%- else -%}
+  <div class="product-single__description" {{ block.shopify_attributes }}>
+    {{ 'onboarding.default_description' | t }}
+  </div>
+{%- endif -%}
+{% schema %}
+{
+  "name": "t:sections.product-single-layout.blocks.description.name",
+  "tag": null,
+  "presets": [
+    {
+      "name": "t:sections.product-single-layout.blocks.description.name"
+    }
+  ]
+}
+{% endschema %}

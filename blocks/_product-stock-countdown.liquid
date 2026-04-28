@@ -1,0 +1,72 @@
+{% liquid
+  assign block_st = block.settings
+  assign section_st = section.settings
+  assign enable_skeleton_loading = section_st.enable_skeleton_loading
+  assign product = closest.product
+  assign products_group = product.metafields.custom.product_grouped
+%}
+{%- if products_group == blank -%}
+  {% liquid
+    assign items_left = block_st.stock_items | default: 0
+    assign progress = 0
+    assign pr = product.selected_or_first_available_variant.inventory_quantity | times: 1.0 | divided_by: items_left | times: 100 | round: 2
+    if pr > 100
+      assign progress = 100
+    else
+      assign progress = pr
+    endif
+  %}
+  <stock-countdown
+    data-items-left="{{ items_left }}"
+    data-message="{{ block_st.message }}"
+    class="heading-color mb-25 {% if product.selected_or_first_available_variant.inventory_quantity > items_left or product.selected_or_first_available_variant.inventory_quantity < 1 or block_st.message == blank %}hidden {% else %} block {% endif %}{% if enable_skeleton_loading %} skeleton-loading{% endif %}"
+  >
+    <div class="product-stock-countdow ">
+      <div class="product_progress_countdow">
+        <p class="mb-10">
+          {{
+            block_st.message
+            | replace: '[count]', '<span class="count primary-color medium-weight">product_qty item(s)</span>'
+            | replace: 'product_qty', product.selected_or_first_available_variant.inventory_quantity
+          }}
+        </p>
+        <div class="progressbar h-5 grey-bg rounded relative">
+          <progress-stock-bar
+            data-progress="{{ progress }}"
+            class="progressbar-stock block absolute roudned inset-0"
+          ></progress-stock-bar>
+        </div>
+      </div>
+    </div>
+  </stock-countdown>
+{%- endif -%}
+{% schema %}
+{
+  "name": "t:blocks.product.stock_countdown.name",
+  "tag": null,
+  "settings": [
+    {
+      "type": "textarea",
+      "id": "message",
+      "default": "Hurry up! Only [count] left in stock",
+      "label": "t:sections.main-product.blocks.stock_countdown.settings.message.label",
+      "info": "t:sections.main-product.blocks.stock_countdown.settings.message.info"
+    },
+    {
+      "type": "range",
+      "id": "stock_items",
+      "min": 1,
+      "max": 100,
+      "step": 1,
+      "default": 30,
+      "label": "t:sections.main-product.blocks.stock_countdown.settings.stock_items.label",
+      "info": "t:sections.main-product.blocks.stock_countdown.settings.stock_items.info"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:blocks.product.stock_countdown.name"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,48 @@
+{
+  "sections": {
+    "page-heading": {
+      "type": "page-heading",
+      "blocks": {
+        "breadcrumb_BXeJNz": {
+          "type": "breadcrumb",
+          "settings": {}
+        },
+        "heading_RzfXCG": {
+          "type": "heading",
+          "settings": {
+            "page_title": "Create account",
+            "header_size": "default"
+          }
+        },
+        "description_APQ9Vd": {
+          "type": "description",
+          "settings": {
+            "description": "<p>Join now for exclusive deals, personalized recommendations, and early sale access.<\/p>"
+          }
+        }
+      },
+      "block_order": [
+        "breadcrumb_BXeJNz",
+        "heading_RzfXCG",
+        "description_APQ9Vd"
+      ],
+      "settings": {
+        "section_width": "stretch_width",
+        "color_scheme": "",
+        "alignment": "center",
+        "overlay_opacity": 0,
+        "height": "adapt",
+        "padding_top": 40,
+        "padding_bottom": 0
+      }
+    },
+    "main": {
+      "type": "main-register",
+      "settings": {}
+    }
+  },
+  "order": [
+    "page-heading",
+    "main"
+  ]
+}
