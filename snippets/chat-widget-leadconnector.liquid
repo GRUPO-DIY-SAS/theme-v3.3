@@ -1,12 +1,17 @@
 {% comment %}
   LeadConnector chat widget — DIYVAPE.CO
-  
+
   Loads ONLY after age-gate verification (+18 compliance).
   Gated by localStorage.age_verified_diyvape set by
   blocks/ai_gen_block_3f4d556.liquid on successful DOB submit.
-  
+
+  INP-optimized: defers actual widget injection until first user
+  interaction (scroll/click/keydown) or 4s timeout — whichever first.
+  This prevents the ~200KB LeadConnector bundle from blocking the
+  main thread during initial page load.
+
   Skip loading on password template.
-  
+
   @example
   {% render 'chat-widget-leadconnector' %}
 {% endcomment %}
@@ -19,6 +24,7 @@
       var WIDGET_RESOURCES = 'https://widgets.leadconnectorhq.com/chat-widget/loader.js';
       var WIDGET_ID = '69deb1a7d69ee82d8d5c665b';
       var loaded = false;
+      var scheduled = false;
 
       function isVerified() {
         try {
@@ -40,34 +46,69 @@
         document.body.appendChild(s);
       }
 
-      function tryLoadIfVerified() {
-        if (isVerified()) { injectWidget(); return true; }
+      // INP fix: defer injection until user idle/interaction
+      function scheduleInject() {
+        if (scheduled || loaded) return;
+        scheduled = true;
+        var fired = false;
+        var events = ['scroll','mousemove','touchstart','keydown','pointerdown'];
+
+        function fire() {
+          if (fired) return;
+          fired = true;
+          cleanup();
+          if ('requestIdleCallback' in window) {
+            requestIdleCallback(injectWidget, { timeout: 1500 });
+          } else {
+            setTimeout(injectWidget, 1);
+          }
+        }
+        function cleanup() {
+          events.forEach(function (ev) {
+            window.removeEventListener(ev, fire, { passive: true, capture: false });
+          });
+          clearTimeout(fallback);
+        }
+        events.forEach(function (ev) {
+          window.addEventListener(ev, fire, { once: true, passive: true });
+        });
+        // Fallback: load after 4s even with no user interaction
+        var fallback = setTimeout(fire, 4000);
+      }
+
+      function tryScheduleIfVerified() {
+        if (isVerified()) { scheduleInject(); return true; }
         return false;
       }
 
-      if (tryLoadIfVerified()) return;
+      // Initial check on script eval
+      if (tryScheduleIfVerified()) return;
 
-      document.addEventListener('diyvape:age-verified', injectWidget, { once: true });
+      // Listener for age verification event (when user submits DOB form)
+      document.addEventListener('diyvape:age-verified', scheduleInject, { once: true });
 
+      // Cross-tab sync via storage event
       window.addEventListener('storage', function (e) {
-        if (e.key === AGE_KEY && e.newValue) injectWidget();
+        if (e.key === AGE_KEY && e.newValue) scheduleInject();
       });
 
+      // Watch body class changes for age gate close (legacy support)
       if (document.body) {
         var observer = new MutationObserver(function () {
           if (!document.body.classList.contains('ai-age-gate-open') && isVerified()) {
-            injectWidget();
+            scheduleInject();
             observer.disconnect();
           }
         });
         observer.observe(document.body, { attributes: true, attributeFilter: ['class'] });
       }
 
+      // Poll fallback (reduced frequency: 5s × 60 attempts = 5min total)
       var attempts = 0;
       var pollIv = setInterval(function () {
         attempts++;
-        if (tryLoadIfVerified() || attempts >= 900) clearInterval(pollIv);
-      }, 2000);
+        if (tryScheduleIfVerified() || attempts >= 60) clearInterval(pollIv);
+      }, 5000);
     })();
   </script>
 {%- endunless -%}
