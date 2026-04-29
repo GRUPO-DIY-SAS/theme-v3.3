@@ -1,0 +1,308 @@
+{% comment %}
+  snippets/shipping-widget-styles.liquid
+  ──────────────────────────────────────
+  Estilos del widget interactivo de envíos.
+  Alineado con el Manual de Marca DIY Vape Shop v1.0
+
+  Paleta:
+    Lab Red     #C8102E  (acento, máx 5% de composición)
+    Carbon Black #0A0A0A (texto principal)
+    Ink         #1A1A1A  (texto alterno)
+    Graphite    #555555  (texto secundario)
+    Steel       #BBBBBB  (divisores)
+    Mist        #EEEEEE  (backgrounds suaves, bordes)
+    Paper       #F7F7F7  (bg alterno)
+    Bone        #F5F2EC  (bg editorial)
+    Pure White  #FFFFFF  (base)
+    Lab Sage    #7B9E87  (acento educativo)
+    Success     #2E7D57  (confirmaciones)
+    Warning     #D4A843  (advertencias)
+
+  Tipografía:
+    Display:  Space Grotesk 500/700
+    Body:     Inter 400/500/600
+    Mono:     JetBrains Mono 400/700
+{% endcomment %}
+
+{% style %}
+  /* ══════════════════════════════════════════════════
+     SHIPPING WIDGET · DIY VAPE SHOP BRAND SYSTEM
+     ══════════════════════════════════════════════════ */
+
+  .sw-root {
+    --sw-lab-red: #C8102E;
+    --sw-lab-red-soft: rgba(200, 16, 46, 0.08);
+    --sw-lab-red-border: rgba(200, 16, 46, 0.2);
+    --sw-carbon: #0A0A0A;
+    --sw-ink: #1A1A1A;
+    --sw-graphite: #555555;
+    --sw-steel: #BBBBBB;
+    --sw-mist: #EEEEEE;
+    --sw-paper: #F7F7F7;
+    --sw-bone: #F5F2EC;
+    --sw-white: #FFFFFF;
+    --sw-sage: #7B9E87;
+    --sw-success: #2E7D57;
+    --sw-success-soft: rgba(46, 125, 87, 0.08);
+    --sw-success-border: rgba(46, 125, 87, 0.25);
+    --sw-warning: #D4A843;
+    --sw-warning-soft: rgba(212, 168, 67, 0.10);
+    --sw-warning-border: rgba(212, 168, 67, 0.3);
+    --sw-radius: 12px;
+    --sw-shadow: 0 1px 3px rgba(0,0,0,0.04);
+
+    font-family: 'Inter', 'IBM Plex Sans', -apple-system, sans-serif;
+    max-width: 100%;
+    color: var(--sw-ink);
+  }
+  .sw-root * {
+    box-sizing: border-box;
+  }
+
+  /* ── Grid ── */
+  .sw-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  @media (max-width: 580px) {
+    .sw-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ── Cards ──
+     Manual: fondo blanco, radius 12px, borde 1px Mist,
+     sombra muy sutil (0 1px 3px rgba(0,0,0,0.04)) */
+  .sw-card {
+    background: var(--sw-white);
+    border: 1px solid var(--sw-mist);
+    border-radius: var(--sw-radius);
+    padding: 24px 20px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: var(--sw-shadow);
+    animation: swFadeUp 0.5s ease-out both;
+  }
+  /* Filete superior Lab Red – firma editorial del manual (3px) */
+  .sw-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--sw-lab-red);
+  }
+  .sw-card--delay {
+    animation-delay: 0.1s;
+  }
+
+  /* ── Card header ── */
+  .sw-card__header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 18px;
+  }
+  /* Manual: H3 = Space Grotesk 500, 24/32. Ajustado a escala del widget */
+  .sw-card__title {
+    font-family: 'Space Grotesk', 'Neue Haas Grotesk Display', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--sw-carbon);
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    margin: 0;
+  }
+  /* Manual: Caption = Inter 500, 13/18 */
+  .sw-card__subtitle {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--sw-graphite);
+    margin: 2px 0 0;
+  }
+
+  /* ── Icons ──
+     Manual: line icons 1.5pt, Lab Red solo para acción crítica,
+     Carbon Black para generales. Aquí usamos Graphite + Lab Red accent. */
+  .sw-icon--clock {
+    color: var(--sw-carbon);
+  }
+  .sw-icon--truck {
+    color: var(--sw-lab-red);
+    animation: swTruckDrive 2.5s ease-in-out infinite;
+  }
+
+  /* ── Countdown ──
+     Mono: JetBrains Mono 700 para datos técnicos */
+  .sw-countdown {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 6px;
+    margin-bottom: 16px;
+  }
+  .sw-digit-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 50px;
+  }
+  .sw-digit {
+    background: var(--sw-carbon);
+    color: var(--sw-white);
+    font-family: 'JetBrains Mono', 'IBM Plex Mono', monospace;
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    border-radius: 8px;
+    padding: 8px 10px;
+    min-width: 48px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  /* Filete de sello – detalle heritage del logo */
+  .sw-digit::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 4px;
+    right: 4px;
+    height: 1px;
+    background: rgba(255,255,255,0.1);
+  }
+  /* Manual: Overline = Space Grotesk 600, 11/16, uppercase, tracking 1.5px */
+  .sw-digit__label {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 9px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--sw-graphite);
+    margin-top: 6px;
+  }
+  .sw-separator {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--sw-carbon);
+    margin-top: 9px;
+    font-family: 'JetBrains Mono', monospace;
+    transition: color 0.15s;
+  }
+
+  /* ── Status pill ── */
+  .sw-pill {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    justify-content: center;
+    padding: 8px 16px;
+    border-radius: 8px;
+    border: 1px solid transparent;
+    transition: background 0.3s, border-color 0.3s;
+  }
+  .sw-pill__text {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    transition: color 0.3s;
+  }
+  .sw-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    display: inline-block;
+    flex-shrink: 0;
+    transition: background 0.3s;
+  }
+  .sw-dot--on {
+    animation: swPulseGlow 2s ease-in-out infinite;
+  }
+
+  /* ── Shipping bars ── */
+  .sw-bar-group {
+    margin-bottom: 16px;
+  }
+  .sw-bar-group:last-child {
+    margin-bottom: 0;
+  }
+  .sw-bar__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 8px;
+  }
+  /* Manual: Overline style */
+  .sw-bar__city {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--sw-graphite);
+  }
+  /* Manual: Mono para datos / specs */
+  .sw-bar__amount {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--sw-carbon);
+  }
+  .sw-bar__track {
+    height: 5px;
+    border-radius: 3px;
+    background: var(--sw-mist);
+    overflow: hidden;
+  }
+  .sw-bar__fill {
+    height: 100%;
+    border-radius: 3px;
+    background: var(--sw-lab-red);
+    transition: width 0.6s cubic-bezier(0.22,1,0.36,1);
+  }
+  .sw-bar__hint {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    color: var(--sw-graphite);
+    margin: 5px 0 0;
+  }
+
+  /* ── Footer ──
+     Manual: Bone bg, editorial feel, filete sutil */
+  .sw-footer {
+    margin-top: 12px;
+    padding: 12px 20px;
+    border-radius: var(--sw-radius);
+    background: var(--sw-bone);
+    border: 1px solid var(--sw-mist);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    animation: swFadeUp 0.5s ease-out 0.2s both;
+  }
+  .sw-footer svg {
+    flex-shrink: 0;
+  }
+  .sw-footer span {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--sw-graphite);
+  }
+
+  /* ── Animations ── */
+  @keyframes swFadeUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes swTruckDrive {
+    0%, 100% { transform: translateX(0); }
+    30%      { transform: translateX(3px); }
+    70%      { transform: translateX(-2px); }
+  }
+  @keyframes swPulseGlow {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(46,125,87,0.35); }
+    50%      { box-shadow: 0 0 0 6px rgba(46,125,87,0); }
+  }
+{% endstyle %}

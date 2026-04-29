@@ -13,6 +13,7 @@
 
 {% if request.page_type == 'index' %}
   <h1 class="my-0 inline-flex align-center">
+    <span class="visually-hidden">Vapers en Colombia: tienda #1 de vaper, recargables, desechables y sales de nicotina — DIY Vape Shop, 4 tiendas en Bogotá.</span>
 {%- endif -%}
 <a
   class="logo-img no-underline inline-flex align-center{% if request.page_type != 'index' %} h1 my-0{% endif %}"
@@ -41,7 +42,7 @@
           "
           src="{{ logo_image | image_url: width: 330 }}"
           sizes="{{ logo_width }}px"
-          loading="lazy"
+          loading="eager"
           fetchpriority="high"
           class="header__normal-logo{% if isTransparent and request.page_type == 'index' and transparent != blank %} hidden{% endif %}"
           width="{{ logo_width }}"
@@ -66,7 +67,7 @@
           "
           src="{{ logo_transparent | image_url: width: 330 }}"
           sizes="{{ logo_width }}px"
-          loading="lazy"
+          loading="eager"
           class="header__transparent-logo"
           width="{{ logo_width }}"
           height="{{ logo_height }}"

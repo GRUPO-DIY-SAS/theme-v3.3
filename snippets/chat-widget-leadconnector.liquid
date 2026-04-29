@@ -1,0 +1,73 @@
+{% comment %}
+  LeadConnector chat widget — DIYVAPE.CO
+  
+  Loads ONLY after age-gate verification (+18 compliance).
+  Gated by localStorage.age_verified_diyvape set by
+  blocks/ai_gen_block_3f4d556.liquid on successful DOB submit.
+  
+  Skip loading on password template.
+  
+  @example
+  {% render 'chat-widget-leadconnector' %}
+{% endcomment %}
+
+{%- unless template contains 'password' -%}
+  <script>
+    (function () {
+      var AGE_KEY = 'age_verified_diyvape';
+      var WIDGET_SRC = 'https://widgets.leadconnectorhq.com/loader.js';
+      var WIDGET_RESOURCES = 'https://widgets.leadconnectorhq.com/chat-widget/loader.js';
+      var WIDGET_ID = '69deb1a7d69ee82d8d5c665b';
+      var loaded = false;
+
+      function isVerified() {
+        try {
+          var v = localStorage.getItem(AGE_KEY);
+          return v !== null && v !== '' && v !== 'false';
+        } catch (e) { return false; }
+      }
+
+      function injectWidget() {
+        if (loaded || document.getElementById('diyvape-leadconnector-widget')) return;
+        loaded = true;
+        var s = document.createElement('script');
+        s.id = 'diyvape-leadconnector-widget';
+        s.src = WIDGET_SRC;
+        s.setAttribute('data-resources-url', WIDGET_RESOURCES);
+        s.setAttribute('data-widget-id', WIDGET_ID);
+        s.async = true;
+        s.defer = true;
+        document.body.appendChild(s);
+      }
+
+      function tryLoadIfVerified() {
+        if (isVerified()) { injectWidget(); return true; }
+        return false;
+      }
+
+      if (tryLoadIfVerified()) return;
+
+      document.addEventListener('diyvape:age-verified', injectWidget, { once: true });
+
+      window.addEventListener('storage', function (e) {
+        if (e.key === AGE_KEY && e.newValue) injectWidget();
+      });
+
+      if (document.body) {
+        var observer = new MutationObserver(function () {
+          if (!document.body.classList.contains('ai-age-gate-open') && isVerified()) {
+            injectWidget();
+            observer.disconnect();
+          }
+        });
+        observer.observe(document.body, { attributes: true, attributeFilter: ['class'] });
+      }
+
+      var attempts = 0;
+      var pollIv = setInterval(function () {
+        attempts++;
+        if (tryLoadIfVerified() || attempts >= 900) clearInterval(pollIv);
+      }, 2000);
+    })();
+  </script>
+{%- endunless -%}

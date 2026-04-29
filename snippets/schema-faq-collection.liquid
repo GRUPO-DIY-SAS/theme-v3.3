@@ -1,0 +1,8 @@
+{%- if template contains 'collection' -%}
+  {%- assign faq_json = collection.metafields.custom.faq_schema -%}
+  {%- if faq_json != blank -%}
+    <script type="application/ld+json">
+      {{ faq_json }}
+    </script>
+  {%- endif -%}
+{%- endif -%}

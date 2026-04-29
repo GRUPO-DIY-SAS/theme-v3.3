@@ -1,0 +1,8 @@
+{%- if template contains 'product' -%}
+  {%- assign faq_json = product.metafields.custom.faq_schema_producto -%}
+  {%- if faq_json != blank -%}
+    <script type="application/ld+json">
+      {{ faq_json }}
+    </script>
+  {%- endif -%}
+{%- endif -%}

@@ -1,0 +1,1275 @@
+{% doc %}
+  @prompt
+    Mandatory Age Verification Pop Up (Spanish). Stores JSON cookie "age_verified_diyvape" with dob + id for cart re-verification.
+{% enddoc %}
+
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+.ai-age-verify-overlay-{{ ai_gen_id }}{
+  --overlay-bg: {{ block.settings.overlay_bg_color }};
+  --overlay-opacity: {{ block.settings.overlay_opacity }};
+  position:fixed;
+  inset:0;
+  z-index:99999;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  visibility:hidden;
+  pointer-events:none;
+
+  /* ✅ fade real del overlay */
+  opacity:0;
+  transition: opacity .25s ease, visibility .25s ease;
+}
+
+/* ✅ cuando abre, el overlay se vuelve visible */
+.ai-age-verify-overlay-{{ ai_gen_id }}.active{
+  visibility:visible;
+  pointer-events:auto;
+  opacity:1;
+}
+
+/* ✅ el fondo con opacidad vive SOLO en el backdrop */
+.ai-age-verify-overlay-{{ ai_gen_id }}::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background: var(--overlay-bg);
+  opacity: var(--overlay-opacity);
+  pointer-events:none; /* ✅ nunca bloquea clicks */
+  z-index:0;           /* ✅ asegura que quede detrás */
+}
+
+  .ai-age-verify-modal-{{ ai_gen_id }}{
+  position:relative;
+  z-index:1;
+  width:min(560px, 92vw);
+  background:{{ block.settings.modal_background }};
+  border-radius:{{ block.settings.border_radius }}px;
+  padding:32px 26px;
+  box-shadow:0 18px 60px rgba(0,0,0,.45);
+  border: 1px solid {{ block.settings.modal_border_color }};
+  text-align:left;
+}
+
+  .ai-age-verify-header-{{ ai_gen_id }}{
+    display:flex;
+    align-items:flex-start;
+    gap:12px;
+    margin-bottom:14px;
+  }
+
+  .ai-age-verify-badge-{{ ai_gen_id }}{
+    width:42px; height:42px;
+    border-radius: 14px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background: {{ block.settings.badge_bg }};
+    color: {{ block.settings.badge_icon_color }};
+    flex:0 0 auto;
+  }
+
+  /* =========================================================
+   Animación de apertura del modal
+   - Badges: saltito con stagger
+   - Título y texto: fade + slide suave
+   ========================================================= */
+
+/* ---------- BADGES ---------- */
+/* Estado inicial (solo badges del header) */
+.ai-age-verify-header-{{ ai_gen_id }} .ai-age-verify-badge-{{ ai_gen_id }}{
+  opacity: 0;
+  transform: translateY(10px) scale(0.85);
+  transition:
+    opacity 0.25s ease,
+    transform 0.45s cubic-bezier(.2, .9, .25, 1.35);
+  will-change: transform, opacity;
+}
+
+/* Estado activo */
+.ai-age-verify-overlay-{{ ai_gen_id }}.active
+.ai-age-verify-header-{{ ai_gen_id }} .ai-age-verify-badge-{{ ai_gen_id }}{
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* Stagger seguro para los dos badges */
+.ai-age-verify-overlay-{{ ai_gen_id }}.active
+.ai-age-verify-header-{{ ai_gen_id }}
+.ai-age-verify-badge-{{ ai_gen_id }}:first-of-type{
+  transition-delay: 0.05s;
+}
+
+.ai-age-verify-overlay-{{ ai_gen_id }}.active
+.ai-age-verify-header-{{ ai_gen_id }}
+.ai-age-verify-badge-{{ ai_gen_id }}:last-of-type{
+  transition-delay: 0.14s;
+}
+
+/* ---------- TÍTULO ---------- */
+/* Estado inicial */
+.ai-age-verify-title-{{ ai_gen_id }}{
+  opacity: 0;
+  transform: translateY(8px);
+  transition:
+    opacity 0.30s ease,
+    transform 0.40s cubic-bezier(.2, .9, .25, 1.15);
+  will-change: transform, opacity;
+}
+
+/* Estado activo */
+.ai-age-verify-overlay-{{ ai_gen_id }}.active
+.ai-age-verify-title-{{ ai_gen_id }}{
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.20s;
+}
+
+
+/* ---------- DESCRIPCIÓN ---------- */
+/* Estado inicial */
+.ai-age-verify-text-{{ ai_gen_id }}{
+  opacity: 0;
+  transform: translateY(6px);
+  transition:
+    opacity 0.28s ease,
+    transform 0.38s cubic-bezier(.2, .9, .25, 1.1);
+  will-change: transform, opacity;
+}
+
+/* Estado activo */
+.ai-age-verify-overlay-{{ ai_gen_id }}.active
+.ai-age-verify-text-{{ ai_gen_id }}{
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.28s;
+}
+  
+  .ai-age-verify-title-{{ ai_gen_id }}{
+    margin:0;
+    color:{{ block.settings.text_color }};
+    font-size:{{ block.settings.heading_size }}px;
+    text-align: center;
+    font-weight:900;
+    line-height:1.15;
+  }
+
+  .ai-age-verify-text-{{ ai_gen_id }}{
+    color:{{ block.settings.text_color }};
+    font-size:{{ block.settings.text_size }}px;
+    line-height:1.5;
+    text-align: center;
+    margin:0 0 14px 0;
+  }
+
+  .ai-age-verify-actions-{{ ai_gen_id }}{
+    display:flex;
+    gap:12px;
+    margin-top:12px;
+  }
+
+  .ai-age-verify-btn-{{ ai_gen_id }}{
+    width:100%;
+    border:1px solid transparent;
+    border-radius:{{ block.settings.button_border_radius }}px;
+    padding:14px 16px;
+    font-weight:900;
+    cursor:pointer;
+    transition: transform .06s ease, background-color .18s ease, color .18s ease, border-color .18s ease, box-shadow .18s ease;
+    font-size:{{ block.settings.button_text_size }}px;
+  }
+  .ai-age-verify-btn-{{ ai_gen_id }}:active{transform:translateY(1px);}
+
+  .ai-age-verify-btn-yes-{{ ai_gen_id }}{
+    background:{{ block.settings.yes_button_bg }};
+    color:{{ block.settings.yes_button_text_color }};
+    box-shadow: 0 10px 26px rgba(0,0,0,.14);
+  }
+  .ai-age-verify-btn-yes-{{ ai_gen_id }}:hover{
+    background:{{ block.settings.yes_button_hover_bg }};
+  }
+
+  .ai-age-verify-btn-no-{{ ai_gen_id }}{
+    background:{{ block.settings.no_button_bg }};
+    color:{{ block.settings.no_button_text_color }};
+    border-color: {{ block.settings.no_button_border }};
+  }
+  .ai-age-verify-btn-no-{{ ai_gen_id }}:hover{
+    background:{{ block.settings.no_button_hover_bg }};
+  }
+
+  .ai-age-verify-formwrap-{{ ai_gen_id }}{display:none; margin-top:14px;}
+  .ai-age-verify-formwrap-{{ ai_gen_id }}.active{display:block;}
+
+  .ai-age-verify-field-{{ ai_gen_id }}{margin:12px 0;}
+  .ai-age-verify-label-{{ ai_gen_id }}{
+    display:block;
+    margin-bottom:6px;
+    font-size:13px;
+    font-weight:800;
+    color:{{ block.settings.text_color }};
+    text-transform: uppercase;
+    letter-spacing:.2px;
+  }
+
+  .ai-age-verify-row-{{ ai_gen_id }}{display:flex; gap:10px; align-items:center;}
+
+  .ai-age-verify-select-{{ ai_gen_id }},
+  .ai-age-verify-input-{{ ai_gen_id }}{
+    width:100%;
+    padding:12px 12px;
+    border:1px solid {{ block.settings.input_border_color }};
+    border-radius:{{ block.settings.input_border_radius }}px;
+    background:{{ block.settings.input_background }};
+    color:{{ block.settings.text_color }};
+    font-size:14px;
+  }
+
+  .ai-age-verify-select-{{ ai_gen_id }}:focus,
+  .ai-age-verify-input-{{ ai_gen_id }}:focus{
+    outline:none;
+    border-color:{{ block.settings.input_focus_color }};
+    box-shadow:0 0 0 3px rgba(0,0,0,.10);
+  }
+
+  .ai-age-verify-input-{{ ai_gen_id }}.error,
+  .ai-age-verify-select-{{ ai_gen_id }}.error{
+    border-color:{{ block.settings.error_color }};
+  }
+
+  .ai-age-verify-error-{{ ai_gen_id }}{
+    display:none;
+    margin-top:6px;
+    font-size:13px;
+    color:{{ block.settings.error_color }};
+    font-weight:700;
+  }
+  .ai-age-verify-error-{{ ai_gen_id }}.active{display:block;}
+
+  .ai-age-verify-submit-{{ ai_gen_id }}{
+    width:100%;
+    margin-top:10px;
+    padding:14px 16px;
+    border:1px solid transparent;
+    border-radius:{{ block.settings.button_border_radius }}px;
+    background:{{ block.settings.submit_button_bg }};
+    color:{{ block.settings.submit_button_text_color }};
+    font-weight:950;
+    cursor:pointer;
+    font-size:{{ block.settings.button_text_size }}px;
+    transition: background-color .18s ease, transform .06s ease, box-shadow .18s ease;
+    box-shadow: 0 10px 26px rgba(0,0,0,.14);
+  }
+  .ai-age-verify-submit-{{ ai_gen_id }}:hover{
+    background:{{ block.settings.submit_button_hover_bg }};
+  }
+  .ai-age-verify-submit-{{ ai_gen_id }}:active{transform:translateY(1px);}
+  .ai-age-verify-submit-{{ ai_gen_id }}:disabled{opacity:.6; cursor:not-allowed; box-shadow:none;}
+  
+   .ai-age-verify-submit-no-{{ ai_gen_id }}{
+    width:100%;
+    margin-top:10px;
+    padding:14px 16px;
+    border:1px solid transparent;
+    border-radius:{{ block.settings.button_border_radius }}px;
+    background:{{ block.settings.no_button_bg }};
+    color:{{ block.settings.no_button_text_color }};
+    font-weight:950;
+    cursor:pointer;
+    font-size:{{ block.settings.button_text_size }}px;
+    transition: background-color .18s ease, transform .06s ease, box-shadow .18s ease;
+    box-shadow: 0 10px 26px rgba(0,0,0,.14);
+  }
+  .ai-age-verify-submit-no-{{ ai_gen_id }}:hover{
+    background:{{ block.settings.no_button_hover_bg }};
+  }
+  .ai-age-verify-submit-no-{{ ai_gen_id }}:active{transform:translateY(1px);}
+  .ai-age-verify-submit-no-{{ ai_gen_id }}:disabled{opacity:.6; cursor:not-allowed; box-shadow:none;}
+
+  .ai-age-verify-note-{{ ai_gen_id }}{
+    margin-top:10px;
+    font-size:12.5px;
+    color:{{ block.settings.text_color }};
+    opacity:.9;
+    line-height:1.4;
+  }
+
+  .ai-age-verify-blocked-{{ ai_gen_id }}{display:none; text-align:center; margin-top:8px;}
+  .ai-age-verify-blocked-{{ ai_gen_id }}.active{display:block;}
+  .ai-age-verify-blocked-{{ ai_gen_id }} .icon{font-size:58px; margin:8px 0 10px;}
+  .ai-age-verify-blocked-{{ ai_gen_id }} h3{margin:0 0 8px; color:{{ block.settings.text_color }}; font-size:20px; font-weight:950;}
+
+  /* Editor-only trigger (kept minimal; does not affect storefront unless designMode) */
+  .ai-age-verify-editor-trigger-{{ ai_gen_id }}{
+    position: fixed;
+    right: 14px;
+    bottom: 14px;
+    z-index: 99998;
+    display:none;
+  }
+  .ai-age-verify-editor-trigger-{{ ai_gen_id }} button{
+    border:1px solid rgba(0,0,0,.14);
+    border-radius: 10px;
+    padding:10px 12px;
+    font-weight:900;
+    cursor:pointer;
+    box-shadow: 0 12px 28px rgba(0,0,0,.18);
+    background:#fff;
+  }
+
+  @media (max-width: 749px){
+    .ai-age-verify-actions-{{ ai_gen_id }}{flex-direction:column;}
+    .ai-age-verify-modal-{{ ai_gen_id }}{padding:26px 18px;}
+    .ai-age-verify-editor-trigger-{{ ai_gen_id }}{right: 10px; bottom: 10px;}
+  }
+ /* === CLS FIXES === */
+
+/* Fix 2: Body scroll lock */
+body.ai-age-gate-open {
+  overflow: hidden;
+  position: fixed;
+  width: 100%;
+  top: var(--scroll-y, 0px);
+}
+
+/* Fix 3: Min-height + transiciones internas */
+.ai-age-verify-modal-{{ ai_gen_id }}{
+  min-height: 320px;
+}
+
+.ai-age-verify-initial-{{ ai_gen_id }},
+.ai-age-verify-formwrap-{{ ai_gen_id }},
+.ai-age-verify-blocked-{{ ai_gen_id }}{
+  transition: opacity 0.15s ease;
+} 
+{% endstyle %}
+
+<age-verification-{{ ai_gen_id }}
+  class="ai-age-verify-overlay-{{ ai_gen_id }}"
+  data-cookie-name="{{ block.settings.cookie_name }}"
+  data-cookie-days="{{ block.settings.cookie_duration }}"
+  data-cookie-domain="{{ block.settings.cookie_domain }}"
+  data-editor-mode-behavior="{{ block.settings.editor_mode_behavior }}"
+  data-cookie-persistence="{{ block.settings.cookie_persistence }}"
+  data-cookie-hours="{{ block.settings.cookie_hours }}"
+  data-cookie-days-v2="{{ block.settings.cookie_days_v2 }}"
+  data-cookie-custom-value="{{ block.settings.cookie_custom_value }}"
+  data-cookie-custom-unit="{{ block.settings.cookie_custom_unit }}"
+  data-cart-sync-enabled="{{ block.settings.cart_sync_enabled }}"
+  data-cart-attr-prefix="{{ block.settings.cart_attr_prefix }}"
+  data-order-note-enabled="{{ block.settings.order_note_enabled }}"
+  data-order-note-template="{{ block.settings.order_note_template | escape }}"
+  {{ block.shopify_attributes }}
+>
+  <!-- Minimal editor-only trigger wrapper (does not change modal structure) -->
+  <div class="ai-age-verify-editor-trigger-{{ ai_gen_id }}" data-editor-trigger>
+    <button type="button" aria-label="Preview age verification">Preview Age Verification</button>
+  </div>
+
+  <div class="ai-age-verify-modal-{{ ai_gen_id }}">
+    {% if block.settings.logo %}
+      <div style="margin-bottom:12px; text-align:center;">
+       {% assign logo_height = block.settings.logo_width | divided_by: 3 %}
+        <img src="{{ block.settings.logo | image_url: width: 200 }}"
+        alt="{{ shop.name }}"
+        loading="eager"
+        width="{{ block.settings.logo_width }}"
+        height="{{ logo_height }}"
+        style="aspect-ratio:auto; object-fit:contain;">
+      </div>
+    {% endif %}
+
+    <div class="ai-age-verify-initial-{{ ai_gen_id }}">
+    <div class="ai-age-verify-header-{{ ai_gen_id }}">
+  <div class="ai-age-verify-badge-{{ ai_gen_id }}" aria-hidden="true">
+    <svg width="26" height="26" viewBox="0 0 26 26" fill="none">
+      <text
+        x="13"
+        y="18"
+        text-anchor="middle"
+        font-size="14"
+        font-weight="900"
+        fill="currentColor"
+        font-family="system-ui, -apple-system, BlinkMacSystemFont, sans-serif"
+      >+18</text>
+    </svg>
+  </div>
+
+  <div>
+    <h2 class="ai-age-verify-title-{{ ai_gen_id }}">{{ block.settings.heading }}</h2>
+    <div class="ai-age-verify-text-{{ ai_gen_id }}" style="margin:6px 0 0;">{{ block.settings.description }}</div>
+  </div>
+
+  <div class="ai-age-verify-badge-{{ ai_gen_id }}" aria-hidden="true">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+      <path d="M9 12l2 2 4-4"></path>
+    </svg>
+  </div>
+</div>  
+      
+      <div class="ai-age-verify-actions-{{ ai_gen_id }}">
+        <button type="button" class="ai-age-verify-btn-{{ ai_gen_id }} ai-age-verify-btn-yes-{{ ai_gen_id }}" data-action="yes">
+          {{ block.settings.yes_label }}
+        </button>
+        <button type="button" class="ai-age-verify-btn-{{ ai_gen_id }} ai-age-verify-btn-no-{{ ai_gen_id }}" data-action="no">
+          {{ block.settings.no_label }}
+        </button>
+      </div>
+
+      <div class="ai-age-verify-note-{{ ai_gen_id }}">
+        {{ block.settings.note_text }}
+      </div>
+    </div>
+
+    <div class="ai-age-verify-formwrap-{{ ai_gen_id }}">
+      <h3 class="ai-age-verify-title-{{ ai_gen_id }}" style="font-size:22px; margin:0 0 8px;">
+        {{ block.settings.form_heading }}
+      </h3>
+      <div class="ai-age-verify-text-{{ ai_gen_id }}">{{ block.settings.form_description }}</div>
+
+      <form id="ai-age-verify-form-{{ ai_gen_id }}">
+        <div class="ai-age-verify-field-{{ ai_gen_id }}">
+          <label class="ai-age-verify-label-{{ ai_gen_id }}">{{ block.settings.dob_label }}</label>
+          <div class="ai-age-verify-row-{{ ai_gen_id }}">
+            <select id="ai-dob-dd-{{ ai_gen_id }}" class="ai-age-verify-select-{{ ai_gen_id }}" aria-label="Día" required></select>
+            <select id="ai-dob-mm-{{ ai_gen_id }}" class="ai-age-verify-select-{{ ai_gen_id }}" aria-label="Mes" required></select>
+            <select id="ai-dob-yy-{{ ai_gen_id }}" class="ai-age-verify-select-{{ ai_gen_id }}" aria-label="Año" required></select>
+          </div>
+          <div class="ai-age-verify-error-{{ ai_gen_id }}" data-error="dob"></div>
+        </div>
+
+        <div class="ai-age-verify-field-{{ ai_gen_id }}">
+          <label class="ai-age-verify-label-{{ ai_gen_id }}" for="ai-id-{{ ai_gen_id }}">{{ block.settings.id_label }}</label>
+          <input
+            type="text"
+            id="ai-id-{{ ai_gen_id }}"
+            class="ai-age-verify-input-{{ ai_gen_id }}"
+            placeholder="{{ block.settings.id_placeholder }}"
+            inputmode="numeric"
+            autocomplete="off"
+            maxlength="10"
+            required
+          >
+          <div class="ai-age-verify-error-{{ ai_gen_id }}" data-error="id"></div>
+        </div>
+
+          <div class="ai-age-verify-actions-{{ ai_gen_id }}">
+          <button type="submit" class="ai-age-verify-submit-{{ ai_gen_id }}">
+            {{ block.settings.submit_label }}
+          </button>
+          <button type="button" class="ai-age-verify-submit-no-{{ ai_gen_id }} ai-age-verify-btn-no-{{ ai_gen_id }}" data-action="no">
+            {{ block.settings.no_label }}
+          </button>
+        </div>
+        
+             
+
+        <div class="ai-age-verify-note-{{ ai_gen_id }}">
+          {{ block.settings.privacy_note }}
+        </div>
+
+        <div class="ai-age-verify-error-{{ ai_gen_id }}" data-error="cookie"></div>
+      </form>
+    </div>
+
+    <div class="ai-age-verify-blocked-{{ ai_gen_id }}">
+      <div class="icon">🚫</div>
+      <h3>{{ block.settings.blocked_heading }}</h3>
+      <div class="ai-age-verify-text-{{ ai_gen_id }}">{{ block.settings.blocked_message }}</div>
+    </div>
+  </div>
+</age-verification-{{ ai_gen_id }}>
+
+<script>
+(function(){
+  class AgeVerification{{ ai_gen_id }} extends HTMLElement {
+    constructor(){
+      super();
+      this.cookieName = this.dataset.cookieName || 'age_verified_diyvape';
+
+      // Back-compat (existing setting): "cookie_duration" in days (string like "365")
+      this.cookieDaysLegacy = parseInt(this.dataset.cookieDays || '365', 10);
+
+      // Domain
+      this.cookieDomain = this.dataset.cookieDomain || '.diyvape.co'; // IMPORTANT: dot domain
+
+      // Editor mode behavior
+      this.editorModeBehavior = (this.dataset.editorModeBehavior || 'show_in_editor').trim();
+
+      // Persistence v2
+      this.cookiePersistence = (this.dataset.cookiePersistence || 'legacy_days').trim();
+      this.cookieHours = parseInt(this.dataset.cookieHours || '24', 10);
+      this.cookieDaysV2 = parseInt(this.dataset.cookieDaysV2 || String(this.cookieDaysLegacy || 365), 10);
+      this.cookieCustomValue = parseInt(this.dataset.cookieCustomValue || '60', 10);
+      this.cookieCustomUnit = (this.dataset.cookieCustomUnit || 'minutes').trim(); // minutes/hours/days
+
+      // Cart sync / order note
+      this.cartSyncEnabled = String(this.dataset.cartSyncEnabled || 'true') === 'true';
+      this.cartAttrPrefix = (this.dataset.cartAttrPrefix || 'age_verification').trim();
+      this.orderNoteEnabled = String(this.dataset.orderNoteEnabled || 'false') === 'true';
+      this.orderNoteTemplate = (this.dataset.orderNoteTemplate || ''); // can be empty
+
+      // Views / elements
+      this.initialView = this.querySelector('.ai-age-verify-initial-{{ ai_gen_id }}');
+      this.formWrap = this.querySelector('.ai-age-verify-formwrap-{{ ai_gen_id }}');
+      this.blockedView = this.querySelector('.ai-age-verify-blocked-{{ ai_gen_id }}');
+      this.form = this.querySelector('#ai-age-verify-form-{{ ai_gen_id }}');
+
+      this.dd = this.querySelector('#ai-dob-dd-{{ ai_gen_id }}');
+      this.mm = this.querySelector('#ai-dob-mm-{{ ai_gen_id }}');
+      this.yy = this.querySelector('#ai-dob-yy-{{ ai_gen_id }}');
+      this.idInput = this.querySelector('#ai-id-{{ ai_gen_id }}');
+
+      this.errDob = this.querySelector('[data-error="dob"]');
+      this.errId = this.querySelector('[data-error="id"]');
+      this.errCookie = this.querySelector('[data-error="cookie"]');
+      this.submitBtn = this.form.querySelector('button[type="submit"]');
+
+      // Editor trigger (optional)
+      this.editorTriggerWrap = this.querySelector('[data-editor-trigger]');
+      this.editorTriggerBtn = this.editorTriggerWrap ? this.editorTriggerWrap.querySelector('button') : null;
+
+      // Internal flags
+      this._cartSyncInFlight = false;
+      this._cartSyncSessionKey = 'av_cart_synced_' + this.cookieName;
+      this._manualPreviewKey = 'av_manual_preview_' + this.cookieName;
+    }
+
+    connectedCallback(){
+      // try restore cookie if blocked
+      this.restoreCookieFromStorageIfNeeded();
+
+      // If verified cookie exists: do not show (same behavior),
+      // but DO sync to cart/note to keep checkout consistent.
+      const verified = this.getVerifiedObject();
+      if (verified){
+        this.syncVerificationToCartIfNeeded(verified, { reason: 'cookie_present' });
+        return;
+      }
+
+      // Not verified: handle editor behavior first (no change to storefront preview)
+      if (this.isShopifyDesignMode()){
+        this.applyEditorModeBehavior();
+        // even in editor, we still want selectors ready if the user manually previews
+        this.buildDobSelectors();
+        this.setupEvents();
+        return;
+      }
+
+      // Normal storefront: same behavior as before
+      this.buildDobSelectors();
+      this.show();
+      this.setupEvents();
+    }
+
+    applyEditorModeBehavior(){
+      // Supported: hide_in_editor / show_in_editor / only_preview_button
+      const behavior = this.editorModeBehavior;
+
+      // Allow a manual preview override without changing storefront:
+      // - via the editor-only button OR
+      // - via URL params: ?age_verify_preview=1
+      const urlWantsPreview = this.hasQueryParam('age_verify_preview', '1');
+      const manualPreview = this.getSessionFlag(this._manualPreviewKey);
+
+      // Prepare editor trigger button if applicable
+      if (this.editorTriggerWrap && this.editorTriggerBtn){
+        if (behavior === 'only_preview_button'){
+          this.editorTriggerWrap.style.display = 'block';
+          this.editorTriggerBtn.addEventListener('click', () => {
+            this.setSessionFlag(this._manualPreviewKey, '1');
+            this.show();
+          });
+        } else {
+          this.editorTriggerWrap.style.display = 'none';
+        }
+      }
+
+      if (behavior === 'hide_in_editor'){
+        // Never auto-show in editor. Manual preview can be forced via URL param.
+        if (urlWantsPreview){
+          this.show();
+        }
+        return;
+      }
+
+      if (behavior === 'only_preview_button'){
+        // Do not auto-show; only show if manually triggered or URL param
+        if (urlWantsPreview || manualPreview){
+          this.show();
+        }
+        return;
+      }
+
+      // show_in_editor: mimic storefront behavior
+      this.show();
+    }
+
+    setupEvents(){
+      const yesBtns = this.querySelectorAll('[data-action="yes"]');
+      const noBtns  = this.querySelectorAll('[data-action="no"]');
+
+      yesBtns.forEach(btn => btn.addEventListener('click', () => this.showForm()));
+      noBtns.forEach(btn => btn.addEventListener('click', () => this.showBlocked()));
+
+      this.idInput.addEventListener('input', () => {
+        const cleaned = this.idInput.value.replace(/\D/g,'').slice(0,10);
+        if (this.idInput.value !== cleaned) this.idInput.value = cleaned;
+        this.clearError(this.idInput, this.errId);
+      });
+
+      [this.dd, this.mm, this.yy].forEach(sel => {
+        sel.addEventListener('change', () => {
+          this.clearError(this.dd, this.errDob);
+          this.clearError(this.mm, this.errDob);
+          this.clearError(this.yy, this.errDob);
+        });
+      });
+
+      this.form.addEventListener('submit', (e) => this.handleSubmit(e));
+    }
+
+    show(){
+      const scrollY = window.scrollY;
+      document.documentElement.style.setProperty('--scroll-y', `-${scrollY}px`);
+      document.body.classList.add('ai-age-gate-open');
+      this.offsetHeight;
+      requestAnimationFrame(() => this.classList.add('active'));
+    }
+    hide(){
+      this.classList.remove('active');
+      const scrollY = document.documentElement.style.getPropertyValue('--scroll-y');
+      document.body.classList.remove('ai-age-gate-open');
+      window.scrollTo(0, parseInt(scrollY || '0') * -1);
+    }
+
+    showForm(){
+      this.initialView.style.opacity = '0';
+      setTimeout(() => {
+        this.initialView.style.display = 'none';
+        this.formWrap.classList.add('active');
+        this.formWrap.style.opacity = '0';
+        requestAnimationFrame(() => { this.formWrap.style.opacity = '1'; });
+      }, 150);
+    }
+
+    showBlocked(){
+      this.initialView.style.opacity = '0';
+      this.formWrap.style.opacity = '0';
+      setTimeout(() => {
+        this.initialView.style.display = 'none';
+        this.formWrap.classList.remove('active');
+        this.blockedView.classList.add('active');
+        this.blockedView.style.opacity = '0';
+        requestAnimationFrame(() => { this.blockedView.style.opacity = '1'; });
+      }, 150);
+    }
+
+    buildDobSelectors(){
+      this.dd.innerHTML = '';
+      this.mm.innerHTML = '';
+      this.yy.innerHTML = '';
+
+      this.dd.appendChild(this.option('', 'DD'));
+      for (let d=1; d<=31; d++){
+        const v = String(d).padStart(2,'0');
+        this.dd.appendChild(this.option(v, v));
+      }
+
+      const months = [
+        ['01','Enero'],['02','Febrero'],['03','Marzo'],['04','Abril'],['05','Mayo'],['06','Junio'],
+        ['07','Julio'],['08','Agosto'],['09','Septiembre'],['10','Octubre'],['11','Noviembre'],['12','Diciembre']
+      ];
+      this.mm.appendChild(this.option('', 'MM'));
+      months.forEach(m => this.mm.appendChild(this.option(m[0], m[1])));
+
+      const now = new Date();
+      const maxYear = now.getFullYear() - 18;
+      const minYear = 1920;
+
+      this.yy.appendChild(this.option('', 'AAAA'));
+      for (let y=maxYear; y>=minYear; y--){
+        this.yy.appendChild(this.option(String(y), String(y)));
+      }
+    }
+
+    option(value, label){
+      const o = document.createElement('option');
+      o.value = value;
+      o.textContent = label;
+      return o;
+    }
+
+    handleSubmit(e){
+      e.preventDefault();
+      this.clearAllErrors();
+
+      const dd = this.dd.value;
+      const mm = this.mm.value;
+      const yy = this.yy.value;
+      const id = (this.idInput.value || '').trim();
+
+      let ok = true;
+
+      const dob = this.composeDob(yy, mm, dd);
+      if (!dob || !this.isRealDate(dob) || !this.isOver18(dob)){
+        this.showError(this.errDob, '{{ block.settings.age_error_message }}');
+        this.flagDobError();
+        ok = false;
+      }
+
+      if (!this.isValidID(id)){
+        this.showError(this.errId, '{{ block.settings.id_error_message }}');
+        this.idInput.classList.add('error');
+        ok = false;
+      }
+
+      if (!ok) return;
+
+      this.submitBtn.disabled = true;
+
+      const payload = {
+        dob: dob,
+        id: String(id),
+        verified: true,
+        timestamp: new Date().toISOString()
+      };
+
+      // cookie + fallback (same data and shape as before)
+      this.setCookieStrongFlexible(this.cookieName, JSON.stringify(payload), this.getCookieTTL(), this.cookieDomain);
+      try { localStorage.setItem(this.cookieName, JSON.stringify(payload)); } catch(e) {}
+
+      if (!this.isVerifiedCookieValid()){
+        this.showError(this.errCookie, 'No se pudo guardar la cookie en este navegador. Se guardó un respaldo local.');
+      }
+
+      // sync to cart attributes / optional order note (robust, no checkout.liquid)
+      this.syncVerificationToCartIfNeeded(payload, { reason: 'just_verified', force: true });
+
+      this.hide();
+      this.submitBtn.disabled = false;
+    }
+
+    composeDob(yy, mm, dd){
+      if (!yy || !mm || !dd) return '';
+      return `${yy}-${mm}-${dd}`;
+    }
+
+    formatDobToDDMMYYYY(isoDob){
+      // Expects "YYYY-MM-DD" and returns "DD/MM/YYYY"
+      if (!isoDob || typeof isoDob !== 'string') return '';
+      const parts = isoDob.split('-');
+      if (parts.length !== 3) return isoDob;
+      const y = parts[0], m = parts[1], d = parts[2];
+      if (!y || !m || !d) return isoDob;
+      return `${d}/${m}/${y}`;
+    }
+
+    isRealDate(iso){
+      const [y,m,d] = iso.split('-').map(n => parseInt(n,10));
+      const dt = new Date(y, m-1, d);
+      return dt && dt.getFullYear()===y && (dt.getMonth()+1)===m && dt.getDate()===d;
+    }
+
+    isOver18(isoDob){
+      const [y,m,d] = isoDob.split('-').map(n => parseInt(n,10));
+      const birth = new Date(y, m-1, d);
+      const today = new Date();
+      let age = today.getFullYear() - birth.getFullYear();
+      const md = today.getMonth() - birth.getMonth();
+      if (md < 0 || (md === 0 && today.getDate() < birth.getDate())) age--;
+      return age >= 18;
+    }
+
+    isValidID(id){
+      if (!id) return false;
+      if (!/^\d+$/.test(id)) return false;
+      if (id.length < 6 || id.length > 10) return false;
+      return true;
+    }
+
+    getCookie(name){
+      const v = `; ${document.cookie}`;
+      const parts = v.split(`; ${name}=`);
+      if (parts.length === 2) return parts.pop().split(';').shift();
+      return null;
+    }
+
+    isVerifiedCookieValid(){
+  const raw = this.getCookie(this.cookieName);
+  if (!raw) return false;
+  try {
+    const obj = JSON.parse(decodeURIComponent(raw));
+    return Boolean(obj && obj.verified && obj.dob && obj.id);
+  } catch(e1) {
+    try {
+      const obj2 = JSON.parse(raw);
+      return Boolean(obj2 && obj2.verified && obj2.dob && obj2.id);
+    } catch(e2) {
+      return false;
+    }
+  }
+}
+
+    getVerifiedObject(){
+  const raw = this.getCookie(this.cookieName);
+  if (!raw) return null;
+
+  try {
+    const obj = JSON.parse(decodeURIComponent(raw));
+    if (obj && obj.verified && obj.dob && obj.id) return obj;
+  } catch(e1) {
+    try {
+      const obj2 = JSON.parse(raw);
+      if (obj2 && obj2.verified && obj2.dob && obj2.id) return obj2;
+    } catch(e2) {}
+  }
+  return null;
+}
+
+    // --- Cookie persistence (back-compatible) ---
+    getCookieTTL(){
+      // Returns an object describing TTL:
+      // { type: 'session' } OR { type: 'expires', ms: number }
+      const mode = (this.cookiePersistence || 'legacy_days').trim();
+
+      // Back-compat default: use legacy cookie_duration days
+      if (mode === 'legacy_days'){
+        const days = Number.isFinite(this.cookieDaysLegacy) && this.cookieDaysLegacy > 0 ? this.cookieDaysLegacy : 365;
+        return { type: 'expires', ms: days * 24 * 60 * 60 * 1000 };
+      }
+
+      if (mode === 'session'){
+        return { type: 'session' };
+      }
+
+      if (mode === 'hours'){
+        const h = Number.isFinite(this.cookieHours) && this.cookieHours > 0 ? this.cookieHours : 24;
+        return { type: 'expires', ms: h * 60 * 60 * 1000 };
+      }
+
+      if (mode === 'days'){
+        const d = Number.isFinite(this.cookieDaysV2) && this.cookieDaysV2 > 0 ? this.cookieDaysV2 : 365;
+        return { type: 'expires', ms: d * 24 * 60 * 60 * 1000 };
+      }
+
+      if (mode === 'custom'){
+        const v = Number.isFinite(this.cookieCustomValue) && this.cookieCustomValue > 0 ? this.cookieCustomValue : 60;
+        const unit = (this.cookieCustomUnit || 'minutes').trim();
+        let ms = v * 60 * 1000; // minutes
+        if (unit === 'hours') ms = v * 60 * 60 * 1000;
+        if (unit === 'days') ms = v * 24 * 60 * 60 * 1000;
+        return { type: 'expires', ms };
+      }
+
+      // Fallback to legacy
+      const days = Number.isFinite(this.cookieDaysLegacy) && this.cookieDaysLegacy > 0 ? this.cookieDaysLegacy : 365;
+      return { type: 'expires', ms: days * 24 * 60 * 60 * 1000 };
+    }
+
+    setCookieStrongFlexible(name, value, ttl, domain){
+      const secure = (location && location.protocol === 'https:') ? ';Secure' : '';
+      const base =
+        name + '=' + encodeURIComponent(value) +
+        ';path=/' +
+        ';domain=' + domain +
+        ';SameSite=Lax' +
+        secure;
+
+      // Session cookie: no Expires/Max-Age
+      if (ttl && ttl.type === 'session'){
+        document.cookie = base;
+        return;
+      }
+
+      // Expiring cookie
+      const ms = ttl && typeof ttl.ms === 'number' ? ttl.ms : (365 * 24 * 60 * 60 * 1000);
+      const date = new Date();
+      date.setTime(date.getTime() + ms);
+      const expires = 'expires=' + date.toUTCString();
+      document.cookie = base + ';' + expires;
+    }
+
+    restoreCookieFromStorageIfNeeded(){
+      if (this.isVerifiedCookieValid()) return;
+      let stored = null;
+      try { stored = localStorage.getItem(this.cookieName); } catch(e) {}
+      if (!stored) return;
+
+      try {
+        const obj = JSON.parse(stored);
+        if (obj && obj.verified && obj.dob && obj.id){
+          this.setCookieStrongFlexible(this.cookieName, JSON.stringify(obj), this.getCookieTTL(), this.cookieDomain);
+          // Also keep cart in sync after restore
+          this.syncVerificationToCartIfNeeded(obj, { reason: 'restored_from_local' });
+        }
+      } catch(e) {}
+    }
+
+    // --- Cart attributes / order note sync (no checkout.liquid) ---
+    async syncVerificationToCartIfNeeded(verifiedObj, opts){
+      if (!this.cartSyncEnabled) return;
+      if (!verifiedObj || !verifiedObj.verified || !verifiedObj.dob || !verifiedObj.id) return;
+
+      // Avoid spamming: only once per browser session unless forced
+      const force = Boolean(opts && opts.force);
+      if (!force && this.getSessionFlag(this._cartSyncSessionKey)) return;
+      if (this._cartSyncInFlight) return;
+
+      this._cartSyncInFlight = true;
+
+      try {
+        
+        const reduced = this.buildReducedVerificationPayload(verifiedObj);
+        const attrs = {};
+        attrs[this.cartAttrPrefix + '_verified']  = 'true';
+        await this.safeGetCart();
+        // ✅ COMPLETOS (para Flow)
+        attrs[this.cartAttrPrefix + '_dob_full']  = reduced.dob_full;   // YYYY-MM-DD
+        attrs[this.cartAttrPrefix + '_id_full']   = reduced.id_full;    // ID completo
+        // (Opcional) mantener reducidos si también los usas
+        attrs[this.cartAttrPrefix + '_dob_ym']    = reduced.dob_ym;
+        attrs[this.cartAttrPrefix + '_id_last4']  = reduced.id_last4;
+        attrs[this.cartAttrPrefix + '_sig']       = reduced.sig;
+        attrs[this.cartAttrPrefix + '_ts']        = reduced.ts;
+
+        const payload = { attributes: attrs };
+
+        // Optional note: append (do not blindly overwrite)
+        if (this.orderNoteEnabled){
+          const noteLine = this.renderOrderNoteLine(verifiedObj); // FULL dob + FULL id
+          if (noteLine){
+            const existing = await this.safeGetCart();
+            const nextNote = this.mergeOrderNote(existing && existing.note ? String(existing.note) : '', noteLine);
+            payload.note = nextNote;
+          }
+        }
+
+        await fetch('/cart/update.js', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        this.setSessionFlag(this._cartSyncSessionKey, '1');
+      } catch(e) {
+        // Silent fail: we do not change UX flow
+      } finally {
+        this._cartSyncInFlight = false;
+      }
+    }
+
+   buildReducedVerificationPayload(obj){
+  const dob = String(obj.dob || '');        // YYYY-MM-DD
+  const id  = String(obj.id || '');
+
+  const dob_full = dob;                     // completo
+  const id_full  = id;                      // completo
+
+  const dob_ym = dob.length >= 7 ? dob.slice(0,7) : dob; // YYYY-MM (si lo quieres conservar)
+  const id_last4 = id.slice(-4);
+
+  const ts = (obj.timestamp ? String(obj.timestamp) : new Date().toISOString());
+
+  const sigInput = dob + '|' + id + '|' + (this.cookieDomain || '') + '|' + (this.cookieName || '');
+  const sig = this.fnv1a(sigInput);
+
+  return { dob_full, id_full, dob_ym, id_last4, sig, ts };
+}
+
+    renderOrderNoteLine(verifiedObj){
+      // Tokens seguros para Theme Editor (NO usar {{ }} aquí)
+      // Soporta:
+      //  - [[dob_full]] => DD/MM/AAAA
+      //  - [[id_full]]  => ID completo
+      //  - [[sig]]      => hash simple
+      // Back-compat:
+      //  - [[dob_ym]]   => YYYY-MM
+      //  - [[id_last4]] => últimos 4
+
+      const tpl = this.orderNoteTemplate;
+      if (!tpl) return '';
+
+      const dobIso = String((verifiedObj && verifiedObj.dob) || ''); // YYYY-MM-DD
+      const idFull = String((verifiedObj && verifiedObj.id) || '');
+
+      const dobFull = this.formatDobToDDMMYYYY(dobIso);
+      const dobYm = dobIso.length >= 7 ? dobIso.slice(0,7) : dobIso;
+      const idLast4 = idFull.slice(-4);
+
+      const sigInput = dobIso + '|' + idFull + '|' + (this.cookieDomain || '') + '|' + (this.cookieName || '');
+      const sig = this.fnv1a(sigInput);
+
+      return tpl
+        .replace(/\[\[\s*dob_full\s*\]\]/g, dobFull)
+        .replace(/\[\[\s*id_full\s*\]\]/g, idFull)
+        .replace(/\[\[\s*sig\s*\]\]/g, sig)
+        .replace(/\[\[\s*dob_ym\s*\]\]/g, dobYm)
+        .replace(/\[\[\s*id_last4\s*\]\]/g, idLast4);
+    }
+
+    mergeOrderNote(existingNote, newLine){
+      const cleanExisting = (existingNote || '').trim();
+      const cleanNew = (newLine || '').trim();
+      if (!cleanNew) return cleanExisting;
+
+      // Avoid duplicates: if line already present, keep as-is
+      if (cleanExisting && cleanExisting.indexOf(cleanNew) !== -1) return cleanExisting;
+
+      // Append with newline
+      if (!cleanExisting) return cleanNew;
+      return cleanExisting + '\n' + cleanNew;
+    }
+
+    async safeGetCart(){
+      try {
+        const r = await fetch('/cart.js', { headers: { 'Accept': 'application/json' }});
+        if (!r.ok) return null;
+        return await r.json();
+      } catch(e) {
+        return null;
+      }
+    }
+
+    // --- Simple hash (no external libs) ---
+    fnv1a(str){
+      // 32-bit FNV-1a
+      let h = 0x811c9dc5;
+      for (let i = 0; i < str.length; i++){
+        h ^= str.charCodeAt(i);
+        // h *= 16777619 (with 32-bit overflow)
+        h = (h + ((h << 1) + (h << 4) + (h << 7) + (h << 8) + (h << 24))) >>> 0;
+      }
+      // hex string
+      return ('00000000' + h.toString(16)).slice(-8);
+    }
+
+    // --- Helpers (editor/flags) ---
+    isShopifyDesignMode(){
+      try { return Boolean(window && window.Shopify && window.Shopify.designMode); } catch(e) { return false; }
+    }
+
+    hasQueryParam(key, expectedValue){
+      try {
+        const u = new URL(window.location.href);
+        const v = u.searchParams.get(key);
+        if (expectedValue == null) return v != null;
+        return v === expectedValue;
+      } catch(e) {
+        return false;
+      }
+    }
+
+    setSessionFlag(key, value){
+      try { sessionStorage.setItem(key, value); } catch(e) {}
+    }
+
+    getSessionFlag(key){
+      try { return sessionStorage.getItem(key); } catch(e) { return null; }
+    }
+
+    // --- Errors ---
+    clearAllErrors(){
+      this.errDob.classList.remove('active'); this.errDob.textContent='';
+      this.errId.classList.remove('active'); this.errId.textContent='';
+      this.errCookie.classList.remove('active'); this.errCookie.textContent='';
+      this.dd.classList.remove('error');
+      this.mm.classList.remove('error');
+      this.yy.classList.remove('error');
+      this.idInput.classList.remove('error');
+    }
+
+    clearError(inputOrSelect, errorEl){
+      if (inputOrSelect) inputOrSelect.classList.remove('error');
+      if (errorEl){ errorEl.classList.remove('active'); errorEl.textContent=''; }
+    }
+
+    flagDobError(){
+      this.dd.classList.add('error');
+      this.mm.classList.add('error');
+      this.yy.classList.add('error');
+    }
+
+    showError(errorEl, msg){
+      if (!errorEl) return;
+      errorEl.textContent = msg;
+      errorEl.classList.add('active');
+    }
+  }
+
+  customElements.define('age-verification-{{ ai_gen_id }}', AgeVerification{{ ai_gen_id }});
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Verificación edad Pop Up",
+  "tag": null,
+  "settings": [
+    { "type": "header", "content": "Fondo de pantalla (overlay)" },
+    { "type": "color", "id": "overlay_bg_color", "label": "Color overlay", "default": "#000000" },
+    { "type": "range", "id": "overlay_opacity", "min": 0.0, "max": 1, "step": 0.1, "label": "Opacidad overlay", "default": 1 },
+
+    { "type": "header", "content": "General" },
+    { "type": "image_picker", "id": "logo", "label": "Logo" },
+    { "type": "range", "id": "logo_width", "min": 50, "max": 300, "step": 10, "unit": "px", "label": "Ancho del logo", "default": 150 },
+
+    { "type": "header", "content": "Contenido" },
+    { "type": "inline_richtext", "id": "heading", "label": "Título", "default": "Verificación de edad requerida" },
+    { "type": "richtext", "id": "description", "label": "Descripción", "default": "<p>Debes tener 18 años o más para ingresar y comprar en este sitio.</p>" },
+    { "type": "inline_richtext", "id": "yes_label", "label": "Botón Sí", "default": "Soy mayor de 18" },
+    { "type": "inline_richtext", "id": "no_label", "label": "Botón No", "default": "Soy menor de 18" },
+    { "type": "richtext", "id": "note_text", "label": "Nota", "default": "<p>La información se usará para validar tu mayoría de edad y podrá verificarse en el checkout.</p>" },
+
+    { "type": "inline_richtext", "id": "form_heading", "label": "Título formulario", "default": "Confirma tu información" },
+    { "type": "richtext", "id": "form_description", "label": "Descripción formulario", "default": "<p>Ingresa tu fecha de nacimiento y tu número de identificación.</p>" },
+    { "type": "inline_richtext", "id": "dob_label", "label": "Etiqueta DOB", "default": "Fecha de nacimiento" },
+    { "type": "inline_richtext", "id": "id_label", "label": "Etiqueta ID", "default": "Número de identificación" },
+    { "type": "inline_richtext", "id": "id_placeholder", "label": "Placeholder ID", "default": "Solo números (8 a 10 dígitos)" },
+    { "type": "inline_richtext", "id": "submit_label", "label": "Botón enviar", "default": "Verificar e ingresar" },
+    { "type": "inline_richtext", "id": "age_error_message", "label": "Error DOB", "default": "Verifica tu fecha de nacimiento. Debes ser mayor de 18 años." },
+    { "type": "inline_richtext", "id": "id_error_message", "label": "Error ID", "default": "El número de identificación debe ser numérico y tener entre 8 y 10 dígitos." },
+    { "type": "richtext", "id": "privacy_note", "label": "Nota privacidad", "default": "<p>Al continuar, declaras ser mayor de edad y autorizas el tratamiento de datos según nuestra Política de Privacidad.</p>" },
+
+    { "type": "header", "content": "Bloqueo" },
+    { "type": "inline_richtext", "id": "blocked_heading", "label": "Título bloqueo", "default": "Acceso denegado" },
+    { "type": "richtext", "id": "blocked_message", "label": "Mensaje bloqueo", "default": "<p>Este sitio es exclusivo para mayores de edad.</p>" },
+
+    { "type": "header", "content": "Editor (Theme Editor / design mode)" },
+    {
+      "type": "select",
+      "id": "editor_mode_behavior",
+      "label": "Comportamiento en editor",
+      "default": "only_preview_button",
+      "options": [
+        { "value": "hide_in_editor", "label": "No mostrar en editor" },
+        { "value": "show_in_editor", "label": "Mostrar en editor (normal)" },
+        { "value": "only_preview_button", "label": "Solo mostrar botón de preview" }
+      ]
+    },
+
+    { "type": "header", "content": "Cookie (compatibilidad + persistencia avanzada)" },
+    { "type": "text", "id": "cookie_name", "label": "Nombre cookie", "default": "age_verified_diyvape" },
+    { "type": "text", "id": "cookie_domain", "label": "Dominio cookie", "default": ".diyvape.co" },
+
+    {
+      "type": "select",
+      "id": "cookie_duration",
+      "label": "Duración cookie (legacy - días)",
+      "default": "365",
+      "options": [
+        { "value": "7", "label": "7 días" },
+        { "value": "30", "label": "30 días" },
+        { "value": "90", "label": "90 días" },
+        { "value": "180", "label": "180 días" },
+        { "value": "365", "label": "365 días" }
+      ]
+    },
+
+    {
+      "type": "select",
+      "id": "cookie_persistence",
+      "label": "Modo de persistencia",
+      "default": "legacy_days",
+      "options": [
+        { "value": "legacy_days", "label": "Usar duración legacy (días)" },
+        { "value": "session", "label": "Sesión (se borra al cerrar navegador)" },
+        { "value": "hours", "label": "Horas" },
+        { "value": "days", "label": "Días (selector v2)" },
+        { "value": "custom", "label": "Personalizado (valor + unidad)" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "cookie_hours",
+      "label": "Horas (si modo = Horas)",
+      "default": "24",
+      "options": [
+        { "value": "6", "label": "6 horas" },
+        { "value": "12", "label": "12 horas" },
+        { "value": "24", "label": "24 horas" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "cookie_days_v2",
+      "label": "Días (si modo = Días)",
+      "default": "365",
+      "options": [
+        { "value": "7", "label": "7 días" },
+        { "value": "30", "label": "30 días" },
+        { "value": "90", "label": "90 días" },
+        { "value": "180", "label": "180 días" },
+        { "value": "365", "label": "365 días" }
+      ]
+    },
+    { "type": "number", "id": "cookie_custom_value", "label": "Valor (si modo = Personalizado)", "default": 60 },
+    {
+      "type": "select",
+      "id": "cookie_custom_unit",
+      "label": "Unidad (si modo = Personalizado)",
+      "default": "minutes",
+      "options": [
+        { "value": "minutes", "label": "Minutos" },
+        { "value": "hours", "label": "Horas" },
+        { "value": "days", "label": "Días" }
+      ]
+    },
+
+    { "type": "header", "content": "Checkout / Carrito (sin checkout.liquid)" },
+    { "type": "checkbox", "id": "cart_sync_enabled", "label": "Sincronizar verificación al carrito (attributes)", "default": true },
+    { "type": "text", "id": "cart_attr_prefix", "label": "Prefijo de cart attributes", "default": "age_verification" },
+    { "type": "checkbox", "id": "order_note_enabled", "label": "También escribir en Order Note (nota del pedido)", "default": false },
+    {
+      "type": "text",
+      "id": "order_note_template",
+      "label": "Template de nota (tokens: [[dob_full]], [[id_full]], [[sig]])",
+      "default": "Verificación de edad: OK (DOB [[dob_full]], ID [[id_full]], sig [[sig]])"
+    },
+
+    { "type": "header", "content": "Estilo modal" },
+    { "type": "color", "id": "modal_background", "label": "Fondo modal", "default": "#ffffff" },
+    { "type": "color", "id": "modal_border_color", "label": "Borde modal", "default": "#EAEAEA" },
+    { "type": "color", "id": "text_color", "label": "Color texto", "default": "#111111" },
+    { "type": "range", "id": "heading_size", "min": 18, "max": 40, "step": 2, "unit": "px", "label": "Tamaño título", "default": 28 },
+    { "type": "range", "id": "text_size", "min": 12, "max": 20, "step": 1, "unit": "px", "label": "Tamaño texto", "default": 15 },
+    { "type": "range", "id": "border_radius", "min": 0, "max": 30, "step": 2, "unit": "px", "label": "Radio borde", "default": 12 },
+
+    { "type": "header", "content": "Badge" },
+    { "type": "color", "id": "badge_bg", "label": "Fondo badge", "default": "#111111" },
+    { "type": "color", "id": "badge_icon_color", "label": "Color ícono badge", "default": "#ffffff" },
+
+    { "type": "header", "content": "Botones (con hover)" },
+    { "type": "color", "id": "yes_button_bg", "label": "Fondo Sí", "default": "#111111" },
+    { "type": "color", "id": "yes_button_hover_bg", "label": "Hover Sí", "default": "#000000" },
+    { "type": "color", "id": "yes_button_text_color", "label": "Texto Sí", "default": "#ffffff" },
+
+    { "type": "color", "id": "no_button_bg", "label": "Fondo No", "default": "#ebebeb" },
+    { "type": "color", "id": "no_button_hover_bg", "label": "Hover No", "default": "#dcdcdc" },
+    { "type": "color", "id": "no_button_text_color", "label": "Texto No", "default": "#111111" },
+    { "type": "color", "id": "no_button_border", "label": "Borde No", "default": "#d0d0d0" },
+
+    { "type": "color", "id": "submit_button_bg", "label": "Fondo Enviar", "default": "#111111" },
+    { "type": "color", "id": "submit_button_hover_bg", "label": "Hover Enviar", "default": "#000000" },
+    { "type": "color", "id": "submit_button_text_color", "label": "Texto Enviar", "default": "#ffffff" },
+
+    { "type": "range", "id": "button_text_size", "min": 12, "max": 20, "step": 1, "unit": "px", "label": "Tamaño botón", "default": 15 },
+    { "type": "range", "id": "button_border_radius", "min": 0, "max": 30, "step": 2, "unit": "px", "label": "Radio botón", "default": 10 },
+
+    { "type": "header", "content": "Inputs" },
+    { "type": "color", "id": "input_background", "label": "Fondo input", "default": "#ffffff" },
+    { "type": "color", "id": "input_border_color", "label": "Borde input", "default": "#cccccc" },
+    { "type": "color", "id": "input_focus_color", "label": "Color focus", "default": "#111111" },
+    { "type": "range", "id": "input_border_radius", "min": 0, "max": 20, "step": 2, "unit": "px", "label": "Radio input", "default": 8 },
+    { "type": "color", "id": "error_color", "label": "Color error", "default": "#D82C0D" }
+  ],
+  "presets": [
+    { "name": "Age Verify Popup" }
+  ]
+}
+{% endschema %}

@@ -32,12 +32,28 @@
       <meta name="description" content="{{ page_description | escape }}">
     {% endif %}
     {% render 'meta-tags' %}
+
+    {% comment %} SEO: noindex para vendors {% endcomment %}
+    {%- if canonical_url contains '/vendors' -%}
+      <meta name="robots" content="noindex, follow">
+    {%- endif -%}
+    
+    {% comment %} SEO: noindex para colecciones con filtros activos o vista AJAX (inyectado via JS porque Liquid no accede a query params desde el layout) {% endcomment %}
+    <script>if(location.search.indexOf('filter.')>-1||location.search.indexOf('view=ajax')>-1){document.head.insertAdjacentHTML('beforeend','<meta name="robots" content="noindex, follow">')}</script>
+
+    {% render 'schema-local-business' %}
+    {% render 'schema-homepage-products' %}
+    {% render 'schema-faq-collection' %}
+    {% render 'schema-faq-product' %}
+    {% render 'schema-faq-page' %}
+    {% render 'breadcrumb-schema' %}
+        
     {{ content_for_header }}
     {{ 'critical.css' | asset_url | stylesheet_tag }}
     {% if enable_rtl %}{{ 'rtl.css' | asset_url | stylesheet_tag: preload: true }}{% endif %}
-    {{ 'product-card.css' | asset_url | stylesheet_tag }}
-    {{ 'swiper-bundle.min.css' | asset_url | stylesheet_tag }}
-    {{ 'judgeme-reviews.css' | asset_url | stylesheet_tag }}
+    {{ 'product-card.css' | asset_url | stylesheet_tag: preload: true }}
+    {{ 'swiper-bundle.min.css' | asset_url | stylesheet_tag: preload: true }}
+    {{ 'judgeme-reviews.css' | asset_url | stylesheet_tag: preload: true }}
     {% render 'font-variables' %}
     {% if request.design_mode %}
       {{ 'design-mode.css' | asset_url | stylesheet_tag: preload: true }}
@@ -140,14 +156,11 @@
         --h4-size:  calc(var(--heading-font-scale) * 2.4rem);
         --h5-size: calc(var(--heading-font-scale) * 1.8rem);
         --h6-size: calc(var(--heading-font-scale) * 1.6rem);
-        --transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        --transition: 0.4s cubic-bezier(.3, 1, .3, 1);
         --duration-short: 0.3s;
         --duration-long: 0.5s;
-        --transition-popup: transform .4s cubic-bezier(0.32, 0.72, 0, 1);
+        --transition-popup: transform .6s cubic-bezier(.7,0,.2,1);
         --zoom-transform: scale(1.05);
-        --dur-hover: 200ms;
-        --dur-press: 60ms;
-        --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
         --overlay-bg: rgba(0, 0, 0, 0.50);
         --grey-color: #f5f5f5;
         --section-spacing: {{ settings.space_mobile }}px;
@@ -176,6 +189,11 @@
            --input-font-size: calc(var(--body-font-size) - 1px);
         }
       }
+      @media (max-width: 1024.5px) {
+        :root {
+          --transition-popup: transform .35s cubic-bezier(.7,0,.2,1);
+        }
+      }
     {% endstyle %}
     <link rel="stylesheet" href="{{ 'theme.css' | asset_url }}" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="{{ 'theme.css' | asset_url }}"></noscript>
@@ -194,6 +212,7 @@
         document.documentElement.classList.add('shopify-design-mode');
       }
     </script>
+  {% render 'diyvape-pdp-assets' %}
   </head>
   <body
     class="gradient{% if settings.rounded_corner > 1 and settings.enable_rounded %} rounded-style{% endif %}{% if settings.action_after_add_cart == 'show_popup' %} minicart_type-popup{% endif %}{% if enable_rtl %} rtl{% endif %} {% if request.page_type == 'cart'%}template-cart{% endif %} {{ request.page_type }}"

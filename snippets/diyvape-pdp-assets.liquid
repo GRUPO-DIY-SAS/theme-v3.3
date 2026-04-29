@@ -1,0 +1,18 @@
+{% comment %}
+  ═══════════════════════════════════════════════════════════
+  DIYVAPE.CO — PDP Assets Loader
+  Snippet: diyvape-pdp-assets.liquid
+  Ubicacion: snippets/diyvape-pdp-assets.liquid
+  
+  SOLO carga CSS y JS. Los snippets de sabores se llaman
+  desde la seccion del producto (NO desde el layout).
+  
+  Incluir en layout/theme.liquid ANTES de </body>:
+    {% render 'diyvape-pdp-assets' %}
+  ═══════════════════════════════════════════════════════════
+{% endcomment %}
+
+{%- if request.page_type == 'product' -%}
+  {{ 'diyvape-pdp-components.css' | asset_url | stylesheet_tag }}
+  <script src="{{ 'diyvape-pdp-interactions.js' | asset_url }}" defer></script>
+{%- endif -%}

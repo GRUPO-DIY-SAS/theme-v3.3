@@ -1,0 +1,74 @@
+{%- liquid
+  assign t = template | split: '.' | first
+-%}
+{%- unless template == 'index' or template == '404' -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": {{ 'general.breadcrumb.home' | t | json }},
+      "item": "{{ shop.url }}{{ routes.root_url }}"
+    }
+    {%- case t -%}
+      {%- when 'page' -%}
+      ,{ "@type": "ListItem", "position": 2, "name": {{ page.title | strip_html | json }} }
+     {%- when 'product' -%}
+  {%- assign crumb_col = collection -%}
+  {%- if crumb_col.url == blank -%}
+    {%- assign priority = 'salt-nic-ejuice|sales-de-nicotina-reguladas|base-libre|liquidos-base-libre-regulados|vape-sin-nicotina|vapes-desechables-de-20000-puff-en-adelante|vapes-desechables-de-10000-a-20000-puff|vapes-desechables-de-5000-a-10000-puff|vapes-desechables-de-3000-a-5000-puff|vapes-desechables-de-800-a-3000-puff|pods-desechables|sistemas-cerrados-pods-semi-desechables|pod-system|kits-avanzados|kits-de-inicio|tanques-y-rda|resistencias-artesanales|resistencias-comerciales|baterias-destilados|baterias|iqos|pouches-de-nicotina-y-cafeina|vaporizadores-herbales|dabs-rigs-bongs|one-shots|todos-los-aromas|bases|e-liquid|accesorios-vapeo|nicotina|dynavap' | split: '|' -%}
+    {%- for h in priority -%}
+      {%- for col in product.collections -%}
+        {%- if col.handle == h -%}
+          {%- assign crumb_col = col -%}
+          {%- break -%}
+        {%- endif -%}
+      {%- endfor -%}
+      {%- if crumb_col.url -%}{%- break -%}{%- endif -%}
+    {%- endfor -%}
+  {%- endif -%}
+  {%- if crumb_col.url == blank -%}
+    {%- assign vendor_handle = product.vendor | handleize -%}
+    {%- for col in product.collections -%}
+      {%- unless col.handle == vendor_handle -%}
+        {%- assign crumb_col = col -%}
+        {%- break -%}
+      {%- endunless -%}
+    {%- endfor -%}
+  {%- endif -%}
+  {%- if crumb_col.url == blank -%}{%- assign crumb_col = product.collections.first -%}{%- endif -%}
+  {%- if crumb_col.url -%}
+  ,{ "@type": "ListItem", "position": 2, "name": {{ crumb_col.title | strip_html | json }}, "item": "{{ shop.url }}{{ crumb_col.url }}" },
+  { "@type": "ListItem", "position": 3, "name": {{ product.title | strip_html | json }} }
+  {%- else -%}
+  ,{ "@type": "ListItem", "position": 2, "name": {{ product.title | strip_html | json }} }
+  {%- endif -%}
+      {%- when 'collection' -%}
+        {%- if collection.handle -%}
+          {%- if current_tags -%}
+          ,{ "@type": "ListItem", "position": 2, "name": {{ collection.title | strip_html | json }}, "item": "{{ shop.url }}{{ collection.url }}" },
+          { "@type": "ListItem", "position": 3, "name": {{ current_tags | join: ' + ' | json }} }
+          {%- else -%}
+          ,{ "@type": "ListItem", "position": 2, "name": {{ collection.title | strip_html | json }} }
+          {%- endif -%}
+        {%- endif -%}
+      {%- when 'blog' -%}
+        {%- if current_tags -%}
+        ,{ "@type": "ListItem", "position": 2, "name": {{ blog.title | strip_html | json }}, "item": "{{ shop.url }}{{ blog.url }}" },
+        { "@type": "ListItem", "position": 3, "name": {{ current_tags | join: ' + ' | json }} }
+        {%- else -%}
+        ,{ "@type": "ListItem", "position": 2, "name": {{ blog.title | strip_html | json }} }
+        {%- endif -%}
+      {%- when 'article' -%}
+      ,{ "@type": "ListItem", "position": 2, "name": {{ blog.title | strip_html | json }}, "item": "{{ shop.url }}{{ blog.url }}" },
+      { "@type": "ListItem", "position": 3, "name": {{ article.title | strip_html | json }} }
+      {%- else -%}
+      ,{ "@type": "ListItem", "position": 2, "name": {{ page_title | strip_html | json }} }
+    {%- endcase -%}
+  ]
+}
+</script>
+{%- endunless -%}

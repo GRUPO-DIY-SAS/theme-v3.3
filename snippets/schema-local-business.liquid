@@ -1,0 +1,133 @@
+{% comment %}
+  SEO: LocalBusiness structured data for 4 physical stores in Bogotá.
+  TinySEO generates a single generic Store schema but not individual LocalBusiness per location.
+  Only renders on the homepage to avoid duplication.
+{% endcomment %}
+
+{%- if request.page_type == 'index' -%}
+<script type="application/ld+json">
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "@id": "https://diyvape.co#diy85",
+    "name": "DIY Vape Shop 85",
+    "description": "Tienda de vapeo en Bogotá. Vapeadores, líquidos, sales de nicotina y accesorios con asesoría personalizada.",
+    "image": "https://cdn.shopify.com/s/files/1/0166/9493/5652/files/3-67813891cdbcb.webp",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "CRA. 14 # 85-86",
+      "addressLocality": "Bogotá",
+      "addressRegion": "Cundinamarca",
+      "addressCountry": "CO"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 4.6691,
+      "longitude": -74.0572
+    },
+    "url": "https://diyvape.co/pages/nuestras-tiendas",
+    "telephone": "+573206682351",
+    "priceRange": "$$",
+    "openingHoursSpecification": [
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
+        "opens": "10:00",
+        "closes": "19:30"
+      }
+    ],
+    "parentOrganization": {
+      "@id": "https://diyvape.co#store"
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "@id": "https://diyvape.co#diy140",
+    "name": "DIY Vape Shop 140",
+    "description": "Tienda de vapeo en el norte de Bogotá. Equipos recargables, desechables, líquidos premium y accesorios.",
+    "image": "https://cdn.shopify.com/s/files/1/0166/9493/5652/files/2-67813891ce266.webp",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Cll. 140 # 7C-10 LC11",
+      "addressLocality": "Bogotá",
+      "addressRegion": "Cundinamarca",
+      "addressCountry": "CO"
+    },
+    "url": "https://diyvape.co/pages/nuestras-tiendas",
+    "telephone": "+573206682351",
+    "priceRange": "$$",
+    "openingHoursSpecification": [
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
+        "opens": "10:00",
+        "closes": "19:30"
+      }
+    ],
+    "parentOrganization": {
+      "@id": "https://diyvape.co#store"
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "@id": "https://diyvape.co#diysalitre",
+    "name": "DIY Vape Shop Salitre",
+    "description": "Tienda de vapeo en zona de Salitre, Bogotá. Todo en vapeo: desechables, kits de inicio, líquidos y más.",
+    "image": "https://cdn.shopify.com/s/files/1/0166/9493/5652/files/4-6781389287839.webp",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "AC. 24 #69A-15",
+      "addressLocality": "Bogotá",
+      "addressRegion": "Cundinamarca",
+      "addressCountry": "CO"
+    },
+    "url": "https://diyvape.co/pages/nuestras-tiendas",
+    "telephone": "+573206682351",
+    "priceRange": "$$",
+    "openingHoursSpecification": [
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
+        "opens": "10:00",
+        "closes": "19:30"
+      }
+    ],
+    "parentOrganization": {
+      "@id": "https://diyvape.co#store"
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "@id": "https://diyvape.co#diycolina",
+    "name": "DIY Vape Shop Colina",
+    "description": "Tienda de vapeo en Colina Campestre, Bogotá. Vapes desechables, recargables, líquidos y asesoría experta.",
+    "image": "https://cdn.shopify.com/s/files/1/0166/9493/5652/files/5-678138928ec68.webp",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Cll 138 # 55-49",
+      "addressLocality": "Bogotá",
+      "addressRegion": "Cundinamarca",
+      "addressCountry": "CO"
+    },
+    "url": "https://diyvape.co/pages/nuestras-tiendas",
+    "telephone": "+573206682351",
+    "priceRange": "$$",
+    "openingHoursSpecification": [
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
+        "opens": "10:00",
+        "closes": "19:30"
+      }
+    ],
+    "parentOrganization": {
+      "@id": "https://diyvape.co#store"
+    }
+  }
+]
+</script>
+{%- endif -%}

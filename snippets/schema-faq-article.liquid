@@ -1,0 +1,11 @@
+{%- comment -%}
+  FAQ Schema JSON-LD para artículos de blog.
+  Lee el metafield custom.faq_schema del artículo actual.
+  Solo renderiza si el metafield tiene contenido.
+{%- endcomment -%}
+
+{%- if article.metafields.custom.faq_schema != blank -%}
+  <script type="application/ld+json">
+    {{ article.metafields.custom.faq_schema }}
+  </script>
+{%- endif -%}

@@ -1,0 +1,930 @@
+{%- comment -%}
+  Template: page.wholesale.liquid
+  DIY Vape Shop — Landing Wholesale (Rediseño UI/UX v3.1)
+  Manual de Marca v1.0 | Abril 2026
+  Tokens: #C8102E / #000 / #FFF | Montserrat / Open Sans / Oswald
+  Hardcoded product data · SVG icons (no emojis) · WCAG AA
+{%- endcomment -%}
+
+{%- liquid
+  assign wa = '573161616713'
+  assign phone = '+573206682351'
+  assign wa_hero = 'https://wa.me/' | append: wa | append: '?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20compras%20al%20por%20mayor%20de%20vapes.%20%C2%BFMe%20pueden%20enviar%20la%20lista%20de%20precios%3F'
+  assign wa_cta = 'https://wa.me/' | append: wa | append: '?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20compras%20al%20por%20mayor%20de%20vapes.%20Mi%20negocio%20est%C3%A1%20en%20%5Bciudad%5D.'
+-%}
+
+{%- comment -%} ===== JSON-LD: FAQPage ===== {%- endcomment -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "¿Cuál es el pedido mínimo para comprar vapes al por mayor?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "El pedido mínimo depende de la categoría del producto. En general, manejamos mínimos accesibles para que puedas iniciar tu negocio sin una inversión excesiva. Escríbenos por WhatsApp para darte una guía personalizada según tus necesidades y presupuesto."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Realizan envíos de vapes al por mayor a todo Colombia?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sí, enviamos a cualquier ciudad de Colombia. En Bogotá el despacho es en 24 horas. Para el resto del país, los tiempos son de 2 a 4 días hábiles con empresa transportadora y número de rastreo."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Qué ventajas tengo al comprar vapes al por mayor en DIY Vape Shop?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Accedes a descuentos exclusivos por volumen, asesoría personalizada de expertos con más de 10 años en vapeo, productos de alta rotación, disponibilidad constante de inventario y respaldo de una empresa legalmente constituida con 4 tiendas físicas en Bogotá."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Qué marcas de vapes desechables distribuyen al por mayor?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Distribuimos todas las marcas líderes: Elf Bar, Lost Mary, WAKA, Oxbar, EBCREATE, Geek Bar y más. Manejamos más de 50 referencias de desechables con puffs desde 800 hasta 36.000."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Cuánto cuesta un vape al por mayor en Colombia?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Los precios mayoristas varían según el producto y la cantidad. Manejamos descuentos progresivos: a mayor volumen, mejor precio unitario. Escríbenos con el listado de productos que te interesan y te enviamos cotización personalizada."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Ofrecen crédito para compras mayoristas?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sí, para clientes recurrentes manejamos facilidades de pago. En tu primer pedido el pago es contra entrega o anticipado; a partir de la segunda compra evaluamos opciones de crédito según volumen y frecuencia."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Cómo funciona la garantía en compras al por mayor?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Todos nuestros productos tienen garantía de fábrica. En caso de dispositivos defectuosos, gestionamos el cambio directamente. Somos empresa legalmente constituida (Grupo DIY S.A.S., NIT 901.476.931-3) y emitimos facturación electrónica en cada compra."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Cuánto tarda el envío de pedidos mayoristas?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "En Bogotá despachamos en 24 horas hábiles. Para ciudades principales (Medellín, Cali, Barranquilla, Bucaramanga) entre 2-3 días. Resto del país entre 3-4 días hábiles. Todos los envíos incluyen número de guía para rastreo."
+      }
+    }
+  ]
+}
+</script>
+
+{%- comment -%} ===== JSON-LD: Organization ===== {%- endcomment -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Grupo DIY S.A.S.",
+  "legalName": "Grupo DIY S.A.S.",
+  "url": "https://diyvape.co",
+  "description": "Distribuidora de vapes al por mayor en Colombia. Más de 1.300 productos de las marcas líderes mundiales.",
+  "foundingDate": "2015",
+  "telephone": "{{ phone }}",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Bogotá",
+    "addressRegion": "Cundinamarca",
+    "addressCountry": "CO"
+  }
+}
+</script>
+
+{%- comment -%} ===== JSON-LD: BreadcrumbList ===== {%- endcomment -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://diyvape.co" },
+    { "@type": "ListItem", "position": 2, "name": "Venta al por Mayor" }
+  ]
+}
+</script>
+
+{%- comment -%} ===== CSS v3.1 ===== {%- endcomment -%}
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Open+Sans:wght@400;500;600&family=Oswald:wght@600;700&display=swap');
+
+  /* ── Design Tokens ── */
+  :root{
+    --diy-rojo:#C8102E;--diy-negro:#000;--diy-blanco:#FFF;--diy-rojo-oscuro:#8B0000;--diy-rojo-glow:rgba(200,16,46,.35);
+    --diy-g900:#111;--diy-g800:#1a1a1a;--diy-g700:#333;--diy-g600:#555;--diy-g500:#666;--diy-g300:#999;
+    --diy-g200:#E8E8E8;--diy-g100:#F5F5F5;--diy-g50:#FAFAFA;
+    --diy-wa:#25D366;--diy-wa-h:#1fb855;
+    --diy-fh:'Montserrat',system-ui,sans-serif;--diy-fb:'Open Sans',system-ui,sans-serif;--diy-fp:'Oswald',system-ui,sans-serif;
+    --diy-ease:cubic-bezier(.4,0,.2,1);
+    --diy-sh-sm:0 1px 3px rgba(0,0,0,.06);--diy-sh-md:0 4px 20px rgba(0,0,0,.08);--diy-sh-lg:0 12px 40px rgba(0,0,0,.12);
+    --diy-sh-red:0 8px 32px rgba(200,16,46,.2);--diy-sh-wa:0 8px 28px rgba(37,211,102,.25);
+    --diy-r-sm:8px;--diy-r-md:16px;--diy-r-lg:24px;--diy-r-xl:32px;--diy-r-full:9999px
+  }
+  .ws{font-family:var(--diy-fb);color:var(--diy-g700);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  .ws *,.ws *::before,.ws *::after{box-sizing:border-box;margin:0;padding:0}
+  .ws img{max-width:100%;height:auto;display:block}
+  .ws a{text-decoration:none;color:inherit}
+  .ws-wrap{max-width:1200px;margin:0 auto;padding:0 24px}
+  .ws-wrap--lg{max-width:1320px;margin:0 auto;padding:0 24px}
+
+  /* ── Keyframes ── */
+  @keyframes ws-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+  @keyframes ws-pulse{0%,100%{opacity:1}50%{opacity:.5}}
+  @keyframes ws-gradient{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+  @keyframes ws-glow{0%,100%{box-shadow:0 0 24px rgba(200,16,46,.12)}50%{box-shadow:0 0 48px rgba(200,16,46,.28)}}
+  @keyframes ws-shine{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
+  @keyframes ws-slide-up{from{opacity:0;transform:translateY(32px)}to{opacity:1;transform:translateY(0)}}
+
+  /* ── Buttons v3 ── */
+  .ws-btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;font-family:var(--diy-fh);font-weight:700;font-size:15px;padding:16px 36px;border-radius:var(--diy-r-sm);text-decoration:none;transition:all .25s var(--diy-ease);cursor:pointer;border:none;line-height:1;position:relative;overflow:hidden;letter-spacing:.3px}
+  .ws-btn::after{content:'';position:absolute;inset:0;background:linear-gradient(120deg,transparent 30%,rgba(255,255,255,.12) 50%,transparent 70%);transform:translateX(-100%);transition:transform .5s var(--diy-ease)}
+  .ws-btn:hover::after{transform:translateX(100%)}
+  .ws-btn:active{transform:scale(.98)!important}
+  .ws-btn--primary{background:var(--diy-rojo);color:var(--diy-blanco)!important;font-size:16px;padding:18px 40px;border-radius:var(--diy-r-full)}
+  .ws-btn--primary svg{fill:var(--diy-blanco);color:var(--diy-blanco)}
+  .ws-btn--primary:hover{background:var(--diy-rojo-oscuro);transform:translateY(-3px);box-shadow:var(--diy-sh-red)}
+  .ws-btn--ghost{background:rgba(255,255,255,.06);color:var(--diy-blanco)!important;border:1.5px solid rgba(255,255,255,.18);backdrop-filter:blur(8px);border-radius:var(--diy-r-full);padding:18px 40px;font-size:16px}
+  .ws-btn--ghost svg{stroke:var(--diy-blanco);color:var(--diy-blanco)}
+  .ws-btn--ghost:hover{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.5);transform:translateY(-3px)}
+  .ws-btn--wa{background:var(--diy-wa);color:var(--diy-blanco)!important;font-size:17px;padding:20px 44px;border-radius:var(--diy-r-full)}
+  .ws-btn--wa svg{fill:var(--diy-blanco);color:var(--diy-blanco)}
+  .ws-btn--wa:hover{background:var(--diy-wa-h);transform:translateY(-3px);box-shadow:var(--diy-sh-wa)}
+  .ws-btn--outline-dark{background:transparent;color:var(--diy-blanco)!important;border:2px solid rgba(255,255,255,.25);font-size:17px;padding:20px 44px;border-radius:var(--diy-r-full)}
+  .ws-btn--outline-dark svg{stroke:var(--diy-blanco);color:var(--diy-blanco)}
+  .ws-btn--outline-dark:hover{border-color:var(--diy-blanco);background:rgba(255,255,255,.06);transform:translateY(-3px)}
+  .ws-btn--outline{background:transparent;color:var(--diy-rojo);border:2px solid var(--diy-rojo);font-size:14px;padding:14px 28px;border-radius:var(--diy-r-sm)}
+  .ws-btn--outline:hover{background:var(--diy-rojo);color:var(--diy-blanco);transform:translateY(-2px)}
+  .ws-btn--sm{font-size:13px;padding:12px 24px}
+
+  /* ══════════════════════════ HERO v3 ══════════════════════════ */
+  .ws-hero{background:var(--diy-negro);position:relative;overflow:hidden;min-height:680px;display:flex;align-items:center;padding:80px 0 60px}
+  .ws-hero__bg{position:absolute;inset:0;z-index:0}
+  .ws-hero__bg::before{content:'';position:absolute;inset:0;background:
+    radial-gradient(ellipse 60% 50% at 20% 80%,rgba(200,16,46,.10) 0%,transparent 60%),
+    radial-gradient(ellipse 50% 60% at 80% 30%,rgba(200,16,46,.07) 0%,transparent 55%)}
+  .ws-hero__bg::after{content:'';position:absolute;inset:0;background:
+    linear-gradient(135deg,rgba(0,0,0,.85) 0%,rgba(0,0,0,.55) 40%,rgba(0,0,0,.3) 70%,rgba(0,0,0,.6) 100%)}
+  .ws-hero__pattern{position:absolute;inset:0;background-image:
+    radial-gradient(circle at 1px 1px,rgba(255,255,255,.03) 1px,transparent 0);
+    background-size:40px 40px;z-index:0}
+  .ws-hero__grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;position:relative;z-index:1}
+
+  /* Hero Left */
+  .ws-hero__badge{display:inline-flex;align-items:center;gap:8px;background:rgba(200,16,46,.08);border:1px solid rgba(200,16,46,.2);border-radius:var(--diy-r-full);padding:8px 20px;margin-bottom:28px}
+  .ws-hero__badge svg{color:var(--diy-rojo);flex-shrink:0}
+  .ws-hero__badge span{font-family:var(--diy-fh);font-weight:600;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.8)}
+  .ws-hero__title{font-family:var(--diy-fh);font-weight:900;font-size:clamp(34px,4.5vw,56px);line-height:1.08;color:var(--diy-blanco)!important;margin-bottom:24px;letter-spacing:-.5px}
+  .ws-hero__title em{font-style:normal;background:linear-gradient(135deg,var(--diy-rojo),#ff3d5a);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;display:block}
+  .ws-hero__title-white{background:none!important;-webkit-background-clip:unset!important;-webkit-text-fill-color:var(--diy-blanco)!important;background-clip:unset!important;color:var(--diy-blanco)!important}
+  .ws-hero__sub{font-size:17px;color:rgba(255,255,255,.65);max-width:500px;margin-bottom:36px;line-height:1.75}
+  .ws-hero__ctas{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:48px}
+
+  /* Hero Proof Pills */
+  .ws-hero__proof{display:flex;gap:12px;flex-wrap:wrap}
+  .ws-hero__pill{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:var(--diy-r-full);padding:10px 18px;transition:all .25s var(--diy-ease)}
+  .ws-hero__pill:hover{border-color:rgba(200,16,46,.25);background:rgba(255,255,255,.07)}
+  .ws-hero__pill svg{width:16px;height:16px;color:var(--diy-rojo);flex-shrink:0}
+  .ws-hero__pill-num{font-family:var(--diy-fp);font-weight:700;font-size:18px;color:var(--diy-blanco);line-height:1}
+  .ws-hero__pill-label{font-size:11px;font-weight:600;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.5px}
+
+  /* Hero Right — Product Showcase */
+  .ws-hero__visual{position:relative}
+  .ws-hero__showcase{display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:480px;margin:0 auto}
+  .ws-hero__card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:var(--diy-r-md);padding:20px 16px 16px;text-align:center;transition:all .35s var(--diy-ease);position:relative;animation:ws-float 5s var(--diy-ease) infinite;cursor:pointer}
+  .ws-hero__card:nth-child(2){animation-delay:.6s}
+  .ws-hero__card:nth-child(3){animation-delay:1.2s}
+  .ws-hero__card:nth-child(4){animation-delay:1.8s}
+  .ws-hero__card:hover{border-color:rgba(200,16,46,.4);background:rgba(255,255,255,.08);transform:translateY(-6px) scale(1.02)}
+  .ws-hero__card-badge{position:absolute;top:10px;right:10px;background:var(--diy-rojo);color:var(--diy-blanco);font-family:var(--diy-fh);font-weight:700;font-size:10px;padding:4px 10px;border-radius:var(--diy-r-full);letter-spacing:.3px;z-index:1}
+  .ws-hero__card img{width:80%;max-height:140px;aspect-ratio:1;object-fit:contain;margin:0 auto 12px;filter:drop-shadow(0 8px 20px rgba(0,0,0,.4));transition:transform .4s var(--diy-ease)}
+  .ws-hero__card:hover img{transform:scale(1.08)}
+  .ws-hero__card-name{font-family:var(--diy-fh);font-weight:600;font-size:12px;color:rgba(255,255,255,.85);margin-bottom:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .ws-hero__card-meta{display:flex;align-items:center;justify-content:center;gap:8px}
+  .ws-hero__card-price{font-family:var(--diy-fp);font-weight:700;font-size:18px;color:var(--diy-rojo)}
+  .ws-hero__card-stock{display:flex;align-items:center;gap:3px;font-size:10px;color:var(--diy-wa);font-weight:600}
+  .ws-hero__card-stock svg{width:8px;height:8px}
+  .ws-hero__disclaimer{text-align:center;font-size:11px;color:rgba(255,255,255,.4);margin-top:16px;max-width:480px;margin-left:auto;margin-right:auto;line-height:1.5}
+
+  /* ── Stats Bar v3 — Glass style ── */
+  .ws-stats{background:linear-gradient(135deg,var(--diy-rojo),#e8173a,var(--diy-rojo));background-size:200% 200%;animation:ws-gradient 6s ease infinite;position:relative;z-index:2}
+  .ws-stats__inner{display:grid;grid-template-columns:repeat(4,1fr)}
+  .ws-stat{padding:32px 16px;text-align:center;position:relative;transition:background .25s var(--diy-ease)}
+  .ws-stat:hover{background:rgba(0,0,0,.08)}
+  .ws-stat + .ws-stat::before{content:'';position:absolute;left:0;top:20%;height:60%;width:1px;background:rgba(255,255,255,.2)}
+  .ws-stat__num{font-family:var(--diy-fp);font-weight:700;font-size:clamp(30px,3.5vw,42px);color:var(--diy-blanco);line-height:1;margin-bottom:6px}
+  .ws-stat__label{font-family:var(--diy-fh);font-weight:500;font-size:12px;color:rgba(255,255,255,.85);text-transform:uppercase;letter-spacing:1.5px}
+
+  /* ── Section Commons ── */
+  .ws-sec{padding:96px 0}
+  .ws-sec--alt{background:var(--diy-g100)}
+  .ws-sec--dark{background:var(--diy-negro);color:var(--diy-blanco)}
+  .ws-sec__head{text-align:center;margin-bottom:64px}
+  .ws-tag{display:inline-flex;align-items:center;gap:8px;font-family:var(--diy-fh);font-weight:700;font-size:11px;color:var(--diy-rojo);text-transform:uppercase;letter-spacing:2.5px;margin-bottom:16px}
+  .ws-tag::before,.ws-tag::after{content:'';width:24px;height:2px;background:var(--diy-rojo);border-radius:1px}
+  .ws-sec__title{font-family:var(--diy-fh);font-weight:800;font-size:clamp(28px,3.2vw,42px);color:var(--diy-negro);line-height:1.12;margin-bottom:18px;letter-spacing:-.3px}
+  .ws-sec--dark .ws-sec__title{color:var(--diy-blanco)}
+  .ws-sec__desc{font-size:16px;color:var(--diy-g500);max-width:580px;margin:0 auto;line-height:1.75}
+  .ws-sec--dark .ws-sec__desc{color:rgba(255,255,255,.55)}
+
+  /* ══════════════════════════ BENEFITS v3 ══════════════════════════ */
+  .ws-bens{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .ws-ben{background:var(--diy-blanco);border:1px solid var(--diy-g200);border-radius:var(--diy-r-lg);padding:36px 28px;transition:all .35s var(--diy-ease);position:relative;overflow:hidden}
+  .ws-ben::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--diy-rojo),#ff5e6e);transform:scaleX(0);transition:transform .35s var(--diy-ease);transform-origin:left}
+  .ws-ben:hover{box-shadow:var(--diy-sh-lg);border-color:transparent;transform:translateY(-6px)}
+  .ws-ben:hover::before{transform:scaleX(1)}
+  .ws-ben__icon{width:56px;height:56px;border-radius:16px;background:linear-gradient(135deg,rgba(200,16,46,.06),rgba(200,16,46,.12));display:flex;align-items:center;justify-content:center;margin-bottom:20px;color:var(--diy-rojo);transition:all .35s var(--diy-ease)}
+  .ws-ben:hover .ws-ben__icon{background:linear-gradient(135deg,var(--diy-rojo),#e8173a);color:var(--diy-blanco);transform:scale(1.06);box-shadow:0 6px 20px rgba(200,16,46,.2)}
+  .ws-ben__icon svg{width:24px;height:24px}
+  .ws-ben__title{font-family:var(--diy-fh);font-weight:700;font-size:17px;color:var(--diy-negro);margin-bottom:10px}
+  .ws-ben__text{font-size:14px;color:var(--diy-g500);line-height:1.7}
+
+  /* ══════════════════════════ CATEGORY CARDS v3.1 — Icon Style ══════════════════════════ */
+  .ws-cats{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+  .ws-cat{border-radius:var(--diy-r-xl);overflow:hidden;background:var(--diy-blanco);box-shadow:var(--diy-sh-sm);transition:all .4s var(--diy-ease);color:inherit;display:flex;flex-direction:column;border:1px solid var(--diy-g200)}
+  .ws-cat:hover{box-shadow:var(--diy-sh-lg);transform:translateY(-8px);border-color:transparent}
+  .ws-cat__visual{height:160px;background:linear-gradient(135deg,var(--diy-g100),var(--diy-g200));position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
+  .ws-cat__visual img{width:50%;max-height:100px;object-fit:contain;transition:transform .5s var(--diy-ease);filter:drop-shadow(0 4px 12px rgba(0,0,0,.1))}
+  .ws-cat:hover .ws-cat__visual img{transform:scale(1.1) translateY(-4px)}
+  .ws-cat__body{padding:24px;flex:1;display:flex;flex-direction:column}
+  .ws-cat__name{font-family:var(--diy-fh);font-weight:700;font-size:20px;color:var(--diy-negro);margin-bottom:8px}
+  .ws-cat__desc{font-size:14px;color:var(--diy-g500);margin-bottom:auto;line-height:1.65;flex:1}
+  .ws-cat__foot{display:flex;align-items:center;justify-content:space-between;margin-top:18px;padding-top:18px;border-top:1px solid var(--diy-g200)}
+  .ws-cat__link{font-family:var(--diy-fh);font-weight:700;font-size:13px;color:var(--diy-rojo);display:inline-flex;align-items:center;gap:6px;transition:gap .25s var(--diy-ease)}
+  .ws-cat:hover .ws-cat__link{gap:10px}
+  .ws-cat__link svg{width:16px;height:16px;transition:transform .25s var(--diy-ease)}
+  .ws-cat:hover .ws-cat__link svg{transform:translateX(3px)}
+  .ws-cat__prices{font-size:12px;color:var(--diy-g500)}
+  .ws-cat__prices strong{color:var(--diy-negro)}
+
+  /* ══════════════════════════ PRODUCT PREVIEW CARDS v3 ══════════════════════════ */
+  .ws-products{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+  .ws-prod{background:var(--diy-blanco);border:1px solid var(--diy-g200);border-radius:var(--diy-r-md);overflow:hidden;transition:all .35s var(--diy-ease);color:inherit;display:block;position:relative}
+  .ws-prod:hover{box-shadow:var(--diy-sh-lg);border-color:transparent;transform:translateY(-6px)}
+  .ws-prod__img{aspect-ratio:1;background:var(--diy-g100);display:flex;align-items:center;justify-content:center;padding:20px;overflow:hidden;position:relative}
+  .ws-prod__img::after{content:'';position:absolute;bottom:0;left:0;right:0;height:40%;background:linear-gradient(to top,rgba(245,245,245,.9),transparent);pointer-events:none}
+  .ws-prod__img img{width:80%;height:80%;object-fit:contain;transition:transform .4s var(--diy-ease);position:relative;z-index:1;filter:drop-shadow(0 4px 12px rgba(0,0,0,.08))}
+  .ws-prod:hover .ws-prod__img img{transform:scale(1.1)}
+  .ws-prod__tag{position:absolute;top:12px;left:12px;background:var(--diy-rojo);color:var(--diy-blanco);font-family:var(--diy-fh);font-weight:700;font-size:10px;padding:5px 12px;border-radius:var(--diy-r-full);z-index:2;letter-spacing:.3px}
+  .ws-prod__body{padding:16px 18px}
+  .ws-prod__brand{font-family:var(--diy-fh);font-weight:600;font-size:10px;text-transform:uppercase;letter-spacing:1.5px;color:var(--diy-g300);margin-bottom:6px}
+  .ws-prod__name{font-family:var(--diy-fh);font-weight:700;font-size:14px;color:var(--diy-negro);margin-bottom:10px;line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .ws-prod__meta{display:flex;align-items:center;justify-content:space-between}
+  .ws-prod__price{font-family:var(--diy-fp);font-weight:700;font-size:20px;color:var(--diy-rojo)}
+  .ws-prod__price-label{font-family:var(--diy-fh);font-size:10px;font-weight:600;color:var(--diy-g500);text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:2px}
+  .ws-prod__stock{display:flex;align-items:center;gap:4px;font-size:11px;font-weight:600}
+  .ws-prod__stock--in{color:var(--diy-wa)}
+  .ws-prod__stock svg{width:10px;height:10px}
+  .ws-prod__cta{display:block;text-align:center;padding:12px;background:var(--diy-g50);font-family:var(--diy-fh);font-weight:700;font-size:12px;color:var(--diy-rojo);text-transform:uppercase;letter-spacing:.8px;transition:all .25s var(--diy-ease);border-top:1px solid var(--diy-g200)}
+  .ws-prod:hover .ws-prod__cta{background:var(--diy-rojo);color:var(--diy-blanco);border-color:var(--diy-rojo)}
+
+  /* ── Brands v3.1 — with links ── */
+  .ws-brands{display:grid;grid-template-columns:repeat(6,1fr);gap:16px}
+  .ws-brand{background:var(--diy-blanco);border:1px solid var(--diy-g200);border-radius:var(--diy-r-md);height:80px;display:flex;align-items:center;justify-content:center;transition:all .25s var(--diy-ease);cursor:default}
+  .ws-brand:hover{border-color:var(--diy-rojo);box-shadow:0 4px 16px rgba(200,16,46,.08);transform:translateY(-3px)}
+  .ws-brand span{font-family:var(--diy-fh);font-weight:700;font-size:13px;color:var(--diy-g500);text-transform:uppercase;letter-spacing:1px;transition:color .25s var(--diy-ease)}
+  .ws-brand:hover span{color:var(--diy-rojo)}
+  a.ws-brand{cursor:pointer}
+  a.ws-brand:hover{background:rgba(200,16,46,.03)}
+
+  /* ── Process v3 ── */
+  .ws-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:48px;position:relative}
+  .ws-steps::before{content:'';position:absolute;top:52px;left:calc(16.66% + 28px);right:calc(16.66% + 28px);height:2px;background:linear-gradient(90deg,var(--diy-rojo),var(--diy-g200),var(--diy-rojo));z-index:0}
+  .ws-step{text-align:center;position:relative;z-index:1}
+  .ws-step__circle{width:104px;height:104px;border-radius:50%;background:var(--diy-blanco);border:3px solid var(--diy-rojo);display:flex;align-items:center;justify-content:center;margin:0 auto 28px;transition:all .4s var(--diy-ease);position:relative;box-shadow:var(--diy-sh-sm)}
+  .ws-step:hover .ws-step__circle{background:linear-gradient(135deg,var(--diy-rojo),#e8173a);animation:ws-glow 2.5s var(--diy-ease) infinite;box-shadow:var(--diy-sh-red)}
+  .ws-step__circle svg{width:36px;height:36px;color:var(--diy-rojo);transition:color .4s var(--diy-ease)}
+  .ws-step:hover .ws-step__circle svg{color:var(--diy-blanco)}
+  .ws-step__num{position:absolute;top:-6px;right:-6px;width:30px;height:30px;border-radius:50%;background:var(--diy-rojo);color:var(--diy-blanco);font-family:var(--diy-fp);font-weight:700;font-size:15px;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(200,16,46,.3)}
+  .ws-step__title{font-family:var(--diy-fh);font-weight:700;font-size:19px;color:var(--diy-negro);margin-bottom:10px}
+  .ws-step__desc{font-size:14px;color:var(--diy-g500);max-width:280px;margin:0 auto;line-height:1.65}
+
+  /* ── FAQ v3 ── */
+  .ws-faq{max-width:800px;margin:0 auto}
+  .ws-faq__item{border:1px solid var(--diy-g200);border-radius:var(--diy-r-md);margin-bottom:12px;overflow:hidden;background:var(--diy-blanco);transition:all .25s var(--diy-ease)}
+  .ws-faq__item:hover{border-color:rgba(200,16,46,.25)}
+  .ws-faq__item[open]{border-color:var(--diy-rojo);box-shadow:0 4px 16px rgba(200,16,46,.06)}
+  .ws-faq__q{font-family:var(--diy-fh);font-weight:600;font-size:15px;color:var(--diy-negro);padding:20px 24px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;list-style:none;user-select:none;transition:color .25s var(--diy-ease)}
+  .ws-faq__q::-webkit-details-marker{display:none}
+  .ws-faq__item[open] .ws-faq__q{color:var(--diy-rojo)}
+  .ws-faq__chevron{flex-shrink:0;width:24px;height:24px;color:var(--diy-g500);transition:all .3s var(--diy-ease)}
+  .ws-faq__item[open] .ws-faq__chevron{transform:rotate(180deg);color:var(--diy-rojo)}
+  .ws-faq__a{padding:0 24px 20px;font-size:14px;color:var(--diy-g500);line-height:1.75}
+
+  /* ══════════════════════════ CTA FINAL v3 ══════════════════════════ */
+  .ws-final{background:var(--diy-negro);padding:120px 0;text-align:center;position:relative;overflow:hidden}
+  .ws-final__bg{position:absolute;inset:0}
+  .ws-final__bg::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:800px;height:800px;border-radius:50%;background:radial-gradient(circle,rgba(200,16,46,.08) 0%,transparent 65%);animation:ws-pulse 5s var(--diy-ease) infinite}
+  .ws-final__bg::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 70%,rgba(200,16,46,.05) 0%,transparent 50%)}
+  .ws-final .ws-wrap{position:relative;z-index:1}
+  .ws-final__tag{font-family:var(--diy-fh);font-weight:700;font-size:11px;color:var(--diy-rojo);text-transform:uppercase;letter-spacing:3px;margin-bottom:20px;display:block}
+  .ws-final__title{font-family:var(--diy-fh);font-weight:900;font-size:clamp(30px,4vw,48px);color:var(--diy-blanco);margin-bottom:18px;line-height:1.1;letter-spacing:-.5px}
+  .ws-final__desc{font-size:18px;color:rgba(255,255,255,.55);margin-bottom:48px;max-width:520px;margin-left:auto;margin-right:auto;line-height:1.7}
+  .ws-final__btns{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+
+  /* ── Trust E-E-A-T ── */
+  .ws-trust{padding:64px 0;border-top:1px solid var(--diy-g200)}
+  .ws-trust__grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;text-align:center}
+  .ws-trust__item{display:flex;flex-direction:column;align-items:center;gap:8px}
+  .ws-trust__item svg{width:28px;height:28px;color:var(--diy-rojo);margin-bottom:4px}
+  .ws-trust__item strong{font-family:var(--diy-fh);font-weight:700;font-size:14px;color:var(--diy-negro)}
+  .ws-trust__item span{font-size:12px;color:var(--diy-g500)}
+  .ws-warning{background:var(--diy-g100);border:1px solid var(--diy-g200);border-radius:var(--diy-r-sm);padding:16px 24px;margin-top:36px;text-align:center;display:flex;align-items:center;justify-content:center;gap:10px}
+  .ws-warning svg{width:20px;height:20px;color:#F59E0B;flex-shrink:0}
+  .ws-warning p{font-size:12px;color:var(--diy-g500);font-weight:500;margin:0}
+
+  /* ══════════════════════════ RESPONSIVE v3 ══════════════════════════ */
+  @media(max-width:1024px){
+    .ws-hero{min-height:auto;padding:56px 0 48px}
+    .ws-hero__grid{grid-template-columns:1fr;text-align:center}
+    .ws-hero__sub{margin-left:auto;margin-right:auto}
+    .ws-hero__ctas{justify-content:center}
+    .ws-hero__proof{justify-content:center}
+    .ws-hero__visual{margin-top:40px}
+    .ws-hero__showcase{max-width:400px}
+    .ws-bens,.ws-cats,.ws-steps{grid-template-columns:1fr 1fr}
+    .ws-products{grid-template-columns:repeat(2,1fr)}
+    .ws-brands{grid-template-columns:repeat(3,1fr)}
+    .ws-trust__grid{grid-template-columns:repeat(2,1fr)}
+    .ws-steps::before{display:none}
+  }
+  @media(max-width:600px){
+    .ws-hero{padding:40px 0}
+    .ws-hero__showcase{grid-template-columns:1fr 1fr;max-width:320px}
+    .ws-hero__proof{flex-direction:column;align-items:center}
+    .ws-sec{padding:64px 0}
+    .ws-bens,.ws-cats,.ws-steps{grid-template-columns:1fr}
+    .ws-products{grid-template-columns:1fr 1fr}
+    .ws-brands{grid-template-columns:repeat(2,1fr)}
+    .ws-trust__grid{grid-template-columns:1fr 1fr}
+    .ws-stats__inner{grid-template-columns:repeat(2,1fr)}
+    .ws-stat + .ws-stat:nth-child(3)::before{display:none}
+    .ws-btn--primary,.ws-btn--wa,.ws-btn--ghost,.ws-btn--outline-dark{padding:16px 28px;font-size:14px}
+    .ws-final{padding:80px 0}
+  }
+
+  /* ── Reduced motion ── */
+  @media(prefers-reduced-motion:reduce){
+    .ws-hero__card{animation:none}
+    .ws-final__bg::before{animation:none}
+    .ws-stats{animation:none}
+    .ws-step:hover .ws-step__circle{animation:none}
+    .ws-btn::after{display:none}
+    *{transition-duration:0.01ms!important;animation-duration:0.01ms!important}
+  }
+</style>
+
+{%- comment -%} ===== HTML v3.1 ===== {%- endcomment -%}
+<div class="ws">
+
+{%- comment -%} ── HERO v3.1 — Hardcoded Product Showcase ── {%- endcomment -%}
+<section class="ws-hero">
+  <div class="ws-hero__bg"></div>
+  <div class="ws-hero__pattern"></div>
+  <div class="ws-wrap--lg">
+    <div class="ws-hero__grid">
+      <div>
+        <div class="ws-hero__badge">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
+          <span>Distribuidores Oficiales Desde 2015</span>
+        </div>
+        <h1 class="ws-hero__title">
+          Vapes al por Mayor
+          <em>con los Mejores Precios <span class="ws-hero__title-white">de Colombia</span></em>
+        </h1>
+        <p class="ws-hero__sub">
+          Más de 1.300 productos de las marcas líderes mundiales. Precios exclusivos
+          por volumen, inventario permanente y envío a cualquier ciudad del país.
+        </p>
+        <div class="ws-hero__ctas">
+          <a href="{{ wa_hero }}" class="ws-btn ws-btn--primary" target="_blank" rel="noopener" aria-label="Solicitar lista de precios por WhatsApp">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.12.553 4.11 1.519 5.838L0 24l6.335-1.652A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.6c-1.98 0-3.82-.58-5.37-1.58l-.385-.23-3.76.98.99-3.63-.254-.4A9.56 9.56 0 012.4 12c0-5.292 4.308-9.6 9.6-9.6s9.6 4.308 9.6 9.6-4.308 9.6-9.6 9.6z"/></svg>
+            Solicitar Lista de Precios
+          </a>
+          <a href="#ws-catalogo" class="ws-btn ws-btn--ghost" aria-label="Ver catálogo de productos mayoristas">
+            Ver Catálogo
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+          </a>
+        </div>
+        <div class="ws-hero__proof">
+          <div class="ws-hero__pill">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
+            <span class="ws-hero__pill-num">1.300+</span>
+            <span class="ws-hero__pill-label">Productos</span>
+          </div>
+          <div class="ws-hero__pill">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
+            <span class="ws-hero__pill-num">40+</span>
+            <span class="ws-hero__pill-label">Marcas</span>
+          </div>
+          <div class="ws-hero__pill">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            <span class="ws-hero__pill-num">10+</span>
+            <span class="ws-hero__pill-label">Años</span>
+          </div>
+        </div>
+      </div>
+
+      {%- comment -%} Hero Right — Hardcoded Product Showcase v3.1 {%- endcomment -%}
+      <div class="ws-hero__visual">
+        <div class="ws-hero__showcase">
+          <a href="/products/mijo-sajo-15000-puff" class="ws-hero__card" aria-label="Mijo Sajo 15000 Puff - Mayorista desde $40.000">
+            <span class="ws-hero__card-badge">Top Ventas</span>
+            <img src="https://cdn.shopify.com/s/files/1/0166/9493/5652/files/vape-desechable-mijo-sajo-15000-puff-mijo-7438812.png?v=1766591472"
+                 alt="Mijo Sajo 15000 Puff al por mayor" width="160" height="160" loading="eager">
+            <div class="ws-hero__card-name">Mijo Sajo 15000 PUFF</div>
+            <div class="ws-hero__card-meta">
+              <span class="ws-hero__card-price">$40.000</span>
+              <span class="ws-hero__card-stock"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="6"/></svg> Stock</span>
+            </div>
+          </a>
+          <a href="/products/waka-blast-36000-puff" class="ws-hero__card" aria-label="WAKA Blast 36000 Puff - Mayorista desde $64.000">
+            <span class="ws-hero__card-badge">36K Puffs</span>
+            <img src="https://cdn.shopify.com/s/files/1/0166/9493/5652/files/vape-desechable-waka-blast-36000-puff-waka-1428206.png?v=1763923189"
+                 alt="WAKA Blast 36000 Puff al por mayor" width="160" height="160" loading="eager">
+            <div class="ws-hero__card-name">WAKA Blast 36000 PUFF</div>
+            <div class="ws-hero__card-meta">
+              <span class="ws-hero__card-price">$64.000</span>
+              <span class="ws-hero__card-stock"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="6"/></svg> Stock</span>
+            </div>
+          </a>
+          <a href="/products/lit-vapes-litpod-kit" class="ws-hero__card" aria-label="Litpod Kit 15000 Puff - Mayorista desde $46.000">
+            <span class="ws-hero__card-badge">Kit Pod</span>
+            <img src="https://cdn.shopify.com/s/files/1/0166/9493/5652/files/vape-desechable-litpod-kit-10000-15000-puff-lit-vapes-5396681.png?v=1773836472"
+                 alt="Litpod Kit 15000 Puff al por mayor" width="160" height="160" loading="lazy">
+            <div class="ws-hero__card-name">Litpod Kit 15000 PUFF</div>
+            <div class="ws-hero__card-meta">
+              <span class="ws-hero__card-price">$46.000</span>
+              <span class="ws-hero__card-stock"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="6"/></svg> Stock</span>
+            </div>
+          </a>
+          <a href="/products/urbar-hydra-8000-puffs" class="ws-hero__card" aria-label="Urbar Hydra 8000 Puffs - Mayorista desde $25.000">
+            <span class="ws-hero__card-badge">Nuevo</span>
+            <img src="https://cdn.shopify.com/s/files/1/0166/9493/5652/files/vape-desechable-urbar-hydra-8000-puffs-urbar-2446706.png?v=1774189575"
+                 alt="Urbar Hydra 8000 Puffs al por mayor" width="160" height="160" loading="lazy">
+            <div class="ws-hero__card-name">Urbar Hydra 8000 Puffs</div>
+            <div class="ws-hero__card-meta">
+              <span class="ws-hero__card-price">$25.000</span>
+              <span class="ws-hero__card-stock"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="6"/></svg> Stock</span>
+            </div>
+          </a>
+        </div>
+        <p class="ws-hero__disclaimer">*Precios de referencia para compras superiores a 200 unidades en dispositivos desechables. Para solicitar catálogo completo, habla con un asesor de servicio.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+{%- comment -%} ── STATS BAR ── {%- endcomment -%}
+<section class="ws-stats" aria-label="Estadísticas de DIY Vape Shop">
+  <div class="ws-stats__inner">
+    <div class="ws-stat"><div class="ws-stat__num">1.300+</div><div class="ws-stat__label">Productos en Stock</div></div>
+    <div class="ws-stat"><div class="ws-stat__num">40+</div><div class="ws-stat__label">Marcas Mundiales</div></div>
+    <div class="ws-stat"><div class="ws-stat__num">24h</div><div class="ws-stat__label">Despacho Bogotá</div></div>
+    <div class="ws-stat"><div class="ws-stat__num">4</div><div class="ws-stat__label">Tiendas Físicas</div></div>
+  </div>
+</section>
+
+{%- comment -%} ── BENEFICIOS ── {%- endcomment -%}
+<section class="ws-sec">
+  <div class="ws-wrap">
+    <div class="ws-sec__head">
+      <span class="ws-tag">Por qué Elegirnos</span>
+      <h2 class="ws-sec__title">Ventajas de Comprar al por Mayor con DIY Vape Shop</h2>
+      <p class="ws-sec__desc">Somos tu aliado estratégico en el negocio del vapeo. Te respaldamos con inventario, precios y experiencia.</p>
+    </div>
+    <div class="ws-bens">
+      <div class="ws-ben">
+        <div class="ws-ben__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></div>
+        <h3 class="ws-ben__title">Precios Exclusivos por Volumen</h3>
+        <p class="ws-ben__text">Márgenes competitivos con descuentos progresivos según cantidad. A mayor volumen, mejor precio unitario para tu negocio.</p>
+      </div>
+      <div class="ws-ben">
+        <div class="ws-ben__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg></div>
+        <h3 class="ws-ben__title">Inventario Permanente</h3>
+        <p class="ws-ben__text">Más de 1.300 productos siempre disponibles. Nunca le digas "no hay" a tus clientes — nosotros mantenemos el stock por ti.</p>
+      </div>
+      <div class="ws-ben">
+        <div class="ws-ben__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
+        <h3 class="ws-ben__title">Productos de Alta Rotación</h3>
+        <p class="ws-ben__text">Seleccionamos los dispositivos y líquidos con mayor demanda en Colombia. Tu inventario se mueve rápido.</p>
+      </div>
+      <div class="ws-ben">
+        <div class="ws-ben__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
+        <h3 class="ws-ben__title">Asesoría Personalizada</h3>
+        <p class="ws-ben__text">Nuestro equipo de expertos te ayuda a elegir el surtido ideal para tu zona, tipo de negocio y perfil de clientes.</p>
+      </div>
+      <div class="ws-ben">
+        <div class="ws-ben__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+        <h3 class="ws-ben__title">Envío a Todo Colombia</h3>
+        <p class="ws-ben__text">Despachamos tu pedido a cualquier ciudad. Bogotá en 24 horas, resto del país en 2-4 días hábiles con rastreo.</p>
+      </div>
+      <div class="ws-ben">
+        <div class="ws-ben__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+        <h3 class="ws-ben__title">Garantía y Respaldo Legal</h3>
+        <p class="ws-ben__text">Empresa legalmente constituida (Grupo DIY S.A.S.). Facturación electrónica, garantía de productos y soporte posventa.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+{%- comment -%} ── CATEGORÍAS v3.1 — 6 Categories with Icon Images ── {%- endcomment -%}
+<section class="ws-sec ws-sec--alt" id="ws-catalogo">
+  <div class="ws-wrap">
+    <div class="ws-sec__head">
+      <span class="ws-tag">Nuestro Catálogo</span>
+      <h2 class="ws-sec__title">Categorías Disponibles al por Mayor</h2>
+      <p class="ws-sec__desc">Todo lo que necesitas para surtir tu tienda de vapeo, en un solo proveedor.</p>
+    </div>
+    <div class="ws-cats">
+
+      <a href="{{ routes.collections_url }}/pods-desechables" class="ws-cat">
+        <div class="ws-cat__visual">
+          <img src="https://cdn.shopify.com/s/files/1/0166/9493/5652/files/Icon_Desechables.webp?v=1736532926"
+               alt="Vapes desechables al por mayor" width="150" height="150" loading="lazy">
+        </div>
+        <div class="ws-cat__body">
+          <h3 class="ws-cat__name">Vapes Desechables</h3>
+          <p class="ws-cat__desc">Los más vendidos del mercado colombiano. Elf Bar, WAKA, Vuse, HQD y más. Desde 800 hasta 36.000 puffs.</p>
+          <div class="ws-cat__foot">
+            <span class="ws-cat__link">
+              Ver catálogo
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </span>
+            <span class="ws-cat__prices">Desde <strong>$19.000</strong></span>
+          </div>
+        </div>
+      </a>
+
+      <a href="{{ routes.collections_url }}/equipos" class="ws-cat">
+        <div class="ws-cat__visual">
+          <img src="https://cdn.shopify.com/s/files/1/0166/9493/5652/files/Icon_Equipos.webp?v=1736533009"
+               alt="Pods y kits recargables al por mayor" width="150" height="150" loading="lazy">
+        </div>
+        <div class="ws-cat__body">
+          <h3 class="ws-cat__name">Pods y Kits Recargables</h3>
+          <p class="ws-cat__desc">Vaporesso, Oxva, Smok, Geekvape. Dispositivos con alta fidelización de clientes y recompra de repuestos.</p>
+          <div class="ws-cat__foot">
+            <span class="ws-cat__link">
+              Ver catálogo
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </span>
+            <span class="ws-cat__prices">Desde <strong>$80.000</strong></span>
+          </div>
+        </div>
+      </a>
+
+      <a href="{{ routes.collections_url }}/e-liquid" class="ws-cat">
+        <div class="ws-cat__visual">
+          <img src="https://cdn.shopify.com/s/files/1/0166/9493/5652/files/Icon_Sales.webp?v=1736534236"
+               alt="E-liquids y sales de nicotina al por mayor" width="150" height="150" loading="lazy">
+        </div>
+        <div class="ws-cat__body">
+          <h3 class="ws-cat__name">Líquidos y Sales de Nicotina</h3>
+          <p class="ws-cat__desc">E-liquids premium en todas las concentraciones. Sabores tropicales, frutales, mentolados y tabaco. La categoría de mayor recompra.</p>
+          <div class="ws-cat__foot">
+            <span class="ws-cat__link">
+              Ver catálogo
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </span>
+            <span class="ws-cat__prices">Desde <strong>$25.000</strong></span>
+          </div>
+        </div>
+      </a>
+
+      <a href="{{ routes.collections_url }}/resistencias-comerciales" class="ws-cat">
+        <div class="ws-cat__visual">
+          <img src="https://cdn.shopify.com/s/files/1/0166/9493/5652/files/Icon_resistencias_pods.webp?v=1736534487"
+               alt="Resistencias y pods de repuesto al por mayor" width="150" height="150" loading="lazy">
+        </div>
+        <div class="ws-cat__body">
+          <h3 class="ws-cat__name">Resistencias y Pods de Repuesto</h3>
+          <p class="ws-cat__desc">49 resistencias OEM de repuesto para todas las marcas principales de pods y mods. Indispensables para tu stock.</p>
+          <div class="ws-cat__foot">
+            <span class="ws-cat__link">
+              Ver catálogo
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </span>
+            <span class="ws-cat__prices">Desde <strong>$15.000</strong></span>
+          </div>
+        </div>
+      </a>
+
+      <a href="{{ routes.collections_url }}/pouches-de-nicotina-y-cafeina" class="ws-cat">
+        <div class="ws-cat__visual">
+          <img src="https://cdn.shopify.com/s/files/1/0166/9493/5652/files/Icon_Pouches.webp?v=1736534642"
+               alt="Pouches de nicotina al por mayor" width="150" height="150" loading="lazy">
+        </div>
+        <div class="ws-cat__body">
+          <h3 class="ws-cat__name">Bolsas / Pouches de Nicotina</h3>
+          <p class="ws-cat__desc">Nicotina sin humo ni vapor. ZYN, VELO, WAKA y Juice Head. Tendencia en crecimiento acelerado en Colombia.</p>
+          <div class="ws-cat__foot">
+            <span class="ws-cat__link">
+              Ver catálogo
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </span>
+            <span class="ws-cat__prices">Desde <strong>$12.000</strong></span>
+          </div>
+        </div>
+      </a>
+
+      <a href="{{ routes.collections_url }}/vaporizadores-herbales" class="ws-cat">
+        <div class="ws-cat__visual">
+          <img src="https://cdn.shopify.com/s/files/1/0166/9493/5652/files/Icon_Herbales.webp?v=1736534536"
+               alt="Vaporizadores herbales al por mayor" width="150" height="150" loading="lazy">
+        </div>
+        <div class="ws-cat__body">
+          <h3 class="ws-cat__name">Vaporizadores Herbales</h3>
+          <p class="ws-cat__desc">Storz & Bickel, PAX, DynaVap, Puffco. Vaporizadores premium de hierbas secas y concentrados.</p>
+          <div class="ws-cat__foot">
+            <span class="ws-cat__link">
+              Ver catálogo
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </span>
+            <span class="ws-cat__prices">Desde <strong>$150.000</strong></span>
+          </div>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+{%- comment -%} ── PRODUCTOS DESTACADOS v3.1 — Hardcoded Wholesale Prices ── {%- endcomment -%}
+<section class="ws-sec">
+  <div class="ws-wrap">
+    <div class="ws-sec__head">
+      <span class="ws-tag">Más Vendidos</span>
+      <h2 class="ws-sec__title">Productos Destacados para tu Negocio</h2>
+      <p class="ws-sec__desc">Los dispositivos de mayor rotación en Colombia. Stock permanente y precios mayoristas.</p>
+    </div>
+    <div class="ws-products">
+      <a href="/products/mijo-divi-10000-puff" class="ws-prod">
+        <span class="ws-prod__tag">Top Ventas</span>
+        <div class="ws-prod__img">
+          <img src="https://cdn.shopify.com/s/files/1/0166/9493/5652/files/vape-desechable-mijo-divi-10000-puff-mijo-4821174.png?v=1764758651"
+               alt="Mijo Divi 10000 Puff al por mayor" width="200" height="200" loading="lazy">
+        </div>
+        <div class="ws-prod__body">
+          <div class="ws-prod__brand">Mijo</div>
+          <div class="ws-prod__name">Mijo Divi 10000 PUFF</div>
+          <div class="ws-prod__meta">
+            <div>
+              <span class="ws-prod__price-label">Desde</span>
+              <span class="ws-prod__price">$36.000</span>
+            </div>
+            <span class="ws-prod__stock ws-prod__stock--in">
+              <svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="6"/></svg> En stock
+            </span>
+          </div>
+        </div>
+        <span class="ws-prod__cta">Ver Detalles</span>
+      </a>
+
+      <a href="/products/chillax-shake-25000-puff" class="ws-prod">
+        <span class="ws-prod__tag">25K Puffs</span>
+        <div class="ws-prod__img">
+          <img src="https://cdn.shopify.com/s/files/1/0166/9493/5652/files/vape-desechable-chillax-shake-25000-puff-chillax-4519417.png?v=1770569540"
+               alt="Chillax Shake 25000 Puff al por mayor" width="200" height="200" loading="lazy">
+        </div>
+        <div class="ws-prod__body">
+          <div class="ws-prod__brand">Chillax</div>
+          <div class="ws-prod__name">Chillax Shake 25000 PUFF</div>
+          <div class="ws-prod__meta">
+            <div>
+              <span class="ws-prod__price-label">Desde</span>
+              <span class="ws-prod__price">$25.000</span>
+            </div>
+            <span class="ws-prod__stock ws-prod__stock--in">
+              <svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="6"/></svg> En stock
+            </span>
+          </div>
+        </div>
+        <span class="ws-prod__cta">Ver Detalles</span>
+      </a>
+
+      <a href="/products/vuse-go-8000-puffs" class="ws-prod">
+        <span class="ws-prod__tag">Premium</span>
+        <div class="ws-prod__img">
+          <img src="https://cdn.shopify.com/s/files/1/0166/9493/5652/files/vape-desechable-vuse-go-8000-puffs-vuse-514056.webp?v=1748392804"
+               alt="Vuse Go 8000 Puffs al por mayor" width="200" height="200" loading="lazy">
+        </div>
+        <div class="ws-prod__body">
+          <div class="ws-prod__brand">Vuse</div>
+          <div class="ws-prod__name">VUSE GO 8000 Puffs</div>
+          <div class="ws-prod__meta">
+            <div>
+              <span class="ws-prod__price-label">Desde</span>
+              <span class="ws-prod__price">$49.300</span>
+            </div>
+            <span class="ws-prod__stock ws-prod__stock--in">
+              <svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="6"/></svg> En stock
+            </span>
+          </div>
+        </div>
+        <span class="ws-prod__cta">Ver Detalles</span>
+      </a>
+
+      <a href="/products/mijo-vape-sami-pod-2-15000-puff" class="ws-prod">
+        <span class="ws-prod__tag">15K Puffs</span>
+        <div class="ws-prod__img">
+          <img src="https://cdn.shopify.com/s/files/1/0166/9493/5652/files/MIJO-SAMIPOD2-GENERAL.png?v=1771277967"
+               alt="Mijo Sami Pod 2 15000 Puff al por mayor" width="200" height="200" loading="lazy">
+        </div>
+        <div class="ws-prod__body">
+          <div class="ws-prod__brand">Mijo</div>
+          <div class="ws-prod__name">Mijo Sami Pod 2 15000 PUFF</div>
+          <div class="ws-prod__meta">
+            <div>
+              <span class="ws-prod__price-label">Desde</span>
+              <span class="ws-prod__price">$23.000</span>
+            </div>
+            <span class="ws-prod__stock ws-prod__stock--in">
+              <svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="6"/></svg> En stock
+            </span>
+          </div>
+        </div>
+        <span class="ws-prod__cta">Ver Detalles</span>
+      </a>
+    </div>
+    <p style="text-align:center;font-size:12px;color:var(--diy-g500);margin-top:24px;margin-bottom:32px">*Precios basados en compras superiores a 200 unidades por marca.</p>
+    <div style="text-align:center">
+      <a href="{{ wa_cta }}" class="ws-btn ws-btn--primary" target="_blank" rel="noopener" aria-label="Pedir precios mayoristas por WhatsApp">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.12.553 4.11 1.519 5.838L0 24l6.335-1.652A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.6c-1.98 0-3.82-.58-5.37-1.58l-.385-.23-3.76.98.99-3.63-.254-.4A9.56 9.56 0 012.4 12c0-5.292 4.308-9.6 9.6-9.6s9.6 4.308 9.6 9.6-4.308 9.6-9.6 9.6z"/></svg>
+        Pedir Precios Mayoristas
+      </a>
+    </div>
+  </div>
+</section>
+
+{%- comment -%} ── MARCAS v3.1 — With Collection Links ── {%- endcomment -%}
+<section class="ws-sec ws-sec--alt">
+  <div class="ws-wrap">
+    <div class="ws-sec__head">
+      <span class="ws-tag">Marcas Aliadas</span>
+      <h2 class="ws-sec__title">Distribuimos las Marcas Líderes Mundiales</h2>
+    </div>
+    <div class="ws-brands">
+      <a href="{{ routes.collections_url }}/elfbar" class="ws-brand"><span>Elf Bar</span></a>
+      <div class="ws-brand"><span>WAKA</span></div>
+      <a href="{{ routes.collections_url }}/vuse" class="ws-brand"><span>Vuse</span></a>
+      <a href="{{ routes.collections_url }}/vaporesso" class="ws-brand"><span>Vaporesso</span></a>
+      <a href="{{ routes.collections_url }}/smok" class="ws-brand"><span>Smok</span></a>
+      <a href="{{ routes.collections_url }}/geek-vape" class="ws-brand"><span>Geekvape</span></a>
+      <a href="{{ routes.collections_url }}/oxva" class="ws-brand"><span>OXVA</span></a>
+      <a href="{{ routes.collections_url }}/voopo-vape" class="ws-brand"><span>Voopoo</span></a>
+      <a href="{{ routes.collections_url }}/iqos" class="ws-brand"><span>IQOS</span></a>
+      <a href="{{ routes.collections_url }}/pax" class="ws-brand"><span>PAX</span></a>
+      <a href="{{ routes.collections_url }}/storz-bickel" class="ws-brand"><span>Storz & Bickel</span></a>
+      <div class="ws-brand"><span>+30 más</span></div>
+    </div>
+  </div>
+</section>
+
+{%- comment -%} ── CÓMO FUNCIONA ── {%- endcomment -%}
+<section class="ws-sec">
+  <div class="ws-wrap">
+    <div class="ws-sec__head">
+      <span class="ws-tag">Simple y Rápido</span>
+      <h2 class="ws-sec__title">¿Cómo Comprar Vapes al por Mayor?</h2>
+      <p class="ws-sec__desc">En 3 pasos tienes tu pedido mayorista listo para vender.</p>
+    </div>
+    <div class="ws-steps">
+      <div class="ws-step">
+        <div class="ws-step__circle">
+          <span class="ws-step__num">1</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+        </div>
+        <h3 class="ws-step__title">Escríbenos por WhatsApp</h3>
+        <p class="ws-step__desc">Cuéntanos qué productos necesitas, tu ciudad y volumen estimado. Te atendemos en minutos.</p>
+      </div>
+      <div class="ws-step">
+        <div class="ws-step__circle">
+          <span class="ws-step__num">2</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+        </div>
+        <h3 class="ws-step__title">Recibe tu Cotización</h3>
+        <p class="ws-step__desc">Te enviamos lista de precios con descuentos por volumen personalizados para tu negocio.</p>
+      </div>
+      <div class="ws-step">
+        <div class="ws-step__circle">
+          <span class="ws-step__num">3</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 010-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 000-5C13 2 12 7 12 7z"/></svg>
+        </div>
+        <h3 class="ws-step__title">Recibe y Vende</h3>
+        <p class="ws-step__desc">Confirma tu pedido, recibe en tu ciudad y empieza a vender productos de alta demanda.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+{%- comment -%} ── FAQ ── {%- endcomment -%}
+<section class="ws-sec ws-sec--alt" id="ws-faq">
+  <div class="ws-wrap">
+    <div class="ws-sec__head">
+      <span class="ws-tag">Preguntas Frecuentes</span>
+      <h2 class="ws-sec__title">Lo Que Necesitas Saber</h2>
+    </div>
+    <div class="ws-faq">
+      <details class="ws-faq__item" open>
+        <summary class="ws-faq__q">¿Cuál es el pedido mínimo para comprar vapes al por mayor?<svg class="ws-faq__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></summary>
+        <div class="ws-faq__a">El pedido mínimo depende de la categoría del producto. En general, manejamos mínimos accesibles para que puedas iniciar tu negocio sin una inversión excesiva. Escríbenos por WhatsApp para darte una guía personalizada según tus necesidades y presupuesto.</div>
+      </details>
+      <details class="ws-faq__item">
+        <summary class="ws-faq__q">¿Realizan envíos de vapes al por mayor a todo Colombia?<svg class="ws-faq__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></summary>
+        <div class="ws-faq__a">Sí, enviamos a cualquier ciudad de Colombia. En Bogotá el despacho es en 24 horas. Para el resto del país, los tiempos son de 2 a 4 días hábiles con empresa transportadora y número de rastreo.</div>
+      </details>
+      <details class="ws-faq__item">
+        <summary class="ws-faq__q">¿Qué ventajas tengo al comprar vapes al por mayor en DIY Vape Shop?<svg class="ws-faq__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></summary>
+        <div class="ws-faq__a">Accedes a descuentos exclusivos por volumen, asesoría personalizada de expertos con más de 10 años en vapeo, productos de alta rotación, disponibilidad constante de inventario y respaldo de una empresa legalmente constituida con 4 tiendas físicas en Bogotá.</div>
+      </details>
+      <details class="ws-faq__item">
+        <summary class="ws-faq__q">¿Qué marcas de vapes desechables distribuyen al por mayor?<svg class="ws-faq__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></summary>
+        <div class="ws-faq__a">Distribuimos todas las marcas líderes: Elf Bar, Lost Mary, WAKA, Oxbar, EBCREATE, Geek Bar y más. Manejamos más de 50 referencias de desechables con puffs desde 800 hasta 36.000.</div>
+      </details>
+      <details class="ws-faq__item">
+        <summary class="ws-faq__q">¿Cuánto cuesta un vape al por mayor en Colombia?<svg class="ws-faq__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></summary>
+        <div class="ws-faq__a">Los precios mayoristas varían según el producto y la cantidad. Manejamos descuentos progresivos: a mayor volumen, mejor precio unitario. Escríbenos con el listado de productos que te interesan y te enviamos cotización personalizada.</div>
+      </details>
+      <details class="ws-faq__item">
+        <summary class="ws-faq__q">¿Ofrecen crédito para compras mayoristas?<svg class="ws-faq__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></summary>
+        <div class="ws-faq__a">Sí, para clientes recurrentes manejamos facilidades de pago. En tu primer pedido el pago es contra entrega o anticipado; a partir de la segunda compra evaluamos opciones de crédito según volumen y frecuencia.</div>
+      </details>
+      <details class="ws-faq__item">
+        <summary class="ws-faq__q">¿Cómo funciona la garantía en compras al por mayor?<svg class="ws-faq__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></summary>
+        <div class="ws-faq__a">Todos nuestros productos tienen garantía de fábrica. En caso de dispositivos defectuosos, gestionamos el cambio directamente. Somos empresa legalmente constituida (Grupo DIY S.A.S., NIT 901.476.931-3) y emitimos facturación electrónica en cada compra.</div>
+      </details>
+      <details class="ws-faq__item">
+        <summary class="ws-faq__q">¿Cuánto tarda el envío de pedidos mayoristas?<svg class="ws-faq__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></summary>
+        <div class="ws-faq__a">En Bogotá despachamos en 24 horas hábiles. Para ciudades principales (Medellín, Cali, Barranquilla, Bucaramanga) entre 2-3 días. Resto del país entre 3-4 días hábiles. Todos los envíos incluyen número de guía para rastreo.</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+{%- comment -%} ── CTA FINAL v3 ── {%- endcomment -%}
+<section class="ws-final">
+  <div class="ws-final__bg"></div>
+  <div class="ws-wrap">
+    <span class="ws-final__tag">Empieza Hoy</span>
+    <h2 class="ws-final__title">¿Listo para Surtir tu Tienda de Vapeo?</h2>
+    <p class="ws-final__desc">Escríbenos ahora y recibe tu cotización personalizada con precios mayoristas en minutos.</p>
+    <div class="ws-final__btns">
+      <a href="{{ wa_cta }}" class="ws-btn ws-btn--wa" target="_blank" rel="noopener" aria-label="Contactar por WhatsApp para compras mayoristas">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.12.553 4.11 1.519 5.838L0 24l6.335-1.652A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.6c-1.98 0-3.82-.58-5.37-1.58l-.385-.23-3.76.98.99-3.63-.254-.4A9.56 9.56 0 012.4 12c0-5.292 4.308-9.6 9.6-9.6s9.6 4.308 9.6 9.6-4.308 9.6-9.6 9.6z"/></svg>
+        Escribir por WhatsApp Ahora
+      </a>
+      <a href="tel:{{ phone }}" class="ws-btn ws-btn--outline-dark" aria-label="Llamar a DIY Vape Shop para compras mayoristas">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+        Llamar: 320 668 2351
+      </a>
+    </div>
+  </div>
+</section>
+
+{%- comment -%} ── E-E-A-T + NICOTINA ── {%- endcomment -%}
+<section class="ws-trust">
+  <div class="ws-wrap">
+    <div class="ws-trust__grid">
+      <div class="ws-trust__item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M3 7v1a3 3 0 006 0V7m0 1a3 3 0 006 0V7m0 1a3 3 0 006 0V7H3l2-4h14l2 4M5 21V10.87M19 21V10.87"/></svg>
+        <strong>Grupo DIY S.A.S.</strong>
+        <span>NIT 901.476.931-3</span>
+      </div>
+      <div class="ws-trust__item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+        <strong>+10 Años de Experiencia</strong>
+        <span>Desde 2015 en el mercado</span>
+      </div>
+      <div class="ws-trust__item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        <strong>Facturación Electrónica</strong>
+        <span>Documentos legales en cada transacción</span>
+      </div>
+      <div class="ws-trust__item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        <strong>4 Tiendas en Bogotá</strong>
+        <span>Puntos físicos para recogida y asesoría</span>
+      </div>
+    </div>
+    <div class="ws-warning">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      <p>Advertencia: Este producto contiene nicotina. La nicotina es una sustancia adictiva. Venta exclusiva para mayores de 18 años.</p>
+    </div>
+  </div>
+</section>
+</div>

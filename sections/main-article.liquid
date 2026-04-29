@@ -13,7 +13,7 @@
   style="{{ style | strip | strip_newlines }}"
 >
   <div class="{{ section_width }}">
-    <article class="article-template single__post-content" itemscope itemtype="http://schema.org/BlogPosting">
+    <article class="article-template single__post-content" itemscope itemtype="https://schema.org/BlogPosting">
       <div class="single-post-breadcrumbs py-30">
         {%- render 'breadcrumbs' -%}
       </div>
@@ -206,9 +206,9 @@
                         </svg>
                         {{ 'blogs.article.previous_post' | t }}
                       </div>
-                      <h6 class="mb-0 mt-15">
+                      <h3 class="mb-0 mt-15 h6">
                         {{ blog.previous_article.title }}
-                      </h6>
+                      </h3>
                     </div>
                   </a>
                 {% endif %}
@@ -224,9 +224,9 @@
                           <use href="#icon-next" />
                         </svg>
                       </div>
-                      <h6 class="mb-0 mt-15">
+                      <h3 class="mb-0 mt-15 h6">
                         {{ blog.next_article.title }}
-                      </h6>
+                      </h3>
                     </div>
                   </a>
                 {% endif %}
@@ -521,12 +521,12 @@
 
 <script type="application/ld+json">
   {
-    "@context": "http://schema.org",
+    "@context": "https://schema.org",
     "@type": "Article",
     "articleBody": {{ article.content | strip_html | json }},
     "mainEntityOfPage": {
       "@type": "WebPage",
-      "@id": {{ request.origin | append: page.url | json }}
+      "@id": {{ request.origin | append: article.url | json }}
     },
     "headline": {{ article.title | json }},
     {% if article.excerpt != blank %}
@@ -545,11 +545,16 @@
     },
     "publisher": {
       "@type": "Organization",
-      "name": {{ shop.name | json }}
+      "name": "Grupo DIY S.A.S.",
+      "url": {{ shop.url | json }},
+      "logo": {
+        "@type": "ImageObject",
+        "url": "{{ 'logo.png' | file_url }}"
+      }
     }
   }
 </script>
-
+{% render 'schema-faq-article' %}
 {% schema %}
 {
   "name": "t:sections.main-article.name",

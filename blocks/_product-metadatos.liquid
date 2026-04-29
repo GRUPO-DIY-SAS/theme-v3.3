@@ -1,0 +1,284 @@
+{% comment %}
+  FILE: blocks/_product-metadatos.liquid
+
+  ✅ Hecho para que el toggle funcione con el mismo “collapsible-block” de tu tema (BLS).
+  - Replica la misma estructura/clases de _product-collapsible-row.liquid (tabindex, class active, open_collab, etc.)
+  - Convierte “Nota Importante” en OTRO collapsible row (solo si product.type == 'Vape Desechable')
+  - Mantiene tus llamadas de datos EXACTAS (metafields, SKU, etc.)
+{% endcomment %}
+
+{% liquid
+  assign block_st = block.settings
+  assign product = closest.product
+%}
+
+{%- if product == blank -%}
+  {%- comment -%}Fallback editor{%- endcomment -%}
+  <div {{ block.shopify_attributes }}>Producto no disponible.</div>
+{%- else -%}
+
+  {%- assign selected_variant = product.selected_or_first_available_variant -%}
+
+  {% style %}
+    .diy-meta-table { width:100%; border-collapse: collapse; }
+    .diy-meta-table td { padding: 10px; border: 1px solid #ddd; vertical-align: top; }
+    .advertencia-nicotina__img { display:block; max-width:100%; height:auto; margin: 10px auto 0; }
+
+    .diy-alert {
+      border: 2px solid #D72638;
+      background-color: #FFF3F3;
+      color: #9C0F2D;
+      padding: 20px;
+      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      box-shadow: 0 4px 12px rgba(0,0,0,.1);
+      max-width: 700px;
+      margin: 10px auto;
+    }
+    .diy-alert__title { display:flex; align-items:center; gap:10px; font-size: 20px; font-weight: 700; }
+    .diy-alert__body { font-size: 14px; line-height: 1.8; }
+  {% endstyle %}
+
+  {%- comment -%} ===================== METADATOS ===================== {%- endcomment -%}
+  <collapsible-block
+    tabindex="0"
+    {{ block.shopify_attributes }}
+    class="bls-toggle {% if block_st.open_metadatos %} active {% endif %} relative border-bottom block"
+  >
+    <h3 class="h6 my-0 pointer py-17 relative collapsible-heading heading-letter-spacing">
+      {{- block_st.heading_metadatos -}}
+      <span class="open-children-toggle absolute inset-0 flex flex-end pointer">
+        <span class="icon_plus-animation"> </span>
+      </span>
+    </h3>
+
+    <div
+      class="overflow-hidden {% if block_st.open_metadatos %} open_collab {% endif %} collapsible-content"
+      {% unless block_st.open_metadatos %}
+        style="display: none;"
+      {% endunless %}
+    >
+      <div class="collapsible-content_inner mb-12 rich__text-mt-0">
+        <table class="diy-meta-table">
+          <tbody>
+            {% if product.type != blank %}
+              <tr>
+                <td><strong>{{ 'products.product.type' | t }}:</strong></td>
+                <td>{{ product.type | link_to_type }}</td>
+              </tr>
+            {% endif %}
+
+            <tr>
+              <td><strong>{{ 'products.product.sku' | t }}:</strong></td>
+              <td>
+                <div class="m-product-meta--value" data-variant-sku>
+                  {{ selected_variant.sku | default: product.selected_or_first_available_variant.sku }}
+                </div>
+              </td>
+            </tr>
+
+            {% if product.metafields.custom.contenido %}
+              <tr>
+                <td><strong>Contenido:</strong></td>
+                <td>{{ product.metafields.custom.contenido.value }}</td>
+              </tr>
+            {% endif %}
+
+            {% if product.metafields.custom.contiene_nicotina %}
+              <tr>
+                <td><strong>¿Contiene Nicotina?:</strong></td>
+                <td>
+                  {% if product.metafields.custom.contiene_nicotina.value == true %}
+                    Sí
+                  {% else %}
+                    No
+                  {% endif %}
+                </td>
+              </tr>
+            {% endif %}
+
+            {% if product.metafields.custom.cantidad_de_puff %}
+              <tr>
+                <td><strong>Cantidad de Puffs:</strong></td>
+                <td>{{ product.metafields.custom.cantidad_de_puff.value }}</td>
+              </tr>
+            {% endif %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </collapsible-block>
+
+  {%- comment -%} ===================== MANUAL ===================== {%- endcomment -%}
+  {% if product.metafields.custom.manual_de_uso %}
+    <collapsible-block
+      tabindex="0"
+      class="bls-toggle {% if block_st.open_manual %} active {% endif %} relative border-bottom block"
+    >
+      <h3 class="h6 my-0 pointer py-17 relative collapsible-heading heading-letter-spacing">
+        {{- block_st.heading_manual -}}
+        <span class="open-children-toggle absolute inset-0 flex flex-end pointer">
+          <span class="icon_plus-animation"> </span>
+        </span>
+      </h3>
+
+      <div
+        class="overflow-hidden {% if block_st.open_manual %} open_collab {% endif %} collapsible-content"
+        {% unless block_st.open_manual %}
+          style="display: none;"
+        {% endunless %}
+      >
+        <div class="collapsible-content_inner mb-12 rich__text-mt-0">
+          <h4>Manual de usuario de {{ product.title }} de {{ product.vendor }}</h4>
+          <br>
+          <a href="{{ product.metafields.custom.manual_de_uso | file_url }}" target="_blank" rel="noopener">
+            Descargar PDF de {{ product.title }}
+          </a>
+        </div>
+      </div>
+    </collapsible-block>
+  {% endif %}
+
+  {%- comment -%} ===================== ADVERTENCIA NICOTINA ===================== {%- endcomment -%}
+  {% if product.metafields.custom.contiene_nicotina == true or product.metafields.custom.contiene_nicotina.value == true %}
+    <p style="border: 6px solid black; text-align: center; font-size: 60%; padding: 10px; margin: 20px 0; line-height: 1.5;">
+      <strong>PRODUCTO EXCLUSIVO PARA MAYORES DE EDAD. CONTIENE NICOTINA, SUSTANCIA ADICTIVA Y NOCIVA PARA LA SALUD. ANTES DE CONSUMIR, CONSULTE LAS INDICACIONES Y CONTRAINDICACIONES DE USO.</strong>
+    </p>
+
+    {% if block_st.warning_image != blank %}
+      <img
+        class="advertencia-nicotina__img"
+        src="{{ block_st.warning_image | image_url: width: 1200 }}"
+        alt="Pictogramas de advertencia para productos con nicotina conforme a la Ley 2354 de 2024"
+        loading="lazy"
+      >
+    {% else %}
+      <img
+        class="advertencia-nicotina__img"
+        src="https://cdn.shopify.com/s/files/1/0166/9493/5652/files/ADVERTENCIAS_SEAN.webp?v=1756226546"
+        alt="Pictogramas de advertencia para productos con nicotina conforme a la Ley 2354 de 2024"
+        loading="lazy"
+      >
+    {% endif %}
+  {% endif %}
+
+  {%- comment -%} ===================== NOTA IMPORTANTE (DESECHABLE) COMO COLLAPSIBLE ===================== {%- endcomment -%}
+  {% if product.type == 'Vape Desechable' %}
+    <collapsible-block
+      tabindex="0"
+      class="bls-toggle {% if block_st.open_nota %} active {% endif %} relative border-bottom block"
+    >
+      <h3 class="h6 my-0 pointer py-17 relative collapsible-heading heading-letter-spacing">
+        {{- block_st.heading_nota -}}
+        <span class="open-children-toggle absolute inset-0 flex flex-end pointer">
+          <span class="icon_plus-animation"> </span>
+        </span>
+      </h3>
+
+      <div
+        class="overflow-hidden {% if block_st.open_nota %} open_collab {% endif %} collapsible-content"
+        {% unless block_st.open_nota %}
+          style="display: none;"
+        {% endunless %}
+      >
+        <div class="collapsible-content_inner mb-12 rich__text-mt-0">
+          <div class="diy-alert">
+            <div class="diy-alert__title">⚠️ <span>{{ block_st.nota_titulo }}</span></div>
+
+            <div class="diy-alert__body">
+              <strong>El dispositivo {{ product.title }}</strong>
+              {% if product.metafields.custom.cantidad_de_puff %}
+                tiene una capacidad estimada de
+                <strong>{{ product.metafields.custom.cantidad_de_puff }}</strong> puffs y un contenido de
+                <strong>{{ product.metafields.custom.contenido.value }}</strong> de líquido para vapeo.
+              {% endif %}
+              <br>
+
+              <span>Esta cantidad es una <strong>estimación promedio</strong> y puede variar según:</span>
+              <ul style="margin: 12px 0; padding-left: 25px; list-style-type: disc;">
+                <li>🔹 Intensidad y frecuencia de uso.</li>
+                <li>🔹 Condiciones ambientales.</li>
+                <li>🔹 Forma de inhalación del usuario.</li>
+              </ul>
+
+              <strong>Advertencia:</strong>
+              <span>Deséchelo de forma responsable y cumpliendo con las normativas locales. Manténgalo fuera del alcance de menores de edad.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </collapsible-block>
+  {% endif %}
+
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Producto Metadatos",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Títulos"
+    },
+    {
+      "type": "text",
+      "id": "heading_metadatos",
+      "label": "Título Metadatos",
+      "default": "Metadatos del Producto"
+    },
+    {
+      "type": "checkbox",
+      "id": "open_metadatos",
+      "label": "Abrir Metadatos por defecto",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "heading_manual",
+      "label": "Título Manual",
+      "default": "Manual de Uso"
+    },
+    {
+      "type": "checkbox",
+      "id": "open_manual",
+      "label": "Abrir Manual por defecto",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "heading_nota",
+      "label": "Título Nota (Desechables)",
+      "default": "Nota Importante"
+    },
+    {
+      "type": "checkbox",
+      "id": "open_nota",
+      "label": "Abrir Nota por defecto",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "nota_titulo",
+      "label": "Texto dentro de Nota",
+      "default": "Nota Importante"
+    },
+    {
+      "type": "header",
+      "content": "Advertencia nicotina"
+    },
+    {
+      "type": "image_picker",
+      "id": "warning_image",
+      "label": "Imagen de advertencia (opcional)"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Producto: Metadatos + Manual + Nota"
+    }
+  ]
+}
+{% endschema %}

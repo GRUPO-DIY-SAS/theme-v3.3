@@ -1,0 +1,94 @@
+{% doc %}
+  Genera schemas JSON-LD de tipo ItemList para las 5 secciones de productos
+  del homepage. Incluye AggregateRating por producto cuando existen reseñas
+  sincronizadas por Judge.me en los metafields reviews.rating y reviews.rating_count.
+
+  Solo se renderiza en el template index (homepage).
+
+  @example
+  {% render 'schema-homepage-products' %}
+{% enddoc %}
+
+{%- if template == 'index' -%}
+  {%- assign hp_sections = 'novedades,pods-desechables,pod-system,salt-nic-ejuice,vaporizadores-herbales' | split: ',' -%}
+  {%- assign hp_names    = 'Estrenos y Lanzamientos,Vapes Desechables Más Vendidos,Equipos Recargables Favoritos,Líquidos y Sales Premium,Vaporizadores de Cannabis y Concentrados' | split: ',' -%}
+  {%- assign hp_limits   = '4,6,6,8,8' | split: ',' -%}
+
+  {%- for handle in hp_sections -%}
+    {%- assign collection   = collections[handle] -%}
+    {%- assign section_name = hp_names[forloop.index0] -%}
+    {%- assign section_limit = hp_limits[forloop.index0] | plus: 0 -%}
+
+    {%- if collection != blank and collection.products_count > 0 -%}
+      {%- assign position   = 0 -%}
+      {%- assign items_json = '' -%}
+
+      {%- for product in collection.products limit: section_limit -%}
+        {%- if product.available and product.featured_image != blank and product.price > 0 -%}
+          {%- assign position = position | plus: 1 -%}
+
+          {%- comment -%} Judge.me rating metafields {%- endcomment -%}
+          {%- assign jdgm_rating = product.metafields.reviews.rating -%}
+          {%- assign jdgm_count  = product.metafields.reviews.rating_count -%}
+          {%- assign count_value  = jdgm_count.value | plus: 0 -%}
+          {%- assign rating_value = jdgm_rating.value.rating | round: 2 -%}
+
+          {%- capture item_json -%}
+            {
+              "@type": "ListItem",
+              "position": {{ position }},
+              "item": {
+                "@type": "Product",
+                "name": {{ product.title | json }},
+                "url": "{{ shop.url }}{{ product.url }}",
+                "image": "{{ product.featured_image | image_url: width: 800 }}",
+                "description": {{ product.description | strip_html | truncate: 200 | json }},
+                "sku": {{ product.selected_or_first_available_variant.sku | json }},
+                "brand": {
+                  "@type": "Brand",
+                  "name": {{ product.vendor | json }}
+                },
+                "offers": {
+                  "@type": "Offer",
+                  "url": "{{ shop.url }}{{ product.url }}",
+                  "priceCurrency": "COP",
+                  "price": "{{ product.price | money_without_currency | remove: '.' | remove: ',' }}",
+                  "availability": "https://schema.org/InStock",
+                  "seller": {
+                    "@type": "Organization",
+                    "name": "DIY Vape Shop"
+                  }
+                }{% if jdgm_rating != blank and count_value > 0 %},
+                "aggregateRating": {
+                  "@type": "AggregateRating",
+                  "ratingValue": "{{ rating_value }}",
+                  "reviewCount": {{ count_value }},
+                  "bestRating": "5",
+                  "worstRating": "1"
+                }{% endif %}
+              }
+            }
+          {%- endcapture -%}
+
+          {%- if items_json == '' -%}
+            {%- assign items_json = item_json -%}
+          {%- else -%}
+            {%- assign items_json = items_json | append: ',' | append: item_json -%}
+          {%- endif -%}
+        {%- endif -%}
+      {%- endfor -%}
+
+      {%- if position > 0 -%}
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "ItemList",
+          "name": {{ section_name | json }},
+          "numberOfItems": {{ position }},
+          "itemListElement": [{{ items_json }}]
+        }
+        </script>
+      {%- endif -%}
+    {%- endif -%}
+  {%- endfor -%}
+{%- endif -%}
