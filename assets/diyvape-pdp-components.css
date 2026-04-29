@@ -41,7 +41,7 @@
 .tag{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:500;letter-spacing:2.5px;text-transform:uppercase;color:var(--steel);margin-bottom:8px;display:flex;align-items:center;gap:8px}
 .tag__l{flex:1;height:1px;background:var(--mist)}
 /* Scroll reveal */
-.rv{opacity:0;transform:translateY(20px);transition:opacity .6s var(--ease),transform .6s var(--ease)}
+.rv{opacity:0;transform:translateY(20px);transition:opacity .35s var(--ease),transform .35s var(--ease);will-change:opacity,transform}
 .rv.vis{opacity:1;transform:translateY(0)}
 .rv[data-d="1"]{transition-delay:.1s}.rv[data-d="2"]{transition-delay:.2s}
 /* Hook — Bone bg, 3px Lab Red top */
@@ -60,7 +60,7 @@
 /* Flip cards */
 .fg{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:28px;perspective:1000px}
 .fc{height:120px;cursor:pointer;position:relative}
-.fc__in{width:100%;height:100%;position:relative;transition:transform .6s var(--ease);transform-style:preserve-3d}
+.fc__in{width:100%;height:100%;position:relative;transition:transform .3s var(--ease);transform-style:preserve-3d;will-change:transform}
 .fc:hover .fc__in,.fc.fl .fc__in{transform:rotateY(180deg)}
 .fc__f{position:absolute;inset:0;border-radius:var(--r);display:flex;flex-direction:column;align-items:center;justify-content:center;backface-visibility:hidden;border:1px solid var(--mist);padding:14px;text-align:center}
 .fc__fr{background:var(--white);box-shadow:var(--sh)}
@@ -103,7 +103,7 @@
 .fp__m-row{display:flex;align-items:center;gap:6px}
 .fp__m-nm{font-size:11px;font-weight:500;color:var(--ink);width:68px;flex-shrink:0}
 .fp__m-tr{flex:1;height:5px;background:var(--mist);border-radius:5px;overflow:hidden}
-.fp__m-fl{height:100%;border-radius:5px;transition:width .8s var(--ease)}
+.fp__m-fl{height:100%;border-radius:5px;transition:width .4s var(--ease)}
 .fp__m-vl{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;color:var(--carbon);width:20px;text-align:right}
 /* Ice meter */
 .fp__im{margin-top:14px;padding:12px 18px;border-radius:var(--rs);display:flex;align-items:center;gap:10px}
@@ -136,7 +136,7 @@
 .wc__ice{font-size:12px;flex-shrink:0}
 /* Wheel SVG */
 .wsvg{width:180px;height:180px;flex-shrink:0}
-.wsvg circle{fill:none;stroke-width:7;stroke-linecap:round;transition:stroke-dasharray .8s var(--ease)}
+.wsvg circle{fill:none;stroke-width:7;stroke-linecap:round;transition:stroke-dasharray .4s var(--ease)}
 .w-fruit{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:60px;height:60px;opacity:0;transition:opacity .5s var(--ease);pointer-events:none}
 .w-fruit.show{opacity:1}
 /* Wheel bars */
@@ -144,7 +144,7 @@
 .wb__r{display:flex;align-items:center;gap:6px;margin-bottom:5px}
 .wb__l{font-size:10px;color:var(--graphite);width:62px;flex-shrink:0}
 .wb__t{flex:1;height:4px;background:var(--mist);border-radius:4px;overflow:hidden}
-.wb__f{height:100%;border-radius:4px;transition:width .6s var(--ease)}
+.wb__f{height:100%;border-radius:4px;transition:width .35s var(--ease)}
 .wb__v{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--carbon);width:18px;text-align:right}
 /* Nicotine variant chips */
 .nv{margin-bottom:28px}
@@ -208,7 +208,7 @@
 .rg__item{text-align:center}
 .rg__svg{width:80px;height:80px;margin:0 auto 6px}
 .rg__bg{fill:none;stroke:var(--mist);stroke-width:5}
-.rg__fl{fill:none;stroke:var(--carbon);stroke-width:5;stroke-linecap:round;transition:stroke-dashoffset 1.2s var(--ease);transform:rotate(-90deg);transform-origin:center}
+.rg__fl{fill:none;stroke:var(--carbon);stroke-width:5;stroke-linecap:round;transition:stroke-dashoffset .6s var(--ease);transform:rotate(-90deg);transform-origin:center}
 .rg__vl{font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:700;fill:var(--carbon);text-anchor:middle;dominant-baseline:central}
 .rg__lb{font-size:11px;font-weight:500;color:var(--graphite)}
 /* Timeline */
@@ -295,3 +295,5 @@
   .rc__ohm{width:auto}
 }
 @keyframes fi{from{opacity:0}to{opacity:1}}
+/* INP optimization — skip render of below-fold cards until near viewport */
+.hook,.edu,.fg,.fp,.acc,.tabs,.tl,.cs,.rg,.compat,.calc,.rf,.cmp,.notes,.trust{content-visibility:auto;contain-intrinsic-size:auto 320px}

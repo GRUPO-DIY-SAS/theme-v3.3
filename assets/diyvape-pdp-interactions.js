@@ -121,15 +121,58 @@ function chkC(q){
   r.innerHTML=m.map(function(d){return '<div class="compat__item"><span>'+d.n+'</span><span class="compat__badge '+(d.ok?'compat__badge--y':'compat__badge--n')+'">'+(d.ok?'Compatible':'No compatible')+'</span></div>'}).join('');
 }
 
-/* ── Init on DOM ready ── */
-document.addEventListener('DOMContentLoaded',function(){
-  initRv();
-  animRg();
-  var rgObs=new IntersectionObserver(function(e){e.forEach(function(x){if(x.isIntersecting)animRg()})},{threshold:0.3});
-  document.querySelectorAll('.rg').forEach(function(s){rgObs.observe(s)});
-  var fpObs=new IntersectionObserver(function(e){e.forEach(function(x){if(x.isIntersecting)x.target.querySelectorAll('.fp__m-fl').forEach(function(b){var w=b.dataset.w;if(w)b.style.width=w})})},{threshold:0.3});
-  document.querySelectorAll('.fp__mt').forEach(function(s){fpObs.observe(s)});
-  document.querySelectorAll('.nv__chip').forEach(function(c){c.addEventListener('click',function(){var s=c.closest('.nv__strip');if(s)s.querySelectorAll('.nv__chip').forEach(function(x){x.classList.remove('on')});c.classList.add('on')})});
+/* ── Init on DOM ready ── INP-optimized */
+function initDIY(){
+  /* Scroll reveal — skip si no hay elementos */
+  if(document.querySelector('.rv'))initRv();
+
+  /* Progress rings — animar solo cuando entran al viewport, una vez */
+  var rgEls=document.querySelectorAll('.rg');
+  if(rgEls.length){
+    var rgObs=new IntersectionObserver(function(e){
+      e.forEach(function(x){if(x.isIntersecting){animRg();rgObs.unobserve(x.target);}});
+    },{threshold:0.3});
+    rgEls.forEach(function(s){rgObs.observe(s)});
+  }
+
+  /* Flavor profile bars — animar al entrar viewport, una vez */
+  var fpEls=document.querySelectorAll('.fp__mt');
+  if(fpEls.length){
+    var fpObs=new IntersectionObserver(function(e){
+      e.forEach(function(x){
+        if(x.isIntersecting){
+          x.target.querySelectorAll('.fp__m-fl').forEach(function(b){var w=b.dataset.w;if(w)b.style.width=w});
+          fpObs.unobserve(x.target);
+        }
+      });
+    },{threshold:0.3});
+    fpEls.forEach(function(s){fpObs.observe(s)});
+  }
+
+  /* Nicotine chips — un solo listener delegado en lugar de N */
+  document.addEventListener('click',function(ev){
+    var c=ev.target.closest('.nv__chip');
+    if(!c)return;
+    var s=c.closest('.nv__strip');
+    if(s)s.querySelectorAll('.nv__chip').forEach(function(x){x.classList.remove('on')});
+    c.classList.add('on');
+  },{passive:true});
+
+  /* Flavor wheel inicial */
   var firstWc=document.querySelector('.wc.on');
   if(firstWc&&typeof flvs!=='undefined')pf(firstWc,0);
-});
+}
+
+/* Diferir init no-crítico hasta que el browser esté idle */
+function scheduleInit(){
+  if('requestIdleCallback' in window){
+    requestIdleCallback(initDIY,{timeout:2000});
+  } else {
+    setTimeout(initDIY,1);
+  }
+}
+if(document.readyState==='loading'){
+  document.addEventListener('DOMContentLoaded',scheduleInit);
+} else {
+  scheduleInit();
+}
