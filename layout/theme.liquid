@@ -51,9 +51,18 @@
     {{ content_for_header }}
     {{ 'critical.css' | asset_url | stylesheet_tag }}
     {% if enable_rtl %}{{ 'rtl.css' | asset_url | stylesheet_tag: preload: true }}{% endif %}
-    {{ 'product-card.css' | asset_url | stylesheet_tag: preload: true }}
-    {{ 'swiper-bundle.min.css' | asset_url | stylesheet_tag: preload: true }}
-    {{ 'judgeme-reviews.css' | asset_url | stylesheet_tag: preload: true }}
+    {%- comment -%} INP optimization — preload solo donde el CSS es crítico above-fold {%- endcomment -%}
+    {%- if request.page_type == 'collection' or request.page_type == 'index' or request.page_type == 'search' -%}
+      {{ 'product-card.css' | asset_url | stylesheet_tag: preload: true }}
+    {%- else -%}
+      {{ 'product-card.css' | asset_url | stylesheet_tag }}
+    {%- endif -%}
+    {%- if request.page_type == 'index' -%}
+      {{ 'swiper-bundle.min.css' | asset_url | stylesheet_tag: preload: true }}
+    {%- else -%}
+      {{ 'swiper-bundle.min.css' | asset_url | stylesheet_tag }}
+    {%- endif -%}
+    {{ 'judgeme-reviews.css' | asset_url | stylesheet_tag }}
     {% render 'font-variables' %}
     {% if request.design_mode %}
       {{ 'design-mode.css' | asset_url | stylesheet_tag: preload: true }}
