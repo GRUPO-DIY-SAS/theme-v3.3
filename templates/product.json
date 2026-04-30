@@ -82,6 +82,15 @@
           },
           "blocks": {}
         },
+        "product_addons_YRaprz": {
+          "type": "_product-addons",
+          "settings": {
+            "show_compare_color": true,
+            "show_ask_question": true,
+            "show_share": true
+          },
+          "blocks": {}
+        },
         "rapi_rapi_bundle_FtiRHf": {
           "type": "shopify://apps/rapi/blocks/rapi-bundle/99617c17-a32b-4e70-a883-7a155610d032",
           "settings": {
@@ -202,15 +211,6 @@
             "nota_titulo": "Nota Importante"
           },
           "blocks": {}
-        },
-        "product_addons_YRaprz": {
-          "type": "_product-addons",
-          "settings": {
-            "show_compare_color": true,
-            "show_ask_question": true,
-            "show_share": true
-          },
-          "blocks": {}
         }
       },
       "block_order": [
@@ -222,6 +222,7 @@
         "live_view_rzDP6G",
         "countdown_timer_QB4Ydn",
         "variant_picker_tcCihG",
+        "product_addons_YRaprz",
         "rapi_rapi_bundle_FtiRHf",
         "buy_buttons_LcQGtR",
         "model_size_XM7z6E",
@@ -233,8 +234,7 @@
         "product_collapsible_row_4gGjVF",
         "product_delivery_return_d4tVYn",
         "collapsible_row_eLaQpR",
-        "product_metadatos_4hE9km",
-        "product_addons_YRaprz"
+        "product_metadatos_4hE9km"
       ],
       "settings": {
         "section_width": "container",
