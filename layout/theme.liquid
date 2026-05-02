@@ -222,7 +222,6 @@
       }
     </script>
   {% render 'diyvape-pdp-assets' %}
-  {% render 'diyvape-pdp-compat' %}>
   </head>
   <body
     class="gradient{% if settings.rounded_corner > 1 and settings.enable_rounded %} rounded-style{% endif %}{% if settings.action_after_add_cart == 'show_popup' %} minicart_type-popup{% endif %}{% if enable_rtl %} rtl{% endif %} {% if request.page_type == 'cart'%}template-cart{% endif %} {{ request.page_type }}"
