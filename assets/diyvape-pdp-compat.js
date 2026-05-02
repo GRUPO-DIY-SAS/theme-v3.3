@@ -13,8 +13,7 @@
               .filter(Boolean);
 
     var base = (window.diyCompatDevs && window.diyCompatDevs.length)
-               ? window.diyCompatDevs
-               : [];
+               ? window.diyCompatDevs : [];
 
     var seen = {}, all = [];
     base.concat(s3).forEach(function(x){
@@ -27,15 +26,23 @@
     var q = v.toLowerCase(), h = '', f = 0;
     all.forEach(function(x){
       if(x.toLowerCase().indexOf(q) > -1){
-        h += '<div class="compat__item"><span>' + x + '</span>'
+        h += '<div class="compat__item"><span>'+x+'</span>'
            + '<span class="compat__badge compat__badge--y">Compatible</span></div>';
         f++;
       }
     });
     if(!f) h = '<div class="compat__item"><span>No encontrado entre los equipos compatibles</span>'
-              + '<span class="compat__badge compat__badge--n">Consultar</span></div>';
+             + '<span class="compat__badge compat__badge--n">Consultar</span></div>';
     r.innerHTML = h;
   }
 
   window.chkC = chkC;
+
+  // Event delegation — captura oninput aunque el elemento sea clonado/reemplazado
+  document.addEventListener('input', function(e){
+    if(e.target && e.target.classList.contains('compat__in')){
+      chkC(e.target);
+    }
+  }, true);
+
 })();
