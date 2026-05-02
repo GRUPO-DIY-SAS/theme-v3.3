@@ -30,7 +30,9 @@
     all.forEach(function(x){
       if(x.t.toLowerCase().indexOf(q) > -1){
         var nameHtml = x.u
-          ? '<a href="' + x.u + '" style="color:inherit;text-decoration:none;">' + x.t + '</a>'
+          ? '<a href="' + x.u + '" style="color:inherit;text-decoration:underline;text-decoration-color:rgba(0,0,0,0.25);text-underline-offset:3px;cursor:pointer;">'
+            + x.t
+            + ' <span style="font-size:0.7em;opacity:0.45;vertical-align:middle;">↗</span></a>'
           : '<span>' + x.t + '</span>';
         h += '<div class="compat__item">' + nameHtml
            + '<span class="compat__badge compat__badge--y">Compatible</span></div>';
