@@ -1,5 +1,4 @@
 (function(){
-  if(window.chkC) return;
 
   function chkC(inp){
     var v = inp.value.trim(),
@@ -35,13 +34,16 @@
     var q = v.toLowerCase(), h = '', f = 0;
     all.forEach(function(x){
       if(x.toLowerCase().indexOf(q) > -1){
-        h += '<div class="compat__item"><span>'+x+'</span>'
+        h += '<div class="compat__item"><span>' + x + '</span>'
            + '<span class="compat__badge compat__badge--y">Compatible</span></div>';
         f++;
       }
     });
-    if(!f) h = '<div class="compat__item"><span>No encontrado entre los equipos compatibles</span>'
-             + '<span class="compat__badge compat__badge--n">Consultar</span></div>';
+
+    if(!f){
+      h = '<div class="compat__item"><span>No encontrado entre los equipos compatibles</span>'
+        + '<span class="compat__badge compat__badge--n">Consultar</span></div>';
+    }
 
     r.style.height = 'auto';
     r.innerHTML = h;
