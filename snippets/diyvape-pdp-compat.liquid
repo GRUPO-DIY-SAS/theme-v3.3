@@ -1,11 +1,11 @@
-{%- assign _cp = product.metafields['shopify--discovery--product_recommendation']['complementary_products'].value -%}
-{%- assign _cd = product.metafields['custom']['compat_devices'].value -%}
+{%- assign compat_products = product.metafields['shopify--discovery--product_recommendation']['complementary_products'].value -%}
+{%- assign compat_devices = product.metafields['custom']['compat_devices'].value -%}
 
 <script>
 if(!window.chkC){
 (function(){
-  var s1=[{%- if _cp.size > 0 -%}{%- for cp in _cp -%}"{{ cp.title | replace: '"', '\"' | strip }}"{% unless forloop.last %},{% endunless %}{%- endfor -%}{%- endif -%}];
-  var s2=[{%- if _cd != blank -%}{%- for d in _cd -%}"{{ d | replace: '"', '\"' | strip }}"{% unless forloop.last %},{% endunless %}{%- endfor -%}{%- endif -%}];
+  var s1=[{%- if compat_products.size > 0 -%}{%- for item in compat_products -%}"{{ item.title | replace: '"', '\"' | strip }}"{% unless forloop.last %},{% endunless %}{%- endfor -%}{%- endif -%}];
+  var s2=[{%- if compat_devices != blank -%}{%- for device in compat_devices -%}"{{ device | replace: '"', '\"' | strip }}"{% unless forloop.last %},{% endunless %}{%- endfor -%}{%- endif -%}];
   window.diyCompatDevs=s1.concat(s2);
 
   function chkC(inp){
