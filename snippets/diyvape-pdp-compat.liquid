@@ -2,36 +2,9 @@
 {%- assign compat_devices = product.metafields['custom']['compat_devices'].value -%}
 
 <script>
-if(!window.chkC){
 (function(){
   var s1=[{%- if compat_products.size > 0 -%}{%- for item in compat_products -%}"{{ item.title | replace: '"', '\"' | strip }}"{% unless forloop.last %},{% endunless %}{%- endfor -%}{%- endif -%}];
   var s2=[{%- if compat_devices != blank -%}{%- for device in compat_devices -%}"{{ device | replace: '"', '\"' | strip }}"{% unless forloop.last %},{% endunless %}{%- endfor -%}{%- endif -%}];
-  window.diyCompatDevs=s1.concat(s2);
-
-  function chkC(inp){
-    var v=inp.value.trim(),
-        c=inp.closest('.compat'),
-        r=c?c.querySelector('.compat__res'):null;
-    if(!r)return;
-    if(v.length<2){r.innerHTML='';return}
-    var s3=(c.getAttribute('data-devs')||'').split('|').map(function(d){return d.trim()}).filter(Boolean);
-    var seen={},all=[];
-    window.diyCompatDevs.concat(s3).forEach(function(x){
-      var k=x.toLowerCase();
-      if(!seen[k]){seen[k]=true;all.push(x)}
-    });
-    if(!all.length){r.innerHTML='';return}
-    var q=v.toLowerCase(),h='',f=0;
-    all.forEach(function(x){
-      if(x.toLowerCase().indexOf(q)>-1){
-        h+='<div class="compat__item"><span>'+x+'</span><span class="compat__badge compat__badge--y">Compatible</span></div>';
-        f++;
-      }
-    });
-    if(!f)h='<div class="compat__item"><span>No encontrado entre los equipos compatibles</span><span class="compat__badge compat__badge--n">Consultar</span></div>';
-    r.innerHTML=h;
-  }
-  window.chkC=chkC;
+  window.diyCompatDevs = (window.diyCompatDevs||[]).concat(s1).concat(s2);
 })();
-}
 </script>
