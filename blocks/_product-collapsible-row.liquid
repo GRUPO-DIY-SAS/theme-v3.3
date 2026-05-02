@@ -4,6 +4,9 @@
   assign section_st = section.settings
   assign enable_skeleton_loading = section_st.enable_skeleton_loading
 %}
+{% if block_st.use_product_description == true and product != blank %}
+  {% render 'diyvape-pdp-compat' %}
+{% endif %}
 <collapsible-block
   tabindex="0"
   {{ block.shopify_attributes }}
@@ -24,7 +27,6 @@
     <div class="collapsible-content_inner mb-12 rich__text-mt-0{% if block_st.use_product_description == true %} product_description{% endif %}">
       {% if block_st.use_product_description == true %}
         {%- if product != blank -%}
-          {% render 'diyvape-pdp-compat' %}
           {{ product.description }}
         {%- else -%}
           {{ 'onboarding.default_description' | t }}
