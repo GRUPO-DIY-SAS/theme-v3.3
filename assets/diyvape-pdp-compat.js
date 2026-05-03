@@ -17,12 +17,36 @@
  * CAMBIOS v1.2 (2026-05-02):
  *   - norm() para dedup robusta: evita duplicados por guiones/espacios/tildes.
  *   - Sin otros cambios funcionales.
+ *
+ * CAMBIOS v1.3 (2026-05-02):
+ *   - norm() también stripea "kit" y "pod" antes de comparar.
+ *   - Razón: los títulos de productos Shopify incluyen "Kit" al final
+ *     ("Oxva - Xlim Pro 2 Kit") mientras data-devs usa el nombre corto
+ *     ("Oxva Xlim Pro 2"). Sin este strip se mostraban como entradas distintas
+ *     aunque fueran el mismo equipo.
+ *   - Ejemplo: norm("Oxva - Xlim Pro 2 Kit") = norm("Oxva Xlim Pro 2") = "oxvaxlimpro2"
  */
 (function () {
 
-  /** Normaliza un nombre para comparación: minúsculas, solo [a-z0-9] */
+  /**
+   * Normaliza un nombre para deduplicación:
+   *   1. Minúsculas
+   *   2. Puntuación → espacio (guiones, paréntesis, etc.)
+   *   3. Elimina palabras "kit" y "pod" (sufijos frecuentes en títulos Shopify)
+   *   4. Colapsa espacios y los elimina
+   *
+   * Casos cubiertos:
+   *   "Oxva - Xlim Pro 2 Kit"  →  "oxvaxlimpro2"
+   *   "Oxva Xlim Pro 2"        →  "oxvaxlimpro2"  → MISMO → dedup ✓
+   *
+   *   "Oxva Xlim SE"           →  "oxvaxlimse"
+   *   "Oxva Xlim SE 2"         →  "oxvaxlimse2"   → DISTINTOS ✓
+   */
   function norm(s) {
-    return s.toLowerCase().replace(/[^a-z0-9]/g, '');
+    return s.toLowerCase()
+      .replace(/[^a-z0-9\s]/g, ' ')   // puntuación → espacio
+      .replace(/\b(kit|pod)\b/g, ' ') // strip "kit" / "pod"
+      .replace(/\s+/g, '');            // elimina todos los espacios
   }
 
   function chkC(inp) {
