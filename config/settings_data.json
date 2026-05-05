@@ -308,7 +308,7 @@
       },
       "15154131639906026026": {
         "type": "shopify://apps/tinyseo/blocks/broken-link-embed/0605268f-f7c4-4e95-b560-e43df7d59ae4",
-        "disabled": true,
+        "disabled": false,
         "settings": {}
       }
     },
