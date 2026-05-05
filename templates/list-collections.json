@@ -147,6 +147,13 @@
             "collection": "todos-los-aromas",
             "collection_title": "Aromas"
           }
+        },
+        "collection_kVYwyn": {
+          "type": "collection",
+          "settings": {
+            "collection": "bases",
+            "collection_title": "Bases"
+          }
         }
       },
       "block_order": [
@@ -164,7 +171,8 @@
         "collection_JfM9hn",
         "collection_3B6H3R",
         "collection_YGW4VH",
-        "collection_jfFteK"
+        "collection_jfFteK",
+        "collection_kVYwyn"
       ],
       "settings": {
         "section_width": "fluid_container",
