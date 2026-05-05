@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "heading": {
@@ -13,7 +22,7 @@
         "description_tLPCVn": {
           "type": "description",
           "settings": {
-            "description": "<p>Explora todas nuestras colecciones de Vapeo y las mejores marcas premium del mercado. Las mejores opciones en vapeo aquí en la mejor tienda de Colombia.<\/p>"
+            "description": "<p>Explora todas nuestras colecciones de Vapeo y las mejores marcas premium del mercado. Las mejores opciones en vapeo aquí en la mejor tienda de Colombia.</p>"
           }
         }
       },
@@ -34,129 +43,38 @@
     "main": {
       "type": "main-list-collections",
       "blocks": {
-        "collection_c9xqba": {
+        "collection_8NL9h8": {
           "type": "collection",
           "settings": {
-            "collection": "todos-los-aromas",
+            "collection": "pods-desechables",
             "collection_title": ""
           }
         },
-        "collection_zeqUCE": {
+        "collection_ixqmzx": {
           "type": "collection",
           "settings": {
-            "collection": "bases",
+            "collection": "sistemas-cerrados-pods-semi-desechables",
+            "collection_title": "Sistemas Cerrados (Semi Desechables)"
+          }
+        },
+        "collection_xUtUyD": {
+          "type": "collection",
+          "settings": {
+            "collection": "equipos",
+            "collection_title": "Equipos de Vapeo Recargables"
+          }
+        },
+        "collection_pEV4Th": {
+          "type": "collection",
+          "settings": {
+            "collection": "vape-sales-de-nicotina",
             "collection_title": ""
           }
         },
-        "collection_rMgQHt": {
+        "collection_fAD3kY": {
           "type": "collection",
           "settings": {
-            "collection": "baterias",
-            "collection_title": ""
-          }
-        },
-        "collection_fexeCX": {
-          "type": "collection",
-          "settings": {
-            "collection": "accesorios-herbales",
-            "collection_title": ""
-          }
-        },
-        "collection_486Cfi": {
-          "type": "collection",
-          "settings": {
-            "collection": "accesorios-vapeo",
-            "collection_title": ""
-          }
-        },
-        "collection_kKfjhm": {
-          "type": "collection",
-          "settings": {
-            "collection": "baterias-destilados",
-            "collection_title": ""
-          }
-        },
-        "collection_DJVypB": {
-          "type": "collection",
-          "settings": {
-            "collection": "cargadores",
-            "collection_title": ""
-          }
-        },
-        "collection_GRQfCX": {
-          "type": "collection",
-          "settings": {
-            "collection": "dabs-rigs-bongs",
-            "collection_title": ""
-          }
-        },
-        "collection_Wtk8J6": {
-          "type": "collection",
-          "settings": {
-            "collection": "destilados",
-            "collection_title": ""
-          }
-        },
-        "collection_g9kCP9": {
-          "type": "collection",
-          "settings": {
-            "collection": "envases",
-            "collection_title": ""
-          }
-        },
-        "collection_aBjbak": {
-          "type": "collection",
-          "settings": {
-            "collection": "accesorios",
-            "collection_title": ""
-          }
-        },
-        "collection_thh4nP": {
-          "type": "collection",
-          "settings": {
-            "collection": "kits-avanzados",
-            "collection_title": ""
-          }
-        },
-        "collection_aFtKtF": {
-          "type": "collection",
-          "settings": {
-            "collection": "kits-de-inicio",
-            "collection_title": ""
-          }
-        },
-        "collection_pGDGVB": {
-          "type": "collection",
-          "settings": {
-            "collection": "base-libre",
-            "collection_title": ""
-          }
-        },
-        "collection_hymKKe": {
-          "type": "collection",
-          "settings": {
-            "collection": "nicotina",
-            "collection_title": ""
-          }
-        },
-        "collection_YGW4VH": {
-          "type": "collection",
-          "settings": {
-            "collection": "one-shots",
-            "collection_title": ""
-          }
-        },
-        "collection_T77wqU": {
-          "type": "collection",
-          "settings": {
-            "collection": "pouches-de-nicotina-y-cafeina",
-            "collection_title": ""
-          }
-        },
-        "collection_MxhTeJ": {
-          "type": "collection",
-          "settings": {
-            "collection": "resistencias-artesanales",
+            "collection": "vape-base-libre",
             "collection_title": ""
           }
         },
@@ -167,39 +85,18 @@
             "collection_title": ""
           }
         },
+        "collection_pGDGVB": {
+          "type": "collection",
+          "settings": {
+            "collection": "base-libre",
+            "collection_title": "Líquidos Base Libre (0mg - 12mg)"
+          }
+        },
         "collection_46ENJV": {
           "type": "collection",
           "settings": {
             "collection": "salt-nic-ejuice",
-            "collection_title": ""
-          }
-        },
-        "collection_bPMaYR": {
-          "type": "collection",
-          "settings": {
-            "collection": "pod-system",
-            "collection_title": ""
-          }
-        },
-        "collection_9X9n9g": {
-          "type": "collection",
-          "settings": {
-            "collection": "smoke-shop",
-            "collection_title": ""
-          }
-        },
-        "collection_FH3EER": {
-          "type": "collection",
-          "settings": {
-            "collection": "tanques-y-rda",
-            "collection_title": ""
-          }
-        },
-        "collection_8NL9h8": {
-          "type": "collection",
-          "settings": {
-            "collection": "pods-desechables",
-            "collection_title": ""
+            "collection_title": "Sales de Nicotina (20mg - 70mg)"
           }
         },
         "collection_N4aMtN": {
@@ -209,69 +106,77 @@
             "collection_title": ""
           }
         },
-        "collection_UpENBH": {
+        "collection_kKfjhm": {
           "type": "collection",
           "settings": {
-            "collection": "escritorio",
+            "collection": "baterias-destilados",
             "collection_title": ""
           }
         },
-        "collection_bYwJRy": {
+        "collection_zg8Dfe": {
           "type": "collection",
           "settings": {
-            "collection": "wax",
+            "collection": "pouches-de-nicotina-y-cafeina",
             "collection_title": ""
           }
         },
-        "collection_hJLWjX": {
+        "collection_JfM9hn": {
           "type": "collection",
           "settings": {
-            "collection": "portatiles",
+            "collection": "iqos",
             "collection_title": ""
+          }
+        },
+        "collection_3B6H3R": {
+          "type": "collection",
+          "settings": {
+            "collection": "alquimia",
+            "collection_title": "Prepara tus Líquidos"
+          }
+        },
+        "collection_YGW4VH": {
+          "type": "collection",
+          "settings": {
+            "collection": "one-shots",
+            "collection_title": "Saborizantes One Shot´s"
+          }
+        },
+        "collection_jfFteK": {
+          "type": "collection",
+          "settings": {
+            "collection": "todos-los-aromas",
+            "collection_title": "Aromas"
           }
         }
       },
       "block_order": [
-        "collection_c9xqba",
-        "collection_zeqUCE",
-        "collection_rMgQHt",
-        "collection_fexeCX",
-        "collection_486Cfi",
-        "collection_kKfjhm",
-        "collection_DJVypB",
-        "collection_GRQfCX",
-        "collection_Wtk8J6",
-        "collection_g9kCP9",
-        "collection_aBjbak",
-        "collection_thh4nP",
-        "collection_aFtKtF",
-        "collection_pGDGVB",
-        "collection_hymKKe",
-        "collection_YGW4VH",
-        "collection_T77wqU",
-        "collection_MxhTeJ",
-        "collection_HdxXKw",
-        "collection_46ENJV",
-        "collection_bPMaYR",
-        "collection_9X9n9g",
-        "collection_FH3EER",
         "collection_8NL9h8",
+        "collection_ixqmzx",
+        "collection_xUtUyD",
+        "collection_pEV4Th",
+        "collection_fAD3kY",
+        "collection_HdxXKw",
+        "collection_pGDGVB",
+        "collection_46ENJV",
         "collection_N4aMtN",
-        "collection_UpENBH",
-        "collection_bYwJRy",
-        "collection_hJLWjX"
+        "collection_kKfjhm",
+        "collection_zg8Dfe",
+        "collection_JfM9hn",
+        "collection_3B6H3R",
+        "collection_YGW4VH",
+        "collection_jfFteK"
       ],
       "settings": {
         "section_width": "fluid_container",
         "color_scheme": "scheme-cad2a0ec-e8e4-4844-b669-ed3f593863ca",
         "type": "selected",
-        "sort_collections": "alphabetical",
+        "sort_collections": "products_high",
         "image_ratio": "adapt",
         "show_product_count": false,
         "design": "morden",
         "text_alignment": "center",
         "font_size": 16,
-        "items_to_show": 8,
+        "items_to_show": 16,
         "items_per_row": 4,
         "column_gap": 30,
         "pagination": "load_more_button",
