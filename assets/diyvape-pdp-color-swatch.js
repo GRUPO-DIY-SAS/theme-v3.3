@@ -131,6 +131,14 @@
     return false;
   }
 
+  // Helper: update visible label #csName with the selected color
+  function updateColorLabel(color) {
+    var label = document.getElementById('csName');
+    if (label && color) {
+      label.textContent = color;
+    }
+  }
+
   // Public function — referenced by onclick="pCS(this)" in body_html
   window.pCS = function (el) {
     if (!el || !el.dataset) return;
@@ -142,7 +150,10 @@
     }
     el.classList.add('on');
 
-    // 2. Sync with variant selector
+    // 2. Update visible label
+    updateColorLabel(el.dataset.color);
+
+    // 3. Sync with variant selector
     var color = el.dataset.color;
     var ok = syncVariantSelector(color);
 
@@ -164,11 +175,15 @@
       if (dot) {
         document.querySelectorAll('.cs__dot').forEach(function (d) { d.classList.remove('on'); });
         dot.classList.add('on');
+        updateColorLabel(preselected);
       }
     } else {
       // Default: activate the first dot
       var first = document.querySelector('.cs__dot');
-      if (first) first.classList.add('on');
+      if (first) {
+        first.classList.add('on');
+        updateColorLabel(first.dataset.color);
+      }
     }
   });
 
@@ -183,6 +198,7 @@
     if (dot) {
       document.querySelectorAll('.cs__dot').forEach(function (d) { d.classList.remove('on'); });
       dot.classList.add('on');
+      updateColorLabel(newColor);
     }
   }, true);
 })();
