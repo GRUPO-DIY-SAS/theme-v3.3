@@ -1,13 +1,18 @@
 /* ═══════════════════════════════════════════
    DIYVAPE.CO — PDP Product Description Components
    AIDA+SCENE v4 · PRODUCTION BUILD
-   v2 · Mayo 2026 — Tooltip patch aplicado
+   v2.1 · Mayo 2026 — Tooltip patch (left-anchored default)
 
-   CAMBIOS v2 vs v1 (2026-05-06):
-   - .tip / .tip__b reescritos para soporte touch, teclado,
-     viewport clamp, z-index:100, flip móvil, variante .tip--right
+   CAMBIOS v2.1 vs v1 (2026-05-06):
+   - .tip / .tip__b reescritos:
+     · default: anclado al borde IZQUIERDO del término (left:0),
+       extiende a la derecha (no se clipea por la izquierda
+       cuando el término está pegado al borde del card).
+     · .tip--center: opcional, mantiene centrado
+     · .tip--right: anclado a derecha, extiende a la izquierda
+     · soporte teclado (focus-within), touch (.on toggle),
+       z-index:100, viewport clamp, flip vertical en móvil
    - .edu quitado de la línea content-visibility:auto
-     (permite que tooltips dentro de .edu escapen del card)
 
    Instalar en: assets/diyvape-pdp-components.css
    ═══════════════════════════════════════════ */
@@ -52,15 +57,23 @@
 .edu{background:var(--sg08);border:1px solid var(--sgb);border-radius:var(--r);padding:20px 24px;margin-bottom:28px;display:flex;gap:12px;align-items:flex-start}
 .edu__i{flex-shrink:0;width:26px;height:26px;background:var(--sage);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--white);font-size:13px;font-weight:700;font-family:'JetBrains Mono',monospace}
 .edu__t{font-size:14px;line-height:1.7;color:var(--ink)}
-/* ─────────── Tooltip v2 (PATCH 2026-05-06) ─────────── */
+/* ─────────── Tooltip v2.1 (left-anchored default) ─────────── */
+/* Default: popover anclado al borde IZQUIERDO del término, extiende a la derecha.
+   Esto evita clipping cuando el término está pegado al borde izquierdo del card.
+   Para términos cerca del borde derecho del card, agregar clase tip--right.
+   Para forzar centrado (cuando hay espacio a ambos lados), agregar tip--center. */
 .tip{position:relative;display:inline-block;border-bottom:1px dashed var(--steel);cursor:help;outline:none}
 .tip:focus-visible{outline:2px solid var(--sage);outline-offset:2px;border-radius:2px}
-.tip__b{position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%) scale(.96);background:var(--carbon);color:var(--white);border-radius:var(--rs);padding:10px 14px;font-size:12px;line-height:1.5;width:max-content;max-width:min(280px,calc(100vw - 32px));opacity:0;pointer-events:none;transition:var(--t);z-index:100}
-.tip__b::after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);width:0;height:0;border:5px solid transparent;border-top-color:var(--carbon)}
-.tip:hover .tip__b,.tip:focus-within .tip__b,.tip.on .tip__b{opacity:1;transform:translateX(-50%) scale(1);pointer-events:auto}
-.tip--right .tip__b{left:auto;right:0;transform:scale(.96)}
-.tip--right:hover .tip__b,.tip--right:focus-within .tip__b,.tip--right.on .tip__b{transform:scale(1)}
-.tip--right .tip__b::after{left:auto;right:14px;transform:none}
+.tip__b{position:absolute;bottom:calc(100% + 8px);left:0;transform-origin:left bottom;transform:scale(.96);background:var(--carbon);color:var(--white);border-radius:var(--rs);padding:10px 14px;font-size:12px;line-height:1.5;width:max-content;max-width:min(280px,calc(100vw - 32px));opacity:0;pointer-events:none;transition:var(--t);z-index:100}
+.tip__b::after{content:'';position:absolute;top:100%;left:14px;width:0;height:0;border:5px solid transparent;border-top-color:var(--carbon)}
+.tip:hover .tip__b,.tip:focus-within .tip__b,.tip.on .tip__b{opacity:1;transform:scale(1);pointer-events:auto}
+/* Variante: anclado a la DERECHA del término (extiende a la izquierda) */
+.tip--right .tip__b{left:auto;right:0;transform-origin:right bottom}
+.tip--right .tip__b::after{left:auto;right:14px}
+/* Variante: CENTRADO sobre el término (sólo cuando hay espacio a ambos lados) */
+.tip--center .tip__b{left:50%;right:auto;transform-origin:center bottom;transform:translateX(-50%) scale(.96)}
+.tip--center .tip__b::after{left:50%;right:auto;transform:translateX(-50%)}
+.tip--center:hover .tip__b,.tip--center:focus-within .tip__b,.tip--center.on .tip__b{transform:translateX(-50%) scale(1)}
 /* Flip cards */
 .fg{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:28px;perspective:1000px}
 .fc{height:120px;cursor:pointer;position:relative}
@@ -297,13 +310,15 @@
   .calc__lb,.calc__vl{width:auto}
   .rc{flex-direction:column;gap:8px}
   .rc__ohm{width:auto}
-  /* Tooltip v2 — flip a abajo en móvil */
-  .tip__b{bottom:auto;top:calc(100% + 8px);transform:translateX(-50%) scale(.96)}
+  /* Tooltip v2.1 — flip a abajo en móvil (header sticky arriba) */
+  .tip__b{bottom:auto;top:calc(100% + 8px);transform-origin:left top}
   .tip__b::after{top:auto;bottom:100%;border-top-color:transparent;border-bottom-color:var(--carbon)}
-  .tip:hover .tip__b,.tip:focus-within .tip__b,.tip.on .tip__b{transform:translateX(-50%) scale(1)}
+  .tip--right .tip__b{transform-origin:right top}
+  .tip--center .tip__b{transform-origin:center top;transform:translateX(-50%) scale(.96)}
+  .tip--center:hover .tip__b,.tip--center:focus-within .tip__b,.tip--center.on .tip__b{transform:translateX(-50%) scale(1)}
 }
 @keyframes fi{from{opacity:0}to{opacity:1}}
 /* INP optimization — skip render of below-fold cards until near viewport
-   v2 (2026-05-06): .edu removed para que los tooltips dentro de .edu
+   v2.1 (2026-05-06): .edu removed para que los tooltips dentro de .edu
    puedan escapar visualmente del card. Impacto INP despreciable. */
 .hook,.fg,.fp,.acc,.tabs,.tl,.cs,.rg,.compat,.calc,.rf,.cmp,.notes,.trust{content-visibility:auto;contain-intrinsic-size:auto 320px}
