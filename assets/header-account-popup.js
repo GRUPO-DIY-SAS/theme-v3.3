@@ -1060,6 +1060,28 @@
     }
   };
 
+  const handleMobileAccountTriggerClick = (event) => {
+    const target = event.target;
+    if (!(target instanceof Element)) return;
+
+    const trigger = target.closest('[data-mobile-account-trigger]');
+    if (!(trigger instanceof HTMLElement)) return;
+
+    const account = trigger.closest('.header-account-popup')?.querySelector('shopify-account');
+    const accountButton = account?.shadowRoot?.querySelector('.account-button');
+
+    if (accountButton instanceof HTMLElement) {
+      event.preventDefault();
+      accountButton.click();
+      return;
+    }
+
+    const fallbackHref = trigger.dataset.accountHref;
+    if (fallbackHref) {
+      window.location.href = fallbackHref;
+    }
+  };
+
   const bindAccountPopup = (account) => {
     if (!account || account.dataset.accountPopupBound === 'true') return;
     if (account.dataset.accountPopupBinding === 'true') return;
@@ -1171,6 +1193,7 @@
   syncHeaderHeight();
   bindAccountPopups();
 
+  document.addEventListener('click', handleMobileAccountTriggerClick);
   window.addEventListener('resize', () => {
     syncHeaderHeight();
     bindAccountPopups();

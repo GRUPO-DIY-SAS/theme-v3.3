@@ -92,31 +92,38 @@
 
 @media screen and (max-width: 1024.98px) {
   .header-account-popup--mobile-menu {
-    border-bottom: 1px solid var(--border-color-base);
     color: var(--color-text);
-    display: flex;
-    min-height: 55px;
+    position: relative;
   }
 
-  .header-account-popup--mobile-menu shopify-account {
-    display: flex;
-    justify-content: flex-start;
-    width: 100%;
-  }
-
-  .header-account-popup--mobile-menu shopify-account::part(signed-out-avatar),
-  .header-account-popup--mobile-menu shopify-account::part(signed-in-avatar) {
-    border-radius: 0;
-    height: auto;
-    justify-content: flex-start;
-    width: 100%;
-  }
-
-  .header-account-popup__mobile-row {
-    align-items: center;
+  .header-account-popup__mobile-trigger {
+    background: transparent;
     color: inherit;
     display: flex;
-    min-height: 55px;
+    font: inherit;
+    text-align: start;
     width: 100%;
+  }
+
+  .header-account-popup__account-host {
+    height: 0;
+    pointer-events: none;
+    position: absolute;
+    width: 0;
+  }
+
+  .header-account-popup__account-host shopify-account {
+    height: 0;
+    min-height: 0;
+    min-width: 0;
+    width: 0;
+  }
+
+  .header-account-popup__account-host shopify-account::part(signed-out-avatar),
+  .header-account-popup__account-host shopify-account::part(signed-in-avatar) {
+    height: 0;
+    opacity: 0;
+    padding: 0;
+    width: 0;
   }
 }

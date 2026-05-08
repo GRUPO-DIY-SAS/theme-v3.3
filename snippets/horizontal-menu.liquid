@@ -984,20 +984,25 @@
           <li class="level0 hidden-1025">
             {%- if show_account_popup -%}
               <div class="header-account-popup header-account-popup--mobile-menu">
-                <shopify-account menu="{{ account_menu }}">
-                  <span slot="signed-out-avatar" class="header-account-popup__mobile-row{% if uppercase_first %} uppercase{% endif %}">
-                    <svg width="17" height="17" viewBox="0 0 16 16" class="me-10" fill="none">
-                      <use href="#icon-account" />
-                    </svg>
-                    {{ 'customer.login_menu_mobile' | t }}
-                  </span>
-                  <span slot="signed-in-avatar" class="header-account-popup__mobile-row{% if uppercase_first %} uppercase{% endif %}">
-                    <svg width="17" height="17" viewBox="0 0 16 16" class="me-10" fill="none">
-                      <use href="#icon-account" />
-                    </svg>
+                <button
+                  type="button"
+                  class="btn-reset header-account-popup__mobile-trigger no-underline py-10 lh-normal flex border-bottom border-bottom-1025-0 min-h-55 min-h-1025-50 align-center{% if uppercase_first %} uppercase{% endif %}"
+                  data-mobile-account-trigger
+                  data-account-href="{%- if customer -%}{{ routes.account_url }}{%- else -%}{{ routes.account_login_url }}{%- endif -%}"
+                  aria-label="{{ 'customer.account_fallback' | t }}"
+                >
+                  <svg width="17" height="17" viewBox="0 0 16 16" class="me-10" fill="none">
+                    <use href="#icon-account" />
+                  </svg>
+                  {%- if customer -%}
                     {{ 'customer.account_fallback' | t }}
-                  </span>
-                </shopify-account>
+                  {%- else -%}
+                    {{ 'customer.login_menu_mobile' | t }}
+                  {%- endif -%}
+                </button>
+                <span class="header-account-popup__account-host">
+                  <shopify-account menu="{{ account_menu }}"></shopify-account>
+                </span>
               </div>
             {%- else -%}
               <a
