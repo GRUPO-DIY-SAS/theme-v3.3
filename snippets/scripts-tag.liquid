@@ -13,7 +13,18 @@
     <script src="{{ 'collection.js' | asset_url }}" defer="defer"></script>
   {%- when 'product' -%}
     <script src="{{ 'main-product.js' | asset_url }}" defer="defer"></script>
-    <script src="{{ 'js-cloudimage-360-view.min.js' | asset_url }}" defer="defer"></script>
+    {%- liquid
+      assign has_360_image = false
+      for media in product.media
+        if media.media_type == 'image' and media.alt == 'image-360'
+          assign has_360_image = true
+          break
+        endif
+      endfor
+    -%}
+    {%- if has_360_image -%}
+      <script src="{{ 'js-cloudimage-360-view.min.js' | asset_url }}" defer="defer"></script>
+    {%- endif -%}
   {%- when 'search' -%}
     <script src="{{ 'collection.js' | asset_url }}" defer="defer"></script>
 {%- endcase -%}

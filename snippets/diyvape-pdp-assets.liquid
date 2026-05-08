@@ -15,4 +15,6 @@
 {%- if request.page_type == 'product' -%}
   {{ 'diyvape-pdp-components.css' | asset_url | stylesheet_tag }}
   <script src="{{ 'diyvape-pdp-interactions.js' | asset_url }}" defer></script>
+  <script src="{{ 'diyvape-pdp-compat.js' | asset_url }}" defer></script>
+  <script src="{{ 'diyvape-pdp-color-swatch.js' | asset_url }}" defer></script>
 {%- endif -%}

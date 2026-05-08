@@ -9,6 +9,7 @@
   assign colunm_mobile = colunm_mobile | default: 1
   assign padding = padding | default: 0
   assign class = class
+  assign first = first | default: false
   if type == 'product' and lazy_product != false
     assign class = class | append: ' bls-loaded-image bls-loading-image'
   endif
@@ -71,8 +72,12 @@
   endif
 
   assign loading = 'lazy'
-  if lazy_load == true
+  assign fetch_priority = 'auto'
+  if lazy_load == true or first == true
     assign loading = 'eager'
+  endif
+  if first == true
+    assign fetch_priority = 'high'
   endif
   assign secondary_image = false
   if class contains 'secondary-image'
@@ -138,6 +143,8 @@
         height: image.height,
         sizes: sizes,
         widths: widths,
+        fetchpriority: fetch_priority,
+        decoding: 'async',
         alt: image_alt
     -}}
   </picture>
@@ -153,6 +160,8 @@
       sizes: sizes,
       class: class,
       widths: widths,
+      fetchpriority: fetch_priority,
+      decoding: 'async',
       alt: image_alt
   -}}
 {% endif %}
