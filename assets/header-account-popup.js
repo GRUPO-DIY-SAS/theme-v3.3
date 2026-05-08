@@ -345,11 +345,14 @@
   const closeSystemCanvasBeforeOpenAccount = () => {
     if (typeof window.CloseAllPopup === 'function') {
       window.CloseAllPopup({ source: 'account-popup' });
-      return;
+    } else if (typeof window.publish === 'function') {
+      window.publish('closeCanvas', { source: 'account-popup' });
     }
 
-    if (typeof window.publish === 'function') {
-      window.publish('closeCanvas', { source: 'account-popup' });
+    if (root.classList.contains('nav-open')) {
+      document.querySelector('.nav-toggle.open')?.classList.remove('open');
+      root.classList.remove('nav-open', 'open-drawer');
+      root.style.removeProperty('padding-right');
     }
   };
 

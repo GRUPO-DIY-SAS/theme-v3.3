@@ -10,6 +10,12 @@
   assign menu_mobile_tab = section_st.menu_tab
   assign collection_list = section_st.collection_list
   assign title_categories = section_st.title_categories
+  assign account_open_as = settings.open_as | default: 'show_popup_login'
+  assign account_menu = settings.customer_account_menu | default: 'customer-account-main-menu'
+  assign show_account_popup = false
+  if show_my_account and account_open_as == 'show_popup_login' and shop.customer_accounts_enabled
+    assign show_account_popup = true
+  endif
 -%}
 {% liquid
   assign enable_rtl = settings.rtl
@@ -976,20 +982,39 @@
         {% endif %}
         {%- if show_my_account -%}
           <li class="level0 hidden-1025">
-            <a
-              class="no-underline py-10 lh-normal flex border-bottom border-bottom-1025-0 min-h-55 min-h-1025-50 align-center{% if uppercase_first %} uppercase{% endif %}"
-              href="{%- if customer -%}{{ routes.account_url }}{%- else -%}{{ routes.account_login_url }}{%- endif -%}"
-              aria-label="{{ 'customer.account_fallback' | t }}"
-            >
-              <svg width="17" height="17" viewBox="0 0 16 16" class="me-10" fill="none">
-                <use href="#icon-account" />
-              </svg>
-              {%- if customer -%}
-                {{ 'customer.account_fallback' | t }}
-              {%- else -%}
-                {{ 'customer.login_menu_mobile' | t }}
-              {%- endif -%}
-            </a>
+            {%- if show_account_popup -%}
+              <div class="header-account-popup header-account-popup--mobile-menu">
+                <shopify-account menu="{{ account_menu }}">
+                  <span slot="signed-out-avatar" class="header-account-popup__mobile-row{% if uppercase_first %} uppercase{% endif %}">
+                    <svg width="17" height="17" viewBox="0 0 16 16" class="me-10" fill="none">
+                      <use href="#icon-account" />
+                    </svg>
+                    {{ 'customer.login_menu_mobile' | t }}
+                  </span>
+                  <span slot="signed-in-avatar" class="header-account-popup__mobile-row{% if uppercase_first %} uppercase{% endif %}">
+                    <svg width="17" height="17" viewBox="0 0 16 16" class="me-10" fill="none">
+                      <use href="#icon-account" />
+                    </svg>
+                    {{ 'customer.account_fallback' | t }}
+                  </span>
+                </shopify-account>
+              </div>
+            {%- else -%}
+              <a
+                class="no-underline py-10 lh-normal flex border-bottom border-bottom-1025-0 min-h-55 min-h-1025-50 align-center{% if uppercase_first %} uppercase{% endif %}"
+                href="{%- if customer -%}{{ routes.account_url }}{%- else -%}{{ routes.account_login_url }}{%- endif -%}"
+                aria-label="{{ 'customer.account_fallback' | t }}"
+              >
+                <svg width="17" height="17" viewBox="0 0 16 16" class="me-10" fill="none">
+                  <use href="#icon-account" />
+                </svg>
+                {%- if customer -%}
+                  {{ 'customer.account_fallback' | t }}
+                {%- else -%}
+                  {{ 'customer.login_menu_mobile' | t }}
+                {%- endif -%}
+              </a>
+            {%- endif -%}
           </li>
         {% endif %}
       </ul>
