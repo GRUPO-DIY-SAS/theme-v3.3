@@ -1,0 +1,414 @@
+.ai-age-verify-overlay {
+  --age-overlay-bg: #000;
+  --age-overlay-opacity: 1;
+  --age-modal-bg: #fff;
+  --age-modal-border: #eaeaea;
+  --age-text-color: #111;
+  --age-heading-size: 28px;
+  --age-text-size: 15px;
+  --age-modal-radius: 12px;
+  --age-badge-bg: #111;
+  --age-badge-color: #fff;
+  --age-yes-bg: #111;
+  --age-yes-hover-bg: #000;
+  --age-yes-color: #fff;
+  --age-no-bg: #ebebeb;
+  --age-no-hover-bg: #dcdcdc;
+  --age-no-color: #111;
+  --age-no-border: #d0d0d0;
+  --age-submit-bg: #111;
+  --age-submit-hover-bg: #000;
+  --age-submit-color: #fff;
+  --age-button-size: 15px;
+  --age-button-radius: 10px;
+  --age-input-bg: #fff;
+  --age-input-border: #ccc;
+  --age-input-focus: #111;
+  --age-input-radius: 8px;
+  --age-error-color: #d82c0d;
+  --age-logo-width: 150px;
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  visibility: hidden;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+
+.ai-age-verify-overlay::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.14), transparent 34%),
+    var(--age-overlay-bg);
+  opacity: var(--age-overlay-opacity);
+}
+
+.ai-age-verify-overlay.active {
+  visibility: visible;
+  pointer-events: auto;
+  opacity: 1;
+}
+
+.ai-age-verify-modal {
+  position: relative;
+  z-index: 1;
+  width: min(560px, calc(100vw - 32px));
+  max-height: calc(100dvh - 32px);
+  overflow: auto;
+  background: var(--age-modal-bg);
+  color: var(--age-text-color);
+  border: 1px solid var(--age-modal-border);
+  border-radius: var(--age-modal-radius);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.38);
+  padding: 28px;
+  text-align: left;
+  opacity: 0;
+  transform: translateY(14px) scale(0.98);
+  transition: opacity 0.22s ease, transform 0.28s cubic-bezier(0.2, 0.9, 0.25, 1.12);
+}
+
+.ai-age-verify-overlay.active .ai-age-verify-modal {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.ai-age-verify-modal:focus {
+  outline: none;
+}
+
+.ai-age-verify-brand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 18px;
+}
+
+.ai-age-verify-logo {
+  width: min(var(--age-logo-width), 70vw);
+  height: auto;
+  object-fit: contain;
+}
+
+.ai-age-verify-header {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 16px;
+  align-items: start;
+  padding-bottom: 18px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.ai-age-verify-badge {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--age-badge-bg);
+  color: var(--age-badge-color);
+  flex: 0 0 auto;
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.16);
+}
+
+.ai-age-verify-kicker {
+  margin: 0 0 6px;
+  color: var(--age-text-color);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  line-height: 1.2;
+  opacity: 0.72;
+  text-transform: uppercase;
+}
+
+.ai-age-verify-title {
+  margin: 0;
+  color: var(--age-text-color);
+  font-size: var(--age-heading-size);
+  font-weight: 900;
+  line-height: 1.08;
+  letter-spacing: 0;
+}
+
+.ai-age-verify-text {
+  margin: 10px 0 0;
+  color: var(--age-text-color);
+  font-size: var(--age-text-size);
+  line-height: 1.5;
+  opacity: 0.88;
+}
+
+.ai-age-verify-text p,
+.ai-age-verify-note p {
+  margin: 0;
+}
+
+.ai-age-verify-trust-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin: 16px 0 2px;
+}
+
+.ai-age-verify-trust-item {
+  min-height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 999px;
+  padding: 8px 10px;
+  color: var(--age-text-color);
+  font-size: 11px;
+  font-weight: 800;
+  line-height: 1.15;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.025);
+}
+
+.ai-age-verify-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.ai-age-verify-btn,
+.ai-age-verify-submit,
+.ai-age-verify-submit-no {
+  width: 100%;
+  min-height: 48px;
+  border: 1px solid transparent;
+  border-radius: var(--age-button-radius);
+  padding: 14px 16px;
+  font-size: var(--age-button-size);
+  font-weight: 900;
+  line-height: 1.1;
+  cursor: pointer;
+  transition: transform 0.08s ease, background-color 0.18s ease, color 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+}
+
+.ai-age-verify-btn:active,
+.ai-age-verify-submit:active,
+.ai-age-verify-submit-no:active {
+  transform: translateY(1px);
+}
+
+.ai-age-verify-btn-yes,
+.ai-age-verify-submit {
+  background: var(--age-yes-bg);
+  color: var(--age-yes-color);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.16);
+}
+
+.ai-age-verify-btn-yes:hover,
+.ai-age-verify-submit:hover {
+  background: var(--age-yes-hover-bg);
+}
+
+.ai-age-verify-btn-no,
+.ai-age-verify-submit-no {
+  background: var(--age-no-bg);
+  color: var(--age-no-color);
+  border-color: var(--age-no-border);
+}
+
+.ai-age-verify-btn-no:hover,
+.ai-age-verify-submit-no:hover {
+  background: var(--age-no-hover-bg);
+}
+
+.ai-age-verify-submit {
+  background: var(--age-submit-bg);
+  color: var(--age-submit-color);
+}
+
+.ai-age-verify-submit:hover {
+  background: var(--age-submit-hover-bg);
+}
+
+.ai-age-verify-submit:disabled,
+.ai-age-verify-submit-no:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.ai-age-verify-note {
+  margin-top: 12px;
+  color: var(--age-text-color);
+  font-size: 12.5px;
+  line-height: 1.45;
+  opacity: 0.74;
+}
+
+.ai-age-verify-formwrap,
+.ai-age-verify-blocked {
+  display: none;
+  margin-top: 18px;
+  opacity: 0;
+  transition: opacity 0.16s ease;
+}
+
+.ai-age-verify-formwrap.active,
+.ai-age-verify-blocked.active {
+  display: block;
+  opacity: 1;
+}
+
+.ai-age-verify-field {
+  margin: 14px 0;
+}
+
+.ai-age-verify-label {
+  display: block;
+  margin-bottom: 7px;
+  color: var(--age-text-color);
+  font-size: 12px;
+  font-weight: 850;
+  letter-spacing: 0.05em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.ai-age-verify-input {
+  width: 100%;
+  min-height: 48px;
+  padding: 12px 13px;
+  border: 1px solid var(--age-input-border);
+  border-radius: var(--age-input-radius);
+  background: var(--age-input-bg);
+  color: var(--age-text-color);
+  font-size: 16px;
+  line-height: 1.2;
+}
+
+.ai-age-verify-input:focus {
+  outline: none;
+  border-color: var(--age-input-focus);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--age-input-focus), transparent 82%);
+}
+
+.ai-age-verify-input.error {
+  border-color: var(--age-error-color);
+}
+
+.ai-age-verify-error {
+  display: none;
+  margin-top: 7px;
+  color: var(--age-error-color);
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.ai-age-verify-error.active {
+  display: block;
+}
+
+.ai-age-verify-blocked {
+  text-align: center;
+}
+
+.ai-age-verify-blocked-icon {
+  width: 58px;
+  height: 58px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 14px;
+  border-radius: 50%;
+  background: var(--age-no-bg);
+  color: var(--age-no-color);
+}
+
+.ai-age-verify-blocked h3 {
+  margin: 0 0 8px;
+  color: var(--age-text-color);
+  font-size: 22px;
+  font-weight: 900;
+  line-height: 1.15;
+}
+
+.ai-age-verify-editor-trigger {
+  position: fixed;
+  right: 14px;
+  bottom: 14px;
+  z-index: 99998;
+  display: none;
+}
+
+.ai-age-verify-editor-trigger button {
+  border: 1px solid rgba(0, 0, 0, 0.14);
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-weight: 900;
+  cursor: pointer;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.18);
+  background: #fff;
+}
+
+body.ai-age-gate-open {
+  overflow: hidden;
+  position: fixed;
+  width: 100%;
+  top: var(--scroll-y, 0px);
+}
+
+@media (max-width: 749px) {
+  .ai-age-verify-overlay {
+    padding: 14px;
+    align-items: flex-end;
+  }
+
+  .ai-age-verify-modal {
+    width: 100%;
+    max-height: calc(100dvh - 28px);
+    padding: 22px 18px 20px;
+    border-radius: min(var(--age-modal-radius), 18px) min(var(--age-modal-radius), 18px) 16px 16px;
+  }
+
+  .ai-age-verify-header {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    text-align: center;
+  }
+
+  .ai-age-verify-badge {
+    margin: 0 auto;
+  }
+
+  .ai-age-verify-actions {
+    flex-direction: column;
+  }
+
+  .ai-age-verify-trust-row {
+    grid-template-columns: 1fr;
+  }
+
+  .ai-age-verify-editor-trigger {
+    right: 10px;
+    bottom: 10px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ai-age-verify-overlay,
+  .ai-age-verify-modal,
+  .ai-age-verify-formwrap,
+  .ai-age-verify-blocked,
+  .ai-age-verify-btn,
+  .ai-age-verify-submit,
+  .ai-age-verify-submit-no {
+    transition: none;
+  }
+}
