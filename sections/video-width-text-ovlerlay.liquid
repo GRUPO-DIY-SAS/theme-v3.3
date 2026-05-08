@@ -96,14 +96,16 @@
                 data-video-id="{{ video_id }}"
                 data-video-type="youtube"
               >
-                <img
-                  sizes="30vw"
-                  loading="{{ loading }}"
-                  src="https://img.youtube.com/vi/{{ video_id }}/hqdefault.jpg"
-                  alt="YouTube Thumbnail"
-                  width="100%"
-                  height="100%"
-                >
+                {%- if poster != blank -%}
+                  <img
+                    sizes="30vw"
+                    loading="{{ loading }}"
+                    src="{{ poster | image_url: width: 1200 }}"
+                    alt="YouTube Thumbnail"
+                    width="{{ poster.width }}"
+                    height="{{ poster.height }}"
+                  >
+                {%- endif -%}
               </div>
             {%- elsif section_st.video_url.type == 'vimeo' -%}
               <div
@@ -111,14 +113,16 @@
                 data-video-id="{{ video_id }}"
                 data-video-type="vimeo"
               >
-                <img
-                  sizes="30vw"
-                  loading="{{ loading }}"
-                  src="https://vumbnail.com/{{ video_id }}.jpg"
-                  alt="Vimeo Thumbnail"
-                  width="100%"
-                  height="100%"
-                >
+                {%- if poster != blank -%}
+                  <img
+                    sizes="30vw"
+                    loading="{{ loading }}"
+                    src="{{ poster | image_url: width: 1200 }}"
+                    alt="Vimeo Thumbnail"
+                    width="{{ poster.width }}"
+                    height="{{ poster.height }}"
+                  >
+                {%- endif -%}
               </div>
             {% endif %}
           {% endif %}

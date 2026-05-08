@@ -49,7 +49,7 @@
       "login_form_password_placeholder": "Uw wachtwoord",
       "login_form_error": "Verkeerd wachtwoord!",
       "login_form_submit": "Binnenkomen",
-      "admin_link_html": "Bent u de winkeleigenaar? <a href=\"\/admin\" class=\"link underlined-link\">Log hier in<\/a>",
+      "admin_link_html": "Bent u de winkeleigenaar? <a href=\"/admin\" class=\"link underlined-link\">Log hier in</a>",
       "powered_by_shopify_html": "Deze winkel wordt mogelijk gemaakt door {{ shopify }}",
       "coming_soon": "Binnenkort"
     },
@@ -115,15 +115,15 @@
       "timeout_message": "Je hebt geen tijd meer! ",
       "countdown_message_html": "Producten zijn beperkt, afrekenen binnen",
       "countdown_cart_message_html": "Alsjeblieft, schiet op!  {{ html }}",
-      "cart_thres1_html": "Gratis verzending voor alle bestellingen <span class=\"price\">{{ price }}<\/span>",
-      "cart_thres2_html": "Uitgeven <span class=\"price\">{{ price }}<\/span> meer om van te genieten <span class=\"subheading_weight primary-color\">Gratis verzending!<\/span>",
-      "cart_thres3_html": "<span class=\"congratulations\">Gefeliciteerd!<\/span> Je hebt gratis verzending!",
-      "free_shipping": "Uitgeven <span class=\"price\">{{ amount }}<\/span> meer om van te genieten <span class=\"subheading_weight primary-color\">Gratis verzending!<\/span>",
+      "cart_thres1_html": "Gratis verzending voor alle bestellingen <span class=\"price\">{{ price }}</span>",
+      "cart_thres2_html": "Uitgeven <span class=\"price\">{{ price }}</span> meer om van te genieten <span class=\"subheading_weight primary-color\">Gratis verzending!</span>",
+      "cart_thres3_html": "<span class=\"congratulations\">Gefeliciteerd!</span> Je hebt gratis verzending!",
+      "free_shipping": "Uitgeven <span class=\"price\">{{ amount }}</span> meer om van te genieten <span class=\"subheading_weight primary-color\">Gratis verzending!</span>",
       "free_shipping_avaiable": "Gefeliciteerd! ",
       "terms_conditions_text": "Servicevoorwaarden",
-      "taxes_and_shipping_policy_at_checkout_html": "Belastingen en <a href=\"{{ link }}\">verzending<\/a> en kortingen berekend bij het afrekenen",
+      "taxes_and_shipping_policy_at_checkout_html": "Belastingen en <a href=\"{{ link }}\">verzending</a> en kortingen berekend bij het afrekenen",
       "taxes_included_but_shipping_at_checkout": "Inclusief belasting en verzendkosten berekend bij het afrekenen",
-      "taxes_included_and_shipping_policy_html": "Belasting inbegrepen. <a href=\"{{ link }}\">Verzending<\/a> en kortingen berekend bij het afrekenen.",
+      "taxes_included_and_shipping_policy_html": "Belasting inbegrepen. <a href=\"{{ link }}\">Verzending</a> en kortingen berekend bij het afrekenen.",
       "taxes_and_shipping_at_checkout": "Belastingen en verzendkosten berekend bij het afrekenen.",
       "return_shop": "Ga door met winkelen",
       "remove": "Verwijder dit artikel",
@@ -142,7 +142,7 @@
       },
       "gift": {
         "title": "Cadeau toevoegen",
-        "gift_wrap_html": "Verpak het product zorgvuldig.  <span class=\"price heading-style\">{{ price }}<\/span>. ",
+        "gift_wrap_html": "Verpak het product zorgvuldig.  <span class=\"price heading-style\">{{ price }}</span>. ",
         "button_text": "Voeg een cadeauverpakking toe"
       },
       "shipping": {
@@ -168,7 +168,11 @@
       },
       "login": {
         "title": "Heeft u een account?",
-        "paragraph_html": "<a href=\"{{ link }}\" class=\"link underlined-link\">Inloggen<\/a> om sneller af te rekenen."
+        "paragraph_html": "<a href=\"{{ link }}\" class=\"link underlined-link\">Inloggen</a> om sneller af te rekenen."
+      },
+      "shipping_protection": {
+        "title": "Shipping Protection",
+        "description": "Shield your order in transit. If it's damaged, lost, or stolen, we've got you covered."
       }
     },
     "page_cart": {
@@ -194,7 +198,7 @@
     "image_alt_default": "Afbeelding",
     "banner": "Banier",
     "view_all": "Bekijk alles",
-    "policies_html": "Ik ga akkoord met de <a href=\"\/policies\/privacy-policy\" target=\"_blank\" title=\"Privacy Policy\"><strong>Privacybeleid<\/strong><\/a> van de website."
+    "policies_html": "Ik ga akkoord met de <a href=\"/policies/privacy-policy\" target=\"_blank\" title=\"Privacy Policy\"><strong>Privacybeleid</strong></a> van de website."
   },
   "blogs": {
     "article": {
@@ -269,7 +273,7 @@
       "products": "Producten",
       "tooltip": "Zoekopdracht",
       "no_products_found": "Geen producten gevonden",
-      "use_fewer_filters_html": "Gebruik minder filters of <a class=\"{{ class }}\" href=\"{{ link }}\">verwijder alles<\/a>",
+      "use_fewer_filters_html": "Gebruik minder filters of <a class=\"{{ class }}\" href=\"{{ link }}\">verwijder alles</a>",
       "results_with_count": {
         "one": "{{ count }} resultaat",
         "other": "{{ count }} resultaten"
@@ -281,8 +285,8 @@
       },
       "title_no_search": "Zoekopdracht",
       "title": "Zoek op onze site",
-      "search_for_html": "Zoeken naar “<span class=\"heading-color\">{{ terms }}<\/span>”",
-      "search_empty_html": "Niets komt overeen met uw zoekopdracht “<span>{{ terms }}<\/span>”",
+      "search_for_html": "Zoeken naar “<span class=\"heading-color\">{{ terms }}</span>”",
+      "search_empty_html": "Niets komt overeen met uw zoekopdracht “<span>{{ terms }}</span>”",
       "suggestions": "Suggesties",
       "pages": "Pagina",
       "article": "Artikel"
@@ -382,9 +386,9 @@
       "address1": "Adres 1",
       "address2": "Adres 2",
       "city": "Stad",
-      "country": "Land\/regio",
+      "country": "Land/regio",
       "province": "Provincie",
-      "zip": "Postcode\/postcode",
+      "zip": "Postcode/postcode",
       "phone": "Telefoon",
       "set_default": "Instellen als standaardadres",
       "add": "Adres toevoegen",
@@ -398,7 +402,7 @@
     },
     "log_in": "Inloggen",
     "log_out": "Uitloggen",
-    "login_menu_mobile": "Inloggen \/ Registreren",
+    "login_menu_mobile": "Inloggen / Registreren",
     "login_page": {
       "cancel": "Annuleren",
       "create_account": "Account aanmaken",
@@ -468,7 +472,7 @@
       "submit": "Account aanmaken",
       "title_content": "Nieuwe klant",
       "content": "Meld u aan voor vroege toegang tot de uitverkoop plus op maat gemaakte nieuwkomers, trends en promoties. ",
-      "content_form_html": "Uw persoonlijke gegevens worden gebruikt om uw ervaring op deze website te ondersteunen, om de toegang tot uw account te beheren en voor andere doeleinden die worden beschreven in onze <a href=\"{{ link }}\">privacybeleid.<\/a>"
+      "content_form_html": "Uw persoonlijke gegevens worden gebruikt om uw ervaring op deze website te ondersteunen, om de toegang tot uw account te beheren en voor andere doeleinden die worden beschreven in onze <a href=\"{{ link }}\">privacybeleid.</a>"
     },
     "reset_password": {
       "title": "Accountwachtwoord opnieuw instellen",
@@ -590,7 +594,7 @@
         "minimum_of": "Minimaal van {{ quantity }}",
         "maximum_of": "Maximaal van {{ quantity }}",
         "multiples_of": "Verhogingen van {{ quantity }}",
-        "in_cart_html": "<span class=\"quantity-cart\">{{ quantity }}<\/span> in winkelwagen"
+        "in_cart_html": "<span class=\"quantity-cart\">{{ quantity }}</span> in winkelwagen"
       },
       "countdown": {
         "days": "dagen",
@@ -617,14 +621,14 @@
         "view_store_info": "Bekijk winkelinformatie",
         "check_other_stores": "Controleer beschikbaarheid bij andere winkels",
         "pick_up_available": "Ophalen beschikbaar",
-        "pick_up_available_at_html": "Ophalen mogelijk bij <span class=\"color-foreground bold heading-color\">{{ location_name }}. <\/span>",
-        "pick_up_unavailable_at_html": "Ophalen momenteel niet mogelijk bij <span class=\"color-foreground bold heading-color\">{{ location_name }}. <\/span>",
+        "pick_up_available_at_html": "Ophalen mogelijk bij <span class=\"color-foreground bold heading-color\">{{ location_name }}. </span>",
+        "pick_up_unavailable_at_html": "Ophalen momenteel niet mogelijk bij <span class=\"color-foreground bold heading-color\">{{ location_name }}. </span>",
         "unavailable": "Kan de beschikbaarheid voor ophalen niet laden",
         "refresh": "Vernieuwen",
         "pickup_location": "Toon op Google Maps",
         "address": "Adres",
         "city": "Stad",
-        "country": "Land\/regio",
+        "country": "Land/regio",
         "phone": "Telefoon"
       },
       "model_size_title": {
@@ -632,7 +636,7 @@
         "model_height": "Hoogte:",
         "model_weight": "Gewicht:",
         "model_shoulder_width": "Schouderbreedte:",
-        "model_bust_waist_hips": "Buste\/taille\/heupen:"
+        "model_bust_waist_hips": "Buste/taille/heupen:"
       },
       "inventory_status": {
         "incoming": "Voorraad onderweg",
@@ -735,7 +739,7 @@
     "collection_template": {
       "empty": "Geen producten gevonden",
       "title": "Verzameling",
-      "use_fewer_filters_html": " Gebruik minder filters of <a class=\"{{ class }}\" href=\"{{ link }}\">verwijder alles<\/a>"
+      "use_fewer_filters_html": " Gebruik minder filters of <a class=\"{{ class }}\" href=\"{{ link }}\">verwijder alles</a>"
     },
     "shopable_video": {
       "countdown_message": "Schiet op! "
@@ -782,5 +786,19 @@
     "purchased": "gekocht",
     "time_minutes": "minuten geleden",
     "product_name": "Glozin van Blueskytechco"
+  },
+  "lookbook_image": {
+    "show_product": "Show Products",
+    "hide_product": "Hide Products",
+    "lookbook_product": "Lookbook product"
+  },
+  "customer_accounts": {
+    "order_details": {
+      "payment": {
+        "manual_payment_methods": {
+          "bank_deposit": "Bank deposit: {{formattedTransactionAmount}}"
+        }
+      }
+    }
   }
 }

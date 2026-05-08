@@ -38,7 +38,6 @@
     assign show_wishlist = theme_st.show_wishlist
     assign show_compare = theme_st.show_compare
     assign show_vendor = theme_st.show_vendor
-    assign show_short_description = theme_st.show_short_description
     assign show_rate = theme_st.show_rate
     assign show_secondary_image = theme_st.show_secondary_image
     assign show_add_cart = theme_st.show_add_cart
@@ -48,9 +47,6 @@
     assign wishlist = pages.wishlist
     assign compare = pages.compare
     assign type_video = false
-    if enable_short_description == true
-      assign show_short_description = true
-    endif
     assign bage_positon = ''
     if enable_rtl
       assign bage_positon = 'pointer-none absolute top-sm-15 top-10 right-sm-15 right-10'
@@ -346,7 +342,7 @@
             <a
               aria-label="{{ card_product.title }}"
               class="{% if product_truncation_title != 'none' %}product-title__truncate {% endif %}product-item__name {{ settings.product_name_text_transform }} heading-style no-underline fs-custom fw-custom block lh-normal"
-              style="--font-weight: {{ settings.product_font_weight }};--font-size: {{ settings.product_size }};{% if product_truncation_title != 'none' %} --line-clamp: {{ product_truncation_title }};{% endif %}"            
+              style="--font-weight: {{ settings.product_font_weight }};--font-size: {{ settings.product_size }};{% if product_truncation_title != 'none' %} --line-clamp: {{ product_truncation_title }};{% endif %}"
               {% if template_disable_product_url == true %}
                 role="link" aria-disabled="true"
               {% else %}
@@ -356,7 +352,7 @@
               {{- card_product.title -}}
             </a>
           {% comment %} Product item rating {% endcomment %}
-  
+
           {%- if template_enable_rate == true -%}
             {%- if show_rate -%}
               {%- if card_product.metafields.judgeme.badge -%}
@@ -506,4 +502,4 @@
       </div>
     </div>
   {% endif %}
-  
+

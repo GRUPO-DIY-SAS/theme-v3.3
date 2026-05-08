@@ -49,7 +49,7 @@
       "login_form_password_placeholder": "Din adgangskode",
       "login_form_error": "Forkert adgangskode!",
       "login_form_submit": "Indtast",
-      "admin_link_html": "Er du butiksejer? <a href=\"\/admin\" class=\"link underlined-link\">Log ind her<\/a>",
+      "admin_link_html": "Er du butiksejer? <a href=\"/admin\" class=\"link underlined-link\">Log ind her</a>",
       "powered_by_shopify_html": "Denne butik vil blive drevet af {{ shopify }}",
       "coming_soon": "Kommer snart"
     },
@@ -115,15 +115,15 @@
       "timeout_message": "Du er løbet tør for tid! ",
       "countdown_message_html": "Produkterne er begrænsede, kassen inden for",
       "countdown_cart_message_html": "Skynd dig venligst!  {{ html }}",
-      "cart_thres1_html": "Gratis fragt for alle ordrer over <span class=\"price\">{{ price }}<\/span>",
-      "cart_thres2_html": "Bruge <span class=\"price\">{{ price }}<\/span> mere at nyde <span class=\"subheading_weight primary-color\">Gratis forsendelse!<\/span>",
-      "cart_thres3_html": "<span class=\"congratulations\">Tillykke!<\/span> Du har gratis fragt!",
-      "free_shipping": "Bruge <span class=\"price\">{{ amount }}<\/span> mere at nyde <span class=\"subheading_weight primary-color\">Gratis forsendelse!<\/span>",
+      "cart_thres1_html": "Gratis fragt for alle ordrer over <span class=\"price\">{{ price }}</span>",
+      "cart_thres2_html": "Bruge <span class=\"price\">{{ price }}</span> mere at nyde <span class=\"subheading_weight primary-color\">Gratis forsendelse!</span>",
+      "cart_thres3_html": "<span class=\"congratulations\">Tillykke!</span> Du har gratis fragt!",
+      "free_shipping": "Bruge <span class=\"price\">{{ amount }}</span> mere at nyde <span class=\"subheading_weight primary-color\">Gratis forsendelse!</span>",
       "free_shipping_avaiable": "Tillykke! ",
       "terms_conditions_text": "Servicevilkår",
-      "taxes_and_shipping_policy_at_checkout_html": "Skatter og <a href=\"{{ link }}\">forsendelse<\/a> og rabatter beregnet ved kassen",
+      "taxes_and_shipping_policy_at_checkout_html": "Skatter og <a href=\"{{ link }}\">forsendelse</a> og rabatter beregnet ved kassen",
       "taxes_included_but_shipping_at_checkout": "Moms inkluderet og fragt beregnes ved kassen",
-      "taxes_included_and_shipping_policy_html": "Skat inkluderet. <a href=\"{{ link }}\">Forsendelse<\/a> og rabatter beregnet ved kassen.",
+      "taxes_included_and_shipping_policy_html": "Skat inkluderet. <a href=\"{{ link }}\">Forsendelse</a> og rabatter beregnet ved kassen.",
       "taxes_and_shipping_at_checkout": "Skatter og forsendelse beregnes ved kassen.",
       "return_shop": "Fortsæt med at handle",
       "remove": "Fjern denne vare",
@@ -142,7 +142,7 @@
       },
       "gift": {
         "title": "Tilføj gave",
-        "gift_wrap_html": "Pak produktet omhyggeligt ind.  <span class=\"price heading-style\">{{ price }}<\/span>. ",
+        "gift_wrap_html": "Pak produktet omhyggeligt ind.  <span class=\"price heading-style\">{{ price }}</span>. ",
         "button_text": "Tilføj en gaveindpakning"
       },
       "shipping": {
@@ -168,7 +168,11 @@
       },
       "login": {
         "title": "Har du en konto?",
-        "paragraph_html": "<a href=\"{{ link }}\" class=\"link underlined-link\">Log ind<\/a> at tjekke ud hurtigere."
+        "paragraph_html": "<a href=\"{{ link }}\" class=\"link underlined-link\">Log ind</a> at tjekke ud hurtigere."
+      },
+      "shipping_protection": {
+        "title": "Shipping Protection",
+        "description": "Shield your order in transit. If it's damaged, lost, or stolen, we've got you covered."
       }
     },
     "page_cart": {
@@ -194,7 +198,7 @@
     "image_alt_default": "Billede",
     "banner": "Banner",
     "view_all": "Se alle",
-    "policies_html": "Jeg er enig i <a href=\"\/policies\/privacy-policy\" target=\"_blank\" title=\"Privacy Policy\"><strong>Privatlivspolitik<\/strong><\/a> af hjemmesiden."
+    "policies_html": "Jeg er enig i <a href=\"/policies/privacy-policy\" target=\"_blank\" title=\"Privacy Policy\"><strong>Privatlivspolitik</strong></a> af hjemmesiden."
   },
   "blogs": {
     "article": {
@@ -269,7 +273,7 @@
       "products": "Produkter",
       "tooltip": "Søge",
       "no_products_found": "Ingen produkter fundet",
-      "use_fewer_filters_html": "Brug færre filtre eller <a class=\"{{ class }}\" href=\"{{ link }}\">fjerne alle<\/a>",
+      "use_fewer_filters_html": "Brug færre filtre eller <a class=\"{{ class }}\" href=\"{{ link }}\">fjerne alle</a>",
       "results_with_count": {
         "one": "{{ count }} resultat",
         "other": "{{ count }} resultater"
@@ -281,8 +285,8 @@
       },
       "title_no_search": "Søge",
       "title": "Søg på vores websted",
-      "search_for_html": "Søg efter \"<span class=\"heading-color\">{{ terms }}<\/span>”",
-      "search_empty_html": "Intet matcher din søgning \"<span>{{ terms }}<\/span>”",
+      "search_for_html": "Søg efter \"<span class=\"heading-color\">{{ terms }}</span>”",
+      "search_empty_html": "Intet matcher din søgning \"<span>{{ terms }}</span>”",
       "suggestions": "Forslag",
       "pages": "Side",
       "article": "Artikel"
@@ -382,7 +386,7 @@
       "address1": "Adresse 1",
       "address2": "Adresse 2",
       "city": "By",
-      "country": "Land\/område",
+      "country": "Land/område",
       "province": "Provins",
       "zip": "Postnummer",
       "phone": "Telefon",
@@ -398,7 +402,7 @@
     },
     "log_in": "Log ind",
     "log_out": "Log ud",
-    "login_menu_mobile": "Log ind \/ Registrer",
+    "login_menu_mobile": "Log ind / Registrer",
     "login_page": {
       "cancel": "Ophæve",
       "create_account": "Opret konto",
@@ -468,7 +472,7 @@
       "submit": "Opret konto",
       "title_content": "Ny kunde",
       "content": "Tilmeld dig tidlig udsalgsadgang plus skræddersyede nye produkter, trends og kampagner. ",
-      "content_form_html": "Dine personlige data vil blive brugt til at understøtte din oplevelse på hele denne hjemmeside, til at administrere adgangen til din konto og til andre formål beskrevet i vores <a href=\"{{ link }}\">privatlivspolitik.<\/a>"
+      "content_form_html": "Dine personlige data vil blive brugt til at understøtte din oplevelse på hele denne hjemmeside, til at administrere adgangen til din konto og til andre formål beskrevet i vores <a href=\"{{ link }}\">privatlivspolitik.</a>"
     },
     "reset_password": {
       "title": "Nulstil kontoadgangskode",
@@ -590,7 +594,7 @@
         "minimum_of": "Minimum af {{ quantity }}",
         "maximum_of": "Maksimum af {{ quantity }}",
         "multiples_of": "Forøgelser på {{ quantity }}",
-        "in_cart_html": "<span class=\"quantity-cart\">{{ quantity }}<\/span> i vognen"
+        "in_cart_html": "<span class=\"quantity-cart\">{{ quantity }}</span> i vognen"
       },
       "countdown": {
         "days": "dage",
@@ -617,14 +621,14 @@
         "view_store_info": "Se butiksoplysninger",
         "check_other_stores": "Tjek tilgængelighed i andre butikker",
         "pick_up_available": "Mulighed for afhentning",
-        "pick_up_available_at_html": "Kan afhentes kl <span class=\"color-foreground bold heading-color\">{{ location_name }}. <\/span>",
-        "pick_up_unavailable_at_html": "Afhentning i øjeblikket ikke tilgængelig kl <span class=\"color-foreground bold heading-color\">{{ location_name }}. <\/span>",
+        "pick_up_available_at_html": "Kan afhentes kl <span class=\"color-foreground bold heading-color\">{{ location_name }}. </span>",
+        "pick_up_unavailable_at_html": "Afhentning i øjeblikket ikke tilgængelig kl <span class=\"color-foreground bold heading-color\">{{ location_name }}. </span>",
         "unavailable": "Afhentnings tilgængelighed kunne ikke indlæses",
         "refresh": "Opfriske",
         "pickup_location": "Vis på google map",
         "address": "Adresse",
         "city": "By",
-        "country": "Land\/område",
+        "country": "Land/område",
         "phone": "Telefon"
       },
       "model_size_title": {
@@ -632,7 +636,7 @@
         "model_height": "Højde:",
         "model_weight": "Vægt:",
         "model_shoulder_width": "Skulderbredde:",
-        "model_bust_waist_hips": "Bryst\/talje\/hofter:"
+        "model_bust_waist_hips": "Bryst/talje/hofter:"
       },
       "inventory_status": {
         "incoming": "Lager i transit",
@@ -735,7 +739,7 @@
     "collection_template": {
       "empty": "Ingen produkter fundet",
       "title": "Samling",
-      "use_fewer_filters_html": " Brug færre filtre eller <a class=\"{{ class }}\" href=\"{{ link }}\">fjerne alle<\/a>"
+      "use_fewer_filters_html": " Brug færre filtre eller <a class=\"{{ class }}\" href=\"{{ link }}\">fjerne alle</a>"
     },
     "shopable_video": {
       "countdown_message": "Skynd dig! "
@@ -782,5 +786,19 @@
     "purchased": "købt",
     "time_minutes": "minutter siden",
     "product_name": "Glozin af Blueskytechco"
+  },
+  "lookbook_image": {
+    "show_product": "Show Products",
+    "hide_product": "Hide Products",
+    "lookbook_product": "Lookbook product"
+  },
+  "customer_accounts": {
+    "order_details": {
+      "payment": {
+        "manual_payment_methods": {
+          "bank_deposit": "Bank deposit: {{formattedTransactionAmount}}"
+        }
+      }
+    }
   }
 }

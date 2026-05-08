@@ -9,7 +9,6 @@
   assign uppercase_first = section_st.uppercase_first
   assign menu_mobile_tab = section_st.menu_tab
   assign collection_list = section_st.collection_list
-  assign title_categories = section_st.title_categories
   assign account_open_as = settings.open_as | default: 'show_popup_login'
   assign account_menu = settings.customer_account_menu | default: 'customer-account-main-menu'
   assign show_account_popup = false
@@ -371,7 +370,6 @@
                                   {%- if product_value != blank -%}
                                     {% render 'product-item',
                                       card_product: product_value,
-                                      template_enable_action: false,
                                       template_enable_product_vendor: false,
                                       template_enable_rate: false,
                                       template_enable_product_short_description: false,
@@ -867,7 +865,6 @@
                                   {%- if product_value != blank -%}
                                     {% render 'product-item',
                                       card_product: product_value,
-                                      template_enable_action: false,
                                       template_enable_product_vendor: false,
                                       template_enable_rate: false,
                                       template_enable_product_short_description: false,

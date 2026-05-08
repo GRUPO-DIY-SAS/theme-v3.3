@@ -49,7 +49,7 @@
       "login_form_password_placeholder": "Ihr Passwort",
       "login_form_error": "Falsches Passwort!",
       "login_form_submit": "Eingeben",
-      "admin_link_html": "Sind Sie der Ladenbesitzer? <a href=\"\/admin\" class=\"link underlined-link\">Melden Sie sich hier an<\/a>",
+      "admin_link_html": "Sind Sie der Ladenbesitzer? <a href=\"/admin\" class=\"link underlined-link\">Melden Sie sich hier an</a>",
       "powered_by_shopify_html": "Dieser Shop wird betrieben von {{ shopify }}",
       "coming_soon": "Bald kommen"
     },
@@ -115,15 +115,15 @@
       "timeout_message": "Du hast keine Zeit mehr! ",
       "countdown_message_html": "Die Anzahl der Produkte ist begrenzt, die Kasse erfolgt innerhalb",
       "countdown_cart_message_html": "Bitte beeilen Sie sich!  {{ html }}",
-      "cart_thres1_html": "Kostenloser Versand für alle Bestellungen über <span class=\"price\">{{ price }}<\/span>",
-      "cart_thres2_html": "Ausgeben <span class=\"price\">{{ price }}<\/span> mehr zu genießen <span class=\"subheading_weight primary-color\">Kostenloser Versand!<\/span>",
-      "cart_thres3_html": "<span class=\"congratulations\">Glückwunsch!<\/span> Sie haben kostenlosen Versand!",
-      "free_shipping": "Ausgeben <span class=\"price\">{{ amount }}<\/span> mehr zu genießen <span class=\"subheading_weight primary-color\">Kostenloser Versand!<\/span>",
+      "cart_thres1_html": "Kostenloser Versand für alle Bestellungen über <span class=\"price\">{{ price }}</span>",
+      "cart_thres2_html": "Ausgeben <span class=\"price\">{{ price }}</span> mehr zu genießen <span class=\"subheading_weight primary-color\">Kostenloser Versand!</span>",
+      "cart_thres3_html": "<span class=\"congratulations\">Glückwunsch!</span> Sie haben kostenlosen Versand!",
+      "free_shipping": "Ausgeben <span class=\"price\">{{ amount }}</span> mehr zu genießen <span class=\"subheading_weight primary-color\">Kostenloser Versand!</span>",
       "free_shipping_avaiable": "Glückwunsch! ",
       "terms_conditions_text": "Nutzungsbedingungen",
-      "taxes_and_shipping_policy_at_checkout_html": "Steuern und <a href=\"{{ link }}\">Versand<\/a> und Rabatte werden an der Kasse berechnet",
+      "taxes_and_shipping_policy_at_checkout_html": "Steuern und <a href=\"{{ link }}\">Versand</a> und Rabatte werden an der Kasse berechnet",
       "taxes_included_but_shipping_at_checkout": "Die Mehrwertsteuer ist inbegriffen und der Versand wird an der Kasse berechnet",
-      "taxes_included_and_shipping_policy_html": "Steuer inbegriffen. <a href=\"{{ link }}\">Versand<\/a> und Rabatte werden an der Kasse berechnet.",
+      "taxes_included_and_shipping_policy_html": "Steuer inbegriffen. <a href=\"{{ link }}\">Versand</a> und Rabatte werden an der Kasse berechnet.",
       "taxes_and_shipping_at_checkout": "Steuern und Versand werden an der Kasse berechnet.",
       "return_shop": "Weiter einkaufen",
       "remove": "Entfernen Sie dieses Element",
@@ -142,7 +142,7 @@
       },
       "gift": {
         "title": "Geschenk hinzufügen",
-        "gift_wrap_html": "Bitte verpacken Sie das Produkt sorgfältig.  <span class=\"price heading-style\">{{ price }}<\/span>. ",
+        "gift_wrap_html": "Bitte verpacken Sie das Produkt sorgfältig.  <span class=\"price heading-style\">{{ price }}</span>. ",
         "button_text": "Fügen Sie eine Geschenkverpackung hinzu"
       },
       "shipping": {
@@ -168,7 +168,11 @@
       },
       "login": {
         "title": "Haben Sie ein Konto?",
-        "paragraph_html": "<a href=\"{{ link }}\" class=\"link underlined-link\">Einloggen<\/a> um schneller auszuchecken."
+        "paragraph_html": "<a href=\"{{ link }}\" class=\"link underlined-link\">Einloggen</a> um schneller auszuchecken."
+      },
+      "shipping_protection": {
+        "title": "Shipping Protection",
+        "description": "Shield your order in transit. If it's damaged, lost, or stolen, we've got you covered."
       }
     },
     "page_cart": {
@@ -194,7 +198,7 @@
     "image_alt_default": "Bild",
     "banner": "Banner",
     "view_all": "Alle anzeigen",
-    "policies_html": "Ich stimme dem zu <a href=\"\/policies\/privacy-policy\" target=\"_blank\" title=\"Privacy Policy\"><strong>Datenschutzrichtlinie<\/strong><\/a> der Website."
+    "policies_html": "Ich stimme dem zu <a href=\"/policies/privacy-policy\" target=\"_blank\" title=\"Privacy Policy\"><strong>Datenschutzrichtlinie</strong></a> der Website."
   },
   "blogs": {
     "article": {
@@ -269,7 +273,7 @@
       "products": "Produkte",
       "tooltip": "Suchen",
       "no_products_found": "Keine Produkte gefunden",
-      "use_fewer_filters_html": "Verwenden Sie weniger Filter oder <a class=\"{{ class }}\" href=\"{{ link }}\">alles entfernen<\/a>",
+      "use_fewer_filters_html": "Verwenden Sie weniger Filter oder <a class=\"{{ class }}\" href=\"{{ link }}\">alles entfernen</a>",
       "results_with_count": {
         "one": "{{ count }} Ergebnis",
         "other": "{{ count }} Ergebnisse"
@@ -281,8 +285,8 @@
       },
       "title_no_search": "Suchen",
       "title": "Durchsuchen Sie unsere Website",
-      "search_for_html": "Suchen nach \"<span class=\"heading-color\">{{ terms }}<\/span>”",
-      "search_empty_html": "Nichts entspricht Ihrer Suche“<span>{{ terms }}<\/span>”",
+      "search_for_html": "Suchen nach \"<span class=\"heading-color\">{{ terms }}</span>”",
+      "search_empty_html": "Nichts entspricht Ihrer Suche“<span>{{ terms }}</span>”",
       "suggestions": "Vorschläge",
       "pages": "Seite",
       "article": "Artikel"
@@ -382,7 +386,7 @@
       "address1": "Adresse 1",
       "address2": "Adresse 2",
       "city": "Stadt",
-      "country": "Land\/Region",
+      "country": "Land/Region",
       "province": "Provinz",
       "zip": "Postleitzahl",
       "phone": "Telefon",
@@ -398,7 +402,7 @@
     },
     "log_in": "Einloggen",
     "log_out": "Abmelden",
-    "login_menu_mobile": "Anmelden \/ Registrieren",
+    "login_menu_mobile": "Anmelden / Registrieren",
     "login_page": {
       "cancel": "Stornieren",
       "create_account": "Benutzerkonto erstellen",
@@ -468,7 +472,7 @@
       "submit": "Benutzerkonto erstellen",
       "title_content": "Neuer Kunde",
       "content": "Melden Sie sich für einen frühen Sale-Zugang sowie maßgeschneiderte Neuankömmlinge, Trends und Werbeaktionen an. ",
-      "content_form_html": "Ihre persönlichen Daten werden verwendet, um Ihr Erlebnis auf dieser Website zu unterstützen, den Zugriff auf Ihr Konto zu verwalten und für andere in unserem beschriebene Zwecke <a href=\"{{ link }}\">Datenschutzrichtlinie.<\/a>"
+      "content_form_html": "Ihre persönlichen Daten werden verwendet, um Ihr Erlebnis auf dieser Website zu unterstützen, den Zugriff auf Ihr Konto zu verwalten und für andere in unserem beschriebene Zwecke <a href=\"{{ link }}\">Datenschutzrichtlinie.</a>"
     },
     "reset_password": {
       "title": "Kontopasswort zurücksetzen",
@@ -590,7 +594,7 @@
         "minimum_of": "Mindestens {{ quantity }}",
         "maximum_of": "Maximal {{ quantity }}",
         "multiples_of": "Inkremente von {{ quantity }}",
-        "in_cart_html": "<span class=\"quantity-cart\">{{ quantity }}<\/span> im Warenkorb"
+        "in_cart_html": "<span class=\"quantity-cart\">{{ quantity }}</span> im Warenkorb"
       },
       "countdown": {
         "days": "Tage",
@@ -617,14 +621,14 @@
         "view_store_info": "Shop-Informationen anzeigen",
         "check_other_stores": "Überprüfen Sie die Verfügbarkeit in anderen Geschäften",
         "pick_up_available": "Abholung möglich",
-        "pick_up_available_at_html": "Abholung möglich unter <span class=\"color-foreground bold heading-color\">{{ location_name }}. <\/span>",
-        "pick_up_unavailable_at_html": "Abholung derzeit nicht möglich unter <span class=\"color-foreground bold heading-color\">{{ location_name }}. <\/span>",
+        "pick_up_available_at_html": "Abholung möglich unter <span class=\"color-foreground bold heading-color\">{{ location_name }}. </span>",
+        "pick_up_unavailable_at_html": "Abholung derzeit nicht möglich unter <span class=\"color-foreground bold heading-color\">{{ location_name }}. </span>",
         "unavailable": "Abholverfügbarkeit konnte nicht geladen werden",
         "refresh": "Aktualisieren",
         "pickup_location": "Auf Google Map anzeigen",
         "address": "Adresse",
         "city": "Stadt",
-        "country": "Land\/Region",
+        "country": "Land/Region",
         "phone": "Telefon"
       },
       "model_size_title": {
@@ -632,7 +636,7 @@
         "model_height": "Höhe:",
         "model_weight": "Gewicht:",
         "model_shoulder_width": "Schulterbreite:",
-        "model_bust_waist_hips": "Brust\/Taille\/Hüfte:"
+        "model_bust_waist_hips": "Brust/Taille/Hüfte:"
       },
       "inventory_status": {
         "incoming": "Lagerbestand im Transit",
@@ -735,7 +739,7 @@
     "collection_template": {
       "empty": "Keine Produkte gefunden",
       "title": "Sammlung",
-      "use_fewer_filters_html": " Verwenden Sie weniger Filter oder <a class=\"{{ class }}\" href=\"{{ link }}\">alles entfernen<\/a>"
+      "use_fewer_filters_html": " Verwenden Sie weniger Filter oder <a class=\"{{ class }}\" href=\"{{ link }}\">alles entfernen</a>"
     },
     "shopable_video": {
       "countdown_message": "Beeil dich! "
@@ -782,5 +786,19 @@
     "purchased": "gekauft",
     "time_minutes": "vor Minuten",
     "product_name": "Glozin von Blueskytechco"
+  },
+  "lookbook_image": {
+    "show_product": "Show Products",
+    "hide_product": "Hide Products",
+    "lookbook_product": "Lookbook product"
+  },
+  "customer_accounts": {
+    "order_details": {
+      "payment": {
+        "manual_payment_methods": {
+          "bank_deposit": "Bank deposit: {{formattedTransactionAmount}}"
+        }
+      }
+    }
   }
 }

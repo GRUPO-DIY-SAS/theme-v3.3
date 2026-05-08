@@ -49,7 +49,7 @@
       "login_form_password_placeholder": "あなたのパスワード",
       "login_form_error": "パスワードが間違っています!",
       "login_form_submit": "入力",
-      "admin_link_html": "あなたは店のオーナーですか？ <a href=\"\/admin\" class=\"link underlined-link\">ここからログインしてください<\/a>",
+      "admin_link_html": "あなたは店のオーナーですか？ <a href=\"/admin\" class=\"link underlined-link\">ここからログインしてください</a>",
       "powered_by_shopify_html": "このショップは {{ shopify }}",
       "coming_soon": "近日公開"
     },
@@ -115,15 +115,15 @@
       "timeout_message": "もう時間がありません!",
       "countdown_message_html": "商品には限りがありますので、期限内にチェックアウトしてください",
       "countdown_cart_message_html": "急いでください！ {{ html }}",
-      "cart_thres1_html": "以上のご注文で送料無料 <span class=\"price\">{{ price }}<\/span>",
-      "cart_thres2_html": "過ごす <span class=\"price\">{{ price }}<\/span> もっと楽しむために <span class=\"subheading_weight primary-color\">送料無料！<\/span>",
-      "cart_thres3_html": "<span class=\"congratulations\">おめでとう！<\/span> 送料無料ですよ！",
-      "free_shipping": "過ごす <span class=\"price\">{{ amount }}<\/span> もっと楽しむために <span class=\"subheading_weight primary-color\">送料無料！<\/span>",
+      "cart_thres1_html": "以上のご注文で送料無料 <span class=\"price\">{{ price }}</span>",
+      "cart_thres2_html": "過ごす <span class=\"price\">{{ price }}</span> もっと楽しむために <span class=\"subheading_weight primary-color\">送料無料！</span>",
+      "cart_thres3_html": "<span class=\"congratulations\">おめでとう！</span> 送料無料ですよ！",
+      "free_shipping": "過ごす <span class=\"price\">{{ amount }}</span> もっと楽しむために <span class=\"subheading_weight primary-color\">送料無料！</span>",
       "free_shipping_avaiable": "おめでとう！",
       "terms_conditions_text": "利用規約",
-      "taxes_and_shipping_policy_at_checkout_html": "税金と <a href=\"{{ link }}\">配送<\/a> チェックアウト時に割引が計算されます",
+      "taxes_and_shipping_policy_at_checkout_html": "税金と <a href=\"{{ link }}\">配送</a> チェックアウト時に割引が計算されます",
       "taxes_included_but_shipping_at_checkout": "税込み、送料はチェックアウト時に計算されます",
-      "taxes_included_and_shipping_policy_html": "税込。 <a href=\"{{ link }}\">配送<\/a> チェックアウト時に割引が計算されます。",
+      "taxes_included_and_shipping_policy_html": "税込。 <a href=\"{{ link }}\">配送</a> チェックアウト時に割引が計算されます。",
       "taxes_and_shipping_at_checkout": "税金と送料はチェックアウト時に計算されます。",
       "return_shop": "買い物を続ける",
       "remove": "この項目を削除します",
@@ -142,7 +142,7 @@
       },
       "gift": {
         "title": "ギフトの追加",
-        "gift_wrap_html": "商品は丁寧に梱包してください。 <span class=\"price heading-style\">{{ price }}<\/span>。 ",
+        "gift_wrap_html": "商品は丁寧に梱包してください。 <span class=\"price heading-style\">{{ price }}</span>。 ",
         "button_text": "ギフト包装を追加する"
       },
       "shipping": {
@@ -168,7 +168,11 @@
       },
       "login": {
         "title": "アカウントをお持ちですか?",
-        "paragraph_html": "<a href=\"{{ link }}\" class=\"link underlined-link\">ログイン<\/a> より早くチェックアウトするには。"
+        "paragraph_html": "<a href=\"{{ link }}\" class=\"link underlined-link\">ログイン</a> より早くチェックアウトするには。"
+      },
+      "shipping_protection": {
+        "title": "Shipping Protection",
+        "description": "Shield your order in transit. If it's damaged, lost, or stolen, we've got you covered."
       }
     },
     "page_cart": {
@@ -194,7 +198,7 @@
     "image_alt_default": "画像",
     "banner": "バナー",
     "view_all": "すべて見る",
-    "policies_html": "に同意します <a href=\"\/policies\/privacy-policy\" target=\"_blank\" title=\"Privacy Policy\"><strong>プライバシーポリシー<\/strong><\/a> ウェブサイトの。"
+    "policies_html": "に同意します <a href=\"/policies/privacy-policy\" target=\"_blank\" title=\"Privacy Policy\"><strong>プライバシーポリシー</strong></a> ウェブサイトの。"
   },
   "blogs": {
     "article": {
@@ -269,7 +273,7 @@
       "products": "製品",
       "tooltip": "検索",
       "no_products_found": "製品が見つかりませんでした",
-      "use_fewer_filters_html": "使用するフィルターを減らすか、 <a class=\"{{ class }}\" href=\"{{ link }}\">すべて削除する<\/a>",
+      "use_fewer_filters_html": "使用するフィルターを減らすか、 <a class=\"{{ class }}\" href=\"{{ link }}\">すべて削除する</a>",
       "results_with_count": {
         "one": "{{ count }} 結果",
         "other": "{{ count }} 結果"
@@ -281,8 +285,8 @@
       },
       "title_no_search": "検索",
       "title": "私たちのサイトを検索",
-      "search_for_html": "検索する \"<span class=\"heading-color\">{{ terms }}<\/span>」",
-      "search_empty_html": "検索に一致するものはありません。」<span>{{ terms }}<\/span>」",
+      "search_for_html": "検索する \"<span class=\"heading-color\">{{ terms }}</span>」",
+      "search_empty_html": "検索に一致するものはありません。」<span>{{ terms }}</span>」",
       "suggestions": "提案",
       "pages": "ページ",
       "article": "記事"
@@ -398,7 +402,7 @@
     },
     "log_in": "ログイン",
     "log_out": "ログアウト",
-    "login_menu_mobile": "ログイン\/登録",
+    "login_menu_mobile": "ログイン/登録",
     "login_page": {
       "cancel": "キャンセル",
       "create_account": "アカウントを作成する",
@@ -468,7 +472,7 @@
       "submit": "アカウントを作成する",
       "title_content": "新規顧客",
       "content": "早期セールへのアクセスに加え、カスタマイズされた新着商品、トレンド、プロモーションにサインアップしてください。",
-      "content_form_html": "あなたの個人データは、この Web サイト全体でのエクスペリエンスをサポートするため、アカウントへのアクセスを管理するため、および当社の説明に記載されているその他の目的のために使用されます。 <a href=\"{{ link }}\">プライバシーポリシー。<\/a>"
+      "content_form_html": "あなたの個人データは、この Web サイト全体でのエクスペリエンスをサポートするため、アカウントへのアクセスを管理するため、および当社の説明に記載されているその他の目的のために使用されます。 <a href=\"{{ link }}\">プライバシーポリシー。</a>"
     },
     "reset_password": {
       "title": "アカウントのパスワードをリセットする",
@@ -590,7 +594,7 @@
         "minimum_of": "最小値 {{ quantity }}",
         "maximum_of": "最大値 {{ quantity }}",
         "multiples_of": "の増分 {{ quantity }}",
-        "in_cart_html": "<span class=\"quantity-cart\">{{ quantity }}<\/span> カート内"
+        "in_cart_html": "<span class=\"quantity-cart\">{{ quantity }}</span> カート内"
       },
       "countdown": {
         "days": "日",
@@ -617,8 +621,8 @@
         "view_store_info": "店舗情報を見る",
         "check_other_stores": "他店舗の在庫状況を確認する",
         "pick_up_available": "送迎可能",
-        "pick_up_available_at_html": "受け取り可能場所 <span class=\"color-foreground bold heading-color\">{{ location_name }}。 <\/span>",
-        "pick_up_unavailable_at_html": "現在、次の場所での受け取りはできません <span class=\"color-foreground bold heading-color\">{{ location_name }}。 <\/span>",
+        "pick_up_available_at_html": "受け取り可能場所 <span class=\"color-foreground bold heading-color\">{{ location_name }}。 </span>",
+        "pick_up_unavailable_at_html": "現在、次の場所での受け取りはできません <span class=\"color-foreground bold heading-color\">{{ location_name }}。 </span>",
         "unavailable": "受け取り可能状況を読み込めませんでした",
         "refresh": "リフレッシュ",
         "pickup_location": "グーグルマップで表示",
@@ -632,7 +636,7 @@
         "model_height": "身長：",
         "model_weight": "重さ：",
         "model_shoulder_width": "肩幅：",
-        "model_bust_waist_hips": "バスト\/ウエスト\/ヒップ:"
+        "model_bust_waist_hips": "バスト/ウエスト/ヒップ:"
       },
       "inventory_status": {
         "incoming": "輸送中の在庫",
@@ -735,7 +739,7 @@
     "collection_template": {
       "empty": "製品が見つかりませんでした",
       "title": "コレクション",
-      "use_fewer_filters_html": " 使用するフィルターを減らすか、 <a class=\"{{ class }}\" href=\"{{ link }}\">すべて削除する<\/a>"
+      "use_fewer_filters_html": " 使用するフィルターを減らすか、 <a class=\"{{ class }}\" href=\"{{ link }}\">すべて削除する</a>"
     },
     "shopable_video": {
       "countdown_message": "急いで！"
@@ -782,5 +786,19 @@
     "purchased": "購入した",
     "time_minutes": "数分前",
     "product_name": "グロジン by Blueskytechco"
+  },
+  "lookbook_image": {
+    "show_product": "Show Products",
+    "hide_product": "Hide Products",
+    "lookbook_product": "Lookbook product"
+  },
+  "customer_accounts": {
+    "order_details": {
+      "payment": {
+        "manual_payment_methods": {
+          "bank_deposit": "Bank deposit: {{formattedTransactionAmount}}"
+        }
+      }
+    }
   }
 }

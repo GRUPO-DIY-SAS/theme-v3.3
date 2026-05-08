@@ -49,7 +49,7 @@
       "login_form_password_placeholder": "Şifreniz",
       "login_form_error": "Yanlış şifre!",
       "login_form_submit": "Girmek",
-      "admin_link_html": "Mağaza sahibi misiniz? <a href=\"\/admin\" class=\"link underlined-link\">Buradan giriş yapın<\/a>",
+      "admin_link_html": "Mağaza sahibi misiniz? <a href=\"/admin\" class=\"link underlined-link\">Buradan giriş yapın</a>",
       "powered_by_shopify_html": "Bu mağaza tarafından desteklenecek {{ shopify }}",
       "coming_soon": "Yakında gelecek"
     },
@@ -115,15 +115,15 @@
       "timeout_message": "Zamanınız doldu! ",
       "countdown_message_html": "Ürünler sınırlıdır, ödeme süresi içinde",
       "countdown_cart_message_html": "Lütfen acele edin!  {{ html }}",
-      "cart_thres1_html": "üzeri tüm siparişlerde Ücretsiz Kargo <span class=\"price\">{{ price }}<\/span>",
-      "cart_thres2_html": "Harcamak <span class=\"price\">{{ price }}<\/span> daha fazla keyif almak <span class=\"subheading_weight primary-color\">Ücretsiz kargo!<\/span>",
-      "cart_thres3_html": "<span class=\"congratulations\">Tebrikler!<\/span> Ücretsiz kargo fırsatınız var!",
-      "free_shipping": "Harcamak <span class=\"price\">{{ amount }}<\/span> daha fazla keyif almak <span class=\"subheading_weight primary-color\">Ücretsiz kargo!<\/span>",
+      "cart_thres1_html": "üzeri tüm siparişlerde Ücretsiz Kargo <span class=\"price\">{{ price }}</span>",
+      "cart_thres2_html": "Harcamak <span class=\"price\">{{ price }}</span> daha fazla keyif almak <span class=\"subheading_weight primary-color\">Ücretsiz kargo!</span>",
+      "cart_thres3_html": "<span class=\"congratulations\">Tebrikler!</span> Ücretsiz kargo fırsatınız var!",
+      "free_shipping": "Harcamak <span class=\"price\">{{ amount }}</span> daha fazla keyif almak <span class=\"subheading_weight primary-color\">Ücretsiz kargo!</span>",
       "free_shipping_avaiable": "Tebrikler! ",
       "terms_conditions_text": "Hizmet Şartları",
-      "taxes_and_shipping_policy_at_checkout_html": "Vergiler ve <a href=\"{{ link }}\">Nakliye<\/a> ve ödeme sırasında hesaplanan indirimler",
+      "taxes_and_shipping_policy_at_checkout_html": "Vergiler ve <a href=\"{{ link }}\">Nakliye</a> ve ödeme sırasında hesaplanan indirimler",
       "taxes_included_but_shipping_at_checkout": "Vergi dahildir ve gönderim bedeli ödeme sırasında hesaplanır",
-      "taxes_included_and_shipping_policy_html": "Vergi dahil. <a href=\"{{ link }}\">Nakliye<\/a> ve ödeme sırasında hesaplanan indirimler.",
+      "taxes_included_and_shipping_policy_html": "Vergi dahil. <a href=\"{{ link }}\">Nakliye</a> ve ödeme sırasında hesaplanan indirimler.",
       "taxes_and_shipping_at_checkout": "Ödeme sırasında hesaplanan vergiler ve gönderim bedeli.",
       "return_shop": "Alışverişe Devam Et",
       "remove": "Bu öğeyi kaldır",
@@ -142,7 +142,7 @@
       },
       "gift": {
         "title": "Hediye Ekle",
-        "gift_wrap_html": "Lütfen ürünü dikkatlice sarın.  <span class=\"price heading-style\">{{ price }}<\/span>. ",
+        "gift_wrap_html": "Lütfen ürünü dikkatlice sarın.  <span class=\"price heading-style\">{{ price }}</span>. ",
         "button_text": "Hediye Paketi Ekle"
       },
       "shipping": {
@@ -168,7 +168,11 @@
       },
       "login": {
         "title": "Hesabınız var mı?",
-        "paragraph_html": "<a href=\"{{ link }}\" class=\"link underlined-link\">Giriş yapmak<\/a> Daha hızlı kontrol etmek için."
+        "paragraph_html": "<a href=\"{{ link }}\" class=\"link underlined-link\">Giriş yapmak</a> Daha hızlı kontrol etmek için."
+      },
+      "shipping_protection": {
+        "title": "Shipping Protection",
+        "description": "Shield your order in transit. If it's damaged, lost, or stolen, we've got you covered."
       }
     },
     "page_cart": {
@@ -194,7 +198,7 @@
     "image_alt_default": "İmaj",
     "banner": "Afiş",
     "view_all": "Tümünü Görüntüle",
-    "policies_html": "katılıyorum <a href=\"\/policies\/privacy-policy\" target=\"_blank\" title=\"Privacy Policy\"><strong>Gizlilik Politikası<\/strong><\/a> web sitesinin."
+    "policies_html": "katılıyorum <a href=\"/policies/privacy-policy\" target=\"_blank\" title=\"Privacy Policy\"><strong>Gizlilik Politikası</strong></a> web sitesinin."
   },
   "blogs": {
     "article": {
@@ -269,7 +273,7 @@
       "products": "Ürünler",
       "tooltip": "Aramak",
       "no_products_found": "Ürün bulunamadı",
-      "use_fewer_filters_html": "Daha az filtre kullanın veya <a class=\"{{ class }}\" href=\"{{ link }}\">hepsini kaldır<\/a>",
+      "use_fewer_filters_html": "Daha az filtre kullanın veya <a class=\"{{ class }}\" href=\"{{ link }}\">hepsini kaldır</a>",
       "results_with_count": {
         "one": "{{ count }} sonuç",
         "other": "{{ count }} sonuçlar"
@@ -281,8 +285,8 @@
       },
       "title_no_search": "Aramak",
       "title": "Sitemizde Arayın",
-      "search_for_html": "“ için ara<span class=\"heading-color\">{{ terms }}<\/span>”",
-      "search_empty_html": "Aramanızla eşleşen hiçbir şey yok \"<span>{{ terms }}<\/span>”",
+      "search_for_html": "“ için ara<span class=\"heading-color\">{{ terms }}</span>”",
+      "search_empty_html": "Aramanızla eşleşen hiçbir şey yok \"<span>{{ terms }}</span>”",
       "suggestions": "Öneriler",
       "pages": "Sayfa",
       "article": "Madde"
@@ -382,9 +386,9 @@
       "address1": "Adres 1",
       "address2": "Adres 2",
       "city": "Şehir",
-      "country": "Ülke\/bölge",
+      "country": "Ülke/bölge",
       "province": "Vilayet",
-      "zip": "Posta\/Posta kodu",
+      "zip": "Posta/Posta kodu",
       "phone": "Telefon",
       "set_default": "Varsayılan adres olarak ayarla",
       "add": "Adres ekle",
@@ -398,7 +402,7 @@
     },
     "log_in": "Giriş yapmak",
     "log_out": "Oturumu Kapat",
-    "login_menu_mobile": "Giriş yap \/ Kayıt ol",
+    "login_menu_mobile": "Giriş yap / Kayıt ol",
     "login_page": {
       "cancel": "İptal etmek",
       "create_account": "Hesap oluşturmak",
@@ -468,7 +472,7 @@
       "submit": "Hesap oluşturmak",
       "title_content": "Yeni Müşteri",
       "content": "Erken İndirim erişiminin yanı sıra size özel yeni ürünler, trendler ve promosyonlar için kaydolun. ",
-      "content_form_html": "Kişisel verileriniz bu web sitesindeki deneyiminizi desteklemek, hesabınıza erişimi yönetmek ve Şartnamemizde açıklanan diğer amaçlar için kullanılacaktır. <a href=\"{{ link }}\">gizlilik politikası.<\/a>"
+      "content_form_html": "Kişisel verileriniz bu web sitesindeki deneyiminizi desteklemek, hesabınıza erişimi yönetmek ve Şartnamemizde açıklanan diğer amaçlar için kullanılacaktır. <a href=\"{{ link }}\">gizlilik politikası.</a>"
     },
     "reset_password": {
       "title": "Hesap şifresini sıfırla",
@@ -590,7 +594,7 @@
         "minimum_of": "Minimum {{ quantity }}",
         "maximum_of": "Maksimum {{ quantity }}",
         "multiples_of": "Artışlar {{ quantity }}",
-        "in_cart_html": "<span class=\"quantity-cart\">{{ quantity }}<\/span> sepette"
+        "in_cart_html": "<span class=\"quantity-cart\">{{ quantity }}</span> sepette"
       },
       "countdown": {
         "days": "günler",
@@ -617,14 +621,14 @@
         "view_store_info": "Mağaza bilgilerini görüntüle",
         "check_other_stores": "Diğer mağazalardaki stok durumunu kontrol edin",
         "pick_up_available": "Teslim alma mevcut",
-        "pick_up_available_at_html": "Teslim alma şu adreste mevcuttur: <span class=\"color-foreground bold heading-color\">{{ location_name }}. <\/span>",
-        "pick_up_unavailable_at_html": "Teslim alma şu anda mevcut değil <span class=\"color-foreground bold heading-color\">{{ location_name }}. <\/span>",
+        "pick_up_available_at_html": "Teslim alma şu adreste mevcuttur: <span class=\"color-foreground bold heading-color\">{{ location_name }}. </span>",
+        "pick_up_unavailable_at_html": "Teslim alma şu anda mevcut değil <span class=\"color-foreground bold heading-color\">{{ location_name }}. </span>",
         "unavailable": "Teslim alma kullanılabilirliği yüklenemedi",
         "refresh": "Yenile",
         "pickup_location": "Google haritasında göster",
         "address": "Adres",
         "city": "Şehir",
-        "country": "Ülke\/bölge",
+        "country": "Ülke/bölge",
         "phone": "Telefon"
       },
       "model_size_title": {
@@ -632,7 +636,7 @@
         "model_height": "Yükseklik:",
         "model_weight": "Ağırlık:",
         "model_shoulder_width": "Omuz genişliği:",
-        "model_bust_waist_hips": "Göğüs\/bel\/kalça:"
+        "model_bust_waist_hips": "Göğüs/bel/kalça:"
       },
       "inventory_status": {
         "incoming": "Taşıma halindeki stok",
@@ -735,7 +739,7 @@
     "collection_template": {
       "empty": "Ürün bulunamadı",
       "title": "Koleksiyon",
-      "use_fewer_filters_html": " Daha az filtre kullanın veya <a class=\"{{ class }}\" href=\"{{ link }}\">hepsini kaldır<\/a>"
+      "use_fewer_filters_html": " Daha az filtre kullanın veya <a class=\"{{ class }}\" href=\"{{ link }}\">hepsini kaldır</a>"
     },
     "shopable_video": {
       "countdown_message": "Acele etmek! "
@@ -782,5 +786,19 @@
     "purchased": "satın alındı",
     "time_minutes": "dakika önce",
     "product_name": "Blueskytechco'dan Glozin"
+  },
+  "lookbook_image": {
+    "show_product": "Show Products",
+    "hide_product": "Hide Products",
+    "lookbook_product": "Lookbook product"
+  },
+  "customer_accounts": {
+    "order_details": {
+      "payment": {
+        "manual_payment_methods": {
+          "bank_deposit": "Bank deposit: {{formattedTransactionAmount}}"
+        }
+      }
+    }
   }
 }

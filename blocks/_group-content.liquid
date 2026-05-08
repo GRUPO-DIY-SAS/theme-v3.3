@@ -19,7 +19,6 @@
   assign items_per_row_mobile = section_st.items_per_row_mobile
   assign column_gap = section_st.column_gap
   assign media_type = block_st.media_type | default: 'image'
-  assign content_type = block_st.content_type
 %}
 <div
   class="{% if section_st.equal_height_adjustment == false %} align-self-{{ section_st.vertical_align }}{% endif %} {% if block_st.collection.products.size > 0 %}background-block {% endif %}section__block {{ theme_st.hover_effect }} {{ w_mobile }} col-md-w-custom {% if block_st.content_width == '20%' or block_st.content_width == '25%' or block_st.content_width == '66.6666%' or block_st.content_width == '75%' or block_st.content_width == '80%' %} col-md-w-custom-50{% endif %}"

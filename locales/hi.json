@@ -49,7 +49,7 @@
       "login_form_password_placeholder": "आपका पासवर्ड",
       "login_form_error": "ग़लत पासवर्ड!",
       "login_form_submit": "प्रवेश करना",
-      "admin_link_html": "क्या आप स्टोर के मालिक हैं? <a href=\"\/admin\" class=\"link underlined-link\">यहां लॉगिन करें<\/a>",
+      "admin_link_html": "क्या आप स्टोर के मालिक हैं? <a href=\"/admin\" class=\"link underlined-link\">यहां लॉगिन करें</a>",
       "powered_by_shopify_html": "इस दुकान को संचालित किया जाएगा {{ shopify }}",
       "coming_soon": "जल्द आ रहा है"
     },
@@ -115,15 +115,15 @@
       "timeout_message": "आपका समय ख़त्म हो गया है! ",
       "countdown_message_html": "उत्पाद सीमित हैं, चेकआउट करें",
       "countdown_cart_message_html": "कृपया जल्दी कीजिए!  {{ html }}",
-      "cart_thres1_html": "सभी ऑर्डरों के लिए मुफ़्त शिपिंग <span class=\"price\">{{ price }}<\/span>",
-      "cart_thres2_html": "खर्च करना <span class=\"price\">{{ price }}<\/span> आनंद लेने के लिए और अधिक <span class=\"subheading_weight primary-color\">मुफ़्त शिपिंग!<\/span>",
-      "cart_thres3_html": "<span class=\"congratulations\">बधाई हो!<\/span> आपको मुफ़्त शिपिंग मिल गई है!",
-      "free_shipping": "खर्च करना <span class=\"price\">{{ amount }}<\/span> आनंद लेने के लिए और अधिक <span class=\"subheading_weight primary-color\">मुफ़्त शिपिंग!<\/span>",
+      "cart_thres1_html": "सभी ऑर्डरों के लिए मुफ़्त शिपिंग <span class=\"price\">{{ price }}</span>",
+      "cart_thres2_html": "खर्च करना <span class=\"price\">{{ price }}</span> आनंद लेने के लिए और अधिक <span class=\"subheading_weight primary-color\">मुफ़्त शिपिंग!</span>",
+      "cart_thres3_html": "<span class=\"congratulations\">बधाई हो!</span> आपको मुफ़्त शिपिंग मिल गई है!",
+      "free_shipping": "खर्च करना <span class=\"price\">{{ amount }}</span> आनंद लेने के लिए और अधिक <span class=\"subheading_weight primary-color\">मुफ़्त शिपिंग!</span>",
       "free_shipping_avaiable": "बधाई हो! ",
       "terms_conditions_text": "सेवा की शर्तें",
-      "taxes_and_shipping_policy_at_checkout_html": "कर और <a href=\"{{ link }}\">शिपिंग<\/a> और चेकआउट पर छूट की गणना की गई",
+      "taxes_and_shipping_policy_at_checkout_html": "कर और <a href=\"{{ link }}\">शिपिंग</a> और चेकआउट पर छूट की गणना की गई",
       "taxes_included_but_shipping_at_checkout": "कर शामिल है और शिपिंग की गणना चेकआउट के समय की जाती है",
-      "taxes_included_and_shipping_policy_html": "टैक्स शामिल। <a href=\"{{ link }}\">शिपिंग<\/a> और चेकआउट पर छूट की गणना की गई।",
+      "taxes_included_and_shipping_policy_html": "टैक्स शामिल। <a href=\"{{ link }}\">शिपिंग</a> और चेकआउट पर छूट की गणना की गई।",
       "taxes_and_shipping_at_checkout": "चेकआउट पर कर और शिपिंग की गणना की जाती है।",
       "return_shop": "खरीदारी जारी रखें",
       "remove": "इस वस्तु को हटा दें",
@@ -142,7 +142,7 @@
       },
       "gift": {
         "title": "उपहार जोड़ें",
-        "gift_wrap_html": "कृपया उत्पाद को सावधानीपूर्वक लपेटें।  <span class=\"price heading-style\">{{ price }}<\/span>. ",
+        "gift_wrap_html": "कृपया उत्पाद को सावधानीपूर्वक लपेटें।  <span class=\"price heading-style\">{{ price }}</span>. ",
         "button_text": "एक उपहार लपेटें जोड़ें"
       },
       "shipping": {
@@ -168,7 +168,11 @@
       },
       "login": {
         "title": "एक खाता है?",
-        "paragraph_html": "<a href=\"{{ link }}\" class=\"link underlined-link\">लॉग इन करें<\/a> तेजी से जांच करने के लिए."
+        "paragraph_html": "<a href=\"{{ link }}\" class=\"link underlined-link\">लॉग इन करें</a> तेजी से जांच करने के लिए."
+      },
+      "shipping_protection": {
+        "title": "Shipping Protection",
+        "description": "Shield your order in transit. If it's damaged, lost, or stolen, we've got you covered."
       }
     },
     "page_cart": {
@@ -194,7 +198,7 @@
     "image_alt_default": "छवि",
     "banner": "बैनर",
     "view_all": "सभी को देखें",
-    "policies_html": "मैं करने के लिए सहमत हूं <a href=\"\/policies\/privacy-policy\" target=\"_blank\" title=\"Privacy Policy\"><strong>गोपनीयता नीति<\/strong><\/a> वेबसाइट का."
+    "policies_html": "मैं करने के लिए सहमत हूं <a href=\"/policies/privacy-policy\" target=\"_blank\" title=\"Privacy Policy\"><strong>गोपनीयता नीति</strong></a> वेबसाइट का."
   },
   "blogs": {
     "article": {
@@ -269,7 +273,7 @@
       "products": "उत्पादों",
       "tooltip": "खोज",
       "no_products_found": "कोई उत्पाद नहीं मिला",
-      "use_fewer_filters_html": "कम फ़िल्टर का उपयोग करें या <a class=\"{{ class }}\" href=\"{{ link }}\">सभी हटाएं<\/a>",
+      "use_fewer_filters_html": "कम फ़िल्टर का उपयोग करें या <a class=\"{{ class }}\" href=\"{{ link }}\">सभी हटाएं</a>",
       "results_with_count": {
         "one": "{{ count }} परिणाम",
         "other": "{{ count }} परिणाम"
@@ -281,8 +285,8 @@
       },
       "title_no_search": "खोज",
       "title": "हमारी साइट खोजें",
-      "search_for_html": "निम्न को खोजें \"<span class=\"heading-color\">{{ terms }}<\/span>”",
-      "search_empty_html": "आपकी खोज से कुछ भी मेल नहीं खाता\"<span>{{ terms }}<\/span>”",
+      "search_for_html": "निम्न को खोजें \"<span class=\"heading-color\">{{ terms }}</span>”",
+      "search_empty_html": "आपकी खोज से कुछ भी मेल नहीं खाता\"<span>{{ terms }}</span>”",
       "suggestions": "सुझाव",
       "pages": "पेज",
       "article": "लेख"
@@ -382,9 +386,9 @@
       "address1": "पता 1",
       "address2": "पता 2",
       "city": "शहर",
-      "country": "देश\/क्षेत्र",
+      "country": "देश/क्षेत्र",
       "province": "प्रांत",
-      "zip": "डाक का \/ ज़िप कोड",
+      "zip": "डाक का / ज़िप कोड",
       "phone": "फ़ोन",
       "set_default": "डिफ़ॉल्ट पते के रूप में सेट करें",
       "add": "पता जोड़ें",
@@ -398,7 +402,7 @@
     },
     "log_in": "लॉग इन करें",
     "log_out": "लॉग आउट",
-    "login_menu_mobile": "लॉगइन\/रजिस्टर करें",
+    "login_menu_mobile": "लॉगइन/रजिस्टर करें",
     "login_page": {
       "cancel": "रद्द करना",
       "create_account": "खाता बनाएं",
@@ -468,7 +472,7 @@
       "submit": "खाता बनाएं",
       "title_content": "नया ग्राहक",
       "content": "प्रारंभिक बिक्री पहुंच के साथ-साथ नए आगमन, रुझानों और प्रचारों के लिए साइन अप करें। ",
-      "content_form_html": "आपके व्यक्तिगत डेटा का उपयोग इस वेबसाइट पर आपके अनुभव का समर्थन करने, आपके खाते तक पहुंच प्रबंधित करने और हमारे में वर्णित अन्य उद्देश्यों के लिए किया जाएगा <a href=\"{{ link }}\">गोपनीयता नीति।<\/a>"
+      "content_form_html": "आपके व्यक्तिगत डेटा का उपयोग इस वेबसाइट पर आपके अनुभव का समर्थन करने, आपके खाते तक पहुंच प्रबंधित करने और हमारे में वर्णित अन्य उद्देश्यों के लिए किया जाएगा <a href=\"{{ link }}\">गोपनीयता नीति।</a>"
     },
     "reset_password": {
       "title": "खाता पासवर्ड रीसेट करें",
@@ -590,7 +594,7 @@
         "minimum_of": "न्यूनतम {{ quantity }}",
         "maximum_of": "अधिकतम {{ quantity }}",
         "multiples_of": "की वृद्धि {{ quantity }}",
-        "in_cart_html": "<span class=\"quantity-cart\">{{ quantity }}<\/span> गाड़ी में"
+        "in_cart_html": "<span class=\"quantity-cart\">{{ quantity }}</span> गाड़ी में"
       },
       "countdown": {
         "days": "दिन",
@@ -617,14 +621,14 @@
         "view_store_info": "स्टोर जानकारी देखें",
         "check_other_stores": "अन्य दुकानों पर उपलब्धता की जाँच करें",
         "pick_up_available": "पिकअप उपलब्ध है",
-        "pick_up_available_at_html": "पिकअप यहां उपलब्ध है <span class=\"color-foreground bold heading-color\">{{ location_name }}. <\/span>",
-        "pick_up_unavailable_at_html": "पिकअप फिलहाल अनुपलब्ध है <span class=\"color-foreground bold heading-color\">{{ location_name }}. <\/span>",
+        "pick_up_available_at_html": "पिकअप यहां उपलब्ध है <span class=\"color-foreground bold heading-color\">{{ location_name }}. </span>",
+        "pick_up_unavailable_at_html": "पिकअप फिलहाल अनुपलब्ध है <span class=\"color-foreground bold heading-color\">{{ location_name }}. </span>",
         "unavailable": "पिकअप उपलब्धता लोड नहीं की जा सकी",
         "refresh": "ताज़ा करना",
         "pickup_location": "गूगल मैप पर दिखाओ",
         "address": "पता",
         "city": "शहर",
-        "country": "देश\/क्षेत्र",
+        "country": "देश/क्षेत्र",
         "phone": "फ़ोन"
       },
       "model_size_title": {
@@ -735,7 +739,7 @@
     "collection_template": {
       "empty": "कोई उत्पाद नहीं मिला",
       "title": "संग्रह",
-      "use_fewer_filters_html": " कम फ़िल्टर का उपयोग करें या <a class=\"{{ class }}\" href=\"{{ link }}\">सभी हटाएं<\/a>"
+      "use_fewer_filters_html": " कम फ़िल्टर का उपयोग करें या <a class=\"{{ class }}\" href=\"{{ link }}\">सभी हटाएं</a>"
     },
     "shopable_video": {
       "countdown_message": "जल्दी करो! "
@@ -782,5 +786,19 @@
     "purchased": "खरीदा",
     "time_minutes": "कुछ मिनट पहले",
     "product_name": "ब्लूस्कीटेक्को द्वारा ग्लोज़िन"
+  },
+  "lookbook_image": {
+    "show_product": "Show Products",
+    "hide_product": "Hide Products",
+    "lookbook_product": "Lookbook product"
+  },
+  "customer_accounts": {
+    "order_details": {
+      "payment": {
+        "manual_payment_methods": {
+          "bank_deposit": "Bank deposit: {{formattedTransactionAmount}}"
+        }
+      }
+    }
   }
 }

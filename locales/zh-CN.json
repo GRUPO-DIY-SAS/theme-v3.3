@@ -49,7 +49,7 @@
       "login_form_password_placeholder": "您的密码",
       "login_form_error": "密码错误！",
       "login_form_submit": "进入",
-      "admin_link_html": "您是店主吗？ <a href=\"\/admin\" class=\"link underlined-link\">在此登录<\/a>",
+      "admin_link_html": "您是店主吗？ <a href=\"/admin\" class=\"link underlined-link\">在此登录</a>",
       "powered_by_shopify_html": "本店将由 {{ shopify }}",
       "coming_soon": "即将推出"
     },
@@ -115,15 +115,15 @@
       "timeout_message": "你没时间了！",
       "countdown_message_html": "产品数量有限，请于内结帐",
       "countdown_cart_message_html": "请快点！ {{ html }}",
-      "cart_thres1_html": "所有订单满则免运费 <span class=\"price\">{{ price }}<\/span>",
-      "cart_thres2_html": "花费 <span class=\"price\">{{ price }}<\/span> 更多享受 <span class=\"subheading_weight primary-color\">免运费！<\/span>",
-      "cart_thres3_html": "<span class=\"congratulations\">恭喜！<\/span> 您可以享受免费送货服务！",
-      "free_shipping": "花费 <span class=\"price\">{{ amount }}<\/span> 更多享受 <span class=\"subheading_weight primary-color\">免运费！<\/span>",
+      "cart_thres1_html": "所有订单满则免运费 <span class=\"price\">{{ price }}</span>",
+      "cart_thres2_html": "花费 <span class=\"price\">{{ price }}</span> 更多享受 <span class=\"subheading_weight primary-color\">免运费！</span>",
+      "cart_thres3_html": "<span class=\"congratulations\">恭喜！</span> 您可以享受免费送货服务！",
+      "free_shipping": "花费 <span class=\"price\">{{ amount }}</span> 更多享受 <span class=\"subheading_weight primary-color\">免运费！</span>",
       "free_shipping_avaiable": "恭喜！",
       "terms_conditions_text": "服务条款",
-      "taxes_and_shipping_policy_at_checkout_html": "税收和 <a href=\"{{ link }}\">船运<\/a> 以及结帐时计算的折扣",
+      "taxes_and_shipping_policy_at_checkout_html": "税收和 <a href=\"{{ link }}\">船运</a> 以及结帐时计算的折扣",
       "taxes_included_but_shipping_at_checkout": "含税和运费在结账时计算",
-      "taxes_included_and_shipping_policy_html": "含税。 <a href=\"{{ link }}\">船运<\/a> 以及结帐时计算的折扣。",
+      "taxes_included_and_shipping_policy_html": "含税。 <a href=\"{{ link }}\">船运</a> 以及结帐时计算的折扣。",
       "taxes_and_shipping_at_checkout": "税费和运费在结账时计算。",
       "return_shop": "继续购物",
       "remove": "删除此项目",
@@ -142,7 +142,7 @@
       },
       "gift": {
         "title": "添加礼物",
-        "gift_wrap_html": "请仔细包裹产品。 <span class=\"price heading-style\">{{ price }}<\/span>。 ",
+        "gift_wrap_html": "请仔细包裹产品。 <span class=\"price heading-style\">{{ price }}</span>。 ",
         "button_text": "添加礼品包装"
       },
       "shipping": {
@@ -168,7 +168,11 @@
       },
       "login": {
         "title": "有帐户吗？",
-        "paragraph_html": "<a href=\"{{ link }}\" class=\"link underlined-link\">登录<\/a> 以便更快地结帐。"
+        "paragraph_html": "<a href=\"{{ link }}\" class=\"link underlined-link\">登录</a> 以便更快地结帐。"
+      },
+      "shipping_protection": {
+        "title": "Shipping Protection",
+        "description": "Shield your order in transit. If it's damaged, lost, or stolen, we've got you covered."
       }
     },
     "page_cart": {
@@ -194,7 +198,7 @@
     "image_alt_default": "图像",
     "banner": "横幅",
     "view_all": "查看全部",
-    "policies_html": "我同意 <a href=\"\/policies\/privacy-policy\" target=\"_blank\" title=\"Privacy Policy\"><strong>隐私政策<\/strong><\/a> 网站的。"
+    "policies_html": "我同意 <a href=\"/policies/privacy-policy\" target=\"_blank\" title=\"Privacy Policy\"><strong>隐私政策</strong></a> 网站的。"
   },
   "blogs": {
     "article": {
@@ -269,7 +273,7 @@
       "products": "产品",
       "tooltip": "搜索",
       "no_products_found": "没有找到产品",
-      "use_fewer_filters_html": "使用更少的过滤器或 <a class=\"{{ class }}\" href=\"{{ link }}\">全部删除<\/a>",
+      "use_fewer_filters_html": "使用更少的过滤器或 <a class=\"{{ class }}\" href=\"{{ link }}\">全部删除</a>",
       "results_with_count": {
         "one": "{{ count }} 结果",
         "other": "{{ count }} 结果"
@@ -281,8 +285,8 @@
       },
       "title_no_search": "搜索",
       "title": "搜索我们的网站",
-      "search_for_html": "搜索“<span class=\"heading-color\">{{ terms }}<\/span>”",
-      "search_empty_html": "没有符合您的搜索“<span>{{ terms }}<\/span>”",
+      "search_for_html": "搜索“<span class=\"heading-color\">{{ terms }}</span>”",
+      "search_empty_html": "没有符合您的搜索“<span>{{ terms }}</span>”",
       "suggestions": "建议",
       "pages": "页",
       "article": "文章"
@@ -382,7 +386,7 @@
       "address1": "地址1",
       "address2": "地址2",
       "city": "城市",
-      "country": "国家\/地区",
+      "country": "国家/地区",
       "province": "省",
       "zip": "邮政编码",
       "phone": "电话",
@@ -398,7 +402,7 @@
     },
     "log_in": "登录",
     "log_out": "退出",
-    "login_menu_mobile": "登录\/注册",
+    "login_menu_mobile": "登录/注册",
     "login_page": {
       "cancel": "取消",
       "create_account": "创建账户",
@@ -468,7 +472,7 @@
       "submit": "创建账户",
       "title_content": "新客户",
       "content": "报名参加早期促销活动以及量身定制的新品、趋势和促销活动。",
-      "content_form_html": "您的个人数据将用于支持您在本网站上的体验、管理对您帐户的访问以及我们中描述的其他目的 <a href=\"{{ link }}\">隐私政策。<\/a>"
+      "content_form_html": "您的个人数据将用于支持您在本网站上的体验、管理对您帐户的访问以及我们中描述的其他目的 <a href=\"{{ link }}\">隐私政策。</a>"
     },
     "reset_password": {
       "title": "重置账户密码",
@@ -590,7 +594,7 @@
         "minimum_of": "最少为 {{ quantity }}",
         "maximum_of": "最多为 {{ quantity }}",
         "multiples_of": "增量 {{ quantity }}",
-        "in_cart_html": "<span class=\"quantity-cart\">{{ quantity }}<\/span> 在购物车中"
+        "in_cart_html": "<span class=\"quantity-cart\">{{ quantity }}</span> 在购物车中"
       },
       "countdown": {
         "days": "天",
@@ -617,14 +621,14 @@
         "view_store_info": "查看店铺信息",
         "check_other_stores": "检查其他商店的库存状况",
         "pick_up_available": "提供接送服务",
-        "pick_up_available_at_html": "取货地点： <span class=\"color-foreground bold heading-color\">{{ location_name }}。 <\/span>",
-        "pick_up_unavailable_at_html": "目前无法取货 <span class=\"color-foreground bold heading-color\">{{ location_name }}。 <\/span>",
+        "pick_up_available_at_html": "取货地点： <span class=\"color-foreground bold heading-color\">{{ location_name }}。 </span>",
+        "pick_up_unavailable_at_html": "目前无法取货 <span class=\"color-foreground bold heading-color\">{{ location_name }}。 </span>",
         "unavailable": "无法加载取货情况",
         "refresh": "刷新",
         "pickup_location": "在谷歌地图上显示",
         "address": "地址",
         "city": "城市",
-        "country": "国家\/地区",
+        "country": "国家/地区",
         "phone": "电话"
       },
       "model_size_title": {
@@ -632,7 +636,7 @@
         "model_height": "高度：",
         "model_weight": "重量：",
         "model_shoulder_width": "肩宽：",
-        "model_bust_waist_hips": "胸围\/腰围\/臀围："
+        "model_bust_waist_hips": "胸围/腰围/臀围："
       },
       "inventory_status": {
         "incoming": "在途库存",
@@ -735,7 +739,7 @@
     "collection_template": {
       "empty": "没有找到产品",
       "title": "收藏",
-      "use_fewer_filters_html": " 使用更少的过滤器或 <a class=\"{{ class }}\" href=\"{{ link }}\">全部删除<\/a>"
+      "use_fewer_filters_html": " 使用更少的过滤器或 <a class=\"{{ class }}\" href=\"{{ link }}\">全部删除</a>"
     },
     "shopable_video": {
       "countdown_message": "赶快！"
@@ -782,5 +786,19 @@
     "purchased": "已购买",
     "time_minutes": "分钟前",
     "product_name": "Blueskytechco 的 Glozin"
+  },
+  "lookbook_image": {
+    "show_product": "Show Products",
+    "hide_product": "Hide Products",
+    "lookbook_product": "Lookbook product"
+  },
+  "customer_accounts": {
+    "order_details": {
+      "payment": {
+        "manual_payment_methods": {
+          "bank_deposit": "Bank deposit: {{formattedTransactionAmount}}"
+        }
+      }
+    }
   }
 }

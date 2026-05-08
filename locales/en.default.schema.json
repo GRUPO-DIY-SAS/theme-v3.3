@@ -4,7 +4,7 @@
       "name": "Purchase code",
       "info": "Do not forget to click to Save button!",
       "how_to_get": {
-        "content": "[Where is my purchase code?](https:\/\/help.market.envato.com\/hc\/en-us\/articles\/202822600-Where-Is-My-Purchase-Code-)"
+        "content": "[Where is my purchase code?](https://help.market.envato.com/hc/en-us/articles/202822600-Where-Is-My-Purchase-Code-)"
       },
       "buy_now": {
         "content": "[Buy Glozin license!](xx)"
@@ -109,7 +109,7 @@
         "font_google": {
           "heading": "Google font",
           "label": "Google font name",
-          "info": "[Get google fonts](https:\/\/fonts.google.com\/)",
+          "info": "[Get google fonts](https://fonts.google.com/)",
           "embed_font": "Embed code a font"
         },
         "font_size": {
@@ -326,7 +326,7 @@
         },
         "custom_badge": {
           "label": "Custom badge",
-          "info": "Please follow the document to see [how to setup custom badge](https:\/\/blueskytechco.gitbook.io\/glimo-shopify\/get-started\/import-data\/create-required-metafield#id-8.-custom-product-badge)"
+          "info": "Please follow the document to see [how to setup custom badge](https://blueskytechco.gitbook.io/glimo-shopify/get-started/import-data/create-required-metafield#id-8.-custom-product-badge)"
         }
       }
     },
@@ -411,7 +411,7 @@
           },
           "show_rate": {
             "label": "Show rate",
-            "info": "To display a rating, add a product rating app. [Learn more](https:\/\/help.shopify.com\/manual\/online-store\/themes\/theme-structure\/theme-features#featured-collection-show-product-rating)"
+            "info": "To display a rating, add a product rating app. [Learn more](https://help.shopify.com/manual/online-store/themes/theme-structure/theme-features#featured-collection-show-product-rating)"
           },
           "rate_color": {
             "label": "Rate color"
@@ -470,12 +470,12 @@
           "label": "Enable color swatches for quickview and product page"
         },
         "limit_color": {
-          "label": "Color limit",
-          "default": "No limit",
           "3": "3 Colors",
           "4": "4 Colors",
           "5": "5 Colors",
-          "6": "6 Colors"
+          "6": "6 Colors",
+          "label": "Color limit",
+          "default": "No limit"
         },
         "swatch_item_type": {
           "label": "Swatch item type",
@@ -632,7 +632,7 @@
         },
         "shipping_rate_calculator": {
           "label": "Shipping rates calculator",
-          "info": "Please follow [documentation](https:\/\/help.shopify.com\/en\/manual\/shipping\/shopify-shipping\/rates) for a better understanding.",
+          "info": "Please follow [documentation](https://help.shopify.com/en/manual/shipping/shopify-shipping/rates) for a better understanding.",
           "show_estimate_shipping_rates": {
             "label": "Show estimate shipping rates"
           },
@@ -647,47 +647,47 @@
       "settings": {
         "facebook": {
           "label": "Facebook",
-          "info": "https:\/\/facebook.com\/shopify"
+          "info": "https://facebook.com/shopify"
         },
         "instagram": {
           "label": "Instagram",
-          "info": "https:\/\/nstagram.com\/shopify"
+          "info": "https://nstagram.com/shopify"
         },
         "twitter": {
           "label": "Twitter",
-          "info": "https:\/\/twitter.com\/shopify"
+          "info": "https://twitter.com/shopify"
         },
         "tiktok": {
           "label": "Tiktok",
-          "info": "https:\/\/tiktok.com\/shopify"
+          "info": "https://tiktok.com/shopify"
         },
         "youtube": {
           "label": "YouTube",
-          "info": "https:\/\/youtube.com\/shopify"
+          "info": "https://youtube.com/shopify"
         },
         "pinterest": {
           "label": "Pinterest",
-          "info": "https:\/\/pinterest.com\/shopify"
+          "info": "https://pinterest.com/shopify"
         },
         "vimeo": {
           "label": "Vimeo",
-          "info": "https:\/\/vimeo.com\/shopify"
+          "info": "https://vimeo.com/shopify"
         },
         "linkedin": {
           "label": "LinkedIn",
-          "info": "https:\/\/linkedin.com\/shopify"
+          "info": "https://linkedin.com/shopify"
         },
         "whatsapp": {
           "label": "Whatsapp",
-          "info": "https:\/\/whatsapp.com\/shopify"
+          "info": "https://whatsapp.com/shopify"
         },
         "tumblr": {
           "label": "Tumblr",
-          "info": "https:\/\/tumblr.com\/shopify"
+          "info": "https://tumblr.com/shopify"
         },
         "snapchat": {
           "label": "Snapchat",
-          "info": "https:\/\/snapchat.com\/shopify"
+          "info": "https://snapchat.com/shopify"
         }
       }
     },
@@ -755,7 +755,7 @@
     },
     "cookies": {
       "name": "Cookies",
-      "info": "The cookie will be automatically shown to visitors when it is obligatory. Make ensure that you have enabled the 'Limit tracking for customers in Europe' option. [Learn more](https:\/\/help.shopify.com\/en\/manual\/your-account\/privacy\/cookies#tracking-european-customers-and-gdpr-compliance)",
+      "info": "The cookie will be automatically shown to visitors when it is obligatory. Make ensure that you have enabled the 'Limit tracking for customers in Europe' option. [Learn more](https://help.shopify.com/en/manual/your-account/privacy/cookies#tracking-european-customers-and-gdpr-compliance)",
       "settings": {
         "enable_cookies": {
           "label": "Enable cookies"
@@ -822,7 +822,7 @@
       "settings": {
         "discount": {
           "name": "Discount",
-          "info": "How to create discount [here](https:\/\/help.shopify.com\/manual\/discounts)",
+          "info": "How to create discount [here](https://help.shopify.com/manual/discounts)",
           "minimum": "Minimum items in bundle",
           "maximum": "Maximum items in bundle",
           "edit_quantity": "Enable edit the quantity of products in the bundle"
@@ -1228,6 +1228,21 @@
               "label": "Link"
             }
           }
+        },
+        "highlight_text": {
+          "label": "Highlight text"
+        },
+        "drawn_underline": {
+          "label": "Drawn underline",
+          "info": "Add a decorative underline to highlighted text.",
+          "type": "Underline type",
+          "value": {
+            "simple_underline": "Simple underline",
+            "curve_underline": "Curve underline",
+            "squiggle_underline": "Squiggle underline",
+            "text_color_only": "Text color only"
+          },
+          "color": "Underline color"
         }
       },
       "content_settings": {
@@ -1258,10 +1273,10 @@
           "info": "Content max width is automatically optimized for mobile."
         },
         "content_padding_inline": {
-          "label": "Content padding left\/right"
+          "label": "Content padding left/right"
         },
         "content_padding_block": {
-          "label": "Content padding top\/bottom"
+          "label": "Content padding top/bottom"
         },
         "max_height": {
           "label": "Content max height"
@@ -1383,7 +1398,8 @@
         "slide_effect": {
           "label": "Slide effect",
           "fadein": "Fade in",
-          "slide": "Slide"
+          "slide": "Slide",
+          "parallax": "Parallax"
         },
         "pagination": {
           "label": "Dot",
@@ -1424,6 +1440,12 @@
         "reveal": {
           "label": "Reveal next slide",
           "info": "Display a part of the upcoming slide."
+        },
+        "fade_image_effect": {
+          "label": "Fade image effect",
+          "info": "Applies an image zoom effect while slides fade.",
+          "zoom_in": "Zoom in",
+          "zoom_out": "Zoom out"
         }
       },
       "mobile_options": {
@@ -1693,13 +1715,13 @@
       },
       "blocks": {
         "store_info": {
-          "info": "This block will display your store information. [Edit Store information](\/editor?context=theme&category=store%20information)"
+          "info": "This block will display your store information. [Edit Store information](/editor?context=theme&category=store%20information)"
         },
         "socials": {
-          "info": "Configure in [Social media setting](\/editor?context=theme&category=social%20media)"
+          "info": "Configure in [Social media setting](/editor?context=theme&category=social%20media)"
         },
         "store": {
-          "info": "Our store page configured in store information. [Edit Store information](\/editor?context=theme&category=store%20information)"
+          "info": "Our store page configured in store information. [Edit Store information](/editor?context=theme&category=store%20information)"
         }
       }
     },
@@ -1722,7 +1744,7 @@
               "info": "Latitude coordinates at geographic coordinate system. Example: 21.0075"
             },
             "paragraph": {
-              "label": "How to get coordinates or search by latitude & longitude[https:\/\/support.google.com\/maps\/answer\/18539](https:\/\/support.google.com\/maps\/answer\/18539)"
+              "label": "How to get coordinates or search by latitude & longitude[https://support.google.com/maps/answer/18539](https://support.google.com/maps/answer/18539)"
             },
             "store_name": {
               "label": "Store name"
@@ -2030,6 +2052,9 @@
             "collection_3": "Collection 3",
             "name": "Mega menu with collection"
           }
+        },
+        "header_bottom": {
+          "label": "Header bottom"
         }
       }
     },
@@ -2065,11 +2090,11 @@
           "label": "Show social media icons"
         },
         "country_language": {
-          "content": "Country\/language selector",
-          "info": "To add a country\/region, go to your [market settings.](\/admin\/settings\/markets). To add a language, go to your [language settings.](\/admin\/settings\/languages)"
+          "content": "Country/language selector",
+          "info": "To add a country/region, go to your [market settings.](/admin/settings/markets). To add a language, go to your [language settings.](/admin/settings/languages)"
         },
         "enable_country_selector": {
-          "label": "Enable country\/region selector"
+          "label": "Enable country/region selector"
         },
         "enable_language_selector": {
           "label": "Enable language selector"
@@ -2084,12 +2109,12 @@
         "payment_width": "Image width",
         "copyright": "Copyright",
         "copyright_text": "Copyright text",
-        "same_line_with_country_language": "Same line with country\/language",
+        "same_line_with_country_language": "Same line with country/language",
         "content_setting": "Content setting",
         "footer_heading_size": "Footer heading size",
         "header_follow": {
           "content": "Follow on Shop",
-          "info": "To allow customers to follow your store on the Shop app from your storefront, Shop Pay must be enabled. [Learn more](https:\/\/help.shopify.com\/manual\/online-store\/themes\/customizing-themes\/follow-on-shop)"
+          "info": "To allow customers to follow your store on the Shop app from your storefront, Shop Pay must be enabled. [Learn more](https://help.shopify.com/manual/online-store/themes/customizing-themes/follow-on-shop)"
         },
         "enable_follow_on_shop": {
           "label": "Enable Follow on Shop"
@@ -2113,7 +2138,7 @@
         },
         "newsletter": {
           "name": "Newsletter",
-          "info": "Subscribers added automatically to your “accepted marketing” customer list. [Learn more](https:\/\/help.shopify.com\/manual\/customers\/manage-customers)",
+          "info": "Subscribers added automatically to your “accepted marketing” customer list. [Learn more](https://help.shopify.com/manual/customers/manage-customers)",
           "settings": {
             "heading": {
               "label": "Heading"
@@ -2416,7 +2441,7 @@
       "settings": {
         "slide_height": {
           "label": "Slide height",
-          "info": "For best results, use an image with a 16:9 aspect ratio. [Learn More](https:\/\/help.shopify.com\/manual\/shopify-admin\/productivity-tools\/image-editor#understanding-image-aspect-ratio)"
+          "info": "For best results, use an image with a 16:9 aspect ratio. [Learn More](https://help.shopify.com/manual/shopify-admin/productivity-tools/image-editor#understanding-image-aspect-ratio)"
         },
         "custom_height": {
           "content": "Custom height",
@@ -2476,6 +2501,12 @@
               },
               "options__5": {
                 "label": "ZoomOut"
+              },
+              "options__6": {
+                "label": "Fade in left"
+              },
+              "options__7": {
+                "label": "Fade in right"
               }
             }
           }
@@ -2537,7 +2568,7 @@
           }
         },
         "show_after_before_text": {
-          "label": "Show before\/after text"
+          "label": "Show before/after text"
         }
       },
       "blocks": {
@@ -2724,7 +2755,7 @@
         "filter": {
           "name": "Filters",
           "settings": {
-            "info": "Customize filters with the Search & Discovery app. [Learn more](https:\/\/help.shopify.com\/en\/manual\/online-store\/search-and-discovery\/filters)"
+            "info": "Customize filters with the Search & Discovery app. [Learn more](https://help.shopify.com/en/manual/online-store/search-and-discovery/filters)"
           }
         },
         "popular_product": {
@@ -3423,7 +3454,7 @@
       },
       "map_iframe": {
         "label": "Google map iframe",
-        "info": "Please follow this link to know how to [embedding a map](https:\/\/developers.google.com\/maps\/documentation\/embed\/embedding-map)"
+        "info": "Please follow this link to know how to [embedding a map](https://developers.google.com/maps/documentation/embed/embedding-map)"
       }
     },
     "html_custom": {
@@ -3436,7 +3467,7 @@
     "custom_liquid": {
       "name": "Custom Liquid",
       "label": "Liquid code",
-      "info": "Add app snippets or other code to create advanced customizations. [Learn more](https:\/\/shopify.dev\/docs\/api\/liquid)"
+      "info": "Add app snippets or other code to create advanced customizations. [Learn more](https://shopify.dev/docs/api/liquid)"
     },
     "collection_overview": {
       "name": "Collection overview",
@@ -3657,7 +3688,7 @@
         "rate": {
           "name": "Product rating",
           "settings": {
-            "paragraph": "To display a rating, add a product rating app. [Learn more](https:\/\/help.shopify.com\/en\/manual\/online-store\/themes\/theme-structure\/page-types#product-rating-block)"
+            "paragraph": "To display a rating, add a product rating app. [Learn more](https://help.shopify.com/en/manual/online-store/themes/theme-structure/page-types#product-rating-block)"
           }
         },
         "variant_picker": {
@@ -3668,7 +3699,7 @@
           "settings": {
             "show_dynamic_checkout_buttons": {
               "label": "Show dynamic checkout buttons",
-              "info": "Using the payment methods available on your store, customers see their preferred options, like PayPal or Apple Pay. [Learn more](https:\/\/help.shopify.com\/en\/manual\/online-store\/dynamic-checkout)"
+              "info": "Using the payment methods available on your store, customers see their preferred options, like PayPal or Apple Pay. [Learn more](https://help.shopify.com/en/manual/online-store/dynamic-checkout)"
             }
           }
         },
@@ -3745,7 +3776,40 @@
             "info": "Video are muted automatically to allow autoplay."
           },
           "enable_video_looping": "Enable video looping"
+        },
+        "type": {
+          "label": "Type",
+          "default": {
+            "label": "Default"
+          },
+          "frame": {
+            "label": "Frame"
+          }
         }
+      },
+      "blocks": {
+        "icon_with_text": {
+          "settings": {
+            "layout_type": {
+              "option__1": "Vertical",
+              "option__2": "Horizontal"
+            }
+          }
+        },
+        "icon_size": {
+          "label": "Icon size"
+        },
+        "icon_with_text_1": {
+          "header": "Icon with text 1"
+        },
+        "icon_with_text_2": {
+          "header": "Icon with text 2"
+        },
+        "icon_with_text_3": {
+          "header": "Icon with text 3"
+        },
+        "info": "Select an icon or upload a custom image.",
+        "content": "Content"
       }
     },
     "collection-list": {
@@ -3771,11 +3835,15 @@
           "image_width": "Image width",
           "show_product_count": "Show product count",
           "show_icon": "Show collection icon",
-          "info_show_icon": "Only Show when choose Design Mordern and Position is Overlay image"
+          "info_show_icon": "Only Show when choose Design Mordern and Position is Overlay image",
+          "column_reverse_content": {
+            "label": "Reverse content order"
+          }
         },
         "collection_information": {
           "header": "Collection information",
-          "collection_name": "=== Collection name ==="
+          "collection_name": "=== Collection name ===",
+          "collection_description": "Collection description"
         },
         "product_count": {
           "header": "=== Product count ==="
@@ -4095,11 +4163,11 @@
           "settings": {
             "show_dynamic_checkout": {
               "label": "Show dynamic checkout buttons",
-              "info": "Using the payment methods available on your store, customers see their preferred option, like PayPal or Apple Pay. [Learn more](https:\/\/help.shopify.com\/manual\/using-themes\/change-the-layout\/dynamic-checkout)"
+              "info": "Using the payment methods available on your store, customers see their preferred option, like PayPal or Apple Pay. [Learn more](https://help.shopify.com/manual/using-themes/change-the-layout/dynamic-checkout)"
             },
             "show_gift_card_recipient": {
               "label": "Show recipient information form for gift cards",
-              "info": "Allows buyers to send gift cards on a scheduled date along with a personal message. [Learn more](https:\/\/help.shopify.com\/manual\/online-store\/themes\/customizing-themes\/add-gift-card-recipient-fields)"
+              "info": "Allows buyers to send gift cards on a scheduled date along with a personal message. [Learn more](https://help.shopify.com/manual/online-store/themes/customizing-themes/add-gift-card-recipient-fields)"
             },
             "show_wishlist": "Show wishlist",
             "show_compare": "Show compare"
@@ -4136,7 +4204,7 @@
                 "custom_size_guide": {
                   "label": "Custom size chart",
                   "info__1": "Using specific size charts for each collection or product.",
-                  "info__2": "To use a custom size charts for product or collection, create metafield with namespace and key: \"custom.size_chart\".[Learn more](https:\/\/help.shopify.com\/manual\/online-store\/themes\/customizing-themes\/add-gift-card-recipient-fields)"
+                  "info__2": "To use a custom size charts for product or collection, create metafield with namespace and key: \"custom.size_chart\".[Learn more](https://help.shopify.com/manual/online-store/themes/customizing-themes/add-gift-card-recipient-fields)"
                 }
               }
             }
@@ -4235,7 +4303,7 @@
           "name": "Complementary products",
           "settings": {
             "paragraph": {
-              "content": "To select complementary products, add the Search & Discovery app. [Learn more](https:\/\/help.shopify.com\/manual\/online-store\/search-and-discovery\/product-recommendations)"
+              "content": "To select complementary products, add the Search & Discovery app. [Learn more](https://help.shopify.com/manual/online-store/search-and-discovery/product-recommendations)"
             },
             "heading": {
               "label": "Heading"
@@ -4286,14 +4354,14 @@
         "product_grouped": {
           "name": "Product grouped",
           "settings": {
-            "info": "Follow this link to know [how to setup product grouped](https:\/\/help.shopify.com\/manual\/online-store\/themes\/customizing-themes\/add-gift-card-recipient-fields)",
+            "info": "Follow this link to know [how to setup product grouped](https://help.shopify.com/manual/online-store/themes/customizing-themes/add-gift-card-recipient-fields)",
             "heading": "Heading"
           }
         },
         "more_colors": {
           "name": "More colors",
           "settings": {
-            "info": "Follow this link to know [how to setup more color](https:\/\/help.shopify.com\/manual\/online-store\/themes\/customizing-themes\/add-gift-card-recipient-fields)",
+            "info": "Follow this link to know [how to setup more color](https://help.shopify.com/manual/online-store/themes/customizing-themes/add-gift-card-recipient-fields)",
             "heading": "Heading",
             "image_width": "Image width"
           }
@@ -4318,7 +4386,7 @@
           "name": "Product meta",
           "settings": {
             "show_barcode": "Show barcode",
-            "barcode_info": "Follow this link to know [how to use barcode](https:\/\/help.shopify.com\/en\/manual\/shipping\/understanding-shipping\/barcodes)",
+            "barcode_info": "Follow this link to know [how to use barcode](https://help.shopify.com/en/manual/shipping/understanding-shipping/barcodes)",
             "show_available": "Show available",
             "show_sku": "Show SKU",
             "show_collections": "Show collections",
@@ -4364,7 +4432,7 @@
           "header": "Color swatches",
           "user_variants_image_group": {
             "label": "Use variants image group",
-            "info": "Please follow the document to setup variants image group [Read more](https:\/\/blueskytechco.gitbook.io\/glimo-shopify\/product-page-settings\/variant-image-group)"
+            "info": "Please follow the document to setup variants image group [Read more](https://blueskytechco.gitbook.io/glimo-shopify/product-page-settings/variant-image-group)"
           }
         },
         "frequently_bought_together": {
@@ -4544,6 +4612,18 @@
         "gradient_direction": "Gradient direction",
         "up": "Up",
         "down": "Down"
+      }
+    },
+    "scrolling-text-and-images": {
+      "name": "Scrolling text and images",
+      "settings": {
+        "scrolling-settings": "Scrolling settings",
+        "gap": "Gap",
+        "image-roundness": "Image roundness",
+        "reflection-settings": "Reflection settings",
+        "enable-reflection": "Enable reflection",
+        "swap-direction": "Swap direction",
+        "opacity": "Opacity"
       }
     }
   },

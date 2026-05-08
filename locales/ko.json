@@ -49,7 +49,7 @@
       "login_form_password_placeholder": "귀하의 비밀번호",
       "login_form_error": "비밀번호가 틀렸습니다!",
       "login_form_submit": "입력하다",
-      "admin_link_html": "당신이 가게 주인이신가요? <a href=\"\/admin\" class=\"link underlined-link\">여기에 로그인하세요<\/a>",
+      "admin_link_html": "당신이 가게 주인이신가요? <a href=\"/admin\" class=\"link underlined-link\">여기에 로그인하세요</a>",
       "powered_by_shopify_html": "이 가게는 {{ shopify }}",
       "coming_soon": "곧 올 것입니다"
     },
@@ -115,15 +115,15 @@
       "timeout_message": "시간이 없습니다! ",
       "countdown_message_html": "한정 상품, 결제 기간 내",
       "countdown_cart_message_html": "제발, 서둘러!  {{ html }}",
-      "cart_thres1_html": "이상 모든 주문에 대해 무료 배송 <span class=\"price\">{{ price }}<\/span>",
-      "cart_thres2_html": "경비 <span class=\"price\">{{ price }}<\/span> 더 즐길 수 있는 <span class=\"subheading_weight primary-color\">무료 배송!<\/span>",
-      "cart_thres3_html": "<span class=\"congratulations\">축하해요!<\/span> 무료 배송 혜택을 누리고 있습니다!",
-      "free_shipping": "경비 <span class=\"price\">{{ amount }}<\/span> 더 즐길 수 있는 <span class=\"subheading_weight primary-color\">무료 배송!<\/span>",
+      "cart_thres1_html": "이상 모든 주문에 대해 무료 배송 <span class=\"price\">{{ price }}</span>",
+      "cart_thres2_html": "경비 <span class=\"price\">{{ price }}</span> 더 즐길 수 있는 <span class=\"subheading_weight primary-color\">무료 배송!</span>",
+      "cart_thres3_html": "<span class=\"congratulations\">축하해요!</span> 무료 배송 혜택을 누리고 있습니다!",
+      "free_shipping": "경비 <span class=\"price\">{{ amount }}</span> 더 즐길 수 있는 <span class=\"subheading_weight primary-color\">무료 배송!</span>",
       "free_shipping_avaiable": "축하해요! ",
       "terms_conditions_text": "서비스 약관",
-      "taxes_and_shipping_policy_at_checkout_html": "세금 및 <a href=\"{{ link }}\">해운<\/a> 결제 시 계산되는 할인",
+      "taxes_and_shipping_policy_at_checkout_html": "세금 및 <a href=\"{{ link }}\">해운</a> 결제 시 계산되는 할인",
       "taxes_included_but_shipping_at_checkout": "세금 포함 및 배송비는 결제 시 계산됩니다.",
-      "taxes_included_and_shipping_policy_html": "세금이 포함되어 있습니다. <a href=\"{{ link }}\">해운<\/a> 결제 시 할인이 계산됩니다.",
+      "taxes_included_and_shipping_policy_html": "세금이 포함되어 있습니다. <a href=\"{{ link }}\">해운</a> 결제 시 할인이 계산됩니다.",
       "taxes_and_shipping_at_checkout": "세금과 배송비는 결제 시 계산됩니다.",
       "return_shop": "계속 쇼핑하기",
       "remove": "이 항목 삭제",
@@ -142,7 +142,7 @@
       },
       "gift": {
         "title": "선물 추가",
-        "gift_wrap_html": "제품을 조심스럽게 포장해주세요.  <span class=\"price heading-style\">{{ price }}<\/span>. ",
+        "gift_wrap_html": "제품을 조심스럽게 포장해주세요.  <span class=\"price heading-style\">{{ price }}</span>. ",
         "button_text": "선물 포장 추가"
       },
       "shipping": {
@@ -168,7 +168,11 @@
       },
       "login": {
         "title": "계정이 있나요?",
-        "paragraph_html": "<a href=\"{{ link }}\" class=\"link underlined-link\">로그인<\/a> 더 빨리 확인하기 위해."
+        "paragraph_html": "<a href=\"{{ link }}\" class=\"link underlined-link\">로그인</a> 더 빨리 확인하기 위해."
+      },
+      "shipping_protection": {
+        "title": "Shipping Protection",
+        "description": "Shield your order in transit. If it's damaged, lost, or stolen, we've got you covered."
       }
     },
     "page_cart": {
@@ -194,7 +198,7 @@
     "image_alt_default": "영상",
     "banner": "기치",
     "view_all": "모두 보기",
-    "policies_html": "나는 다음에 동의한다. <a href=\"\/policies\/privacy-policy\" target=\"_blank\" title=\"Privacy Policy\"><strong>개인 정보 보호 정책<\/strong><\/a> 웹사이트의."
+    "policies_html": "나는 다음에 동의한다. <a href=\"/policies/privacy-policy\" target=\"_blank\" title=\"Privacy Policy\"><strong>개인 정보 보호 정책</strong></a> 웹사이트의."
   },
   "blogs": {
     "article": {
@@ -269,7 +273,7 @@
       "products": "제품",
       "tooltip": "찾다",
       "no_products_found": "제품을 찾을 수 없습니다",
-      "use_fewer_filters_html": "더 적은 수의 필터를 사용하거나 <a class=\"{{ class }}\" href=\"{{ link }}\">모두 제거<\/a>",
+      "use_fewer_filters_html": "더 적은 수의 필터를 사용하거나 <a class=\"{{ class }}\" href=\"{{ link }}\">모두 제거</a>",
       "results_with_count": {
         "one": "{{ count }} 결과",
         "other": "{{ count }} 결과"
@@ -281,8 +285,8 @@
       },
       "title_no_search": "찾다",
       "title": "우리 사이트 검색",
-      "search_for_html": "“를 검색하세요.<span class=\"heading-color\">{{ terms }}<\/span>”",
-      "search_empty_html": "검색어와 일치하는 항목이 없습니다.<span>{{ terms }}<\/span>”",
+      "search_for_html": "“를 검색하세요.<span class=\"heading-color\">{{ terms }}</span>”",
+      "search_empty_html": "검색어와 일치하는 항목이 없습니다.<span>{{ terms }}</span>”",
       "suggestions": "제안",
       "pages": "페이지",
       "article": "기사"
@@ -382,7 +386,7 @@
       "address1": "주소 1",
       "address2": "주소 2",
       "city": "도시",
-      "country": "국가\/지역",
+      "country": "국가/지역",
       "province": "주",
       "zip": "우편번호",
       "phone": "핸드폰",
@@ -398,7 +402,7 @@
     },
     "log_in": "로그인",
     "log_out": "로그아웃",
-    "login_menu_mobile": "로그인 \/ 등록",
+    "login_menu_mobile": "로그인 / 등록",
     "login_page": {
       "cancel": "취소",
       "create_account": "계정 만들기",
@@ -468,7 +472,7 @@
       "submit": "계정 만들기",
       "title_content": "신규 고객",
       "content": "조기 세일 액세스와 맞춤형 신상품, 트렌드 및 프로모션에 등록하세요. ",
-      "content_form_html": "귀하의 개인 데이터는 이 웹사이트 전체에서 귀하의 경험을 지원하고 귀하의 계정에 대한 액세스를 관리하며 당사에 설명된 기타 목적을 위해 사용됩니다. <a href=\"{{ link }}\">개인 정보 보호 정책.<\/a>"
+      "content_form_html": "귀하의 개인 데이터는 이 웹사이트 전체에서 귀하의 경험을 지원하고 귀하의 계정에 대한 액세스를 관리하며 당사에 설명된 기타 목적을 위해 사용됩니다. <a href=\"{{ link }}\">개인 정보 보호 정책.</a>"
     },
     "reset_password": {
       "title": "계정 비밀번호 재설정",
@@ -590,7 +594,7 @@
         "minimum_of": "최소 {{ quantity }}",
         "maximum_of": "최대 {{ quantity }}",
         "multiples_of": "증분 {{ quantity }}",
-        "in_cart_html": "<span class=\"quantity-cart\">{{ quantity }}<\/span> 장바구니에"
+        "in_cart_html": "<span class=\"quantity-cart\">{{ quantity }}</span> 장바구니에"
       },
       "countdown": {
         "days": "날",
@@ -617,14 +621,14 @@
         "view_store_info": "매장정보 보기",
         "check_other_stores": "다른 매장의 재고 확인",
         "pick_up_available": "픽업 가능",
-        "pick_up_available_at_html": "픽업 가능 장소: <span class=\"color-foreground bold heading-color\">{{ location_name }}. <\/span>",
-        "pick_up_unavailable_at_html": "현재 픽업은 불가능합니다. <span class=\"color-foreground bold heading-color\">{{ location_name }}. <\/span>",
+        "pick_up_available_at_html": "픽업 가능 장소: <span class=\"color-foreground bold heading-color\">{{ location_name }}. </span>",
+        "pick_up_unavailable_at_html": "현재 픽업은 불가능합니다. <span class=\"color-foreground bold heading-color\">{{ location_name }}. </span>",
         "unavailable": "수령 가능 여부를 로드할 수 없습니다.",
         "refresh": "새로 고치다",
         "pickup_location": "구글 지도에 표시",
         "address": "주소",
         "city": "도시",
-        "country": "국가\/지역",
+        "country": "국가/지역",
         "phone": "핸드폰"
       },
       "model_size_title": {
@@ -632,7 +636,7 @@
         "model_height": "키:",
         "model_weight": "무게:",
         "model_shoulder_width": "어깨 너비:",
-        "model_bust_waist_hips": "가슴\/허리\/엉덩이:"
+        "model_bust_waist_hips": "가슴/허리/엉덩이:"
       },
       "inventory_status": {
         "incoming": "운송 중인 재고",
@@ -735,7 +739,7 @@
     "collection_template": {
       "empty": "제품을 찾을 수 없습니다",
       "title": "수집",
-      "use_fewer_filters_html": " 더 적은 수의 필터를 사용하거나 <a class=\"{{ class }}\" href=\"{{ link }}\">모두 제거<\/a>"
+      "use_fewer_filters_html": " 더 적은 수의 필터를 사용하거나 <a class=\"{{ class }}\" href=\"{{ link }}\">모두 제거</a>"
     },
     "shopable_video": {
       "countdown_message": "서둘러요! "
@@ -782,5 +786,19 @@
     "purchased": "구매한",
     "time_minutes": "몇 분 전",
     "product_name": "Blueskytechco의 글로진"
+  },
+  "lookbook_image": {
+    "show_product": "Show Products",
+    "hide_product": "Hide Products",
+    "lookbook_product": "Lookbook product"
+  },
+  "customer_accounts": {
+    "order_details": {
+      "payment": {
+        "manual_payment_methods": {
+          "bank_deposit": "Bank deposit: {{formattedTransactionAmount}}"
+        }
+      }
+    }
   }
 }

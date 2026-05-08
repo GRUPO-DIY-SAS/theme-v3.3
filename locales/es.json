@@ -8,7 +8,8 @@
     },
     "error": "Error",
     "close": "Cerca",
-    "complementary_products": "Productos complementarios"
+    "complementary_products": "Productos complementarios",
+    "promotion_banner": "Banner promocional"
   },
   "page_sale": {
     "use_code": "Código de uso:"
@@ -42,8 +43,9 @@
       "login_form_password_placeholder": "Tu contraseña",
       "login_form_error": "¡Contraseña incorrecta!",
       "login_form_submit": "Ingresar",
-      "admin_link_html": "¿Eres el dueño de la tienda? <a href=\"\/admin\" class=\"link underlined-link\">Inicia sesión aquí<\/a>",
-      "powered_by_shopify_html": "Esta tienda será impulsada por {{ shopify }}"
+      "admin_link_html": "¿Eres el dueño de la tienda? <a href=\"/admin\" class=\"link underlined-link\">Inicia sesión aquí</a>",
+      "powered_by_shopify_html": "Esta tienda será impulsada por {{ shopify }}",
+      "coming_soon": "Próximamente"
     },
     "contact": {
       "success": "¡Gracias por comunicarte! "
@@ -107,15 +109,15 @@
       "timeout_message": "¡Se te acabó el tiempo! ",
       "countdown_message_html": "Los productos son limitados, pago dentro",
       "countdown_cart_message_html": "¡Por favor, date prisa!  {{ html }}",
-      "cart_thres1_html": "Envío gratuito para todos los pedidos superiores <span class=\"price\">{{ price }}<\/span>",
-      "cart_thres2_html": "Gastar <span class=\"price\">{{ price }}<\/span> más para disfrutar <span class=\"subheading_weight primary-color\">¡Envío gratis!<\/span>",
-      "cart_thres3_html": "<span class=\"congratulations\">¡Felicidades!<\/span> ¡Tienes envío gratis!",
-      "free_shipping": "Gastar <span class=\"price\">{{ amount }}<\/span> más para disfrutar <span class=\"subheading_weight primary-color\">¡Envío gratis!<\/span>",
+      "cart_thres1_html": "Envío gratuito para todos los pedidos superiores <span class=\"price\">{{ price }}</span>",
+      "cart_thres2_html": "Gastar <span class=\"price\">{{ price }}</span> más para disfrutar <span class=\"subheading_weight primary-color\">¡Envío gratis!</span>",
+      "cart_thres3_html": "<span class=\"congratulations\">¡Felicidades!</span> ¡Tienes envío gratis!",
+      "free_shipping": "Gastar <span class=\"price\">{{ amount }}</span> más para disfrutar <span class=\"subheading_weight primary-color\">¡Envío gratis!</span>",
       "free_shipping_avaiable": "¡Felicidades! ",
       "terms_conditions_text": "Términos de servicio",
-      "taxes_and_shipping_policy_at_checkout_html": "Impuestos y <a href=\"{{ link }}\">envío<\/a> y descuentos calculados al finalizar la compra",
+      "taxes_and_shipping_policy_at_checkout_html": "Impuestos y <a href=\"{{ link }}\">envío</a> y descuentos calculados al finalizar la compra",
       "taxes_included_but_shipping_at_checkout": "Impuestos incluidos y envío calculado al finalizar la compra.",
-      "taxes_included_and_shipping_policy_html": "Impuestos incluidos. <a href=\"{{ link }}\">Envío<\/a> y descuentos calculados al finalizar la compra.",
+      "taxes_included_and_shipping_policy_html": "Impuestos incluidos. <a href=\"{{ link }}\">Envío</a> y descuentos calculados al finalizar la compra.",
       "taxes_and_shipping_at_checkout": "Impuestos y envío calculados al finalizar la compra.",
       "return_shop": "Continuar comprando",
       "remove": "Eliminar este elemento",
@@ -134,7 +136,7 @@
       },
       "gift": {
         "title": "Añadir Protección Envío",
-        "gift_wrap_html": "Agrega protección completa de envío por:  <span class=\"price heading-style\">{{ price }}<\/span>. ",
+        "gift_wrap_html": "Agrega protección completa de envío por:  <span class=\"price heading-style\">{{ price }}</span>. ",
         "button_text": "Añadir protección de envío"
       },
       "shipping": {
@@ -160,7 +162,7 @@
       },
       "login": {
         "title": "¿Tienes una cuenta?",
-        "paragraph_html": "<a href=\"{{ link }}\" class=\"link underlined-link\">Acceso<\/a> para pagar más rápido."
+        "paragraph_html": "<a href=\"{{ link }}\" class=\"link underlined-link\">Acceso</a> para pagar más rápido."
       },
       "shipping_protection": {
         "title": "Protección de envío",
@@ -189,7 +191,14 @@
     },
     "banner": "Bandera",
     "view_all": "Ver todo",
-    "policies_html": "Estoy de acuerdo con el <a href=\"\/policies\/privacy-policy\" target=\"_blank\" title=\"Privacy Policy\"><strong>política de privacidad<\/strong><\/a> del sitio web."
+    "policies_html": "Estoy de acuerdo con el <a href=\"/policies/privacy-policy\" target=\"_blank\" title=\"Privacy Policy\"><strong>política de privacidad</strong></a> del sitio web.",
+    "content": {
+      "discount_code_error": "El código de descuento no se puede aplicar a tu carrito",
+      "discount_code_remove": "El código de descuento se eliminó.",
+      "discount_code_applied": "El código de descuento se aplicó.",
+      "discount_code_already": "El código de descuento ya está aplicado"
+    },
+    "image_alt_default": "Imagen"
   },
   "blogs": {
     "article": {
@@ -264,7 +273,7 @@
       "products": "Productos",
       "tooltip": "Buscar",
       "no_products_found": "No se encontraron productos",
-      "use_fewer_filters_html": "Utilice menos filtros o <a class=\"{{ class }}\" href=\"{{ link }}\">eliminar todo<\/a>",
+      "use_fewer_filters_html": "Utilice menos filtros o <a class=\"{{ class }}\" href=\"{{ link }}\">eliminar todo</a>",
       "results_with_count": {
         "one": "{{ count }} resultado",
         "other": "{{ count }} resultados"
@@ -276,8 +285,8 @@
       },
       "title_no_search": "Buscar",
       "title": "Buscar en nuestro sitio",
-      "search_for_html": "Buscar “<span class=\"heading-color\">{{ terms }}<\/span>\"",
-      "search_empty_html": "Nada coincide con tu búsqueda”<span>{{ terms }}<\/span>\"",
+      "search_for_html": "Buscar “<span class=\"heading-color\">{{ terms }}</span>\"",
+      "search_empty_html": "Nada coincide con tu búsqueda”<span>{{ terms }}</span>\"",
       "suggestions": "Sugerencias",
       "pages": "Página",
       "article": "Artículo"
@@ -373,13 +382,13 @@
       "edit_address": "Editar dirección",
       "first_name": "Nombre",
       "last_name": "Apellido",
-      "company": "Identificación \/ Cédula",
+      "company": "Identificación / Cédula",
       "address1": "Dirección 1",
       "address2": "Dirección 2",
       "city": "Ciudad",
-      "country": "País\/región",
+      "country": "País/región",
       "province": "Provincia",
-      "zip": "Código postal\/ZIP",
+      "zip": "Código postal/ZIP",
       "phone": "Teléfono",
       "set_default": "Establecer como dirección predeterminada",
       "add": "Agregar dirección",
@@ -393,7 +402,7 @@
     },
     "log_in": "Acceso",
     "log_out": "Finalizar la sesión",
-    "login_menu_mobile": "Iniciar sesión \/ Registrarse",
+    "login_menu_mobile": "Iniciar sesión / Registrarse",
     "login_page": {
       "cancel": "Cancelar",
       "create_account": "Crear una cuenta",
@@ -463,7 +472,7 @@
       "submit": "Crear una cuenta",
       "title_content": "Nuevo cliente",
       "content": "Regístrese para obtener acceso anticipado a las ofertas, además de novedades, tendencias y promociones personalizadas. ",
-      "content_form_html": "Sus datos personales se utilizarán para respaldar su experiencia en este sitio web, para administrar el acceso a su cuenta y para otros fines descritos en nuestra <a href=\"{{ link }}\">política de privacidad.<\/a>"
+      "content_form_html": "Sus datos personales se utilizarán para respaldar su experiencia en este sitio web, para administrar el acceso a su cuenta y para otros fines descritos en nuestra <a href=\"{{ link }}\">política de privacidad.</a>"
     },
     "reset_password": {
       "title": "Restablecer la contraseña de la cuenta",
@@ -585,7 +594,7 @@
         "minimum_of": "Mínimo de {{ quantity }}",
         "maximum_of": "Máximo de {{ quantity }}",
         "multiples_of": "Incrementos de {{ quantity }}",
-        "in_cart_html": "<span class=\"quantity-cart\">{{ quantity }}<\/span> en carro"
+        "in_cart_html": "<span class=\"quantity-cart\">{{ quantity }}</span> en carro"
       },
       "countdown": {
         "days": "días",
@@ -612,14 +621,14 @@
         "view_store_info": "Ver información de la tienda",
         "check_other_stores": "Consultar disponibilidad en otras tiendas.",
         "pick_up_available": "Recogida disponible",
-        "pick_up_available_at_html": "Recogida disponible en <span class=\"color-foreground bold heading-color\">{{ location_name }}. <\/span>",
-        "pick_up_unavailable_at_html": "Recogida no disponible actualmente en <span class=\"color-foreground bold heading-color\">{{ location_name }}. <\/span>",
+        "pick_up_available_at_html": "Recogida disponible en <span class=\"color-foreground bold heading-color\">{{ location_name }}. </span>",
+        "pick_up_unavailable_at_html": "Recogida no disponible actualmente en <span class=\"color-foreground bold heading-color\">{{ location_name }}. </span>",
         "unavailable": "No se pudo cargar la disponibilidad de recogida",
         "refresh": "Refrescar",
         "pickup_location": "Mostrar en el mapa de google",
         "address": "DIRECCIÓN",
         "city": "Ciudad",
-        "country": "País\/región",
+        "country": "País/región",
         "phone": "Teléfono"
       },
       "model_size_title": {
@@ -627,7 +636,7 @@
         "model_height": "Altura:",
         "model_weight": "Peso:",
         "model_shoulder_width": "Ancho de hombros:",
-        "model_bust_waist_hips": "Busto\/cintura\/caderas:"
+        "model_bust_waist_hips": "Busto/cintura/caderas:"
       },
       "inventory_status": {
         "incoming": "Stock en tránsito",
@@ -730,7 +739,7 @@
     "collection_template": {
       "empty": "No se encontraron productos",
       "title": "Recopilación",
-      "use_fewer_filters_html": " Utilice menos filtros o <a class=\"{{ class }}\" href=\"{{ link }}\">eliminar todo<\/a>"
+      "use_fewer_filters_html": " Utilice menos filtros o <a class=\"{{ class }}\" href=\"{{ link }}\">eliminar todo</a>"
     },
     "shopable_video": {
       "countdown_message": "¡Apresúrate! "
@@ -781,8 +790,8 @@
   "shopify": {
     "checkout": {
       "contact": {
-        "company_label": "Identificación (CC\/CE\/NIT) ",
-        "optional_company_label": "Identificación (CC\/CE\/NIT) ",
+        "company_label": "Identificación (CC/CE/NIT) ",
+        "optional_company_label": "Identificación (CC/CE/NIT) ",
         "address2_label": "Localidad, Barrio, Casa, Apartamento, Urbanización, etc. ",
         "optional_address2_label": "Localidad, Barrio, Casa, Apartamento, Urbanización, etc. ",
         "phone_label": "Teléfono para actualizaciones de pedidos",
@@ -813,5 +822,10 @@
         }
       }
     }
+  },
+  "lookbook_image": {
+    "show_product": "Mostrar productos",
+    "hide_product": "Ocultar productos",
+    "lookbook_product": "Producto lookbook"
   }
 }

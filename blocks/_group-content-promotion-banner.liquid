@@ -1,3 +1,6 @@
+{%- liquid
+  assign promotion_style = block.settings.promotion_style | default: 'horizontal'
+-%}
 <div
   class="flex gap-custom flex-wrap flex-xl-nowrap col-md-w-custom gap-20 {% if promotion_style == 'vertical' %}flex-column{% else %}align-center{% endif %}"
   style="--col-width: 50%;"

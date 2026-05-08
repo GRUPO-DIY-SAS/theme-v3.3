@@ -153,6 +153,8 @@
         src="{{ block_st.warning_image | image_url: width: 1200 }}"
         alt="Pictogramas de advertencia para productos con nicotina conforme a la Ley 2354 de 2024"
         loading="lazy"
+        width="1200"
+        height="{{ 1200 | divided_by: block_st.warning_image.aspect_ratio | round }}"
       >
     {% else %}
       <img
@@ -160,6 +162,8 @@
         src="https://cdn.shopify.com/s/files/1/0166/9493/5652/files/ADVERTENCIAS_SEAN.webp?v=1756226546"
         alt="Pictogramas de advertencia para productos con nicotina conforme a la Ley 2354 de 2024"
         loading="lazy"
+        width="1200"
+        height="275"
       >
     {% endif %}
   {% endif %}

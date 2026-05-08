@@ -49,7 +49,7 @@
       "login_form_password_placeholder": "Salasanasi",
       "login_form_error": "Väärä salasana!",
       "login_form_submit": "Enter",
-      "admin_link_html": "Oletko kaupan omistaja? <a href=\"\/admin\" class=\"link underlined-link\">Kirjaudu sisään tästä<\/a>",
+      "admin_link_html": "Oletko kaupan omistaja? <a href=\"/admin\" class=\"link underlined-link\">Kirjaudu sisään tästä</a>",
       "powered_by_shopify_html": "Tämä kauppa saa virtansa {{ shopify }}",
       "coming_soon": "Pian"
     },
@@ -80,7 +80,7 @@
       "next": "Seuraavaksi",
       "previous": "Edellinen",
       "load_more": "Lataa lisää",
-      "result": "Olet katsonut {{ amount }} \/ {{ count }} tulos"
+      "result": "Olet katsonut {{ amount }} / {{ count }} tulos"
     },
     "breadcrumb": {
       "home": "Kotiin"
@@ -115,15 +115,15 @@
       "timeout_message": "Olet aika lopussa! ",
       "countdown_message_html": "Tuotteita rajoitetusti, kassalla",
       "countdown_cart_message_html": "Ole hyvä ja pidä kiirettä!  {{ html }}",
-      "cart_thres1_html": "Ilmainen toimitus kaikille tilauksille <span class=\"price\">{{ price }}<\/span>",
-      "cart_thres2_html": "Viettää <span class=\"price\">{{ price }}<\/span> enemmän nautittavaa <span class=\"subheading_weight primary-color\">Ilmainen toimitus!<\/span>",
-      "cart_thres3_html": "<span class=\"congratulations\">Onnittelut!<\/span> Sinulla on ilmainen toimitus!",
-      "free_shipping": "Viettää <span class=\"price\">{{ amount }}<\/span> enemmän nautittavaa <span class=\"subheading_weight primary-color\">Ilmainen toimitus!<\/span>",
+      "cart_thres1_html": "Ilmainen toimitus kaikille tilauksille <span class=\"price\">{{ price }}</span>",
+      "cart_thres2_html": "Viettää <span class=\"price\">{{ price }}</span> enemmän nautittavaa <span class=\"subheading_weight primary-color\">Ilmainen toimitus!</span>",
+      "cart_thres3_html": "<span class=\"congratulations\">Onnittelut!</span> Sinulla on ilmainen toimitus!",
+      "free_shipping": "Viettää <span class=\"price\">{{ amount }}</span> enemmän nautittavaa <span class=\"subheading_weight primary-color\">Ilmainen toimitus!</span>",
       "free_shipping_avaiable": "Onnittelut! ",
       "terms_conditions_text": "Palveluehdot",
-      "taxes_and_shipping_policy_at_checkout_html": "Verot ja <a href=\"{{ link }}\">toimitus<\/a> ja alennukset lasketaan kassalla",
+      "taxes_and_shipping_policy_at_checkout_html": "Verot ja <a href=\"{{ link }}\">toimitus</a> ja alennukset lasketaan kassalla",
       "taxes_included_but_shipping_at_checkout": "Sisältää verot ja toimituskulut lasketaan kassalla",
-      "taxes_included_and_shipping_policy_html": "Sisältää verot. <a href=\"{{ link }}\">Toimitus<\/a> ja alennukset lasketaan kassalla.",
+      "taxes_included_and_shipping_policy_html": "Sisältää verot. <a href=\"{{ link }}\">Toimitus</a> ja alennukset lasketaan kassalla.",
       "taxes_and_shipping_at_checkout": "Verot ja toimituskulut lasketaan kassalla.",
       "return_shop": "Jatka ostoksia",
       "remove": "Poista tämä kohde",
@@ -142,7 +142,7 @@
       },
       "gift": {
         "title": "Lisää lahja",
-        "gift_wrap_html": "Kääri tuote huolellisesti.  <span class=\"price heading-style\">{{ price }}<\/span>. ",
+        "gift_wrap_html": "Kääri tuote huolellisesti.  <span class=\"price heading-style\">{{ price }}</span>. ",
         "button_text": "Lisää lahjapaperi"
       },
       "shipping": {
@@ -168,7 +168,11 @@
       },
       "login": {
         "title": "Onko sinulla tili?",
-        "paragraph_html": "<a href=\"{{ link }}\" class=\"link underlined-link\">Kirjaudu sisään<\/a> tarkistaaksesi nopeammin."
+        "paragraph_html": "<a href=\"{{ link }}\" class=\"link underlined-link\">Kirjaudu sisään</a> tarkistaaksesi nopeammin."
+      },
+      "shipping_protection": {
+        "title": "Shipping Protection",
+        "description": "Shield your order in transit. If it's damaged, lost, or stolen, we've got you covered."
       }
     },
     "page_cart": {
@@ -194,7 +198,7 @@
     "image_alt_default": "Kuva",
     "banner": "Banneri",
     "view_all": "Näytä kaikki",
-    "policies_html": "Olen samaa mieltä <a href=\"\/policies\/privacy-policy\" target=\"_blank\" title=\"Privacy Policy\"><strong>Tietosuojakäytäntö<\/strong><\/a> verkkosivustolta."
+    "policies_html": "Olen samaa mieltä <a href=\"/policies/privacy-policy\" target=\"_blank\" title=\"Privacy Policy\"><strong>Tietosuojakäytäntö</strong></a> verkkosivustolta."
   },
   "blogs": {
     "article": {
@@ -238,7 +242,7 @@
     },
     "pagination": {
       "load_more": "Lataa lisää",
-      "load_more_amount": "Näytetään {{ amount }} \/ {{ count }} tuotteita"
+      "load_more_amount": "Näytetään {{ amount }} / {{ count }} tuotteita"
     },
     "toolbar": {
       "filter": "Suodattaa",
@@ -269,7 +273,7 @@
       "products": "Tuotteet",
       "tooltip": "Haku",
       "no_products_found": "Tuotteita ei löytynyt",
-      "use_fewer_filters_html": "Käytä vähemmän suodattimia tai <a class=\"{{ class }}\" href=\"{{ link }}\">poista kaikki<\/a>",
+      "use_fewer_filters_html": "Käytä vähemmän suodattimia tai <a class=\"{{ class }}\" href=\"{{ link }}\">poista kaikki</a>",
       "results_with_count": {
         "one": "{{ count }} tulos",
         "other": "{{ count }} tuloksia"
@@ -281,8 +285,8 @@
       },
       "title_no_search": "Haku",
       "title": "Hae sivustoltamme",
-      "search_for_html": "Hae \"<span class=\"heading-color\">{{ terms }}<\/span>”",
-      "search_empty_html": "Mikään ei vastaa hakuasi \"<span>{{ terms }}<\/span>”",
+      "search_for_html": "Hae \"<span class=\"heading-color\">{{ terms }}</span>”",
+      "search_empty_html": "Mikään ei vastaa hakuasi \"<span>{{ terms }}</span>”",
       "suggestions": "ehdotuksia",
       "pages": "Sivu",
       "article": "Artikla"
@@ -382,7 +386,7 @@
       "address1": "Osoite 1",
       "address2": "Osoite 2",
       "city": "Kaupunki",
-      "country": "Maa\/alue",
+      "country": "Maa/alue",
       "province": "maakunta",
       "zip": "Postinumero",
       "phone": "Puhelin",
@@ -398,7 +402,7 @@
     },
     "log_in": "Kirjaudu sisään",
     "log_out": "Kirjaudu ulos",
-    "login_menu_mobile": "Kirjaudu \/ Rekisteröidy",
+    "login_menu_mobile": "Kirjaudu / Rekisteröidy",
     "login_page": {
       "cancel": "Peruuttaa",
       "create_account": "Luo tili",
@@ -468,7 +472,7 @@
       "submit": "Luo tili",
       "title_content": "Uusi asiakas",
       "content": "Rekisteröidy ennakkomyyntiin sekä räätälöityihin uutuuksiin, trendeihin ja kampanjoihin. ",
-      "content_form_html": "Henkilötietojasi käytetään käyttökokemuksesi tukemiseen tällä verkkosivustolla, tilillesi pääsyn hallintaan ja muihin tarkoituksiin, jotka on kuvattu sivustossamme <a href=\"{{ link }}\">tietosuojakäytäntö.<\/a>"
+      "content_form_html": "Henkilötietojasi käytetään käyttökokemuksesi tukemiseen tällä verkkosivustolla, tilillesi pääsyn hallintaan ja muihin tarkoituksiin, jotka on kuvattu sivustossamme <a href=\"{{ link }}\">tietosuojakäytäntö.</a>"
     },
     "reset_password": {
       "title": "Palauta tilin salasana",
@@ -590,7 +594,7 @@
         "minimum_of": "Vähintään {{ quantity }}",
         "maximum_of": "Enintään {{ quantity }}",
         "multiples_of": "Lisäykset {{ quantity }}",
-        "in_cart_html": "<span class=\"quantity-cart\">{{ quantity }}<\/span> kärryssä"
+        "in_cart_html": "<span class=\"quantity-cart\">{{ quantity }}</span> kärryssä"
       },
       "countdown": {
         "days": "päivää",
@@ -617,14 +621,14 @@
         "view_store_info": "Katso myymälän tiedot",
         "check_other_stores": "Tarkista saatavuus muista myymälöistä",
         "pick_up_available": "Nouto saatavilla",
-        "pick_up_available_at_html": "Nouto saatavilla osoitteessa <span class=\"color-foreground bold heading-color\">{{ location_name }}. <\/span>",
-        "pick_up_unavailable_at_html": "Nouto ei tällä hetkellä saatavilla osoitteessa <span class=\"color-foreground bold heading-color\">{{ location_name }}. <\/span>",
+        "pick_up_available_at_html": "Nouto saatavilla osoitteessa <span class=\"color-foreground bold heading-color\">{{ location_name }}. </span>",
+        "pick_up_unavailable_at_html": "Nouto ei tällä hetkellä saatavilla osoitteessa <span class=\"color-foreground bold heading-color\">{{ location_name }}. </span>",
         "unavailable": "Noudon saatavuutta ei voitu ladata",
         "refresh": "Päivitä",
         "pickup_location": "Näytä google kartalla",
         "address": "Osoite",
         "city": "Kaupunki",
-        "country": "Maa\/alue",
+        "country": "Maa/alue",
         "phone": "Puhelin"
       },
       "model_size_title": {
@@ -632,7 +636,7 @@
         "model_height": "Korkeus:",
         "model_weight": "Paino:",
         "model_shoulder_width": "Hartioiden leveys:",
-        "model_bust_waist_hips": "Rinta\/vyötärö\/lantio:"
+        "model_bust_waist_hips": "Rinta/vyötärö/lantio:"
       },
       "inventory_status": {
         "incoming": "Varasto kuljetuksessa",
@@ -669,8 +673,8 @@
     },
     "facets": {
       "product_count": {
-        "one": "{{ product_count }} \/ {{ count }} tuote",
-        "other": "{{ product_count }} \/ {{ count }} tuotteita"
+        "one": "{{ product_count }} / {{ count }} tuote",
+        "other": "{{ product_count }} / {{ count }} tuotteita"
       },
       "product_count_simple": {
         "one": "On {{ count }} tulokset yhteensä",
@@ -735,7 +739,7 @@
     "collection_template": {
       "empty": "Tuotteita ei löytynyt",
       "title": "Kokoelma",
-      "use_fewer_filters_html": " Käytä vähemmän suodattimia tai <a class=\"{{ class }}\" href=\"{{ link }}\">poista kaikki<\/a>"
+      "use_fewer_filters_html": " Käytä vähemmän suodattimia tai <a class=\"{{ class }}\" href=\"{{ link }}\">poista kaikki</a>"
     },
     "shopable_video": {
       "countdown_message": "Pidä kiirettä! "
@@ -782,5 +786,19 @@
     "purchased": "ostettu",
     "time_minutes": "minuuttia sitten",
     "product_name": "Blueskytechcon Glozin"
+  },
+  "lookbook_image": {
+    "show_product": "Show Products",
+    "hide_product": "Hide Products",
+    "lookbook_product": "Lookbook product"
+  },
+  "customer_accounts": {
+    "order_details": {
+      "payment": {
+        "manual_payment_methods": {
+          "bank_deposit": "Bank deposit: {{formattedTransactionAmount}}"
+        }
+      }
+    }
   }
 }

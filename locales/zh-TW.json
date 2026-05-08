@@ -8,7 +8,8 @@
     },
     "error": "錯誤",
     "close": "關閉",
-    "complementary_products": "配套產品"
+    "complementary_products": "配套產品",
+    "promotion_banner": "Promotion banner"
   },
   "page_sale": {
     "use_code": "使用代碼："
@@ -48,7 +49,7 @@
       "login_form_password_placeholder": "您的密碼",
       "login_form_error": "密碼錯誤！",
       "login_form_submit": "進入",
-      "admin_link_html": "您是店主嗎？ <a href=\"\/admin\" class=\"link underlined-link\">在此登入<\/a>",
+      "admin_link_html": "您是店主嗎？ <a href=\"/admin\" class=\"link underlined-link\">在此登入</a>",
       "powered_by_shopify_html": "本店將由 {{ shopify }}",
       "coming_soon": "即將推出"
     },
@@ -114,15 +115,15 @@
       "timeout_message": "你沒時間了！",
       "countdown_message_html": "產品數量有限，請於內結帳",
       "countdown_cart_message_html": "請快點！ {{ html }}",
-      "cart_thres1_html": "所有訂單滿則免運費 <span class=\"price\">{{ price }}<\/span>",
-      "cart_thres2_html": "花費 <span class=\"price\">{{ price }}<\/span> 更多享受 <span class=\"subheading_weight primary-color\">免運費！<\/span>",
-      "cart_thres3_html": "<span class=\"congratulations\">恭喜！<\/span> 您可以享受免費送貨服務！",
-      "free_shipping": "花費 <span class=\"price\">{{ amount }}<\/span> 更多享受 <span class=\"subheading_weight primary-color\">免運費！<\/span>",
+      "cart_thres1_html": "所有訂單滿則免運費 <span class=\"price\">{{ price }}</span>",
+      "cart_thres2_html": "花費 <span class=\"price\">{{ price }}</span> 更多享受 <span class=\"subheading_weight primary-color\">免運費！</span>",
+      "cart_thres3_html": "<span class=\"congratulations\">恭喜！</span> 您可以享受免費送貨服務！",
+      "free_shipping": "花費 <span class=\"price\">{{ amount }}</span> 更多享受 <span class=\"subheading_weight primary-color\">免運費！</span>",
       "free_shipping_avaiable": "恭喜！",
       "terms_conditions_text": "服務條款",
-      "taxes_and_shipping_policy_at_checkout_html": "稅收和 <a href=\"{{ link }}\">船運<\/a> 以及結帳時計算的折扣",
+      "taxes_and_shipping_policy_at_checkout_html": "稅收和 <a href=\"{{ link }}\">船運</a> 以及結帳時計算的折扣",
       "taxes_included_but_shipping_at_checkout": "含稅和運費在結帳時計算",
-      "taxes_included_and_shipping_policy_html": "含稅。 <a href=\"{{ link }}\">船運<\/a> 以及結帳時計算的折扣。",
+      "taxes_included_and_shipping_policy_html": "含稅。 <a href=\"{{ link }}\">船運</a> 以及結帳時計算的折扣。",
       "taxes_and_shipping_at_checkout": "稅金和運費在結帳時計算。",
       "return_shop": "繼續購物",
       "remove": "刪除此項目",
@@ -141,7 +142,7 @@
       },
       "gift": {
         "title": "添加禮物",
-        "gift_wrap_html": "請仔細包裹產品。 <span class=\"price heading-style\">{{ price }}<\/span>。 ",
+        "gift_wrap_html": "請仔細包裹產品。 <span class=\"price heading-style\">{{ price }}</span>。 ",
         "button_text": "添加禮品包裝"
       },
       "shipping": {
@@ -167,7 +168,11 @@
       },
       "login": {
         "title": "有帳戶嗎？",
-        "paragraph_html": "<a href=\"{{ link }}\" class=\"link underlined-link\">登入<\/a> 以便更快結帳。"
+        "paragraph_html": "<a href=\"{{ link }}\" class=\"link underlined-link\">登入</a> 以便更快結帳。"
+      },
+      "shipping_protection": {
+        "title": "Shipping Protection",
+        "description": "Shield your order in transit. If it's damaged, lost, or stolen, we've got you covered."
       }
     },
     "page_cart": {
@@ -192,7 +197,8 @@
     },
     "banner": "橫幅",
     "view_all": "看全部",
-    "policies_html": "我同意 <a href=\"\/policies\/privacy-policy\" target=\"_blank\" title=\"Privacy Policy\"><strong>隱私權政策<\/strong><\/a> 網站的。"
+    "policies_html": "我同意 <a href=\"/policies/privacy-policy\" target=\"_blank\" title=\"Privacy Policy\"><strong>隱私權政策</strong></a> 網站的。",
+    "image_alt_default": "Image"
   },
   "blogs": {
     "article": {
@@ -267,7 +273,7 @@
       "products": "產品",
       "tooltip": "搜尋",
       "no_products_found": "沒有找到產品",
-      "use_fewer_filters_html": "使用更少的過濾器或 <a class=\"{{ class }}\" href=\"{{ link }}\">全部刪除<\/a>",
+      "use_fewer_filters_html": "使用更少的過濾器或 <a class=\"{{ class }}\" href=\"{{ link }}\">全部刪除</a>",
       "results_with_count": {
         "one": "{{ count }} 結果",
         "other": "{{ count }} 結果"
@@ -279,8 +285,8 @@
       },
       "title_no_search": "搜尋",
       "title": "搜尋我們的網站",
-      "search_for_html": "搜尋\"<span class=\"heading-color\">{{ terms }}<\/span>」",
-      "search_empty_html": "沒有符合您的搜尋“<span>{{ terms }}<\/span>」",
+      "search_for_html": "搜尋\"<span class=\"heading-color\">{{ terms }}</span>」",
+      "search_empty_html": "沒有符合您的搜尋“<span>{{ terms }}</span>」",
       "suggestions": "建議",
       "pages": "頁",
       "article": "文章"
@@ -380,7 +386,7 @@
       "address1": "地址1",
       "address2": "地址2",
       "city": "城市",
-      "country": "國家\/地區",
+      "country": "國家/地區",
       "province": "省",
       "zip": "郵遞區號",
       "phone": "電話",
@@ -396,7 +402,7 @@
     },
     "log_in": "登入",
     "log_out": "退出",
-    "login_menu_mobile": "登入\/註冊",
+    "login_menu_mobile": "登入/註冊",
     "login_page": {
       "cancel": "取消",
       "create_account": "建立帳戶",
@@ -466,7 +472,7 @@
       "submit": "建立帳戶",
       "title_content": "新客戶",
       "content": "報名參加早期促銷活動以及量身訂製的新品、趨勢和促銷活動。",
-      "content_form_html": "您的個人資料將用於支援您在本網站上的體驗、管理對您帳戶的存取以及我們中描述的其他目的 <a href=\"{{ link }}\">隱私權政策。<\/a>"
+      "content_form_html": "您的個人資料將用於支援您在本網站上的體驗、管理對您帳戶的存取以及我們中描述的其他目的 <a href=\"{{ link }}\">隱私權政策。</a>"
     },
     "reset_password": {
       "title": "重設帳戶密碼",
@@ -588,7 +594,7 @@
         "minimum_of": "最少為 {{ quantity }}",
         "maximum_of": "最多為 {{ quantity }}",
         "multiples_of": "增量 {{ quantity }}",
-        "in_cart_html": "<span class=\"quantity-cart\">{{ quantity }}<\/span> 在購物車中"
+        "in_cart_html": "<span class=\"quantity-cart\">{{ quantity }}</span> 在購物車中"
       },
       "countdown": {
         "days": "天",
@@ -615,14 +621,14 @@
         "view_store_info": "查看店面資訊",
         "check_other_stores": "檢查其他商店的庫存狀況",
         "pick_up_available": "提供接送服務",
-        "pick_up_available_at_html": "取貨地點： <span class=\"color-foreground bold heading-color\">{{ location_name }}。 <\/span>",
-        "pick_up_unavailable_at_html": "目前無法取貨 <span class=\"color-foreground bold heading-color\">{{ location_name }}。 <\/span>",
+        "pick_up_available_at_html": "取貨地點： <span class=\"color-foreground bold heading-color\">{{ location_name }}。 </span>",
+        "pick_up_unavailable_at_html": "目前無法取貨 <span class=\"color-foreground bold heading-color\">{{ location_name }}。 </span>",
         "unavailable": "無法載入取貨情況",
         "refresh": "重新整理",
         "pickup_location": "在谷歌地圖上顯示",
         "address": "地址",
         "city": "城市",
-        "country": "國家\/地區",
+        "country": "國家/地區",
         "phone": "電話"
       },
       "model_size_title": {
@@ -630,7 +636,7 @@
         "model_height": "高度：",
         "model_weight": "重量：",
         "model_shoulder_width": "肩寬：",
-        "model_bust_waist_hips": "胸圍\/腰圍\/臀圍："
+        "model_bust_waist_hips": "胸圍/腰圍/臀圍："
       },
       "inventory_status": {
         "incoming": "在途庫存",
@@ -733,7 +739,7 @@
     "collection_template": {
       "empty": "沒有找到產品",
       "title": "收藏",
-      "use_fewer_filters_html": " 使用更少的過濾器或 <a class=\"{{ class }}\" href=\"{{ link }}\">全部刪除<\/a>"
+      "use_fewer_filters_html": " 使用更少的過濾器或 <a class=\"{{ class }}\" href=\"{{ link }}\">全部刪除</a>"
     },
     "shopable_video": {
       "countdown_message": "趕快！"
@@ -780,5 +786,19 @@
     "purchased": "已購買",
     "time_minutes": "分鐘前",
     "product_name": "Blueskytechco 的 Glozin"
+  },
+  "lookbook_image": {
+    "show_product": "Show Products",
+    "hide_product": "Hide Products",
+    "lookbook_product": "Lookbook product"
+  },
+  "customer_accounts": {
+    "order_details": {
+      "payment": {
+        "manual_payment_methods": {
+          "bank_deposit": "Bank deposit: {{formattedTransactionAmount}}"
+        }
+      }
+    }
   }
 }

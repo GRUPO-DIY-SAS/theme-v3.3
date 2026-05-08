@@ -17,15 +17,6 @@
   else
     assign option_color_name = 'Color'
   endif
-  assign products_group = product.metafields.custom.product_grouped
-  assign color = false
-  for option in product.options_with_values
-    for itemColor in option_color_name
-      if option.name == itemColor
-        assign color = true
-      endif
-    endfor
-  endfor
   assign color_scheme = section_st.color_scheme
   if section_st.reset_spacing
     assign reset_spacing = ' remove_spacing'

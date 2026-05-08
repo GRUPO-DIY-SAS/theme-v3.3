@@ -49,7 +49,7 @@
       "login_form_password_placeholder": "كلمة المرور الخاصة بك",
       "login_form_error": "كلمة مرور خاطئة!",
       "login_form_submit": "يدخل",
-      "admin_link_html": "هل أنت صاحب المتجر؟ <a href=\"\/admin\" class=\"link underlined-link\">تسجيل الدخول هنا<\/a>",
+      "admin_link_html": "هل أنت صاحب المتجر؟ <a href=\"/admin\" class=\"link underlined-link\">تسجيل الدخول هنا</a>",
       "powered_by_shopify_html": "سيتم تشغيل هذا المتجر بواسطة {{ shopify }}",
       "coming_soon": "قريباً"
     },
@@ -115,15 +115,15 @@
       "timeout_message": "لقد نفاد الوقت! ",
       "countdown_message_html": "المنتجات محدودة، الخروج في الداخل",
       "countdown_cart_message_html": "من فضلك، على عجل!  {{ html }}",
-      "cart_thres1_html": "شحن مجاني لجميع الطلبات التي انتهت <span class=\"price\">{{ price }}<\/span>",
-      "cart_thres2_html": "ينفق <span class=\"price\">{{ price }}<\/span> أكثر للاستمتاع <span class=\"subheading_weight primary-color\">ًالشحن مجانا!<\/span>",
-      "cart_thres3_html": "<span class=\"congratulations\">تهانينا!<\/span> لقد حصلت على شحن مجاني!",
-      "free_shipping": "ينفق <span class=\"price\">{{ amount }}<\/span> أكثر للاستمتاع <span class=\"subheading_weight primary-color\">ًالشحن مجانا!<\/span>",
+      "cart_thres1_html": "شحن مجاني لجميع الطلبات التي انتهت <span class=\"price\">{{ price }}</span>",
+      "cart_thres2_html": "ينفق <span class=\"price\">{{ price }}</span> أكثر للاستمتاع <span class=\"subheading_weight primary-color\">ًالشحن مجانا!</span>",
+      "cart_thres3_html": "<span class=\"congratulations\">تهانينا!</span> لقد حصلت على شحن مجاني!",
+      "free_shipping": "ينفق <span class=\"price\">{{ amount }}</span> أكثر للاستمتاع <span class=\"subheading_weight primary-color\">ًالشحن مجانا!</span>",
       "free_shipping_avaiable": "تهانينا! ",
       "terms_conditions_text": "شروط الخدمة",
-      "taxes_and_shipping_policy_at_checkout_html": "الضرائب و <a href=\"{{ link }}\">شحن<\/a> والخصومات المحسوبة عند الخروج",
+      "taxes_and_shipping_policy_at_checkout_html": "الضرائب و <a href=\"{{ link }}\">شحن</a> والخصومات المحسوبة عند الخروج",
       "taxes_included_but_shipping_at_checkout": "شامل الضريبة وحساب الشحن عند الخروج",
-      "taxes_included_and_shipping_policy_html": "شامل الضريبة. <a href=\"{{ link }}\">شحن<\/a> والخصومات المحسوبة عند الخروج.",
+      "taxes_included_and_shipping_policy_html": "شامل الضريبة. <a href=\"{{ link }}\">شحن</a> والخصومات المحسوبة عند الخروج.",
       "taxes_and_shipping_at_checkout": "يتم احتساب الضرائب والشحن عند الخروج.",
       "return_shop": "مواصلة التسوق",
       "remove": "قم بإزالة هذا العنصر",
@@ -142,7 +142,7 @@
       },
       "gift": {
         "title": "أضف هدية",
-        "gift_wrap_html": "يرجى تغليف المنتج بعناية.  <span class=\"price heading-style\">{{ price }}<\/span>. ",
+        "gift_wrap_html": "يرجى تغليف المنتج بعناية.  <span class=\"price heading-style\">{{ price }}</span>. ",
         "button_text": "أضف غلاف هدية"
       },
       "shipping": {
@@ -168,7 +168,11 @@
       },
       "login": {
         "title": "هل لديك حساب؟",
-        "paragraph_html": "<a href=\"{{ link }}\" class=\"link underlined-link\">تسجيل الدخول<\/a> للتحقق بشكل أسرع."
+        "paragraph_html": "<a href=\"{{ link }}\" class=\"link underlined-link\">تسجيل الدخول</a> للتحقق بشكل أسرع."
+      },
+      "shipping_protection": {
+        "title": "Shipping Protection",
+        "description": "Shield your order in transit. If it's damaged, lost, or stolen, we've got you covered."
       }
     },
     "page_cart": {
@@ -194,7 +198,7 @@
     "image_alt_default": "صورة",
     "banner": "راية",
     "view_all": "عرض الكل",
-    "policies_html": "أنا أوافق على <a href=\"\/policies\/privacy-policy\" target=\"_blank\" title=\"Privacy Policy\"><strong>سياسة الخصوصية<\/strong><\/a> من الموقع."
+    "policies_html": "أنا أوافق على <a href=\"/policies/privacy-policy\" target=\"_blank\" title=\"Privacy Policy\"><strong>سياسة الخصوصية</strong></a> من الموقع."
   },
   "blogs": {
     "article": {
@@ -269,7 +273,7 @@
       "products": "منتجات",
       "tooltip": "يبحث",
       "no_products_found": "لم يتم العثور على منتجات",
-      "use_fewer_filters_html": "استخدم عددًا أقل من المرشحات أو <a class=\"{{ class }}\" href=\"{{ link }}\">إزالة الكل<\/a>",
+      "use_fewer_filters_html": "استخدم عددًا أقل من المرشحات أو <a class=\"{{ class }}\" href=\"{{ link }}\">إزالة الكل</a>",
       "results_with_count": {
         "one": "{{ count }} نتيجة",
         "other": "{{ count }} نتائج"
@@ -281,8 +285,8 @@
       },
       "title_no_search": "يبحث",
       "title": "ابحث في موقعنا",
-      "search_for_html": "بحث عن \"<span class=\"heading-color\">{{ terms }}<\/span>\"",
-      "search_empty_html": "لا شيء يطابق بحثك \"<span>{{ terms }}<\/span>\"",
+      "search_for_html": "بحث عن \"<span class=\"heading-color\">{{ terms }}</span>\"",
+      "search_empty_html": "لا شيء يطابق بحثك \"<span>{{ terms }}</span>\"",
       "suggestions": "اقتراحات",
       "pages": "صفحة",
       "article": "شرط"
@@ -382,9 +386,9 @@
       "address1": "العنوان 1",
       "address2": "العنوان 2",
       "city": "مدينة",
-      "country": "البلد\/المنطقة",
+      "country": "البلد/المنطقة",
       "province": "مقاطعة",
-      "zip": "الرمز البريدي\/الرمز البريدي",
+      "zip": "الرمز البريدي/الرمز البريدي",
       "phone": "هاتف",
       "set_default": "تعيين كعنوان افتراضي",
       "add": "أضف عنوانًا",
@@ -398,7 +402,7 @@
     },
     "log_in": "تسجيل الدخول",
     "log_out": "تسجيل الخروج",
-    "login_menu_mobile": "تسجيل الدخول \/ التسجيل",
+    "login_menu_mobile": "تسجيل الدخول / التسجيل",
     "login_page": {
       "cancel": "يلغي",
       "create_account": "إنشاء حساب",
@@ -468,7 +472,7 @@
       "submit": "إنشاء حساب",
       "title_content": "عميل جديد",
       "content": "قم بالتسجيل للوصول المبكر إلى المبيعات بالإضافة إلى الوافدين الجدد والاتجاهات والعروض الترويجية المخصصة. ",
-      "content_form_html": "سيتم استخدام بياناتك الشخصية لدعم تجربتك عبر هذا الموقع، ولإدارة الوصول إلى حسابك ولأغراض أخرى موضحة في موقعنا <a href=\"{{ link }}\">سياسة الخصوصية.<\/a>"
+      "content_form_html": "سيتم استخدام بياناتك الشخصية لدعم تجربتك عبر هذا الموقع، ولإدارة الوصول إلى حسابك ولأغراض أخرى موضحة في موقعنا <a href=\"{{ link }}\">سياسة الخصوصية.</a>"
     },
     "reset_password": {
       "title": "إعادة تعيين كلمة مرور الحساب",
@@ -590,7 +594,7 @@
         "minimum_of": "الحد الأدنى من {{ quantity }}",
         "maximum_of": "الحد الأقصى {{ quantity }}",
         "multiples_of": "زيادات {{ quantity }}",
-        "in_cart_html": "<span class=\"quantity-cart\">{{ quantity }}<\/span> في العربة"
+        "in_cart_html": "<span class=\"quantity-cart\">{{ quantity }}</span> في العربة"
       },
       "countdown": {
         "days": "أيام",
@@ -617,14 +621,14 @@
         "view_store_info": "عرض معلومات المتجر",
         "check_other_stores": "تحقق من التوفر في المتاجر الأخرى",
         "pick_up_available": "بيك اب متاح",
-        "pick_up_available_at_html": "الاستلام متاح في <span class=\"color-foreground bold heading-color\">{{ location_name }}. <\/span>",
-        "pick_up_unavailable_at_html": "الاستلام غير متاح حاليًا في <span class=\"color-foreground bold heading-color\">{{ location_name }}. <\/span>",
+        "pick_up_available_at_html": "الاستلام متاح في <span class=\"color-foreground bold heading-color\">{{ location_name }}. </span>",
+        "pick_up_unavailable_at_html": "الاستلام غير متاح حاليًا في <span class=\"color-foreground bold heading-color\">{{ location_name }}. </span>",
         "unavailable": "تعذر تحميل مدى توفر الطلب",
         "refresh": "ينعش",
         "pickup_location": "تظهر على خريطة جوجل",
         "address": "عنوان",
         "city": "مدينة",
-        "country": "البلد\/المنطقة",
+        "country": "البلد/المنطقة",
         "phone": "هاتف"
       },
       "model_size_title": {
@@ -632,7 +636,7 @@
         "model_height": "ارتفاع:",
         "model_weight": "وزن:",
         "model_shoulder_width": "عرض الكتفين:",
-        "model_bust_waist_hips": "الصدر\/الخصر\/الوركين:"
+        "model_bust_waist_hips": "الصدر/الخصر/الوركين:"
       },
       "inventory_status": {
         "incoming": "المخزون في العبور",
@@ -735,7 +739,7 @@
     "collection_template": {
       "empty": "لم يتم العثور على منتجات",
       "title": "مجموعة",
-      "use_fewer_filters_html": " استخدم عددًا أقل من المرشحات أو <a class=\"{{ class }}\" href=\"{{ link }}\">إزالة الكل<\/a>"
+      "use_fewer_filters_html": " استخدم عددًا أقل من المرشحات أو <a class=\"{{ class }}\" href=\"{{ link }}\">إزالة الكل</a>"
     },
     "shopable_video": {
       "countdown_message": "أسرع! "
@@ -782,5 +786,19 @@
     "purchased": "تم شراؤها",
     "time_minutes": "قبل دقائق",
     "product_name": "Glozin بواسطة Blueskytechco"
+  },
+  "lookbook_image": {
+    "show_product": "Show Products",
+    "hide_product": "Hide Products",
+    "lookbook_product": "Lookbook product"
+  },
+  "customer_accounts": {
+    "order_details": {
+      "payment": {
+        "manual_payment_methods": {
+          "bank_deposit": "Bank deposit: {{formattedTransactionAmount}}"
+        }
+      }
+    }
   }
 }
