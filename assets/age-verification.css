@@ -115,7 +115,7 @@
 
 .ai-age-verify-header {
   display: grid;
-  grid-template-columns: auto 1fr;
+  grid-template-columns: auto minmax(0, 1fr);
   gap: 16px;
   align-items: start;
   padding: 18px;
@@ -124,6 +124,10 @@
   background:
     linear-gradient(135deg, color-mix(in srgb, var(--age-accent), transparent 92%), transparent 60%),
     rgba(255, 255, 255, 0.54);
+}
+
+.ai-age-verify-header > div:last-child {
+  min-width: 0;
 }
 
 .ai-age-verify-badge {
@@ -159,7 +163,7 @@
   font-weight: 900;
   line-height: 1.08;
   letter-spacing: 0;
-  max-width: 11ch;
+  max-width: 100%;
 }
 
 .ai-age-verify-text {
@@ -168,7 +172,7 @@
   font-size: var(--age-text-size);
   line-height: 1.5;
   opacity: 0.88;
-  max-width: 48ch;
+  max-width: 58ch;
 }
 
 .ai-age-verify-text p,
