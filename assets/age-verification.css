@@ -66,6 +66,7 @@
   width: min(560px, calc(100vw - 32px));
   max-height: calc(100dvh - 32px);
   overflow: auto;
+  overscroll-behavior: contain;
   background:
     linear-gradient(180deg, color-mix(in srgb, var(--age-accent), transparent 96%), transparent 150px),
     var(--age-modal-bg);
@@ -216,65 +217,135 @@
 
 .ai-age-verify-actions {
   display: flex;
-  gap: 12px;
-  margin-top: 18px;
+  gap: 14px;
+  margin-top: 20px;
 }
 
 .ai-age-verify-btn,
 .ai-age-verify-submit,
 .ai-age-verify-submit-no {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   width: 100%;
-  min-height: 48px;
+  min-height: 52px;
+  overflow: hidden;
   border: 1px solid transparent;
-  border-radius: var(--age-button-radius);
-  padding: 14px 16px;
+  border-radius: max(var(--age-button-radius), 12px);
+  padding: 15px 18px;
   font-size: var(--age-button-size);
   font-weight: 900;
   line-height: 1.1;
+  letter-spacing: 0.01em;
   cursor: pointer;
-  transition: transform 0.08s ease, background-color 0.18s ease, color 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+  isolation: isolate;
+  transition:
+    transform 0.12s ease,
+    background-color 0.18s ease,
+    color 0.18s ease,
+    border-color 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+.ai-age-verify-btn::before,
+.ai-age-verify-submit::before,
+.ai-age-verify-submit-no::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  opacity: 0;
+  transform: translateX(-42%);
+  transition: opacity 0.18s ease, transform 0.24s ease;
+}
+
+.ai-age-verify-btn:hover,
+.ai-age-verify-submit:hover,
+.ai-age-verify-submit-no:hover {
+  transform: translateY(-1px);
+}
+
+.ai-age-verify-btn:hover::before,
+.ai-age-verify-submit:hover::before,
+.ai-age-verify-submit-no:hover::before {
+  opacity: 1;
+  transform: translateX(42%);
+}
+
+.ai-age-verify-btn:focus-visible,
+.ai-age-verify-submit:focus-visible,
+.ai-age-verify-submit-no:focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 3px color-mix(in srgb, var(--age-modal-bg), transparent 8%),
+    0 0 0 6px color-mix(in srgb, var(--age-accent), transparent 45%);
 }
 
 .ai-age-verify-btn:active,
 .ai-age-verify-submit:active,
 .ai-age-verify-submit-no:active {
-  transform: translateY(1px);
+  transform: translateY(1px) scale(0.995);
 }
 
 .ai-age-verify-btn-yes,
 .ai-age-verify-submit {
-  background: linear-gradient(180deg, color-mix(in srgb, var(--age-yes-bg), white 8%), var(--age-yes-bg));
+  border-color: color-mix(in srgb, var(--age-accent), transparent 22%);
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--age-yes-bg), white 10%), var(--age-yes-bg)),
+    var(--age-yes-bg);
   color: var(--age-yes-color);
   box-shadow:
-    0 12px 28px rgba(0, 0, 0, 0.16),
-    0 0 0 1px color-mix(in srgb, var(--age-accent), transparent 82%) inset;
+    0 14px 30px rgba(0, 0, 0, 0.2),
+    0 0 0 1px color-mix(in srgb, var(--age-accent), transparent 70%) inset,
+    0 1px 0 rgba(255, 255, 255, 0.16) inset;
 }
 
 .ai-age-verify-btn-yes:hover,
 .ai-age-verify-submit:hover {
-  background: var(--age-yes-hover-bg);
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--age-yes-hover-bg), white 7%), var(--age-yes-hover-bg)),
+    var(--age-yes-hover-bg);
+  box-shadow:
+    0 18px 34px rgba(0, 0, 0, 0.24),
+    0 0 0 1px color-mix(in srgb, var(--age-accent), transparent 58%) inset;
 }
 
 .ai-age-verify-btn-no,
 .ai-age-verify-submit-no {
-  background: var(--age-no-bg);
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--age-no-bg), white 22%), var(--age-no-bg)),
+    var(--age-no-bg);
   color: var(--age-no-color);
   border-color: var(--age-no-border);
-  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.72) inset;
+  box-shadow:
+    0 8px 18px rgba(0, 0, 0, 0.08),
+    0 1px 0 rgba(255, 255, 255, 0.84) inset;
 }
 
 .ai-age-verify-btn-no:hover,
 .ai-age-verify-submit-no:hover {
-  background: var(--age-no-hover-bg);
+  border-color: color-mix(in srgb, var(--age-no-border), var(--age-text-color) 18%);
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--age-no-hover-bg), white 16%), var(--age-no-hover-bg)),
+    var(--age-no-hover-bg);
+  box-shadow:
+    0 12px 22px rgba(0, 0, 0, 0.1),
+    0 1px 0 rgba(255, 255, 255, 0.84) inset;
 }
 
 .ai-age-verify-submit {
-  background: var(--age-submit-bg);
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--age-submit-bg), white 10%), var(--age-submit-bg)),
+    var(--age-submit-bg);
   color: var(--age-submit-color);
 }
 
 .ai-age-verify-submit:hover {
-  background: var(--age-submit-hover-bg);
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--age-submit-hover-bg), white 7%), var(--age-submit-hover-bg)),
+    var(--age-submit-hover-bg);
 }
 
 .ai-age-verify-submit:disabled,
@@ -282,6 +353,11 @@
   opacity: 0.6;
   cursor: not-allowed;
   box-shadow: none;
+}
+
+.ai-age-verify-submit:disabled:hover,
+.ai-age-verify-submit-no:disabled:hover {
+  transform: none;
 }
 
 .ai-age-verify-note {
@@ -416,27 +492,20 @@ body.ai-age-gate-open {
 
 @media (max-width: 749px) {
   .ai-age-verify-overlay {
-    padding: 14px;
-    align-items: flex-end;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
   }
 
   .ai-age-verify-modal {
-    width: 100%;
-    max-height: calc(100dvh - 28px);
-    padding: 26px 18px 20px;
-    border-radius: min(var(--age-modal-radius), 18px) min(var(--age-modal-radius), 18px) 16px 16px;
+    width: min(100%, 520px);
+    max-height: calc(100dvh - 32px);
+    padding: 24px 18px 20px;
+    border-radius: min(var(--age-modal-radius), 18px);
   }
 
   .ai-age-verify-modal::after {
-    content: "";
-    position: absolute;
-    top: 10px;
-    left: 50%;
-    width: 42px;
-    height: 4px;
-    border-radius: 999px;
-    background: color-mix(in srgb, var(--age-text-color), transparent 78%);
-    transform: translateX(-50%);
+    display: none;
   }
 
   .ai-age-verify-header {
@@ -452,6 +521,14 @@ body.ai-age-gate-open {
 
   .ai-age-verify-actions {
     flex-direction: column;
+    gap: 10px;
+    margin-top: 18px;
+  }
+
+  .ai-age-verify-btn,
+  .ai-age-verify-submit,
+  .ai-age-verify-submit-no {
+    min-height: 50px;
   }
 
   .ai-age-verify-trust-row {
