@@ -295,6 +295,9 @@
 .cta__sub{font-size:13px;color:var(--graphite);margin-bottom:16px}
 .btn-wa{display:inline-flex;align-items:center;gap:6px;padding:12px 24px;border-radius:8px;border:none;background:#25D366;color:var(--white);font-family:'Inter',sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:var(--t);text-decoration:none;box-shadow:0 2px 12px rgba(37,211,102,.25)}
 .btn-wa:hover{background:#20BD5A;box-shadow:0 4px 20px rgba(37,211,102,.35);transform:translateY(-1px)}
+/* Disk */
+.disc--herbal{background:#fff8e8;border:1px solid #f0d890;border-left:4px solid #d4a843;color:#5c4520;padding:18px 22px;border-radius:10px;margin:28px 0;font-size:13px;line-height:1.65}
+.disc--herbal strong{color:#8a6418}
 /* Responsive */
 @media(max-width:600px){
   .whl{grid-template-columns:1fr}
