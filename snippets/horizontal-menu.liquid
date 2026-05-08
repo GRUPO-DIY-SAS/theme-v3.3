@@ -974,6 +974,24 @@
             </a>
           </li>
         {% endif %}
+        {%- if show_my_account -%}
+          <li class="level0 hidden-1025">
+            <a
+              class="no-underline py-10 lh-normal flex border-bottom border-bottom-1025-0 min-h-55 min-h-1025-50 align-center{% if uppercase_first %} uppercase{% endif %}"
+              href="{%- if customer -%}{{ routes.account_url }}{%- else -%}{{ routes.account_login_url }}{%- endif -%}"
+              aria-label="{{ 'customer.account_fallback' | t }}"
+            >
+              <svg width="17" height="17" viewBox="0 0 16 16" class="me-10" fill="none">
+                <use href="#icon-account" />
+              </svg>
+              {%- if customer -%}
+                {{ 'customer.account_fallback' | t }}
+              {%- else -%}
+                {{ 'customer.login_menu_mobile' | t }}
+              {%- endif -%}
+            </a>
+          </li>
+        {% endif %}
       </ul>
       {% if menu_mobile_tab == 'custom-collections' and collection_list != blank %}
         {%- render 'categories-menu-mobile' | section_st: section_st -%}
