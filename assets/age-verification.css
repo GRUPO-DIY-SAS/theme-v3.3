@@ -3,6 +3,7 @@
   --age-overlay-opacity: 1;
   --age-modal-bg: #fff;
   --age-modal-border: #eaeaea;
+  --age-accent: #c8102e;
   --age-text-color: #111;
   --age-heading-size: 28px;
   --age-text-size: 15px;
@@ -47,7 +48,8 @@
   z-index: 0;
   pointer-events: none;
   background:
-    radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.14), transparent 34%),
+    radial-gradient(circle at 50% 0%, color-mix(in srgb, var(--age-accent), transparent 70%), transparent 34%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.08), transparent 42%),
     var(--age-overlay-bg);
   opacity: var(--age-overlay-opacity);
 }
@@ -64,16 +66,28 @@
   width: min(560px, calc(100vw - 32px));
   max-height: calc(100dvh - 32px);
   overflow: auto;
-  background: var(--age-modal-bg);
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--age-accent), transparent 96%), transparent 150px),
+    var(--age-modal-bg);
   color: var(--age-text-color);
   border: 1px solid var(--age-modal-border);
   border-radius: var(--age-modal-radius);
-  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.38);
-  padding: 28px;
+  box-shadow:
+    0 24px 70px rgba(0, 0, 0, 0.38),
+    0 1px 0 rgba(255, 255, 255, 0.7) inset;
+  padding: 30px;
   text-align: left;
   opacity: 0;
   transform: translateY(14px) scale(0.98);
   transition: opacity 0.22s ease, transform 0.28s cubic-bezier(0.2, 0.9, 0.25, 1.12);
+}
+
+.ai-age-verify-modal::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 5px;
+  background: linear-gradient(90deg, var(--age-accent), var(--age-yes-bg));
 }
 
 .ai-age-verify-overlay.active .ai-age-verify-modal {
@@ -89,13 +103,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 18px;
+  margin-bottom: 20px;
 }
 
 .ai-age-verify-logo {
   width: min(var(--age-logo-width), 70vw);
   height: auto;
   object-fit: contain;
+  filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.1));
 }
 
 .ai-age-verify-header {
@@ -103,21 +118,27 @@
   grid-template-columns: auto 1fr;
   gap: 16px;
   align-items: start;
-  padding-bottom: 18px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  padding: 18px;
+  border: 1px solid color-mix(in srgb, var(--age-modal-border), transparent 28%);
+  border-radius: max(calc(var(--age-modal-radius) - 6px), 10px);
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--age-accent), transparent 92%), transparent 60%),
+    rgba(255, 255, 255, 0.54);
 }
 
 .ai-age-verify-badge {
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
+  width: 54px;
+  height: 54px;
+  border-radius: 18px;
   display: flex;
   align-items: center;
   justify-content: center;
   background: var(--age-badge-bg);
   color: var(--age-badge-color);
   flex: 0 0 auto;
-  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.16);
+  box-shadow:
+    0 12px 26px rgba(0, 0, 0, 0.16),
+    0 0 0 4px color-mix(in srgb, var(--age-accent), transparent 84%);
 }
 
 .ai-age-verify-kicker {
@@ -138,6 +159,7 @@
   font-weight: 900;
   line-height: 1.08;
   letter-spacing: 0;
+  max-width: 11ch;
 }
 
 .ai-age-verify-text {
@@ -146,6 +168,7 @@
   font-size: var(--age-text-size);
   line-height: 1.5;
   opacity: 0.88;
+  max-width: 48ch;
 }
 
 .ai-age-verify-text p,
@@ -156,8 +179,8 @@
 .ai-age-verify-trust-row {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 8px;
-  margin: 16px 0 2px;
+  gap: 10px;
+  margin: 18px 0 2px;
 }
 
 .ai-age-verify-trust-item {
@@ -165,7 +188,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid rgba(0, 0, 0, 0.08);
+  gap: 7px;
+  border: 1px solid color-mix(in srgb, var(--age-modal-border), transparent 26%);
   border-radius: 999px;
   padding: 8px 10px;
   color: var(--age-text-color);
@@ -173,7 +197,17 @@
   font-weight: 800;
   line-height: 1.15;
   text-align: center;
-  background: rgba(0, 0, 0, 0.025);
+  background: rgba(255, 255, 255, 0.6);
+}
+
+.ai-age-verify-trust-item::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--age-accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--age-accent), transparent 84%);
+  flex: 0 0 auto;
 }
 
 .ai-age-verify-actions {
@@ -205,9 +239,11 @@
 
 .ai-age-verify-btn-yes,
 .ai-age-verify-submit {
-  background: var(--age-yes-bg);
+  background: linear-gradient(180deg, color-mix(in srgb, var(--age-yes-bg), white 8%), var(--age-yes-bg));
   color: var(--age-yes-color);
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.16);
+  box-shadow:
+    0 12px 28px rgba(0, 0, 0, 0.16),
+    0 0 0 1px color-mix(in srgb, var(--age-accent), transparent 82%) inset;
 }
 
 .ai-age-verify-btn-yes:hover,
@@ -220,6 +256,7 @@
   background: var(--age-no-bg);
   color: var(--age-no-color);
   border-color: var(--age-no-border);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.72) inset;
 }
 
 .ai-age-verify-btn-no:hover,
@@ -249,12 +286,17 @@
   font-size: 12.5px;
   line-height: 1.45;
   opacity: 0.74;
+  text-align: center;
 }
 
 .ai-age-verify-formwrap,
 .ai-age-verify-blocked {
   display: none;
   margin-top: 18px;
+  padding: 18px;
+  border: 1px solid color-mix(in srgb, var(--age-modal-border), transparent 22%);
+  border-radius: max(calc(var(--age-modal-radius) - 6px), 10px);
+  background: rgba(255, 255, 255, 0.54);
   opacity: 0;
   transition: opacity 0.16s ease;
 }
@@ -286,7 +328,9 @@
   padding: 12px 13px;
   border: 1px solid var(--age-input-border);
   border-radius: var(--age-input-radius);
-  background: var(--age-input-bg);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.5), transparent),
+    var(--age-input-bg);
   color: var(--age-text-color);
   font-size: 16px;
   line-height: 1.2;
@@ -295,7 +339,9 @@
 .ai-age-verify-input:focus {
   outline: none;
   border-color: var(--age-input-focus);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--age-input-focus), transparent 82%);
+  box-shadow:
+    0 0 0 3px color-mix(in srgb, var(--age-input-focus), transparent 82%),
+    0 8px 18px rgba(0, 0, 0, 0.06);
 }
 
 .ai-age-verify-input.error {
@@ -327,8 +373,8 @@
   justify-content: center;
   margin: 0 auto 14px;
   border-radius: 50%;
-  background: var(--age-no-bg);
-  color: var(--age-no-color);
+  background: color-mix(in srgb, var(--age-error-color), transparent 88%);
+  color: var(--age-error-color);
 }
 
 .ai-age-verify-blocked h3 {
@@ -373,14 +419,27 @@ body.ai-age-gate-open {
   .ai-age-verify-modal {
     width: 100%;
     max-height: calc(100dvh - 28px);
-    padding: 22px 18px 20px;
+    padding: 26px 18px 20px;
     border-radius: min(var(--age-modal-radius), 18px) min(var(--age-modal-radius), 18px) 16px 16px;
+  }
+
+  .ai-age-verify-modal::after {
+    content: "";
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    width: 42px;
+    height: 4px;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--age-text-color), transparent 78%);
+    transform: translateX(-50%);
   }
 
   .ai-age-verify-header {
     grid-template-columns: 1fr;
     gap: 12px;
     text-align: center;
+    padding: 16px 14px;
   }
 
   .ai-age-verify-badge {
@@ -392,7 +451,19 @@ body.ai-age-gate-open {
   }
 
   .ai-age-verify-trust-row {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 6px;
+  }
+
+  .ai-age-verify-trust-item {
+    min-height: 44px;
+    padding: 7px 6px;
+    font-size: 10px;
+  }
+
+  .ai-age-verify-title,
+  .ai-age-verify-text {
+    max-width: none;
   }
 
   .ai-age-verify-editor-trigger {

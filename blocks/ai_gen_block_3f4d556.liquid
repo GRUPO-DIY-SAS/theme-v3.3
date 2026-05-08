@@ -28,6 +28,7 @@
     --age-overlay-opacity: {{ block.settings.overlay_opacity }};
     --age-modal-bg: {{ block.settings.modal_background }};
     --age-modal-border: {{ block.settings.modal_border_color }};
+    --age-accent: {{ block.settings.accent_color }};
     --age-text-color: {{ block.settings.text_color }};
     --age-heading-size: {{ block.settings.heading_size }}px;
     --age-text-size: {{ block.settings.text_size }}px;
@@ -329,6 +330,7 @@
     { "type": "header", "content": "Estilo modal" },
     { "type": "color", "id": "modal_background", "label": "Fondo modal", "default": "#ffffff" },
     { "type": "color", "id": "modal_border_color", "label": "Borde modal", "default": "#EAEAEA" },
+    { "type": "color", "id": "accent_color", "label": "Color acento", "default": "#C8102E" },
     { "type": "color", "id": "text_color", "label": "Color texto", "default": "#111111" },
     { "type": "range", "id": "heading_size", "min": 18, "max": 40, "step": 2, "unit": "px", "label": "Tamaño título", "default": 28 },
     { "type": "range", "id": "text_size", "min": 12, "max": 20, "step": 1, "unit": "px", "label": "Tamaño texto", "default": 15 },
