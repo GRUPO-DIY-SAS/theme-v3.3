@@ -167,8 +167,10 @@
                         class="slideshow"
                         loop="true"
                         data-src="{{ source_url }}"
+                        data-video-load="{% if forloop.first %}interaction{% else %}visible{% endif %}"
                         poster="{{ poster }}"
                         playsinline="true"
+                        preload="none"
                         {{ video_attribute }}
                       ></video>
                     {% else %}

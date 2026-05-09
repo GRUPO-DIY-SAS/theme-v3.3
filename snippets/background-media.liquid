@@ -25,6 +25,10 @@
   {% elsif background_media == 'video' %}
     {% liquid
       assign poster = video_local.preview_image | default: video_local.preview_image
+      assign poster_url = ''
+      if poster != blank
+        assign poster_url = poster | image_url: width: 1100
+      endif
       assign source = video_local.sources
       assign source_url = ''
       for s in source
@@ -36,14 +40,15 @@
     %}
     {%- if video_local != blank -%}
       <video
-        class="rounded w-full"
+        class="rounded w-full lazy-video"
         loop="true"
         muted="true"
         playsinline="true"
         autoplay="true"
-        preload="metadata"
-        src="{{ source_url }}"
-        poster="{{ poster | image_url: width: 1920 }}"
+        preload="none"
+        data-src="{{ source_url }}"
+        data-video-load="interaction"
+        poster="{{ poster_url }}"
       ></video>
     {% else %}
       {%- render 'placeholder-render', class: 'rounded' -%}
@@ -65,17 +70,3 @@
     object-fit: cover;
   }
 {% endstyle %}
-<script>
-  document.querySelectorAll('video.lazy-video').forEach((el) => {
-    if (el.getBoundingClientRect().top < 150) {
-      const poster = el.dataset.poster;
-      const src = el.dataset.src;
-      if (poster) {
-        el.setAttribute('poster', poster);
-        el.removeAttribute('data-poster');
-        el.setAttribute('src', src);
-        el.removeAttribute('data-src');
-      }
-    }
-  });
-</script>

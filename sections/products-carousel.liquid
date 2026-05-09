@@ -292,12 +292,13 @@
                   {% endif %}
               {%- endcapture -%}
               <video
-                class="rounded w-full"
+                class="rounded w-full lazy-video"
                 controls="true"
                 playsinline="true"
                 preload="none"
                 {{ video_attribute }}
-                src="{{ source_url }}"
+                data-src="{{ source_url }}"
+                data-video-load="visible"
                 poster="{{ local_video.preview_image | image_url: width: 1100 }}"
               ></video>
             {% else %}

@@ -303,13 +303,14 @@
                 -%}
                 <div style="--aspect-ratio: {{ local_video.aspect_ratio }}">
                   <video
-                    class="rounded w-full"
+                    class="rounded w-full lazy-video"
                     autoplay
                     muted
                     playsinline="true"
                     preload="none"
                     loop
-                    src="{{ source_url }}"
+                    data-src="{{ source_url }}"
+                    data-video-load="visible"
                     poster="{{ local_video.preview_image | image_url: width: 1100 }}"
                   ></video>
                 </div>

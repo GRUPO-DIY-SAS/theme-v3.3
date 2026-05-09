@@ -106,11 +106,20 @@
   {% endstyle %}
 {% elsif font_type_heading == 'google' %}
   {% assign font_family_heading = font_heading_google %}
-  {%- comment -%} INP optimization: load Google Fonts CSS async (heading) {%- endcomment -%}
-  {%- capture stylesheet_orig_h -%}rel="stylesheet"{%- endcapture -%}
-  {%- capture stylesheet_async_h -%}rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'"{%- endcapture -%}
-  {{ font_body_heading_embed | replace: stylesheet_orig_h, stylesheet_async_h }}
-  <noscript>{{ font_body_heading_embed }}</noscript>
+  {%- liquid
+    assign font_heading_google_param = font_heading_google | replace: ' ', '+'
+    assign heading_font_already_loaded = false
+    if font_type_body == 'google' and font_body_google_embed contains font_heading_google_param
+      assign heading_font_already_loaded = true
+    endif
+  -%}
+  {%- unless heading_font_already_loaded -%}
+    {%- comment -%} INP optimization: load Google Fonts CSS async (heading) {%- endcomment -%}
+    {%- capture stylesheet_orig_h -%}rel="stylesheet"{%- endcapture -%}
+    {%- capture stylesheet_async_h -%}rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'"{%- endcapture -%}
+    {{ font_body_heading_embed | replace: stylesheet_orig_h, stylesheet_async_h }}
+    <noscript>{{ font_body_heading_embed }}</noscript>
+  {%- endunless -%}
 {% else %}
   {% # theme-check-disable AssetPreload %}
   <link rel="preload" as="font" href="{{ font_heading_shopify | font_url }}" type="font/woff2" crossorigin>

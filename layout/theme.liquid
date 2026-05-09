@@ -62,7 +62,8 @@
     {%- else -%}
       {{ 'swiper-bundle.min.css' | asset_url | stylesheet_tag }}
     {%- endif -%}
-    {{ 'judgeme-reviews.css' | asset_url | stylesheet_tag }}
+    <link rel="stylesheet" href="{{ 'judgeme-reviews.css' | asset_url }}" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="{{ 'judgeme-reviews.css' | asset_url }}"></noscript>
     {% render 'font-variables' %}
     {% if request.design_mode %}
       {{ 'design-mode.css' | asset_url | stylesheet_tag: preload: true }}
@@ -212,7 +213,7 @@
     <script src="{{ 'motion.min.js' | asset_url }}" type="module" defer="defer"></script>
     <script src="{{ 'utils.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'global.js' | asset_url }}" defer="defer"></script>
-    {% if settings.scroll_animation or settings.zoom_image %}
+    {% if settings.scroll_animation != 'none' or settings.zoom_image %}
       <script src="{{ 'motion-effect.js' | asset_url }}" defer="defer"></script>
     {% endif %}
     <script>

@@ -65,6 +65,10 @@
         {% liquid
           assign video_id = section_st.video_url.id
           assign poster = section_st.video_poster | default: section_st.video_local.preview_image
+          assign poster_url = ''
+          if poster != blank
+            assign poster_url = poster | image_url: width: 1100
+          endif
           assign source = section_st.video_local.sources
           assign source_url = ''
           for s in source
@@ -78,6 +82,11 @@
             assign loading = 'eager'
           endif
         %}
+        {%- if section.index == 1 and poster != blank -%}
+          {% # theme-check-disable AssetPreload %}
+          <link rel="preload" as="image" href="{{ poster_url }}" fetchpriority="high">
+          {% # theme-check-enable AssetPreload %}
+        {%- endif -%}
         {%- if section_st.video_local != blank -%}
           <video
             class="rounded w-full lazy-video"
@@ -86,7 +95,9 @@
             playsinline="true"
             autoplay="true"
             data-src="{{ source_url }}"
-            data-poster="{{ poster | image_url: width: 1920 }}"
+            data-video-load="{% if section.index == 1 %}interaction{% else %}visible{% endif %}"
+            poster="{{ poster_url }}"
+            preload="none"
           ></video>
         {%- elsif section_st.video_url != blank -%}
           {%- if section_st.video_url.type == 'youtube' or section_st.video_url.type == 'vimeo' -%}
@@ -191,20 +202,6 @@
     </div>
   </div>
 </div>
-<script>
-  document.querySelectorAll('video.lazy-video').forEach((el) => {
-    if (el.getBoundingClientRect().top < 150) {
-      const poster = el.dataset.poster;
-      const src = el.dataset.src;
-      if (poster) {
-        el.setAttribute('poster', poster);
-        el.removeAttribute('data-poster');
-        el.setAttribute('src', src);
-        el.removeAttribute('data-src');
-      }
-    }
-  });
-</script>
 {% schema %}
 {
   "name": "t:sections.video_with_text_overlay.name",
