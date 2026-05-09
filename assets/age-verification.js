@@ -54,12 +54,18 @@
     connectedCallback() {
       this.setDobBounds();
 
-      if (!this.isShopifyDesignMode() && this.isCartVerified()) return;
+      if (!this.isShopifyDesignMode() && this.isCartVerified()) {
+        document.documentElement.classList.add("age-gate-verified");
+        this.hide();
+        return;
+      }
 
       this.restoreCookieFromStorageIfNeeded();
 
       const verified = this.getVerifiedObject();
       if (verified) {
+        document.documentElement.classList.add("age-gate-verified");
+        this.hide();
         this.deferCartSync(verified, { reason: "cookie_present", force: true });
         return;
       }
@@ -93,11 +99,13 @@
 
       if (behavior === "hide_in_editor") {
         if (urlWantsPreview) this.show();
+        else this.hide();
         return;
       }
 
       if (behavior === "only_preview_button") {
         if (urlWantsPreview || manualPreview) this.show();
+        else this.hide();
         return;
       }
 
@@ -228,6 +236,7 @@
 
       this.persistVerificationFallbacks(payload);
 
+      document.documentElement.classList.add("age-gate-verified");
       this.hide();
 
       if (this.submitBtn) this.submitBtn.disabled = false;

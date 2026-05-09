@@ -41,6 +41,9 @@
     pointer-events: auto;
     opacity: 1;
   }
+  html.age-gate-verified .ai-age-verify-overlay {
+    display: none !important;
+  }
   .ai-age-verify-modal {
     position: relative;
     z-index: 1;
@@ -176,10 +179,10 @@
 
 <age-verification-gate
   id="AgeVerification-{{ ai_gen_id }}"
-  class="ai-age-verify-overlay"
+  class="ai-age-verify-overlay active"
   role="dialog"
   aria-modal="true"
-  aria-hidden="true"
+  aria-hidden="false"
   aria-labelledby="AgeVerifyTitle-{{ ai_gen_id }}"
   style="
     --age-overlay-bg: {{ block.settings.overlay_bg_color }};
