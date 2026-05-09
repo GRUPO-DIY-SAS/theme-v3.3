@@ -7,7 +7,7 @@
   if custom_ratio != blank
     assign ratio = custom_ratio | replace: ':', '/'
   else
-    assign ratio = '3/2'
+    assign ratio = ''
   endif
   if section_st.reset_spacing
     assign reset_spacing = ' remove_spacing'
@@ -50,7 +50,7 @@
       class="sec__inner flex relative overflow-hidden{% if section_st.content_below_image %} flex-column flex-md-row text-below-mb{% endif %} h-{{ section_st.image_height }}"
       {%- if section_st.image_height == '16/9' -%}
         style="--aspect-ratio: 16/9;"
-      {% elsif section_st.image_height == 'custom' %}
+      {% elsif section_st.image_height == 'custom' and ratio != blank %}
         style="--aspect-ratio: {{  ratio }};"
       {% endif %}
     >
@@ -58,7 +58,7 @@
         class="banner__media w-full overlay-bg{% if section_st.section_width != "full_width" %} rounded{% endif %}{% if section_st.content_below_image %} absolute-md mb-40 mb-md-0{% else %} absolute{% endif %} inset-0"
         {%- if section_st.image_height == '16/9' -%}
           style="--aspect-ratio: 16/9;"
-        {% elsif section_st.image_height == 'custom' %}
+        {% elsif section_st.image_height == 'custom' and ratio != blank %}
           style="--aspect-ratio: {{  ratio }};"
         {% endif %}
       >
