@@ -1,0 +1,177 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  min-height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  font-size: 62.5%;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  font-family: var(--body-font), sans-serif;
+  font-size: var(--body-font-size, 1.4rem);
+  font-weight: var(--body-weight, 400);
+  line-height: var(--body-line-height, 1.714);
+  color: var(--color-text);
+  background: var(--color-background);
+  overflow-wrap: break-word;
+  text-rendering: optimizeSpeed;
+  -webkit-font-smoothing: antialiased;
+}
+
+main {
+  display: block;
+  flex: 1 0 auto;
+}
+
+img,
+video {
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  color: var(--color-link);
+  text-decoration: none;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+:where(.container, .fluid_container) {
+  width: 100%;
+  margin-inline: auto;
+  padding-left: var(--bs-gutter-x, 1.5rem);
+  padding-right: var(--bs-gutter-x, 1.5rem);
+}
+
+@media (min-width: 1200px) {
+  .container {
+    max-width: calc(var(--page-width) + var(--bs-gutter-x, 1.5rem) * 2);
+  }
+
+  .fluid_container {
+    max-width: calc(var(--fluid-container-width) + var(--bs-gutter-x, 1.5rem) * 2);
+  }
+}
+
+:where(h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6, .h0, .heading) {
+  margin-block: 0.7em;
+  color: var(--color-heading);
+  font-family: var(--heading-font), sans-serif;
+  font-weight: var(--heading-weight, 600);
+  line-height: 1.15;
+  text-transform: var(--heading-text-transform);
+}
+
+.hidden {
+  display: none !important;
+}
+
+.block {
+  display: block;
+}
+
+.flex {
+  display: flex;
+}
+
+.inline-flex {
+  display: inline-flex;
+}
+
+.relative {
+  position: relative;
+}
+
+.absolute {
+  position: absolute;
+}
+
+.fixed {
+  position: fixed;
+}
+
+.inset-0 {
+  inset: 0;
+}
+
+.inset-x-0 {
+  left: 0;
+  right: 0;
+}
+
+.w-full {
+  width: 100%;
+}
+
+.h-full {
+  height: 100%;
+}
+
+.overflow-hidden {
+  overflow: hidden;
+}
+
+.align-center {
+  align-items: center;
+}
+
+.content-center {
+  align-items: center;
+  justify-content: center;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.z-1 {
+  z-index: 1;
+}
+
+.gradient {
+  background: var(--gradient-background, var(--color-background));
+}
+
+.section {
+  padding-top: calc(var(--section-pt, 0) * 1px);
+  padding-bottom: calc(var(--section-pb, 0) * 1px);
+}
+
+[style*="--aspect-ratio"]::before {
+  content: "";
+  display: block;
+  padding-top: calc(100% / (var(--aspect-ratio)));
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}

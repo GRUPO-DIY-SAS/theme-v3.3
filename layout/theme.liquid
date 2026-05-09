@@ -9,6 +9,22 @@
       assign enable_rtl = false
     endif
   endif
+
+  assign load_swiper_assets = false
+  if request.page_type == 'index' or request.page_type == 'product' or request.page_type == 'collection' or request.page_type == 'search' or request.page_type == 'cart'
+    assign load_swiper_assets = true
+  endif
+
+  assign load_motion_effects = false
+  if settings.scroll_animation != 'none' or settings.zoom_image
+    assign load_motion_effects = true
+  endif
+
+  assign account_open_as = settings.open_as | default: 'show_popup_login'
+  assign load_account_popup_assets = false
+  if account_open_as == 'show_popup_login' and shop.customer_accounts_enabled
+    assign load_account_popup_assets = true
+  endif
 %}
 
 <!doctype html>
@@ -49,18 +65,24 @@
     {% render 'breadcrumb-schema' %}
         
     {{ content_for_header }}
-    {{ 'critical.css' | asset_url | stylesheet_tag }}
+    {{ 'critical-base.css' | asset_url | stylesheet_tag }}
+    <link rel="stylesheet" href="{{ 'critical.css' | asset_url }}" media="print" onload="this.media='all'">
+    <noscript>{{ 'critical.css' | asset_url | stylesheet_tag }}</noscript>
     {% if enable_rtl %}{{ 'rtl.css' | asset_url | stylesheet_tag: preload: true }}{% endif %}
     {%- comment -%} INP optimization — preload solo donde el CSS es crítico above-fold {%- endcomment -%}
     {%- if request.page_type == 'collection' or request.page_type == 'index' or request.page_type == 'search' -%}
       {{ 'product-card.css' | asset_url | stylesheet_tag: preload: true }}
     {%- else -%}
-      {{ 'product-card.css' | asset_url | stylesheet_tag }}
+      <link rel="stylesheet" href="{{ 'product-card.css' | asset_url }}" media="print" onload="this.media='all'">
+      <noscript><link rel="stylesheet" href="{{ 'product-card.css' | asset_url }}"></noscript>
     {%- endif -%}
-    {%- if request.page_type == 'index' -%}
-      {{ 'swiper-bundle.min.css' | asset_url | stylesheet_tag: preload: true }}
-    {%- else -%}
-      {{ 'swiper-bundle.min.css' | asset_url | stylesheet_tag }}
+    {%- if load_swiper_assets -%}
+      {%- if request.page_type == 'index' -%}
+        {{ 'swiper-bundle.min.css' | asset_url | stylesheet_tag: preload: true }}
+      {%- else -%}
+        <link rel="stylesheet" href="{{ 'swiper-bundle.min.css' | asset_url }}" media="print" onload="this.media='all'">
+        <noscript><link rel="stylesheet" href="{{ 'swiper-bundle.min.css' | asset_url }}"></noscript>
+      {%- endif -%}
     {%- endif -%}
     <link rel="stylesheet" href="{{ 'judgeme-reviews.css' | asset_url }}" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="{{ 'judgeme-reviews.css' | asset_url }}"></noscript>
@@ -209,11 +231,18 @@
     <noscript><link rel="stylesheet" href="{{ 'theme.css' | asset_url }}"></noscript>
     <link rel="stylesheet" href="{{ 'popup.css' | asset_url }}" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="{{ 'popup.css' | asset_url }}"></noscript>
-    <script src="{{ 'swiper-bundle.min.js' | asset_url }}" defer="defer"></script>
+    {% if load_account_popup_assets %}
+      <link rel="stylesheet" href="{{ 'header-account-popup.css' | asset_url }}" media="print" onload="this.media='all'">
+      <noscript><link rel="stylesheet" href="{{ 'header-account-popup.css' | asset_url }}"></noscript>
+      <script src="{{ 'header-account-popup.js' | asset_url }}" defer="defer"></script>
+    {% endif %}
+    {% if load_swiper_assets %}
+      <script src="{{ 'swiper-bundle.min.js' | asset_url }}" defer="defer"></script>
+    {% endif %}
     <script src="{{ 'motion.min.js' | asset_url }}" type="module" defer="defer"></script>
     <script src="{{ 'utils.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'global.js' | asset_url }}" defer="defer"></script>
-    {% if settings.scroll_animation != 'none' or settings.zoom_image %}
+    {% if load_motion_effects %}
       <script src="{{ 'motion-effect.js' | asset_url }}" defer="defer"></script>
     {% endif %}
     <script>

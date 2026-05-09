@@ -41,10 +41,6 @@
     <use href="#icon-account" />
   </svg>
 {%- endcapture -%}
-{% if show_account_popup %}
-  {{ 'header-account-popup.css' | asset_url | stylesheet_tag }}
-  <script src="{{ 'header-account-popup.js' | asset_url }}" defer="defer"></script>
-{% endif %}
 {%- capture style -%}
 --section-pt: {{ section_st.padding_top }}; 
 --section-pb: {{ section_st.padding_bottom }};
