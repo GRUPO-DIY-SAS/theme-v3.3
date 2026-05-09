@@ -36,8 +36,8 @@
   <style>
     .diyvape-chat-trigger {
       position: fixed;
-      right: 16px;
-      bottom: 16px;
+      right: 30px;
+      bottom: 90px;
       z-index: 99998;
       display: inline-flex;
       align-items: center;
@@ -66,13 +66,37 @@
       outline-offset: 2px;
     }
     .diyvape-chat-trigger[hidden] { display: none !important; }
-    @media (max-width: 575px) {
+    @media (max-width: 767.98px) {
       .diyvape-chat-trigger {
+        right: 16px;
+        bottom: 135px;
         padding: 0;
         width: 52px;
         justify-content: center;
       }
       .diyvape-chat-trigger__label { display: none; }
+    }
+
+    /* Lift LeadConnector chat button above back-to-top once it mounts */
+    chat-widget,
+    chat-widget::part(button),
+    #lc_text-widget,
+    #lcw-chat-button,
+    .lc_text-widget,
+    .lc_text-widget-floating-button,
+    [class*="LC_chatWidget"] {
+      bottom: 90px !important;
+    }
+    @media (max-width: 767.98px) {
+      chat-widget,
+      chat-widget::part(button),
+      #lc_text-widget,
+      #lcw-chat-button,
+      .lc_text-widget,
+      .lc_text-widget-floating-button,
+      [class*="LC_chatWidget"] {
+        bottom: 135px !important;
+      }
     }
   </style>
 
@@ -113,6 +137,16 @@
         document.head.appendChild(l);
       }
 
+      function liftLcWidget() {
+        var lift = window.matchMedia('(max-width: 767.98px)').matches ? 135 : 90;
+        var nodes = document.querySelectorAll(
+          'chat-widget, #lc_text-widget, #lcw-chat-button, .lc_text-widget, .lc_text-widget-floating-button, [class*="LC_chatWidget"]'
+        );
+        nodes.forEach(function (n) {
+          try { n.style.setProperty('bottom', lift + 'px', 'important'); } catch (e) {}
+        });
+      }
+
       function injectWidget() {
         if (loaded || document.getElementById(SCRIPT_ID)) return;
         loaded = true;
@@ -126,6 +160,10 @@
         s.async = true;
         s.defer = true;
         document.body.appendChild(s);
+
+        var mo = new MutationObserver(liftLcWidget);
+        mo.observe(document.body, { childList: true, subtree: true });
+        setTimeout(function () { mo.disconnect(); }, 15000);
       }
 
       function bindTrigger() {
