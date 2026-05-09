@@ -260,6 +260,10 @@ function initializeLazyLoad() {
           passive: true,
         });
       });
+
+      if (window.matchMedia("(min-width: 990px)").matches) {
+        runWhenIdle(loadInteractionVideos);
+      }
     }
   };
 

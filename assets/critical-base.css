@@ -164,6 +164,60 @@ textarea {
   padding-top: calc(100% / (var(--aspect-ratio)));
 }
 
+[style*="--aspect-ratio"] {
+  position: relative;
+  overflow: hidden;
+}
+
+[style*="--aspect-ratio-mb"]::before {
+  padding-top: calc(100% / (var(--aspect-ratio-mb)));
+}
+
+:where([style*="--aspect-ratio"] > :is(*:first-child, .secondary-image)),
+:where([style*="--aspect-ratio"]) > picture > *,
+:where([style*="--aspect-ratio"]) motion-element img,
+picture {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.h-custom {
+  min-height: var(--height);
+}
+
+@media (min-width: 992px) {
+  .h-custom {
+    min-height: var(--height-desktop);
+  }
+}
+
+.sec__inner .banner__media :is(picture, source, img, video),
+.sec__video video,
+.video-foreground iframe,
+.video-foreground,
+video.slideshow {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.banner__media {
+  display: block;
+}
+
+.overlay-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-color: var(--overlay-bg);
+  opacity: calc(var(--overlay-opacity, 0) / 100);
+}
+
 .visually-hidden {
   position: absolute !important;
   width: 1px !important;
