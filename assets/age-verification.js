@@ -30,6 +30,7 @@
       this.ageErrorMessage = this.dataset.ageErrorMessage || "Verifica tu fecha de nacimiento. Debes ser mayor de 18 años.";
       this.idErrorMessage = this.dataset.idErrorMessage || "El numero de identificacion debe ser numerico y tener entre 8 y 10 digitos.";
       this.cookieErrorMessage = this.dataset.cookieErrorMessage || "No se pudo guardar la cookie en este navegador. Se guardo un respaldo local.";
+      this.cartErrorMessage = this.dataset.cartErrorMessage || "No se pudo guardar la verificacion en el carrito. Intenta nuevamente.";
 
       this.initialView = this.querySelector("[data-age-initial]");
       this.formWrap = this.querySelector("[data-age-formwrap]");
@@ -51,12 +52,15 @@
     }
 
     connectedCallback() {
-      this.restoreCookieFromStorageIfNeeded();
       this.setDobBounds();
+
+      if (!this.isShopifyDesignMode() && this.isCartVerified()) return;
+
+      this.restoreCookieFromStorageIfNeeded();
 
       const verified = this.getVerifiedObject();
       if (verified) {
-        this.deferCartSync(verified, { reason: "cookie_present" });
+        this.deferCartSync(verified, { reason: "cookie_present", force: true });
         return;
       }
 
@@ -183,7 +187,7 @@
       this.dobInput.min = "1920-01-01";
     }
 
-    handleSubmit(event) {
+    async handleSubmit(event) {
       event.preventDefault();
       this.clearAllErrors();
 
@@ -211,19 +215,19 @@
         dob,
         id: String(id),
         verified: true,
-        timestamp: new Date().toISOString(),
+        added_at: this.formatColombiaTimestamp(),
       };
 
-      this.setCookieStrongFlexible(this.cookieName, JSON.stringify(payload), this.getCookieTTL(), this.cookieDomain);
       try {
-        localStorage.setItem(this.cookieName, JSON.stringify(payload));
-      } catch (error) {}
-
-      if (!this.isVerifiedCookieValid()) {
-        this.showError(this.errCookie, this.cookieErrorMessage);
+        await this.syncVerificationToCartIfNeeded(payload, { reason: "just_verified", force: true, required: true });
+      } catch (error) {
+        this.showError(this.errCookie, this.cartErrorMessage);
+        if (this.submitBtn) this.submitBtn.disabled = false;
+        return;
       }
 
-      this.syncVerificationToCartIfNeeded(payload, { reason: "just_verified", force: true });
+      this.persistVerificationFallbacks(payload);
+
       this.hide();
 
       if (this.submitBtn) this.submitBtn.disabled = false;
@@ -319,6 +323,10 @@
       return this.parseVerified(this.getCookie(this.cookieName));
     }
 
+    isCartVerified() {
+      return String(this.dataset.cartVerified || "").trim() === "true";
+    }
+
     getCookieTTL() {
       const mode = (this.cookiePersistence || "legacy_days").trim();
 
@@ -367,6 +375,15 @@
       document.cookie = `${base};expires=${date.toUTCString()}`;
     }
 
+    persistVerificationFallbacks(payload) {
+      if (!payload || !payload.verified || !payload.dob || !payload.id) return;
+
+      this.setCookieStrongFlexible(this.cookieName, JSON.stringify(payload), this.getCookieTTL(), this.cookieDomain);
+      try {
+        localStorage.setItem(this.cookieName, JSON.stringify(payload));
+      } catch (error) {}
+    }
+
     restoreCookieFromStorageIfNeeded() {
       if (this.isVerifiedCookieValid()) return;
       let stored = null;
@@ -381,27 +398,54 @@
         const obj = JSON.parse(stored);
         if (obj && obj.verified && obj.dob && obj.id) {
           this.setCookieStrongFlexible(this.cookieName, JSON.stringify(obj), this.getCookieTTL(), this.cookieDomain);
-          this.deferCartSync(obj, { reason: "restored_from_local" });
         }
       } catch (error) {}
     }
 
     deferCartSync(verifiedObj, opts) {
       if (opts && opts.force) {
-        this.syncVerificationToCartIfNeeded(verifiedObj, opts);
-        return;
+        return this.syncVerificationToCartIfNeeded(verifiedObj, opts);
       }
 
-      idle(() => this.syncVerificationToCartIfNeeded(verifiedObj, opts));
+      idle(() => {
+        this.syncVerificationToCartIfNeeded(verifiedObj, opts).catch(() => {});
+      });
+      return Promise.resolve(false);
+    }
+
+    waitForCartSync() {
+      return new Promise((resolve) => {
+        const check = () => {
+          if (!this._cartSyncInFlight) {
+            resolve();
+            return;
+          }
+          window.setTimeout(check, 60);
+        };
+        check();
+      });
     }
 
     async syncVerificationToCartIfNeeded(verifiedObj, opts) {
-      if (!this.cartSyncEnabled) return;
-      if (!verifiedObj || !verifiedObj.verified || !verifiedObj.dob || !verifiedObj.id) return;
+      const required = Boolean(opts && opts.required);
+
+      if (!this.cartSyncEnabled) {
+        if (required) throw new Error("Cart sync disabled");
+        return false;
+      }
+
+      if (!verifiedObj || !verifiedObj.verified || !verifiedObj.dob || !verifiedObj.id) {
+        if (required) throw new Error("Missing age verification payload");
+        return false;
+      }
 
       const force = Boolean(opts && opts.force);
-      if (!force && this.getSessionFlag(this._cartSyncSessionKey)) return;
-      if (this._cartSyncInFlight) return;
+      if (!force && this.getSessionFlag(this._cartSyncSessionKey)) return true;
+
+      if (this._cartSyncInFlight) {
+        if (required) await this.waitForCartSync();
+        return Boolean(this.getSessionFlag(this._cartSyncSessionKey));
+      }
 
       this._cartSyncInFlight = true;
 
@@ -411,15 +455,13 @@
         attrs[this.cartAttrPrefix + "_verified"] = "true";
         attrs[this.cartAttrPrefix + "_dob_full"] = reduced.dob_full;
         attrs[this.cartAttrPrefix + "_id_full"] = reduced.id_full;
-        attrs[this.cartAttrPrefix + "_dob_ym"] = reduced.dob_ym;
-        attrs[this.cartAttrPrefix + "_id_last4"] = reduced.id_last4;
         attrs[this.cartAttrPrefix + "_sig"] = reduced.sig;
-        attrs[this.cartAttrPrefix + "_ts"] = reduced.ts;
+        attrs[this.cartAttrPrefix + "_added_at"] = reduced.added_at;
 
         const payload = { attributes: attrs };
 
         if (this.orderNoteEnabled) {
-          const noteLine = this.renderOrderNoteLine(verifiedObj);
+          const noteLine = this.renderOrderNoteLine(reduced);
           if (noteLine) {
             const existing = await this.safeGetCart();
             const nextNote = this.mergeOrderNote(existing && existing.note ? String(existing.note) : "", noteLine);
@@ -427,15 +469,19 @@
           }
         }
 
-        await fetch("/cart/update.js", {
+        const response = await fetch("/cart/update.js", {
           method: "POST",
           headers: { "Content-Type": "application/json", Accept: "application/json" },
           body: JSON.stringify(payload),
         });
 
+        if (!response.ok) throw new Error("Cart update failed");
+
         this.setSessionFlag(this._cartSyncSessionKey, "1");
+        return true;
       } catch (error) {
-        // Keep the storefront flow moving if cart attributes are temporarily unavailable.
+        if (required) throw error;
+        return false;
       } finally {
         this._cartSyncInFlight = false;
       }
@@ -446,33 +492,40 @@
       const id = String(obj.id || "");
       const dob_full = dob;
       const id_full = id;
-      const dob_ym = dob.length >= 7 ? dob.slice(0, 7) : dob;
-      const id_last4 = id.slice(-4);
-      const ts = obj.timestamp ? String(obj.timestamp) : new Date().toISOString();
-      const sigInput = `${dob}|${id}|${this.cookieDomain || ""}|${this.cookieName || ""}`;
+      const added_at = obj.added_at ? String(obj.added_at) : this.formatColombiaTimestamp();
+      const sigInput = `${dob}|${id}|${added_at}|${this.cookieDomain || ""}|${this.cookieName || ""}`;
       const sig = this.fnv1a(sigInput);
 
-      return { dob_full, id_full, dob_ym, id_last4, sig, ts };
+      return { dob, id, verified: true, dob_full, id_full, sig, added_at };
     }
 
     renderOrderNoteLine(verifiedObj) {
       const tpl = this.orderNoteTemplate;
       if (!tpl) return "";
 
-      const dobIso = String((verifiedObj && verifiedObj.dob) || "");
-      const idFull = String((verifiedObj && verifiedObj.id) || "");
+      const dobIso = String((verifiedObj && (verifiedObj.dob_full || verifiedObj.dob)) || "");
+      const idFull = String((verifiedObj && (verifiedObj.id_full || verifiedObj.id)) || "");
       const dobFull = this.formatDobToDDMMYYYY(dobIso);
-      const dobYm = dobIso.length >= 7 ? dobIso.slice(0, 7) : dobIso;
-      const idLast4 = idFull.slice(-4);
-      const sigInput = `${dobIso}|${idFull}|${this.cookieDomain || ""}|${this.cookieName || ""}`;
-      const sig = this.fnv1a(sigInput);
+      const addedAt = String((verifiedObj && verifiedObj.added_at) || this.formatColombiaTimestamp());
+      const sig = String((verifiedObj && verifiedObj.sig) || this.fnv1a(`${dobIso}|${idFull}|${addedAt}|${this.cookieDomain || ""}|${this.cookieName || ""}`));
 
       return tpl
         .replace(/\[\[\s*dob_full\s*\]\]/g, dobFull)
         .replace(/\[\[\s*id_full\s*\]\]/g, idFull)
-        .replace(/\[\[\s*sig\s*\]\]/g, sig)
-        .replace(/\[\[\s*dob_ym\s*\]\]/g, dobYm)
-        .replace(/\[\[\s*id_last4\s*\]\]/g, idLast4);
+        .replace(/\[\[\s*added_at\s*\]\]/g, addedAt)
+        .replace(/\[\[\s*sig\s*\]\]/g, sig);
+    }
+
+    formatColombiaTimestamp(date) {
+      const source = date instanceof Date ? date : new Date();
+      const colombia = new Date(source.getTime() - 5 * 60 * 60 * 1000);
+      const y = colombia.getUTCFullYear();
+      const m = String(colombia.getUTCMonth() + 1).padStart(2, "0");
+      const d = String(colombia.getUTCDate()).padStart(2, "0");
+      const h = String(colombia.getUTCHours()).padStart(2, "0");
+      const min = String(colombia.getUTCMinutes()).padStart(2, "0");
+      const s = String(colombia.getUTCSeconds()).padStart(2, "0");
+      return `${y}-${m}-${d} ${h}:${min}:${s} GMT-5`;
     }
 
     mergeOrderNote(existingNote, newLine) {
