@@ -138,13 +138,60 @@
       }
 
       function liftLcWidget() {
-        var lift = window.matchMedia('(max-width: 767.98px)').matches ? 135 : 90;
-        var nodes = document.querySelectorAll(
-          'chat-widget, #lc_text-widget, #lcw-chat-button, .lc_text-widget, .lc_text-widget-floating-button, [class*="LC_chatWidget"]'
-        );
-        nodes.forEach(function (n) {
-          try { n.style.setProperty('bottom', lift + 'px', 'important'); } catch (e) {}
+        var isMobile = window.matchMedia('(max-width: 767.98px)').matches;
+        var lift = isMobile ? 135 : 90;
+        var rightOffset = isMobile ? 16 : 30;
+        var SHADOW_STYLE_ID = 'diyvape-shadow-lift';
+        var SHADOW_CSS =
+          ':host{--lc-bottom-offset:' + lift + 'px;}' +
+          '[class*="floating"],[class*="bubble"],[class*="container"],' +
+          '[class*="button-wrapper"],[class*="trigger"],[class*="launcher"],' +
+          '.chat-widget-button,.chat-button,.button,#chat-widget-content-iframe' +
+          '{bottom:' + lift + 'px !important;right:' + rightOffset + 'px !important;}';
+
+        // 1) Direct DOM elements (when LC renders in light DOM)
+        var SELECTORS =
+          'chat-widget,lc-chat-widget,' +
+          '[id^="lc_"],[id^="lcw-"],[id^="leadconnector"],' +
+          '[class*="lc_text-widget"],[class*="LC_chatWidget"],[class*="leadconnector"],' +
+          '[id*="chat-widget"]';
+        document.querySelectorAll(SELECTORS).forEach(function (n) {
+          if (n.id === TRIGGER_ID) return;
+          try {
+            n.style.setProperty('bottom', lift + 'px', 'important');
+            n.style.setProperty('right', rightOffset + 'px', 'important');
+          } catch (e) {}
+          // Pierce shadow DOM
+          if (n.shadowRoot && !n.shadowRoot.getElementById(SHADOW_STYLE_ID)) {
+            try {
+              var s = document.createElement('style');
+              s.id = SHADOW_STYLE_ID;
+              s.textContent = SHADOW_CSS;
+              n.shadowRoot.appendChild(s);
+            } catch (e) {}
+          }
         });
+
+        // 2) Heuristic: any fixed-positioned element near the bottom-right
+        //    corner that isn't ours gets lifted. Catches LC variants we
+        //    can't enumerate and the "Hola..." welcome bubble.
+        var vw = window.innerWidth;
+        var vh = window.innerHeight;
+        var bodyKids = document.body.children;
+        for (var i = 0; i < bodyKids.length; i++) {
+          var el = bodyKids[i];
+          if (!el || el.id === TRIGGER_ID || el.id === SCRIPT_ID) continue;
+          if (el.tagName === 'SCRIPT' || el.tagName === 'STYLE' || el.tagName === 'LINK') continue;
+          var cs;
+          try { cs = window.getComputedStyle(el); } catch (e) { continue; }
+          if (cs.position !== 'fixed') continue;
+          var rect = el.getBoundingClientRect();
+          if (rect.width === 0 || rect.height === 0) continue;
+          var nearBottom = vh - rect.bottom < 40;
+          var nearRight = vw - rect.right < 80;
+          if (!nearBottom || !nearRight) continue;
+          try { el.style.setProperty('bottom', lift + 'px', 'important'); } catch (e) {}
+        }
       }
 
       function injectWidget() {
@@ -161,9 +208,22 @@
         s.defer = true;
         document.body.appendChild(s);
 
+        // Catch LC mount via DOM mutations
         var mo = new MutationObserver(liftLcWidget);
         mo.observe(document.body, { childList: true, subtree: true });
-        setTimeout(function () { mo.disconnect(); }, 15000);
+
+        // Polling fallback: LC welcome bubble can appear 1-2s after mount
+        var startedAt = Date.now();
+        var pollIv = setInterval(function () {
+          liftLcWidget();
+          if (Date.now() - startedAt > 15000) {
+            clearInterval(pollIv);
+            mo.disconnect();
+          }
+        }, 500);
+
+        // React to viewport resize (mobile/desktop swap during use)
+        window.addEventListener('resize', liftLcWidget, { passive: true });
       }
 
       function bindTrigger() {
