@@ -11,14 +11,6 @@
   if block.settings.logo != blank and block.settings.logo.aspect_ratio != blank
     assign logo_height = logo_width | divided_by: block.settings.logo.aspect_ratio | round
   endif
-  assign cart_attr_prefix = block.settings.cart_attr_prefix | default: 'age_verification'
-  assign cart_verified_key = cart_attr_prefix | append: '_verified'
-  assign cart_dob_full_key = cart_attr_prefix | append: '_dob_full'
-  assign cart_id_full_key = cart_attr_prefix | append: '_id_full'
-  assign cart_has_verification = false
-  if cart.attributes[cart_verified_key] == 'true' and cart.attributes[cart_dob_full_key] != blank and cart.attributes[cart_id_full_key] != blank
-    assign cart_has_verification = true
-  endif
 -%}
 
 {%- assign age_verification_css = 'age-verification.css' | asset_url -%}
@@ -230,14 +222,12 @@
   data-cookie-custom-value="{{ block.settings.cookie_custom_value }}"
   data-cookie-custom-unit="{{ block.settings.cookie_custom_unit }}"
   data-cart-sync-enabled="{{ block.settings.cart_sync_enabled }}"
-  data-cart-attr-prefix="{{ cart_attr_prefix | escape }}"
-  data-cart-verified="{{ cart_has_verification }}"
+  data-cart-attr-prefix="{{ block.settings.cart_attr_prefix | escape }}"
   data-order-note-enabled="{{ block.settings.order_note_enabled }}"
   data-order-note-template="{{ block.settings.order_note_template | escape }}"
   data-age-error-message="{{ block.settings.age_error_message | strip_html | escape }}"
   data-id-error-message="{{ block.settings.id_error_message | strip_html | escape }}"
   data-cookie-error-message="No se pudo guardar la cookie en este navegador. Se guardó un respaldo local."
-  data-cart-error-message="No se pudo guardar la verificación en el carrito. Intenta nuevamente."
   {{ block.shopify_attributes }}
 >
   <div class="ai-age-verify-modal" data-age-modal tabindex="-1">
@@ -365,9 +355,6 @@
   (function () {
     var gate = document.getElementById('AgeVerification-{{ ai_gen_id }}');
     if (!gate || (window.Shopify && window.Shopify.designMode)) return;
-
-    var cartVerified = gate.getAttribute('data-cart-verified') === 'true';
-    if (cartVerified) return;
 
     var cookieName = gate.getAttribute('data-cookie-name') || 'age_verified_diyvape';
     var safeName = cookieName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
@@ -522,8 +509,8 @@
     {
       "type": "text",
       "id": "order_note_template",
-      "label": "Template de nota (tokens: [[dob_full]], [[id_full]], [[added_at]], [[sig]])",
-      "default": "Verificación de edad: OK (DOB [[dob_full]], ID [[id_full]], fecha [[added_at]], sig [[sig]])"
+      "label": "Template de nota (tokens: [[dob_full]], [[id_full]], [[sig]])",
+      "default": "Verificación de edad: OK (DOB [[dob_full]], ID [[id_full]], sig [[sig]])"
     },
 
     { "type": "header", "content": "Estilo modal" },
