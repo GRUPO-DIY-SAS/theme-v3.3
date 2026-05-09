@@ -80,6 +80,10 @@ textarea {
 }
 
 .hidden {
+  display: none;
+}
+
+.hidden-important {
   display: none !important;
 }
 
