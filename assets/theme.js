@@ -125,7 +125,7 @@ eventFlashingBrowseTab();
 function initializeLazyLoad() {
   const videoPlaceholders = document.querySelectorAll(".lazy-video-link");
   const localVideos = document.querySelectorAll(
-    "video.lazy-video[data-src], video.lazy-video-item[data-src], video.slideshow[data-src]"
+    "video.lazy-video[data-src], video.lazy-video-item[data-src], video.slideshow[data-src], video[data-video-load][data-src]"
   );
 
   const runWhenIdle = (callback) => {
@@ -141,8 +141,15 @@ function initializeLazyLoad() {
     const src = element?.dataset?.src;
     if (!src) return;
 
+    const poster = element.dataset.poster;
+    if (poster && !element.getAttribute("poster")) {
+      element.setAttribute("poster", poster);
+    }
+
     element.src = src;
     element.removeAttribute("data-src");
+    element.removeAttribute("data-poster");
+    element.classList.remove("lazy-video", "lazy-video-item");
     element.load?.();
 
     if (element.hasAttribute("autoplay")) {

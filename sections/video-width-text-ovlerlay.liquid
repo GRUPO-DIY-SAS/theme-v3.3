@@ -4,7 +4,7 @@
   assign section_width = section_st.section_width
   assign color_scheme = section_st.color_scheme
   assign custom_ratio = section_st.custom_ratio
-  if custom_ratio != empty
+  if custom_ratio != blank
     assign ratio = custom_ratio | replace: ':', '/'
   else
     assign ratio = '3/2'
@@ -96,6 +96,7 @@
             autoplay="true"
             data-src="{{ source_url }}"
             data-video-load="{% if section.index == 1 %}interaction{% else %}visible{% endif %}"
+            data-poster="{{ poster_url }}"
             poster="{{ poster_url }}"
             preload="none"
           ></video>

@@ -299,6 +299,7 @@
                 {{ video_attribute }}
                 data-src="{{ source_url }}"
                 data-video-load="visible"
+                data-poster="{{ local_video.preview_image | image_url: width: 1100 }}"
                 poster="{{ local_video.preview_image | image_url: width: 1100 }}"
               ></video>
             {% else %}

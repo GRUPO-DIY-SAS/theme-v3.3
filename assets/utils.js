@@ -308,12 +308,17 @@ function scrollLazyload() {
 function scrollLazyloadItem(el) {
   const poster = el.dataset.poster;
   const src = el.dataset.src;
+
   if (poster) {
     el.setAttribute("poster", poster);
     el.removeAttribute("data-poster");
+  }
+
+  if (src) {
     el.setAttribute("src", src);
     el.removeAttribute("data-src");
   }
+
   el.querySelectorAll("source").forEach((source) => {
     const source_src = source.dataset.src;
     if (source_src) {
@@ -321,5 +326,8 @@ function scrollLazyloadItem(el) {
       source.removeAttribute("data-src");
     }
   });
-  el.classList.remove("lazy-video");
+
+  if (src || poster) {
+    el.classList.remove("lazy-video");
+  }
 }
