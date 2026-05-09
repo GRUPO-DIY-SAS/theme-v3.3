@@ -72,7 +72,7 @@
   endif
 
   assign loading = 'lazy'
-  assign fetch_priority = 'auto'
+  assign fetch_priority = blank
   if lazy_load == true or first == true
     assign loading = 'eager'
   endif
@@ -134,36 +134,67 @@
         assign image = image_mobile
       endif
     -%}
+    {%- if fetch_priority == 'high' -%}
+      {{-
+        image
+        | image_url: width: image.width
+        | image_tag:
+          loading: loading,
+          width: image.width,
+          height: image.height,
+          sizes: sizes,
+          widths: widths,
+          fetchpriority: fetch_priority,
+          decoding: 'async',
+          alt: image_alt
+      -}}
+    {%- else -%}
+      {{-
+        image
+        | image_url: width: image.width
+        | image_tag:
+          loading: loading,
+          width: image.width,
+          height: image.height,
+          sizes: sizes,
+          widths: widths,
+          decoding: 'async',
+          alt: image_alt
+      -}}
+    {%- endif -%}
+  </picture>
+{% else %}
+  {% assign width = width | default: image.width %}
+  {%- if fetch_priority == 'high' -%}
     {{-
       image
       | image_url: width: image.width
       | image_tag:
         loading: loading,
-        width: image.width,
+        width: width,
         height: image.height,
         sizes: sizes,
+        class: class,
         widths: widths,
         fetchpriority: fetch_priority,
         decoding: 'async',
         alt: image_alt
     -}}
-  </picture>
-{% else %}
-  {% assign width = width | default: image.width %}
-  {{-
-    image
-    | image_url: width: image.width
-    | image_tag:
-      loading: loading,
-      width: width,
-      height: image.height,
-      sizes: sizes,
-      class: class,
-      widths: widths,
-      fetchpriority: fetch_priority,
-      decoding: 'async',
-      alt: image_alt
-  -}}
+  {%- else -%}
+    {{-
+      image
+      | image_url: width: image.width
+      | image_tag:
+        loading: loading,
+        width: width,
+        height: image.height,
+        sizes: sizes,
+        class: class,
+        widths: widths,
+        decoding: 'async',
+        alt: image_alt
+    -}}
+  {%- endif -%}
 {% endif %}
 {% if no_animate == blank and secondary_image == false and settings.zoom_image == true %}
   </motion-element>

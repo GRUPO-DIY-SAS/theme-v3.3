@@ -12,6 +12,9 @@
   assign font_heading_shopify = theme_st.font_heading_system
   assign font_heading_google = theme_st.font_heading_google
   assign font_body_heading_embed = theme_st.font_body_heading_embed
+
+  assign google_fonts_api_preconnect = '<link rel="preconnect" href="https://fonts.googleapis.com">'
+  assign google_fonts_static_preconnect = '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>'
 %}
 
 {% comment %} Start check setting font {% endcomment %}
@@ -53,11 +56,18 @@
   {% endstyle %}
 {% elsif font_type_body == 'google' %}
   {% assign font_family_body = font_body_google %}
+  {%- liquid
+    assign font_body_google_embed_clean = font_body_google_embed | remove: google_fonts_api_preconnect | remove: google_fonts_static_preconnect
+  -%}
   {%- comment -%} INP optimization: load Google Fonts CSS async (-1500ms render block) {%- endcomment -%}
+  {% # theme-check-disable RemoteAsset %}
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+  {% # theme-check-disable RemoteAsset %}
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   {%- capture stylesheet_orig -%}rel="stylesheet"{%- endcapture -%}
   {%- capture stylesheet_async -%}rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'"{%- endcapture -%}
-  {{ font_body_google_embed | replace: stylesheet_orig, stylesheet_async }}
-  <noscript>{{ font_body_google_embed }}</noscript>
+  {{ font_body_google_embed_clean | replace: stylesheet_orig, stylesheet_async }}
+  <noscript>{{ font_body_google_embed_clean }}</noscript>
 {% else %}
   {% # theme-check-disable AssetPreload %}
   <link rel="preload" as="font" href="{{ font_body_shopify | font_url }}" type="font/woff2" crossorigin>
@@ -114,11 +124,20 @@
     endif
   -%}
   {%- unless heading_font_already_loaded -%}
+    {%- liquid
+      assign font_body_heading_embed_clean = font_body_heading_embed | remove: google_fonts_api_preconnect | remove: google_fonts_static_preconnect
+    -%}
     {%- comment -%} INP optimization: load Google Fonts CSS async (heading) {%- endcomment -%}
+    {%- unless font_type_body == 'google' -%}
+      {% # theme-check-disable RemoteAsset %}
+      <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+      {% # theme-check-disable RemoteAsset %}
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    {%- endunless -%}
     {%- capture stylesheet_orig_h -%}rel="stylesheet"{%- endcapture -%}
     {%- capture stylesheet_async_h -%}rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'"{%- endcapture -%}
-    {{ font_body_heading_embed | replace: stylesheet_orig_h, stylesheet_async_h }}
-    <noscript>{{ font_body_heading_embed }}</noscript>
+    {{ font_body_heading_embed_clean | replace: stylesheet_orig_h, stylesheet_async_h }}
+    <noscript>{{ font_body_heading_embed_clean }}</noscript>
   {%- endunless -%}
 {% else %}
   {% # theme-check-disable AssetPreload %}

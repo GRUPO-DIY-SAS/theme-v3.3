@@ -10,7 +10,13 @@
   {%- assign sizes = block_st.image_width | append: 'px' -%}
   {%- assign image_alt = block_st.image_block.alt | default: '' -%}
   {%- if block_st.image_link != blank -%}
-    <a class="block" href="{{ block_st.image_link }}">
+    {%- liquid
+      assign image_link_label = image_alt
+      if image_link_label == blank
+        assign image_link_label = 'general.banner' | t
+      endif
+    -%}
+    <a class="block" href="{{ block_st.image_link }}" aria-label="{{ image_link_label | escape }}">
   {%- endif -%}
   {% if block_st.image_block != blank %}
     {% render 'responsive-image',

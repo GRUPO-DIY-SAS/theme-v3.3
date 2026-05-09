@@ -46,7 +46,7 @@
     <a
       class="rounded overflow-hidden block"
       href="{{ article.url }}"
-      arial-label="{{ blog_name | capitalize }}"
+      aria-label="{{ blog_name | capitalize }}"
       style="{{ style_ratio | strip | strip_newlines }}"
     >
       {%- if article.image != blank -%}
@@ -82,7 +82,7 @@
     {%- endif -%}
     {%- if article.title != blank -%}
       <h3 class="blog-posts-title fs-20 mt-0 mb-10 heading-letter-spacing">
-        <a href="{{ article.url }}" arial-label="{{ article.title }}" class="no-underline heading-color">
+        <a href="{{ article.url }}" aria-label="{{ article.title }}" class="no-underline heading-color">
           {{ article.title }}
         </a>
       </h3>

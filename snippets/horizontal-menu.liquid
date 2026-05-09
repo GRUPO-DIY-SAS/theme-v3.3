@@ -399,7 +399,7 @@
                 <a
                   class="{% if link.links.size > 0 and section_st.redirect_to_link == false %}redirect-to-link {% endif %}no-underline py-10 relative lh-normal inline-flex min-h-55 min-h-1025-50 z-1 align-center{% if theme_st.menu_font == 'heading_font' %} heading-style{% endif %}{% if uppercase_first %} uppercase{% endif %}"
                   href="{{ link.url }}"
-                  arial-label="{{ link.title }}"
+                  aria-label="{{ link.title }}"
                 >
                   <span>{{ link.title }}</span>
                   {%- if link.links.size > 0 -%}

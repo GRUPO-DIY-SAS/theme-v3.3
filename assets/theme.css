@@ -252,7 +252,7 @@ input[type='checkbox']:checked + .checkmark:before {
   .hover-effect :is(img, .placeholder-image, picture) {
     --transition: 0.5s cubic-bezier(0.25, 1, 0.5, 1);
     transition: var(--transition);
-    will-change: transform; 
+    will-change: transform;
   }
   .hover_zoom .hover-effect:hover :is(img, .placeholder-image, picture) {
     transform: var(--zoom-transform, scale(1.05));
@@ -677,7 +677,7 @@ footer .localization-flags{
     content: "";
     display: none;
   }
- 
+
   .section-header:not(.shopify-section-header-sticky)
     .transparent:hover
     .header__transparent-logo {
@@ -1009,7 +1009,7 @@ footer .localization-flags{
 .select-custom__content {
   top: calc(100% + 15px);
   z-index: 6;
-  
+
 }
 .sec__collection-tab .select-custom__content {
   width: max-content;
@@ -1042,7 +1042,7 @@ footer .localization-flags{
 }
 .text-left .collection-tab-postion_horizontal_header ~ .btn_view-all,
 .text-right .collection-tab-postion_horizontal_header ~ .btn_view-all{
-  color: #888;
+  color: rgba(var(--color-heading-rgb), 0.78);
 }
 .text-left .collection-tab-postion_horizontal_header ~ .btn_view-all::before,
 .text-right .collection-tab-postion_horizontal_header ~ .btn_view-all::before{
@@ -1053,7 +1053,7 @@ footer .localization-flags{
 .text-left .collection-tab-postion_horizontal_header .border-animation:is(:hover, .active),
 .text-right .collection-tab-postion_horizontal_header .border-animation:is(:hover, .active){
   color: var(--color-primary);
-} 
+}
 
 @media (max-width: 1024.993px) {
   .tab-inner.text-left,
@@ -1454,7 +1454,7 @@ body .swiper-button-prev.swiper-button-disabled {
   .testimonials_morden .testimonials-quote {
     font-size: 2rem;
   }
-  
+
 }
 /* products-grid banner */
 .product-grid__banner-content {

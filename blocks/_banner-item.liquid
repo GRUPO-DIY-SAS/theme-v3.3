@@ -121,7 +121,16 @@
       </video-section>
     {% endif %}
     {% if block_st.image_link != blank and media_type == 'image' %}
-      <a class="absolute inset-0" href="{{ block_st.image_link }}"></a>
+      {%- liquid
+        assign image_link_label = block_st.heading | strip_html
+        if image_link_label == blank
+          assign image_link_label = image_alt
+        endif
+        if image_link_label == blank
+          assign image_link_label = 'general.banner' | t
+        endif
+      -%}
+      <a class="absolute inset-0" href="{{ block_st.image_link }}" aria-label="{{ image_link_label | escape }}"></a>
     {% endif %}
   </div>
   <div

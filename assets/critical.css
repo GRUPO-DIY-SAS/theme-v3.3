@@ -281,7 +281,7 @@ a.hover-heading-color:hover {
 }
 :where(.heading-font) {
   font-family: var(--heading-font);
-} 
+}
 :where(a:hover),
 :where(a:hover strong) {
   color: var(--color-link-hover);
@@ -3369,6 +3369,12 @@ body .swiper-pagination {
 
 .swiper-pagination-bullet {
   position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 24px;
+  min-height: 24px;
+  margin-inline: 2px;
 }
 
 .swiper-pagination-bullet:after,
@@ -3394,6 +3400,7 @@ body .swiper-pagination {
 
 .swiper-pagination-bullet:before {
   border: 1px solid var(--tns-nav-border, var(--color-dark));
+  inset: 6px;
   opacity: 0;
   transform: scale(0.3);
 }

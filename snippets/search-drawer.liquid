@@ -140,9 +140,9 @@
           {%- assign collection = collections[collection_suggestion] -%}
           {%- if collection.products.size > 0 -%}
             <div class="search-suggest search-list-item">
-              <h5 class="mb-15 mt-0">
+              <span class="h5 mb-15 mt-0 block">
                 {{ 'general.search.popular_products' | t }}
-              </h5>
+              </span>
               <div id="search-results">
                 <div class="search__grid {{ product_style }}" style="--rounded-radius: 5px;">
                   <div
@@ -171,12 +171,12 @@
             </div>
           {%- endif -%}
         {%- endif -%}
-  
+
       </div>
       <span class="predictive-search-status visually-hidden" role="status" aria-hidden="true"></span>
     </div>
     <div class="search__loading-state mt-15 ">
-        {%- render 'skeleton' -%}   
+        {%- render 'skeleton' -%}
     </div>
   </div>
 </div>

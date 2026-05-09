@@ -193,6 +193,34 @@
   </div>
 </age-verification-gate>
 
+<script>
+  (function () {
+    var gate = document.getElementById('AgeVerification-{{ ai_gen_id }}');
+    if (!gate || (window.Shopify && window.Shopify.designMode)) return;
+
+    var cookieName = gate.getAttribute('data-cookie-name') || 'age_verified_diyvape';
+    var safeName = cookieName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    var cookieMatch = document.cookie.match(new RegExp('(?:^|; )' + safeName + '=([^;]*)'));
+    var raw = cookieMatch ? cookieMatch[1] : null;
+
+    if (!raw) {
+      try {
+        raw = localStorage.getItem(cookieName);
+      } catch (error) {}
+    }
+
+    try {
+      var data = JSON.parse(decodeURIComponent(raw || 'null'));
+      if (data && data.verified && data.dob && data.id) return;
+    } catch (error) {}
+
+    document.documentElement.style.setProperty('--scroll-y', '-' + (window.scrollY || 0) + 'px');
+    document.body.classList.add('ai-age-gate-open');
+    gate.removeAttribute('aria-hidden');
+    gate.classList.add('active');
+  })();
+</script>
+
 <div class="ai-age-verify-editor-trigger" data-age-editor-trigger-for="AgeVerification-{{ ai_gen_id }}">
   <button type="button" aria-label="Preview age verification">Preview Age Verification</button>
 </div>

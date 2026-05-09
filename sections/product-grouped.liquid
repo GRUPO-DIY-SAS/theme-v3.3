@@ -24,7 +24,7 @@
         <div class="product-group-list border rounded p-20">
           {%- for i in array -%}
             {%- liquid
-              assign j = i | plus: 0      
+              assign j = i | plus: 0
               assign item = search.results | where: 'id', j
               assign product = item[0]
               assign product_available = product.variants | where: 'available'
@@ -117,7 +117,7 @@
                       <a
                         class="product-item__name unset heading-style no-underline block lh-normal"
                         href="{{ product.url | within: collection }}"
-                        arial-label="{{ product.title }}"
+                        aria-label="{{ product.title }}"
                       >
                         {{ product.title }}
                       </a>

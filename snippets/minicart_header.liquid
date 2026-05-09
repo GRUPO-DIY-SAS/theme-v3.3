@@ -8,7 +8,7 @@
       <a
         id="cart-icon-bubble"
         href="{{ routes.cart_url }}"
-        arial-label="{{ 'general.cart.label' | t }}"
+        aria-label="{{ 'general.cart.label' | t }}"
         class="no-underline {% if template != 'cart' and action_after_add_cart != 'go_to_cart_page' %}minicart__action{% endif %} header-icon header-color w-44 h-44 inline-flex content-center  {% if action_after_add_cart == 'show_popup' %}show-overlay{% else %}overlayminicart{% endif %}"
       >
         <h-count class="relative lh-1 fs-0">

@@ -47,7 +47,7 @@
     assign wishlist = pages.wishlist
     assign compare = pages.compare
     assign type_video = false
-    assign product_card_widths = custom_widths | default: '480, 360, 300, 240, 185, 160, 120, 90'
+    assign product_card_widths = custom_widths | default: '400, 320, 240, 200, 160, 120, 90'
     assign bage_positon = ''
     if enable_rtl
       assign bage_positon = 'pointer-none absolute top-sm-15 top-10 right-sm-15 right-10'
@@ -406,7 +406,7 @@
                     aria-haspopup="dialog"
                     aria-labelledby="{{ product_form_id }}-submit title-{{ section.id }}-{{ card_product.id }}"
                     aria-live="polite"
-                    arial-label="
+                    aria-label="
                       {%- if card_product.selected_or_first_available_variant.available -%}
                         {{ 'products.product.actions.add_to_bundle.label_bundle' | t }}
                       {%- else -%}

@@ -143,7 +143,13 @@
             </div>
           {% endif %}
           <div class="inline-flex flex-wrap gap-15 justify-center align-center{% if section_st.header_alignment == 'left' and section_st.tab_header_postion == "horizontal_header" %} flex-row-reverse{% endif %}">
-            <div class="mt-30 inline-flex flex-wrap justify-center align-center max-w-100{% if tab_header_style == 'horizontal' %} collection-tab__ta overflow-auto{% else %} collection-tab__select align-center gap-10{% endif %}{% if tab_header_style != 'horizontal' %} h4 my-0{% endif %}{% if tab_header_style == 'horizontal' and horizontal_tab_style == 'underline' %} border-bottom{% endif %}{% if tab_header_style == 'horizontal' and horizontal_tab_style != 'underline' %} gap-15{% endif %} collection-tab-style_{{ section_st.horizontal_tab_style }} collection-tab-postion_{{ section_st.tab_header_postion }}">
+            <div
+              class="mt-30 inline-flex flex-wrap justify-center align-center max-w-100{% if tab_header_style == 'horizontal' %} collection-tab__ta overflow-auto{% else %} collection-tab__select align-center gap-10{% endif %}{% if tab_header_style != 'horizontal' %} h4 my-0{% endif %}{% if tab_header_style == 'horizontal' and horizontal_tab_style == 'underline' %} border-bottom{% endif %}{% if tab_header_style == 'horizontal' and horizontal_tab_style != 'underline' %} gap-15{% endif %} collection-tab-style_{{ section_st.horizontal_tab_style }} collection-tab-postion_{{ section_st.tab_header_postion }}"
+              {% if tab_header_style == 'horizontal' %}
+                role="tablist"
+                aria-label="{{ section.settings.heading | default: 'Colecciones' | escape }}"
+              {% endif %}
+            >
               {% if tab_header_style != 'horizontal' %}
                 <span>{{ 'sections.collection_tab.tab_header_select' | t }} </span>
                 <div class="select-collection-tab relative select-custom">
@@ -182,6 +188,9 @@
                     {{ block.shopify_attributes }}
                     data-style="{{ horizontal_tab_style }}"
                     style="--height: 2px;"
+                    role="tab"
+                    aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
+                    tabindex="{% if forloop.first %}0{% else %}-1{% endif %}"
                   >
                     {% if collection_title != blank %}
                       {{ collection_title }}

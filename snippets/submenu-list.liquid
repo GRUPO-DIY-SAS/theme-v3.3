@@ -190,9 +190,10 @@
                 </svg>
               </close-menu>
             </li>
-            <ul class="list-unstyled px-30 px-1025-0 gradient">
-              {% for grandchild_link in child_link.links %}
-                <li class="menu-link level-2 border-bottom border-bottom-1025-0">
+            <li class="sub-children-menu__list-item">
+              <ul class="list-unstyled px-30 px-1025-0 gradient">
+                {% for grandchild_link in child_link.links %}
+                  <li class="menu-link level-2 border-bottom border-bottom-1025-0">
                   {% liquid
                     assign label_setting = ''
                     assign show_label = false
@@ -247,9 +248,10 @@
                       </span>
                     {% endif %}
                   </a>
-                </li>
-              {% endfor %}
-            </ul>
+                  </li>
+                {% endfor %}
+              </ul>
+            </li>
           </ul>
         {% endif %}
       </li>

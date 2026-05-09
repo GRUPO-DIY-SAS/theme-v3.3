@@ -20,7 +20,7 @@
   {%- assign t = template | split: '.' | first -%}
   {%- if t == 'product' and next_prev -%}
     {% liquid
-       assign next_product = true 
+       assign next_product = true
     %}
     <div class="flex gap-10 align-center justify-between">
   {% endif %}
@@ -195,7 +195,7 @@
           </a>
           <div class="product-item flex gap-10 shadow p-10 rounded-5 absolute z-3 bg-white invisible transition-short{% if enable_rtl %} left-0{% else %} right-0{% endif %}">
             <div class="product-img w-custom rounded-5 overflow-hidden" style="--custom-width: 5rem">
-              <a href="{{ next_product.url | within: collection }}" arial-label="{{ next_product.title }}">
+              <a href="{{ next_product.url | within: collection }}" aria-label="{{ next_product.title }}">
                 {%- if next_product.featured_image != blank -%}
                   {%- assign image_alt = next_product.featured_image.alt | default: 'product' | escape -%}
                   {% render 'responsive-image',
@@ -213,7 +213,7 @@
               <a
                 href="{{ next_product.url | within: collection }}"
                 class="no-underline heading-color fs-small-1 subheading_weight lh-normal"
-                arial-label="{{ next_product.title }}"
+                aria-label="{{ next_product.title }}"
               >
                 {{ next_product.title }}
               </a>
