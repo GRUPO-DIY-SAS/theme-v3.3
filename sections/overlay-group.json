@@ -41,7 +41,7 @@
             "privacy_note": "<p>La información suministrada será utilizada exclusivamente para verificar tu mayoría de edad y cumplir las obligaciones legales aplicables. Al continuar, declaro bajo la gravedad de juramento que soy mayor de dieciocho (18) años, que los datos ingresados son veraces y corresponden a mis datos personales, y autorizo a <strong>GRUPO DIY S.A.S.</strong> a recolectar, usar y verificar esta información conforme a la <strong>Ley 1581 de 2012</strong> y la Política de Tratamiento de Datos Personales. La información podrá ser validada durante el proceso de compra y, en caso de inconsistencias o imposibilidad de validación, el acceso y cualquier pedido podrán ser cancelados sin lugar a reclamación.</p>",
             "blocked_heading": "Acceso denegado",
             "blocked_message": "<p>De acuerdo con la normativa vigente en Colombia. Debes tener 18 años o más para acceder a este sitio web.</p>",
-            "editor_mode_behavior": "show_in_editor",
+            "editor_mode_behavior": "hide_in_editor",
             "cookie_name": "age_verified_diyvape",
             "cookie_domain": ".diyvape.co",
             "cookie_duration": "1",
