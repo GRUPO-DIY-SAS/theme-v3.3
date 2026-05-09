@@ -1,14 +1,17 @@
 {% comment %}
   LeadConnector chat widget — DIYVAPE.CO
 
-  Loads ONLY after age-gate verification (+18 compliance).
-  Gated by localStorage.age_verified_diyvape set by
-  blocks/ai_gen_block_3f4d556.liquid on successful DOB submit.
+  PageSpeed/INP optimization: the LC bundle (and the Mulish font it pulls
+  from fonts.gstatic.com, ~230KB total) is NOT loaded on initial page
+  view. Instead we render a lightweight floating button (no external
+  fonts, inline SVG) and only inject the LC loader on user click.
 
-  INP-optimized: defers actual widget injection until first user
-  interaction (scroll/click/keydown) or 4s timeout — whichever first.
-  This prevents the ~200KB LeadConnector bundle from blocking the
-  main thread during initial page load.
+  Gated by localStorage.age_verified_diyvape (+18 compliance): the
+  trigger button stays hidden until age verification passes.
+
+  DNS/TLS to widgets.leadconnectorhq.com is pre-warmed on the first
+  hover/focus of the trigger so the click→chat latency stays low without
+  paying the connection cost on initial render.
 
   Skip loading on password template.
 
@@ -17,14 +20,74 @@
 {% endcomment %}
 
 {%- unless template contains 'password' -%}
+  <button
+    type="button"
+    id="diyvape-chat-trigger"
+    class="diyvape-chat-trigger"
+    aria-label="Abrir chat"
+    hidden
+  >
+    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
+    </svg>
+    <span class="diyvape-chat-trigger__label">Chat</span>
+  </button>
+
+  <style>
+    .diyvape-chat-trigger {
+      position: fixed;
+      right: 16px;
+      bottom: 16px;
+      z-index: 99998;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0 18px 0 14px;
+      height: 52px;
+      border: 0;
+      border-radius: 999px;
+      background: var(--btn-primary-bg-color, #111);
+      color: var(--btn-primary-color, #fff);
+      font-family: inherit;
+      font-size: 15px;
+      font-weight: 600;
+      line-height: 1;
+      cursor: pointer;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.18);
+      transition: transform .2s ease, box-shadow .2s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .diyvape-chat-trigger:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.22);
+    }
+    .diyvape-chat-trigger:focus-visible {
+      outline: 2px solid var(--btn-primary-color, #fff);
+      outline-offset: 2px;
+    }
+    .diyvape-chat-trigger[hidden] { display: none !important; }
+    @media (max-width: 575px) {
+      .diyvape-chat-trigger {
+        padding: 0;
+        width: 52px;
+        justify-content: center;
+      }
+      .diyvape-chat-trigger__label { display: none; }
+    }
+  </style>
+
   <script>
     (function () {
       var AGE_KEY = 'age_verified_diyvape';
       var WIDGET_SRC = 'https://widgets.leadconnectorhq.com/loader.js';
       var WIDGET_RESOURCES = 'https://widgets.leadconnectorhq.com/chat-widget/loader.js';
       var WIDGET_ID = '69deb1a7d69ee82d8d5c665b';
+      var TRIGGER_ID = 'diyvape-chat-trigger';
+      var SCRIPT_ID = 'diyvape-leadconnector-widget';
       var loaded = false;
-      var scheduled = false;
+      var preconnected = false;
+
+      function getTrigger() { return document.getElementById(TRIGGER_ID); }
 
       function isVerified() {
         try {
@@ -33,11 +96,30 @@
         } catch (e) { return false; }
       }
 
+      function showTriggerIfVerified() {
+        if (!isVerified() || loaded) return false;
+        var btn = getTrigger();
+        if (btn) btn.hidden = false;
+        return true;
+      }
+
+      function preconnect() {
+        if (preconnected) return;
+        preconnected = true;
+        var l = document.createElement('link');
+        l.rel = 'preconnect';
+        l.href = 'https://widgets.leadconnectorhq.com';
+        l.crossOrigin = '';
+        document.head.appendChild(l);
+      }
+
       function injectWidget() {
-        if (loaded || document.getElementById('diyvape-leadconnector-widget')) return;
+        if (loaded || document.getElementById(SCRIPT_ID)) return;
         loaded = true;
+        var btn = getTrigger();
+        if (btn) btn.hidden = true;
         var s = document.createElement('script');
-        s.id = 'diyvape-leadconnector-widget';
+        s.id = SCRIPT_ID;
         s.src = WIDGET_SRC;
         s.setAttribute('data-resources-url', WIDGET_RESOURCES);
         s.setAttribute('data-widget-id', WIDGET_ID);
@@ -46,69 +128,22 @@
         document.body.appendChild(s);
       }
 
-      // INP fix: defer injection until user idle/interaction
-      function scheduleInject() {
-        if (scheduled || loaded) return;
-        scheduled = true;
-        var fired = false;
-        var events = ['scroll','mousemove','touchstart','keydown','pointerdown'];
-
-        function fire() {
-          if (fired) return;
-          fired = true;
-          cleanup();
-          if ('requestIdleCallback' in window) {
-            requestIdleCallback(injectWidget, { timeout: 1500 });
-          } else {
-            setTimeout(injectWidget, 1);
-          }
-        }
-        function cleanup() {
-          events.forEach(function (ev) {
-            window.removeEventListener(ev, fire, { passive: true, capture: false });
-          });
-          clearTimeout(fallback);
-        }
-        events.forEach(function (ev) {
-          window.addEventListener(ev, fire, { once: true, passive: true });
-        });
-        // Fallback: load after 4s even with no user interaction
-        var fallback = setTimeout(fire, 4000);
+      function bindTrigger() {
+        var btn = getTrigger();
+        if (!btn) return;
+        btn.addEventListener('pointerenter', preconnect, { once: true, passive: true });
+        btn.addEventListener('focus', preconnect, { once: true });
+        btn.addEventListener('click', injectWidget, { once: true });
       }
 
-      function tryScheduleIfVerified() {
-        if (isVerified()) { scheduleInject(); return true; }
-        return false;
-      }
+      bindTrigger();
+      showTriggerIfVerified();
 
-      // Initial check on script eval
-      if (tryScheduleIfVerified()) return;
+      document.addEventListener('diyvape:age-verified', showTriggerIfVerified, { once: true });
 
-      // Listener for age verification event (when user submits DOB form)
-      document.addEventListener('diyvape:age-verified', scheduleInject, { once: true });
-
-      // Cross-tab sync via storage event
       window.addEventListener('storage', function (e) {
-        if (e.key === AGE_KEY && e.newValue) scheduleInject();
+        if (e.key === AGE_KEY && e.newValue) showTriggerIfVerified();
       });
-
-      // Watch body class changes for age gate close (legacy support)
-      if (document.body) {
-        var observer = new MutationObserver(function () {
-          if (!document.body.classList.contains('ai-age-gate-open') && isVerified()) {
-            scheduleInject();
-            observer.disconnect();
-          }
-        });
-        observer.observe(document.body, { attributes: true, attributeFilter: ['class'] });
-      }
-
-      // Poll fallback (reduced frequency: 5s × 60 attempts = 5min total)
-      var attempts = 0;
-      var pollIv = setInterval(function () {
-        attempts++;
-        if (tryScheduleIfVerified() || attempts >= 60) clearInterval(pollIv);
-      }, 5000);
     })();
   </script>
 {%- endunless -%}
