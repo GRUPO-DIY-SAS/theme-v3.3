@@ -47,6 +47,7 @@
     assign wishlist = pages.wishlist
     assign compare = pages.compare
     assign type_video = false
+    assign product_card_widths = custom_widths | default: '480, 360, 300, 240, 185, 160, 120, 90'
     assign bage_positon = ''
     if enable_rtl
       assign bage_positon = 'pointer-none absolute top-sm-15 top-10 right-sm-15 right-10'
@@ -164,7 +165,7 @@
                     colunm: colunm,
                     colunm_mobile: colunm_mobile,
                     padding: padding,
-                    custom_widths: custom_widths,
+                    custom_widths: product_card_widths,
                     sizes: sizes
                   %}
               {% else %}
@@ -177,13 +178,13 @@
                   colunm: colunm,
                   colunm_mobile: colunm_mobile,
                   padding: padding,
-                  custom_widths: custom_widths,
+                  custom_widths: product_card_widths,
                   sizes: sizes
                 %}
                 {%- liquid
                   if card_product.media[1] != blank and show_secondary_image
                     assign alt_features = card_product.media[1].alt | default: card_product.title | escape
-                    render 'responsive-image', type: 'product', class: 'secondary-image opacity-0 product-image', image: card_product.media[1], image_alt: alt_features, container: container, colunm: colunm, colunm_mobile: colunm_mobile, padding: padding, custom_widths: custom_widths, sizes: sizes
+                    render 'responsive-image', type: 'product', class: 'secondary-image opacity-0 product-image', image: card_product.media[1], image_alt: alt_features, container: container, colunm: colunm, colunm_mobile: colunm_mobile, padding: padding, custom_widths: product_card_widths, sizes: sizes
                   endif
                 -%}
               {% endif %}

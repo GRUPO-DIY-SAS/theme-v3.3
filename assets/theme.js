@@ -254,7 +254,7 @@ function initializeLazyLoad() {
         interactionVideos.forEach(loadLocalVideo);
       };
 
-      ["pointerdown", "keydown", "touchstart"].forEach((eventName) => {
+      ["pointerdown", "keydown", "touchstart", "touchmove", "wheel", "scroll"].forEach((eventName) => {
         window.addEventListener(eventName, loadInteractionVideos, {
           once: true,
           passive: true,

@@ -48,6 +48,7 @@
   assign wishlist = pages.wishlist
   assign compare = pages.compare
   assign type_video = false
+  assign product_card_widths = custom_widths | default: '480, 360, 300, 240, 185, 160, 120, 90'
   if enable_short_description == true
     assign show_short_description = true
   endif
@@ -181,7 +182,7 @@
                   colunm: colunm,
                   colunm_mobile: colunm_mobile,
                   padding: padding,
-                  custom_widths: custom_widths,
+                  custom_widths: product_card_widths,
                   sizes: sizes,
                   lazy_product: lazy_product
                 %}
@@ -195,7 +196,7 @@
                   colunm: colunm,
                   colunm_mobile: colunm_mobile,
                   padding: padding,
-                  custom_widths: custom_widths,
+                  custom_widths: product_card_widths,
                   sizes: sizes,
                   lazy_product: lazy_product
                 %}
@@ -210,14 +211,14 @@
                 colunm: colunm,
                 colunm_mobile: colunm_mobile,
                 padding: padding,
-                custom_widths: custom_widths,
+                custom_widths: product_card_widths,
                 sizes: sizes,
                 lazy_product: lazy_product
               %}
               {%- liquid
                 if card_product.media[1] != blank and show_secondary_image
                   assign alt_features = card_product.media[1].alt | default: card_product.title | escape
-                  render 'responsive-image', type: 'product', class: 'secondary-image opacity-0 product-image', image: card_product.media[1], image_alt: alt_features, container: container, colunm: colunm, colunm_mobile: colunm_mobile, padding: padding, custom_widths: custom_widths, sizes: sizes, lazy_product: lazy_product
+                  render 'responsive-image', type: 'product', class: 'secondary-image opacity-0 product-image', image: card_product.media[1], image_alt: alt_features, container: container, colunm: colunm, colunm_mobile: colunm_mobile, padding: padding, custom_widths: product_card_widths, sizes: sizes, lazy_product: lazy_product
                 endif
               -%}
             {% endif %}
