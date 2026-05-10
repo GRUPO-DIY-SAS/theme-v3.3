@@ -6,10 +6,76 @@
     window.diyvapeDeferredLoaderReady = true;
 
     var assets = window.diyvapeDeferredAssets;
+    var pageType = {{ request.page_type | json }};
     var requested = false;
     var scriptChain = Promise.resolve();
     var loaded = {};
     var originalPush = assets.push.bind(assets);
+    var originalAppendChild = Node.prototype.appendChild;
+    var originalInsertBefore = Node.prototype.insertBefore;
+    var blockedDynamicAssets = [];
+    var dynamicAssetsAllowed = false;
+    var releasingDynamicAssets = false;
+
+    function getNodeUrl(node) {
+      if (!node || node.nodeType !== 1) return '';
+      var tagName = node.tagName;
+      if (tagName === 'SCRIPT') return node.src || '';
+      if (tagName === 'LINK') return node.href || '';
+      return '';
+    }
+
+    function isDeferredDynamicUrl(url) {
+      if (!url) return false;
+      return url.indexOf('rappi-front.') !== -1 ||
+        url.indexOf('googletagmanager.com/gtag/js') !== -1 ||
+        url.indexOf('/wpm/') !== -1 ||
+        url.indexOf('web-pixels-manager') !== -1 ||
+        url.indexOf('splmn-shopify-prod') !== -1;
+    }
+
+    function shouldReleaseDynamicUrl(url) {
+      if (url.indexOf('rappi-front.') !== -1 && pageType !== 'product') return false;
+      return true;
+    }
+
+    function blockDynamicAsset(parent, node, referenceNode) {
+      var url = getNodeUrl(node);
+      if (releasingDynamicAssets || dynamicAssetsAllowed || isAgeVerified() || !isDeferredDynamicUrl(url)) return false;
+      blockedDynamicAssets.push({
+        parent: parent,
+        node: node,
+        referenceNode: referenceNode,
+        url: url
+      });
+      return true;
+    }
+
+    function releaseDynamicAssets() {
+      dynamicAssetsAllowed = true;
+      if (!blockedDynamicAssets.length) return;
+      releasingDynamicAssets = true;
+      blockedDynamicAssets.splice(0).forEach(function (entry) {
+        if (!shouldReleaseDynamicUrl(entry.url)) return;
+        var parent = entry.parent || document.head || document.documentElement;
+        if (entry.referenceNode && entry.referenceNode.parentNode === parent) {
+          originalInsertBefore.call(parent, entry.node, entry.referenceNode);
+        } else {
+          originalAppendChild.call(parent, entry.node);
+        }
+      });
+      releasingDynamicAssets = false;
+    }
+
+    Node.prototype.appendChild = function (node) {
+      if (blockDynamicAsset(this, node, null)) return node;
+      return originalAppendChild.call(this, node);
+    };
+
+    Node.prototype.insertBefore = function (node, referenceNode) {
+      if (blockDynamicAsset(this, node, referenceNode)) return node;
+      return originalInsertBefore.call(this, node, referenceNode);
+    };
 
     function parseVerified(raw) {
       if (!raw) return false;
@@ -124,16 +190,24 @@
 
     window.diyvapeLoadDeferredAssets = loadDeferredAssets;
 
-    window.addEventListener('diyvape:age-verified', loadDeferredAssets, { once: true });
-    document.addEventListener('diyvape:age-verified', loadDeferredAssets, { once: true });
+    window.addEventListener('diyvape:age-verified', function () {
+      loadDeferredAssets();
+      releaseDynamicAssets();
+    }, { once: true });
+    document.addEventListener('diyvape:age-verified', function () {
+      loadDeferredAssets();
+      releaseDynamicAssets();
+    }, { once: true });
 
     if (isAgeVerified()) {
       loadDeferredAssets();
+      releaseDynamicAssets();
     } else {
       document.addEventListener('DOMContentLoaded', function () {
         var gate = document.querySelector('age-verification-gate');
         if (!gate || !gate.classList.contains('active') || gate.getAttribute('aria-hidden') === 'true') {
           loadDeferredAssets();
+          releaseDynamicAssets();
         }
       }, { once: true });
     }

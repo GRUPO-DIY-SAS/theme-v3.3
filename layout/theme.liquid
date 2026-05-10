@@ -102,11 +102,11 @@
     {% render 'schema-faq-page' %}
     {% render 'breadcrumb-schema' %}
         
-    {{ content_for_header }}
     {% if defer_theme_assets_until_age_gate %}
       {% render 'deferred-assets-loader' %}
     {% endif %}
     {{ 'critical-base.css' | asset_url | stylesheet_tag }}
+    {{ content_for_header }}
     {% if defer_theme_assets_until_age_gate %}
       <script>
         window.diyvapeDeferredAssets.push(

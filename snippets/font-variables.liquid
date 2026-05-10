@@ -148,8 +148,17 @@
   {%- endunless -%}
 {% else %}
   {% liquid
-    assign heading_weight = theme_st.heading_font_weight | default: 600
-    assign font_heading_primary = font_heading_shopify | font_modify: 'weight', heading_weight
+    assign heading_weight = theme_st.heading_font_weight | default: 600 | append: ''
+    assign font_heading_primary = font_heading_shopify | font_modify: 'weight', '600'
+    if heading_weight == '300'
+      assign font_heading_primary = font_heading_shopify | font_modify: 'weight', '300'
+    elsif heading_weight == '400'
+      assign font_heading_primary = font_heading_shopify | font_modify: 'weight', '400'
+    elsif heading_weight == '500'
+      assign font_heading_primary = font_heading_shopify | font_modify: 'weight', '500'
+    elsif heading_weight == '700'
+      assign font_heading_primary = font_heading_shopify | font_modify: 'weight', '700'
+    endif
     assign font_heading_bold = font_heading_shopify | font_modify: 'weight', '700'
   %}
   {% # theme-check-disable AssetPreload %}
@@ -158,7 +167,7 @@
   {%- capture font_family_heading -%}{{ font_heading_shopify.family }}, {{ font_heading_shopify.fallback_families }};{%- endcapture -%}
   {%- style -%}
     {{ font_heading_primary | font_face: font_display: 'swap' }}
-    {%- unless heading_weight == 700 -%}
+    {%- unless heading_weight == '700' -%}
       {{ font_heading_bold | font_face: font_display: 'swap' }}
     {%- endunless -%}
   {%- endstyle -%}
