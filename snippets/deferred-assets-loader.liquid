@@ -1,0 +1,141 @@
+<script>
+  window.diyvapeDeferredAssets = window.diyvapeDeferredAssets || [];
+  (function () {
+    if (window.diyvapeDeferredLoaderReady) return;
+
+    window.diyvapeDeferredLoaderReady = true;
+
+    var assets = window.diyvapeDeferredAssets;
+    var requested = false;
+    var scriptChain = Promise.resolve();
+    var loaded = {};
+    var originalPush = assets.push.bind(assets);
+
+    function parseVerified(raw) {
+      if (!raw) return false;
+      try {
+        var parsed = JSON.parse(decodeURIComponent(raw));
+        return Boolean(parsed && parsed.verified && parsed.dob && parsed.id);
+      } catch (error) {
+        try {
+          var fallback = JSON.parse(raw);
+          return Boolean(fallback && fallback.verified && fallback.dob && fallback.id);
+        } catch (innerError) {
+          return false;
+        }
+      }
+    }
+
+    function getCookie(name) {
+      var prefix = name + '=';
+      var parts = document.cookie ? document.cookie.split(';') : [];
+      for (var i = 0; i < parts.length; i += 1) {
+        var value = parts[i].trim();
+        if (value.indexOf(prefix) === 0) return value.slice(prefix.length);
+      }
+      return '';
+    }
+
+    function isAgeVerified() {
+      if (document.documentElement.classList.contains('age-gate-verified')) return true;
+      if (parseVerified(getCookie('age_verified_diyvape'))) return true;
+      try {
+        return parseVerified(localStorage.getItem('age_verified_diyvape'));
+      } catch (error) {
+        return false;
+      }
+    }
+
+    function loadStyle(asset) {
+      if (!asset || !asset.href || loaded[asset.href]) return;
+      loaded[asset.href] = true;
+
+      var link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.href = asset.href;
+      link.media = asset.media || 'all';
+      link.dataset.diyvapeDeferred = 'true';
+      document.head.appendChild(link);
+    }
+
+    function loadScript(asset) {
+      if (!asset || !asset.src || loaded[asset.src]) return Promise.resolve();
+      loaded[asset.src] = true;
+
+      return new Promise(function (resolve) {
+        var script = document.createElement('script');
+        script.src = asset.src;
+        script.async = false;
+        script.defer = true;
+        if (asset.module) script.type = 'module';
+        if (asset.id) script.id = asset.id;
+        script.dataset.diyvapeDeferred = 'true';
+        script.onload = resolve;
+        script.onerror = resolve;
+        document.head.appendChild(script);
+      });
+    }
+
+    function queueScript(asset) {
+      scriptChain = scriptChain.then(function () {
+        return loadScript(asset);
+      });
+      return scriptChain;
+    }
+
+    function loadAsset(asset) {
+      if (!asset) return;
+      if (asset.type === 'style') {
+        loadStyle(asset);
+        return;
+      }
+      if (asset.type === 'script') {
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', function () {
+            queueScript(asset);
+          }, { once: true });
+          return;
+        }
+        queueScript(asset);
+      }
+    }
+
+    function loadDeferredAssets() {
+      if (requested) return scriptChain;
+      requested = true;
+      document.documentElement.classList.add('diyvape-deferred-assets-requested');
+
+      assets.slice().forEach(loadAsset);
+
+      scriptChain.then(function () {
+        document.documentElement.classList.add('diyvape-deferred-assets-loaded');
+        window.dispatchEvent(new CustomEvent('diyvape:deferred-assets-loaded'));
+      });
+
+      return scriptChain;
+    }
+
+    assets.push = function () {
+      var incoming = Array.prototype.slice.call(arguments);
+      var result = originalPush.apply(assets, incoming);
+      if (requested) incoming.forEach(loadAsset);
+      return result;
+    };
+
+    window.diyvapeLoadDeferredAssets = loadDeferredAssets;
+
+    window.addEventListener('diyvape:age-verified', loadDeferredAssets, { once: true });
+    document.addEventListener('diyvape:age-verified', loadDeferredAssets, { once: true });
+
+    if (isAgeVerified()) {
+      loadDeferredAssets();
+    } else {
+      document.addEventListener('DOMContentLoaded', function () {
+        var gate = document.querySelector('age-verification-gate');
+        if (!gate || !gate.classList.contains('active') || gate.getAttribute('aria-hidden') === 'true') {
+          loadDeferredAssets();
+        }
+      }, { once: true });
+    }
+  })();
+</script>

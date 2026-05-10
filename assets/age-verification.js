@@ -57,6 +57,7 @@
       if (!this.isShopifyDesignMode() && this.isCartVerified()) {
         document.documentElement.classList.add("age-gate-verified");
         this.hide();
+        this.dispatchVerifiedEvent("cart_verified");
         return;
       }
 
@@ -66,6 +67,7 @@
       if (verified) {
         document.documentElement.classList.add("age-gate-verified");
         this.hide();
+        this.dispatchVerifiedEvent("cookie_present");
         this.deferCartSync(verified, { reason: "cookie_present", force: true });
         return;
       }
@@ -238,8 +240,15 @@
 
       document.documentElement.classList.add("age-gate-verified");
       this.hide();
+      this.dispatchVerifiedEvent("just_verified");
 
       if (this.submitBtn) this.submitBtn.disabled = false;
+    }
+
+    dispatchVerifiedEvent(reason) {
+      const detail = { reason, gateId: this.id };
+      window.dispatchEvent(new CustomEvent("diyvape:age-verified", { detail }));
+      document.dispatchEvent(new CustomEvent("diyvape:age-verified", { detail }));
     }
 
     focusInitialElement() {

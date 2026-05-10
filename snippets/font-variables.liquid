@@ -69,12 +69,19 @@
   {{ font_body_google_embed_clean | replace: stylesheet_orig, stylesheet_async }}
   <noscript>{{ font_body_google_embed_clean }}</noscript>
 {% else %}
+  {% liquid
+    assign font_body_regular = font_body_shopify
+    assign font_body_medium = font_body_shopify | font_modify: 'weight', '500'
+    assign font_body_semibold = font_body_shopify | font_modify: 'weight', '600'
+  %}
   {% # theme-check-disable AssetPreload %}
-  <link rel="preload" as="font" href="{{ font_body_shopify | font_url }}" type="font/woff2" crossorigin>
+  <link rel="preload" as="font" href="{{ font_body_regular | font_url }}" type="font/woff2" crossorigin>
   {% # theme-check-disable AssetPreload %}
   {%- capture font_family_body -%}{{ font_body_shopify.family }}, {{ font_body_shopify.fallback_families }};{%- endcapture -%}
   {%- style -%}
-    {%- for variant in font_body_shopify.variants -%}{{ variant | font_face: font_display: 'swap' }}{%- endfor -%}
+    {{ font_body_regular | font_face: font_display: 'swap' }}
+    {{ font_body_medium | font_face: font_display: 'swap' }}
+    {{ font_body_semibold | font_face: font_display: 'swap' }}
   {%- endstyle -%}
 {% endif %}
 
@@ -140,12 +147,20 @@
     <noscript>{{ font_body_heading_embed_clean }}</noscript>
   {%- endunless -%}
 {% else %}
+  {% liquid
+    assign heading_weight = theme_st.heading_font_weight | default: 600
+    assign font_heading_primary = font_heading_shopify | font_modify: 'weight', heading_weight
+    assign font_heading_bold = font_heading_shopify | font_modify: 'weight', '700'
+  %}
   {% # theme-check-disable AssetPreload %}
-  <link rel="preload" as="font" href="{{ font_heading_shopify | font_url }}" type="font/woff2" crossorigin>
+  <link rel="preload" as="font" href="{{ font_heading_primary | font_url }}" type="font/woff2" crossorigin>
   {% # theme-check-disable AssetPreload %}
   {%- capture font_family_heading -%}{{ font_heading_shopify.family }}, {{ font_heading_shopify.fallback_families }};{%- endcapture -%}
   {%- style -%}
-    {%- for variant in font_heading_shopify.variants -%}{{ variant | font_face: font_display: 'swap' }}{%- endfor -%}
+    {{ font_heading_primary | font_face: font_display: 'swap' }}
+    {%- unless heading_weight == 700 -%}
+      {{ font_heading_bold | font_face: font_display: 'swap' }}
+    {%- endunless -%}
   {%- endstyle -%}
 {% endif %}
 

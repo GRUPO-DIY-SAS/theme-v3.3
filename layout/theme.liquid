@@ -25,6 +25,11 @@
   if account_open_as == 'show_popup_login' and shop.customer_accounts_enabled
     assign load_account_popup_assets = true
   endif
+
+  assign defer_theme_assets_until_age_gate = true
+  if request.design_mode
+    assign defer_theme_assets_until_age_gate = false
+  endif
 %}
 
 <!doctype html>
@@ -98,27 +103,63 @@
     {% render 'breadcrumb-schema' %}
         
     {{ content_for_header }}
+    {% if defer_theme_assets_until_age_gate %}
+      {% render 'deferred-assets-loader' %}
+    {% endif %}
     {{ 'critical-base.css' | asset_url | stylesheet_tag }}
-    <link rel="stylesheet" href="{{ 'critical.css' | asset_url }}" media="print" onload="this.media='all'">
-    <noscript>{{ 'critical.css' | asset_url | stylesheet_tag }}</noscript>
+    {% if defer_theme_assets_until_age_gate %}
+      <script>
+        window.diyvapeDeferredAssets.push(
+          { type: 'style', href: {{ 'critical.css' | asset_url | json }} },
+          {% if request.page_type == 'collection' or request.page_type == 'index' or request.page_type == 'search' %}
+            { type: 'style', href: {{ 'product-card.css' | asset_url | json }} },
+          {% else %}
+            { type: 'style', href: {{ 'product-card.css' | asset_url | json }} },
+          {% endif %}
+          {% if load_swiper_assets %}
+            { type: 'style', href: {{ 'swiper-bundle.min.css' | asset_url | json }} },
+          {% endif %}
+          { type: 'style', href: {{ 'judgeme-reviews.css' | asset_url | json }} },
+          { type: 'style', href: {{ 'theme.css' | asset_url | json }} },
+          { type: 'style', href: {{ 'popup.css' | asset_url | json }} }
+          {% if load_account_popup_assets %}
+            ,{ type: 'style', href: {{ 'header-account-popup.css' | asset_url | json }} }
+          {% endif %}
+        );
+      </script>
+      <noscript>
+        {{ 'critical.css' | asset_url | stylesheet_tag }}
+        {{ 'product-card.css' | asset_url | stylesheet_tag }}
+        {% if load_swiper_assets %}{{ 'swiper-bundle.min.css' | asset_url | stylesheet_tag }}{% endif %}
+        {{ 'judgeme-reviews.css' | asset_url | stylesheet_tag }}
+        {{ 'theme.css' | asset_url | stylesheet_tag }}
+        {{ 'popup.css' | asset_url | stylesheet_tag }}
+        {% if load_account_popup_assets %}{{ 'header-account-popup.css' | asset_url | stylesheet_tag }}{% endif %}
+      </noscript>
+    {% else %}
+      <link rel="stylesheet" href="{{ 'critical.css' | asset_url }}" media="print" onload="this.media='all'">
+      <noscript>{{ 'critical.css' | asset_url | stylesheet_tag }}</noscript>
+    {% endif %}
     {% if enable_rtl %}{{ 'rtl.css' | asset_url | stylesheet_tag: preload: true }}{% endif %}
-    {%- comment -%} INP optimization — preload solo donde el CSS es crítico above-fold {%- endcomment -%}
-    {%- if request.page_type == 'collection' or request.page_type == 'index' or request.page_type == 'search' -%}
-      {{ 'product-card.css' | asset_url | stylesheet_tag: preload: true }}
-    {%- else -%}
-      <link rel="stylesheet" href="{{ 'product-card.css' | asset_url }}" media="print" onload="this.media='all'">
-      <noscript><link rel="stylesheet" href="{{ 'product-card.css' | asset_url }}"></noscript>
-    {%- endif -%}
-    {%- if load_swiper_assets -%}
-      {%- if request.page_type == 'index' -%}
-        {{ 'swiper-bundle.min.css' | asset_url | stylesheet_tag: preload: true }}
+    {% unless defer_theme_assets_until_age_gate %}
+      {%- comment -%} INP optimization — preload solo donde el CSS es crítico above-fold {%- endcomment -%}
+      {%- if request.page_type == 'collection' or request.page_type == 'index' or request.page_type == 'search' -%}
+        {{ 'product-card.css' | asset_url | stylesheet_tag: preload: true }}
       {%- else -%}
-        <link rel="stylesheet" href="{{ 'swiper-bundle.min.css' | asset_url }}" media="print" onload="this.media='all'">
-        <noscript><link rel="stylesheet" href="{{ 'swiper-bundle.min.css' | asset_url }}"></noscript>
+        <link rel="stylesheet" href="{{ 'product-card.css' | asset_url }}" media="print" onload="this.media='all'">
+        <noscript><link rel="stylesheet" href="{{ 'product-card.css' | asset_url }}"></noscript>
       {%- endif -%}
-    {%- endif -%}
-    <link rel="stylesheet" href="{{ 'judgeme-reviews.css' | asset_url }}" media="print" onload="this.media='all'">
-    <noscript><link rel="stylesheet" href="{{ 'judgeme-reviews.css' | asset_url }}"></noscript>
+      {%- if load_swiper_assets -%}
+        {%- if request.page_type == 'index' -%}
+          {{ 'swiper-bundle.min.css' | asset_url | stylesheet_tag: preload: true }}
+        {%- else -%}
+          <link rel="stylesheet" href="{{ 'swiper-bundle.min.css' | asset_url }}" media="print" onload="this.media='all'">
+          <noscript><link rel="stylesheet" href="{{ 'swiper-bundle.min.css' | asset_url }}"></noscript>
+        {%- endif -%}
+      {%- endif -%}
+      <link rel="stylesheet" href="{{ 'judgeme-reviews.css' | asset_url }}" media="print" onload="this.media='all'">
+      <noscript><link rel="stylesheet" href="{{ 'judgeme-reviews.css' | asset_url }}"></noscript>
+    {% endunless %}
     {% render 'font-variables' %}
     {% if request.design_mode %}
       {{ 'design-mode.css' | asset_url | stylesheet_tag: preload: true }}
@@ -260,23 +301,42 @@
         }
       }
     {% endstyle %}
-    <link rel="stylesheet" href="{{ 'theme.css' | asset_url }}" media="print" onload="this.media='all'">
-    <noscript><link rel="stylesheet" href="{{ 'theme.css' | asset_url }}"></noscript>
-    <link rel="stylesheet" href="{{ 'popup.css' | asset_url }}" media="print" onload="this.media='all'">
-    <noscript><link rel="stylesheet" href="{{ 'popup.css' | asset_url }}"></noscript>
-    {% if load_account_popup_assets %}
-      <link rel="stylesheet" href="{{ 'header-account-popup.css' | asset_url }}" media="print" onload="this.media='all'">
-      <noscript><link rel="stylesheet" href="{{ 'header-account-popup.css' | asset_url }}"></noscript>
-      <script src="{{ 'header-account-popup.js' | asset_url }}" defer="defer"></script>
-    {% endif %}
-    {% if load_swiper_assets %}
-      <script src="{{ 'swiper-bundle.min.js' | asset_url }}" defer="defer"></script>
-    {% endif %}
-    <script src="{{ 'motion.min.js' | asset_url }}" type="module" defer="defer"></script>
-    <script src="{{ 'utils.js' | asset_url }}" defer="defer"></script>
-    <script src="{{ 'global.js' | asset_url }}" defer="defer"></script>
-    {% if load_motion_effects %}
-      <script src="{{ 'motion-effect.js' | asset_url }}" defer="defer"></script>
+    {% if defer_theme_assets_until_age_gate %}
+      <script>
+        window.diyvapeDeferredAssets.push(
+          {% if load_account_popup_assets %}
+            { type: 'script', src: {{ 'header-account-popup.js' | asset_url | json }} },
+          {% endif %}
+          {% if load_swiper_assets %}
+            { type: 'script', src: {{ 'swiper-bundle.min.js' | asset_url | json }} },
+          {% endif %}
+          { type: 'script', src: {{ 'motion.min.js' | asset_url | json }}, module: true },
+          { type: 'script', src: {{ 'utils.js' | asset_url | json }} },
+          { type: 'script', src: {{ 'global.js' | asset_url | json }} }
+          {% if load_motion_effects %}
+            ,{ type: 'script', src: {{ 'motion-effect.js' | asset_url | json }} }
+          {% endif %}
+        );
+      </script>
+    {% else %}
+      <link rel="stylesheet" href="{{ 'theme.css' | asset_url }}" media="print" onload="this.media='all'">
+      <noscript><link rel="stylesheet" href="{{ 'theme.css' | asset_url }}"></noscript>
+      <link rel="stylesheet" href="{{ 'popup.css' | asset_url }}" media="print" onload="this.media='all'">
+      <noscript><link rel="stylesheet" href="{{ 'popup.css' | asset_url }}"></noscript>
+      {% if load_account_popup_assets %}
+        <link rel="stylesheet" href="{{ 'header-account-popup.css' | asset_url }}" media="print" onload="this.media='all'">
+        <noscript><link rel="stylesheet" href="{{ 'header-account-popup.css' | asset_url }}"></noscript>
+        <script src="{{ 'header-account-popup.js' | asset_url }}" defer="defer"></script>
+      {% endif %}
+      {% if load_swiper_assets %}
+        <script src="{{ 'swiper-bundle.min.js' | asset_url }}" defer="defer"></script>
+      {% endif %}
+      <script src="{{ 'motion.min.js' | asset_url }}" type="module" defer="defer"></script>
+      <script src="{{ 'utils.js' | asset_url }}" defer="defer"></script>
+      <script src="{{ 'global.js' | asset_url }}" defer="defer"></script>
+      {% if load_motion_effects %}
+        <script src="{{ 'motion-effect.js' | asset_url }}" defer="defer"></script>
+      {% endif %}
     {% endif %}
     <script>
       document.documentElement.className = document.documentElement.className.replace('no-js', 'js');
@@ -284,7 +344,7 @@
         document.documentElement.classList.add('shopify-design-mode');
       }
     </script>
-  {% render 'diyvape-pdp-assets' %}
+  {% render 'diyvape-pdp-assets', defer_by_age_gate: defer_theme_assets_until_age_gate %}
   </head>
   <body
     class="gradient{% if settings.rounded_corner > 1 and settings.enable_rounded %} rounded-style{% endif %}{% if settings.action_after_add_cart == 'show_popup' %} minicart_type-popup{% endif %}{% if enable_rtl %} rtl{% endif %} {% if request.page_type == 'cart'%}template-cart{% endif %} {{ request.page_type }}"
@@ -307,7 +367,7 @@
     -%}
     {% section 'top-search' %}
     {%- render 'minicart' -%}
-    {%- render 'scripts-tag' -%}
+    {%- render 'scripts-tag', defer_by_age_gate: defer_theme_assets_until_age_gate -%}
     {%- render 'sprite-svg' -%}
     {%- render 'content-bottom' -%}
   </body>

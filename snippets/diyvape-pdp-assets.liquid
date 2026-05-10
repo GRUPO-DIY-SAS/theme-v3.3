@@ -13,8 +13,19 @@
 {% endcomment %}
 
 {%- if request.page_type == 'product' -%}
-  {{ 'diyvape-pdp-components.css' | asset_url | stylesheet_tag }}
-  <script src="{{ 'diyvape-pdp-interactions.js' | asset_url }}" defer></script>
-  <script src="{{ 'diyvape-pdp-compat.js' | asset_url }}" defer></script>
-  <script src="{{ 'diyvape-pdp-color-swatch.js' | asset_url }}" defer></script>
+  {%- if defer_by_age_gate -%}
+    <script>
+      window.diyvapeDeferredAssets.push(
+        { type: 'style', href: {{ 'diyvape-pdp-components.css' | asset_url | json }} },
+        { type: 'script', src: {{ 'diyvape-pdp-interactions.js' | asset_url | json }} },
+        { type: 'script', src: {{ 'diyvape-pdp-compat.js' | asset_url | json }} },
+        { type: 'script', src: {{ 'diyvape-pdp-color-swatch.js' | asset_url | json }} }
+      );
+    </script>
+  {%- else -%}
+    {{ 'diyvape-pdp-components.css' | asset_url | stylesheet_tag }}
+    <script src="{{ 'diyvape-pdp-interactions.js' | asset_url }}" defer></script>
+    <script src="{{ 'diyvape-pdp-compat.js' | asset_url }}" defer></script>
+    <script src="{{ 'diyvape-pdp-color-swatch.js' | asset_url }}" defer></script>
+  {%- endif -%}
 {%- endif -%}
