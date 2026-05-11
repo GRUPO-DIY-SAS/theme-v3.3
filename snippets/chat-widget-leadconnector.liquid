@@ -71,6 +71,11 @@
       visibility: hidden !important;
       pointer-events: none !important;
     }
+
+    html.diyvape-lc-active .back-to-top {
+      right: 96px !important;
+    }
+
     @media (max-width: 767.98px) {
       .diyvape-chat-trigger {
         right: 16px;
@@ -80,6 +85,10 @@
         justify-content: center;
       }
       .diyvape-chat-trigger__label { display: none; }
+      html.diyvape-lc-active .back-to-top {
+        right: 16px !important;
+        bottom: 205px !important;
+      }
     }
 
     /* Lift LeadConnector chat controls above back-to-top once it mounts */
@@ -303,6 +312,7 @@
       function injectWidget() {
         if (loaded || document.getElementById(SCRIPT_ID)) return;
         loaded = true;
+        document.documentElement.classList.add('diyvape-lc-active');
         var btn = getTrigger();
         if (btn) btn.hidden = true;
         var s = document.createElement('script');

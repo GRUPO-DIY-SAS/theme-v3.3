@@ -1259,14 +1259,61 @@ let BlsMainMenuShopify = (function () {
 BlsMainMenuShopify.init();
 var BlsSearchShopify = (function () {
   return {
+    isAgeGateSearchSuppressed: function () {
+      return Boolean(
+        window.diyvapeSuppressSearchUntil &&
+          window.diyvapeSuppressSearchUntil > Date.now()
+      );
+    },
+
+    resetSuppressedSearchState: function () {
+      const form = document.querySelector("#search-form");
+      const popupSearch = document.querySelector(".popup-search");
+      const overlaySearch = document.querySelector(".overlay_search");
+      const headerNavigation = document.querySelector(
+        ".header-bottom__navigation"
+      );
+      const headerWrapper = document.querySelector("header");
+
+      if (form) form.classList.remove("open");
+      if (popupSearch) popupSearch.classList.remove("popup-search-show");
+      if (overlaySearch) overlaySearch.classList.remove("open");
+      document
+        .querySelectorAll(".top-search-toggle.open")
+        .forEach((toggle) => toggle.classList.remove("open"));
+      if (headerNavigation && headerWrapper) {
+        headerNavigation.style.opacity = "";
+        headerNavigation.style.transition = "";
+        headerNavigation.style.display = "";
+        headerWrapper.style.marginBottom = "";
+      }
+      document.documentElement.classList.remove("open-search");
+      if (
+        !document.documentElement.classList.contains("open-minicart") &&
+        !document.documentElement.classList.contains("nav-open") &&
+        !document.documentElement.classList.contains("open-sidebar")
+      ) {
+        document.documentElement.classList.remove("open-drawer");
+        root.style.removeProperty("padding-right");
+      }
+    },
+
     init: function () {
       var predictive = document.querySelector("#predictive-search");
       if (predictive) {
         this.setupEventListeners();
       }
       const form = document.querySelector("#search-form");
+      if (this.isAgeGateSearchSuppressed()) {
+        this.resetSuppressedSearchState();
+      }
       document.querySelectorAll(".top-search-toggle").forEach((navToggle) => {
         navToggle.onclick = (e) => {
+          if (this.isAgeGateSearchSuppressed()) {
+            e.preventDefault();
+            this.resetSuppressedSearchState();
+            return;
+          }
           const target = e.currentTarget;
           if (!form.classList.contains("open")) {
             form.classList.add("open");
@@ -1339,6 +1386,10 @@ var BlsSearchShopify = (function () {
       }
     },
     handleClickSearch: function (e) {
+      if (this.isAgeGateSearchSuppressed()) {
+        this.resetSuppressedSearchState();
+        return;
+      }
       const sf = document.querySelector(".search-full");
       const hs = sf.closest(".header_search");
       const ehs = e.target.closest(".header_search");
@@ -1383,6 +1434,10 @@ var BlsSearchShopify = (function () {
       }
     },
     openDefaultSearch: function () {
+      if (this.isAgeGateSearchSuppressed()) {
+        this.resetSuppressedSearchState();
+        return;
+      }
       const headerNavigation = document.querySelector(
         ".header-bottom__navigation"
       );
@@ -1710,6 +1765,10 @@ var BlsSearchShopify = (function () {
     },
 
     renderSearchResults: function (resultsMarkup) {
+      if (this.isAgeGateSearchSuppressed()) {
+        this.resetSuppressedSearchState();
+        return;
+      }
       document.querySelector("[data-predictive-search]").innerHTML =
         resultsMarkup;
       document.querySelector("#predictive-search").classList.add("results");

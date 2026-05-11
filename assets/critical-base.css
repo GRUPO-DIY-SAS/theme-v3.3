@@ -256,6 +256,14 @@ html.diyvape-suppress-minicart cart-notification .minicart__wrapper {
   visibility: hidden !important;
 }
 
+html.diyvape-suppress-search #search-form,
+html.diyvape-suppress-search .popup-search,
+html.diyvape-suppress-search .overlay_search {
+  opacity: 0 !important;
+  pointer-events: none !important;
+  visibility: hidden !important;
+}
+
 cart-notification .minicart__wrapper.bls__drawer {
   position: fixed;
   top: 0;

@@ -510,7 +510,9 @@
     suppressMinicartDrawer(duration = 4000) {
       const until = Date.now() + duration;
       window.diyvapeSuppressMinicartUntil = Math.max(window.diyvapeSuppressMinicartUntil || 0, until);
+      window.diyvapeSuppressSearchUntil = Math.max(window.diyvapeSuppressSearchUntil || 0, until);
       document.documentElement.classList.add("diyvape-suppress-minicart");
+      document.documentElement.classList.add("diyvape-suppress-search");
 
       if (window.diyvapeSuppressMinicartTimer) {
         window.clearTimeout(window.diyvapeSuppressMinicartTimer);
@@ -519,6 +521,9 @@
       window.diyvapeSuppressMinicartTimer = window.setTimeout(() => {
         if ((window.diyvapeSuppressMinicartUntil || 0) <= Date.now()) {
           document.documentElement.classList.remove("diyvape-suppress-minicart");
+        }
+        if ((window.diyvapeSuppressSearchUntil || 0) <= Date.now()) {
+          document.documentElement.classList.remove("diyvape-suppress-search");
         }
       }, duration + 80);
     }
