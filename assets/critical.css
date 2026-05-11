@@ -579,6 +579,17 @@ th {
   background: var(--btn-bg-gradient);
 }
 
+/* Fix: cuando .btn-* se aplica a <a>, la regla base con :where() tiene
+   specificity 0 y pierde contra el selector `a { color: var(--color-link); }`
+   (specificity 1). Eso hace texto oscuro sobre botón oscuro = invisible.
+   Estas reglas explícitas para anchor buttons restablecen el color correcto. */
+a.btn-primary,
+a.btn-outline,
+a.btn,
+a.btn-white {
+  color: var(--btn-color);
+}
+
 .btn-outline {
   --btn-bg: var(--color-white);
   --btn-color: var(--btn-outline-color);
