@@ -441,6 +441,84 @@ minicart-wishlist-action.loading .minicart__wishlist-btn {
 .addon-message:empty {
   display: none;
 }
+
+/* ─────────────────────────────────────────────────────────────
+   Cart drawer bottom compression (mobile only)
+   Reduce el footprint del footer para que se vean más productos
+   sin scroll. Tocamos: shipping-protection-row, cart-addons (icons),
+   subtotal, terms-conditions, drawer-bottom, ctas row.
+   ───────────────────────────────────────────────────────────── */
+@media (max-width: 767.98px) {
+  /* Shipping protection row — más compacto */
+  .shipping-protection-row--minicart {
+    padding: 10px 20px !important;
+    gap: 10px !important;
+  }
+  .shipping-protection-row__content {
+    gap: 8px !important;
+  }
+  .shipping-protection-row__content svg {
+    width: 26px;
+    height: 26px;
+  }
+  .shipping-protection-row__content .heading-style {
+    font-size: 13px;
+    margin-bottom: 1px !important;
+  }
+  .shipping-protection-row__content .fs-small {
+    font-size: 11px;
+    line-height: 1.3;
+  }
+  .shipping-protection-row__price {
+    font-size: 13px;
+  }
+
+  /* Cart addons icons row (note, coupon, shipping, gift) — menos alto */
+  .cart-addons {
+    padding-block: 6px;
+  }
+  .cart-addons .mini_cart_addon_btn {
+    padding-inline: 18px;
+    min-height: 38px;
+  }
+
+  /* Drawer bottom (subtotal + terms + ctas) — padding reducido */
+  .minicart .drawer-bottom.cart__ctas {
+    padding: 12px 20px 16px !important;
+  }
+
+  /* Subtotal: título h5 muy grande en mobile, lo bajamos */
+  .drawer-bottom .subtotal {
+    margin-block: 2px;
+  }
+  .drawer-bottom .subtotal h5,
+  .drawer-bottom .subtotal .subtotal-price {
+    font-size: 16px;
+    margin: 0 !important;
+  }
+
+  /* Terms checkbox — espacios verticales más chicos */
+  .drawer-bottom .terms-conditions {
+    margin-top: 8px !important;
+    margin-bottom: 12px !important;
+    font-size: 12px;
+  }
+  .drawer-bottom .terms-conditions .label {
+    font-size: 12px;
+    line-height: 1.3;
+  }
+
+  /* Ctas row — botones un poco más bajos para ahorrar altura */
+  .cart-ctas-row {
+    gap: 8px;
+  }
+  .cart-ctas-row > .viewcart,
+  .cart-ctas-row > .btn-checkout {
+    padding: 12px 14px;
+    font-size: 14px;
+    min-height: 46px;
+  }
+}
 .popup_cart.open {
   transform: translateY(0);
   opacity: 1;
