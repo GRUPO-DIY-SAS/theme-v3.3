@@ -1,0 +1,207 @@
+{% comment %}
+  snippets/shipping-widget.liquid
+  ────────────────────────────────
+  Widget interactivo de envíos REUTILIZABLE. Llamable desde:
+    - blocks/_product-delivery-return.liquid  (PDP, block scope)
+    - snippets/minicart.liquid                (cart drawer)
+    - cualquier otro lugar del tema
+
+  Parámetros (todos opcionales, con defaults):
+    widget_id          · ID único para la instancia      (default 'global')
+    cutoff_hour        · hora de corte, 8..18            (default 13)
+    bogota_threshold   · pesos enteros COP               (default 80000)
+    national_threshold · pesos enteros COP               (default 250000)
+    max_weight         · KG                              (default 3)
+    cutoff_title       · texto                           (default 'Horario de Corte')
+    shipping_title     · texto                           (default 'Envío Gratis')
+    trust_text         · texto del footer
+    bogota_label       · etiqueta ciudad                 (default 'Bogotá')
+    national_label     · etiqueta zona                   (default 'Nacional')
+    holidays_list      · multilínea YYYY-MM-DD
+    extra_attrs        · atributos extra (ej. block.shopify_attributes)
+    wrapper_class      · clases extra para el host       (default '')
+
+  La lógica JS vive en assets/shipping-widget.js. Se carga aquí con
+  defer; el guard interno evita doble inicialización si la snippet
+  se renderiza varias veces en la misma página.
+
+  @example
+  {% render 'shipping-widget',
+    widget_id: 'pdp',
+    cutoff_hour: 13,
+    bogota_threshold: 80000,
+    national_threshold: 250000
+  %}
+{% endcomment %}
+
+{%- liquid
+  assign sw_id = widget_id | default: 'global'
+  assign sw_cutoff = cutoff_hour | default: 13 | times: 1
+  assign sw_bogota_th = bogota_threshold | default: 80000 | times: 1
+  assign sw_national_th = national_threshold | default: 250000 | times: 1
+  assign sw_max_weight = max_weight | default: 3
+  assign sw_cutoff_title = cutoff_title | default: 'Horario de Corte'
+  assign sw_shipping_title = shipping_title | default: 'Envío Gratis'
+  assign sw_trust_text = trust_text | default: 'Despacho mismo día para pedidos confirmados antes de la 1:00 p.m. (hora Colombia)'
+  assign sw_bogota_label = bogota_label | default: 'Bogotá'
+  assign sw_national_label = national_label | default: 'Nacional'
+  assign sw_wrapper_class = wrapper_class | default: ''
+
+  comment
+    cart.total_price viene en centavos. Dividimos para comparar en
+    pesos contra los umbrales (que vienen ya en pesos enteros).
+  endcomment
+  assign sw_cart_total = cart.total_price | divided_by: 100
+
+  comment Limpiar holidays multilínea → CSV YYYY-MM-DD endcomment
+  assign sw_holidays_raw = holidays_list | default: '' | strip | newline_to_br | split: '<br />'
+  assign sw_holidays_clean = ''
+  for d in sw_holidays_raw
+    assign trimmed = d | strip
+    if trimmed != blank
+      if sw_holidays_clean != blank
+        assign sw_holidays_clean = sw_holidays_clean | append: ',' | append: trimmed
+      else
+        assign sw_holidays_clean = trimmed
+      endif
+    endif
+  endfor
+
+  comment Formato para etiqueta Bogotá (pesos con puntos como miles) endcomment
+  assign sw_bogota_fmt = sw_bogota_th
+  if sw_bogota_th >= 1000
+    assign rem_b = sw_bogota_th | modulo: 1000
+    assign thou_b = sw_bogota_th | divided_by: 1000
+    if rem_b == 0
+      assign sw_bogota_fmt = thou_b | append: '.000'
+    elsif rem_b < 10
+      assign sw_bogota_fmt = thou_b | append: '.00' | append: rem_b
+    elsif rem_b < 100
+      assign sw_bogota_fmt = thou_b | append: '.0' | append: rem_b
+    else
+      assign sw_bogota_fmt = thou_b | append: '.' | append: rem_b
+    endif
+  endif
+
+  assign sw_national_fmt = sw_national_th
+  if sw_national_th >= 1000
+    assign rem_n = sw_national_th | modulo: 1000
+    assign thou_n = sw_national_th | divided_by: 1000
+    if rem_n == 0
+      assign sw_national_fmt = thou_n | append: '.000'
+    elsif rem_n < 10
+      assign sw_national_fmt = thou_n | append: '.00' | append: rem_n
+    elsif rem_n < 100
+      assign sw_national_fmt = thou_n | append: '.0' | append: rem_n
+    else
+      assign sw_national_fmt = thou_n | append: '.' | append: rem_n
+    endif
+  endif
+-%}
+
+{% render 'shipping-widget-styles' %}
+
+<shipping-widget
+  class="sw-root mb-20 {{ sw_wrapper_class }}"
+  id="shipping-widget-{{ sw_id }}"
+  data-cutoff-hour="{{ sw_cutoff }}"
+  data-bogota-threshold="{{ sw_bogota_th }}"
+  data-national-threshold="{{ sw_national_th }}"
+  data-cart-total="{{ sw_cart_total }}"
+  data-holidays="{{ sw_holidays_clean }}"
+  {{ extra_attrs }}
+>
+  <div class="sw-grid">
+
+    {%- comment -%} ── TARJETA: HORARIO DE CORTE ── {%- endcomment -%}
+    <div class="sw-card">
+      <div class="sw-card__header">
+        <svg class="sw-icon sw-icon--clock" width="34" height="34" viewBox="0 0 24 24"
+             fill="none" stroke="currentColor" stroke-width="1.5"
+             stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/>
+          <polyline points="12 6 12 12 16 14"/>
+        </svg>
+        <div>
+          <h3 class="sw-card__title">{{ sw_cutoff_title }}</h3>
+          <p class="sw-card__subtitle">Lun – Sáb · {{ sw_cutoff }}:00 p.m. COT</p>
+        </div>
+      </div>
+
+      <div class="sw-countdown" aria-label="Tiempo restante para el próximo despacho">
+        <div class="sw-digit-group">
+          <div class="sw-digit" data-unit="hours">00</div>
+          <span class="sw-digit__label">Horas</span>
+        </div>
+        <span class="sw-separator">:</span>
+        <div class="sw-digit-group">
+          <div class="sw-digit" data-unit="minutes">00</div>
+          <span class="sw-digit__label">Min</span>
+        </div>
+        <span class="sw-separator">:</span>
+        <div class="sw-digit-group">
+          <div class="sw-digit" data-unit="seconds">00</div>
+          <span class="sw-digit__label">Seg</span>
+        </div>
+      </div>
+
+      <div class="sw-pill" data-status-pill>
+        <span class="sw-dot"></span>
+        <span class="sw-pill__text" data-status-text>Calculando...</span>
+      </div>
+    </div>
+
+    {%- comment -%} ── TARJETA: ENVÍO GRATIS ── {%- endcomment -%}
+    <div class="sw-card sw-card--delay">
+      <div class="sw-card__header">
+        <svg class="sw-icon sw-icon--truck" width="34" height="34" viewBox="0 0 24 24"
+             fill="none" stroke="currentColor" stroke-width="1.5"
+             stroke-linecap="round" stroke-linejoin="round">
+          <path d="M1 3h15v13H1z"/>
+          <path d="M16 8h4l3 4v5h-7V8z"/>
+          <circle cx="5.5" cy="18.5" r="2.5"/>
+          <circle cx="18.5" cy="18.5" r="2.5"/>
+        </svg>
+        <div>
+          <h3 class="sw-card__title">{{ sw_shipping_title }}</h3>
+          <p class="sw-card__subtitle">Válido de 0 – {{ sw_max_weight }} KG</p>
+        </div>
+      </div>
+
+      <div class="sw-bar-group">
+        <div class="sw-bar__header">
+          <span class="sw-bar__city">{{ sw_bogota_label }}</span>
+          <span class="sw-bar__amount">${{ sw_bogota_fmt }}</span>
+        </div>
+        <div class="sw-bar__track">
+          <div class="sw-bar__fill" data-bar="bogota" style="width:0%"></div>
+        </div>
+        <p class="sw-bar__hint" data-hint="bogota">Agrega productos para desbloquear envío gratis</p>
+      </div>
+
+      <div class="sw-bar-group">
+        <div class="sw-bar__header">
+          <span class="sw-bar__city">{{ sw_national_label }}</span>
+          <span class="sw-bar__amount">${{ sw_national_fmt }}</span>
+        </div>
+        <div class="sw-bar__track">
+          <div class="sw-bar__fill" data-bar="national" style="width:0%"></div>
+        </div>
+        <p class="sw-bar__hint" data-hint="national">Agrega productos para desbloquear envío gratis</p>
+      </div>
+    </div>
+
+  </div>
+
+  {%- comment -%} ── FOOTER DE CONFIANZA ── {%- endcomment -%}
+  <div class="sw-footer">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2E7D57"
+         stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+      <polyline points="9 12 11 14 15 10"/>
+    </svg>
+    <span>{{ sw_trust_text }}</span>
+  </div>
+</shipping-widget>
+
+<script src="{{ 'shipping-widget.js' | asset_url }}" defer></script>

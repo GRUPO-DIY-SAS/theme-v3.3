@@ -1,17 +1,14 @@
 {% comment %}
   ============================================================
-  blocks/_product-delivery-return.liquid  (REEMPLAZO INTERACTIVO)
+  blocks/_product-delivery-return.liquid
   ============================================================
-  Widget interactivo con:
-    • Countdown en tiempo real al horario de corte (hora Colombia)
-    • Barras de progreso de envío gratis (Bogotá / Nacional)
-    • Footer de confianza
-    • Toggle para volver al bloque estático desde el Theme Editor
+  Delgado: solo conecta los settings del bloque con el snippet
+  reutilizable `shipping-widget`. Toda la lógica vive en:
+    · assets/shipping-widget.js     (single-load, guard global,
+                                     emite cart:updated)
+    · snippets/shipping-widget.liquid (markup parametrizable)
 
-  INSTALACIÓN:
-  1. Reemplazar blocks/_product-delivery-return.liquid con este archivo.
-  2. Crear snippets/shipping-widget-styles.liquid (archivo adjunto).
-  3. Listo. Configurar desde Theme Editor > Producto > bloque "Delivery & Return".
+  Fallback estático (sin widget) se conserva intacto.
 {% endcomment %}
 
 {% liquid
@@ -19,319 +16,27 @@
   assign section_st = section.settings
   assign enable_skeleton_loading = section_st.enable_skeleton_loading
 
-  assign cutoff_hour = block_st.cutoff_hour | default: 13
+  comment Block guarda umbrales en MILES; pasamos en pesos enteros endcomment
   assign bogota_threshold_k = block_st.bogota_threshold_k | default: 80
-  assign bogota_threshold = bogota_threshold_k | times: 1000
+  assign bogota_threshold_pesos = bogota_threshold_k | times: 1000
   assign national_threshold_k = block_st.national_threshold_k | default: 250
-  assign national_threshold = national_threshold_k | times: 1000
-  assign max_weight = block_st.max_weight_kg | default: 3
-
-  comment
-    Shopify SIEMPRE devuelve cart.total_price en la unidad más
-    pequeña de la moneda. Para COP eso significa centavos:
-    $60.000 COP = 6000000 en cart.total_price.
-    Dividimos entre 100 para comparar en pesos contra los umbrales.
-  endcomment
-  assign cart_total = cart.total_price | divided_by: 100
+  assign national_threshold_pesos = national_threshold_k | times: 1000
 %}
 
 {% if block_st.enable_widget %}
-  {% render 'shipping-widget-styles' %}
 
-  {%- comment -%} Limpiar holidays: quitar espacios, saltos extra {%- endcomment -%}
-  {%- assign holidays_raw = block_st.holidays_list | strip | newline_to_br | split: '<br />' -%}
-  {%- assign holidays_clean = '' -%}
-  {%- for d in holidays_raw -%}
-    {%- assign trimmed = d | strip -%}
-    {%- if trimmed != blank -%}
-      {%- if holidays_clean != blank -%}
-        {%- assign holidays_clean = holidays_clean | append: ',' | append: trimmed -%}
-      {%- else -%}
-        {%- assign holidays_clean = trimmed -%}
-      {%- endif -%}
-    {%- endif -%}
-  {%- endfor -%}
-
-  <div
-    class="sw-root mb-20"
-    id="shipping-widget-{{ block.id }}"
-    data-cutoff-hour="{{ cutoff_hour }}"
-    data-bogota-threshold="{{ bogota_threshold }}"
-    data-national-threshold="{{ national_threshold }}"
-    data-cart-total="{{ cart_total }}"
-    data-holidays="{{ holidays_clean }}"
-    {{ block.shopify_attributes }}
-  >
-    <div class="sw-grid">
-
-      {%- comment -%} ── TARJETA: HORARIO DE CORTE ── {%- endcomment -%}
-      <div class="sw-card">
-        <div class="sw-card__header">
-          <svg class="sw-icon sw-icon--clock" width="34" height="34" viewBox="0 0 24 24"
-               fill="none" stroke="currentColor" stroke-width="1.5"
-               stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
-          </svg>
-          <div>
-            <h3 class="sw-card__title">{{ block_st.cutoff_title | default: 'Horario de Corte' }}</h3>
-            <p class="sw-card__subtitle">Lun – Sáb · {{ cutoff_hour }}:00 p.m. COT</p>
-          </div>
-        </div>
-
-        <div class="sw-countdown" aria-label="Tiempo restante para el próximo despacho">
-          <div class="sw-digit-group">
-            <div class="sw-digit" data-unit="hours">00</div>
-            <span class="sw-digit__label">Horas</span>
-          </div>
-          <span class="sw-separator">:</span>
-          <div class="sw-digit-group">
-            <div class="sw-digit" data-unit="minutes">00</div>
-            <span class="sw-digit__label">Min</span>
-          </div>
-          <span class="sw-separator">:</span>
-          <div class="sw-digit-group">
-            <div class="sw-digit" data-unit="seconds">00</div>
-            <span class="sw-digit__label">Seg</span>
-          </div>
-        </div>
-
-        <div class="sw-pill" data-status-pill>
-          <span class="sw-dot"></span>
-          <span class="sw-pill__text" data-status-text>Calculando...</span>
-        </div>
-      </div>
-
-      {%- comment -%} ── TARJETA: ENVÍO GRATIS ── {%- endcomment -%}
-      <div class="sw-card sw-card--delay">
-        <div class="sw-card__header">
-          <svg class="sw-icon sw-icon--truck" width="34" height="34" viewBox="0 0 24 24"
-               fill="none" stroke="currentColor" stroke-width="1.5"
-               stroke-linecap="round" stroke-linejoin="round">
-            <path d="M1 3h15v13H1z"/><path d="M16 8h4l3 4v5h-7V8z"/>
-            <circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/>
-          </svg>
-          <div>
-            <h3 class="sw-card__title">{{ block_st.shipping_title | default: 'Envío Gratis' }}</h3>
-            <p class="sw-card__subtitle">Válido de 0 – {{ max_weight }} KG</p>
-          </div>
-        </div>
-
-        <div class="sw-bar-group">
-          <div class="sw-bar__header">
-            <span class="sw-bar__city">Bogotá</span>
-            {%- assign bogota_fmt = bogota_threshold | append: '' -%}
-            {%- if bogota_threshold >= 1000 -%}
-              {%- assign bogota_remainder = bogota_threshold | modulo: 1000 -%}
-              {%- assign bogota_thousands = bogota_threshold | divided_by: 1000 -%}
-              {%- if bogota_remainder == 0 -%}
-                {%- assign bogota_fmt = bogota_thousands | append: '.000' -%}
-              {%- else -%}
-                {%- assign bogota_fmt = bogota_thousands | append: '.' | append: bogota_remainder -%}
-              {%- endif -%}
-            {%- endif -%}
-            <span class="sw-bar__amount">${{ bogota_fmt }}</span>
-          </div>
-          <div class="sw-bar__track">
-            <div class="sw-bar__fill" data-bar="bogota" style="width:0%"></div>
-          </div>
-          <p class="sw-bar__hint" data-hint="bogota">Agrega productos para desbloquear envío gratis</p>
-        </div>
-
-        <div class="sw-bar-group">
-          <div class="sw-bar__header">
-            <span class="sw-bar__city">Nacional</span>
-            {%- assign national_fmt = national_threshold | append: '' -%}
-            {%- if national_threshold >= 1000 -%}
-              {%- assign nat_remainder = national_threshold | modulo: 1000 -%}
-              {%- assign nat_thousands = national_threshold | divided_by: 1000 -%}
-              {%- if nat_remainder == 0 -%}
-                {%- assign national_fmt = nat_thousands | append: '.000' -%}
-              {%- else -%}
-                {%- assign national_fmt = nat_thousands | append: '.' | append: nat_remainder -%}
-              {%- endif -%}
-            {%- endif -%}
-            <span class="sw-bar__amount">${{ national_fmt }}</span>
-          </div>
-          <div class="sw-bar__track">
-            <div class="sw-bar__fill" data-bar="national" style="width:0%"></div>
-          </div>
-          <p class="sw-bar__hint" data-hint="national">Agrega productos para desbloquear envío gratis</p>
-        </div>
-      </div>
-
-    </div>
-
-    {%- comment -%} ── FOOTER DE CONFIANZA ── {%- endcomment -%}
-    <div class="sw-footer">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2E7D57"
-           stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-        <polyline points="9 12 11 14 15 10"/>
-      </svg>
-      <span>{{ block_st.trust_text | default: 'Despacho mismo día para pedidos confirmados antes de la 1:00 p.m. (hora Colombia)' }}</span>
-    </div>
-  </div>
-
-  <script>
-    (function(){
-      var root = document.getElementById('shipping-widget-{{ block.id }}');
-      if (!root) return;
-
-      var CUTOFF     = parseInt(root.dataset.cutoffHour, 10);
-      var BOGOTA_TH  = parseInt(root.dataset.bogotaThreshold, 10);
-      var NATIONAL_TH = parseInt(root.dataset.nationalThreshold, 10);
-      var CART        = parseInt(root.dataset.cartTotal, 10) || 0;
-      var DAYS = ['domingo','lunes','martes','miércoles','jueves','viernes','sábado'];
-
-      /* ── Festivos: parsear lista YYYY-MM-DD desde data-holidays ── */
-      var HOLIDAYS = {};
-      var hRaw = (root.dataset.holidays || '').split(',');
-      for(var i=0; i<hRaw.length; i++){
-        var h = hRaw[i].replace(/\s/g,'');
-        if(h) HOLIDAYS[h] = true;
-      }
-
-      /* Revisar si una fecha es festivo */
-      function isHoliday(date){
-        var y = date.getFullYear();
-        var m = date.getMonth() + 1;
-        var d = date.getDate();
-        var key = y + '-' + (m<10?'0'+m:m) + '-' + (d<10?'0'+d:d);
-        return !!HOLIDAYS[key];
-      }
-
-      /* Revisar si es día NO laborable (domingo o festivo) */
-      function isNonWorkDay(date){
-        return date.getDay() === 0 || isHoliday(date);
-      }
-
-      /* DOM refs */
-      var elH    = root.querySelector('[data-unit="hours"]');
-      var elM    = root.querySelector('[data-unit="minutes"]');
-      var elS    = root.querySelector('[data-unit="seconds"]');
-      var elPill = root.querySelector('[data-status-pill]');
-      var elText = root.querySelector('[data-status-text]');
-      var elDot  = root.querySelector('.sw-dot');
-      var barBog = root.querySelector('[data-bar="bogota"]');
-      var barNat = root.querySelector('[data-bar="national"]');
-      var hintBog = root.querySelector('[data-hint="bogota"]');
-      var hintNat = root.querySelector('[data-hint="national"]');
-      var seps    = root.querySelectorAll('.sw-separator');
-
-      function pad(n){ return n < 10 ? '0'+n : ''+n; }
-
-      function colNow(){
-        return new Date(new Date().toLocaleString('en-US',{timeZone:'America/Bogota'}));
-      }
-
-      function fmtMoney(n){
-        return '$' + n.toString().replace(/\B(?=(\d{3})+(?!\d))/g,'.');
-      }
-
-      /* ── Countdown ── */
-      function tick(){
-        var now   = colNow();
-        var isWork = !isNonWorkDay(now);
-        var before = now.getHours() < CUTOFF;
-        var ships  = isWork && before;
-
-        var next = new Date(now);
-        if(ships){
-          next.setHours(CUTOFF,0,0,0);
-        } else {
-          /* Avanzar al siguiente día laborable (no domingo, no festivo) */
-          next.setDate(next.getDate()+1);
-          var safety = 0;
-          while(isNonWorkDay(next) && safety < 15){
-            next.setDate(next.getDate()+1);
-            safety++;
-          }
-          next.setHours(CUTOFF,0,0,0);
-        }
-
-        var diff = next - now;
-        elH.textContent = pad(Math.floor(diff/3600000));
-        elM.textContent = pad(Math.floor((diff%3600000)/60000));
-        elS.textContent = pad(Math.floor((diff%60000)/1000));
-
-        var color = ships ? '#2E7D57' : '#D4A843';
-        elPill.style.background   = color + '14';
-        elPill.style.borderColor  = color + '30';
-        elDot.style.background    = color;
-        elText.style.color        = color;
-
-        if(ships){
-          elDot.classList.add('sw-dot--on');
-          elText.textContent = '¡Pide ahora y se despacha hoy!';
-        } else {
-          elDot.classList.remove('sw-dot--on');
-          var reason = '';
-          if(isHoliday(now)) reason = 'Hoy es festivo. ';
-          elText.textContent = reason + 'Próximo despacho: ' + DAYS[next.getDay()];
-        }
-      }
-
-      /* ── Barras envío gratis ── */
-      function updateBars(total){
-        var pB = Math.min((total/BOGOTA_TH)*100, 100);
-        var pN = Math.min((total/NATIONAL_TH)*100, 100);
-        barBog.style.width = pB + '%';
-        barNat.style.width = pN + '%';
-
-        if(pB >= 100){
-          barBog.style.background = '#2E7D57';
-          hintBog.innerHTML = '<strong style="color:#2E7D57">✓ ¡Envío gratis desbloqueado!</strong>';
-        } else if(total > 0){
-          hintBog.innerHTML = 'Te faltan <strong style="color:#C8102E">'+fmtMoney(BOGOTA_TH - total)+'</strong> para envío gratis';
-        }
-
-        if(pN >= 100){
-          barNat.style.background = '#2E7D57';
-          hintNat.innerHTML = '<strong style="color:#2E7D57">✓ ¡Envío gratis desbloqueado!</strong>';
-        } else if(total > 0){
-          hintNat.innerHTML = 'Te faltan <strong style="color:#C8102E">'+fmtMoney(NATIONAL_TH - total)+'</strong> para envío gratis';
-        }
-      }
-
-      /* ── Separadores parpadeantes ── */
-      var sepVis = true;
-      setInterval(function(){
-        sepVis = !sepVis;
-        for(var i=0;i<seps.length;i++){
-          seps[i].style.color = sepVis ? '#0A0A0A' : 'transparent';
-        }
-      }, 500);
-
-      /* ── Init ── */
-      tick();
-      setInterval(tick, 1000);
-      updateBars(CART);
-
-      /* ── Escuchar cambios de carrito ── */
-      /* Evento personalizado (si tu tema lo emite) */
-      document.addEventListener('cart:updated', function(e){
-        if(e.detail && typeof e.detail.total_price !== 'undefined'){
-          updateBars(Math.round(e.detail.total_price / 100));
-        }
-      });
-
-      /* Interceptar fetch AJAX a /cart/* para temas que no emitan evento */
-      var _fetch = window.fetch;
-      window.fetch = function(url){
-        var promise = _fetch.apply(this, arguments);
-        if(typeof url === 'string' &&
-           (url.indexOf('/cart/add')>-1 || url.indexOf('/cart/change')>-1 || url.indexOf('/cart/update')>-1)){
-          promise.then(function(){
-            _fetch('/cart.js').then(function(r){return r.json();}).then(function(c){
-              updateBars(Math.round(c.total_price / 100));
-            });
-          });
-        }
-        return promise;
-      };
-
-    })();
-  </script>
+  {% render 'shipping-widget',
+    widget_id: block.id,
+    cutoff_hour: block_st.cutoff_hour,
+    bogota_threshold: bogota_threshold_pesos,
+    national_threshold: national_threshold_pesos,
+    max_weight: block_st.max_weight_kg,
+    cutoff_title: block_st.cutoff_title,
+    shipping_title: block_st.shipping_title,
+    trust_text: block_st.trust_text,
+    holidays_list: block_st.holidays_list,
+    extra_attrs: block.shopify_attributes
+  %}
 
 {% else %}
 
