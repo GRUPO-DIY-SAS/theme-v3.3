@@ -66,6 +66,11 @@
       outline-offset: 2px;
     }
     .diyvape-chat-trigger[hidden] { display: none !important; }
+    .diyvape-lc-hidden-launcher {
+      opacity: 0 !important;
+      visibility: hidden !important;
+      pointer-events: none !important;
+    }
     @media (max-width: 767.98px) {
       .diyvape-chat-trigger {
         right: 16px;
@@ -137,17 +142,109 @@
         document.head.appendChild(l);
       }
 
+      function isVisibleElement(el) {
+        var cs;
+        try { cs = window.getComputedStyle(el); } catch (e) { return false; }
+        if (cs.display === 'none' || cs.visibility === 'hidden' || Number(cs.opacity) === 0) return false;
+        var rect = el.getBoundingClientRect();
+        return rect.width > 0 && rect.height > 0;
+      }
+
+      function isThemeFloatingControl(el) {
+        if (!el || el.id === TRIGGER_ID || el.id === SCRIPT_ID) return true;
+        if (el.matches && el.matches('.diyvape-chat-trigger, .back-to-top, back-to-top')) return true;
+        if (el.closest && el.closest('.diyvape-chat-trigger, .back-to-top, back-to-top')) return true;
+        return false;
+      }
+
+      function hasOpenLcPanel() {
+        var vw = window.innerWidth;
+        var selectors =
+          'chat-widget,lc-chat-widget,iframe,' +
+          '[id^="lc_"],[id^="lcw-"],[id^="leadconnector"],' +
+          '[class*="lc_text-widget"],[class*="LC_chatWidget"],[class*="leadconnector"],' +
+          '[id*="chat-widget"],[class*="chat-widget"]';
+        var nodes = document.querySelectorAll(selectors);
+
+        for (var i = 0; i < nodes.length; i++) {
+          var node = nodes[i];
+          if (!node || node.id === TRIGGER_ID || !isVisibleElement(node)) continue;
+          var rect = node.getBoundingClientRect();
+          var name = ((node.id || '') + ' ' + (node.className || '') + ' ' + (node.src || '')).toLowerCase();
+          var isLcNode = name.indexOf('leadconnector') !== -1 || name.indexOf('lc') !== -1 || name.indexOf('chat') !== -1 || node.tagName === 'CHAT-WIDGET' || node.tagName === 'LC-CHAT-WIDGET';
+          var isRightPanel = vw - rect.right < Math.max(140, vw * 0.18) && rect.width >= 240 && rect.height >= 260;
+          if (isLcNode && isRightPanel) return true;
+        }
+
+        return false;
+      }
+
+      function isLikelyLcLauncher(el) {
+        if (!el || isThemeFloatingControl(el)) return false;
+        if (el.tagName === 'SCRIPT' || el.tagName === 'STYLE' || el.tagName === 'LINK') return false;
+        if (!isVisibleElement(el)) return false;
+
+        var cs;
+        try { cs = window.getComputedStyle(el); } catch (e) { return false; }
+        if (cs.position !== 'fixed' && cs.position !== 'absolute') return false;
+
+        var rect = el.getBoundingClientRect();
+        var vw = window.innerWidth;
+        var name = ((el.id || '') + ' ' + (el.className || '') + ' ' + (el.src || '')).toLowerCase();
+        var isLcNode = name.indexOf('leadconnector') !== -1 || name.indexOf('lc') !== -1 || name.indexOf('chat') !== -1 || el.tagName === 'CHAT-WIDGET' || el.tagName === 'LC-CHAT-WIDGET' || el.tagName === 'IFRAME';
+        var isCircleSize = rect.width >= 36 && rect.width <= 86 && rect.height >= 36 && rect.height <= 86 && Math.abs(rect.width - rect.height) <= 12;
+        var isRightSide = vw - rect.right >= -4 && vw - rect.right <= 130;
+        var text = '';
+        try { text = (el.innerText || el.textContent || '').trim(); } catch (e) {}
+        var hasText = text.length > 1;
+        var rounded = cs.borderTopLeftRadius.indexOf('%') !== -1 || parseFloat(cs.borderTopLeftRadius) >= Math.min(rect.width, rect.height) * 0.35;
+
+        return isLcNode && isCircleSize && isRightSide && !hasText && (rounded || el.tagName === 'IFRAME');
+      }
+
+      function toggleShadowLauncherStyle(node, hide) {
+        if (!node || !node.shadowRoot) return;
+        var styleId = 'diyvape-shadow-hide-launcher';
+        var style = node.shadowRoot.getElementById(styleId);
+        if (!hide) {
+          if (style) style.remove();
+          return;
+        }
+        if (!style) {
+          style = document.createElement('style');
+          style.id = styleId;
+          node.shadowRoot.appendChild(style);
+        }
+        style.textContent =
+          '[class*="launcher"],[class*="floating-button"],[class*="bubble-button"],[class*="trigger-button"]' +
+          '{opacity:0!important;visibility:hidden!important;pointer-events:none!important;}';
+      }
+
+      function updateLcLauncherState() {
+        var panelOpen = hasOpenLcPanel();
+        var selectors =
+          'chat-widget,lc-chat-widget,button,[role="button"],iframe,' +
+          '[id^="lc_"],[id^="lcw-"],[id^="leadconnector"],' +
+          '[class*="lc_text-widget"],[class*="LC_chatWidget"],[class*="leadconnector"],' +
+          '[class*="launcher"],[class*="floating"],[class*="bubble"],[id*="chat-widget"],[class*="chat-widget"]';
+        var candidates = document.querySelectorAll(selectors);
+
+        for (var i = 0; i < candidates.length; i++) {
+          var node = candidates[i];
+          if (!node) continue;
+          toggleShadowLauncherStyle(node, panelOpen);
+          if (!isLikelyLcLauncher(node)) continue;
+          node.classList.toggle('diyvape-lc-hidden-launcher', panelOpen);
+        }
+      }
+
       function liftLcWidget() {
         var isMobile = window.matchMedia('(max-width: 767.98px)').matches;
         var lift = isMobile ? 135 : 90;
         var rightOffset = isMobile ? 16 : 30;
         var SHADOW_STYLE_ID = 'diyvape-shadow-lift';
         var SHADOW_CSS =
-          ':host{--lc-bottom-offset:' + lift + 'px;}' +
-          '[class*="floating"],[class*="bubble"],[class*="container"],' +
-          '[class*="button-wrapper"],[class*="trigger"],[class*="launcher"],' +
-          '.chat-widget-button,.chat-button,.button,#chat-widget-content-iframe' +
-          '{bottom:' + lift + 'px !important;right:' + rightOffset + 'px !important;}';
+          ':host{--lc-bottom-offset:' + lift + 'px;bottom:' + lift + 'px !important;right:' + rightOffset + 'px !important;}';
 
         // 1) Direct DOM elements (when LC renders in light DOM)
         var SELECTORS =
@@ -192,6 +289,8 @@
           if (!nearBottom || !nearRight) continue;
           try { el.style.setProperty('bottom', lift + 'px', 'important'); } catch (e) {}
         }
+
+        updateLcLauncherState();
       }
 
       function injectWidget() {
@@ -212,15 +311,16 @@
         var mo = new MutationObserver(liftLcWidget);
         mo.observe(document.body, { childList: true, subtree: true });
 
-        // Polling fallback: LC welcome bubble can appear 1-2s after mount
-        var startedAt = Date.now();
+        // Polling fallback: LC can update its launcher/panel outside the
+        // body tree. This runs only after the user opens chat, so it does
+        // not affect initial PageSpeed.
         var pollIv = setInterval(function () {
           liftLcWidget();
-          if (Date.now() - startedAt > 15000) {
-            clearInterval(pollIv);
-            mo.disconnect();
-          }
-        }, 500);
+        }, 1000);
+        window.addEventListener('pagehide', function () {
+          clearInterval(pollIv);
+          mo.disconnect();
+        }, { once: true });
 
         // React to viewport resize (mobile/desktop swap during use)
         window.addEventListener('resize', liftLcWidget, { passive: true });
