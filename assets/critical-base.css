@@ -153,6 +153,10 @@ textarea {
   z-index: 1;
 }
 
+.z-15 {
+  z-index: 15;
+}
+
 .gradient {
   background: var(--gradient-background, var(--color-background));
 }
@@ -232,4 +236,33 @@ video.slideshow {
   clip: rect(0, 0, 0, 0) !important;
   white-space: nowrap !important;
   border: 0 !important;
+}
+
+cart-notification .minicart__wrapper:not(.open) {
+  pointer-events: none;
+  visibility: hidden;
+}
+
+cart-notification .minicart__wrapper.bls__drawer {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  max-width: var(--drawer-width, 48rem);
+  height: 100%;
+}
+
+cart-notification .minicart__wrapper.bls__drawer.left {
+  right: 0;
+  transform: translateX(100%);
+}
+
+cart-notification .minicart__wrapper.bls__drawer.right {
+  left: 0;
+  transform: translateX(-100%);
+}
+
+.open-drawer cart-notification .minicart__wrapper.bls__drawer.open {
+  transform: translateX(0);
+  visibility: visible;
 }
