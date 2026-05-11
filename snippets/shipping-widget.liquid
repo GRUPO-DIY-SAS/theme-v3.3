@@ -54,7 +54,7 @@
   endcomment
   assign sw_cart_total = cart.total_price | divided_by: 100
 
-  comment Limpiar holidays multilínea → CSV YYYY-MM-DD endcomment
+  # Limpiar holidays multilínea → CSV YYYY-MM-DD
   assign sw_holidays_raw = holidays_list | default: '' | strip | newline_to_br | split: '<br />'
   assign sw_holidays_clean = ''
   for d in sw_holidays_raw
@@ -68,7 +68,7 @@
     endif
   endfor
 
-  comment Formato para etiqueta Bogotá (pesos con puntos como miles) endcomment
+  # Formato para etiqueta Bogotá (pesos con puntos como miles)
   assign sw_bogota_fmt = sw_bogota_th
   if sw_bogota_th >= 1000
     assign rem_b = sw_bogota_th | modulo: 1000

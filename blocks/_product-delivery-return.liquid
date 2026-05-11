@@ -33,7 +33,7 @@
     assign sw_national_threshold = theme_st.free_shipping_national_minimum
     assign sw_max_weight = theme_st.free_shipping_max_weight_kg
   else
-    comment Block usa sus propios valores. Umbrales en MILES → pesos. endcomment
+    # Block usa sus propios valores. Umbrales en MILES → pesos.
     assign bogota_threshold_k = block_st.bogota_threshold_k | default: 80
     assign national_threshold_k = block_st.national_threshold_k | default: 250
     assign sw_cutoff_hour = block_st.cutoff_hour
