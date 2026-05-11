@@ -468,7 +468,7 @@
       this._cartSyncInFlight = true;
 
       try {
-        this.suppressMinicartDrawer(6000);
+        this.suppressMinicartDrawer(2000);
 
         const reduced = this.buildReducedVerificationPayload(verifiedObj);
         const attrs = {};
@@ -504,6 +504,18 @@
         return false;
       } finally {
         this._cartSyncInFlight = false;
+        this.clearMinicartSuppression();
+      }
+    }
+
+    clearMinicartSuppression() {
+      window.diyvapeSuppressMinicartUntil = 0;
+      window.diyvapeSuppressSearchUntil = 0;
+      document.documentElement.classList.remove("diyvape-suppress-minicart");
+      document.documentElement.classList.remove("diyvape-suppress-search");
+      if (window.diyvapeSuppressMinicartTimer) {
+        window.clearTimeout(window.diyvapeSuppressMinicartTimer);
+        window.diyvapeSuppressMinicartTimer = null;
       }
     }
 

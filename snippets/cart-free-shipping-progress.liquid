@@ -19,11 +19,19 @@
   assign unlocked_text = theme_st.free_shipping_unlocked_text | default: '¡Envío gratis desbloqueado!'
   assign remaining_text = theme_st.free_shipping_remaining_text | default: 'Te faltan {{ amount }} para envío gratis'
 
-  assign bogota_price = bogota_threshold | money
-  assign national_price = national_threshold | money
+  comment
+    Settings store thresholds in pesos (e.g. 80000 = $80.000), but the
+    Shopify `money` filter treats the input as the currency subunit
+    (cents). Multiply by 100 so 80000 pesos renders as "$80.000" and
+    not "$800".
+  endcomment
+  assign bogota_threshold_subunit = bogota_threshold | times: 100
+  assign national_threshold_subunit = national_threshold | times: 100
+  assign bogota_price = bogota_threshold_subunit | money
+  assign national_price = national_threshold_subunit | money
   if show_currency_code
-    assign bogota_price = bogota_threshold | money_with_currency
-    assign national_price = national_threshold | money_with_currency
+    assign bogota_price = bogota_threshold_subunit | money_with_currency
+    assign national_price = national_threshold_subunit | money_with_currency
   endif
 -%}
 
