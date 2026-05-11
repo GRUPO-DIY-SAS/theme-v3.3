@@ -325,6 +325,59 @@ html:has(.header__minicart.show_popup).open-minicart .tingle-enabled {
     transform: translateY(0);
   }
 }
+/* Wishlist confirm buttons (¿Agregar a lista antes de eliminar?) — Sí / No */
+.minicart__wishlist-actions {
+  display: flex;
+  gap: 10px;
+  align-items: stretch;
+}
+.minicart__wishlist-btn {
+  flex: 1 1 0;
+  min-width: 0;
+  appearance: none;
+  border: 1px solid transparent;
+  border-radius: var(--btn-radius, 999px);
+  padding: 8px 16px;
+  font-family: var(--btn-font, inherit);
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.2;
+  text-align: center;
+  cursor: pointer;
+  transition: opacity 0.2s ease, transform 0.1s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.minicart__wishlist-btn span {
+  display: inline-block;
+  pointer-events: none;
+}
+.minicart__wishlist-btn--yes {
+  color: var(--btn-primary-color, #fff);
+  background: var(--btn-primary-bg-color, #111);
+  border-color: var(--btn-primary-bg-color, #111);
+}
+.minicart__wishlist-btn--yes:hover {
+  color: var(--btn-primary-hover-color, #fff);
+  background: var(--btn-primary-hover-bg-color, #000);
+  border-color: var(--btn-primary-hover-bg-color, #000);
+}
+.minicart__wishlist-btn--no {
+  color: var(--btn-outline-color, #111);
+  background: #fff;
+  border-color: var(--btn-outline-border-color, #111);
+}
+.minicart__wishlist-btn--no:hover {
+  color: #fff;
+  background: var(--btn-outline-color, #111);
+}
+.minicart__wishlist-btn:active {
+  transform: translateY(1px);
+}
+minicart-wishlist-action.loading .minicart__wishlist-btn {
+  opacity: 0;
+  pointer-events: none;
+}
+
 .minicart__wrapper.loading::after {
   background: var(--color-primary);
   content: '';

@@ -298,28 +298,25 @@
       </p>
       <minicart-wishlist-action
         data-index="{{- item.key -}}"
-        class="mt-10 flex gap-10 relative align-center"
-        style="--btn-padding-y: 8px;--btn-padding-x: 2.5rem;"
+        class="minicart__wishlist-actions mt-10 flex gap-10 relative align-center"
       >
-        <a
+        <button
           data-product-id="{{ item.product.id }}"
           data-index="{{- item.key -}}"
-          class="btn-primary btn-small product-wishlist-js btn-minicart__add-wishlist-js pointer fs-small"
+          class="minicart__wishlist-btn minicart__wishlist-btn--yes btn-minicart__add-wishlist-js pointer"
           type="button"
-          role="button"
           aria-label="{{ 'templates.wishlist.action_yes' | t }}"
         >
-          {{ 'templates.wishlist.action_yes' | t }}
-        </a>
-        <a
+          <span>{{ 'templates.wishlist.action_yes' | t }}</span>
+        </button>
+        <button
           data-index="{{- item.key -}}"
-          class="btn-outline btn-small bg-grey btn-minicart__remove-js pointer text-center fs-small"
+          class="minicart__wishlist-btn minicart__wishlist-btn--no btn-minicart__remove-js pointer"
           type="button"
-          role="button"
           aria-label="{{ 'templates.wishlist.action_no' | t }}"
         >
-          {{ 'templates.wishlist.action_no' | t }}
-        </a>
+          <span>{{ 'templates.wishlist.action_no' | t }}</span>
+        </button>
         <div class="icon-rotator"></div>
       </minicart-wishlist-action>
       <a href="#" class="cart-close-wishlist button--tertiary absolute top-0 right-0 z-1 grey-color pointer">
