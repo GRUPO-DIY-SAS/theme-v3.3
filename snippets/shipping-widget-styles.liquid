@@ -59,14 +59,13 @@
     box-sizing: border-box;
   }
 
-  /* ── Grid ── */
+  /* ── Grid ──
+     auto-fit + minmax responde al ancho del CONTENEDOR, no del viewport.
+     En PDP (full width) → 2 columnas. En cart sidebar angosto → 1 columna. */
   .sw-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 12px;
-  }
-  @media (max-width: 580px) {
-    .sw-grid { grid-template-columns: 1fr; }
   }
 
   /* ── Cards ──
