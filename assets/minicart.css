@@ -325,50 +325,60 @@ html:has(.header__minicart.show_popup).open-minicart .tingle-enabled {
     transform: translateY(0);
   }
 }
-/* Wishlist confirm buttons (¿Agregar a lista antes de eliminar?) — Sí / No */
+/* Wishlist confirm buttons (¿Agregar a lista antes de eliminar?) — Sí / No
+   Colores forzados con !important para ganar contra cualquier cascade
+   residual de :where(.btn-primary...) que puede pintar el texto a oscuro. */
+minicart-wishlist-action.minicart__wishlist-actions,
 .minicart__wishlist-actions {
-  display: flex;
+  display: flex !important;
   gap: 10px;
   align-items: stretch;
 }
+.minicart__wishlist-actions .minicart__wishlist-btn,
 .minicart__wishlist-btn {
   flex: 1 1 0;
   min-width: 0;
   appearance: none;
   border: 1px solid transparent;
   border-radius: var(--btn-radius, 999px);
-  padding: 8px 16px;
+  padding: 10px 16px;
   font-family: var(--btn-font, inherit);
   font-size: 13px;
   font-weight: 600;
   line-height: 1.2;
   text-align: center;
   cursor: pointer;
-  transition: opacity 0.2s ease, transform 0.1s ease;
+  transition: opacity 0.2s ease, transform 0.1s ease, background-color 0.2s ease, color 0.2s ease;
   -webkit-tap-highlight-color: transparent;
+  text-decoration: none;
 }
-.minicart__wishlist-btn span {
+.minicart__wishlist-actions .minicart__wishlist-btn > span,
+.minicart__wishlist-btn > span {
   display: inline-block;
   pointer-events: none;
+  color: inherit;
 }
+.minicart__wishlist-actions .minicart__wishlist-btn--yes,
 .minicart__wishlist-btn--yes {
-  color: var(--btn-primary-color, #fff);
-  background: var(--btn-primary-bg-color, #111);
-  border-color: var(--btn-primary-bg-color, #111);
+  color: #ffffff !important;
+  background-color: var(--btn-primary-bg-color, #111111) !important;
+  border-color: var(--btn-primary-bg-color, #111111) !important;
 }
+.minicart__wishlist-actions .minicart__wishlist-btn--yes:hover,
 .minicart__wishlist-btn--yes:hover {
-  color: var(--btn-primary-hover-color, #fff);
-  background: var(--btn-primary-hover-bg-color, #000);
-  border-color: var(--btn-primary-hover-bg-color, #000);
+  background-color: var(--btn-primary-hover-bg-color, #000000) !important;
+  border-color: var(--btn-primary-hover-bg-color, #000000) !important;
 }
+.minicart__wishlist-actions .minicart__wishlist-btn--no,
 .minicart__wishlist-btn--no {
-  color: var(--btn-outline-color, #111);
-  background: #fff;
-  border-color: var(--btn-outline-border-color, #111);
+  color: var(--color-heading, #111111) !important;
+  background-color: #ffffff !important;
+  border-color: var(--color-heading, #111111) !important;
 }
+.minicart__wishlist-actions .minicart__wishlist-btn--no:hover,
 .minicart__wishlist-btn--no:hover {
-  color: #fff;
-  background: var(--btn-outline-color, #111);
+  color: #ffffff !important;
+  background-color: var(--color-heading, #111111) !important;
 }
 .minicart__wishlist-btn:active {
   transform: translateY(1px);
