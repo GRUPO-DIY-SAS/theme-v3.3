@@ -1422,6 +1422,40 @@
       },
       {
         "type": "header",
+        "content": "⏰ Widget interactivo (PDP + página /cart)",
+        "info": "Estos valores son compartidos entre el widget rico del PDP y el widget en la página de carrito. Para overrides puntuales por producto, edita el bloque 'Delivery & Return' en cada plantilla."
+      },
+      {
+        "type": "range",
+        "id": "widget_cutoff_hour",
+        "label": "Hora de corte (formato 24h)",
+        "min": 8,
+        "max": 18,
+        "step": 1,
+        "default": 13,
+        "info": "13 = 1:00 p.m. hora Colombia"
+      },
+      {
+        "type": "text",
+        "id": "widget_cutoff_title",
+        "label": "Título – Horario de corte",
+        "default": "Horario de Corte"
+      },
+      {
+        "type": "textarea",
+        "id": "widget_trust_text",
+        "label": "Texto del footer de confianza",
+        "default": "Despacho mismo día para pedidos confirmados antes de la 1:00 p.m. (hora Colombia)"
+      },
+      {
+        "type": "textarea",
+        "id": "widget_holidays_list",
+        "label": "Festivos (formato YYYY-MM-DD, uno por línea)",
+        "info": "El widget excluye domingos automáticamente. Agrega los festivos colombianos del año actual.",
+        "default": "2026-01-01\n2026-01-12\n2026-03-23\n2026-04-02\n2026-04-03\n2026-05-01\n2026-05-18\n2026-06-08\n2026-06-15\n2026-06-29\n2026-07-20\n2026-08-07\n2026-08-17\n2026-10-12\n2026-11-02\n2026-11-16\n2026-12-08\n2026-12-25"
+      },
+      {
+        "type": "header",
         "content": "t:settings_schema.cart.settings.cart_count_down.label"
       },
       {
