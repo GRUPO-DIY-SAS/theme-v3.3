@@ -3876,8 +3876,8 @@ cookie-bar {
 }
 
 .bls-image-js .bls-loading-image {
-  filter: blur(10px);
-  transition: filter 0.3s ease-out;
+  filter: blur(3px);
+  transition: filter 0.18s ease-out;
 }
 
 .bls-image-js .bls-loading-image>img.secondary-image {

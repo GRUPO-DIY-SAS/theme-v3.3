@@ -48,7 +48,18 @@
   assign wishlist = pages.wishlist
   assign compare = pages.compare
   assign type_video = false
-  assign product_card_widths = custom_widths | default: '400, 320, 240, 200, 160, 120, 90'
+  assign product_card_widths = custom_widths | default: '720, 550, 480, 400, 320, 240, 185, 160, 120, 90'
+  assign product_card_index = indexFor | default: 999 | plus: 0
+  assign product_image_eager = false
+  assign product_image_priority = false
+  assign primary_lazy_product = lazy_product
+  if type_collections == 'true' and product_card_index > 0 and product_card_index <= 4
+    assign product_image_eager = true
+    assign primary_lazy_product = false
+    if product_card_index == 1
+      assign product_image_priority = true
+    endif
+  endif
   if enable_short_description == true
     assign show_short_description = true
   endif
@@ -198,7 +209,9 @@
                   padding: padding,
                   custom_widths: product_card_widths,
                   sizes: sizes,
-                  lazy_product: lazy_product
+                  lazy_product: primary_lazy_product,
+                  lazy_load: product_image_eager,
+                  first: product_image_priority
                 %}
               {% endif %}
             {% else %}
@@ -213,7 +226,9 @@
                 padding: padding,
                 custom_widths: product_card_widths,
                 sizes: sizes,
-                lazy_product: lazy_product
+                lazy_product: primary_lazy_product,
+                lazy_load: product_image_eager,
+                first: product_image_priority
               %}
               {%- liquid
                 if card_product.media[1] != blank and show_secondary_image

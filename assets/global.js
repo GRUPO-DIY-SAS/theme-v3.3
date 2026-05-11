@@ -62,31 +62,36 @@ var BlsLazyloadImg = (function () {
     },
     lazyReady: function () {
       if (!!window.IntersectionObserver) {
+        const clearImageLoading = (target, delay = 80) => {
+          setTimeout(() => {
+            target
+              ?.closest("motion-element")
+              ?.classList.remove("bls-loading-image");
+            target?.classList.remove("bls-loading-image");
+          }, delay);
+        };
         let observer = new IntersectionObserver(
           (entries, observer) => {
             entries.forEach((entry) => {
               if (entry.isIntersecting) {
                 const onImageLoad = (e) => {
-                  const target = e.currentTarget;
-                  setTimeout(() => {
-                    target
-                      ?.closest("motion-element")
-                      ?.classList.remove("bls-loading-image");
-                    target?.classList.remove("bls-loading-image");
-                  }, 600);
-                  e.currentTarget.removeEventListener("load", onImageLoad);
+                  clearImageLoading(e.currentTarget);
                 };
                 entry.target.width = entry.boundingClientRect.width;
                 entry.target.height = entry.boundingClientRect.height;
                 entry.target.sizes = `${entry.boundingClientRect.width}px`;
-                entry.target.addEventListener("load", onImageLoad);
+                if (entry.target.complete) {
+                  clearImageLoading(entry.target, 0);
+                } else {
+                  entry.target.addEventListener("load", onImageLoad, { once: true });
+                }
                 observer.unobserve(entry.target);
               }
             });
           },
-          { rootMargin: "10px" }
+          { rootMargin: "300px 0px" }
         );
-        document.querySelectorAll(".bls-image-js img").forEach((img) => {
+        document.querySelectorAll(".bls-image-js img.bls-loading-image").forEach((img) => {
           observer.observe(img);
         });
       }
