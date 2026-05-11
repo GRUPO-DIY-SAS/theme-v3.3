@@ -326,10 +326,6 @@
   .level0 > menu-item open-children-toggle {
     transition: var(--transition);
   }
-  .level0:hover > menu-item > a,
-  .level0:hover > menu-item open-children-toggle {
-    color: var(--color-link-hover);
-  }
   .dropdown-menu .sub-children-menu {
     left: 100%;
     top: -1rem;
@@ -391,6 +387,15 @@
   .mega-menu .level-1 menu-item > .menu_item-link {
     padding-top: 0;
   }
+}
+/* Hover/active accent (Lab Red por brand) — aplica en desktop Y mobile.
+   Estaba antes dentro de @media (min-width:1025px) y solo funcionaba en
+   desktop; ahora también pinta el link en el drawer mobile. */
+.level0:hover > menu-item > a,
+.level0:focus-within > menu-item > a,
+.level0:hover > menu-item open-children-toggle,
+.level0:focus-within > menu-item open-children-toggle {
+  color: var(--color-link-hover);
 }
 .menu-parent.mega-menu .level-1 > menu-item,
 .title-child__menu {
