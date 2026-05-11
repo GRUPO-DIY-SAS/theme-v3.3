@@ -29,6 +29,11 @@
   endif
 %}
 {%- if section_st.mega_menu != blank -%}
+  <svg hidden aria-hidden="true" focusable="false">
+    <symbol id="icon-arrow-down">
+      <path fill="currentColor" d="M1.09 1.822a.52.52 0 0 1-.178-.396c0-.164.06-.306.178-.424A.557.557 0 0 1 1.5.838c.164 0 .3.055.41.164L5 4.092l3.09-3.09A.557.557 0 0 1 8.5.838c.164 0 .3.055.41.164.119.118.178.26.178.424a.52.52 0 0 1-.178.396l-3.5 3.5A.535.535 0 0 1 5 5.5c-.164 0-.3-.06-.41-.178l-3.5-3.5Z"/>
+    </symbol>
+  </svg>
   {% comment %} Desktop Menu {% endcomment %}
   <nav
     class="flex flex-column block-1025 navigation horizontal fixed static-1025 visible-1025 inset-0 {{ section_st.dropdowns_animation }}"
@@ -44,11 +49,6 @@
       <ul
         class="horizontal-list list-unstyled inline-flex-1025 flex-wrap row-gap-0 horizontal px-30 px-1025-0 show-localization animation-{{ section_st.dropdowns_animation }}"
       >
-        <svg hidden>
-          <symbol id="icon-arrow-down">
-            <path fill="currentColor" d="M1.09 1.822a.52.52 0 0 1-.178-.396c0-.164.06-.306.178-.424A.557.557 0 0 1 1.5.838c.164 0 .3.055.41.164L5 4.092l3.09-3.09A.557.557 0 0 1 8.5.838c.164 0 .3.055.41.164.119.118.178.26.178.424a.52.52 0 0 1-.178.396l-3.5 3.5A.535.535 0 0 1 5 5.5c-.164 0-.3-.06-.41-.178l-3.5-3.5Z"/>
-          </symbol>
-        </svg>
         {%- for link in section_st.mega_menu.links -%}
           {%- liquid
             assign last_block = null
@@ -546,11 +546,6 @@
       <ul
         class="horizontal-list list-unstyled inline-flex-1025 flex-wrap row-gap-0 horizontal px-30 px-1025-0 show-localization animation-{{ section_st.dropdowns_animation }}"
       >
-        <svg hidden>
-          <symbol id="icon-arrow-down">
-            <path fill="currentColor" d="M1.09 1.822a.52.52 0 0 1-.178-.396c0-.164.06-.306.178-.424A.557.557 0 0 1 1.5.838c.164 0 .3.055.41.164L5 4.092l3.09-3.09A.557.557 0 0 1 8.5.838c.164 0 .3.055.41.164.119.118.178.26.178.424a.52.52 0 0 1-.178.396l-3.5 3.5A.535.535 0 0 1 5 5.5c-.164 0-.3-.06-.41-.178l-3.5-3.5Z"/>
-          </symbol>
-        </svg>
         {%- for link in section_st.mega_menu.links -%}
           {%- liquid
             assign last_block = null
