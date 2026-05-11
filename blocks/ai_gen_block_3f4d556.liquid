@@ -235,16 +235,10 @@
 >
   <div class="ai-age-verify-modal" data-age-modal tabindex="-1">
     {%- if block.settings.logo != blank -%}
-      {%- liquid
-        assign logo_1x = block.settings.logo | image_url: width: logo_width
-        assign logo_15x = block.settings.logo | image_url: width: logo_width | times: 1.5
-        assign logo_2x = block.settings.logo | image_url: width: logo_width_2x
-      -%}
       <div class="ai-age-verify-brand">
         <img
           class="ai-age-verify-logo"
-          src="{{ logo_1x }}"
-          srcset="{{ logo_1x }} 1x, {{ logo_15x }} 1.5x, {{ logo_2x }} 2x"
+          src="{{ block.settings.logo | image_url: width: logo_width_2x }}"
           alt="{{ shop.name | escape }}"
           loading="eager"
           fetchpriority="high"
