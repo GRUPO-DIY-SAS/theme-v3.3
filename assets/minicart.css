@@ -46,6 +46,107 @@ html:has(.header__minicart.show_popup).open-minicart .tingle-enabled {
 .cart_shipping_free.cart_shipping * {
   animation: flash 0.8s linear 0.8s 2 both;
 }
+.cart-shipping-widget {
+  padding: 16px 30px 18px;
+  background: #f7f7f7;
+  color: #1a1a1a;
+}
+.cart-shipping-widget__panel {
+  position: relative;
+  overflow: hidden;
+  padding: 16px;
+  border: 1px solid #eeeeee;
+  border-radius: 12px;
+  background: #ffffff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+.cart-shipping-widget__panel::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 3px;
+  background: #c8102e;
+}
+.cart-shipping-widget__header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.cart-shipping-widget__icon {
+  display: inline-flex;
+  flex: 0 0 auto;
+  color: #c8102e;
+}
+.cart-shipping-widget__title {
+  margin: 0;
+  color: #0a0a0a;
+  font-family: var(--font-heading-family, inherit);
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+.cart-shipping-widget__subtitle {
+  margin: 2px 0 0;
+  color: #555555;
+  font-size: 12px;
+  line-height: 1.25;
+}
+.cart-shipping-widget__region + .cart-shipping-widget__region {
+  margin-top: 14px;
+}
+.cart-shipping-widget__region-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 7px;
+}
+.cart-shipping-widget__city {
+  color: #555555;
+  font-family: var(--font-heading-family, inherit);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  line-height: 1;
+  text-transform: uppercase;
+}
+.cart-shipping-widget__amount {
+  color: #0a0a0a;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1;
+  white-space: nowrap;
+}
+.cart-shipping-widget__track {
+  height: 5px;
+  overflow: hidden;
+  border-radius: 99px;
+  background: #eeeeee;
+}
+.cart-shipping-widget__fill {
+  display: block;
+  width: 0;
+  height: 100%;
+  border-radius: inherit;
+  background: #c8102e;
+  transition: width 0.45s cubic-bezier(0.22, 1, 0.36, 1), background-color 0.2s ease;
+}
+.cart-shipping-widget__hint {
+  margin: 6px 0 0;
+  color: #555555;
+  font-size: 12px;
+  line-height: 1.35;
+}
+.cart-shipping-widget__hint strong {
+  font-weight: 700;
+}
+.cart-shipping-widget__region.is-unlocked .cart-shipping-widget__fill {
+  background: #2e7d57;
+}
+.cart-shipping-widget__region.is-unlocked .cart-shipping-widget__hint {
+  color: #2e7d57;
+}
 .mini_cart_addon_btn.show-overlay {
   padding-inline: clamp(3rem, 2vw, 5rem);
   min-height: 5rem;

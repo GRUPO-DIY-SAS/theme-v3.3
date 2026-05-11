@@ -2020,6 +2020,10 @@ class ProgressBar extends HTMLElement {
     this.init(orders);
   }
   init(orders) {
+    if (this.classList.contains("cart-shipping-widget")) {
+      this.setRegionalProgressBars(orders);
+      return;
+    }
     const fe_unavaiable = this.dataset.feUnavaiable;
     const fe_avaiable = this.dataset.feAvaiable;
     const rate = Number(Shopify.currency.rate);
@@ -2065,6 +2069,51 @@ class ProgressBar extends HTMLElement {
     } else {
       this.classList.remove("cart_shipping_free");
     }
+  }
+  setRegionalProgressBars(orders) {
+    const rate = Number(Shopify.currency.rate) || 1;
+    const order = Number(orders) / 100;
+    if (Number.isNaN(order)) return;
+
+    const pendingText = this.dataset.pendingText || "Agrega productos para desbloquear envío gratis";
+    const unlockedText = this.dataset.unlockedText || "¡Envío gratis desbloqueado!";
+    const remainingText = this.dataset.remainingText || "Te faltan {{ amount }} para envío gratis";
+    const thresholds = {
+      bogota: Number(this.dataset.bogotaThreshold) * rate,
+      national: Number(this.dataset.nationalThreshold) * rate,
+    };
+
+    Object.entries(thresholds).forEach(([region, threshold]) => {
+      if (!threshold) return;
+      const regionEl = this.querySelector(`[data-shipping-region="${region}"]`);
+      const fill = this.querySelector(`[data-shipping-fill="${region}"]`);
+      const hint = this.querySelector(`[data-shipping-hint="${region}"]`);
+      const progress = Math.min((order / threshold) * 100, 100);
+
+      if (fill) fill.style.width = `${progress}%`;
+      if (regionEl) regionEl.classList.toggle("is-unlocked", progress >= 100);
+
+      if (!hint) return;
+      if (progress >= 100) {
+        hint.innerHTML = `<strong>${unlockedText}</strong>`;
+      } else if (order > 0) {
+        const amount = Shopify.formatMoney(
+          (threshold - order) * 100,
+          cartStrings.money_format
+        );
+        hint.innerHTML = remainingText.replace(
+          "{{ amount }}",
+          `<strong>${amount}</strong>`
+        );
+      } else {
+        hint.textContent = pendingText;
+      }
+    });
+
+    this.classList.toggle(
+      "cart_shipping_free",
+      Boolean(thresholds.national && order >= thresholds.national)
+    );
   }
 }
 customElements.define("free-ship-progress-bar", ProgressBar);

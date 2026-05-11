@@ -1,0 +1,84 @@
+{%- liquid
+  assign theme_st = settings
+  assign enabled = theme_st.show_on_minicart_cart_page
+  assign show_currency_code = theme_st.show_currency_code
+  assign action_after_add_cart = action_after_add_cart | default: theme_st.action_after_add_cart
+
+  assign bogota_threshold = theme_st.free_shipping_bogota_minimum | default: 80000 | times: 1
+  assign national_threshold = theme_st.free_shipping_national_minimum | default: theme_st.free_shipping_minimum | default: 250000 | times: 1
+  assign max_threshold = national_threshold
+  if bogota_threshold > max_threshold
+    assign max_threshold = bogota_threshold
+  endif
+
+  assign title = theme_st.free_shipping_drawer_title | default: 'Envío Gratis'
+  assign max_weight = theme_st.free_shipping_max_weight_kg | default: 3
+  assign bogota_label = theme_st.free_shipping_bogota_label | default: 'Bogotá'
+  assign national_label = theme_st.free_shipping_national_label | default: 'Nacional'
+  assign pending_text = theme_st.free_shipping_pending_text | default: 'Agrega productos para desbloquear envío gratis'
+  assign unlocked_text = theme_st.free_shipping_unlocked_text | default: '¡Envío gratis desbloqueado!'
+  assign remaining_text = theme_st.free_shipping_remaining_text | default: 'Te faltan {{ amount }} para envío gratis'
+
+  assign bogota_price = bogota_threshold | money
+  assign national_price = national_threshold | money
+  if show_currency_code
+    assign bogota_price = bogota_threshold | money_with_currency
+    assign national_price = national_threshold | money_with_currency
+  endif
+-%}
+
+{%- if enabled and max_threshold > 0 -%}
+  <free-ship-progress-bar
+    data-order="{{ cart.items_subtotal_price }}"
+    data-fe-amount="{{ national_threshold }}"
+    data-bogota-threshold="{{ bogota_threshold }}"
+    data-national-threshold="{{ national_threshold }}"
+    data-pending-text="{{ pending_text | escape }}"
+    data-unlocked-text="{{ unlocked_text | escape }}"
+    data-remaining-text="{{ remaining_text | escape }}"
+    data-fe-unavaiable="{{ remaining_text | escape }}"
+    data-fe-avaiable="{{ unlocked_text | escape }}"
+    role="status"
+    aria-live="polite"
+    class="cart-shipping-widget block{% if action_after_add_cart == 'open_drawer' %} grey-bg{% endif %} border-bottom{% if action_after_add_cart != 'show_popup' %} border-top{% endif %}"
+  >
+    <div class="cart-shipping-widget__panel">
+      <div class="cart-shipping-widget__header">
+        <span class="cart-shipping-widget__icon" aria-hidden="true">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 6h11v9H3z"></path>
+            <path d="M14 9h4l3 3v3h-7z"></path>
+            <circle cx="7" cy="17" r="2"></circle>
+            <circle cx="18" cy="17" r="2"></circle>
+          </svg>
+        </span>
+        <div>
+          <h3 class="cart-shipping-widget__title">{{ title }}</h3>
+          <p class="cart-shipping-widget__subtitle">Válido de 0 – {{ max_weight }} KG</p>
+        </div>
+      </div>
+
+      <div class="cart-shipping-widget__region" data-shipping-region="bogota">
+        <div class="cart-shipping-widget__region-header">
+          <span class="cart-shipping-widget__city">{{ bogota_label }}</span>
+          <span class="cart-shipping-widget__amount">{{ bogota_price }}</span>
+        </div>
+        <div class="cart-shipping-widget__track" aria-hidden="true">
+          <span class="cart-shipping-widget__fill" data-shipping-fill="bogota" style="width: 0%;"></span>
+        </div>
+        <p class="cart-shipping-widget__hint" data-shipping-hint="bogota">{{ pending_text }}</p>
+      </div>
+
+      <div class="cart-shipping-widget__region" data-shipping-region="national">
+        <div class="cart-shipping-widget__region-header">
+          <span class="cart-shipping-widget__city">{{ national_label }}</span>
+          <span class="cart-shipping-widget__amount">{{ national_price }}</span>
+        </div>
+        <div class="cart-shipping-widget__track" aria-hidden="true">
+          <span class="cart-shipping-widget__fill" data-shipping-fill="national" style="width: 0%;"></span>
+        </div>
+        <p class="cart-shipping-widget__hint" data-shipping-hint="national">{{ pending_text }}</p>
+      </div>
+    </div>
+  </free-ship-progress-bar>
+{%- endif -%}
