@@ -39,6 +39,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="theme-color" content="">
+    {%- comment -%} Preconnect a CDNs críticos — ahorra DNS+TLS handshake al fetch
+      del logo del age gate, fuentes, imágenes y CSS. Crítico para LCP. {%- endcomment -%}
+    <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
+    <link rel="dns-prefetch" href="https://monorail-edge.shopifysvc.com">
     <link rel="canonical" href="{{ canonical_url }}">
     {%- if settings.favicon != blank -%}
       <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
