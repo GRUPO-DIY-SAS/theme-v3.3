@@ -14,27 +14,51 @@
 {% liquid
   assign block_st = block.settings
   assign section_st = section.settings
+  assign theme_st = settings
   assign enable_skeleton_loading = section_st.enable_skeleton_loading
 
-  comment Block guarda umbrales en MILES; pasamos en pesos enteros endcomment
-  assign bogota_threshold_k = block_st.bogota_threshold_k | default: 80
-  assign bogota_threshold_pesos = bogota_threshold_k | times: 1000
-  assign national_threshold_k = block_st.national_threshold_k | default: 250
-  assign national_threshold_pesos = national_threshold_k | times: 1000
+  comment
+    use_theme_defaults: si está activo, el bloque ignora sus propios campos
+    y toma TODO de los settings de tema (única fuente de verdad). Si está
+    inactivo, mantiene el comportamiento histórico: cada bloque puede
+    configurar sus propios valores por producto.
+  endcomment
+  if block_st.use_theme_defaults
+    assign sw_cutoff_hour = theme_st.widget_cutoff_hour
+    assign sw_cutoff_title = theme_st.widget_cutoff_title
+    assign sw_shipping_title = theme_st.free_shipping_drawer_title
+    assign sw_trust_text = theme_st.widget_trust_text
+    assign sw_holidays = theme_st.widget_holidays_list
+    assign sw_bogota_threshold = theme_st.free_shipping_bogota_minimum
+    assign sw_national_threshold = theme_st.free_shipping_national_minimum
+    assign sw_max_weight = theme_st.free_shipping_max_weight_kg
+  else
+    comment Block usa sus propios valores. Umbrales en MILES → pesos. endcomment
+    assign bogota_threshold_k = block_st.bogota_threshold_k | default: 80
+    assign national_threshold_k = block_st.national_threshold_k | default: 250
+    assign sw_cutoff_hour = block_st.cutoff_hour
+    assign sw_cutoff_title = block_st.cutoff_title
+    assign sw_shipping_title = block_st.shipping_title
+    assign sw_trust_text = block_st.trust_text
+    assign sw_holidays = block_st.holidays_list
+    assign sw_bogota_threshold = bogota_threshold_k | times: 1000
+    assign sw_national_threshold = national_threshold_k | times: 1000
+    assign sw_max_weight = block_st.max_weight_kg
+  endif
 %}
 
 {% if block_st.enable_widget %}
 
   {% render 'shipping-widget',
     widget_id: block.id,
-    cutoff_hour: block_st.cutoff_hour,
-    bogota_threshold: bogota_threshold_pesos,
-    national_threshold: national_threshold_pesos,
-    max_weight: block_st.max_weight_kg,
-    cutoff_title: block_st.cutoff_title,
-    shipping_title: block_st.shipping_title,
-    trust_text: block_st.trust_text,
-    holidays_list: block_st.holidays_list,
+    cutoff_hour: sw_cutoff_hour,
+    bogota_threshold: sw_bogota_threshold,
+    national_threshold: sw_national_threshold,
+    max_weight: sw_max_weight,
+    cutoff_title: sw_cutoff_title,
+    shipping_title: sw_shipping_title,
+    trust_text: sw_trust_text,
+    holidays_list: sw_holidays,
     extra_attrs: block.shopify_attributes
   %}
 
@@ -99,6 +123,18 @@
       "label": "Activar widget interactivo",
       "default": true,
       "info": "Desactivar para volver al bloque estático original."
+    },
+    {
+      "type": "checkbox",
+      "id": "use_theme_defaults",
+      "label": "Usar configuración global del tema",
+      "default": true,
+      "info": "Si está activo, este bloque IGNORA todos los campos de abajo y toma los valores desde General → Cart → ⏰ Widget interactivo. Desactivar SOLO si necesitas valores específicos para este producto."
+    },
+    {
+      "type": "header",
+      "content": "── Override por producto ──",
+      "info": "Estos campos solo aplican si desactivas 'Usar configuración global del tema'."
     },
     {
       "type": "text",
