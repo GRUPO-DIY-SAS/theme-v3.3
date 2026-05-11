@@ -101,7 +101,8 @@
     {%- endfor -%}
 
     <script type="application/json">
-      {{ product.variants | json }}
+      {%- comment -%}Perf: minimal variant dump - theme.js solo lee available/option1-3/options{%- endcomment -%}
+      [{%- for v in product.variants -%}{"available":{{ v.available }},"option1":{{ v.option1 | json }},"option2":{{ v.option2 | json }},"option3":{{ v.option3 | json }},"options":{{ v.options | json }}}{%- unless forloop.last -%},{%- endunless -%}{%- endfor -%}]
     </script>
     {% if is_compare == true %}
       </compare-radios>
@@ -239,7 +240,8 @@
         </fieldset>
       {%- endfor -%}
       <script type="application/json">
-        {{ product.variants | json }}
+        {%- comment -%}Perf: minimal variant dump - theme.js solo lee available/option1-3/options{%- endcomment -%}
+      [{%- for v in product.variants -%}{"available":{{ v.available }},"option1":{{ v.option1 | json }},"option2":{{ v.option2 | json }},"option3":{{ v.option3 | json }},"options":{{ v.options | json }}}{%- unless forloop.last -%},{%- endunless -%}{%- endfor -%}]
       </script>
     {%- else -%}
       {%- for option in product.options_with_values -%}
@@ -305,7 +307,8 @@
         </fieldset>
       {%- endfor -%}
       <script type="application/json">
-        {{ product.variants | json }}
+        {%- comment -%}Perf: minimal variant dump - theme.js solo lee available/option1-3/options{%- endcomment -%}
+      [{%- for v in product.variants -%}{"available":{{ v.available }},"option1":{{ v.option1 | json }},"option2":{{ v.option2 | json }},"option3":{{ v.option3 | json }},"options":{{ v.options | json }}}{%- unless forloop.last -%},{%- endunless -%}{%- endfor -%}]
       </script>
     {%- endif -%}
     {% if product.metafields.custom.use_variants_image_group != blank %}
@@ -390,7 +393,8 @@
         </fieldset>
       {%- endfor -%}
       <script type="application/json">
-        {{ product.variants | json }}
+        {%- comment -%}Perf: minimal variant dump - theme.js solo lee available/option1-3/options{%- endcomment -%}
+      [{%- for v in product.variants -%}{"available":{{ v.available }},"option1":{{ v.option1 | json }},"option2":{{ v.option2 | json }},"option3":{{ v.option3 | json }},"options":{{ v.options | json }}}{%- unless forloop.last -%},{%- endunless -%}{%- endfor -%}]
       </script>
     </variant-radios-single>
   {%- endunless -%}
@@ -467,7 +471,8 @@
     {% endfor %}
   </select>
   <script type="application/json">
-    {{ product.variants | json }}
+    {%- comment -%}Perf: minimal variant dump - theme.js solo lee available/option1-3/options{%- endcomment -%}
+    [{%- for v in product.variants -%}{"available":{{ v.available }},"option1":{{ v.option1 | json }},"option2":{{ v.option2 | json }},"option3":{{ v.option3 | json }},"options":{{ v.options | json }}}{%- unless forloop.last -%},{%- endunless -%}{%- endfor -%}]
   </script>
   {% if type == 'sticky' %}
     </variant-radios-sticky>
@@ -571,7 +576,8 @@
         </fieldset>
       {%- endfor -%}
       <script type="application/json">
-        {{ product.variants | json }}
+        {%- comment -%}Perf: minimal variant dump - theme.js solo lee available/option1-3/options{%- endcomment -%}
+      [{%- for v in product.variants -%}{"available":{{ v.available }},"option1":{{ v.option1 | json }},"option2":{{ v.option2 | json }},"option3":{{ v.option3 | json }},"options":{{ v.options | json }}}{%- unless forloop.last -%},{%- endunless -%}{%- endfor -%}]
       </script>
       <script type="application/json" class="productVariantsQty">
         [
