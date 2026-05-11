@@ -397,6 +397,16 @@
 .level0:focus-within > menu-item open-children-toggle {
   color: var(--color-link-hover);
 }
+/* Submenu items (Cantidad de Puff, Semi Desechables, etc.) — mismo accent.
+   Cubre tanto el panel vertical como el horizontal en mobile y desktop. */
+.submenu .menu_item-link:hover,
+.submenu .menu_item-link:focus-visible,
+.sub-children-menu .menu_item-link:hover,
+.sub-children-menu .menu_item-link:focus-visible,
+.submenu .menu-link > a:hover,
+.sub-children-menu a:hover {
+  color: var(--color-link-hover);
+}
 .menu-parent.mega-menu .level-1 > menu-item,
 .title-child__menu {
   font-size: calc(var(--body-font-size) + 1px);
