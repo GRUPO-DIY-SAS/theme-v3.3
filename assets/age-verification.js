@@ -227,7 +227,8 @@
       };
 
       this.persistVerificationFallbacks(payload);
-      this.suppressMinicartDrawer(2000, { includeNav: true });
+      this.resetTransientDrawers({ includeNav: true });
+      this.suppressMinicartDrawer(400, { includeNav: false });
       document.documentElement.classList.add("age-gate-verified");
       this.hide();
       this.dispatchVerifiedEvent("just_verified");
@@ -458,8 +459,7 @@
       this._cartSyncInFlight = true;
 
       try {
-        const suppressNav = Boolean(opts && opts.reason === "just_verified");
-        this.suppressMinicartDrawer(2000, { includeNav: suppressNav });
+        this.suppressMinicartDrawer(400, { includeNav: false });
 
         const reduced = this.buildReducedVerificationPayload(verifiedObj);
         const attrs = {};
