@@ -468,6 +468,8 @@
       this._cartSyncInFlight = true;
 
       try {
+        this.suppressMinicartDrawer(6000);
+
         const reduced = this.buildReducedVerificationPayload(verifiedObj);
         const attrs = {};
         attrs[this.cartAttrPrefix + "_verified"] = "true";
@@ -503,6 +505,22 @@
       } finally {
         this._cartSyncInFlight = false;
       }
+    }
+
+    suppressMinicartDrawer(duration = 4000) {
+      const until = Date.now() + duration;
+      window.diyvapeSuppressMinicartUntil = Math.max(window.diyvapeSuppressMinicartUntil || 0, until);
+      document.documentElement.classList.add("diyvape-suppress-minicart");
+
+      if (window.diyvapeSuppressMinicartTimer) {
+        window.clearTimeout(window.diyvapeSuppressMinicartTimer);
+      }
+
+      window.diyvapeSuppressMinicartTimer = window.setTimeout(() => {
+        if ((window.diyvapeSuppressMinicartUntil || 0) <= Date.now()) {
+          document.documentElement.classList.remove("diyvape-suppress-minicart");
+        }
+      }, duration + 80);
     }
 
     buildReducedVerificationPayload(obj) {

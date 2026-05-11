@@ -37,7 +37,7 @@
     .diyvape-chat-trigger {
       position: fixed;
       right: 30px;
-      bottom: 90px;
+      bottom: 96px;
       z-index: 99998;
       display: inline-flex;
       align-items: center;
@@ -82,7 +82,7 @@
       .diyvape-chat-trigger__label { display: none; }
     }
 
-    /* Lift LeadConnector chat button above back-to-top once it mounts */
+    /* Lift LeadConnector chat controls above back-to-top once it mounts */
     chat-widget,
     chat-widget::part(button),
     #lc_text-widget,
@@ -90,7 +90,8 @@
     .lc_text-widget,
     .lc_text-widget-floating-button,
     [class*="LC_chatWidget"] {
-      bottom: 90px !important;
+      bottom: 96px !important;
+      right: 30px !important;
     }
     @media (max-width: 767.98px) {
       chat-widget,
@@ -101,6 +102,7 @@
       .lc_text-widget-floating-button,
       [class*="LC_chatWidget"] {
         bottom: 135px !important;
+        right: 16px !important;
       }
     }
   </style>
@@ -240,11 +242,13 @@
 
       function liftLcWidget() {
         var isMobile = window.matchMedia('(max-width: 767.98px)').matches;
-        var lift = isMobile ? 135 : 90;
+        var lift = isMobile ? 135 : 96;
         var rightOffset = isMobile ? 16 : 30;
         var SHADOW_STYLE_ID = 'diyvape-shadow-lift';
         var SHADOW_CSS =
-          ':host{--lc-bottom-offset:' + lift + 'px;bottom:' + lift + 'px !important;right:' + rightOffset + 'px !important;}';
+          ':host{--lc-bottom-offset:' + lift + 'px;bottom:' + lift + 'px !important;right:' + rightOffset + 'px !important;}' +
+          '[class*="launcher"],[class*="floating-button"],[class*="bubble-button"],[class*="trigger-button"]' +
+          '{bottom:' + lift + 'px !important;right:' + rightOffset + 'px !important;}';
 
         // 1) Direct DOM elements (when LC renders in light DOM)
         var SELECTORS =
@@ -277,17 +281,20 @@
         var bodyKids = document.body.children;
         for (var i = 0; i < bodyKids.length; i++) {
           var el = bodyKids[i];
-          if (!el || el.id === TRIGGER_ID || el.id === SCRIPT_ID) continue;
+          if (!el || el.id === SCRIPT_ID || isThemeFloatingControl(el)) continue;
           if (el.tagName === 'SCRIPT' || el.tagName === 'STYLE' || el.tagName === 'LINK') continue;
           var cs;
           try { cs = window.getComputedStyle(el); } catch (e) { continue; }
           if (cs.position !== 'fixed') continue;
           var rect = el.getBoundingClientRect();
           if (rect.width === 0 || rect.height === 0) continue;
-          var nearBottom = vh - rect.bottom < 40;
-          var nearRight = vw - rect.right < 80;
-          if (!nearBottom || !nearRight) continue;
+          var marker = ((el.id || '') + ' ' + (el.className || '') + ' ' + (el.src || '')).toLowerCase();
+          var isLcNode = marker.indexOf('leadconnector') !== -1 || marker.indexOf('lc') !== -1 || marker.indexOf('chat') !== -1 || el.tagName === 'CHAT-WIDGET' || el.tagName === 'LC-CHAT-WIDGET' || el.tagName === 'IFRAME';
+          var nearBottom = vh - rect.bottom < 180;
+          var nearRight = vw - rect.right < 140;
+          if (!isLcNode || !nearBottom || !nearRight) continue;
           try { el.style.setProperty('bottom', lift + 'px', 'important'); } catch (e) {}
+          try { el.style.setProperty('right', rightOffset + 'px', 'important'); } catch (e) {}
         }
 
         updateLcLauncherState();

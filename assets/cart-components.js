@@ -205,6 +205,29 @@ class CartNotification extends HTMLElement {
     this.enforceShippingProtectionQuantity();
   }
 
+  isAgeGateMinicartSuppressed() {
+    return Boolean(
+      document.documentElement.classList.contains("diyvape-suppress-minicart") ||
+        (window.diyvapeSuppressMinicartUntil &&
+          window.diyvapeSuppressMinicartUntil > Date.now())
+    );
+  }
+
+  resetSuppressedMinicartState() {
+    if (!this.notification || !this.minicart__wrapper) return;
+    this.notification.classList.remove("open");
+    this.minicart__wrapper.classList.remove("open", "loading", "finish");
+    document.documentElement.classList.remove("open-minicart");
+    if (
+      !document.documentElement.classList.contains("open-search") &&
+      !document.documentElement.classList.contains("nav-open") &&
+      !document.documentElement.classList.contains("open-sidebar")
+    ) {
+      document.documentElement.classList.remove("open-drawer");
+      root.style.removeProperty("padding-right");
+    }
+  }
+
   setMinicartLoading(isLoading) {
     if (!this.minicart__wrapper) return;
 
@@ -868,6 +891,11 @@ class CartNotification extends HTMLElement {
   }
 
   async open() {
+    if (this.isAgeGateMinicartSuppressed()) {
+      this.resetSuppressedMinicartState();
+      return;
+    }
+
     if (!this.notification.classList.contains("go_to_cart_page")) {
       if (this.classList.contains("show_popup")) {
         this.cart_icon = document.querySelector("header");

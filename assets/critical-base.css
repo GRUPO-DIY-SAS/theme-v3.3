@@ -243,6 +243,19 @@ cart-notification .minicart__wrapper:not(.open) {
   visibility: hidden;
 }
 
+html.diyvape-suppress-minicart cart-notification,
+html.diyvape-suppress-minicart .overlayminicart::after {
+  opacity: 0 !important;
+  pointer-events: none !important;
+  visibility: hidden !important;
+}
+
+html.diyvape-suppress-minicart cart-notification .minicart__wrapper {
+  opacity: 0 !important;
+  pointer-events: none !important;
+  visibility: hidden !important;
+}
+
 cart-notification .minicart__wrapper.bls__drawer {
   position: fixed;
   top: 0;
@@ -257,9 +270,17 @@ cart-notification .minicart__wrapper.bls__drawer.left {
   transform: translateX(100%);
 }
 
+html.diyvape-suppress-minicart cart-notification .minicart__wrapper.bls__drawer.left {
+  transform: translateX(100%) !important;
+}
+
 cart-notification .minicart__wrapper.bls__drawer.right {
   left: 0;
   transform: translateX(-100%);
+}
+
+html.diyvape-suppress-minicart cart-notification .minicart__wrapper.bls__drawer.right {
+  transform: translateX(-100%) !important;
 }
 
 .open-drawer cart-notification .minicart__wrapper.bls__drawer.open {
