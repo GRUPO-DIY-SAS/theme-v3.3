@@ -47,12 +47,16 @@
       this.modal = this.querySelector("[data-age-modal]");
       this._cartSyncInFlight = false;
       this._cartSyncSessionKey = "av_cart_synced_" + this.cookieName;
+      this._pendingCartSyncKey = "av_cart_sync_pending_" + this.cookieName;
       this._manualPreviewKey = "av_manual_preview_" + this.cookieName;
       this._eventsReady = false;
+      this._cartSyncRescueReady = false;
+      this._cartSyncPromise = null;
     }
 
     connectedCallback() {
       this.setDobBounds();
+      this.installCartSyncRescueEvents();
 
       if (!this.isShopifyDesignMode() && this.isCartVerified()) {
         document.documentElement.classList.add("age-gate-verified");
@@ -200,6 +204,7 @@
     async handleSubmit(event) {
       event.preventDefault();
       this.clearAllErrors();
+      this.setSubmitLoading(true);
 
       const dob = this.dobInput ? this.dobInput.value : "";
       const id = this.idInput ? (this.idInput.value || "").trim() : "";
@@ -217,7 +222,10 @@
         ok = false;
       }
 
-      if (!ok) return;
+      if (!ok) {
+        this.setSubmitLoading(false);
+        return;
+      }
 
       const payload = {
         dob,
@@ -227,13 +235,29 @@
       };
 
       this.persistVerificationFallbacks(payload);
+
+      if (this.cartSyncEnabled) {
+        this.setPendingCartSyncPayload(payload);
+        try {
+          await this.syncVerificationToCartIfNeeded(payload, {
+            reason: "just_verified",
+            force: true,
+            required: true,
+            retries: 2,
+          });
+        } catch (error) {
+          this.showError(this.errCookie, this.cartErrorMessage);
+          this.setSubmitLoading(false);
+          return;
+        }
+      }
+
       this.resetTransientDrawers({ includeNav: true });
       this.suppressMinicartDrawer(400, { includeNav: false });
       document.documentElement.classList.add("age-gate-verified");
       this.hide();
       this.dispatchVerifiedEvent("just_verified");
-
-      this.syncVerificationToCartIfNeeded(payload, { reason: "just_verified", force: true }).catch(() => {});
+      this.setSubmitLoading(false);
     }
 
     dispatchVerifiedEvent(reason) {
@@ -448,55 +472,105 @@
         return false;
       }
 
+      const reduced = this.buildReducedVerificationPayload(verifiedObj);
       const force = Boolean(opts && opts.force);
-      if (!force && this.getSessionFlag(this._cartSyncSessionKey)) return true;
+      if (!force && this.getSessionFlag(this._cartSyncSessionKey) === reduced.sig && !this.getPendingCartSyncPayload()) return true;
 
-      if (this._cartSyncInFlight) {
-        if (required) await this.waitForCartSync();
-        return Boolean(this.getSessionFlag(this._cartSyncSessionKey));
+      if (this._cartSyncPromise) {
+        const result = await this._cartSyncPromise;
+        if (required && !result) throw new Error("Cart sync already failed");
+        return result;
       }
 
       this._cartSyncInFlight = true;
+      this._cartSyncPromise = this.performCartSync(reduced, opts || {});
 
       try {
-        this.suppressMinicartDrawer(400, { includeNav: false });
-
-        const reduced = this.buildReducedVerificationPayload(verifiedObj);
-        const attrs = {};
-        attrs[this.cartAttrPrefix + "_verified"] = "true";
-        attrs[this.cartAttrPrefix + "_dob_full"] = reduced.dob_full;
-        attrs[this.cartAttrPrefix + "_id_full"] = reduced.id_full;
-        attrs[this.cartAttrPrefix + "_sig"] = reduced.sig;
-        attrs[this.cartAttrPrefix + "_added_at"] = reduced.added_at;
-
-        const payload = { attributes: attrs };
-
-        if (this.orderNoteEnabled) {
-          const noteLine = this.renderOrderNoteLine(reduced);
-          if (noteLine) {
-            const existing = await this.safeGetCart();
-            const nextNote = this.mergeOrderNote(existing && existing.note ? String(existing.note) : "", noteLine);
-            payload.note = nextNote;
-          }
-        }
-
-        const response = await fetch("/cart/update.js", {
-          method: "POST",
-          keepalive: true,
-          headers: { "Content-Type": "application/json", Accept: "application/json" },
-          body: JSON.stringify(payload),
-        });
-
-        if (!response.ok) throw new Error("Cart update failed");
-
-        this.setSessionFlag(this._cartSyncSessionKey, "1");
-        return true;
+        return await this._cartSyncPromise;
       } catch (error) {
         if (required) throw error;
         return false;
       } finally {
         this._cartSyncInFlight = false;
+        this._cartSyncPromise = null;
       }
+    }
+
+    async performCartSync(reduced, opts) {
+      this.suppressMinicartDrawer(400, { includeNav: false });
+      this.setPendingCartSyncPayload(reduced);
+
+      const attempts = Math.max(1, (parseInt(opts.retries || "0", 10) || 0) + 1);
+      let lastError = null;
+
+      for (let attempt = 1; attempt <= attempts; attempt += 1) {
+        try {
+          const cart = await this.postVerificationToCart(reduced);
+          if (!this.isCartSyncConfirmed(cart, reduced)) {
+            throw new Error("Cart sync response missing age attributes");
+          }
+
+          this.setSessionFlag(this._cartSyncSessionKey, reduced.sig);
+          this.clearPendingCartSyncPayload();
+          return true;
+        } catch (error) {
+          lastError = error;
+          if (attempt < attempts) await this.delay(180 * attempt);
+        }
+      }
+
+      if (opts && opts.required) throw lastError || new Error("Cart sync failed");
+      return false;
+    }
+
+    async postVerificationToCart(reduced) {
+      const attrs = {};
+      attrs[this.cartAttrPrefix + "_verified"] = "true";
+      attrs[this.cartAttrPrefix + "_dob_full"] = reduced.dob_full;
+      attrs[this.cartAttrPrefix + "_id_full"] = reduced.id_full;
+      attrs[this.cartAttrPrefix + "_sig"] = reduced.sig;
+      attrs[this.cartAttrPrefix + "_added_at"] = reduced.added_at;
+
+      const payload = { attributes: attrs };
+
+      if (this.orderNoteEnabled) {
+        const noteLine = this.renderOrderNoteLine(reduced);
+        if (noteLine) {
+          const existing = await this.safeGetCart();
+          const nextNote = this.mergeOrderNote(existing && existing.note ? String(existing.note) : "", noteLine);
+          payload.note = nextNote;
+        }
+      }
+
+      const controller = "AbortController" in window ? new AbortController() : null;
+      const timeoutId = controller ? window.setTimeout(() => controller.abort(), 8000) : null;
+      let response;
+
+      try {
+        response = await fetch("/cart/update.js", {
+          method: "POST",
+          credentials: "same-origin",
+          cache: "no-store",
+          signal: controller ? controller.signal : undefined,
+          headers: { "Content-Type": "application/json", Accept: "application/json" },
+          body: JSON.stringify(payload),
+        });
+      } finally {
+        if (timeoutId) window.clearTimeout(timeoutId);
+      }
+
+      if (!response.ok) throw new Error("Cart update failed");
+      return response.json();
+    }
+
+    isCartSyncConfirmed(cart, reduced) {
+      const attrs = cart && cart.attributes ? cart.attributes : {};
+      return (
+        String(attrs[this.cartAttrPrefix + "_verified"] || "") === "true" &&
+        String(attrs[this.cartAttrPrefix + "_dob_full"] || "") === String(reduced.dob_full || "") &&
+        String(attrs[this.cartAttrPrefix + "_id_full"] || "") === String(reduced.id_full || "") &&
+        String(attrs[this.cartAttrPrefix + "_sig"] || "") === String(reduced.sig || "")
+      );
     }
 
     clearMinicartSuppression() {
@@ -570,6 +644,45 @@
       }
     }
 
+    installCartSyncRescueEvents() {
+      if (this._cartSyncRescueReady) return;
+      this._cartSyncRescueReady = true;
+
+      window.diyvapeEnsureAgeCartSync = (opts = {}) => {
+        const pending = this.getPendingCartSyncPayload();
+        const verified = pending || this.getVerifiedObject();
+        if (!verified) return Promise.resolve(false);
+        return this.syncVerificationToCartIfNeeded(verified, {
+          reason: opts.reason || "manual_retry",
+          force: Boolean(opts.force || pending),
+          required: Boolean(opts.required),
+          retries: opts.retries == null ? 1 : opts.retries,
+        });
+      };
+
+      const retryPending = () => {
+        this.retryPendingCartSync("pending_retry").catch(() => {});
+      };
+
+      window.addEventListener("pageshow", retryPending);
+      document.addEventListener("cart:updated", retryPending);
+      document.addEventListener("diyvape:cart-updated", retryPending);
+      document.addEventListener("visibilitychange", () => {
+        if (!document.hidden) retryPending();
+      });
+    }
+
+    async retryPendingCartSync(reason) {
+      if (!this.cartSyncEnabled || this._cartSyncInFlight) return false;
+      const pending = this.getPendingCartSyncPayload();
+      if (!pending) return false;
+      return this.syncVerificationToCartIfNeeded(pending, {
+        reason: reason || "pending_retry",
+        force: true,
+        retries: 1,
+      });
+    }
+
     buildReducedVerificationPayload(obj) {
       const dob = String(obj.dob || "");
       const id = String(obj.id || "");
@@ -628,6 +741,38 @@
       } catch (error) {
         return null;
       }
+    }
+
+    setPendingCartSyncPayload(payload) {
+      if (!payload || !payload.dob || !payload.id) return;
+      try {
+        localStorage.setItem(this._pendingCartSyncKey, JSON.stringify(payload));
+      } catch (error) {}
+    }
+
+    getPendingCartSyncPayload() {
+      try {
+        return this.parseVerified(localStorage.getItem(this._pendingCartSyncKey));
+      } catch (error) {
+        return null;
+      }
+    }
+
+    clearPendingCartSyncPayload() {
+      try {
+        localStorage.removeItem(this._pendingCartSyncKey);
+      } catch (error) {}
+    }
+
+    setSubmitLoading(isLoading) {
+      if (!this.submitBtn) return;
+      this.submitBtn.disabled = Boolean(isLoading);
+      this.submitBtn.classList.toggle("loading", Boolean(isLoading));
+      this.submitBtn.setAttribute("aria-busy", isLoading ? "true" : "false");
+    }
+
+    delay(ms) {
+      return new Promise((resolve) => window.setTimeout(resolve, ms));
     }
 
     fnv1a(str) {
