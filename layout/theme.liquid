@@ -109,7 +109,9 @@
     {% if defer_theme_assets_until_age_gate %}
       {% render 'deferred-assets-loader' %}
     {% endif %}
-    {{ 'critical-base.css' | asset_url | stylesheet_tag }}
+    {%- comment -%} critical-base inlined (era assets/critical-base.css) — elimina
+      1 render-blocking HTTP request. Ahorro ~50-200ms FCP en cold cache. {%- endcomment -%}
+    {% render 'critical-base' %}
     {{ content_for_header }}
     {% if defer_theme_assets_until_age_gate %}
       <script>
