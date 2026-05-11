@@ -127,18 +127,11 @@
           this.hintNat = this.querySelector('[data-hint="national"]');
           this.seps = this.querySelectorAll(".sw-separator");
 
+          /* Render inicial síncrono (sin esperar IO) */
           this.tick();
           this.updateBars(this.cartTotal);
 
-          this._tickIv = setInterval(() => this.tick(), 1000);
-          var sepVis = true;
-          this._sepIv = setInterval(() => {
-            sepVis = !sepVis;
-            this.seps.forEach((s) => {
-              s.style.color = sepVis ? "" : "transparent";
-            });
-          }, 500);
-
+          /* Listener de cart:updated (siempre activo, no consume CPU idle) */
           this._cartHandler = (e) => {
             var cart = e && e.detail ? e.detail : null;
             if (cart && typeof cart.total_price === "number") {
@@ -146,15 +139,84 @@
             }
           };
           document.addEventListener("cart:updated", this._cartHandler);
+
+          /* Pause-when-hidden: el setInterval(1s) del countdown solo corre
+             si el widget está en el viewport. Reduce TBT en PDP largos. */
+          if ("IntersectionObserver" in window) {
+            this._io = new IntersectionObserver(
+              (entries) => {
+                entries.forEach((entry) => {
+                  if (entry.isIntersecting) {
+                    this._startTimers();
+                  } else {
+                    this._stopTimers();
+                  }
+                });
+              },
+              { threshold: 0.01 }
+            );
+            this._io.observe(this);
+          } else {
+            this._startTimers();
+          }
+
+          /* Page Visibility: pausar también al cambiar de pestaña */
+          this._onVisibility = () => {
+            if (document.hidden) {
+              this._stopTimers();
+            } else if (this._isInView()) {
+              this._startTimers();
+            }
+          };
+          document.addEventListener("visibilitychange", this._onVisibility);
         }
 
         disconnectedCallback() {
-          if (this._tickIv) clearInterval(this._tickIv);
-          if (this._sepIv) clearInterval(this._sepIv);
+          this._stopTimers();
+          if (this._io) {
+            this._io.disconnect();
+            this._io = null;
+          }
           if (this._cartHandler) {
             document.removeEventListener("cart:updated", this._cartHandler);
           }
+          if (this._onVisibility) {
+            document.removeEventListener("visibilitychange", this._onVisibility);
+          }
           this._wired = false;
+        }
+
+        _isInView() {
+          var r = this.getBoundingClientRect();
+          return (
+            r.bottom > 0 &&
+            r.top < (window.innerHeight || document.documentElement.clientHeight)
+          );
+        }
+
+        _startTimers() {
+          if (this._tickIv || document.hidden) return;
+          /* Tick inmediato al volver al viewport para no quedar "atrasado" */
+          this.tick();
+          this._tickIv = setInterval(() => this.tick(), 1000);
+          this._sepVis = true;
+          this._sepIv = setInterval(() => {
+            this._sepVis = !this._sepVis;
+            this.seps.forEach((s) => {
+              s.style.color = this._sepVis ? "" : "transparent";
+            });
+          }, 500);
+        }
+
+        _stopTimers() {
+          if (this._tickIv) {
+            clearInterval(this._tickIv);
+            this._tickIv = null;
+          }
+          if (this._sepIv) {
+            clearInterval(this._sepIv);
+            this._sepIv = null;
+          }
         }
 
         isHoliday(date) {

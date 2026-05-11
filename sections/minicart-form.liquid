@@ -280,23 +280,25 @@
           </terms-conditions>
         {% endif %}
         {%- if theme_st.enable_catalog_mode == false -%}
-          <a
-            class="action block mb-10 btn-outline w-full text-center no-underline viewcart"
-            href="{{ routes.cart_url }}"
-          >
-            <span>{{ 'general.cart.viewcart' | t }}</span>
-          </a>
-          <button
-            type="submit"
-            class="btn-primary w-full btn-checkout"
-            name="checkout"
-            form="minicart"
-            {% if theme_st.show_check_box_in_cart %}
-              disabled
-            {% endif %}
-          >
-            <span>{{ 'general.cart.checkout' | t }}</span>
-          </button>
+          <div class="cart-ctas-row">
+            <a
+              class="action btn-outline text-center no-underline viewcart"
+              href="{{ routes.cart_url }}"
+            >
+              <span>{{ 'general.cart.viewcart' | t }}</span>
+            </a>
+            <button
+              type="submit"
+              class="btn-primary btn-checkout"
+              name="checkout"
+              form="minicart"
+              {% if theme_st.show_check_box_in_cart %}
+                disabled
+              {% endif %}
+            >
+              <span>{{ 'general.cart.checkout' | t }}</span>
+            </button>
+          </div>
         {% endif %}
       </div>
     </div>

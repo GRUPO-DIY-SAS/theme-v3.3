@@ -2018,6 +2018,22 @@ class ProgressBar extends HTMLElement {
     super();
     const orders = this.dataset.order;
     this.init(orders);
+    if (this.classList.contains("cart-shipping-widget")) {
+      this._onCartUpdated = (e) => {
+        const cart = e && e.detail;
+        if (cart && typeof cart.items_subtotal_price === "number") {
+          this.init(cart.items_subtotal_price);
+        } else if (cart && typeof cart.total_price === "number") {
+          this.init(cart.total_price);
+        }
+      };
+      document.addEventListener("cart:updated", this._onCartUpdated);
+    }
+  }
+  disconnectedCallback() {
+    if (this._onCartUpdated) {
+      document.removeEventListener("cart:updated", this._onCartUpdated);
+    }
   }
   init(orders) {
     if (this.classList.contains("cart-shipping-widget")) {

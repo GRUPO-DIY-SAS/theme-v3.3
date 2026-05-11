@@ -66,26 +66,28 @@
         </div>
       </div>
 
-      <div class="cart-shipping-widget__region" data-shipping-region="bogota">
-        <div class="cart-shipping-widget__region-header">
-          <span class="cart-shipping-widget__city">{{ bogota_label }}</span>
-          <span class="cart-shipping-widget__amount">{{ bogota_price }}</span>
+      <div class="cart-shipping-widget__regions">
+        <div class="cart-shipping-widget__region" data-shipping-region="bogota">
+          <div class="cart-shipping-widget__region-header">
+            <span class="cart-shipping-widget__city">{{ bogota_label }}</span>
+            <span class="cart-shipping-widget__amount">{{ bogota_price }}</span>
+          </div>
+          <div class="cart-shipping-widget__track" aria-hidden="true">
+            <span class="cart-shipping-widget__fill" data-shipping-fill="bogota" style="width: 0%;"></span>
+          </div>
+          <p class="cart-shipping-widget__hint" data-shipping-hint="bogota">{{ pending_text }}</p>
         </div>
-        <div class="cart-shipping-widget__track" aria-hidden="true">
-          <span class="cart-shipping-widget__fill" data-shipping-fill="bogota" style="width: 0%;"></span>
-        </div>
-        <p class="cart-shipping-widget__hint" data-shipping-hint="bogota">{{ pending_text }}</p>
-      </div>
 
-      <div class="cart-shipping-widget__region" data-shipping-region="national">
-        <div class="cart-shipping-widget__region-header">
-          <span class="cart-shipping-widget__city">{{ national_label }}</span>
-          <span class="cart-shipping-widget__amount">{{ national_price }}</span>
+        <div class="cart-shipping-widget__region" data-shipping-region="national">
+          <div class="cart-shipping-widget__region-header">
+            <span class="cart-shipping-widget__city">{{ national_label }}</span>
+            <span class="cart-shipping-widget__amount">{{ national_price }}</span>
+          </div>
+          <div class="cart-shipping-widget__track" aria-hidden="true">
+            <span class="cart-shipping-widget__fill" data-shipping-fill="national" style="width: 0%;"></span>
+          </div>
+          <p class="cart-shipping-widget__hint" data-shipping-hint="national">{{ pending_text }}</p>
         </div>
-        <div class="cart-shipping-widget__track" aria-hidden="true">
-          <span class="cart-shipping-widget__fill" data-shipping-fill="national" style="width: 0%;"></span>
-        </div>
-        <p class="cart-shipping-widget__hint" data-shipping-hint="national">{{ pending_text }}</p>
       </div>
     </div>
   </free-ship-progress-bar>
