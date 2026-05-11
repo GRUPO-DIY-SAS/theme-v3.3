@@ -175,6 +175,37 @@
 {% # theme-check-disable AssetPreload %}
 <link rel="preload" href="{{ age_verification_css }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
 <noscript>{{ 'age-verification.css' | asset_url | stylesheet_tag }}</noscript>
+<script>
+  /* Click buffer: con critical-base.css inline el HTML renderiza más rápido
+     que la carga del age-verification.js (defer). Esto hacía que el primer
+     click en "Sí soy mayor de 18" se perdiera porque el handler aún no
+     estaba registrado. Buffereamos clicks hasta que el custom element se
+     haya upgrade-eado y re-disparamos. */
+  (function () {
+    if (window.__diyvapeAgeClickBuffer) return;
+    window.__diyvapeAgeClickBuffer = true;
+    var pending = [];
+    document.addEventListener('click', function (e) {
+      var btn = e.target.closest && e.target.closest('[data-action="yes"], [data-action="no"]');
+      if (!btn) return;
+      var gate = btn.closest('age-verification-gate');
+      if (!gate) return;
+      /* Si el custom element ya está hidratado, deja pasar el click normal */
+      if (typeof gate.showForm === 'function' || typeof gate.showBlocked === 'function') return;
+      /* No upgraded yet — bufferear y re-disparar al cargar */
+      e.preventDefault();
+      e.stopPropagation();
+      pending.push(btn);
+      var iv = setInterval(function () {
+        if (typeof gate.showForm === 'function' || typeof gate.showBlocked === 'function') {
+          clearInterval(iv);
+          while (pending.length) pending.shift().click();
+        }
+      }, 30);
+      setTimeout(function () { clearInterval(iv); }, 5000);
+    }, true);
+  })();
+</script>
 <script src="{{ 'age-verification.js' | asset_url }}" defer="defer"></script>
 
 <age-verification-gate

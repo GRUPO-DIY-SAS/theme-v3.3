@@ -192,6 +192,18 @@
     border: 0 !important;
   }
 
+  /* Critical: ocultar el navigation drawer mobile hasta que navigation.css
+     cargue (deferido tras age-gate). Sin esto, el drawer aparece visible
+     en el primer paint cuando el HTML renderiza antes que la CSS deferida. */
+  .navigation.mobile {
+    transform: translateX(-101%);
+    visibility: hidden;
+  }
+  .nav-open .navigation.mobile {
+    transform: translateX(0);
+    visibility: visible;
+  }
+
   cart-notification .minicart__wrapper:not(.open) {
     pointer-events: none;
     visibility: hidden;
