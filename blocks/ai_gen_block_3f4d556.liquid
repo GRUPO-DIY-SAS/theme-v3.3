@@ -185,6 +185,15 @@
     if (window.__diyvapeAgeClickBuffer) return;
     window.__diyvapeAgeClickBuffer = true;
     var pending = [];
+    var replayBufferedClick = function (entry) {
+      if (!entry || !entry.gate) return;
+      if (entry.action === 'yes' && typeof entry.gate.showForm === 'function') {
+        entry.gate.showForm();
+      }
+      if (entry.action === 'no' && typeof entry.gate.showBlocked === 'function') {
+        entry.gate.showBlocked();
+      }
+    };
     document.addEventListener('click', function (e) {
       var btn = e.target.closest && e.target.closest('[data-action="yes"], [data-action="no"]');
       if (!btn) return;
@@ -195,11 +204,14 @@
       /* No upgraded yet — bufferear y re-disparar al cargar */
       e.preventDefault();
       e.stopPropagation();
-      pending.push(btn);
+      pending.push({
+        action: btn.getAttribute('data-action'),
+        gate: gate
+      });
       var iv = setInterval(function () {
         if (typeof gate.showForm === 'function' || typeof gate.showBlocked === 'function') {
           clearInterval(iv);
-          while (pending.length) pending.shift().click();
+          while (pending.length) replayBufferedClick(pending.shift());
         }
       }, 30);
       setTimeout(function () { clearInterval(iv); }, 5000);

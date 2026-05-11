@@ -196,12 +196,22 @@
      cargue (deferido tras age-gate). Sin esto, el drawer aparece visible
      en el primer paint cuando el HTML renderiza antes que la CSS deferida. */
   .navigation.mobile {
+    opacity: 0;
+    pointer-events: none;
     transform: translateX(-101%);
     visibility: hidden;
   }
   .nav-open .navigation.mobile {
+    opacity: 1;
+    pointer-events: auto;
     transform: translateX(0);
     visibility: visible;
+  }
+  html.diyvape-suppress-nav .navigation.mobile {
+    opacity: 0 !important;
+    pointer-events: none !important;
+    transform: translateX(-101%) !important;
+    visibility: hidden !important;
   }
 
   cart-notification .minicart__wrapper:not(.open) {

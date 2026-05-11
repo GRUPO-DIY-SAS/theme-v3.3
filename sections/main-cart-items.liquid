@@ -5,7 +5,6 @@
   assign free_shipping = theme_st.show_on_minicart_cart_page
   assign show_currency_code = theme_st.show_currency_code
   assign shipping_rate = theme_st.free_shipping_minimum | times: 1 | default: 0
-  assign shipping_rate_price = shipping_rate | money
   assign enable_gift_wrap = theme_st.enable_gift_wrap
   assign enable_shipping_protection = theme_st.enable_shipping_protection
   assign enable_discount_code = section_st.enable_discount_code
@@ -20,7 +19,6 @@
   if show_currency_code
     assign gift_pr_price = choose_gift_wrap_product.selected_or_first_available_variant.price | money_with_currency
     assign shipping_pr_price = choose_shipping_protection_product.selected_or_first_available_variant.price | money_with_currency
-    assign shipping_rate_price = shipping_rate | money_with_currency
   endif
   assign cart_duration_show = theme_st.show_duration_on_minicart_cart_page
   assign cart_duration = theme_st.cart_duration
@@ -50,18 +48,6 @@
   assign show_quantity = theme_st.show_quantity_input
   assign product_image_ratio = theme_st.product_image_ratio
   assign product_custom_ratio = theme_st.product_custom_ratio
-%}
-{% liquid
-  assign enable_rtl = settings.rtl
-  assign iso_code = request.locale.iso_code
-  assign lis_language_rtl = settings.language_rtl
-  if lis_language_rtl != blank
-    if lis_language_rtl contains iso_code
-      assign enable_rtl = true
-    else
-      assign enable_rtl = false
-    endif
-  endif
 %}
 {% liquid
   assign discount_codes = cart.cart_level_discount_applications | where: 'type', 'discount_code' | map: 'title'

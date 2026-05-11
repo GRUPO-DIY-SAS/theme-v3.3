@@ -219,8 +219,6 @@
 
       if (!ok) return;
 
-      if (this.submitBtn) this.submitBtn.disabled = true;
-
       const payload = {
         dob,
         id: String(id),
@@ -228,21 +226,13 @@
         added_at: this.formatColombiaTimestamp(),
       };
 
-      try {
-        await this.syncVerificationToCartIfNeeded(payload, { reason: "just_verified", force: true, required: true });
-      } catch (error) {
-        this.showError(this.errCookie, this.cartErrorMessage);
-        if (this.submitBtn) this.submitBtn.disabled = false;
-        return;
-      }
-
       this.persistVerificationFallbacks(payload);
-
+      this.suppressMinicartDrawer(2000, { includeNav: true });
       document.documentElement.classList.add("age-gate-verified");
       this.hide();
       this.dispatchVerifiedEvent("just_verified");
 
-      if (this.submitBtn) this.submitBtn.disabled = false;
+      this.syncVerificationToCartIfNeeded(payload, { reason: "just_verified", force: true }).catch(() => {});
     }
 
     dispatchVerifiedEvent(reason) {
@@ -468,7 +458,8 @@
       this._cartSyncInFlight = true;
 
       try {
-        this.suppressMinicartDrawer(2000);
+        const suppressNav = Boolean(opts && opts.reason === "just_verified");
+        this.suppressMinicartDrawer(2000, { includeNav: suppressNav });
 
         const reduced = this.buildReducedVerificationPayload(verifiedObj);
         const attrs = {};
@@ -491,6 +482,7 @@
 
         const response = await fetch("/cart/update.js", {
           method: "POST",
+          keepalive: true,
           headers: { "Content-Type": "application/json", Accept: "application/json" },
           body: JSON.stringify(payload),
         });
@@ -504,27 +496,35 @@
         return false;
       } finally {
         this._cartSyncInFlight = false;
-        this.clearMinicartSuppression();
       }
     }
 
     clearMinicartSuppression() {
       window.diyvapeSuppressMinicartUntil = 0;
       window.diyvapeSuppressSearchUntil = 0;
+      window.diyvapeSuppressNavUntil = 0;
       document.documentElement.classList.remove("diyvape-suppress-minicart");
       document.documentElement.classList.remove("diyvape-suppress-search");
+      document.documentElement.classList.remove("diyvape-suppress-nav");
+      this.resetTransientDrawers({ includeNav: true });
       if (window.diyvapeSuppressMinicartTimer) {
         window.clearTimeout(window.diyvapeSuppressMinicartTimer);
         window.diyvapeSuppressMinicartTimer = null;
       }
     }
 
-    suppressMinicartDrawer(duration = 4000) {
+    suppressMinicartDrawer(duration = 4000, options = {}) {
+      const includeNav = options.includeNav !== false;
       const until = Date.now() + duration;
       window.diyvapeSuppressMinicartUntil = Math.max(window.diyvapeSuppressMinicartUntil || 0, until);
       window.diyvapeSuppressSearchUntil = Math.max(window.diyvapeSuppressSearchUntil || 0, until);
       document.documentElement.classList.add("diyvape-suppress-minicart");
       document.documentElement.classList.add("diyvape-suppress-search");
+      if (includeNav) {
+        window.diyvapeSuppressNavUntil = Math.max(window.diyvapeSuppressNavUntil || 0, until);
+        document.documentElement.classList.add("diyvape-suppress-nav");
+      }
+      this.resetTransientDrawers({ includeNav });
 
       if (window.diyvapeSuppressMinicartTimer) {
         window.clearTimeout(window.diyvapeSuppressMinicartTimer);
@@ -537,7 +537,37 @@
         if ((window.diyvapeSuppressSearchUntil || 0) <= Date.now()) {
           document.documentElement.classList.remove("diyvape-suppress-search");
         }
+        if ((window.diyvapeSuppressNavUntil || 0) <= Date.now()) {
+          document.documentElement.classList.remove("diyvape-suppress-nav");
+        }
+        this.resetTransientDrawers({ includeNav });
       }, duration + 80);
+    }
+
+    resetTransientDrawers(options = {}) {
+      const includeNav = options.includeNav !== false;
+      const rootEl = document.documentElement;
+      rootEl.classList.remove("open-search", "open-minicart");
+      if (includeNav) {
+        rootEl.classList.remove("nav-open", "nav-verticalmenu");
+        rootEl.style.removeProperty("padding-right");
+      }
+      if (!rootEl.classList.contains("open-sidebar") && (includeNav || !rootEl.classList.contains("nav-open"))) {
+        rootEl.classList.remove("open-drawer");
+      }
+
+      document.querySelectorAll(".top-search-toggle.open").forEach((el) => {
+        el.classList.remove("open");
+      });
+
+      if (includeNav) {
+        document.querySelectorAll(".nav-toggle.open").forEach((el) => {
+          el.classList.remove("open");
+        });
+        document.querySelectorAll(".navigation.mobile .is-open, .navigation.mobile .visible").forEach((el) => {
+          el.classList.remove("is-open", "visible");
+        });
+      }
     }
 
     buildReducedVerificationPayload(obj) {

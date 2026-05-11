@@ -1050,6 +1050,24 @@ let BlsMainMenuShopify = (function () {
         navToggle.addEventListener("click", (e) => {
           const target = e.currentTarget;
           const main_menu = document.querySelector(".navigation.horizontal");
+          const navSuppressed =
+            document.documentElement.classList.contains("diyvape-suppress-nav") ||
+            (window.diyvapeSuppressNavUntil || 0) > Date.now();
+
+          if (navSuppressed) {
+            e.preventDefault();
+            e.stopPropagation();
+            root.style.removeProperty("padding-right");
+            document.documentElement.classList.remove(
+              "nav-open",
+              "nav-verticalmenu",
+              "open-drawer"
+            );
+            document.querySelectorAll(".nav-toggle.open").forEach((toggle) => {
+              toggle.classList.remove("open");
+            });
+            return;
+          }
 
           if (document.documentElement.classList.contains("nav-open")) {
             // Close menu

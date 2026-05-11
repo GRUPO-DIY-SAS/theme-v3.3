@@ -243,6 +243,27 @@ cart-notification .minicart__wrapper:not(.open) {
   visibility: hidden;
 }
 
+.navigation.mobile {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(-101%);
+  visibility: hidden;
+}
+
+.nav-open .navigation.mobile {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(0);
+  visibility: visible;
+}
+
+html.diyvape-suppress-nav .navigation.mobile {
+  opacity: 0 !important;
+  pointer-events: none !important;
+  transform: translateX(-101%) !important;
+  visibility: hidden !important;
+}
+
 html.diyvape-suppress-minicart cart-notification,
 html.diyvape-suppress-minicart .overlayminicart::after {
   opacity: 0 !important;
