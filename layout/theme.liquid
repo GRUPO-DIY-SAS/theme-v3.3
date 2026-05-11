@@ -39,6 +39,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="theme-color" content="">
+    {%- comment -%} Preconnect a cdn.shopify.com — ahorra DNS+TLS handshake (~200-400ms)
+      en el primer fetch del logo del age gate (LCP element), fuentes e imágenes.
+      Solo afecta DNS/TLS, no descarga recursos extra. {%- endcomment -%}
+    <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
     <link rel="canonical" href="{{ canonical_url }}">
     {%- if settings.favicon != blank -%}
       <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
