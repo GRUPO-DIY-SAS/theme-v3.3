@@ -214,17 +214,26 @@
     visibility: hidden !important;
   }
 
-  /* Critical: ocultar mega-menu submenus antes de que navigation.css cargue.
-     Lighthouse identificó que productos destacados dentro de .submenu eran
-     contados como LCP element (12s) porque sin navigation.css cargada, los
-     submenus aparecen "visibles" en el DOM y sus imágenes (loading="lazy")
-     se vuelven phantom LCPs. navigation.css con .menu-parent.visible
-     .submenu... tiene mayor specificity y sobreescribe esto cuando carga. */
-  .submenu:not(.submenu-vertical),
-  .sub-children-menu {
-    visibility: hidden;
-    opacity: 0;
-    pointer-events: none;
+  /* Critical: ocultar mega-menu submenus en MOBILE solamente (donde
+     Lighthouse mide). En mobile el mega-menu horizontal NO se muestra
+     (es block-1025 = desktop only), pero sin navigation.css cargada las
+     imágenes de productos destacados dentro de .submenu aparecen renderizadas
+     en DOM y se vuelven phantom LCPs (12s en Lighthouse).
+     Excluimos cuando el drawer mobile está abierto (html.nav-open) o cuando
+     un parent tiene .is-open explícito. Desktop sin cambios para no romper
+     hover/click del mega menu. */
+  @media (max-width: 1024.98px) {
+    .submenu:not(.submenu-vertical),
+    .sub-children-menu {
+      display: none;
+    }
+    html.nav-open .submenu:not(.submenu-vertical),
+    html.nav-open .sub-children-menu,
+    .is-open + .submenu,
+    .is-open + .sub-children-menu,
+    .menu-parent.visible .submenu:not(.submenu-vertical) {
+      display: block;
+    }
   }
 
   cart-notification .minicart__wrapper:not(.open) {
