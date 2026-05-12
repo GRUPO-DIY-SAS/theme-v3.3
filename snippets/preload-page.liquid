@@ -17,28 +17,39 @@
     {% endif %}
   </preload-page>
 {% endif %}
-<style>
-  url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><circle fill="%23FF156D" stroke="%23FF156D" stroke-width="15" r="15" cx="40" cy="100"><animate attributeName="opacity" calcMode="spline" dur="2" values="1;0;1;" keySplines=".5 0 .5 1;.5 0 .5 1" repeatCount="indefinite" begin="-.4"></animate></circle><circle fill="%23FF156D" stroke="%23FF156D" stroke-width="15" r="15" cx="100" cy="100"><animate attributeName="opacity" calcMode="spline" dur="2" values="1;0;1;" keySplines=".5 0 .5 1;.5 0 .5 1" repeatCount="indefinite" begin="-.2"></animate></circle><circle fill="%23FF156D" stroke="%23FF156D" stroke-width="15" r="15" cx="160" cy="100"><animate attributeName="opacity" calcMode="spline" dur="2" values="1;0;1;" keySplines=".5 0 .5 1;.5 0 .5 1" repeatCount="indefinite" begin="0"></animate></circle></svg>')
-</style>
 
 <script>
-  function PreloadPage() {
-    const preload = document.querySelector('preload-page');
-    window.addEventListener('DOMContentLoaded', () => {
-      if (preload) {
-        Motion.animate(
-          preload,
-          {
-            opacity: [1, 0],
-            visibility: ['visible', 'hidden'],
-          },
-          {
-            ease: [0.7, 0, 0.2, 1],
-            duration: 1,
-          }
-        );
-      }
-    });
-  }
-  PreloadPage();
+  (function () {
+    var preload = document.querySelector('preload-page');
+    if (!preload) return;
+
+    var hidden = false;
+    function hidePreload() {
+      if (hidden) return;
+      hidden = true;
+      /* CSS transition controlled by inline styles for instant effect
+         even if external CSS hasn't loaded yet */
+      preload.style.transition = 'opacity 0.25s ease-out';
+      preload.style.opacity = '0';
+      window.setTimeout(function () {
+        preload.style.visibility = 'hidden';
+        preload.style.pointerEvents = 'none';
+      }, 260);
+    }
+
+    /* Hide on deferred-assets-loaded event: this fires when navigation.css,
+       theme.css and other deferred CSS have been requested + scripts queued.
+       That's the right moment — page is styled and ready. */
+    window.addEventListener('diyvape:deferred-assets-loaded', hidePreload, { once: true });
+
+    /* Fallback 1: if no age gate (user already verified), the loader fires
+       on DOMContentLoaded. Hide preload then too. */
+    if (document.documentElement.classList.contains('diyvape-deferred-assets-loaded')) {
+      hidePreload();
+    }
+
+    /* Fallback 2: if 5s pass without event (something stuck), force hide.
+       Better to show possibly-FOUC page than block forever. */
+    window.setTimeout(hidePreload, 5000);
+  })();
 </script>

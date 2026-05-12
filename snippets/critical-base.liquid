@@ -192,6 +192,24 @@
     border: 0 !important;
   }
 
+  /* Preload-page overlay (anti-FOUC): cubre la página con white screen
+     hasta que deferred-assets-loader complete. Inline aquí (no en critical.css
+     que es deferida) para que aplique INMEDIATAMENTE en primer paint. */
+  preload-page.preload-page,
+  .preload-page {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ffffff;
+    pointer-events: none;
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.25s ease-out;
+  }
+
   /* FOUC prevention: anti-flash de contenido sin estilos.
      Después del age gate, navigation.css y theme.css se cargan deferidos.
      Durante ese gap (~200-2000ms), elementos del header/marquee aparecen
