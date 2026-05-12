@@ -24,7 +24,7 @@
     if (!preload) return;
 
     var hidden = false;
-    var MIN_SHOW_MS = 500;
+    var MIN_SHOW_MS = 250;
     var showStartedAt = Date.now();
 
     function actuallyHide() {
@@ -59,12 +59,13 @@
       }, { once: true });
     }
 
-    /* Señal principal: deferred CSS+JS listos */
-    window.addEventListener('diyvape:deferred-assets-loaded', readyToHide, { once: true });
+    /* Señal principal: CSS visual listo. Los scripts diferidos pueden seguir
+       cargando en segundo plano sin bloquear LCP/Speed Index. */
+    window.addEventListener('diyvape:deferred-visual-ready', readyToHide, { once: true });
 
     /* Si el evento ya disparó antes de que este script corra (usuario
        verificado con loader fired en head), aún esperamos MIN_SHOW_MS */
-    if (document.documentElement.classList.contains('diyvape-deferred-assets-loaded')) {
+    if (document.documentElement.classList.contains('diyvape-deferred-visual-ready')) {
       readyToHide();
     }
 

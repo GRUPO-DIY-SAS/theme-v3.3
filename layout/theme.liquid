@@ -107,14 +107,8 @@
     {% render 'breadcrumb-schema' %}
         
     {% if defer_theme_assets_until_age_gate %}
-      {% render 'deferred-assets-loader' %}
-    {% endif %}
-    {%- comment -%} critical-base inlined (era assets/critical-base.css) — elimina
-      1 render-blocking HTTP request. Ahorro ~50-200ms FCP en cold cache. {%- endcomment -%}
-    {% render 'critical-base' %}
-    {{ content_for_header }}
-    {% if defer_theme_assets_until_age_gate %}
       <script>
+        window.diyvapeDeferredAssets = window.diyvapeDeferredAssets || [];
         window.diyvapeDeferredAssets.push(
           { type: 'style', href: {{ 'critical.css' | asset_url | json }} },
           {% if request.page_type == 'collection' or request.page_type == 'index' or request.page_type == 'search' %}
@@ -125,14 +119,24 @@
           {% if load_swiper_assets %}
             { type: 'style', href: {{ 'swiper-bundle.min.css' | asset_url | json }} },
           {% endif %}
-          { type: 'style', href: {{ 'judgeme-reviews.css' | asset_url | json }} },
+          {% if request.page_type == 'product' %}
+            { type: 'style', href: {{ 'diyvape-pdp-components.css' | asset_url | json }} },
+          {% endif %}
+          { type: 'style', href: {{ 'judgeme-reviews.css' | asset_url | json }}, visual: false },
           { type: 'style', href: {{ 'theme.css' | asset_url | json }} },
-          { type: 'style', href: {{ 'popup.css' | asset_url | json }} }
+          { type: 'style', href: {{ 'popup.css' | asset_url | json }}, visual: false }
           {% if load_account_popup_assets %}
-            ,{ type: 'style', href: {{ 'header-account-popup.css' | asset_url | json }} }
+            ,{ type: 'style', href: {{ 'header-account-popup.css' | asset_url | json }}, visual: false }
           {% endif %}
         );
       </script>
+      {% render 'deferred-assets-loader' %}
+    {% endif %}
+    {%- comment -%} critical-base inlined (era assets/critical-base.css) — elimina
+      1 render-blocking HTTP request. Ahorro ~50-200ms FCP en cold cache. {%- endcomment -%}
+    {% render 'critical-base' %}
+    {{ content_for_header }}
+    {% if defer_theme_assets_until_age_gate %}
       <noscript>
         {{ 'critical.css' | asset_url | stylesheet_tag }}
         {{ 'product-card.css' | asset_url | stylesheet_tag }}

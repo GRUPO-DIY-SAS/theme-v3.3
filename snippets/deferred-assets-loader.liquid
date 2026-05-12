@@ -10,6 +10,10 @@
     var requested = false;
     var scriptChain = Promise.resolve();
     var loaded = {};
+    var loadedPromises = {};
+    var visualStylePromises = [];
+    var visualReady = false;
+    var visualReadyTimer = null;
     var originalPush = assets.push.bind(assets);
     var originalAppendChild = Node.prototype.appendChild;
     var originalInsertBefore = Node.prototype.insertBefore;
@@ -112,23 +116,56 @@
       }
     }
 
+    function markVisualReady() {
+      if (visualReady) return;
+      visualReady = true;
+      document.documentElement.classList.add('diyvape-deferred-visual-ready');
+      window.dispatchEvent(new CustomEvent('diyvape:deferred-visual-ready'));
+    }
+
+    function waitForVisualStyles() {
+      if (visualReady) return;
+      if (!visualStylePromises.length) {
+        markVisualReady();
+        return;
+      }
+
+      Promise.all(visualStylePromises.slice()).then(markVisualReady);
+
+      if (!visualReadyTimer) {
+        visualReadyTimer = window.setTimeout(markVisualReady, 3000);
+      }
+    }
+
+    function isVisualStyle(asset) {
+      return asset && asset.type === 'style' && asset.visual !== false;
+    }
+
     function loadStyle(asset) {
-      if (!asset || !asset.href || loaded[asset.href]) return;
+      if (!asset || !asset.href) return Promise.resolve();
+      if (loaded[asset.href]) return loadedPromises[asset.href] || Promise.resolve();
       loaded[asset.href] = true;
 
-      var link = document.createElement('link');
-      link.rel = 'stylesheet';
-      link.href = asset.href;
-      link.media = asset.media || 'all';
-      link.dataset.diyvapeDeferred = 'true';
-      document.head.appendChild(link);
+      loadedPromises[asset.href] = new Promise(function (resolve) {
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.href = asset.href;
+        link.media = asset.media || 'all';
+        link.dataset.diyvapeDeferred = 'true';
+        link.onload = resolve;
+        link.onerror = resolve;
+        document.head.appendChild(link);
+      });
+
+      return loadedPromises[asset.href];
     }
 
     function loadScript(asset) {
-      if (!asset || !asset.src || loaded[asset.src]) return Promise.resolve();
+      if (!asset || !asset.src) return Promise.resolve();
+      if (loaded[asset.src]) return loadedPromises[asset.src] || Promise.resolve();
       loaded[asset.src] = true;
 
-      return new Promise(function (resolve) {
+      loadedPromises[asset.src] = new Promise(function (resolve) {
         var script = document.createElement('script');
         script.src = asset.src;
         script.async = false;
@@ -140,6 +177,8 @@
         script.onerror = resolve;
         document.head.appendChild(script);
       });
+
+      return loadedPromises[asset.src];
     }
 
     function queueScript(asset) {
@@ -152,18 +191,18 @@
     function loadAsset(asset) {
       if (!asset) return;
       if (asset.type === 'style') {
-        loadStyle(asset);
-        return;
+        return loadStyle(asset);
       }
       if (asset.type === 'script') {
         if (document.readyState === 'loading') {
           document.addEventListener('DOMContentLoaded', function () {
             queueScript(asset);
           }, { once: true });
-          return;
+          return Promise.resolve();
         }
-        queueScript(asset);
+        return queueScript(asset);
       }
+      return Promise.resolve();
     }
 
     function loadDeferredAssets() {
@@ -171,7 +210,12 @@
       requested = true;
       document.documentElement.classList.add('diyvape-deferred-assets-requested');
 
-      assets.slice().forEach(loadAsset);
+      assets.slice().forEach(function (asset) {
+        var assetPromise = loadAsset(asset);
+        if (isVisualStyle(asset)) visualStylePromises.push(assetPromise || Promise.resolve());
+      });
+
+      waitForVisualStyles();
 
       scriptChain.then(function () {
         document.documentElement.classList.add('diyvape-deferred-assets-loaded');
@@ -184,7 +228,15 @@
     assets.push = function () {
       var incoming = Array.prototype.slice.call(arguments);
       var result = originalPush.apply(assets, incoming);
-      if (requested) incoming.forEach(loadAsset);
+      if (requested) {
+        incoming.forEach(function (asset) {
+          var assetPromise = loadAsset(asset);
+          if (!visualReady && isVisualStyle(asset)) {
+            visualStylePromises.push(assetPromise || Promise.resolve());
+            waitForVisualStyles();
+          }
+        });
+      }
       return result;
     };
 
@@ -200,8 +252,10 @@
     }, { once: true });
 
     if (isAgeVerified()) {
-      loadDeferredAssets();
-      releaseDynamicAssets();
+      window.setTimeout(function () {
+        loadDeferredAssets();
+        releaseDynamicAssets();
+      }, 0);
     } else {
       document.addEventListener('DOMContentLoaded', function () {
         var gate = document.querySelector('age-verification-gate');
