@@ -43,6 +43,30 @@
       en el primer fetch del logo del age gate (LCP element), fuentes e imágenes.
       Solo afecta DNS/TLS, no descarga recursos extra. {%- endcomment -%}
     <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
+    {%- comment -%} Preload del LCP product image en PDP. Sin esto, el browser
+      no descubre la imagen hasta que parsea ~9600 líneas de HTML (Load Delay
+      ~6s en Lighthouse mobile). El imagesrcset/imagesizes coincide con el
+      widths/sizes que renderiza product-media-layout.liquid para el featured
+      media, así el preload scanner pide exactamente la URL que el <img>
+      necesita — cero double-fetch.
+      Sólo aplica en page_type 'product' y cuando hay imagen disponible. {%- endcomment -%}
+    {%- if request.page_type == 'product' and product != blank -%}
+      {%- liquid
+        assign pdp_lcp_media = product.selected_or_first_available_variant.featured_media
+        if pdp_lcp_media == blank or pdp_lcp_media == nil
+          assign pdp_lcp_media = product.featured_media
+        endif
+        assign pdp_lcp_image = pdp_lcp_media.preview_image
+      -%}
+      {%- if pdp_lcp_image != blank -%}
+        <link
+          rel="preload"
+          as="image"
+          imagesrcset="{{ pdp_lcp_image | image_url: width: 360 }} 360w, {{ pdp_lcp_image | image_url: width: 480 }} 480w, {{ pdp_lcp_image | image_url: width: 550 }} 550w, {{ pdp_lcp_image | image_url: width: 660 }} 660w, {{ pdp_lcp_image | image_url: width: 720 }} 720w, {{ pdp_lcp_image | image_url: width: 900 }} 900w, {{ pdp_lcp_image | image_url: width: 1000 }} 1000w, {{ pdp_lcp_image | image_url: width: 1200 }} 1200w, {{ pdp_lcp_image | image_url: width: 1400 }} 1400w, {{ pdp_lcp_image | image_url: width: 1600 }} 1600w"
+          imagesizes="(min-width: 1200px) 720px, (min-width: 768px) 50vw, 100vw"
+          fetchpriority="high">
+      {%- endif -%}
+    {%- endif -%}
     {%- comment -%} Detección temprana de age-verified: añade clase a <html>
       para que CSS y JS posteriores (deferred-assets-loader) puedan tomar
       decisiones según el estado. El preload condicional del logo del age
