@@ -236,13 +236,22 @@
      renderizados sin estilos (UL con bullets, items sin flex layout, etc).
      Los ocultamos hasta que deferred-assets-loader confirme carga. */
 
-  /* Mobile horizontal nav: en mobile NO se muestra (es block-1025=desktop),
-     pero sin theme.css esa restricción no aplica → cae como UL vertical.
-     Hide explícito hasta que critical.css cargue las utility classes. */
-  @media (max-width: 1024.98px) {
-    html:not(.diyvape-deferred-assets-loaded) .navigation.horizontal {
-      display: none !important;
-    }
+  /* Horizontal nav: en mobile cae como UL vertical sin theme.css. En
+     desktop también renderea sin layout correcto (flex missing). Hide en
+     AMBOS viewports hasta que critical.css cargue las utility classes. */
+  html:not(.diyvape-deferred-assets-loaded) .navigation.horizontal {
+    visibility: hidden !important;
+  }
+
+  /* Header completo: hide hasta que deferred CSS cargue. Sin theme.css,
+     el header renderea sin flex/grid → logo desalineado, icons flotando,
+     menu como lista vertical con bullets. El preload-page (z:100) cubre
+     visualmente pero también añadimos visibility:hidden por seguridad. */
+  html:not(.diyvape-deferred-assets-loaded) .header,
+  html:not(.diyvape-deferred-assets-loaded) .header__inner,
+  html:not(.diyvape-deferred-assets-loaded) .top-bar,
+  html:not(.diyvape-deferred-assets-loaded) shopify-section-header {
+    visibility: hidden !important;
   }
 
   /* Scrolling text / announcement marquees: renderean en bucle si no hay
@@ -250,7 +259,13 @@
   html:not(.diyvape-deferred-assets-loaded) .scrolling-text,
   html:not(.diyvape-deferred-assets-loaded) scrolling-text,
   html:not(.diyvape-deferred-assets-loaded) [class*="marquee"] {
-    visibility: hidden;
+    visibility: hidden !important;
+  }
+
+  /* Main content puede tener layout broken sin theme.css. Hide hasta que
+     deferred CSS cargue. El preload-page (z:100) cubre, pero por si acaso. */
+  html:not(.diyvape-deferred-assets-loaded) main {
+    visibility: hidden !important;
   }
 
   /* Critical: ocultar el navigation drawer mobile hasta que navigation.css
