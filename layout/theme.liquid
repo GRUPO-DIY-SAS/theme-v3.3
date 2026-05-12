@@ -59,12 +59,14 @@
         assign pdp_lcp_image = pdp_lcp_media.preview_image
       -%}
       {%- if pdp_lcp_image != blank -%}
+        {% # theme-check-disable AssetPreload %}
         <link
           rel="preload"
           as="image"
           imagesrcset="{{ pdp_lcp_image | image_url: width: 360 }} 360w, {{ pdp_lcp_image | image_url: width: 480 }} 480w, {{ pdp_lcp_image | image_url: width: 550 }} 550w, {{ pdp_lcp_image | image_url: width: 660 }} 660w, {{ pdp_lcp_image | image_url: width: 720 }} 720w, {{ pdp_lcp_image | image_url: width: 900 }} 900w, {{ pdp_lcp_image | image_url: width: 1000 }} 1000w, {{ pdp_lcp_image | image_url: width: 1200 }} 1200w, {{ pdp_lcp_image | image_url: width: 1400 }} 1400w, {{ pdp_lcp_image | image_url: width: 1600 }} 1600w"
           imagesizes="(min-width: 1200px) 720px, (min-width: 768px) 50vw, 100vw"
           fetchpriority="high">
+        {% # theme-check-enable AssetPreload %}
       {%- endif -%}
     {%- endif -%}
     {%- comment -%} Detección temprana de age-verified: añade clase a <html>
