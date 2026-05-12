@@ -22,40 +22,19 @@
   BLOQUE en vez de theme.liquid porque acá tenemos acceso a logo_width_2x
   dinámico — evita drift si el merchant cambia logo_width en el editor.
 
-  El preload se inyecta SOLO si el usuario no está verificado (cookie/
-  localStorage check), para no penalizar usuarios recurrentes que no
-  ven el age gate. URL idéntica a la del <img> de abajo → cero double-fetch.
+  URL idéntica a la del <img> de abajo → cero double-fetch. Emitirlo como
+  HTML directo permite que el preload scanner lo descubra antes; la versión
+  anterior lo creaba con JS y Lighthouse reportaba Load Delay alto en el LCP.
 {%- endcomment -%}
 {%- if age_gate_logo_src != '' -%}
-  <script>
-    (function () {
-      try {
-        var cookieName = 'age_verified_diyvape';
-        var parts = (document.cookie || '').split(';');
-        var raw = '';
-        for (var i = 0; i < parts.length; i++) {
-          var v = parts[i].trim();
-          if (v.indexOf(cookieName + '=') === 0) { raw = v.slice(cookieName.length + 1); break; }
-        }
-        if (!raw) raw = localStorage.getItem(cookieName) || '';
-        var parsed = null;
-        if (raw) {
-          try { parsed = JSON.parse(decodeURIComponent(raw)); }
-          catch (e) { try { parsed = JSON.parse(raw); } catch (e2) { parsed = null; } }
-        }
-        var verified = Boolean(parsed && parsed.verified && parsed.dob && parsed.id);
-        if (verified) return;
-        if (document.querySelector('link[data-diyvape-age-logo-preload]')) return;
-        var link = document.createElement('link');
-        link.rel = 'preload';
-        link.as = 'image';
-        link.href = {{ age_gate_logo_src | json }};
-        link.setAttribute('fetchpriority', 'high');
-        link.setAttribute('data-diyvape-age-logo-preload', 'true');
-        document.head.appendChild(link);
-      } catch (e) {}
-    })();
-  </script>
+  {% # theme-check-disable AssetPreload %}
+  <link
+    rel="preload"
+    href="{{ age_gate_logo_src }}"
+    as="image"
+    fetchpriority="high"
+    data-diyvape-age-logo-preload>
+  {% # theme-check-enable AssetPreload %}
 {%- endif -%}
 
 {%- assign age_verification_css = 'age-verification.css' | asset_url -%}
