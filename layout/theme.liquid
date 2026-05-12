@@ -43,36 +43,11 @@
       en el primer fetch del logo del age gate (LCP element), fuentes e imágenes.
       Solo afecta DNS/TLS, no descarga recursos extra. {%- endcomment -%}
     <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
-    {%- comment -%} Preload del logo del age gate (LCP element en primer paint).
-      shop.brand.logo es el mismo image referenciado por el bloque ai_gen_block
-      via "{{ shop.brand.logo }}" en sections/overlay-group.json. Preload desde
-      <head> arranca el fetch antes de que el body parsee al bloque. Costo:
-      ~10-20KB en primera visita (cached luego). Ahorro esperado: -100-200ms LCP. {%- endcomment -%}
-    {%- if shop.brand.logo != blank -%}
-      <link rel="preload" as="image" href="{{ shop.brand.logo | image_url: width: 200 }}" fetchpriority="high">
-    {%- endif -%}
-    <link rel="canonical" href="{{ canonical_url }}">
-    {%- if settings.favicon != blank -%}
-      <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
-    {%- endif -%}
-    <title>
-      {{ page_title }}
-      {%- if current_tags %} &ndash; tagged "{{ current_tags | join: ', ' }}"{% endif -%}
-      {%- if current_page != 1 %} &ndash; Page {{ current_page }}{% endif -%}
-      {%- unless page_title contains 'DIY' %} &ndash; {{ shop.name }}{% endunless -%}
-    </title>
-    {% if page_description %}
-      <meta name="description" content="{{ page_description | escape }}">
-    {% endif %}
-    {% render 'meta-tags' %}
-
-    {% comment %} SEO: noindex para vendors {% endcomment %}
-    {%- if canonical_url contains '/vendors' -%}
-      <meta name="robots" content="noindex, follow">
-    {%- endif -%}
-    
-    {% comment %} SEO: noindex para colecciones con filtros activos o vista AJAX (inyectado via JS porque Liquid no accede a query params desde el layout) {% endcomment %}
-    <script>if(location.search.indexOf('filter.')>-1||location.search.indexOf('view=ajax')>-1){document.head.insertAdjacentHTML('beforeend','<meta name="robots" content="noindex, follow">')}</script>
+    {%- comment -%} Detección temprana de age-verified: añade clase a <html>
+      para que CSS y JS posteriores (deferred-assets-loader) puedan tomar
+      decisiones según el estado. El preload condicional del logo del age
+      gate vive en el bloque (blocks/ai_gen_block_3f4d556.liquid) porque
+      ahí tenemos logo_width_2x dinámico que evita drift de URL. {%- endcomment -%}
     <script>
       (function () {
         var cookieName = 'age_verified_diyvape';
@@ -106,7 +81,28 @@
         } catch (error) {}
       })();
     </script>
+    <link rel="canonical" href="{{ canonical_url }}">
+    {%- if settings.favicon != blank -%}
+      <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
+    {%- endif -%}
+    <title>
+      {{ page_title }}
+      {%- if current_tags %} &ndash; tagged "{{ current_tags | join: ', ' }}"{% endif -%}
+      {%- if current_page != 1 %} &ndash; Page {{ current_page }}{% endif -%}
+      {%- unless page_title contains 'DIY' %} &ndash; {{ shop.name }}{% endunless -%}
+    </title>
+    {% if page_description %}
+      <meta name="description" content="{{ page_description | escape }}">
+    {% endif %}
+    {% render 'meta-tags' %}
 
+    {% comment %} SEO: noindex para vendors {% endcomment %}
+    {%- if canonical_url contains '/vendors' -%}
+      <meta name="robots" content="noindex, follow">
+    {%- endif -%}
+
+    {% comment %} SEO: noindex para colecciones con filtros activos o vista AJAX (inyectado via JS porque Liquid no accede a query params desde el layout) {% endcomment %}
+    <script>if(location.search.indexOf('filter.')>-1||location.search.indexOf('view=ajax')>-1){document.head.insertAdjacentHTML('beforeend','<meta name="robots" content="noindex, follow">')}</script>
     {% render 'schema-local-business' %}
     {% render 'schema-homepage-products' %}
     {% render 'schema-faq-collection' %}
