@@ -43,6 +43,14 @@
       en el primer fetch del logo del age gate (LCP element), fuentes e imágenes.
       Solo afecta DNS/TLS, no descarga recursos extra. {%- endcomment -%}
     <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
+    {%- comment -%} Preload del logo del age gate (LCP element en primer paint).
+      shop.brand.logo es el mismo image referenciado por el bloque ai_gen_block
+      via "{{ shop.brand.logo }}" en sections/overlay-group.json. Preload desde
+      <head> arranca el fetch antes de que el body parsee al bloque. Costo:
+      ~10-20KB en primera visita (cached luego). Ahorro esperado: -100-200ms LCP. {%- endcomment -%}
+    {%- if shop.brand.logo != blank -%}
+      <link rel="preload" as="image" href="{{ shop.brand.logo | image_url: width: 200 }}" fetchpriority="high">
+    {%- endif -%}
     <link rel="canonical" href="{{ canonical_url }}">
     {%- if settings.favicon != blank -%}
       <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
