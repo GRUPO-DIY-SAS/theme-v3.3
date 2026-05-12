@@ -24,32 +24,51 @@
     if (!preload) return;
 
     var hidden = false;
-    function hidePreload() {
+    var MIN_SHOW_MS = 500;
+    var showStartedAt = Date.now();
+
+    function actuallyHide() {
       if (hidden) return;
       hidden = true;
-      /* CSS transition controlled by inline styles for instant effect
-         even if external CSS hasn't loaded yet */
-      preload.style.transition = 'opacity 0.25s ease-out';
+      /* CSS transition inline para que aplique aunque external CSS no haya
+         cargado todavía */
+      preload.style.transition = 'opacity 0.3s ease-out';
       preload.style.opacity = '0';
       window.setTimeout(function () {
         preload.style.visibility = 'hidden';
         preload.style.pointerEvents = 'none';
-      }, 260);
+      }, 320);
     }
 
-    /* Hide on deferred-assets-loaded event: this fires when navigation.css,
-       theme.css and other deferred CSS have been requested + scripts queued.
-       That's the right moment — page is styled and ready. */
-    window.addEventListener('diyvape:deferred-assets-loaded', hidePreload, { once: true });
+    /* Respeta MIN_SHOW_MS para evitar que el spinner desaparezca antes del
+       primer paint (caso usuario verificado donde el loader fire eventos en
+       microtask antes de body parse) */
+    function readyToHide() {
+      var elapsed = Date.now() - showStartedAt;
+      var remaining = Math.max(0, MIN_SHOW_MS - elapsed);
+      window.setTimeout(actuallyHide, remaining);
+    }
 
-    /* Fallback 1: if no age gate (user already verified), the loader fires
-       on DOMContentLoaded. Hide preload then too. */
+    /* Detectar si el age gate estaba activo cuando el script corre.
+       Si sí, reseteamos el timer cuando el usuario verifica edad para que
+       el MIN_SHOW_MS aplique a partir del cierre del gate, no del page load. */
+    var ageGate = document.querySelector('age-verification-gate');
+    if (ageGate && ageGate.classList.contains('active')) {
+      document.addEventListener('diyvape:age-verified', function () {
+        showStartedAt = Date.now();
+      }, { once: true });
+    }
+
+    /* Señal principal: deferred CSS+JS listos */
+    window.addEventListener('diyvape:deferred-assets-loaded', readyToHide, { once: true });
+
+    /* Si el evento ya disparó antes de que este script corra (usuario
+       verificado con loader fired en head), aún esperamos MIN_SHOW_MS */
     if (document.documentElement.classList.contains('diyvape-deferred-assets-loaded')) {
-      hidePreload();
+      readyToHide();
     }
 
-    /* Fallback 2: if 5s pass without event (something stuck), force hide.
-       Better to show possibly-FOUC page than block forever. */
-    window.setTimeout(hidePreload, 5000);
+    /* Fallback hard: 6s max, force hide aunque nada haya disparado */
+    window.setTimeout(actuallyHide, 6000);
   })();
 </script>
