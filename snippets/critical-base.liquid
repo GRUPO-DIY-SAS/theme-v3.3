@@ -192,6 +192,29 @@
     border: 0 !important;
   }
 
+  /* FOUC prevention: anti-flash de contenido sin estilos.
+     Después del age gate, navigation.css y theme.css se cargan deferidos.
+     Durante ese gap (~200-2000ms), elementos del header/marquee aparecen
+     renderizados sin estilos (UL con bullets, items sin flex layout, etc).
+     Los ocultamos hasta que deferred-assets-loader confirme carga. */
+
+  /* Mobile horizontal nav: en mobile NO se muestra (es block-1025=desktop),
+     pero sin theme.css esa restricción no aplica → cae como UL vertical.
+     Hide explícito hasta que critical.css cargue las utility classes. */
+  @media (max-width: 1024.98px) {
+    html:not(.diyvape-deferred-assets-loaded) .navigation.horizontal {
+      display: none !important;
+    }
+  }
+
+  /* Scrolling text / announcement marquees: renderean en bucle si no hay
+     CSS para constreñirlas. Hide hasta que theme.css cargue. */
+  html:not(.diyvape-deferred-assets-loaded) .scrolling-text,
+  html:not(.diyvape-deferred-assets-loaded) scrolling-text,
+  html:not(.diyvape-deferred-assets-loaded) [class*="marquee"] {
+    visibility: hidden;
+  }
+
   /* Critical: ocultar el navigation drawer mobile hasta que navigation.css
      cargue (deferido tras age-gate). Sin esto, el drawer aparece visible
      en el primer paint cuando el HTML renderiza antes que la CSS deferida. */
