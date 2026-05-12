@@ -214,6 +214,19 @@
     visibility: hidden !important;
   }
 
+  /* Critical: ocultar mega-menu submenus antes de que navigation.css cargue.
+     Lighthouse identificó que productos destacados dentro de .submenu eran
+     contados como LCP element (12s) porque sin navigation.css cargada, los
+     submenus aparecen "visibles" en el DOM y sus imágenes (loading="lazy")
+     se vuelven phantom LCPs. navigation.css con .menu-parent.visible
+     .submenu... tiene mayor specificity y sobreescribe esto cuando carga. */
+  .submenu:not(.submenu-vertical),
+  .sub-children-menu {
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+  }
+
   cart-notification .minicart__wrapper:not(.open) {
     pointer-events: none;
     visibility: hidden;
