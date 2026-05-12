@@ -253,7 +253,12 @@
       }
 
       this.resetTransientDrawers({ includeNav: true });
-      this.suppressMinicartDrawer(400, { includeNav: false });
+      /* includeNav: true durante 800ms absorbe el "ghost click" de Safari iOS:
+         al cerrar el modal rápidamente, el touch del usuario sobre el botón
+         "Sí" se completa en el elemento que queda debajo (hamburguesa/search),
+         abriendo el menú "sin razón". 800ms es imperceptible pero suficiente
+         para que la touch event queue de iOS se vacíe. */
+      this.suppressMinicartDrawer(800, { includeNav: true });
       document.documentElement.classList.add("age-gate-verified");
       this.hide();
       this.dispatchVerifiedEvent("just_verified");
