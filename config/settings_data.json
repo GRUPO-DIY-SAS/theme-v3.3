@@ -118,7 +118,7 @@
     "linkedin": "",
     "whatsapp": "https://wa.me/573206682351/",
     "enable_preload": true,
-    "preload_page": "background",
+    "preload_page": "dot",
     "zoom_image": false,
     "scroll_animation": "none",
     "store_phone": "+57 3206682351",

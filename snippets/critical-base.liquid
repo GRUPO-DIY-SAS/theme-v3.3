@@ -209,6 +209,26 @@
     visibility: visible;
     transition: opacity 0.25s ease-out;
   }
+  /* Spinner del preload (option "dot"). El CSS está también en theme.css
+     pero es deferida; aquí lo inline para que el spinner aparezca animado
+     desde el primer paint sin esperar theme.css. */
+  .preload-screen-spinner {
+    --loading-size: 80px;
+    --loading-color: #bbbbbb;
+    animation: pageTransitionSpinner 1.5s linear infinite;
+    width: var(--loading-size);
+    height: var(--loading-size);
+    border-radius: 50%;
+    box-shadow: 0 2px 0 0 var(--loading-color);
+    transform-origin: calc(var(--loading-size) / 2) calc(var(--loading-size) / 2 + 1px);
+  }
+  @keyframes pageTransitionSpinner {
+    0%   { transform: rotate3d(0, 0, 1, 0deg); }
+    25%  { transform: rotate3d(0, 0, 1, 90deg); }
+    50%  { transform: rotate3d(0, 0, 1, 180deg); }
+    75%  { transform: rotate3d(0, 0, 1, 270deg); }
+    100% { transform: rotate3d(0, 0, 1, 360deg); }
+  }
 
   /* FOUC prevention: anti-flash de contenido sin estilos.
      Después del age gate, navigation.css y theme.css se cargan deferidos.
