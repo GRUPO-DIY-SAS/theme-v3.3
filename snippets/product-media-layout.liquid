@@ -13,6 +13,16 @@
   if type == 'quickview'
     assign lazy_product = false
   endif
+  assign main_media_widths = '1600, 1400, 1200, 1000, 900, 720, 660, 550, 480, 360'
+  assign main_media_sizes = '(min-width: 1200px) 720px, (min-width: 768px) 50vw, 100vw'
+  assign priority_featured_media = false
+  if is_thumbnail != true and type != 'quickview'
+    assign priority_featured_media = true
+  endif
+  assign featured_lazy_product = lazy_product
+  if priority_featured_media
+    assign featured_lazy_product = false
+  endif
 %}
 {% for image in images %}
   {% if image.alt == 'image-360' and image.media_type == 'image' %}
@@ -249,7 +259,12 @@
                   type: 'product',
                   image: featured_media.preview_image,
                   image_alt: image_alt,
-                  lazy_product: lazy_product
+                  lazy_product: featured_lazy_product,
+                  lazy_load: priority_featured_media,
+                  first: priority_featured_media,
+                  no_animate: priority_featured_media,
+                  custom_widths: main_media_widths,
+                  sizes: main_media_sizes
                 %}
               </button>
               <template>
@@ -307,7 +322,12 @@
             image: featured_media.preview_image,
             image_alt: image_alt,
             class: 'drift-trigger',
-            lazy_product: lazy_product
+            lazy_product: featured_lazy_product,
+            lazy_load: priority_featured_media,
+            first: priority_featured_media,
+            no_animate: priority_featured_media,
+            custom_widths: main_media_widths,
+            sizes: main_media_sizes
           %}
           {% if zoom_type == 'open_lightbox' %}
             <button class="zoom_light_box">
@@ -323,7 +343,11 @@
               image_alt: image_alt,
               class: 'nn',
               no_animate: true,
-              lazy_product: lazy_product
+              lazy_product: featured_lazy_product,
+              lazy_load: priority_featured_media,
+              first: priority_featured_media,
+              custom_widths: main_media_widths,
+              sizes: main_media_sizes
             %}
           {% else %}
             {% render 'responsive-image',

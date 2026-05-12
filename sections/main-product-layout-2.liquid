@@ -1,4 +1,6 @@
-{{ 'main-product-layout-2.css' | asset_url | stylesheet_tag }}
+{% if request.design_mode %}
+  {{ 'main-product-layout-2.css' | asset_url | stylesheet_tag }}
+{% endif %}
 {%- liquid
   assign theme_st = settings
   assign section_st = section.settings
@@ -39,7 +41,9 @@
   style="{{ style | strip | strip_newlines }}"
   data-update-url="true"
 >
-  {{ 'component-deferred-media.css' | asset_url | stylesheet_tag }}
+  {% if request.design_mode %}
+    {{ 'component-deferred-media.css' | asset_url | stylesheet_tag }}
+  {% endif %}
   {%- assign first_3_d_model = product.media | where: 'media_type', 'model' | first -%}
   {%- if first_3_d_model -%}
     {{ 'component-product-model.css' | asset_url | stylesheet_tag }}
@@ -59,12 +63,11 @@
     >
   {% endif %}
   {%- if image_zoom == 'external_zoom' or image_zoom == 'inner_zoom_circle' or image_zoom == 'inner_zoom_square' -%}
-    {{ 'photoswipe.css' | asset_url | stylesheet_tag }}
     <script src="{{ 'drift.js' | asset_url }}" defer="defer"></script>
-    {{ 'drift-basic.min.css' | asset_url | stylesheet_tag }}
+    <link rel="stylesheet" href="{{ 'drift-basic.min.css' | asset_url }}" media="print" onload="this.media='all'">
   {% endif %}
   {% if image_zoom != 'no_zoom' %}
-    {{ 'photoswipe.css' | asset_url | stylesheet_tag }}
+    <link rel="stylesheet" href="{{ 'photoswipe.css' | asset_url }}" media="print" onload="this.media='all'">
   {% endif %}
   <script src="{{ 'photoswipe-init.js' | asset_url }}" defer="defer" type="module"></script>
   {% if enable_skeleton_loading == true %}

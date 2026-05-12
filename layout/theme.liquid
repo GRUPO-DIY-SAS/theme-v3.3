@@ -123,7 +123,16 @@
           {% if load_swiper_assets %}
             { type: 'style', href: {{ 'swiper-bundle.min.css' | asset_url | json }} },
           {% endif %}
+          {% if request.page_type == 'collection' %}
+            { type: 'style', href: {{ 'collection-page.css' | asset_url | json }} },
+          {% endif %}
           {% if request.page_type == 'product' %}
+            {% if template.suffix == 'layout-2' %}
+              { type: 'style', href: {{ 'main-product-layout-2.css' | asset_url | json }} },
+            {% else %}
+              { type: 'style', href: {{ 'main-product.css' | asset_url | json }} },
+            {% endif %}
+            { type: 'style', href: {{ 'component-deferred-media.css' | asset_url | json }} },
             { type: 'style', href: {{ 'diyvape-pdp-components.css' | asset_url | json }} },
           {% endif %}
           { type: 'style', href: {{ 'judgeme-reviews.css' | asset_url | json }}, visual: false },

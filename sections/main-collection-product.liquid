@@ -1,4 +1,6 @@
-{{ 'collection-page.css' | asset_url | stylesheet_tag }}
+{% if request.design_mode %}
+  {{ 'collection-page.css' | asset_url | stylesheet_tag }}
+{% endif %}
 {% # theme-check-disable ContentForHeaderModification %}
 {%- capture content_for_query_string -%}
   {{ content_for_header }}

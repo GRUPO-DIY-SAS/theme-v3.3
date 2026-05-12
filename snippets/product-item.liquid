@@ -211,7 +211,8 @@
                   sizes: sizes,
                   lazy_product: primary_lazy_product,
                   lazy_load: product_image_eager,
-                  first: product_image_priority
+                  first: product_image_priority,
+                  no_animate: product_image_eager
                 %}
               {% endif %}
             {% else %}
@@ -228,7 +229,8 @@
                 sizes: sizes,
                 lazy_product: primary_lazy_product,
                 lazy_load: product_image_eager,
-                first: product_image_priority
+                first: product_image_priority,
+                no_animate: product_image_eager
               %}
               {%- liquid
                 if card_product.media[1] != blank and show_secondary_image
