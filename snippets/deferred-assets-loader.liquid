@@ -75,7 +75,11 @@
     function shouldReleaseDynamicAsset(entry, group) {
       if (!entry) return false;
       if (group && entry.group !== group) return false;
+      /* Rapi y Judge.me sólo tienen sentido en PDP. En cualquier otra página
+         los seguimos bloqueando incluso después del age gate — el merchant
+         confirmó que Judge.me solo se usa en product page y Rapi también. */
       if (entry.group === 'rapi' && pageType !== 'product') return false;
+      if (entry.group === 'reviews' && pageType !== 'product') return false;
       return true;
     }
 
@@ -84,6 +88,7 @@
       var group = getDeferredDynamicGroup(url);
       if (!group) return false;
       if (group === 'rapi' && pageType !== 'product') return true;
+      if (group === 'reviews' && pageType !== 'product') return true;
       if (releasingDynamicAssets || dynamicAssetsAllowed || isAgeVerified()) return false;
       blockedDynamicAssets.push({
         parent: parent,
@@ -249,10 +254,13 @@
       }
     }
 
-    /* Sólo interceptamos appendChild/insertBefore si el usuario NO está verificado.
-       Para usuarios verificados (mayoría del tráfico recurrente), evitamos overhead
-       de wrapping en cada operación DOM — sin esto medimos +457ms LCP en verified. */
-    if (!isAgeVerified()) {
+    /* Interceptamos appendChild/insertBefore en estos casos:
+       1) Usuario NO verificado (cualquier página) — para bloquear todo hasta age gate.
+       2) Página != product (incluso para verified) — para bloquear reviews y rapi en
+          collection/home/search donde no aportan valor pero sí pesan.
+       Skip total para verified-en-PDP: preserva el win de v2 (cero overhead en el
+       caso de mayor tráfico, los usuarios recurrentes viendo producto). */
+    if (!isAgeVerified() || pageType !== 'product') {
       Node.prototype.appendChild = function (node) {
         if (blockDynamicAsset(this, node, null)) return node;
         return originalAppendChild.call(this, node);
