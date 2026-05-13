@@ -1,7 +1,23 @@
 'use-strict';
 
-import PhotoSwipeLightbox from './photoswipe-lightbox.esm.min.js';
-import Photoswipe from './photoswipe.esm.min.js';
+/* PhotoSwipe libs lazy-loaded on first image click. Sin esto los imports
+   estáticos forzaban download de photoswipe-lightbox.esm.min.js + photoswipe.esm.min.js
+   (~24KB combinado) en el critical chain de cada PDP, depth 3.
+   Dynamic import retrasa hasta el click del usuario — los assets caen del critical
+   path del LCP. */
+let _psModulesPromise = null;
+function loadPhotoSwipeModules() {
+  if (!_psModulesPromise) {
+    _psModulesPromise = Promise.all([
+      import('./photoswipe-lightbox.esm.min.js'),
+      import('./photoswipe.esm.min.js'),
+    ]).then(([lightbox, core]) => ({
+      PhotoSwipeLightbox: lightbox.default,
+      Photoswipe: core.default,
+    }));
+  }
+  return _psModulesPromise;
+}
 // js gallery
 class ZoomAction extends HTMLElement {
   constructor() {
@@ -21,7 +37,7 @@ class ZoomAction extends HTMLElement {
     if (this.lightbox !== null) return;
     this.querySelectorAll('a.media-gallery__image').forEach((a) => {
       var position = 0;
-      a.addEventListener('click', (e) => {
+      a.addEventListener('click', async (e) => {
         e.preventDefault();
         const target = e.currentTarget;
         if (target.getAttribute('data-position')) {
@@ -38,6 +54,7 @@ class ZoomAction extends HTMLElement {
             .closest('media-gallery')
             .firstChild?.getAttribute('data-position');
         }
+        const { PhotoSwipeLightbox, Photoswipe } = await loadPhotoSwipeModules();
         this.lightbox = new PhotoSwipeLightbox({
           gallery: this,
           children: 'a',
