@@ -556,6 +556,7 @@
           method: "POST",
           credentials: "same-origin",
           cache: "no-store",
+          keepalive: true,
           signal: controller ? controller.signal : undefined,
           headers: { "Content-Type": "application/json", Accept: "application/json" },
           body: JSON.stringify(payload),

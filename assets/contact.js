@@ -19,4 +19,6 @@ class ProductAddons extends PopupBase {
     );
   }
 }
-customElements.define("product-addons", ProductAddons);
+if (!customElements.get("product-addons")) {
+  customElements.define("product-addons", ProductAddons);
+}

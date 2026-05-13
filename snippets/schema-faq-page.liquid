@@ -1,8 +1,9 @@
 {%- if template contains 'page' -%}
   {%- assign faq_json = page.metafields.custom.faq_schema -%}
   {%- if faq_json != blank -%}
+    {%- comment %} Neutralize stray `</script>` inside metafield to prevent XSS via admin-crafted content. {% endcomment -%}
     <script type="application/ld+json">
-      {{ faq_json }}
+      {{ faq_json | replace: '</script', '<\/script' }}
     </script>
   {%- endif -%}
 {%- endif -%}

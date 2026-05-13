@@ -26,12 +26,14 @@ class ZoomAction extends HTMLElement {
     this.zoomOption = this.dataset.zoomOption || 'external';
     this.lightbox = null;
     this.drift = null;
+    // Cache bound reference so add/remove target the same function.
+    this._onResponsive = this.responsive.bind(this);
     this.init();
   }
   init() {
     if (this.type === 'no_zoom') return;
-    window.addEventListener('resize', this.responsive.bind(this));
-    window.addEventListener('load', this.responsive.bind(this));
+    window.addEventListener('resize', this._onResponsive);
+    window.addEventListener('load', this._onResponsive);
   }
   initLightBox() {
     if (this.lightbox !== null) return;
@@ -184,7 +186,7 @@ class ZoomAction extends HTMLElement {
       if (this.type !== 'open_lightbox') {
         if (this.drift !== null) {
           this.drift.destroy();
-          this.drift == null;
+          this.drift = null;
         }
         this.initLightBox();
       } else {
@@ -203,8 +205,8 @@ class ZoomAction extends HTMLElement {
   }
 
   disconnectedCallback() {
-    window.removeEventListener('resize', this.responsive.bind(this));
-    window.removeEventListener('load', this.responsive.bind(this));
+    window.removeEventListener('resize', this._onResponsive);
+    window.removeEventListener('load', this._onResponsive);
   }
 }
 customElements.define('zoom-action', ZoomAction);
