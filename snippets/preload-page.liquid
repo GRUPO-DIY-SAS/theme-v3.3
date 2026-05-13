@@ -2,6 +2,13 @@
   assign theme_st = settings
   assign enable_preload = theme_st.enable_preload
   assign preload_page = theme_st.preload_page
+  # En design_mode (Shopify Theme Editor) el overlay cubre el viewport y
+  # bloquea la edición visual de las secciones. Nunca se levanta porque el
+  # deferred-assets-loader no se renderiza cuando defer_theme_assets_until_age_gate
+  # es false (defaultea en editor).
+  if request.design_mode
+    assign enable_preload = false
+  endif
 %}
 {% if enable_preload %}
   <preload-page

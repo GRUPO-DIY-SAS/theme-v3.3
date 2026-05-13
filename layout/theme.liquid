@@ -39,6 +39,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="theme-color" content="">
+    {%- if request.design_mode -%}
+      {%- comment -%} En el Shopify Theme Editor el deferred-assets-loader no
+        se renderiza (defer_theme_assets_until_age_gate = false), así que las
+        reglas FOUC-prevention de critical-base.liquid (html:not(.diyvape-deferred-visual-ready) main { visibility:hidden })
+        nunca se levantan. Sin estas classes, el editor muestra una página
+        blanca. Las añadimos inmediato en design mode para que todo el FOUC
+        guard se considere ready. {%- endcomment -%}
+      <script>
+        document.documentElement.classList.add('diyvape-deferred-visual-ready');
+        document.documentElement.classList.add('diyvape-deferred-assets-loaded');
+        document.documentElement.classList.add('diyvape-nav-css-loaded');
+        document.documentElement.classList.add('shopify-design-mode');
+      </script>
+    {%- endif -%}
     {%- comment -%} Preconnect a cdn.shopify.com — ahorra DNS+TLS handshake (~200-400ms)
       en el primer fetch del logo del age gate (LCP element), fuentes e imágenes.
       Solo afecta DNS/TLS, no descarga recursos extra. {%- endcomment -%}
