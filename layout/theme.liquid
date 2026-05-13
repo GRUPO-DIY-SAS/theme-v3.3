@@ -114,6 +114,15 @@
           }
           return '';
         };
+        /* En design mode (Shopify Theme Editor) NO añadimos la clase age-gate-verified
+           aunque la cookie/localStorage indique que sí. El merchant probablemente tiene
+           cookie de visitas reales al shop, y la clase haría que el age gate quede
+           invisible en el editor (vía CSS html.age-gate-verified .ai-age-verify-overlay
+           { display:none !important }). En design mode queremos poder editar el bloque. */
+        if (window.Shopify && window.Shopify.designMode) {
+          document.documentElement.classList.remove('age-gate-verified');
+          return;
+        }
         try {
           if (parseVerified(getCookie(cookieName)) || parseVerified(localStorage.getItem(cookieName))) {
             document.documentElement.classList.add('age-gate-verified');

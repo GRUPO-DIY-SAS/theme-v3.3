@@ -168,6 +168,34 @@
   .ai-age-verify-editor-trigger {
     display: none;
   }
+  /* En design mode, el botón "Preview Age Verification" debe verse cuando
+     editor_mode_behavior es show_in_editor o only_preview_button. El JS abajo
+     añade .is-editor-visible cuando aplica. Posicionamos fixed BOTTOM-LEFT
+     porque el right panel del Shopify Theme Editor puede cubrir bottom-right.
+     z-index alto para estar sobre todo excepto el modal mismo (z:99999). */
+  .ai-age-verify-editor-trigger.is-editor-visible {
+    display: block !important;
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    z-index: 100000;
+    pointer-events: auto;
+  }
+  .ai-age-verify-editor-trigger.is-editor-visible button {
+    padding: 12px 20px;
+    background: #2c6ecb;
+    color: #fff;
+    border: 2px solid #fff;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 700;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+    line-height: 1;
+  }
+  .ai-age-verify-editor-trigger.is-editor-visible button:hover {
+    background: #2059a8;
+  }
   body.ai-age-gate-open {
     overflow: hidden;
     position: fixed;
@@ -450,9 +478,125 @@
   })();
 </script>
 
-<div class="ai-age-verify-editor-trigger" data-age-editor-trigger-for="AgeVerification-{{ ai_gen_id }}">
+<div class="ai-age-verify-editor-trigger" data-age-editor-trigger-for="AgeVerification-{{ ai_gen_id }}" data-editor-mode-behavior="{{ block.settings.editor_mode_behavior }}">
   <button type="button" aria-label="Preview age verification">Preview Age Verification</button>
 </div>
+
+<script>
+  /* Design-mode-only preview handler. Respeta el setting editor_mode_behavior:
+       · hide_in_editor       → modal nunca se muestra; botón Preview oculto.
+       · show_in_editor       → modal visible inmediato al cargar; botón toggle.
+       · only_preview_button  → modal oculto por default; botón Preview o
+                                shopify:block:select lo muestra.
+     Solo corre en designMode — cero overhead en producción. */
+  (function () {
+    if (!(window.Shopify && window.Shopify.designMode)) return;
+    var gateId = 'AgeVerification-{{ ai_gen_id }}';
+    var blockId = {{ block.id | json }};
+    var behavior = {{ block.settings.editor_mode_behavior | default: 'only_preview_button' | json }};
+
+    function init() {
+      var gate = document.getElementById(gateId);
+      if (!gate) {
+        console.warn('[AgeGate Editor] gate element not found:', gateId);
+        return;
+      }
+
+      var triggerWrap = document.querySelector(
+        '.ai-age-verify-editor-trigger[data-age-editor-trigger-for="' + gateId + '"]'
+      );
+      var triggerBtn = triggerWrap && triggerWrap.querySelector('button');
+
+      console.log('[AgeGate Editor]', {
+        gateId: gateId,
+        blockId: blockId,
+        behavior: behavior,
+        gateFound: !!gate,
+        triggerWrapFound: !!triggerWrap,
+        triggerBtnFound: !!triggerBtn
+      });
+
+      run(gate, triggerWrap, triggerBtn);
+    }
+
+    function run(gate, triggerWrap, triggerBtn) {
+
+    function showGate() {
+      gate.removeAttribute('aria-hidden');
+      gate.classList.add('active');
+      /* Force inline styles override — Shopify editor may re-render with .active
+         baked in by default. Inline styles override class-based CSS. */
+      gate.style.visibility = 'visible';
+      gate.style.opacity = '1';
+      gate.style.pointerEvents = 'auto';
+    }
+    function hideGate() {
+      gate.setAttribute('aria-hidden', 'true');
+      gate.classList.remove('active');
+      gate.style.visibility = 'hidden';
+      gate.style.opacity = '0';
+      gate.style.pointerEvents = 'none';
+    }
+
+    if (behavior === 'hide_in_editor') {
+      /* Modal nunca visible. Botón Preview queda oculto (default CSS) y no
+         enganchamos listeners. */
+      hideGate();
+      return;
+    }
+
+    /* Hacer visible el botón Preview (default CSS lo oculta) para
+       show_in_editor y only_preview_button. */
+    if (triggerWrap) triggerWrap.classList.add('is-editor-visible');
+
+    if (behavior === 'show_in_editor') {
+      /* Modal visible al cargar el editor. */
+      showGate();
+    } else {
+      /* only_preview_button: el HTML del block sale con class="...active" por
+         default (porque en production los visitantes deben ver el modal). En
+         design mode con este behavior, debemos APAGAR el modal al cargar
+         para que el merchant solo lo vea cuando hace click en el botón Preview. */
+      hideGate();
+    }
+
+    if (triggerBtn) {
+      /* capture: true + stopPropagation porque el Shopify editor intercepta
+         clicks dentro del iframe para highlight blocks. Sin capture phase
+         nuestro handler no recibe el evento. */
+      triggerBtn.addEventListener('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        e.stopImmediatePropagation();
+        console.log('[AgeGate Editor] preview button click. gate active?', gate.classList.contains('active'));
+        if (gate.classList.contains('active')) hideGate(); else showGate();
+      }, { capture: true });
+      /* Backup: también attach al click en cualquier fase. */
+      triggerBtn.addEventListener('mousedown', function (e) {
+        e.stopPropagation();
+      }, { capture: true });
+    }
+
+    /* En only_preview_button: shopify:block:select también abre el modal
+       para que al hacer click en el bloque desde el sidebar se vea el contenido.
+       En show_in_editor: idem (no perjudica, ya está visible). */
+    document.addEventListener('shopify:block:select', function (event) {
+      if (event.detail && event.detail.blockId === blockId) showGate();
+    });
+    document.addEventListener('shopify:block:deselect', function (event) {
+      if (event.detail && event.detail.blockId === blockId && behavior !== 'show_in_editor') {
+        hideGate();
+      }
+    });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init, { once: true });
+    } else {
+      init();
+    }
+  })();
+</script>
 
 {% schema %}
 {
