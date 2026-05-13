@@ -19,15 +19,25 @@
      {%- when 'product' -%}
   {%- assign crumb_col = collection -%}
   {%- if crumb_col.url == blank -%}
+    {%- comment -%}
+      Precomputamos las handles del producto a una needle string para chequeo O(1)
+      contra cada handle de la lista de prioridad. Sin esto, el loop anidado original
+      era O(31 × N) sobre product.collections en cada render de PDP. Con la guardia
+      contains, sólo iteramos product.collections cuando sabemos que tiene match.
+    {%- endcomment -%}
+    {%- assign product_col_handles = product.collections | map: 'handle' | join: '|' | prepend: '|' | append: '|' -%}
     {%- assign priority = 'salt-nic-ejuice|sales-de-nicotina-reguladas|base-libre|liquidos-base-libre-regulados|vape-sin-nicotina|vapes-desechables-de-20000-puff-en-adelante|vapes-desechables-de-10000-a-20000-puff|vapes-desechables-de-5000-a-10000-puff|vapes-desechables-de-3000-a-5000-puff|vapes-desechables-de-800-a-3000-puff|pods-desechables|sistemas-cerrados-pods-semi-desechables|pod-system|kits-avanzados|kits-de-inicio|tanques-y-rda|resistencias-artesanales|resistencias-comerciales|baterias-destilados|baterias|iqos|pouches-de-nicotina-y-cafeina|vaporizadores-herbales|dabs-rigs-bongs|one-shots|todos-los-aromas|bases|e-liquid|accesorios-vapeo|nicotina|dynavap' | split: '|' -%}
     {%- for h in priority -%}
-      {%- for col in product.collections -%}
-        {%- if col.handle == h -%}
-          {%- assign crumb_col = col -%}
-          {%- break -%}
-        {%- endif -%}
-      {%- endfor -%}
-      {%- if crumb_col.url -%}{%- break -%}{%- endif -%}
+      {%- assign needle = '|' | append: h | append: '|' -%}
+      {%- if product_col_handles contains needle -%}
+        {%- for col in product.collections -%}
+          {%- if col.handle == h -%}
+            {%- assign crumb_col = col -%}
+            {%- break -%}
+          {%- endif -%}
+        {%- endfor -%}
+        {%- break -%}
+      {%- endif -%}
     {%- endfor -%}
   {%- endif -%}
   {%- if crumb_col.url == blank -%}
