@@ -1,0 +1,14 @@
+# Files outside Shopify theme structure — never deploy to live or dev themes
+.claude/
+CLAUDE.md
+CLAUDE.local.md
+CLAUDE.local.md.example
+.gitignore
+.shopifyignore
+README.md
+
+# OS / editor artifacts
+.DS_Store
+*.log
+.vscode/
+.idea/

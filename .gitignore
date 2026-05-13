@@ -1,3 +1,14 @@
-.claude/
 .DS_Store
 *.log
+CLAUDE.local.md
+
+# Claude Code: track dotclaude config, ignore local-only state
+.claude/settings.local.json
+.claude/scheduled_tasks.lock
+.claude/projects/
+.claude/cache/
+.claude/state/
+
+# IDE / OS
+.vscode/
+.idea/
