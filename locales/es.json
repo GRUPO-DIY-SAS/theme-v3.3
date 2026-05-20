@@ -815,6 +815,9 @@
       "payment_gateway": {
         "bank_deposit_label": "Transferencia Bancaria: Bancolombia, Davivienda, Daviplata, Nequi ",
         "cash_on_delivery_label": "Pago contra entrega en efectivo (Ciudades Principales) "
+      },
+      "marketing": {
+        "accept_sms_checkbox_label": "Enviarme notificaciones por WhatsApp"
       }
     },
     "notices": {
