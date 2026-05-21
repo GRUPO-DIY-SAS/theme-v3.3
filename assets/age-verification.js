@@ -1,5 +1,6 @@
 (function () {
   const ELEMENT_NAME = "age-verification-gate";
+  const CANONICAL_COOKIE_NAME = "age_verified_diyvape";
 
   if (customElements.get(ELEMENT_NAME)) return;
 
@@ -14,7 +15,12 @@
   class AgeVerificationGate extends HTMLElement {
     constructor() {
       super();
-      this.cookieName = this.dataset.cookieName || "age_verified_diyvape";
+      this.cookieName = this.dataset.cookieName || CANONICAL_COOKIE_NAME;
+      this.canonicalCookieName = CANONICAL_COOKIE_NAME;
+      this.cookieAliases =
+        this.cookieName === this.canonicalCookieName
+          ? [this.canonicalCookieName]
+          : [this.canonicalCookieName, this.cookieName];
       this.cookieDaysLegacy = parseInt(this.dataset.cookieDays || "365", 10);
       this.cookieDomain = this.dataset.cookieDomain || ".diyvape.co";
       this.editorModeBehavior = (this.dataset.editorModeBehavior || "show_in_editor").trim();
@@ -28,7 +34,7 @@
       this.orderNoteEnabled = String(this.dataset.orderNoteEnabled || "false") === "true";
       this.orderNoteTemplate = this.dataset.orderNoteTemplate || "";
       this.ageErrorMessage = this.dataset.ageErrorMessage || "Verifica tu fecha de nacimiento. Debes ser mayor de 18 años.";
-      this.idErrorMessage = this.dataset.idErrorMessage || "El numero de identificacion debe ser numerico y tener entre 8 y 10 digitos.";
+      this.idErrorMessage = this.dataset.idErrorMessage || "El numero de identificacion debe ser numerico y tener entre 6 y 10 digitos.";
       this.cookieErrorMessage = this.dataset.cookieErrorMessage || "No se pudo guardar la cookie en este navegador. Se guardo un respaldo local.";
       this.cartErrorMessage = this.dataset.cartErrorMessage || "No se pudo guardar la verificacion en el carrito. Intenta nuevamente.";
 
@@ -46,24 +52,24 @@
       this.editorTriggerBtn = this.editorTriggerWrap ? this.editorTriggerWrap.querySelector("button") : null;
       this.modal = this.querySelector("[data-age-modal]");
       this._cartSyncInFlight = false;
-      this._cartSyncSessionKey = "av_cart_synced_" + this.cookieName;
-      this._pendingCartSyncKey = "av_cart_sync_pending_" + this.cookieName;
+      this._cartSyncSessionKey = "av_cart_synced_" + this.canonicalCookieName;
+      this._pendingCartSyncKey = "av_cart_sync_pending_" + this.canonicalCookieName;
+      this._legacyPendingCartSyncKey =
+        this.cookieName === this.canonicalCookieName ? null : "av_cart_sync_pending_" + this.cookieName;
       this._manualPreviewKey = "av_manual_preview_" + this.cookieName;
       this._eventsReady = false;
       this._cartSyncRescueReady = false;
       this._cartSyncPromise = null;
+      this._pendingCartSyncMemory = null;
+      this._perfEnabled = this.isPerfEnabled();
+      this._perfMarks = {};
+      this._lastSubmitPerfAt = 0;
     }
 
     connectedCallback() {
       this.setDobBounds();
       this.installCartSyncRescueEvents();
-
-      if (!this.isShopifyDesignMode() && this.isCartVerified()) {
-        document.documentElement.classList.add("age-gate-verified");
-        this.hide();
-        this.dispatchVerifiedEvent("cart_verified");
-        return;
-      }
+      this.installPerfObserver();
 
       this.restoreCookieFromStorageIfNeeded();
 
@@ -71,7 +77,7 @@
       if (verified) {
         document.documentElement.classList.add("age-gate-verified");
         this.hide();
-        this.dispatchVerifiedEvent("cookie_present");
+        this.dispatchVerifiedEvent(this.isCartVerified() ? "cart_verified_with_local_data" : "cookie_present");
         this.deferCartSync(verified, { reason: "cookie_present", force: true });
         return;
       }
@@ -202,6 +208,7 @@
     }
 
     async handleSubmit(event) {
+      this.perfMark("submit_received");
       event.preventDefault();
       this.clearAllErrors();
       this.setSubmitLoading(true);
@@ -226,6 +233,7 @@
         this.setSubmitLoading(false);
         return;
       }
+      this.perfMark("validation_complete");
 
       const payload = {
         dob,
@@ -236,20 +244,14 @@
 
       this.persistVerificationFallbacks(payload);
 
+      if (!this.getVerifiedObject()) {
+        this.showError(this.errCookie, this.cookieErrorMessage);
+        this.setSubmitLoading(false);
+        return;
+      }
+
       if (this.cartSyncEnabled) {
         this.setPendingCartSyncPayload(payload);
-        try {
-          await this.syncVerificationToCartIfNeeded(payload, {
-            reason: "just_verified",
-            force: true,
-            required: true,
-            retries: 2,
-          });
-        } catch (error) {
-          this.showError(this.errCookie, this.cartErrorMessage);
-          this.setSubmitLoading(false);
-          return;
-        }
       }
 
       this.resetTransientDrawers({ includeNav: true });
@@ -261,8 +263,24 @@
       this.suppressMinicartDrawer(800, { includeNav: true });
       document.documentElement.classList.add("age-gate-verified");
       this.hide();
-      this.dispatchVerifiedEvent("just_verified");
       this.setSubmitLoading(false);
+      this.perfMark("modal_hidden");
+      this.logSubmitPerf();
+
+      this.afterNextPaint(() => {
+        this.perfMark("age_verified_event");
+        this.dispatchVerifiedEvent("just_verified");
+
+        if (!this.cartSyncEnabled) return;
+        this.syncVerificationToCartIfNeeded(payload, {
+          reason: "just_verified_background",
+          force: true,
+          retries: 2,
+        })
+          .catch((error) => {
+            if (window.console && console.warn) console.warn("[AgeGate] background cart sync failed", error);
+          });
+      });
     }
 
     dispatchVerifiedEvent(reason) {
@@ -354,11 +372,29 @@
     }
 
     isVerifiedCookieValid() {
-      return Boolean(this.parseVerified(this.getCookie(this.cookieName)));
+      return Boolean(this.getVerifiedObjectFromCookies());
     }
 
     getVerifiedObject() {
-      return this.parseVerified(this.getCookie(this.cookieName));
+      return this.getVerifiedObjectFromCookies() || this.getVerifiedObjectFromStorage();
+    }
+
+    getVerifiedObjectFromCookies() {
+      for (let i = 0; i < this.cookieAliases.length; i += 1) {
+        const parsed = this.parseVerified(this.getCookie(this.cookieAliases[i]));
+        if (parsed) return parsed;
+      }
+      return null;
+    }
+
+    getVerifiedObjectFromStorage() {
+      try {
+        for (let i = 0; i < this.cookieAliases.length; i += 1) {
+          const parsed = this.parseVerified(localStorage.getItem(this.cookieAliases[i]));
+          if (parsed) return parsed;
+        }
+      } catch (error) {}
+      return null;
     }
 
     isCartVerified() {
@@ -400,44 +436,44 @@
 
     setCookieStrongFlexible(name, value, ttl, domain) {
       const secure = location && location.protocol === "https:" ? ";Secure" : "";
-      const base = `${name}=${encodeURIComponent(value)};path=/;domain=${domain};SameSite=Lax${secure}`;
+      const write = (cookieDomain) => {
+        const domainAttr = cookieDomain ? `;domain=${cookieDomain}` : "";
+        const base = `${name}=${encodeURIComponent(value)};path=/${domainAttr};SameSite=Lax${secure}`;
 
-      if (ttl && ttl.type === "session") {
-        document.cookie = base;
-        return;
+        if (ttl && ttl.type === "session") {
+          document.cookie = base;
+          return;
+        }
+
+        const ms = ttl && typeof ttl.ms === "number" ? ttl.ms : 365 * 24 * 60 * 60 * 1000;
+        const date = new Date();
+        date.setTime(date.getTime() + ms);
+        document.cookie = `${base};expires=${date.toUTCString()}`;
+      };
+
+      write(domain);
+      if (!this.parseVerified(this.getCookie(name))) {
+        write("");
       }
-
-      const ms = ttl && typeof ttl.ms === "number" ? ttl.ms : 365 * 24 * 60 * 60 * 1000;
-      const date = new Date();
-      date.setTime(date.getTime() + ms);
-      document.cookie = `${base};expires=${date.toUTCString()}`;
     }
 
     persistVerificationFallbacks(payload) {
       if (!payload || !payload.verified || !payload.dob || !payload.id) return;
 
-      this.setCookieStrongFlexible(this.cookieName, JSON.stringify(payload), this.getCookieTTL(), this.cookieDomain);
-      try {
-        localStorage.setItem(this.cookieName, JSON.stringify(payload));
-      } catch (error) {}
+      const raw = JSON.stringify(payload);
+      const ttl = this.getCookieTTL();
+      this.cookieAliases.forEach((name) => {
+        this.setCookieStrongFlexible(name, raw, ttl, this.cookieDomain);
+        try {
+          localStorage.setItem(name, raw);
+        } catch (error) {}
+      });
     }
 
     restoreCookieFromStorageIfNeeded() {
       if (this.isVerifiedCookieValid()) return;
-      let stored = null;
-
-      try {
-        stored = localStorage.getItem(this.cookieName);
-      } catch (error) {}
-
-      if (!stored) return;
-
-      try {
-        const obj = JSON.parse(stored);
-        if (obj && obj.verified && obj.dob && obj.id) {
-          this.setCookieStrongFlexible(this.cookieName, JSON.stringify(obj), this.getCookieTTL(), this.cookieDomain);
-        }
-      } catch (error) {}
+      const stored = this.getVerifiedObjectFromStorage();
+      if (stored) this.persistVerificationFallbacks(stored);
     }
 
     deferCartSync(verifiedObj, opts) {
@@ -502,6 +538,7 @@
     }
 
     async performCartSync(reduced, opts) {
+      this.perfMark("cart_sync_start");
       this.suppressMinicartDrawer(400, { includeNav: false });
       this.setPendingCartSyncPayload(reduced);
 
@@ -517,6 +554,8 @@
 
           this.setSessionFlag(this._cartSyncSessionKey, reduced.sig);
           this.clearPendingCartSyncPayload();
+          this.perfMark("cart_sync_success");
+          this.logSubmitPerf();
           return true;
         } catch (error) {
           lastError = error;
@@ -524,6 +563,8 @@
         }
       }
 
+      this.perfMark("cart_sync_failed");
+      this.logSubmitPerf();
       if (opts && opts.required) throw lastError || new Error("Cart sync failed");
       return false;
     }
@@ -653,6 +694,8 @@
     installCartSyncRescueEvents() {
       if (this._cartSyncRescueReady) return;
       this._cartSyncRescueReady = true;
+      this.installCommercialActionGuard();
+      this.updateCartSyncPendingState();
 
       window.diyvapeEnsureAgeCartSync = (opts = {}) => {
         const pending = this.getPendingCartSyncPayload();
@@ -676,6 +719,141 @@
       document.addEventListener("visibilitychange", () => {
         if (!document.hidden) retryPending();
       });
+    }
+
+    installCommercialActionGuard() {
+      if (window.diyvapeAgeCartSyncGuardReady) return;
+      window.diyvapeAgeCartSyncGuardReady = true;
+
+      document.addEventListener(
+        "submit",
+        (event) => {
+          const form = event.target;
+          if (!form || !form.matches || this.isInsideAgeGate(form)) return;
+          const submitter = this.getSubmitter(event, form);
+          const shouldGuard = this.isAddToCartForm(form) || this.isCheckoutSubmit(form, submitter);
+          if (!shouldGuard) return;
+
+          this.guardCommercialAction(event, submitter || form, () => {
+            if (typeof form.requestSubmit === "function") {
+              if (submitter && submitter.form === form && !submitter.disabled) form.requestSubmit(submitter);
+              else form.requestSubmit();
+              return;
+            }
+            form.submit();
+          });
+        },
+        true
+      );
+
+      document.addEventListener(
+        "click",
+        (event) => {
+          const control = this.closestFromEvent(
+            event,
+            'a[href*="/checkout"], button[name="checkout"], .btn-checkout, .shopify-payment-button button, .shopify-payment-button__button'
+          );
+          if (!control || this.isInsideAgeGate(control)) return;
+
+          this.guardCommercialAction(event, control, () => {
+            if (typeof control.click === "function") control.click();
+          });
+        },
+        true
+      );
+    }
+
+    guardCommercialAction(event, anchor, replay) {
+      const pending = this.getPendingCartSyncPayload();
+      if (!this.cartSyncEnabled || !pending) return false;
+
+      event.preventDefault();
+      event.stopPropagation();
+      if (typeof event.stopImmediatePropagation === "function") event.stopImmediatePropagation();
+
+      if (this._commercialActionPending) return true;
+      this._commercialActionPending = true;
+      this.updateCartSyncPendingState();
+
+      this.syncVerificationToCartIfNeeded(pending, {
+        reason: "commercial_guard",
+        force: true,
+        required: true,
+        retries: 2,
+      })
+        .then(() => {
+          this._commercialActionPending = false;
+          this.updateCartSyncPendingState();
+          window.setTimeout(replay, 0);
+        })
+        .catch((error) => {
+          this._commercialActionPending = false;
+          this.reportCartSyncIssue(this.cartErrorMessage, anchor, error);
+        });
+
+      return true;
+    }
+
+    isAddToCartForm(form) {
+      const action = form && form.getAttribute ? form.getAttribute("action") || "" : "";
+      return Boolean(
+        action.indexOf("/cart/add") !== -1 ||
+          form.matches('form[data-type="add-to-cart-form"]') ||
+          form.closest("product-form")
+      );
+    }
+
+    isCheckoutSubmit(form, submitter) {
+      const action = form && form.getAttribute ? form.getAttribute("action") || "" : "";
+      return Boolean(
+        action.indexOf("/checkout") !== -1 ||
+          (submitter && submitter.getAttribute && submitter.getAttribute("name") === "checkout")
+      );
+    }
+
+    getSubmitter(event, form) {
+      if (event && event.submitter) return event.submitter;
+      const active = document.activeElement;
+      return active && form && form.contains(active) ? active : null;
+    }
+
+    closestFromEvent(event, selector) {
+      let target = event && event.target;
+      if (target && target.nodeType !== 1) target = target.parentElement;
+      return target && target.closest ? target.closest(selector) : null;
+    }
+
+    isInsideAgeGate(element) {
+      return Boolean(element && element.closest && element.closest(ELEMENT_NAME));
+    }
+
+    updateCartSyncPendingState() {
+      const pending = Boolean(this.cartSyncEnabled && this.getPendingCartSyncPayload());
+      document.documentElement.classList.toggle("diyvape-age-cart-sync-pending", pending);
+      document.querySelectorAll(".btn-checkout-dynamic, .shopify-payment-button").forEach((wrapper) => {
+        wrapper.setAttribute("aria-busy", pending ? "true" : "false");
+      });
+    }
+
+    reportCartSyncIssue(message, anchor, error) {
+      if (error && window.console && console.warn) console.warn("[AgeGate] cart sync failed", error);
+      if (this.errCookie && this.classList.contains("active")) this.showError(this.errCookie, message);
+      if (typeof window.showToast === "function") {
+        window.showToast(message, 4000, "modal-error");
+        return;
+      }
+
+      let alert = document.getElementById("diyvape-age-cart-sync-alert");
+      if (!alert) {
+        alert = document.createElement("div");
+        alert.id = "diyvape-age-cart-sync-alert";
+        alert.className = "diyvape-age-cart-sync-alert";
+        alert.setAttribute("role", "alert");
+      }
+      alert.textContent = message;
+
+      const parent = anchor && anchor.parentNode ? anchor.parentNode : document.body;
+      if (alert.parentNode !== parent) parent.appendChild(alert);
     }
 
     async retryPendingCartSync(reason) {
@@ -751,23 +929,41 @@
 
     setPendingCartSyncPayload(payload) {
       if (!payload || !payload.dob || !payload.id) return;
+      this._pendingCartSyncMemory = payload;
       try {
         localStorage.setItem(this._pendingCartSyncKey, JSON.stringify(payload));
+        if (this._legacyPendingCartSyncKey) {
+          localStorage.setItem(this._legacyPendingCartSyncKey, JSON.stringify(payload));
+        }
       } catch (error) {}
+      this.updateCartSyncPendingState();
     }
 
     getPendingCartSyncPayload() {
+      if (this._pendingCartSyncMemory) return this._pendingCartSyncMemory;
       try {
-        return this.parseVerified(localStorage.getItem(this._pendingCartSyncKey));
+        const pending = this.parseVerified(localStorage.getItem(this._pendingCartSyncKey));
+        if (pending) return pending;
+        if (this._legacyPendingCartSyncKey) {
+          const legacy = this.parseVerified(localStorage.getItem(this._legacyPendingCartSyncKey));
+          if (legacy) {
+            localStorage.setItem(this._pendingCartSyncKey, JSON.stringify(legacy));
+            return legacy;
+          }
+        }
       } catch (error) {
         return null;
       }
+      return null;
     }
 
     clearPendingCartSyncPayload() {
+      this._pendingCartSyncMemory = null;
       try {
         localStorage.removeItem(this._pendingCartSyncKey);
+        if (this._legacyPendingCartSyncKey) localStorage.removeItem(this._legacyPendingCartSyncKey);
       } catch (error) {}
+      this.updateCartSyncPendingState();
     }
 
     setSubmitLoading(isLoading) {
@@ -807,6 +1003,93 @@
       } catch (error) {
         return false;
       }
+    }
+
+    afterNextPaint(callback) {
+      if ("requestAnimationFrame" in window) {
+        window.requestAnimationFrame(() => window.requestAnimationFrame(callback));
+        return;
+      }
+      window.setTimeout(callback, 0);
+    }
+
+    isPerfEnabled() {
+      try {
+        const url = new URL(window.location.href);
+        if (url.searchParams.get("diyvape_perf") === "1") return true;
+      } catch (error) {}
+      try {
+        return localStorage.getItem("diyvape_perf") === "1";
+      } catch (error) {
+        return false;
+      }
+    }
+
+    perfMark(name) {
+      if (!this._perfEnabled || !window.performance || typeof performance.now !== "function") return;
+      const now = performance.now();
+      this._perfMarks[name] = now;
+      if (name === "submit_received") this._lastSubmitPerfAt = now;
+      if (window.console && console.info) console.info("[AgeGate Perf]", name, Math.round(now));
+    }
+
+    logSubmitPerf() {
+      if (!this._perfEnabled || !this._perfMarks.submit_received || !window.console || !console.info) return;
+      const start = this._perfMarks.submit_received;
+      const report = {};
+      [
+        "validation_complete",
+        "modal_hidden",
+        "age_verified_event",
+        "cart_sync_start",
+        "cart_sync_success",
+        "cart_sync_failed",
+      ].forEach((name) => {
+        if (typeof this._perfMarks[name] === "number") {
+          report[name] = Math.round(this._perfMarks[name] - start);
+        }
+      });
+      console.info("[AgeGate INP]", report);
+    }
+
+    installPerfObserver() {
+      if (!this._perfEnabled || window.diyvapeAgePerfObserverReady || !("PerformanceObserver" in window)) return;
+      window.diyvapeAgePerfObserverReady = true;
+
+      const nearSubmit = (entry) => {
+        return this._lastSubmitPerfAt && entry.startTime >= this._lastSubmitPerfAt - 250 && entry.startTime <= this._lastSubmitPerfAt + 5000;
+      };
+
+      try {
+        if (PerformanceObserver.supportedEntryTypes && PerformanceObserver.supportedEntryTypes.indexOf("longtask") !== -1) {
+          new PerformanceObserver((list) => {
+            list.getEntries().forEach((entry) => {
+              if (nearSubmit(entry) && window.console && console.info) {
+                console.info("[AgeGate LongTask]", {
+                  start: Math.round(entry.startTime),
+                  duration: Math.round(entry.duration),
+                });
+              }
+            });
+          }).observe({ type: "longtask", buffered: true });
+        }
+      } catch (error) {}
+
+      try {
+        if (PerformanceObserver.supportedEntryTypes && PerformanceObserver.supportedEntryTypes.indexOf("event") !== -1) {
+          new PerformanceObserver((list) => {
+            list.getEntries().forEach((entry) => {
+              if (nearSubmit(entry) && window.console && console.info) {
+                console.info("[AgeGate EventTiming]", {
+                  name: entry.name,
+                  duration: Math.round(entry.duration),
+                  processingStart: Math.round(entry.processingStart || 0),
+                });
+              }
+            });
+          }).observe({ type: "event", buffered: true, durationThreshold: 16 });
+        }
+      } catch (error) {}
     }
 
     setSessionFlag(key, value) {

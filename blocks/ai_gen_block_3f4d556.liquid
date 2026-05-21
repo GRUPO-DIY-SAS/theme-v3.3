@@ -22,18 +22,64 @@
   BLOQUE en vez de theme.liquid porque acá tenemos acceso a logo_width_2x
   dinámico — evita drift si el merchant cambia logo_width en el editor.
 
-  URL idéntica a la del <img> de abajo → cero double-fetch. Emitirlo como
-  HTML directo permite que el preload scanner lo descubra antes; la versión
-  anterior lo creaba con JS y Lighthouse reportaba Load Delay alto en el LCP.
+  URL idéntica a la del <img> de abajo → cero double-fetch. Se inserta por
+  JS sólo si el visitante no está verificado, para no competir con el preload
+  LCP del PDP en sesiones recurrentes.
 {%- endcomment -%}
 {%- if age_gate_logo_src != '' -%}
   {% # theme-check-disable AssetPreload %}
-  <link
-    rel="preload"
-    href="{{ age_gate_logo_src }}"
-    as="image"
-    fetchpriority="high"
-    data-diyvape-age-logo-preload>
+  <script>
+    (function () {
+      try {
+        if (document.documentElement.classList.contains('age-gate-verified')) return;
+        if (document.querySelector('link[data-diyvape-age-logo-preload]')) return;
+
+        var names = ['age_verified_diyvape'];
+        var customName = {{ block.settings.cookie_name | default: 'age_verified_diyvape' | json }};
+        if (customName && names.indexOf(customName) === -1) names.push(customName);
+
+        var parseVerified = function (raw) {
+          if (!raw) return false;
+          try {
+            var parsed = JSON.parse(decodeURIComponent(raw));
+            return Boolean(parsed && parsed.verified && parsed.dob && parsed.id);
+          } catch (error) {
+            try {
+              var fallback = JSON.parse(raw);
+              return Boolean(fallback && fallback.verified && fallback.dob && fallback.id);
+            } catch (innerError) {
+              return false;
+            }
+          }
+        };
+
+        var getCookie = function (name) {
+          var prefix = name + '=';
+          var parts = document.cookie ? document.cookie.split(';') : [];
+          for (var i = 0; i < parts.length; i += 1) {
+            var value = parts[i].trim();
+            if (value.indexOf(prefix) === 0) return value.slice(prefix.length);
+          }
+          return '';
+        };
+
+        for (var i = 0; i < names.length; i += 1) {
+          if (parseVerified(getCookie(names[i]))) return;
+          try {
+            if (parseVerified(localStorage.getItem(names[i]))) return;
+          } catch (storageError) {}
+        }
+
+        var link = document.createElement('link');
+        link.rel = 'preload';
+        link.href = {{ age_gate_logo_src | json }};
+        link.as = 'image';
+        link.setAttribute('fetchpriority', 'high');
+        link.setAttribute('data-diyvape-age-logo-preload', 'true');
+        document.head.appendChild(link);
+      } catch (error) {}
+    })();
+  </script>
   {% # theme-check-enable AssetPreload %}
 {%- endif -%}
 
@@ -67,6 +113,17 @@
   }
   html.age-gate-verified .ai-age-verify-overlay {
     display: none !important;
+  }
+  html.diyvape-age-cart-sync-pending .shopify-payment-button,
+  html.diyvape-age-cart-sync-pending .btn-checkout-dynamic {
+    opacity: 0.58;
+    pointer-events: none;
+  }
+  .diyvape-age-cart-sync-alert {
+    margin-top: 10px;
+    color: var(--age-error-color, #c8102e);
+    font-size: 13px;
+    line-height: 1.4;
   }
   .ai-age-verify-modal {
     position: relative;
@@ -454,22 +511,40 @@
   (function () {
     var gate = document.getElementById('AgeVerification-{{ ai_gen_id }}');
     if (!gate || (window.Shopify && window.Shopify.designMode)) return;
+    if (document.documentElement.classList.contains('age-gate-verified')) return;
 
+    var names = ['age_verified_diyvape'];
     var cookieName = gate.getAttribute('data-cookie-name') || 'age_verified_diyvape';
-    var safeName = cookieName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-    var cookieMatch = document.cookie.match(new RegExp('(?:^|; )' + safeName + '=([^;]*)'));
-    var raw = cookieMatch ? cookieMatch[1] : null;
-
-    if (!raw) {
+    if (cookieName && names.indexOf(cookieName) === -1) names.push(cookieName);
+    var parseVerified = function (raw) {
+      if (!raw) return false;
       try {
-        raw = localStorage.getItem(cookieName);
-      } catch (error) {}
+        var data = JSON.parse(decodeURIComponent(raw));
+        return Boolean(data && data.verified && data.dob && data.id);
+      } catch (error) {
+        try {
+          var fallback = JSON.parse(raw);
+          return Boolean(fallback && fallback.verified && fallback.dob && fallback.id);
+        } catch (innerError) {
+          return false;
+        }
+      }
+    };
+    var getCookie = function (name) {
+      var prefix = name + '=';
+      var parts = document.cookie ? document.cookie.split(';') : [];
+      for (var i = 0; i < parts.length; i += 1) {
+        var value = parts[i].trim();
+        if (value.indexOf(prefix) === 0) return value.slice(prefix.length);
+      }
+      return '';
+    };
+    for (var i = 0; i < names.length; i += 1) {
+      if (parseVerified(getCookie(names[i]))) return;
+      try {
+        if (parseVerified(localStorage.getItem(names[i]))) return;
+      } catch (storageError) {}
     }
-
-    try {
-      var data = JSON.parse(decodeURIComponent(raw || 'null'));
-      if (data && data.verified && data.dob && data.id) return;
-    } catch (error) {}
 
     document.documentElement.style.setProperty('--scroll-y', '-' + (window.scrollY || 0) + 'px');
     document.body.classList.add('ai-age-gate-open');
@@ -626,10 +701,10 @@
     { "type": "richtext", "id": "form_description", "label": "Descripción formulario", "default": "<p>Ingresa tu fecha de nacimiento y tu número de identificación.</p>" },
     { "type": "inline_richtext", "id": "dob_label", "label": "Etiqueta DOB", "default": "Fecha de nacimiento" },
     { "type": "inline_richtext", "id": "id_label", "label": "Etiqueta ID", "default": "Número de identificación" },
-    { "type": "inline_richtext", "id": "id_placeholder", "label": "Placeholder ID", "default": "Solo números (8 a 10 dígitos)" },
+    { "type": "inline_richtext", "id": "id_placeholder", "label": "Placeholder ID", "default": "Solo números (6 a 10 dígitos)" },
     { "type": "inline_richtext", "id": "submit_label", "label": "Botón enviar", "default": "Verificar e ingresar" },
     { "type": "inline_richtext", "id": "age_error_message", "label": "Error DOB", "default": "Verifica tu fecha de nacimiento. Debes ser mayor de 18 años." },
-    { "type": "inline_richtext", "id": "id_error_message", "label": "Error ID", "default": "El número de identificación debe ser numérico y tener entre 8 y 10 dígitos." },
+    { "type": "inline_richtext", "id": "id_error_message", "label": "Error ID", "default": "El número de identificación debe ser numérico y tener entre 6 y 10 dígitos." },
     { "type": "richtext", "id": "privacy_note", "label": "Nota privacidad", "default": "<p>Al continuar, declaras ser mayor de edad y autorizas el tratamiento de datos según nuestra Política de Privacidad.</p>" },
 
     { "type": "header", "content": "Bloqueo" },

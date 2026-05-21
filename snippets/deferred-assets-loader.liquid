@@ -18,10 +18,10 @@
     var originalAppendChild = Node.prototype.appendChild;
     var originalInsertBefore = Node.prototype.insertBefore;
     var blockedDynamicAssets = [];
-    var dynamicAssetsAllowed = false;
     var releasingDynamicAssets = false;
     var postGateDynamicAssetsScheduled = false;
     var releasedDynamicGroups = {};
+    var initiallyAgeVerified = isAgeVerified();
 
     function getNodeUrl(node) {
       if (!node || node.nodeType !== 1) return '';
@@ -89,7 +89,7 @@
       if (!group) return false;
       if (group === 'rapi' && pageType !== 'product') return true;
       if (group === 'reviews' && pageType !== 'product') return true;
-      if (releasingDynamicAssets || dynamicAssetsAllowed || isAgeVerified()) return false;
+      if (releasingDynamicAssets || releasedDynamicGroups[group] || initiallyAgeVerified) return false;
       blockedDynamicAssets.push({
         parent: parent,
         node: node,
@@ -110,8 +110,14 @@
     }
 
     function releaseDynamicAssets(group) {
-      dynamicAssetsAllowed = true;
-      if (group) releasedDynamicGroups[group] = true;
+      if (group) {
+        releasedDynamicGroups[group] = true;
+      } else {
+        releasedDynamicGroups.rapi = true;
+        releasedDynamicGroups.commerce = true;
+        releasedDynamicGroups.reviews = true;
+        releasedDynamicGroups.analytics = true;
+      }
       if (!blockedDynamicAssets.length) return;
       releasingDynamicAssets = true;
       var remaining = [];
@@ -260,7 +266,7 @@
           collection/home/search donde no aportan valor pero sí pesan.
        Skip total para verified-en-PDP: preserva el win de v2 (cero overhead en el
        caso de mayor tráfico, los usuarios recurrentes viendo producto). */
-    if (!isAgeVerified() || pageType !== 'product') {
+    if (!initiallyAgeVerified || pageType !== 'product') {
       Node.prototype.appendChild = function (node) {
         if (blockDynamicAsset(this, node, null)) return node;
         return originalAppendChild.call(this, node);

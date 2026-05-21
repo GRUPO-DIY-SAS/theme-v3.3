@@ -25,6 +25,8 @@ class ZoomAction extends HTMLElement {
     this.type = this.dataset.type || 'no_zoom';
     this.zoomOption = this.dataset.zoomOption || 'external';
     this.lightbox = null;
+    this.lightboxPromise = null;
+    this.lightboxListenersReady = false;
     this.drift = null;
     // Cache bound reference so add/remove target the same function.
     this._onResponsive = this.responsive.bind(this);
@@ -36,7 +38,8 @@ class ZoomAction extends HTMLElement {
     window.addEventListener('load', this._onResponsive);
   }
   initLightBox() {
-    if (this.lightbox !== null) return;
+    if (this.lightboxListenersReady) return;
+    this.lightboxListenersReady = true;
     this.querySelectorAll('a.media-gallery__image').forEach((a) => {
       var position = 0;
       a.addEventListener('click', async (e) => {
@@ -56,8 +59,16 @@ class ZoomAction extends HTMLElement {
             .closest('media-gallery')
             .firstChild?.getAttribute('data-position');
         }
-        const { PhotoSwipeLightbox, Photoswipe } = await loadPhotoSwipeModules();
-        this.lightbox = new PhotoSwipeLightbox({
+        const lightbox = await this.getLightbox();
+        lightbox.loadAndOpen(position-1);
+      });
+    });
+  }
+  getLightbox() {
+    if (this.lightboxPromise) return this.lightboxPromise;
+    this.lightboxPromise = loadPhotoSwipeModules()
+      .then(({ PhotoSwipeLightbox, Photoswipe }) => {
+        const lightbox = new PhotoSwipeLightbox({
           gallery: this,
           children: 'a',
           pswpModule: () => Photoswipe,
@@ -70,8 +81,8 @@ class ZoomAction extends HTMLElement {
           loop: false,
           bgOpacity: 1,
         });
-        this.lightbox.on('uiRegister', () => {
-          const { pswp } = this.lightbox;
+        lightbox.on('uiRegister', () => {
+          const { pswp } = lightbox;
           pswp?.ui.registerElement({
             name: 'bls--close',
             isButton: true,
@@ -123,10 +134,15 @@ class ZoomAction extends HTMLElement {
             },
           });
         });
-        this.lightbox.init();
-        this.lightbox.loadAndOpen(position-1);
+        lightbox.init();
+        this.lightbox = lightbox;
+        return lightbox;
+      })
+      .catch((error) => {
+        this.lightboxPromise = null;
+        throw error;
       });
-    });
+    return this.lightboxPromise;
   }
    initDrift() {
     if (this.drift !== null) return;
@@ -179,6 +195,7 @@ class ZoomAction extends HTMLElement {
         if (this.lightbox !== null) {
           this.lightbox.destroy();
           this.lightbox = null;
+          this.lightboxPromise = null;
         }
         this.initDrift();
       }
@@ -207,6 +224,11 @@ class ZoomAction extends HTMLElement {
   disconnectedCallback() {
     window.removeEventListener('resize', this._onResponsive);
     window.removeEventListener('load', this._onResponsive);
+    if (this.lightbox !== null) {
+      this.lightbox.destroy();
+      this.lightbox = null;
+      this.lightboxPromise = null;
+    }
   }
 }
 customElements.define('zoom-action', ZoomAction);
