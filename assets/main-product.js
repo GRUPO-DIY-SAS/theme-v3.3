@@ -479,7 +479,14 @@ class ProductGrouped extends HTMLElement {
       .then((state) => {
         const parsedState = JSON.parse(state);
         if (parsedState.items) {
-          window.location.href = "/checkout";
+          if (typeof window.diyvapeProceedToCheckout === "function") {
+            window.diyvapeProceedToCheckout("/checkout", {
+              anchor: event && event.currentTarget,
+              reason: "product_group_buy_now",
+            });
+          } else {
+            window.location.href = "/checkout";
+          }
         } else {
           const content = document.querySelector(".form-infor .add-cart-error");
           if (!content) return;

@@ -708,6 +708,19 @@
           retries: opts.retries == null ? 1 : opts.retries,
         });
       };
+      window.diyvapeGuardAgeCommercialAction = (opts = {}) => this.ensureCommercialActionReady(opts);
+      window.diyvapeProceedToCheckout = (url = "/checkout", opts = {}) => {
+        const targetUrl = url || "/checkout";
+        const anchor = opts.anchor || document.querySelector(".btn-checkout, button[name='checkout'], .shopify-payment-button__button");
+        return this.ensureCommercialActionReady({
+          anchor,
+          force: Boolean(opts.force),
+          reason: opts.reason || "programmatic_checkout",
+        }).then((ok) => {
+          if (ok) window.location.href = targetUrl;
+          return ok;
+        });
+      };
 
       const retryPending = () => {
         this.retryPendingCartSync("pending_retry").catch(() => {});
@@ -751,7 +764,19 @@
         (event) => {
           const control = this.closestFromEvent(
             event,
-            'a[href*="/checkout"], button[name="checkout"], .btn-checkout, .shopify-payment-button button, .shopify-payment-button__button'
+            [
+              'a[href*="/checkout"]',
+              'button[name="checkout"]',
+              '.btn-checkout',
+              '.shopify-payment-button button',
+              '.shopify-payment-button__button',
+              '.additional-checkout-buttons button',
+              '.cart__dynamic-checkout-buttons button',
+              '[data-testid="Checkout-button"]',
+              '.product-group-buy-now',
+              'shopify-accelerated-checkout',
+              'shopify-accelerated-checkout-cart',
+            ].join(",")
           );
           if (!control || this.isInsideAgeGate(control)) return;
 
@@ -775,23 +800,45 @@
       this._commercialActionPending = true;
       this.updateCartSyncPendingState();
 
-      this.syncVerificationToCartIfNeeded(pending, {
+      this.ensureCommercialActionReady({
+        anchor,
         reason: "commercial_guard",
         force: true,
-        required: true,
-        retries: 2,
       })
-        .then(() => {
+        .then((ok) => {
           this._commercialActionPending = false;
           this.updateCartSyncPendingState();
-          window.setTimeout(replay, 0);
+          if (ok) window.setTimeout(replay, 0);
         })
-        .catch((error) => {
+        .catch(() => {
           this._commercialActionPending = false;
-          this.reportCartSyncIssue(this.cartErrorMessage, anchor, error);
+          this.updateCartSyncPendingState();
         });
 
       return true;
+    }
+
+    ensureCommercialActionReady(opts = {}) {
+      if (!this.cartSyncEnabled) return Promise.resolve(true);
+
+      const pending = this.getPendingCartSyncPayload();
+      const verified = pending || this.getVerifiedObject();
+      if (!verified) {
+        this.reportCartSyncIssue(this.ageErrorMessage, opts.anchor || document.body);
+        return Promise.resolve(false);
+      }
+
+      return this.syncVerificationToCartIfNeeded(verified, {
+        reason: opts.reason || "commercial_guard",
+        force: Boolean(opts.force || pending),
+        required: true,
+        retries: opts.retries == null ? 2 : opts.retries,
+      })
+        .then(Boolean)
+        .catch((error) => {
+          this.reportCartSyncIssue(this.cartErrorMessage, opts.anchor || document.body, error);
+          return false;
+        });
     }
 
     isAddToCartForm(form) {
@@ -830,9 +877,20 @@
     updateCartSyncPendingState() {
       const pending = Boolean(this.cartSyncEnabled && this.getPendingCartSyncPayload());
       document.documentElement.classList.toggle("diyvape-age-cart-sync-pending", pending);
-      document.querySelectorAll(".btn-checkout-dynamic, .shopify-payment-button").forEach((wrapper) => {
-        wrapper.setAttribute("aria-busy", pending ? "true" : "false");
-      });
+      document
+        .querySelectorAll(
+          [
+            ".btn-checkout-dynamic",
+            ".shopify-payment-button",
+            ".additional-checkout-buttons",
+            ".cart__dynamic-checkout-buttons",
+            "shopify-accelerated-checkout",
+            "shopify-accelerated-checkout-cart",
+          ].join(",")
+        )
+        .forEach((wrapper) => {
+          wrapper.setAttribute("aria-busy", pending ? "true" : "false");
+        });
     }
 
     reportCartSyncIssue(message, anchor, error) {
