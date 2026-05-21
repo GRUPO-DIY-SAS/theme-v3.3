@@ -31,7 +31,6 @@
   <script>
     (function () {
       try {
-        if (document.documentElement.classList.contains('age-gate-verified')) return;
         if (document.querySelector('link[data-diyvape-age-logo-preload]')) return;
 
         var names = ['age_verified_diyvape'];
@@ -515,7 +514,6 @@
   (function () {
     var gate = document.getElementById('AgeVerification-{{ ai_gen_id }}');
     if (!gate || (window.Shopify && window.Shopify.designMode)) return;
-    if (document.documentElement.classList.contains('age-gate-verified')) return;
 
     var names = ['age_verified_diyvape'];
     var cookieName = gate.getAttribute('data-cookie-name') || 'age_verified_diyvape';
@@ -550,6 +548,7 @@
       } catch (storageError) {}
     }
 
+    document.documentElement.classList.remove('age-gate-verified');
     document.documentElement.style.setProperty('--scroll-y', '-' + (window.scrollY || 0) + 'px');
     document.body.classList.add('ai-age-gate-open');
     gate.removeAttribute('aria-hidden');

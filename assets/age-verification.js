@@ -82,6 +82,7 @@
         return;
       }
 
+      document.documentElement.classList.remove("age-gate-verified");
       this.setupEvents();
 
       if (this.isShopifyDesignMode()) {
@@ -824,7 +825,7 @@
       const pending = this.getPendingCartSyncPayload();
       const verified = pending || this.getVerifiedObject();
       if (!verified) {
-        this.reportCartSyncIssue(this.ageErrorMessage, opts.anchor || document.body);
+        this.reopenForMissingVerificationData();
         return Promise.resolve(false);
       }
 
@@ -839,6 +840,23 @@
           this.reportCartSyncIssue(this.cartErrorMessage, opts.anchor || document.body, error);
           return false;
         });
+    }
+
+    reopenForMissingVerificationData() {
+      document.documentElement.classList.remove("age-gate-verified");
+      if (this.isShopifyDesignMode()) return;
+
+      this.setupEvents();
+      this.clearAllErrors();
+      this.show();
+      window.setTimeout(() => {
+        if (this.initialView && this.formWrap) this.showForm();
+      }, 80);
+      window.setTimeout(() => {
+        if (this.dobInput && typeof this.dobInput.focus === "function") {
+          this.dobInput.focus({ preventScroll: true });
+        }
+      }, 240);
     }
 
     isAddToCartForm(form) {
