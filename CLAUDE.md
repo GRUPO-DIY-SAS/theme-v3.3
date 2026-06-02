@@ -1,4 +1,4 @@
-# DIY Vape Shop — Shopify Theme (theme-v3.3)
+# DIY Vape Shop — Shopify Theme (theme-v3.4)
 
 ## Commands
 

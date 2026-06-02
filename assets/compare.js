@@ -8,7 +8,7 @@ var BlsComparePageShopify = (function () {
 
     init: function () {
       const compare_items = JSON.parse(
-        localStorage.getItem("glozin__compare-items")
+        localStorage.getItem("diyvape__compare-items")
       );
       const compareDiv = document.querySelector(".compare-page-main");
       const div_no_product = compareDiv.querySelector(".compare-no-product-js");
@@ -101,7 +101,7 @@ class CompareRemove extends HTMLElement {
     this.addEventListener("click", this.onThisClick.bind(this));
   }
   onThisClick() {
-    const localListProductIds = localStorage.getItem("glozin__compare-items");
+    const localListProductIds = localStorage.getItem("diyvape__compare-items");
     const allThisProductIds = document.querySelectorAll(
       `compare-remove[data-product-id="${this.productId}"]`
     );
@@ -130,7 +130,7 @@ class CompareRemove extends HTMLElement {
       }
     }
     const stringifyListProductIds = JSON.stringify(listProductIds);
-    localStorage.setItem("glozin__compare-items", stringifyListProductIds);
+    localStorage.setItem("diyvape__compare-items", stringifyListProductIds);
   }
 }
 customElements.define("compare-remove", CompareRemove);

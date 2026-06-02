@@ -560,7 +560,7 @@ var wishlistHeader = (function () {
     },
     handleCount: function () {
       const wishlist = document.querySelectorAll(".wishlist-count");
-      const items = JSON.parse(localStorage.getItem("glozin__wishlist-items"));
+      const items = JSON.parse(localStorage.getItem("diyvape__wishlist-items"));
       wishlist.forEach((item) => {
         item.innerText = items !== null && items.length != 0 ? items.length : 0;
       });
@@ -4990,7 +4990,7 @@ class MiniCartRemoveButton extends HTMLElement {
     this.addEventListener("click", (event) => {
       event.preventDefault();
       const wishlist_items = JSON.parse(
-        localStorage.getItem("glozin__wishlist-items")
+        localStorage.getItem("diyvape__wishlist-items")
       );
       const productHandle = this.dataset.productHandle;
       let index = wishlist_items?.indexOf(productHandle);
@@ -5041,7 +5041,7 @@ class MiniCartWishlistAction extends HTMLElement {
         event.preventDefault();
         const target = event.currentTarget;
         const localListProductIds = localStorage.getItem(
-          "glozin__wishlist-items"
+          "diyvape__wishlist-items"
         );
         let listProductIds = [];
         let productId = target.dataset.productId;
@@ -5058,7 +5058,7 @@ class MiniCartWishlistAction extends HTMLElement {
           listProductIds.push(productId);
         }
         const stringifyListProductIds = JSON.stringify(listProductIds);
-        localStorage.setItem("glozin__wishlist-items", stringifyListProductIds);
+        localStorage.setItem("diyvape__wishlist-items", stringifyListProductIds);
         this.eventRemove(target);
       }
     );
@@ -5180,172 +5180,6 @@ class TermsConditions extends PopupBase {
 }
 customElements.define("terms-conditions", TermsConditions);
 
-var BlsGlozinAdminLi = (function () {
-  return {
-    init: function () {
-      this.BlsCheckLi();
-    },
-    BlsCheckLi: function () {
-      const _this = this;
-      if (typeof glozin_app === "object") {
-        if (glozin_app.mode === "admin") {
-          if (glozin_app.action === "active") {
-            if (_this.checkCookie(glozin_app.lic) === false) {
-              let encrypted = "";
-              if (glozin_app._e) {
-                encrypted = glozin_app._e;
-              }
-              console.log("encrypted", encrypted);
-              _this.BlsActive(encrypted);
-            }
-          } else {
-            const url =
-              "https://api.nextsky.co/glozin/api/remove-license/?code=" +
-              glozin_app.lic +
-              "&domain=" +
-              glozin_app.shop;
-            fetch(url)
-              .then((response) => response.json())
-              .then((responseText) => {
-                if (responseText) {
-                  const dateCreate = new Date(new Date().getTime() - 36e6);
-                  _this.setCookie(glozin_app.lic, dateCreate);
-                }
-                _this.BlsRenderHtml(3);
-              })
-              .catch((e) => {
-                console.log(e);
-              });
-          }
-        }
-      } else {
-        _this.BlsRenderHtml(0);
-      }
-    },
-    BlsRenderHtml: function (cs) {
-      const shop = window.location.hostname.replace(/\./g, "-");
-      if (!document.querySelector("#" + "bls__" + shop)) {
-        const container = document.createElement("DIV");
-        const wrapper = document.createElement("DIV");
-        const title = document.createElement("h3");
-        const introText = document.createElement("p");
-        const messages = {
-          1: "This purchase code was activated for another domain!",
-          2: "This purchase code is invalid!",
-          3: "Purchase Code deleted successfully!",
-          0: "Welcome to Glozin - Shopify Themes OS 2.0 🎉 ",
-        };
-        title.textContent = messages[cs] || messages[0];
-        title.setAttribute("class", `msg-${cs}`);
-        introText.textContent =
-          "Follow these simple steps to use Glozin theme:";
-        const steps = [
-          {
-            title:
-              "Step 1: Add Glozin theme file to your 'Online store' > 'Theme'.",
-            content: "",
-          },
-          {
-            title: "Step 2: Insert purchase code",
-            content:
-              "Go to 'Theme setting' > 'Purchase code' to insert your purchase code.",
-          },
-          {
-            title: "Step 3: Activate purchase code",
-            content:
-              "Go to 'Theme setting' > 'Purchase code action' and select 'Active purchase code'.",
-          },
-        ];
-        const stepElements = steps.map((step, index) => {
-          const stepEl = document.createElement("DIV");
-          stepEl.setAttribute("class", `step-${index + 1}`);
-          const heading = document.createElement("h5");
-          heading.textContent = step.title;
-          stepEl.appendChild(heading);
-
-          if (step.content) {
-            const content = document.createElement("p");
-            content.textContent = step.content;
-            stepEl.appendChild(content);
-          }
-          return stepEl;
-        });
-        const purchaseLink = document.createElement("a");
-        purchaseLink.setAttribute("target", "_blank");
-        purchaseLink.setAttribute("class", "popup-btn");
-        purchaseLink.setAttribute(
-          "href",
-          "https://nextsky.gitbook.io/glozin-theme/get-started/purchase-code-and-activation"
-        );
-        purchaseLink.textContent = "👉 Get Glozin purchase code";
-        stepElements[1].appendChild(purchaseLink);
-        wrapper.appendChild(title);
-        wrapper.appendChild(introText);
-        stepElements.forEach((step) => wrapper.appendChild(step));
-        container.setAttribute("id", "bls__not-active");
-        container.appendChild(wrapper);
-        setInterval(() => {
-          if (document.getElementById("bls__not-active")) {
-            document
-              .getElementById("bls__not-active")
-              .setAttribute("style", "display: block !important;");
-          } else {
-            document.querySelector("body").appendChild(container);
-          }
-        }, 1000);
-      } else {
-        document.querySelector("#" + "bls__" + shop).remove();
-      }
-    },
-    BlsActive: function (encrypted) {
-      const _this = this;
-      const salt = glozin_app._s || glozin_app.shop + "GlzSalt25";
-      const url =
-        "https://api.nextsky.co/glozin/api/check-license/?code=" +
-        glozin_app.lic +
-        "&domain=" +
-        glozin_app.shop +
-        "&e=" +
-        encodeURIComponent(encrypted) +
-        "&s=" +
-        encodeURIComponent(salt);
-      fetch(url)
-        .then((response) => response.json())
-        .then((responseText) => {
-          if (responseText.d === false) {
-            _this.BlsRenderHtml(responseText.s);
-          } else if (responseText.d === true) {
-            const dateCheck = new Date(new Date().getTime() + 36e6);
-            _this.setCookie(glozin_app.lic, dateCheck);
-          } else if (responseText.d === "err") {
-            console.log(
-              responseText.err
-                ? responseText.err.message
-                : "Please contact to server's adminstrator!!!"
-            );
-          }
-        })
-        .catch((e) => {
-          console.log(e);
-        });
-    },
-    setCookie: function (cvalue, d) {
-      const v = btoa(cvalue);
-      document.cookie =
-        "UHVyY2hhc2VDb2Rl" + "=" + v + ";expires=" + d + ";path=/";
-    },
-    checkCookie: function (val) {
-      const v = atob(getCookie("UHVyY2hhc2VDb2Rl"));
-      if (val.length !== 0 && v == val) {
-        return true;
-      } else {
-        return false;
-      }
-    },
-  };
-})();
-BlsGlozinAdminLi.init();
-
 class QuickView extends PopupBase {
   constructor() {
     super();
@@ -5436,7 +5270,7 @@ class ButtonWishlist extends HTMLElement {
   }
 
   initializeWishlistStatus() {
-    const localListProductIds = localStorage.getItem("glozin__wishlist-items");
+    const localListProductIds = localStorage.getItem("diyvape__wishlist-items");
     if (!localListProductIds) return;
     const parseLocalListProductIds = JSON.parse(localListProductIds);
     const isProductIdContained = parseLocalListProductIds.includes(
@@ -5477,7 +5311,7 @@ class ButtonWishlist extends HTMLElement {
   }
 
   onThisClick() {
-    const localListProductIds = localStorage.getItem("glozin__wishlist-items");
+    const localListProductIds = localStorage.getItem("diyvape__wishlist-items");
     const allThisProductIds = document.querySelectorAll(
       `button-wishlist[data-product-id="${this.productId}"]`
     );
@@ -5529,7 +5363,7 @@ class ButtonWishlist extends HTMLElement {
       this.actionWhenClicked(allThisProductIds, true);
     }
     const stringifyListProductIds = JSON.stringify(listProductIds);
-    localStorage.setItem("glozin__wishlist-items", stringifyListProductIds);
+    localStorage.setItem("diyvape__wishlist-items", stringifyListProductIds);
     wishlistHeader.init();
   }
 }
@@ -5554,7 +5388,7 @@ class ButtonCompare extends HTMLElement {
   }
 
   initializeCompareStatus() {
-    const localListProductIds = localStorage.getItem("glozin__compare-items");
+    const localListProductIds = localStorage.getItem("diyvape__compare-items");
     if (!localListProductIds) return;
     const parseLocalListProductIds = JSON.parse(localListProductIds);
     const isProductIdContained = parseLocalListProductIds.includes(
@@ -5595,7 +5429,7 @@ class ButtonCompare extends HTMLElement {
   }
 
   onThisClick() {
-    const localListProductIds = localStorage.getItem("glozin__compare-items");
+    const localListProductIds = localStorage.getItem("diyvape__compare-items");
     const allThisProductIds = document.querySelectorAll(
       `button-compare[data-product-id="${this.productId}"]`
     );
@@ -5635,7 +5469,7 @@ class ButtonCompare extends HTMLElement {
       this.actionWhenClicked(allThisProductIds, true);
     }
     const stringifyListProductIds = JSON.stringify(listProductIds);
-    localStorage.setItem("glozin__compare-items", stringifyListProductIds);
+    localStorage.setItem("diyvape__compare-items", stringifyListProductIds);
   }
 }
 customElements.define("button-compare", ButtonCompare);
@@ -8659,7 +8493,7 @@ class ProductRecentlyViewed extends SlideSection {
   }
   initData() {
     var savedProductsArr = JSON.parse(
-      localStorage.getItem("glozin__recently-viewed-products")
+      localStorage.getItem("diyvape__recently-viewed-products")
     );
     this.getStoredProducts(savedProductsArr);
   }

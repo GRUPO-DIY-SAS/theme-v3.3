@@ -1,7 +1,7 @@
 "use strict";
 
 const wishlist_items = JSON.parse(
-  localStorage.getItem("glozin__wishlist-items")
+  localStorage.getItem("diyvape__wishlist-items")
 );
 const wishlistDiv = document.querySelector(".wishlist-page-main");
 var WishlistPageShopify = (function () {
@@ -82,7 +82,7 @@ var WishlistPageShopify = (function () {
             arr.push(e?.dataset.productId);
           });
       }
-      localStorage.setItem("glozin__wishlist-items", JSON.stringify(arr));
+      localStorage.setItem("diyvape__wishlist-items", JSON.stringify(arr));
     },
     skeletonFunction: function (timer) {
       window.setTimeout(function () {

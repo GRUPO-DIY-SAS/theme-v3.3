@@ -9,25 +9,6 @@
  */
 {
   "settings_schema": {
-    "purchase_code": {
-      "name": "Purchase code",
-      "info": "Do not forget to click to Save button!",
-      "how_to_get": {
-        "content": "[Where is my purchase code?](https://help.market.envato.com/hc/en-us/articles/202822600-Where-Is-My-Purchase-Code-)"
-      },
-      "buy_now": {
-        "content": "[Buy Glozin license!](xx)"
-      },
-      "purchase_code_action": {
-        "label": "Purchase action",
-        "active": {
-          "label": "Activate purchase code"
-        },
-        "remove": {
-          "label": "Remove purchase code"
-        }
-      }
-    },
     "logo_favicon": {
       "name": "Logo and favicon",
       "settings": {
@@ -335,7 +316,7 @@
         },
         "custom_badge": {
           "label": "Custom badge",
-          "info": "Please follow the document to see [how to setup custom badge](https://blueskytechco.gitbook.io/glimo-shopify/get-started/import-data/create-required-metafield#id-8.-custom-product-badge)"
+          "info": "Please follow the document to see [how to setup custom badge](https://diyvape.co)"
         }
       }
     },
@@ -1494,6 +1475,9 @@
         "image_curved": {
           "label": "Image curved"
         },
+        "image_badge": {
+          "label": "Image badge"
+        },
         "overlay_opacity": {
           "label": "Overlay opacity"
         },
@@ -1806,6 +1790,10 @@
           "info": "Ensure that you have a Slideshow, Video with text overlay, Image with text overlay section as the first section on your homepage.",
           "enable_mobile": {
             "label": "Enable in mobile"
+          },
+          "box_menu": {
+            "label": "Enable navigation capsule",
+            "info": "Show menu inside a rounded background container."
           },
           "text_icon_color": {
             "label": "Text and icon color"
@@ -4441,7 +4429,7 @@
           "header": "Color swatches",
           "user_variants_image_group": {
             "label": "Use variants image group",
-            "info": "Please follow the document to setup variants image group [Read more](https://blueskytechco.gitbook.io/glimo-shopify/product-page-settings/variant-image-group)"
+            "info": "Please follow the document to setup variants image group [Read more](https://diyvape.co)"
           }
         },
         "frequently_bought_together": {

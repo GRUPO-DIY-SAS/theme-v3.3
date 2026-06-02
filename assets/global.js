@@ -1049,7 +1049,7 @@ class SlideLazyLoad {
       await this._loadScriptsFromListJs(this.delayedScriptsJs.async),
       await this._triggerDOMContentLoadedJs(),
       await this._triggerWindowLoadJs(),
-      window.dispatchEvent(new Event("glozinspeed-allScriptsLoaded"));
+      window.dispatchEvent(new Event("diyvapespeed-allScriptsLoaded"));
   }
   async _loadScriptsFromListJs(e) {
     const t = e.shift();
@@ -1066,7 +1066,7 @@ class SlideLazyLoad {
         [...e.attributes].forEach((e) => {
           let t = e.nodeName;
           "type" !== t &&
-            ("data-glozinlazy-type" === t && ((t = "type"), (n = e.nodeValue)),
+            ("data-diyvapelazy-type" === t && ((t = "type"), (n = e.nodeValue)),
             s.setAttribute(t, e.nodeValue));
         }),
           e.hasAttribute("src")
@@ -1079,23 +1079,23 @@ class SlideLazyLoad {
   async _triggerDOMContentLoadedJs() {
     (this.domReadyFired = !0),
       await this._requestAnimFrame(),
-      document.dispatchEvent(new Event("glozinspeed-DOMContentLoaded")),
+      document.dispatchEvent(new Event("diyvapespeed-DOMContentLoaded")),
       await this._requestAnimFrame(),
-      window.dispatchEvent(new Event("glozinspeed-DOMContentLoaded")),
+      window.dispatchEvent(new Event("diyvapespeed-DOMContentLoaded")),
       await this._requestAnimFrame(),
-      document.dispatchEvent(new Event("glozinspeed-readystatechange")),
+      document.dispatchEvent(new Event("diyvapespeed-readystatechange")),
       await this._requestAnimFrame(),
-      document.glozinonreadystatechange && document.glozinonreadystatechange();
+      document.diyvapeonreadystatechange && document.diyvapeonreadystatechange();
   }
   async _triggerWindowLoadJs() {
     await this._requestAnimFrame(),
-      window.dispatchEvent(new Event("glozinspeed-load")),
+      window.dispatchEvent(new Event("diyvapespeed-load")),
       await this._requestAnimFrame(),
-      window.glozinonload && window.glozinonload(),
+      window.diyvapeonload && window.diyvapeonload(),
       await this._requestAnimFrame(),
-      window.dispatchEvent(new Event("glozinspeed-pageshow")),
+      window.dispatchEvent(new Event("diyvapespeed-pageshow")),
       await this._requestAnimFrame(),
-      window.glozinonpageshow && window.glozinonpageshow();
+      window.diyvapeonpageshow && window.diyvapeonpageshow();
   }
   async _requestAnimFrame() {
     return new Promise((e) => requestAnimationFrame(e));

@@ -1,45 +1,11 @@
 [
   {
     "name": "theme_info",
-    "theme_name": "Glozin",
-    "theme_version": "3.3.0",
-    "theme_author": "Nextsky",
-    "theme_documentation_url": "https://nextsky.gitbook.io/glozin-theme",
-    "theme_support_url": "https://support.nextsky.co"
-  },
-  {
-    "name": "t:settings_schema.purchase_code.name",
-    "settings": [
-      {
-        "type": "paragraph",
-        "content": "t:settings_schema.purchase_code.info"
-      },
-      {
-        "type": "textarea",
-        "id": "purchase_code",
-        "label": "t:settings_schema.purchase_code.name"
-      },
-      {
-        "type": "paragraph",
-        "content": "t:settings_schema.purchase_code.how_to_get.content"
-      },
-      {
-        "type": "select",
-        "id": "purchase_code_action",
-        "label": "t:settings_schema.purchase_code.purchase_code_action.label",
-        "default": "active",
-        "options": [
-          {
-            "value": "active",
-            "label": "t:settings_schema.purchase_code.purchase_code_action.active.label"
-          },
-          {
-            "value": "remove",
-            "label": "t:settings_schema.purchase_code.purchase_code_action.remove.label"
-          }
-        ]
-      }
-    ]
+    "theme_name": "DIY Vape Shop",
+    "theme_version": "3.4.0",
+    "theme_author": "DIY Vape Shop",
+    "theme_documentation_url": "https://diyvape.co",
+    "theme_support_url": "https://diyvape.co"
   },
   {
     "name": "t:settings_schema.logo_favicon.name",

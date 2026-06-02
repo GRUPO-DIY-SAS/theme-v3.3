@@ -1,10 +1,5 @@
 {%- liquid
   assign t = template | split: '.' | first
-  assign admin_vi = request.design_mode
-  assign license_salt = shop.permanent_domain | append: "GlzSalt25" | sha256 | slice: 0, 16
-  assign encoded_shop_email = shop.email | base64_encode
-  assign hmac = shop.email | hmac_sha256: license_salt
-  assign encoded_license = encoded_shop_email | append: ":" | append: hmac | base64_encode
 -%}
 {%- if defer_by_age_gate -%}
   <script>
@@ -57,16 +52,3 @@
       <script src="{{ 'collection.js' | asset_url }}" defer="defer"></script>
   {%- endcase -%}
 {%- endif -%}
-<script defer="defer">
-  var glozin_app = {
-  shop: '{{ shop.permanent_domain }}',
-  domain: '{{ shop.domain }}',
-  {%- if admin_vi == true -%}
-    lic: '{{ settings.purchase_code }}',
-    action: '{{ settings.purchase_code_action }}',
-    _e: '{{ encoded_license }}',
-    _s: '{{ license_salt }}',
-  {%- endif -%}
-  mode: '{%- if admin_vi == true -%}admin{% else %}front{%- endif -%}',
-  };
-</script>

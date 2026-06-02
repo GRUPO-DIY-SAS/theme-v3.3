@@ -267,3 +267,16 @@ video-section.h-full video {
 .h-auto-banner-slider .swiper-slide {
   height: auto;
 }
+.product-banner-item {
+  background-color: var(--color-white);
+  padding: 20px;
+  border-radius: var(--rounded-radius);
+  max-width: 30rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+@media (min-width: 768px) {
+  .pb-pagination {
+    padding-bottom: 3rem;
+  }
+}

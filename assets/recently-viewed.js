@@ -5,7 +5,7 @@ var BlsRVPageShopify = (function () {
     initRVItems: function () {
       if (window.location.search.indexOf("page=") == -1) {
         const rv_items = JSON.parse(
-          localStorage.getItem("glozin__recently-viewed-products")
+          localStorage.getItem("diyvape__recently-viewed-products")
         );
         this.init(rv_items);
       }
@@ -81,7 +81,7 @@ var BlsRVPageShopify = (function () {
           .addEventListener("click", function () {
             rv_div.querySelector(".rv-results").remove();
             rv_div.querySelector(".clear-all-rvp").classList.add("hidden");
-            localStorage.removeItem("glozin__recently-viewed-products");
+            localStorage.removeItem("diyvape__recently-viewed-products");
             BlsRVPageShopify.initRVItems();
           });
       }

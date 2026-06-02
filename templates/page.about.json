@@ -28,7 +28,7 @@
           "type": "subheading",
           "name": "t:sections.all.contents.subheading.label",
           "settings": {
-            "subheading": "Welcome to Glozin",
+            "subheading": "Welcome to DIY Vape Shop",
             "font_size": 15,
             "font_weight": "heading_weight",
             "uppercase": false,
@@ -430,7 +430,7 @@
               "type": "description",
               "name": "t:blocks.general.text.name",
               "settings": {
-                "text": "<p>From traditional tailoring to the most informal pieces. Our Glozin collections feature the latest trends with the maximum comfort.<\/p>",
+                "text": "<p>From traditional tailoring to the most informal pieces. Our DIY Vape Shop collections feature the latest trends with the maximum comfort.<\/p>",
                 "font_size": 15,
                 "font_weight": "body_weight",
                 "spacing_bottom": 0
@@ -531,7 +531,7 @@
           "type": "description",
           "name": "t:blocks.general.text.name",
           "settings": {
-            "text": "<p><em>\" Glozin will become an example of the responsible business model by doing business with kindness, profit and bringing practical and long—term values to customers, employees, partners, the community for the environment and for shareholders. \"<\/em><\/p>",
+            "text": "<p><em>\" DIY Vape Shop will become an example of the responsible business model by doing business with kindness, profit and bringing practical and long—term values to customers, employees, partners, the community for the environment and for shareholders. \"<\/em><\/p>",
             "font_size": 18,
             "font_weight": "body_weight",
             "spacing_bottom": 15
@@ -553,7 +553,7 @@
         "text_y83fYU": {
           "type": "description",
           "settings": {
-            "text": "<p>CEO and Founder Glozin Store<\/p>",
+            "text": "<p>CEO and Founder DIY Vape Shop Store<\/p>",
             "font_size": 14,
             "font_weight": "body_weight",
             "spacing_bottom": 0
@@ -735,7 +735,7 @@
               "type": "description",
               "name": "t:blocks.general.text.name",
               "settings": {
-                "text": "<p>At Glozin, we’re not big on trends. We want you to wear our pieces for years, even decades, to come. That’s why we source the finest materials and factories for our timeless products— like our Grade-A cashmere sweaters, Italian shoes, and Peruvian Pima tees.<\/p>",
+                "text": "<p>At DIY Vape Shop, we’re not big on trends. We want you to wear our pieces for years, even decades, to come. That’s why we source the finest materials and factories for our timeless products— like our Grade-A cashmere sweaters, Italian shoes, and Peruvian Pima tees.<\/p>",
                 "font_size": 15,
                 "font_weight": "body_weight",
                 "spacing_bottom": 30

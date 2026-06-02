@@ -19,7 +19,36 @@
   assign items_per_row_mobile = section_st.items_per_row_mobile
   assign column_gap = section_st.column_gap
   assign media_type = block_st.media_type | default: 'image'
+  assign badge_text = block_st.badge_text
+  assign badge_color = block_st.badge_color
+  assign badge_background = block_st.badge_background
+  assign badge_position = block_st.badge_position
+  assign badge_label = ''
+  if badge_position == 'top-left'
+    assign badge_label = 'top-10 left-10'
+  elsif badge_position == 'top-right'
+    assign badge_label = 'top-10 right-10'
+  elsif badge_position == 'bottom-left'
+    assign badge_label = 'bottom-10 left-10'
+  elsif badge_position == 'bottom-right'
+    assign badge_label = 'bottom-10 right-10'
+  endif
 %}
+{%- capture style -%}
+   --badge-color: {{ badge_color }};--badge-background: {{ badge_background }};
+{%- endcapture -%}
+{%- style -%}
+  .badge-text {
+    background-color: var(--badge-background);
+    color: var(--badge-color);
+    width: 8rem;
+    height: 8rem;
+  }
+  .badge-text > span {
+    transform: rotate(-12deg);
+    line-height: 1.14;
+  }
+{%- endstyle -%}
 <div
   class="{% if section_st.equal_height_adjustment == false %} align-self-{{ section_st.vertical_align }}{% endif %} {% if block_st.collection.products.size > 0 %}background-block {% endif %}section__block {{ theme_st.hover_effect }} {{ w_mobile }} col-md-w-custom {% if block_st.content_width == '20%' or block_st.content_width == '25%' or block_st.content_width == '66.6666%' or block_st.content_width == '75%' or block_st.content_width == '80%' %} col-md-w-custom-50{% endif %}"
   style="--col-width: {{ block_st.content_width }};"
@@ -128,6 +157,14 @@
             {%- render 'placeholder-render', class: 'rounded w-full h-full object-fit-cover' -%}
           {% endif %}
         </video-section>
+      {% endif %}
+      {% if badge_text != blank %}
+        <div
+          class="badge-text rounded-50 absolute {{ badge_label }} flex middle-center p-5"
+          style="{{ style | strip | strip_newlines }}"
+        >
+          <span class="heading_weight text-center uppercase fs-13">{{ badge_text }}</span>
+        </div>
       {% endif %}
     </div>
     <div class="sec__content__wrapper flex-1">
@@ -381,6 +418,51 @@
       "unit": "px",
       "default": 30,
       "label": "t:sections.all.content_settings.content_padding_inline.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.image.image_badge.label"
+    },
+    {
+      "type": "textarea",
+      "id": "badge_text",
+      "label": "t:blocks.general.text.name"
+    },
+    {
+      "type": "color",
+      "id": "badge_color",
+      "label": "t:settings_schema.badges.settings.color.label",
+      "default": "#fff"
+    },
+    {
+      "type": "color",
+      "id": "badge_background",
+      "label": "t:settings_schema.badges.settings.background_color.label",
+      "default": "#D0473E"
+    },
+    {
+      "type": "select",
+      "id": "badge_position",
+      "default": "top-left",
+      "label": "t:sections.all.content_settings.content_position.label",
+      "options": [
+        {
+          "value": "top-left",
+          "label": "t:sections.all.content_settings.content_position.top_left.label"
+        },
+        {
+          "value": "top-right",
+          "label": "t:sections.all.content_settings.content_position.top_right.label"
+        },
+        {
+          "value": "bottom-left",
+          "label": "t:sections.all.content_settings.content_position.bottom_left.label"
+        },
+        {
+          "value": "bottom-right",
+          "label": "t:sections.all.content_settings.content_position.bottom_right.label"
+        }
+      ]
     }
   ],
   "blocks": [

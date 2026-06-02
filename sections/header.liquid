@@ -8,6 +8,7 @@
   assign transparent_bg_color = section_st.transparent_bg_color
   assign sticky_header_type = section_st.sticky_header_type
   assign sticky_mobile = section_st.sticky_header_mobile
+  assign box_menu = section_st.box_menu
   assign color_scheme = section_st.color_scheme
   assign logo_position = section_st.logo_position
   assign top_search = section_st.show_search
@@ -85,6 +86,13 @@
       .open-drawer .section-header:not(.shopify-section-header-sticky) .transparent {
         margin-right: var(--scrollbar-width);
       }
+      .box-menu {
+        background: var(--gradient-background);
+        z-index: 1;
+        border-radius: 100px;
+        --transparent-color: var(--color-heading);
+        padding: 0 2rem;
+      }
     }
     @media screen and (max-width: 1024.98px) {
       .transparent:not(.transparent-mobile) .header__transparent-logo {
@@ -143,7 +151,7 @@
         <div class="header__logo text-center text-left-1025 inline-flex align-center">
           {%- render 'logo', isTransparent: transparent -%}
         </div>
-        <div class="header__menu {{  show_language }}">
+        <div class="header__menu {{  show_language }} {% if box_menu %}box-menu{% endif %}">
           {%- render 'toggle-menu' -%}
           {%- liquid
             render 'horizontal-menu', class: 'min-h-1025-50', show_language: show_language
@@ -357,6 +365,13 @@
       "id": "transparent_bg_color",
       "label": "t:sections.header.settings.menu_label.label1.background",
       "default": "#111111"
+    },
+    {
+      "type": "checkbox",
+      "id": "box_menu",
+      "label": "t:sections.header.settings.transparent_header.box_menu.label",
+      "info": "t:sections.header.settings.transparent_header.box_menu.info",
+      "visible_if": "{{ section.settings.transparent_header != false }}"
     },
     {
       "type": "header",

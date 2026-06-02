@@ -59,6 +59,7 @@
   assign infinite = section_st.infinite
   assign autoplay = section_st.autoplay
   assign autorotate_speed = section_st.autorotate_speed
+  assign design = section_st.design
 -%}
 {%- capture style -%}
   --section-pt: {{ section_st.padding_top }}; --section-pb: {{ section_st.padding_bottom }};{% if column_gap < 31 %}--col-gap: {{ column_gap }}px;{% else %}--col-gap: 15px;--col-gap-desktop: {{  column_gap }}px;{% endif %}
@@ -209,7 +210,7 @@
                     assign type_content = 'subheading, heading, description' | split: ', '
                   %}
                   <div
-                    class="swiper-slide block-content__item flex-column justify-center text-{{ section_st.content_alignment }}"
+                    class="swiper-slide block-content__item {% if carousel_pagination %}pb-pagination{% endif %} flex-column justify-center text-{{ section_st.content_alignment }}"
                     data-block-id="{{ block.id }}"
                     data-background-color="{{ block_st.content_background_color }}"
                   >
@@ -273,51 +274,71 @@
                         endif
                       %}
                       {% if block_st.product != blank %}
-                        <div
-                          class="block-text-product__infor flex align-center motion-item gap-10 text-left {{ mb_custom }} block"
-                          style="--space-bottom: {{ block_st.product_spacing_bottom }};"
-                        >
+                        {% if design == 'default' %}
                           <div
-                            class="block-text-product__infor-image global-media-settings w-custom fs-0 relative"
-                            style="--custom-width: 6.5rem;"
+                            class="block-text-product__infor flex align-center motion-item gap-10 text-left {{ mb_custom }} block"
+                            style="--space-bottom: {{ block_st.product_spacing_bottom }};"
                           >
-                            <a
-                              href="{{- block_st.product.url -}}"
-                              class="rounded-5 fs-0 "
-                              style=" --aspect-ratio: 1/1;"
-                              aria-label="{{ block_st.product.title | escape }}"
+                            <div
+                              class="block-text-product__infor-image global-media-settings w-custom fs-0 relative"
+                              style="--custom-width: 6.5rem;"
                             >
-                              {%- assign image_alt = block_st.product.featured_media.alt
-                                | default: block_st.product.title
-                                | escape
-                              -%}
-                              {% render 'responsive-image',
-                                type: 'product',
-                                image: block_st.product.featured_media,
-                                image_alt: image_alt,
-                                class: 'rounded-5',
-                                custom_widths: '550, 480, 360, 160, 90',
-                                no_animate: true
-                              %}
-                            </a>
+                              <a
+                                href="{{- block_st.product.url -}}"
+                                class="rounded-5 fs-0 "
+                                style=" --aspect-ratio: 1/1;"
+                                aria-label="{{ block_st.product.title | escape }}"
+                              >
+                                {%- assign image_alt = block_st.product.featured_media.alt
+                                  | default: block_st.product.title
+                                  | escape
+                                -%}
+                                {% render 'responsive-image',
+                                  type: 'product',
+                                  image: block_st.product.featured_media,
+                                  image_alt: image_alt,
+                                  class: 'rounded-5',
+                                  custom_widths: '550, 480, 360, 160, 90',
+                                  no_animate: true
+                                %}
+                              </a>
+                            </div>
+                            <h3 class="block-text-product__infor--name my-0 text-size ">
+                              <a
+                                class="no-underline heading-color"
+                                href="{{- block_st.product.url -}}"
+                                aria-label="{{ block_st.product.title | escape }}"
+                              >
+                                {%- if block_st.product != blank -%}
+                                  {{ block_st.product.title | escape }}
+                                {%- else -%}
+                                  {{ 'onboarding.product_title_example' | t }}
+                                {%- endif -%}
+                              </a>
+                            </h3>
+                            <div class="block-text-product__price flex-1">
+                              {%- render 'price', scope: 'item', product: block_st.product, show_badges: false -%}
+                            </div>
                           </div>
-                          <h3 class="block-text-product__infor--name my-0 text-size ">
-                            <a
-                              class="no-underline heading-color"
-                              href="{{- block_st.product.url -}}"
-                              aria-label="{{ block_st.product.title | escape }}"
-                            >
-                              {%- if block_st.product != blank -%}
-                                {{ block_st.product.title | escape }}
-                              {%- else -%}
-                                {{ 'onboarding.product_title_example' | t }}
-                              {%- endif -%}
-                            </a>
-                          </h3>
-                          <div class="block-text-product__price flex-1">
-                            {%- render 'price', scope: 'item', product: block_st.product, show_badges: false -%}
+                        {% else %}
+                          <div
+                            class="{{ mb_custom }}"
+                            style="--space-bottom: {{ block_st.product_spacing_bottom }};"
+                          >
+                            {% render 'product-item',
+                              card_product: block_st.product,
+                              section_id: section.id,
+                              template_enable_action: true,
+                              template_enable_add_cart: true,
+                              template_enable_product_vendor: true,
+                              template_enable_product_short_description: false,
+                              template_enable_color_swatches: false,
+                              template_enable_price: true,
+                              template_enable_rate: true,
+                              class: ' product-banner-item'
+                            %}
                           </div>
-                        </div>
+                        {% endif %}
                       {% endif %}
                       {% if block_st.button_label != blank %}
                         <a
@@ -513,6 +534,22 @@
           "label": "t:sections.carousel_with_banner.blocks.settings.desktop_image_position.right"
         }
       ]
+    },
+    {
+      "type": "select",
+      "id": "design",
+      "label": "t:sections.all.design.label",
+      "options": [
+        {
+          "value": "default",
+          "label": "t:sections.all.design.default.label"
+        },
+        {
+          "value": "morden",
+          "label": "t:sections.all.design.morden.label"
+        }
+      ],
+      "default": "default"
     },
     {
       "type": "header",
