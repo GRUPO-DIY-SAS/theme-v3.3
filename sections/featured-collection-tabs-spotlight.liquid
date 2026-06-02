@@ -548,6 +548,38 @@
     opacity: 0.72;
   }
 
+  #shopify-section-{{ section.id }} .featured-tabs-spotlight-quick__eyebrow {
+    opacity: 0.68;
+    font-size: 12px;
+    line-height: 1.2;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .featured-tabs-spotlight-quick__title-link {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  #shopify-section-{{ section.id }} .featured-tabs-spotlight-quick__text {
+    margin-top: 8px;
+    opacity: 0.8;
+  }
+
+  #shopify-section-{{ section.id }} .featured-tabs-spotlight-quick__buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 16px;
+  }
+
+  #shopify-section-{{ section.id }} .featured-tabs-spotlight-quick__item.text-center .featured-tabs-spotlight-quick__buttons {
+    justify-content: center;
+  }
+
+  #shopify-section-{{ section.id }} .featured-tabs-spotlight-quick__item.text-right .featured-tabs-spotlight-quick__buttons {
+    justify-content: flex-end;
+  }
+
   @supports (animation-timeline: view()) {
     #shopify-section-{{ section.id }} .featured-tabs-spotlight--fx-reveal .featured-tabs-spotlight-card,
     #shopify-section-{{ section.id }} .featured-tabs-spotlight--fx-reveal .featured-tabs-spotlight-quick__item {
@@ -672,6 +704,33 @@
       {% endif %}
     }
   }
+
+  /* Per-text font-size overrides; 0 keeps the theme/class default for that text */
+  {%- if section_st.text_size_heading > 0 -%}
+    #shopify-section-{{ section.id }} .featured-tabs-spotlight__header .section__header-heading { font-size: {{ section_st.text_size_heading }}px; }
+  {%- endif -%}
+  {%- if section_st.text_size_description > 0 -%}
+    #shopify-section-{{ section.id }} .featured-tabs-spotlight__header .section__header-des { font-size: {{ section_st.text_size_description }}px; }
+  {%- endif -%}
+  {%- if section_st.text_size_tab > 0 -%}
+    #shopify-section-{{ section.id }} .featured-tabs-spotlight__tab { font-size: {{ section_st.text_size_tab }}px; }
+  {%- endif -%}
+  {%- if section_st.text_size_card_title > 0 -%}
+    #shopify-section-{{ section.id }} .featured-tabs-spotlight-card__title { font-size: {{ section_st.text_size_card_title }}px; }
+  {%- endif -%}
+  {%- if section_st.text_size_card_meta > 0 -%}
+    #shopify-section-{{ section.id }} .featured-tabs-spotlight-card__vendor,
+    #shopify-section-{{ section.id }} .featured-tabs-spotlight-card__eyebrow { font-size: {{ section_st.text_size_card_meta }}px; }
+  {%- endif -%}
+  {%- if section_st.text_size_card_price > 0 -%}
+    #shopify-section-{{ section.id }} .featured-tabs-spotlight-card__price { font-size: {{ section_st.text_size_card_price }}px; }
+  {%- endif -%}
+  {%- if section_st.text_size_quick_title > 0 -%}
+    #shopify-section-{{ section.id }} .featured-tabs-spotlight-quick__title { font-size: {{ section_st.text_size_quick_title }}px; }
+  {%- endif -%}
+  {%- if section_st.text_size_quick_subtitle > 0 -%}
+    #shopify-section-{{ section.id }} .featured-tabs-spotlight-quick__subtitle { font-size: {{ section_st.text_size_quick_subtitle }}px; }
+  {%- endif -%}
 {%- endstyle -%}
 
 <div
@@ -773,6 +832,7 @@
             data-autoplay="{{ autoplay }}"
             data-effect="slide"
             data-loop="{{ infinite }}"
+            {% if infinite %}data-defer-init="true"{% endif %}
             data-speed="800"
             data-autoplay-speed="{{ autorotate_speed }}"
             data-spacing="{{ column_gap }}"
@@ -800,13 +860,18 @@
                 assign collection = block_st.collection
                 assign quick_title = block_st.title | default: collection.title | default: 'Collection'
                 assign quick_subtitle = block_st.subtitle
+                assign quick_eyebrow = block_st.eyebrow
+                assign quick_description = block_st.description
                 assign quick_image = block_st.custom_image | default: collection.image
                 assign quick_link = block_st.custom_link | default: collection.url | default: '#'
                 assign quick_ratio = block_st.image_ratio
+                assign quick_btn1_label = block_st.button_label
+                assign quick_btn1_link = block_st.button_link | default: quick_link
+                assign quick_btn2_label = block_st.button_label_2
+                assign quick_btn2_link = block_st.button_link_2 | default: quick_link
               -%}
-              <a
-                class="featured-tabs-spotlight-quick__item{% if quick_layout == 'carousel' %} swiper-slide{% endif %}{% if quick_ratio == 'fixed' %} featured-tabs-spotlight-quick__item--fixed{% endif %}"
-                href="{{ quick_link }}"
+              <div
+                class="featured-tabs-spotlight-quick__item text-{{ block_st.text_alignment }}{% if quick_layout == 'carousel' %} swiper-slide{% endif %}{% if quick_ratio == 'fixed' %} featured-tabs-spotlight-quick__item--fixed{% endif %}"
                 {{ block.shopify_attributes }}
                 {% if quick_ratio == 'fixed' %}
                   style="--spotlight-image-height: {{ block_st.image_height }}px;--spotlight-image-height-mobile: {{ block_st.mobile_image_height }}px;--spotlight-image-fit: {{ block_st.image_fit }};"
@@ -816,20 +881,38 @@
                   style="--spotlight-image-fit: {{ block_st.image_fit }};"
                 {% endif %}
               >
-                <span class="featured-tabs-spotlight-quick__media">
+                <a class="featured-tabs-spotlight-quick__media" href="{{ quick_link }}" aria-label="{{ quick_title | escape }}">
                   {%- if quick_image != blank -%}
                     {{ quick_image | image_url: width: 900 | image_tag: widths: '240, 360, 480, 640, 760, 900', sizes: '(min-width: 1025px) 25vw, 80vw', loading: 'lazy', alt: quick_title }}
                   {%- else -%}
                     {{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg' }}
                   {%- endif -%}
-                </span>
-                <span class="featured-tabs-spotlight-quick__body">
-                  <span class="featured-tabs-spotlight-quick__title h4 block">{{ quick_title }}</span>
+                </a>
+                <div class="featured-tabs-spotlight-quick__body">
+                  {%- if quick_eyebrow != blank -%}
+                    <span class="featured-tabs-spotlight-quick__eyebrow block">{{ quick_eyebrow }}</span>
+                  {%- endif -%}
+                  <a class="featured-tabs-spotlight-quick__title-link block" href="{{ quick_link }}">
+                    <span class="featured-tabs-spotlight-quick__title h4 block">{{ quick_title }}</span>
+                  </a>
                   {%- if quick_subtitle != blank -%}
                     <span class="featured-tabs-spotlight-quick__subtitle block">{{ quick_subtitle }}</span>
                   {%- endif -%}
-                </span>
-              </a>
+                  {%- if quick_description != blank -%}
+                    <div class="featured-tabs-spotlight-quick__text rich__text-m0">{{ quick_description }}</div>
+                  {%- endif -%}
+                  {%- if quick_btn1_label != blank or quick_btn2_label != blank -%}
+                    <div class="featured-tabs-spotlight-quick__buttons">
+                      {%- if quick_btn1_label != blank -%}
+                        <a class="btn-primary no-underline inline-flex" href="{{ quick_btn1_link }}">{{ quick_btn1_label }}</a>
+                      {%- endif -%}
+                      {%- if quick_btn2_label != blank -%}
+                        <a class="btn-outline no-underline inline-flex" href="{{ quick_btn2_link }}">{{ quick_btn2_label }}</a>
+                      {%- endif -%}
+                    </div>
+                  {%- endif -%}
+                </div>
+              </div>
             {%- endif -%}
           {%- endfor -%}
           {%- if quick_count == 0 -%}
@@ -929,6 +1012,7 @@
                   data-autoplay="{{ autoplay }}"
                   data-effect="slide"
                   data-loop="{{ infinite }}"
+                  {% if infinite and product_layout == 'carousel' %}data-defer-init="true"{% endif %}
                   data-speed="800"
                   data-autoplay-speed="{{ autorotate_speed }}"
                   data-spacing="{{ column_gap }}"
@@ -1256,6 +1340,94 @@
       "id": "show_view_all_button",
       "label": "Show view all button",
       "default": true
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "paragraph",
+      "content": "Font size per text. 0 keeps the theme default for that text."
+    },
+    {
+      "type": "range",
+      "id": "text_size_heading",
+      "label": "Heading",
+      "min": 0,
+      "max": 80,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "text_size_description",
+      "label": "Description",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "text_size_tab",
+      "label": "Tab labels",
+      "min": 0,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "text_size_card_title",
+      "label": "Product card title",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "text_size_card_meta",
+      "label": "Product card vendor / eyebrow",
+      "min": 0,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "text_size_card_price",
+      "label": "Product card price",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "text_size_quick_title",
+      "label": "Quick nav title",
+      "min": 0,
+      "max": 48,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "text_size_quick_subtitle",
+      "label": "Quick nav subtitle",
+      "min": 0,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "default": 0
     },
     {
       "type": "header",
@@ -1886,14 +2058,74 @@
         },
         {
           "type": "text",
+          "id": "eyebrow",
+          "label": "Eyebrow"
+        },
+        {
+          "type": "text",
           "id": "subtitle",
           "label": "Subtitle"
+        },
+        {
+          "type": "richtext",
+          "id": "description",
+          "label": "Description"
+        },
+        {
+          "type": "select",
+          "id": "text_alignment",
+          "label": "Text alignment",
+          "default": "left",
+          "options": [
+            {
+              "value": "left",
+              "label": "Left"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            },
+            {
+              "value": "right",
+              "label": "Right"
+            }
+          ]
         },
         {
           "type": "url",
           "id": "custom_link",
           "label": "Custom link",
-          "info": "Leave blank to use the collection link."
+          "info": "Used by the image and title. Leave blank to use the collection link."
+        },
+        {
+          "type": "header",
+          "content": "Buttons"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Button 1 label"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Button 1 link",
+          "info": "Leave blank to use the custom/collection link."
+        },
+        {
+          "type": "text",
+          "id": "button_label_2",
+          "label": "Button 2 label"
+        },
+        {
+          "type": "url",
+          "id": "button_link_2",
+          "label": "Button 2 link",
+          "info": "Leave blank to use the custom/collection link."
+        },
+        {
+          "type": "header",
+          "content": "Image"
         },
         {
           "type": "select",
