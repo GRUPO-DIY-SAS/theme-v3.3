@@ -202,14 +202,6 @@
     display: none;
   }
 
-  /* Video parallax: the video is oversized (extra 30%) so the scroll-driven
-     translateY (set by the inline script) never exposes a gap; the wrapper clips it.
-     JS-driven instead of animation-timeline so it also runs on iOS Safari. */
-  #shopify-section-{{ section.id }} .featured-tabs-spotlight--video-parallax .featured-tabs-spotlight__background video {
-    height: 130%;
-    will-change: transform;
-  }
-
   #shopify-section-{{ section.id }} .featured-tabs-spotlight__shape {
     position: absolute;
     z-index: 1;
@@ -660,7 +652,6 @@
 
   @media (prefers-reduced-motion: reduce) {
     #shopify-section-{{ section.id }} .featured-tabs-spotlight--shape-motion .featured-tabs-spotlight__shape,
-    #shopify-section-{{ section.id }} .featured-tabs-spotlight--video-parallax .featured-tabs-spotlight__background video,
     #shopify-section-{{ section.id }} .featured-tabs-spotlight--fx-reveal .featured-tabs-spotlight-card,
     #shopify-section-{{ section.id }} .featured-tabs-spotlight--fx-reveal .featured-tabs-spotlight-quick__item {
       animation: none;
@@ -800,7 +791,7 @@
 {%- endstyle -%}
 
 <div
-  class="section featured-tabs-spotlight featured-tabs-spotlight--shape-{{ section_st.shape_style }} featured-tabs-spotlight--bg-{{ background_type }} featured-tabs-spotlight--mode-{{ display_mode }} featured-tabs-spotlight--layout-{{ product_layout }} featured-tabs-spotlight--quick-layout-{{ quick_layout }} featured-tabs-spotlight--cards-{{ card_surface }} featured-tabs-spotlight--fx-{{ interaction_effect }} color-{{ color_scheme }} gradient{% if section_st.animate_shape %} featured-tabs-spotlight--shape-motion{% endif %}{% if background_type == 'video' and section_st.video_parallax %} featured-tabs-spotlight--video-parallax{% endif %}{% if section_st.padding_top < 30 %} pt-min{% endif %}{% if section_st.padding_bottom < 30 %} pb-min{% endif %}{{ reset_spacing }}"
+  class="section featured-tabs-spotlight featured-tabs-spotlight--shape-{{ section_st.shape_style }} featured-tabs-spotlight--bg-{{ background_type }} featured-tabs-spotlight--mode-{{ display_mode }} featured-tabs-spotlight--layout-{{ product_layout }} featured-tabs-spotlight--quick-layout-{{ quick_layout }} featured-tabs-spotlight--cards-{{ card_surface }} featured-tabs-spotlight--fx-{{ interaction_effect }} color-{{ color_scheme }} gradient{% if section_st.animate_shape %} featured-tabs-spotlight--shape-motion{% endif %}{% if section_st.padding_top < 30 %} pt-min{% endif %}{% if section_st.padding_bottom < 30 %} pb-min{% endif %}{{ reset_spacing }}"
   style="{{ section_style | strip | strip_newlines }}"
 >
   {%- if background_type == 'image' or background_type == 'parallax' -%}
@@ -1291,62 +1282,6 @@
   </div>
 </div>
 
-{%- if background_type == 'video' and section_st.video_parallax -%}
-  <script>
-    (function () {
-      var section = document.getElementById('shopify-section-{{ section.id }}');
-      if (!section || (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)) return;
-      var bg = section.querySelector('.featured-tabs-spotlight__background');
-      var videos = section.querySelectorAll('.featured-tabs-spotlight__background video');
-      if (!bg || !videos.length) return;
-
-      var ticking = false;
-      var listening = false;
-
-      function apply() {
-        ticking = false;
-        var rect = bg.getBoundingClientRect();
-        var vh = window.innerHeight || document.documentElement.clientHeight;
-        /* 0 when the block is about to enter from the bottom, 1 when it has left the top */
-        var progress = (vh - rect.top) / (vh + rect.height);
-        progress = progress < 0 ? 0 : progress > 1 ? 1 : progress;
-        var ty = (progress * rect.height * -0.3).toFixed(1);
-        for (var i = 0; i < videos.length; i++) {
-          videos[i].style.transform = 'translate3d(0,' + ty + 'px,0)';
-        }
-      }
-
-      function onScroll() {
-        if (!ticking) {
-          ticking = true;
-          window.requestAnimationFrame(apply);
-        }
-      }
-
-      function setListening(on) {
-        if (on === listening) return;
-        listening = on;
-        if (on) {
-          window.addEventListener('scroll', onScroll, { passive: true });
-          window.addEventListener('resize', onScroll, { passive: true });
-          apply();
-        } else {
-          window.removeEventListener('scroll', onScroll);
-          window.removeEventListener('resize', onScroll);
-        }
-      }
-
-      if ('IntersectionObserver' in window) {
-        new IntersectionObserver(function (entries) {
-          setListening(entries[0].isIntersecting);
-        }).observe(section);
-      } else {
-        setListening(true);
-      }
-    })();
-  </script>
-{%- endif -%}
-
 {% schema %}
 {
   "name": "Collection tabs spotlight",
@@ -1610,13 +1545,6 @@
       "id": "mobile_background_video_poster",
       "label": "Mobile video poster",
       "info": "Defaults to the desktop poster / video preview frame."
-    },
-    {
-      "type": "checkbox",
-      "id": "video_parallax",
-      "label": "Video parallax effect",
-      "info": "Subtle scroll movement on the background video.",
-      "default": false
     },
     {
       "type": "color",
