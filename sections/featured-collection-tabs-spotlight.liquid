@@ -206,16 +206,16 @@
      is oversized so the translate never exposes a gap; overflow on the wrapper clips it. */
   @supports (animation-timeline: view()) {
     #shopify-section-{{ section.id }} .featured-tabs-spotlight--video-parallax .featured-tabs-spotlight__background video {
-      height: 130%;
+      height: 150%;
       animation: spotlightVideoParallax linear both;
       animation-timeline: view();
-      animation-range: cover;
+      animation-range: entry 0% exit 100%;
     }
   }
 
   @keyframes spotlightVideoParallax {
     from {
-      transform: translateY(-15%);
+      transform: translateY(-30%);
     }
 
     to {
@@ -546,6 +546,11 @@
     color: var(--spotlight-card-text);
     text-decoration: none;
     transition: transform 0.24s ease;
+    /* iOS Safari fails to paint a slide inside the transformed Swiper wrapper
+       (first card was vanishing); own compositing layer keeps it painted. */
+    transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
   }
 
   #shopify-section-{{ section.id }} .featured-tabs-spotlight--fx-lift .featured-tabs-spotlight-quick__item:hover,
@@ -597,9 +602,10 @@
 
   #shopify-section-{{ section.id }} .featured-tabs-spotlight-quick__body--glass {
     border: 1px solid color-mix(in srgb, var(--spotlight-card-bg) 48%, #fff 38%);
-    background: color-mix(in srgb, var(--spotlight-card-bg) 74%, transparent);
-    backdrop-filter: blur(18px) saturate(1.16);
-    -webkit-backdrop-filter: blur(18px) saturate(1.16);
+    /* No backdrop-filter: it can't sample a backdrop inside Swiper's transformed
+       wrapper and triggers an iOS Safari repaint bug that hides the card. The
+       translucent fill keeps the frosted look. */
+    background: color-mix(in srgb, var(--spotlight-card-bg) 86%, transparent);
   }
 
   #shopify-section-{{ section.id }} .featured-tabs-spotlight-quick__title {
