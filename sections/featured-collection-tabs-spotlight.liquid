@@ -14,6 +14,8 @@
   assign mobile_background_image = section_st.mobile_background_image | default: background_image
   assign background_video = section_st.background_video
   assign mobile_background_video = section_st.mobile_background_video | default: background_video
+  assign background_video_poster = section_st.background_video_poster | default: background_video.preview_image
+  assign mobile_background_video_poster = section_st.mobile_background_video_poster | default: mobile_background_video.preview_image | default: background_video_poster
   assign background_video_source = ''
   assign mobile_background_video_source = ''
   assign items_to_show = section_st.items_to_show
@@ -538,6 +540,24 @@
     padding-top: 14px;
   }
 
+  #shopify-section-{{ section.id }} .featured-tabs-spotlight-quick__body--surface {
+    margin-top: 14px;
+    padding: clamp(14px, 1.4vw, 20px);
+    border-radius: 18px;
+    color: var(--spotlight-card-text);
+  }
+
+  #shopify-section-{{ section.id }} .featured-tabs-spotlight-quick__body--solid {
+    background: var(--spotlight-card-bg);
+  }
+
+  #shopify-section-{{ section.id }} .featured-tabs-spotlight-quick__body--glass {
+    border: 1px solid color-mix(in srgb, var(--spotlight-card-bg) 48%, #fff 38%);
+    background: color-mix(in srgb, var(--spotlight-card-bg) 74%, transparent);
+    backdrop-filter: blur(18px) saturate(1.16);
+    -webkit-backdrop-filter: blur(18px) saturate(1.16);
+  }
+
   #shopify-section-{{ section.id }} .featured-tabs-spotlight-quick__title {
     margin: 0;
     color: var(--spotlight-card-text);
@@ -763,9 +783,9 @@
           preload="none"
           data-video-load="interaction"
           data-src="{{ background_video_source }}"
-          {% if background_video.preview_image %}
-            data-poster="{{ background_video.preview_image | image_url: width: 1800 }}"
-            poster="{{ background_video.preview_image | image_url: width: 1800 }}"
+          {% if background_video_poster != blank %}
+            data-poster="{{ background_video_poster | image_url: width: 1800 }}"
+            poster="{{ background_video_poster | image_url: width: 1800 }}"
           {% endif %}
         ></video>
       {%- endif -%}
@@ -779,9 +799,9 @@
           preload="none"
           data-video-load="interaction"
           data-src="{{ mobile_background_video_source }}"
-          {% if mobile_background_video.preview_image %}
-            data-poster="{{ mobile_background_video.preview_image | image_url: width: 900 }}"
-            poster="{{ mobile_background_video.preview_image | image_url: width: 900 }}"
+          {% if mobile_background_video_poster != blank %}
+            data-poster="{{ mobile_background_video_poster | image_url: width: 900 }}"
+            poster="{{ mobile_background_video_poster | image_url: width: 900 }}"
           {% endif %}
         ></video>
       {%- endif -%}
@@ -888,7 +908,7 @@
                     {{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg' }}
                   {%- endif -%}
                 </a>
-                <div class="featured-tabs-spotlight-quick__body">
+                <div class="featured-tabs-spotlight-quick__body{% if block_st.text_surface != 'none' %} featured-tabs-spotlight-quick__body--surface featured-tabs-spotlight-quick__body--{{ block_st.text_surface }}{% endif %}">
                   {%- if quick_eyebrow != blank -%}
                     <span class="featured-tabs-spotlight-quick__eyebrow block">{{ quick_eyebrow }}</span>
                   {%- endif -%}
@@ -1476,6 +1496,18 @@
       "type": "video",
       "id": "mobile_background_video",
       "label": "Mobile background video"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_video_poster",
+      "label": "Desktop video poster",
+      "info": "Shown before the video loads. Defaults to the video's preview frame."
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_background_video_poster",
+      "label": "Mobile video poster",
+      "info": "Defaults to the desktop poster / video preview frame."
     },
     {
       "type": "color",
@@ -2088,6 +2120,27 @@
             {
               "value": "right",
               "label": "Right"
+            }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "text_surface",
+          "label": "Text container",
+          "info": "Wraps the eyebrow, title and subtitle in a styled container.",
+          "default": "none",
+          "options": [
+            {
+              "value": "none",
+              "label": "None"
+            },
+            {
+              "value": "solid",
+              "label": "Solid"
+            },
+            {
+              "value": "glass",
+              "label": "Glass"
             }
           ]
         },
