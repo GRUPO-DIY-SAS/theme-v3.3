@@ -14,6 +14,12 @@
   if request.page_type == 'index' or request.page_type == 'product' or request.page_type == 'collection' or request.page_type == 'search' or request.page_type == 'cart'
     assign load_swiper_assets = true
   endif
+  {%- comment -%} Page templates con carruseles (products-carousel, collection-tab,
+    spotlight) usan Swiper, pero page_type 'page' no lo cargaba → los slides se
+    apilaban. Swiper debe encolarse ANTES que global.js (que hace new Swiper). {%- endcomment -%}
+  if template.suffix == 'vape-shop'
+    assign load_swiper_assets = true
+  endif
 
   assign load_motion_effects = false
   if settings.scroll_animation != 'none' or settings.zoom_image
