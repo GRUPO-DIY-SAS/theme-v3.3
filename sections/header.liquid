@@ -55,6 +55,17 @@
     }
   {%- endstyle -%}
 {% endif %}
+{%- style -%}
+  @media screen and (min-width: 1025px) {
+    .box-menu {
+      background: var(--gradient-background);
+      z-index: 1;
+      border-radius: 100px;
+      --transparent-color: var(--color-heading);
+      padding: 0 2rem;
+    }
+  }
+{%- endstyle -%}
 {% if transparent %}
   {%- style -%}
     .section-header:not(.shopify-section-header-sticky) .transparent:not(:hover):before {
@@ -85,13 +96,6 @@
       }
       .open-drawer .section-header:not(.shopify-section-header-sticky) .transparent {
         margin-right: var(--scrollbar-width);
-      }
-      .box-menu {
-        background: var(--gradient-background);
-        z-index: 1;
-        border-radius: 100px;
-        --transparent-color: var(--color-heading);
-        padding: 0 2rem;
       }
     }
     @media screen and (max-width: 1024.98px) {
@@ -370,8 +374,7 @@
       "type": "checkbox",
       "id": "box_menu",
       "label": "t:sections.header.settings.transparent_header.box_menu.label",
-      "info": "t:sections.header.settings.transparent_header.box_menu.info",
-      "visible_if": "{{ section.settings.transparent_header != false }}"
+      "info": "t:sections.header.settings.transparent_header.box_menu.info"
     },
     {
       "type": "header",
