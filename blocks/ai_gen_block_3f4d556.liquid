@@ -276,8 +276,7 @@
     line-height: 1.2;
     text-transform: uppercase;
   }
-  .ai-age-verify-input,
-  .ai-age-verify-select {
+  .ai-age-verify-input {
     width: 100%;
     min-height: 48px;
     padding: 12px 13px;
@@ -288,18 +287,73 @@
     font-size: 16px;
     line-height: 1.2;
   }
-  .ai-age-verify-input:focus,
-  .ai-age-verify-select:focus {
+  .ai-age-verify-input:focus {
     outline: none;
     border-color: var(--age-input-focus, #111);
   }
-  .ai-age-verify-dob-selects {
-    display: flex;
-    gap: 8px;
+  /* DOB picker: una sola rueda de 3 columnas (día/mes/año). iOS no expone el
+     spinner de 3 columnas vía HTML (type=date abre calendario), así que es
+     custom con scroll-snap nativo, sin librería. ITEM_H=40 debe coincidir
+     con el JS de abajo. La fila central marca la selección. */
+  .ai-age-verify-wheel {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--age-input-border, #ccc);
+    border-radius: var(--age-input-radius, 8px);
+    background: var(--age-input-bg, #fff);
   }
-  .ai-age-verify-dob-selects .ai-age-verify-select {
+  .ai-age-verify-wheel::after {
+    content: "";
+    position: absolute;
+    left: 8px;
+    right: 8px;
+    top: 50%;
+    height: 40px;
+    transform: translateY(-50%);
+    border-top: 1px solid var(--age-input-focus, #111);
+    border-bottom: 1px solid var(--age-input-focus, #111);
+    pointer-events: none;
+  }
+  .ai-age-verify-wheel-track {
+    display: flex;
+    -webkit-mask-image: linear-gradient(to bottom, transparent, #000 24%, #000 76%, transparent);
+    mask-image: linear-gradient(to bottom, transparent, #000 24%, #000 76%, transparent);
+  }
+  .ai-age-verify-wheel-col {
     flex: 1 1 0;
     min-width: 0;
+    height: 200px;
+    overflow-y: scroll;
+    scroll-snap-type: y mandatory;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    text-align: center;
+  }
+  .ai-age-verify-wheel-col::-webkit-scrollbar {
+    display: none;
+  }
+  .ai-age-verify-wheel-col:focus-visible {
+    outline: 2px solid var(--age-input-focus, #111);
+    outline-offset: -2px;
+  }
+  .ai-age-verify-wheel-spacer {
+    height: 80px;
+  }
+  .ai-age-verify-wheel-item {
+    display: flex;
+    height: 40px;
+    align-items: center;
+    justify-content: center;
+    scroll-snap-align: center;
+    color: var(--age-text-color, #111);
+    font-size: 17px;
+    line-height: 1;
+    opacity: 0.4;
+    transition: opacity 0.15s ease;
+  }
+  .ai-age-verify-wheel-item[aria-selected="true"] {
+    opacity: 1;
+    font-weight: 800;
   }
   .ai-age-verify-error {
     display: none;
@@ -506,41 +560,34 @@
           {%- assign age_now_year = 'now' | date: '%Y' | plus: 0 -%}
           {%- assign age_min_year = age_now_year | minus: 100 -%}
           <label class="ai-age-verify-label" id="AgeVerifyDobLabel-{{ ai_gen_id }}">{{ block.settings.dob_label }}</label>
-          <div class="ai-age-verify-dob-selects" role="group" aria-labelledby="AgeVerifyDobLabel-{{ ai_gen_id }}">
-            <select
-              id="AgeVerifyDob-{{ ai_gen_id }}-day"
-              class="ai-age-verify-select"
-              aria-label="Día"
-              data-dob-day
-            >
-              <option value="" selected>Día</option>
-              {%- for day in (1..31) -%}
-                <option value="{{ day }}">{{ day }}</option>
-              {%- endfor -%}
-            </select>
-            <select
-              id="AgeVerifyDob-{{ ai_gen_id }}-month"
-              class="ai-age-verify-select"
-              aria-label="Mes"
-              data-dob-month
-            >
-              <option value="" selected>Mes</option>
-              {%- assign age_months = 'Enero,Febrero,Marzo,Abril,Mayo,Junio,Julio,Agosto,Septiembre,Octubre,Noviembre,Diciembre' | split: ',' -%}
-              {%- for month_name in age_months -%}
-                <option value="{{ forloop.index }}">{{ month_name }}</option>
-              {%- endfor -%}
-            </select>
-            <select
-              id="AgeVerifyDob-{{ ai_gen_id }}-year"
-              class="ai-age-verify-select"
-              aria-label="Año"
-              data-dob-year
-            >
-              <option value="" selected>Año</option>
-              {%- for year in (age_min_year..age_now_year) reversed -%}
-                <option value="{{ year }}">{{ year }}</option>
-              {%- endfor -%}
-            </select>
+          <div class="ai-age-verify-wheel" data-dob-wheel role="group" aria-labelledby="AgeVerifyDobLabel-{{ ai_gen_id }}">
+            <div class="ai-age-verify-wheel-track">
+              <div class="ai-age-verify-wheel-col" data-dob-col="day" tabindex="0" role="listbox" aria-label="Día">
+                <div class="ai-age-verify-wheel-spacer" aria-hidden="true"></div>
+                <div class="ai-age-verify-wheel-item" role="option" data-value="" aria-selected="true">–</div>
+                {%- for day in (1..31) -%}
+                  <div class="ai-age-verify-wheel-item" role="option" data-value="{{ day }}">{{ day }}</div>
+                {%- endfor -%}
+                <div class="ai-age-verify-wheel-spacer" aria-hidden="true"></div>
+              </div>
+              <div class="ai-age-verify-wheel-col" data-dob-col="month" tabindex="0" role="listbox" aria-label="Mes">
+                <div class="ai-age-verify-wheel-spacer" aria-hidden="true"></div>
+                <div class="ai-age-verify-wheel-item" role="option" data-value="" aria-selected="true">–</div>
+                {%- assign age_months = 'Ene,Feb,Mar,Abr,May,Jun,Jul,Ago,Sep,Oct,Nov,Dic' | split: ',' -%}
+                {%- for month_name in age_months -%}
+                  <div class="ai-age-verify-wheel-item" role="option" data-value="{{ forloop.index }}">{{ month_name }}</div>
+                {%- endfor -%}
+                <div class="ai-age-verify-wheel-spacer" aria-hidden="true"></div>
+              </div>
+              <div class="ai-age-verify-wheel-col" data-dob-col="year" tabindex="0" role="listbox" aria-label="Año">
+                <div class="ai-age-verify-wheel-spacer" aria-hidden="true"></div>
+                <div class="ai-age-verify-wheel-item" role="option" data-value="" aria-selected="true">–</div>
+                {%- for year in (age_min_year..age_now_year) reversed -%}
+                  <div class="ai-age-verify-wheel-item" role="option" data-value="{{ year }}">{{ year }}</div>
+                {%- endfor -%}
+                <div class="ai-age-verify-wheel-spacer" aria-hidden="true"></div>
+              </div>
+            </div>
           </div>
           <input type="hidden" data-dob-input id="AgeVerifyDob-{{ ai_gen_id }}">
           <div id="AgeVerifyDobError-{{ ai_gen_id }}" class="ai-age-verify-error" data-error="dob" aria-live="polite"></div>
@@ -640,34 +687,61 @@
 </script>
 
 <script>
-  /* Compone YYYY-MM-DD desde los 3 <select> (día/mes/año) hacia el hidden
-     [data-dob-input] que consume age-verification.js sin cambios. Usamos
-     selects nativos (no type=date) porque en iOS el calendario de mes es
-     mala UX; los selects muestran el wheel picker nativo. */
+  /* DOB wheel: lee el ítem centrado de cada columna (scroll-snap) y compone
+     YYYY-MM-DD en el hidden [data-dob-input] que consume age-verification.js
+     sin cambios. Un solo control de 3 columnas — no 3 selects, no calendario.
+     Validez (31-feb, mayor de 18) la sigue verificando age-verification.js. */
   (function () {
-    var gateId = 'AgeVerification-{{ ai_gen_id }}';
-    var gate = document.getElementById(gateId);
+    var gate = document.getElementById('AgeVerification-{{ ai_gen_id }}');
     if (!gate) return;
-    var day = gate.querySelector('[data-dob-day]');
-    var month = gate.querySelector('[data-dob-month]');
-    var year = gate.querySelector('[data-dob-year]');
+    var wheel = gate.querySelector('[data-dob-wheel]');
     var hidden = gate.querySelector('[data-dob-input]');
-    if (!day || !month || !year || !hidden) return;
+    if (!wheel || !hidden) return;
+    var ITEM_H = 40; /* coincide con .ai-age-verify-wheel-item height */
+    var cols = {
+      day: wheel.querySelector('[data-dob-col="day"]'),
+      month: wheel.querySelector('[data-dob-col="month"]'),
+      year: wheel.querySelector('[data-dob-col="year"]')
+    };
+    if (!cols.day || !cols.month || !cols.year) return;
 
+    var centeredValue = function (col) {
+      var items = col.querySelectorAll('.ai-age-verify-wheel-item');
+      var idx = Math.round(col.scrollTop / ITEM_H);
+      if (idx < 0) idx = 0;
+      if (idx > items.length - 1) idx = items.length - 1;
+      for (var i = 0; i < items.length; i += 1) {
+        items[i].setAttribute('aria-selected', i === idx ? 'true' : 'false');
+      }
+      return items[idx] ? (items[idx].getAttribute('data-value') || '') : '';
+    };
     var pad = function (value) {
       return value.length === 1 ? '0' + value : value;
     };
     var compose = function () {
-      var d = day.value;
-      var m = month.value;
-      var y = year.value;
+      var d = centeredValue(cols.day);
+      var m = centeredValue(cols.month);
+      var y = centeredValue(cols.year);
       hidden.value = (d && m && y) ? (y + '-' + pad(m) + '-' + pad(d)) : '';
       hidden.dispatchEvent(new Event('change', { bubbles: true }));
       hidden.dispatchEvent(new Event('input', { bubbles: true }));
     };
 
-    [day, month, year].forEach(function (select) {
-      select.addEventListener('change', compose);
+    ['day', 'month', 'year'].forEach(function (key) {
+      var col = cols[key];
+      var settle;
+      col.addEventListener('scroll', function () {
+        clearTimeout(settle);
+        settle = setTimeout(compose, 120);
+      }, { passive: true });
+      col.addEventListener('keydown', function (e) {
+        if (e.key !== 'ArrowDown' && e.key !== 'ArrowUp') return;
+        e.preventDefault();
+        var idx = Math.round(col.scrollTop / ITEM_H) + (e.key === 'ArrowDown' ? 1 : -1);
+        if (idx < 0) idx = 0;
+        col.scrollTo({ top: idx * ITEM_H, behavior: 'smooth' });
+      });
+      centeredValue(col); /* init aria-selected on the placeholder */
     });
   })();
 </script>
