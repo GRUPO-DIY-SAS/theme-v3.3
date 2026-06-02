@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "name": "t:sections.header.name",
   "type": "header",
@@ -18,9 +27,9 @@
         "text_slider_LFaC38": {
           "type": "text_slider",
           "settings": {
-            "text1": "<strong>Envío Gratis $80.000<\/strong> Bogotá (<a href=\"\/policies\/shipping-policy\" target=\"_blank\" title=\"Shipping Policy\"><strong>T&C<\/strong><\/a>).",
-            "text2": "<strong>Productos Exclusivos<\/strong> en <strong>DIY Vape Shop<\/strong>",
-            "text3": "<strong>Envío Gratis $250.000<\/strong> Nacional (<a href=\"\/policies\/shipping-policy\" target=\"_blank\" title=\"Shipping Policy\"><strong>T&C<\/strong><\/a>).",
+            "text1": "<strong>Envío Gratis $80.000</strong> Bogotá (<a href=\"/policies/shipping-policy\" target=\"_blank\" title=\"Shipping Policy\"><strong>T&C</strong></a>).",
+            "text2": "<strong>Productos Exclusivos</strong> en <strong>DIY Vape Shop</strong>",
+            "text3": "<strong>Envío Gratis $250.000</strong> Nacional (<a href=\"/policies/shipping-policy\" target=\"_blank\" title=\"Shipping Policy\"><strong>T&C</strong></a>).",
             "change_every": 3,
             "hidden_on_mobile": false
           }
@@ -178,6 +187,8 @@
         "transparent_header": true,
         "transparent_mobile": true,
         "transparent_text_icon_color": "#ffffff",
+        "transparent_bg_color": "#111111",
+        "box_menu": true,
         "mega_menu": "main-menu-1",
         "dropdowns_animation": "down-to-up",
         "uppercase_first": false,
