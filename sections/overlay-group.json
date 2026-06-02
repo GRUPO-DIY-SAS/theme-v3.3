@@ -45,7 +45,7 @@
             "cookie_name": "age_verified_diyvape",
             "cookie_domain": ".diyvape.co",
             "cookie_duration": "1",
-            "cookie_persistence": "days",
+            "cookie_persistence": "hours",
             "cookie_hours": "24",
             "cookie_days_v2": "365",
             "cookie_custom_value": 1,
