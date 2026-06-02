@@ -409,6 +409,17 @@
     width: auto !important;
   }
 
+  /* Pre-init (deferred/lazy) carousel: size slides to the per-view width so the
+     first frame matches the initialized layout instead of one full-width slide */
+  #shopify-section-{{ section.id }} .collection-tab__tab-content .swiper:not(.swiper-initialized) .swiper-wrapper {
+    display: flex;
+    gap: var(--col-gap-desktop, var(--col-gap, 20px));
+  }
+
+  #shopify-section-{{ section.id }} .collection-tab__tab-content .swiper:not(.swiper-initialized) .swiper-slide {
+    width: calc((100% - var(--col-gap-desktop, var(--col-gap, 20px)) * (var(--spotlight-product-cols) - 1)) / var(--spotlight-product-cols));
+  }
+
   #shopify-section-{{ section.id }} .featured-tabs-spotlight-products--hero_cards .featured-tabs-spotlight-card:first-child {
     grid-column: span 2;
     grid-row: span 2;
@@ -495,6 +506,14 @@
     display: flex;
     gap: 0;
     margin-top: 0;
+  }
+
+  #shopify-section-{{ section.id }} .featured-tabs-spotlight-quick.swiper:not(.swiper-initialized) .swiper-wrapper {
+    gap: var(--col-gap, 20px);
+  }
+
+  #shopify-section-{{ section.id }} .featured-tabs-spotlight-quick.swiper:not(.swiper-initialized) .swiper-slide {
+    width: calc((100% - var(--col-gap, 20px) * (var(--spotlight-quick-cols) - 1)) / var(--spotlight-quick-cols));
   }
 
   #shopify-section-{{ section.id }} .featured-tabs-spotlight-quick__item {
@@ -716,6 +735,14 @@
 
     #shopify-section-{{ section.id }} .featured-tabs-spotlight-quick {
       grid-template-columns: repeat(var(--spotlight-quick-mobile-cols), minmax(0, 1fr));
+    }
+
+    #shopify-section-{{ section.id }} .collection-tab__tab-content .swiper:not(.swiper-initialized) .swiper-slide {
+      width: calc((100% - var(--col-gap, 20px) * (var(--spotlight-product-mobile-cols) - 1)) / var(--spotlight-product-mobile-cols));
+    }
+
+    #shopify-section-{{ section.id }} .featured-tabs-spotlight-quick.swiper:not(.swiper-initialized) .swiper-slide {
+      width: calc((100% - var(--col-gap, 20px) * (var(--spotlight-quick-mobile-cols) - 1)) / var(--spotlight-quick-mobile-cols));
     }
 
     #shopify-section-{{ section.id }} .featured-tabs-spotlight-quick__media {
