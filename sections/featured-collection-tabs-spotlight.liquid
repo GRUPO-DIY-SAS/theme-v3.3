@@ -37,6 +37,10 @@
   assign header_size = ''
   assign animate_delay = 0
   assign image_ratio = section_st.image_ratio
+  assign reset_spacing = ''
+  if section_st.reset_spacing
+    assign reset_spacing = ' remove_spacing'
+  endif
 
   if section_st.header_size == 'small'
     assign header_size = 'h3'
@@ -196,6 +200,27 @@
 
   #shopify-section-{{ section.id }} .featured-tabs-spotlight--bg-parallax .featured-tabs-spotlight__background img {
     display: none;
+  }
+
+  /* Video parallax: scroll-linked transform (compositor-only, no JS). The video
+     is oversized so the translate never exposes a gap; overflow on the wrapper clips it. */
+  @supports (animation-timeline: view()) {
+    #shopify-section-{{ section.id }} .featured-tabs-spotlight--video-parallax .featured-tabs-spotlight__background video {
+      height: 130%;
+      animation: spotlightVideoParallax linear both;
+      animation-timeline: view();
+      animation-range: cover;
+    }
+  }
+
+  @keyframes spotlightVideoParallax {
+    from {
+      transform: translateY(-15%);
+    }
+
+    to {
+      transform: translateY(0%);
+    }
   }
 
   #shopify-section-{{ section.id }} .featured-tabs-spotlight__shape {
@@ -642,6 +667,7 @@
 
   @media (prefers-reduced-motion: reduce) {
     #shopify-section-{{ section.id }} .featured-tabs-spotlight--shape-motion .featured-tabs-spotlight__shape,
+    #shopify-section-{{ section.id }} .featured-tabs-spotlight--video-parallax .featured-tabs-spotlight__background video,
     #shopify-section-{{ section.id }} .featured-tabs-spotlight--fx-reveal .featured-tabs-spotlight-card,
     #shopify-section-{{ section.id }} .featured-tabs-spotlight--fx-reveal .featured-tabs-spotlight-quick__item {
       animation: none;
@@ -781,7 +807,7 @@
 {%- endstyle -%}
 
 <div
-  class="section featured-tabs-spotlight featured-tabs-spotlight--shape-{{ section_st.shape_style }} featured-tabs-spotlight--bg-{{ background_type }} featured-tabs-spotlight--mode-{{ display_mode }} featured-tabs-spotlight--layout-{{ product_layout }} featured-tabs-spotlight--quick-layout-{{ quick_layout }} featured-tabs-spotlight--cards-{{ card_surface }} featured-tabs-spotlight--fx-{{ interaction_effect }} color-{{ color_scheme }} gradient{% if section_st.animate_shape %} featured-tabs-spotlight--shape-motion{% endif %}{% if section_st.padding_top < 30 %} pt-min{% endif %}{% if section_st.padding_bottom < 30 %} pb-min{% endif %}"
+  class="section featured-tabs-spotlight featured-tabs-spotlight--shape-{{ section_st.shape_style }} featured-tabs-spotlight--bg-{{ background_type }} featured-tabs-spotlight--mode-{{ display_mode }} featured-tabs-spotlight--layout-{{ product_layout }} featured-tabs-spotlight--quick-layout-{{ quick_layout }} featured-tabs-spotlight--cards-{{ card_surface }} featured-tabs-spotlight--fx-{{ interaction_effect }} color-{{ color_scheme }} gradient{% if section_st.animate_shape %} featured-tabs-spotlight--shape-motion{% endif %}{% if background_type == 'video' and section_st.video_parallax %} featured-tabs-spotlight--video-parallax{% endif %}{% if section_st.padding_top < 30 %} pt-min{% endif %}{% if section_st.padding_bottom < 30 %} pb-min{% endif %}{{ reset_spacing }}"
   style="{{ section_style | strip | strip_newlines }}"
 >
   {%- if background_type == 'image' or background_type == 'parallax' -%}
@@ -1537,6 +1563,13 @@
       "info": "Defaults to the desktop poster / video preview frame."
     },
     {
+      "type": "checkbox",
+      "id": "video_parallax",
+      "label": "Video parallax effect",
+      "info": "Subtle scroll movement on the background video.",
+      "default": false
+    },
+    {
       "type": "color",
       "id": "background_overlay_color",
       "label": "Background overlay",
@@ -2051,6 +2084,12 @@
       "max": 120,
       "step": 4,
       "unit": "px"
+    },
+    {
+      "type": "checkbox",
+      "id": "reset_spacing",
+      "label": "t:sections.all.section_padding.reset_spacing.label",
+      "default": false
     }
   ],
   "blocks": [
