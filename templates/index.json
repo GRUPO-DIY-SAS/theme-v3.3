@@ -40,6 +40,7 @@
         "subheading_cnP99q",
         "heading_PkTeKb"
       ],
+      "disabled": true,
       "custom_css": [],
       "name": "t:sections.video_with_text_overlay.name",
       "settings": {
@@ -67,6 +68,219 @@
         "padding_top": 10,
         "padding_bottom": 12,
         "reset_spacing": true
+      }
+    },
+    "featured_collection_tabs_spotlight_Ljzi7w": {
+      "type": "featured-collection-tabs-spotlight",
+      "blocks": {
+        "quick_collection_8gThjB": {
+          "type": "quick_collection",
+          "settings": {
+            "collection": "pods-desechables",
+            "custom_image": "{{ block.settings.collection.metafields.custom.collection_image_icon.value }}",
+            "title": "Vapes Desechables",
+            "subtitle": "",
+            "custom_link": "{{ block.settings.collection.url }}",
+            "image_ratio": "inherit",
+            "image_height": 210,
+            "mobile_image_height": 190,
+            "image_fit": "cover"
+          }
+        },
+        "quick_collection_z8Upgh": {
+          "type": "quick_collection",
+          "settings": {
+            "collection": "pod-system",
+            "custom_image": "{{ block.settings.collection.metafields.custom.collection_image_icon.value }}",
+            "title": "Pods Recargables",
+            "subtitle": "",
+            "custom_link": "{{ block.settings.collection.url }}",
+            "image_ratio": "inherit",
+            "image_height": 360,
+            "mobile_image_height": 260,
+            "image_fit": "cover"
+          }
+        },
+        "quick_collection_z4jjkt": {
+          "type": "quick_collection",
+          "settings": {
+            "collection": "kits-de-inicio",
+            "custom_image": "{{ block.settings.collection.metafields.custom.collection_image_icon.value }}",
+            "title": "Kit de Vapeo",
+            "subtitle": "",
+            "custom_link": "{{ block.settings.collection.url }}",
+            "image_ratio": "inherit",
+            "image_height": 360,
+            "mobile_image_height": 260,
+            "image_fit": "cover"
+          }
+        },
+        "quick_collection_tThbBN": {
+          "type": "quick_collection",
+          "settings": {
+            "collection": "salt-nic-ejuice",
+            "custom_image": "{{ block.settings.collection.metafields.custom.collection_image_icon.value }}",
+            "title": "",
+            "subtitle": "",
+            "custom_link": "{{ block.settings.collection.url }}",
+            "image_ratio": "inherit",
+            "image_height": 360,
+            "mobile_image_height": 260,
+            "image_fit": "cover"
+          }
+        },
+        "quick_collection_MkF7ca": {
+          "type": "quick_collection",
+          "settings": {
+            "collection": "base-libre",
+            "custom_image": "{{ block.settings.collection.metafields.custom.collection_image_icon.value }}",
+            "title": "",
+            "subtitle": "",
+            "custom_link": "{{ block.settings.collection.url }}",
+            "image_ratio": "inherit",
+            "image_height": 360,
+            "mobile_image_height": 260,
+            "image_fit": "cover"
+          }
+        },
+        "quick_collection_FR4xfV": {
+          "type": "quick_collection",
+          "settings": {
+            "collection": "resistencias-comerciales",
+            "custom_image": "{{ block.settings.collection.metafields.custom.collection_image_icon.value }}",
+            "title": "Resistencias y Pods",
+            "subtitle": "",
+            "custom_link": "",
+            "image_ratio": "inherit",
+            "image_height": 360,
+            "mobile_image_height": 260,
+            "image_fit": "cover"
+          }
+        },
+        "quick_collection_e4QQNd": {
+          "type": "quick_collection",
+          "settings": {
+            "collection": "pouches-de-nicotina-y-cafeina",
+            "custom_image": "{{ block.settings.collection.metafields.custom.collection_image_icon.value }}",
+            "title": "Bolsas de Nicotina",
+            "subtitle": "",
+            "custom_link": "{{ block.settings.collection.url }}",
+            "image_ratio": "inherit",
+            "image_height": 360,
+            "mobile_image_height": 260,
+            "image_fit": "cover"
+          }
+        },
+        "quick_collection_gWwkzQ": {
+          "type": "quick_collection",
+          "settings": {
+            "collection": "vaporizadores-herbales",
+            "custom_image": "{{ block.settings.collection.metafields.custom.collection_image_icon.value }}",
+            "title": "Vape Herbal",
+            "subtitle": "",
+            "custom_link": "{{ block.settings.collection.url }}",
+            "image_ratio": "inherit",
+            "image_height": 360,
+            "mobile_image_height": 260,
+            "image_fit": "cover"
+          }
+        },
+        "quick_collection_qkntJd": {
+          "type": "quick_collection",
+          "settings": {
+            "collection": "alquimia",
+            "custom_image": "{{ block.settings.collection.metafields.custom.collection_image_icon.value }}",
+            "title": "Prepara tu e-líquido",
+            "subtitle": "",
+            "custom_link": "{{ block.settings.collection.url }}",
+            "image_ratio": "inherit",
+            "image_height": 360,
+            "mobile_image_height": 260,
+            "image_fit": "cover"
+          }
+        },
+        "quick_collection_XFdCzy": {
+          "type": "quick_collection",
+          "settings": {
+            "collection": "iqos",
+            "custom_image": "{{ block.settings.collection.metafields.custom.collection_image_icon.value }}",
+            "title": "Iqos Terea",
+            "subtitle": "",
+            "custom_link": "{{ block.settings.collection.url }}",
+            "image_ratio": "inherit",
+            "image_height": 360,
+            "mobile_image_height": 260,
+            "image_fit": "cover"
+          }
+        }
+      },
+      "block_order": [
+        "quick_collection_8gThjB",
+        "quick_collection_z8Upgh",
+        "quick_collection_z4jjkt",
+        "quick_collection_tThbBN",
+        "quick_collection_MkF7ca",
+        "quick_collection_FR4xfV",
+        "quick_collection_e4QQNd",
+        "quick_collection_gWwkzQ",
+        "quick_collection_qkntJd",
+        "quick_collection_XFdCzy"
+      ],
+      "name": "Collection tabs spotlight",
+      "settings": {
+        "section_width": "fluid_container",
+        "color_scheme": "",
+        "display_mode": "quick_collections",
+        "heading": "Vapers en Colombia: somos la tienda #1 de vapeo",
+        "description": "<p>Calidad y Servicio insuperable</p>",
+        "header_size": "large",
+        "header_alignment": "center",
+        "show_view_all_button": true,
+        "background_type": "video",
+        "background_video": "shopify://files/videos/video-hero-diy-optimizado.mp4",
+        "mobile_background_video": "shopify://files/videos/video-hero-diy-optimizado.mp4",
+        "background_overlay_color": "#000000",
+        "background_overlay_opacity": 0,
+        "shape_style": "ribbon",
+        "shape_color": "#ffffff",
+        "shape_opacity": 40,
+        "animate_shape": true,
+        "background_color": "#f7f4ef",
+        "tab_background": "#393752",
+        "tab_text_color": "#ffffff",
+        "tab_active_background": "#111111",
+        "tab_active_text_color": "#ffffff",
+        "card_background": "#ffffff",
+        "card_text_color": "{{ shop.brand.colors.primary[0].background }}",
+        "badge_background": "#111111",
+        "badge_text_color": "#ffffff",
+        "card_surface": "glass",
+        "interaction_effect": "sheen",
+        "image_ratio": "fixed",
+        "image_height": 240,
+        "mobile_image_height": 190,
+        "image_fit": "contain",
+        "image_radius": 40,
+        "product_layout": "carousel",
+        "items_to_show": 8,
+        "items_per_row": 4,
+        "column_gap": 30,
+        "items_per_row_mobile": 1.5,
+        "show_card_title": true,
+        "show_card_vendor": true,
+        "show_card_price": true,
+        "show_card_compare_price": true,
+        "show_card_badges": true,
+        "quick_columns": 6,
+        "quick_layout": "carousel",
+        "quick_mobile_columns": 2,
+        "show_arrow": true,
+        "carousel_pagination": "show_dots_on_mobile",
+        "infinite": true,
+        "autoplay": true,
+        "autorotate_speed": 6,
+        "padding_top": 120,
+        "padding_bottom": 120
       }
     },
     "scrolling_text_HFybdy": {
@@ -103,6 +317,7 @@
         "scrolling_text_kM6xAt",
         "scrolling_text_4Nj4HB"
       ],
+      "disabled": true,
       "name": "t:sections.scrolling_text.name",
       "settings": {
         "section_width": "stretch_width",
@@ -116,7 +331,7 @@
         "font_weight": "heading_weight",
         "uppercase": false,
         "use_heading_font": false,
-        "padding_top": 30,
+        "padding_top": 0,
         "padding_bottom": 30,
         "reset_spacing": true
       }
@@ -259,6 +474,7 @@
         "collection_FXyMmG",
         "collection_rbwDAT"
       ],
+      "disabled": true,
       "settings": {
         "section_width": "fluid_container",
         "color_scheme": "scheme-3c376871-4978-462b-aa78-be06bb77863d",
@@ -945,223 +1161,11 @@
         "padding_bottom": 0,
         "reset_spacing": true
       }
-    },
-    "featured_collection_tabs_spotlight_Ljzi7w": {
-      "type": "featured-collection-tabs-spotlight",
-      "blocks": {
-        "quick_collection_8gThjB": {
-          "type": "quick_collection",
-          "settings": {
-            "collection": "pods-desechables",
-            "custom_image": "{{ block.settings.collection.metafields.custom.collection_image_icon.value }}",
-            "title": "Vapes Desechables",
-            "subtitle": "",
-            "custom_link": "{{ block.settings.collection.url }}",
-            "image_ratio": "inherit",
-            "image_height": 210,
-            "mobile_image_height": 190,
-            "image_fit": "cover"
-          }
-        },
-        "quick_collection_z8Upgh": {
-          "type": "quick_collection",
-          "settings": {
-            "collection": "pod-system",
-            "custom_image": "{{ block.settings.collection.metafields.custom.collection_image_icon.value }}",
-            "title": "Pods Recargables",
-            "subtitle": "",
-            "custom_link": "{{ block.settings.collection.url }}",
-            "image_ratio": "inherit",
-            "image_height": 360,
-            "mobile_image_height": 260,
-            "image_fit": "cover"
-          }
-        },
-        "quick_collection_z4jjkt": {
-          "type": "quick_collection",
-          "settings": {
-            "collection": "kits-de-inicio",
-            "custom_image": "{{ block.settings.collection.metafields.custom.collection_image_icon.value }}",
-            "title": "Kit de Vapeo",
-            "subtitle": "",
-            "custom_link": "{{ block.settings.collection.url }}",
-            "image_ratio": "inherit",
-            "image_height": 360,
-            "mobile_image_height": 260,
-            "image_fit": "cover"
-          }
-        },
-        "quick_collection_tThbBN": {
-          "type": "quick_collection",
-          "settings": {
-            "collection": "salt-nic-ejuice",
-            "custom_image": "{{ block.settings.collection.metafields.custom.collection_image_icon.value }}",
-            "title": "",
-            "subtitle": "",
-            "custom_link": "{{ block.settings.collection.url }}",
-            "image_ratio": "inherit",
-            "image_height": 360,
-            "mobile_image_height": 260,
-            "image_fit": "cover"
-          }
-        },
-        "quick_collection_MkF7ca": {
-          "type": "quick_collection",
-          "settings": {
-            "collection": "base-libre",
-            "custom_image": "{{ block.settings.collection.metafields.custom.collection_image_icon.value }}",
-            "title": "",
-            "subtitle": "",
-            "custom_link": "{{ block.settings.collection.url }}",
-            "image_ratio": "inherit",
-            "image_height": 360,
-            "mobile_image_height": 260,
-            "image_fit": "cover"
-          }
-        },
-        "quick_collection_FR4xfV": {
-          "type": "quick_collection",
-          "settings": {
-            "collection": "resistencias-comerciales",
-            "custom_image": "{{ block.settings.collection.metafields.custom.collection_image_icon.value }}",
-            "title": "Resistencias y Pods",
-            "subtitle": "",
-            "custom_link": "",
-            "image_ratio": "inherit",
-            "image_height": 360,
-            "mobile_image_height": 260,
-            "image_fit": "cover"
-          }
-        },
-        "quick_collection_e4QQNd": {
-          "type": "quick_collection",
-          "settings": {
-            "collection": "pouches-de-nicotina-y-cafeina",
-            "custom_image": "{{ block.settings.collection.metafields.custom.collection_image_icon.value }}",
-            "title": "Bolsas de Nicotina",
-            "subtitle": "",
-            "custom_link": "{{ block.settings.collection.url }}",
-            "image_ratio": "inherit",
-            "image_height": 360,
-            "mobile_image_height": 260,
-            "image_fit": "cover"
-          }
-        },
-        "quick_collection_gWwkzQ": {
-          "type": "quick_collection",
-          "settings": {
-            "collection": "vaporizadores-herbales",
-            "custom_image": "{{ block.settings.collection.metafields.custom.collection_image_icon.value }}",
-            "title": "Vape Herbal",
-            "subtitle": "",
-            "custom_link": "{{ block.settings.collection.url }}",
-            "image_ratio": "inherit",
-            "image_height": 360,
-            "mobile_image_height": 260,
-            "image_fit": "cover"
-          }
-        },
-        "quick_collection_qkntJd": {
-          "type": "quick_collection",
-          "settings": {
-            "collection": "alquimia",
-            "custom_image": "{{ block.settings.collection.metafields.custom.collection_image_icon.value }}",
-            "title": "Prepara tu e-líquido",
-            "subtitle": "",
-            "custom_link": "{{ block.settings.collection.url }}",
-            "image_ratio": "inherit",
-            "image_height": 360,
-            "mobile_image_height": 260,
-            "image_fit": "cover"
-          }
-        },
-        "quick_collection_XFdCzy": {
-          "type": "quick_collection",
-          "settings": {
-            "collection": "iqos",
-            "custom_image": "{{ block.settings.collection.metafields.custom.collection_image_icon.value }}",
-            "title": "Iqos Terea",
-            "subtitle": "",
-            "custom_link": "{{ block.settings.collection.url }}",
-            "image_ratio": "inherit",
-            "image_height": 360,
-            "mobile_image_height": 260,
-            "image_fit": "cover"
-          }
-        }
-      },
-      "block_order": [
-        "quick_collection_8gThjB",
-        "quick_collection_z8Upgh",
-        "quick_collection_z4jjkt",
-        "quick_collection_tThbBN",
-        "quick_collection_MkF7ca",
-        "quick_collection_FR4xfV",
-        "quick_collection_e4QQNd",
-        "quick_collection_gWwkzQ",
-        "quick_collection_qkntJd",
-        "quick_collection_XFdCzy"
-      ],
-      "name": "Collection tabs spotlight",
-      "settings": {
-        "section_width": "fluid_container",
-        "color_scheme": "",
-        "display_mode": "quick_collections",
-        "heading": "Vapers en Colombia: somos la tienda #1 de vapeo",
-        "description": "<p>Calidad y Servicio insuperable</p>",
-        "header_size": "large",
-        "header_alignment": "center",
-        "show_view_all_button": true,
-        "background_type": "video",
-        "background_video": "shopify://files/videos/video-hero-diy-optimizado.mp4",
-        "mobile_background_video": "shopify://files/videos/video-hero-diy-optimizado.mp4",
-        "background_overlay_color": "#000000",
-        "background_overlay_opacity": 0,
-        "shape_style": "ribbon",
-        "shape_color": "#ffffff",
-        "shape_opacity": 40,
-        "animate_shape": true,
-        "background_color": "#f7f4ef",
-        "tab_background": "#393752",
-        "tab_text_color": "#ffffff",
-        "tab_active_background": "#111111",
-        "tab_active_text_color": "#ffffff",
-        "card_background": "#ffffff",
-        "card_text_color": "{{ shop.brand.colors.primary[0].background }}",
-        "badge_background": "#111111",
-        "badge_text_color": "#ffffff",
-        "card_surface": "glass",
-        "interaction_effect": "sheen",
-        "image_ratio": "fixed",
-        "image_height": 240,
-        "mobile_image_height": 190,
-        "image_fit": "contain",
-        "image_radius": 40,
-        "product_layout": "carousel",
-        "items_to_show": 8,
-        "items_per_row": 4,
-        "column_gap": 30,
-        "items_per_row_mobile": 1.5,
-        "show_card_title": true,
-        "show_card_vendor": true,
-        "show_card_price": true,
-        "show_card_compare_price": true,
-        "show_card_badges": true,
-        "quick_columns": 6,
-        "quick_layout": "carousel",
-        "quick_mobile_columns": 2,
-        "show_arrow": true,
-        "carousel_pagination": "show_dots_on_mobile",
-        "infinite": true,
-        "autoplay": true,
-        "autorotate_speed": 3,
-        "padding_top": 120,
-        "padding_bottom": 120
-      }
     }
   },
   "order": [
     "video_width_text_ovlerlay_Dj8dUq",
+    "featured_collection_tabs_spotlight_Ljzi7w",
     "scrolling_text_HFybdy",
     "rich_text_JYJVtW",
     "collection_list_VmEYkJ",
@@ -1174,7 +1178,6 @@
     "rich_text_ygVepk",
     "multi_content_cyRgdQ",
     "icon_box_eTQYXg",
-    "custom_html_nCeg8G",
-    "featured_collection_tabs_spotlight_Ljzi7w"
+    "custom_html_nCeg8G"
   ]
 }
