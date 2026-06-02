@@ -954,7 +954,7 @@
           "settings": {
             "collection": "pods-desechables",
             "custom_image": "{{ block.settings.collection.metafields.custom.collection_image_icon.value }}",
-            "title": "Desechables",
+            "title": "Vapes Desechables",
             "subtitle": "",
             "custom_link": "{{ block.settings.collection.url }}",
             "image_ratio": "inherit",
@@ -968,7 +968,7 @@
           "settings": {
             "collection": "pod-system",
             "custom_image": "{{ block.settings.collection.metafields.custom.collection_image_icon.value }}",
-            "title": "",
+            "title": "Pods Recargables",
             "subtitle": "",
             "custom_link": "{{ block.settings.collection.url }}",
             "image_ratio": "inherit",
@@ -1024,7 +1024,7 @@
           "settings": {
             "collection": "resistencias-comerciales",
             "custom_image": "{{ block.settings.collection.metafields.custom.collection_image_icon.value }}",
-            "title": "",
+            "title": "Resistencias y Pods",
             "subtitle": "",
             "custom_link": "",
             "image_ratio": "inherit",
@@ -1038,7 +1038,7 @@
           "settings": {
             "collection": "pouches-de-nicotina-y-cafeina",
             "custom_image": "{{ block.settings.collection.metafields.custom.collection_image_icon.value }}",
-            "title": "",
+            "title": "Bolsas de Nicotina",
             "subtitle": "",
             "custom_link": "{{ block.settings.collection.url }}",
             "image_ratio": "inherit",
@@ -1052,7 +1052,7 @@
           "settings": {
             "collection": "vaporizadores-herbales",
             "custom_image": "{{ block.settings.collection.metafields.custom.collection_image_icon.value }}",
-            "title": "",
+            "title": "Vape Herbal",
             "subtitle": "",
             "custom_link": "{{ block.settings.collection.url }}",
             "image_ratio": "inherit",
@@ -1066,7 +1066,7 @@
           "settings": {
             "collection": "alquimia",
             "custom_image": "{{ block.settings.collection.metafields.custom.collection_image_icon.value }}",
-            "title": "",
+            "title": "Prepara tu e-líquido",
             "subtitle": "",
             "custom_link": "{{ block.settings.collection.url }}",
             "image_ratio": "inherit",
@@ -1080,7 +1080,7 @@
           "settings": {
             "collection": "iqos",
             "custom_image": "{{ block.settings.collection.metafields.custom.collection_image_icon.value }}",
-            "title": "",
+            "title": "Iqos Terea",
             "subtitle": "",
             "custom_link": "{{ block.settings.collection.url }}",
             "image_ratio": "inherit",
@@ -1127,7 +1127,7 @@
         "tab_active_background": "#111111",
         "tab_active_text_color": "#ffffff",
         "card_background": "#ffffff",
-        "card_text_color": "#111111",
+        "card_text_color": "{{ shop.brand.colors.primary[0].background }}",
         "badge_background": "#111111",
         "badge_text_color": "#ffffff",
         "card_surface": "glass",
@@ -1135,7 +1135,7 @@
         "image_ratio": "fixed",
         "image_height": 240,
         "mobile_image_height": 190,
-        "image_fit": "cover",
+        "image_fit": "contain",
         "image_radius": 40,
         "product_layout": "carousel",
         "items_to_show": 8,
@@ -1148,14 +1148,15 @@
         "show_card_compare_price": true,
         "show_card_badges": true,
         "quick_columns": 6,
+        "quick_layout": "carousel",
         "quick_mobile_columns": 2,
         "show_arrow": true,
-        "carousel_pagination": "show_dots",
-        "infinite": false,
+        "carousel_pagination": "show_dots_on_mobile",
+        "infinite": true,
         "autoplay": true,
-        "autorotate_speed": 5,
-        "padding_top": 60,
-        "padding_bottom": 60
+        "autorotate_speed": 3,
+        "padding_top": 120,
+        "padding_bottom": 120
       }
     }
   },
