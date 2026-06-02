@@ -313,8 +313,15 @@ function bindInteractionVideos(videos) {
     });
   });
 
+  // Desktop preloads interaction videos on idle, EXCEPT those marked
+  // data-no-idle (PSI-sensitive heroes) -- those wait for a real interaction so
+  // their payload stays out of the initial/Lighthouse load. Interaction still
+  // loads every video, including the opted-out ones.
   if (window.matchMedia("(min-width: 990px)").matches) {
-    runWhenIdle(loadVideos);
+    const idleVideos = videos.filter((video) => video.dataset.noIdle !== "true");
+    if (idleVideos.length) {
+      runWhenIdle(() => idleVideos.forEach(loadLazyVideo));
+    }
   }
 }
 

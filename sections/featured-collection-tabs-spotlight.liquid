@@ -809,6 +809,7 @@
           playsinline
           preload="none"
           data-video-load="interaction"
+          data-no-idle="true"
           data-src="{{ background_video_source }}"
           {% if background_video_poster != blank %}
             data-poster="{{ background_video_poster | image_url: width: 1800 }}"
@@ -825,6 +826,7 @@
           playsinline
           preload="none"
           data-video-load="interaction"
+          data-no-idle="true"
           data-src="{{ mobile_background_video_source }}"
           {% if mobile_background_video_poster != blank %}
             data-poster="{{ mobile_background_video_poster | image_url: width: 900 }}"
