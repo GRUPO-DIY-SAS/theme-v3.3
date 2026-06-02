@@ -113,21 +113,6 @@
   html.age-gate-verified .ai-age-verify-overlay {
     display: none !important;
   }
-  html.diyvape-age-cart-sync-pending .shopify-payment-button,
-  html.diyvape-age-cart-sync-pending .btn-checkout-dynamic,
-  html.diyvape-age-cart-sync-pending .additional-checkout-buttons,
-  html.diyvape-age-cart-sync-pending .cart__dynamic-checkout-buttons,
-  html.diyvape-age-cart-sync-pending shopify-accelerated-checkout,
-  html.diyvape-age-cart-sync-pending shopify-accelerated-checkout-cart {
-    opacity: 0.58;
-    pointer-events: none;
-  }
-  .diyvape-age-cart-sync-alert {
-    margin-top: 10px;
-    color: var(--age-error-color, #c8102e);
-    font-size: 13px;
-    line-height: 1.4;
-  }
   .ai-age-verify-modal {
     position: relative;
     z-index: 1;
@@ -223,6 +208,11 @@
     line-height: 1.45;
     text-align: center;
   }
+  /* El ocultado inicial del form/blocked depende del atributo [hidden] + esta
+     regla inline (NO del .active/opacity, que viven en age-verification.css
+     async). El JS quita [hidden] y añade .active al mostrar; con la CSS async
+     aún sin cargar, quitar [hidden] basta para mostrarlo ya estilizado inline.
+     No quites el atributo hidden del markup asumiendo que .active lo controla. */
   .ai-age-verify-formwrap[hidden],
   .ai-age-verify-blocked[hidden],
   .ai-age-verify-editor-trigger {
@@ -262,6 +252,69 @@
     width: 100%;
     top: var(--scroll-y, 0px);
   }
+  /* Form/blocked view critical rules: inline porque age-verification.css carga
+     async (media=print). Sin esto el formulario podría tener FOUC si el usuario
+     hace click en "Sí" antes de que el stylesheet termine de cargar. Solo lo
+     mínimo para que inputs/selects/botones se vean correctos. */
+  .ai-age-verify-formwrap,
+  .ai-age-verify-blocked {
+    margin-top: 18px;
+    padding: 18px;
+    border: 1px solid var(--age-modal-border, #eaeaea);
+    border-radius: max(calc(var(--age-modal-radius, 12px) - 6px), 10px);
+  }
+  .ai-age-verify-field {
+    margin: 14px 0;
+  }
+  .ai-age-verify-label {
+    display: block;
+    margin-bottom: 7px;
+    color: var(--age-text-color, #111);
+    font-size: 12px;
+    font-weight: 850;
+    letter-spacing: 0.05em;
+    line-height: 1.2;
+    text-transform: uppercase;
+  }
+  .ai-age-verify-input,
+  .ai-age-verify-select {
+    width: 100%;
+    min-height: 48px;
+    padding: 12px 13px;
+    border: 1px solid var(--age-input-border, #ccc);
+    border-radius: var(--age-input-radius, 8px);
+    background: var(--age-input-bg, #fff);
+    color: var(--age-text-color, #111);
+    font-size: 16px;
+    line-height: 1.2;
+  }
+  .ai-age-verify-input:focus,
+  .ai-age-verify-select:focus {
+    outline: none;
+    border-color: var(--age-input-focus, #111);
+  }
+  .ai-age-verify-dob-selects {
+    display: flex;
+    gap: 8px;
+  }
+  .ai-age-verify-dob-selects .ai-age-verify-select {
+    flex: 1 1 0;
+    min-width: 0;
+  }
+  .ai-age-verify-error {
+    display: none;
+    margin-top: 7px;
+    color: var(--age-error-color, #c8102e);
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1.35;
+  }
+  .ai-age-verify-error.active {
+    display: block;
+  }
+  .ai-age-verify-blocked {
+    text-align: center;
+  }
   @media (max-width: 749px) {
     .ai-age-verify-overlay {
       padding: 16px;
@@ -285,7 +338,7 @@
   }
 </style>
 {% # theme-check-disable AssetPreload %}
-<link rel="preload" href="{{ age_verification_css }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<link rel="stylesheet" href="{{ age_verification_css }}" media="print" onload="this.media='all'">
 <noscript>{{ 'age-verification.css' | asset_url | stylesheet_tag }}</noscript>
 <script>
   /* Click buffer: con critical-base.css inline el HTML renderiza más rápido
@@ -450,16 +503,46 @@
 
       <form data-age-form>
         <div class="ai-age-verify-field">
-          <label class="ai-age-verify-label" for="AgeVerifyDob-{{ ai_gen_id }}">{{ block.settings.dob_label }}</label>
-          <input
-            id="AgeVerifyDob-{{ ai_gen_id }}"
-            class="ai-age-verify-input"
-            type="date"
-            autocomplete="bday"
-            required
-            data-dob-input
-            aria-describedby="AgeVerifyDobError-{{ ai_gen_id }}"
-          >
+          {%- assign age_now_year = 'now' | date: '%Y' | plus: 0 -%}
+          {%- assign age_min_year = age_now_year | minus: 100 -%}
+          <label class="ai-age-verify-label" id="AgeVerifyDobLabel-{{ ai_gen_id }}">{{ block.settings.dob_label }}</label>
+          <div class="ai-age-verify-dob-selects" role="group" aria-labelledby="AgeVerifyDobLabel-{{ ai_gen_id }}">
+            <select
+              id="AgeVerifyDob-{{ ai_gen_id }}-day"
+              class="ai-age-verify-select"
+              aria-label="Día"
+              data-dob-day
+            >
+              <option value="" selected>Día</option>
+              {%- for day in (1..31) -%}
+                <option value="{{ day }}">{{ day }}</option>
+              {%- endfor -%}
+            </select>
+            <select
+              id="AgeVerifyDob-{{ ai_gen_id }}-month"
+              class="ai-age-verify-select"
+              aria-label="Mes"
+              data-dob-month
+            >
+              <option value="" selected>Mes</option>
+              {%- assign age_months = 'Enero,Febrero,Marzo,Abril,Mayo,Junio,Julio,Agosto,Septiembre,Octubre,Noviembre,Diciembre' | split: ',' -%}
+              {%- for month_name in age_months -%}
+                <option value="{{ forloop.index }}">{{ month_name }}</option>
+              {%- endfor -%}
+            </select>
+            <select
+              id="AgeVerifyDob-{{ ai_gen_id }}-year"
+              class="ai-age-verify-select"
+              aria-label="Año"
+              data-dob-year
+            >
+              <option value="" selected>Año</option>
+              {%- for year in (age_min_year..age_now_year) reversed -%}
+                <option value="{{ year }}">{{ year }}</option>
+              {%- endfor -%}
+            </select>
+          </div>
+          <input type="hidden" data-dob-input id="AgeVerifyDob-{{ ai_gen_id }}">
           <div id="AgeVerifyDobError-{{ ai_gen_id }}" class="ai-age-verify-error" data-error="dob" aria-live="polite"></div>
         </div>
 
@@ -553,6 +636,39 @@
     document.body.classList.add('ai-age-gate-open');
     gate.removeAttribute('aria-hidden');
     gate.classList.add('active');
+  })();
+</script>
+
+<script>
+  /* Compone YYYY-MM-DD desde los 3 <select> (día/mes/año) hacia el hidden
+     [data-dob-input] que consume age-verification.js sin cambios. Usamos
+     selects nativos (no type=date) porque en iOS el calendario de mes es
+     mala UX; los selects muestran el wheel picker nativo. */
+  (function () {
+    var gateId = 'AgeVerification-{{ ai_gen_id }}';
+    var gate = document.getElementById(gateId);
+    if (!gate) return;
+    var day = gate.querySelector('[data-dob-day]');
+    var month = gate.querySelector('[data-dob-month]');
+    var year = gate.querySelector('[data-dob-year]');
+    var hidden = gate.querySelector('[data-dob-input]');
+    if (!day || !month || !year || !hidden) return;
+
+    var pad = function (value) {
+      return value.length === 1 ? '0' + value : value;
+    };
+    var compose = function () {
+      var d = day.value;
+      var m = month.value;
+      var y = year.value;
+      hidden.value = (d && m && y) ? (y + '-' + pad(m) + '-' + pad(d)) : '';
+      hidden.dispatchEvent(new Event('change', { bubbles: true }));
+      hidden.dispatchEvent(new Event('input', { bubbles: true }));
+    };
+
+    [day, month, year].forEach(function (select) {
+      select.addEventListener('change', compose);
+    });
   })();
 </script>
 

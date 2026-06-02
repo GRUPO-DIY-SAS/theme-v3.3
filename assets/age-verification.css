@@ -490,6 +490,26 @@ body.ai-age-gate-open {
   top: var(--scroll-y, 0px);
 }
 
+/* Cart-sync-pending: atenúa los botones de checkout mientras el fetch de
+   sincronización de edad está en vuelo. No es first-paint critical (la clase
+   la añade age-verification.js tras correr), por eso vive aquí y no inline. */
+html.diyvape-age-cart-sync-pending .shopify-payment-button,
+html.diyvape-age-cart-sync-pending .btn-checkout-dynamic,
+html.diyvape-age-cart-sync-pending .additional-checkout-buttons,
+html.diyvape-age-cart-sync-pending .cart__dynamic-checkout-buttons,
+html.diyvape-age-cart-sync-pending shopify-accelerated-checkout,
+html.diyvape-age-cart-sync-pending shopify-accelerated-checkout-cart {
+  opacity: 0.58;
+  pointer-events: none;
+}
+
+.diyvape-age-cart-sync-alert {
+  margin-top: 10px;
+  color: var(--age-error-color, #c8102e);
+  font-size: 13px;
+  line-height: 1.4;
+}
+
 @media (max-width: 749px) {
   .ai-age-verify-overlay {
     align-items: center;
