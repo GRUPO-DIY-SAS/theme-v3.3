@@ -283,6 +283,8 @@ class SlideSection extends HTMLElement {
       spaceBetween: spacing >= 15 ? 15 : spacing,
       autoplay: autoplaying,
       direction: direction,
+      // Enable loop only with enough slides (>= 2x slidesPerView); with fewer,
+      // Swiper half-disables loop in a broken state that hides the first slide.
       loop: loop && _this.querySelectorAll(".swiper-slide").length >= Math.max(parseFloat(itemDesktop) || 1, parseFloat(itemTablet) || 1, parseFloat(itemMobile) || 1) * 2,
       effect: effect,
       autoHeight: autoHeight,
@@ -873,6 +875,8 @@ class SlideLazyLoad {
       spaceBetween: spacing >= 15 ? 15 : spacing,
       autoplay: autoplaying,
       direction: direction,
+      // Enable loop only with enough slides (>= 2x slidesPerView); with fewer,
+      // Swiper half-disables loop in a broken state that hides the first slide.
       loop: loop && _this.querySelectorAll(".swiper-slide").length >= Math.max(parseFloat(itemDesktop) || 1, parseFloat(itemTablet) || 1, parseFloat(itemMobile) || 1) * 2,
       effect: effect,
       autoHeight: autoHeight,
