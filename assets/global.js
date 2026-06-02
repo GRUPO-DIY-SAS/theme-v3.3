@@ -208,18 +208,6 @@ class SlideSection extends HTMLElement {
   }
 
   init() {
-    // Opt-in defer: a slide-section with data-defer-init waits for the first
-    // user interaction/scroll (handled by SlideLazyLoad) before building Swiper,
-    // so infinite-loop carousels don't clone slides eagerly on load. Skipped in
-    // the theme editor and once the user has already interacted (swiper-lazy).
-    if (
-      this.dataset.deferInit === "true" &&
-      !(window.Shopify && window.Shopify.designMode) &&
-      !document.body.classList.contains("swiper-lazy")
-    ) {
-      this.classList.add("lazy-loading-swiper-after");
-      return;
-    }
     if (document.body.classList.contains("index")) {
       let pos = window.pageYOffset;
       if (pos > 0 || document.body.classList.contains("swiper-lazy")) {

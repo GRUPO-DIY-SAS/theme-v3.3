@@ -876,12 +876,11 @@
       {%- if display_mode == 'quick_collections' -%}
         {%- if quick_layout == 'carousel' -%}
           <slide-section
-            class="featured-tabs-spotlight-quick swiper"
+            class="featured-tabs-spotlight-quick swiper lazy-loading-swiper-before"
             data-section-id="{{ section.id }}"
             data-autoplay="{{ autoplay }}"
             data-effect="slide"
             data-loop="{{ infinite }}"
-            {% if infinite %}data-defer-init="true"{% endif %}
             data-speed="800"
             data-autoplay-speed="{{ autorotate_speed }}"
             data-spacing="{{ column_gap }}"
@@ -1061,7 +1060,6 @@
                   data-autoplay="{{ autoplay }}"
                   data-effect="slide"
                   data-loop="{{ infinite }}"
-                  {% if infinite and product_layout == 'carousel' %}data-defer-init="true"{% endif %}
                   data-speed="800"
                   data-autoplay-speed="{{ autorotate_speed }}"
                   data-spacing="{{ column_gap }}"
