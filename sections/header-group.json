@@ -188,7 +188,7 @@
         "transparent_mobile": true,
         "transparent_text_icon_color": "#ffffff",
         "transparent_bg_color": "#111111",
-        "box_menu": false,
+        "box_menu": true,
         "mega_menu": "main-menu-1",
         "dropdowns_animation": "down-to-up",
         "uppercase_first": false,
