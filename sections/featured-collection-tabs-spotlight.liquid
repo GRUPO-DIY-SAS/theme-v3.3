@@ -747,7 +747,31 @@
       {%- endif -%}
 
       {%- if display_mode == 'quick_collections' -%}
-        <div class="featured-tabs-spotlight-quick" style="{{ slider_style | strip | strip_newlines }}">
+        {%- if quick_layout == 'carousel' -%}
+          <slide-section
+            class="featured-tabs-spotlight-quick swiper"
+            data-section-id="{{ section.id }}"
+            data-autoplay="{{ autoplay }}"
+            data-effect="slide"
+            data-loop="{{ infinite }}"
+            data-speed="800"
+            data-autoplay-speed="{{ autorotate_speed }}"
+            data-spacing="{{ column_gap }}"
+            data-mobile="{{ section_st.quick_mobile_columns }}"
+            data-tablet="3"
+            data-desktop="{{ section_st.quick_columns }}"
+            data-free-scroll="true"
+            data-pagination-progressbar="{% if carousel_pagination == 'show_progress_bar' %}true{% else %}false{% endif %}"
+            data-arrow-centerimage="1"
+            style="{{ slider_style | strip | strip_newlines }}"
+          >
+            {%- if show_arrow -%}
+              {%- render 'swiper-navigation' -%}
+            {%- endif -%}
+            <div class="swiper-wrapper">
+        {%- else -%}
+          <div class="featured-tabs-spotlight-quick" style="{{ slider_style | strip | strip_newlines }}">
+        {%- endif -%}
           {%- assign quick_count = 0 -%}
           {%- for block in section.blocks -%}
             {%- if block.type == 'quick_collection' -%}
@@ -762,7 +786,7 @@
                 assign quick_ratio = block_st.image_ratio
               -%}
               <a
-                class="featured-tabs-spotlight-quick__item{% if quick_ratio == 'fixed' %} featured-tabs-spotlight-quick__item--fixed{% endif %}"
+                class="featured-tabs-spotlight-quick__item{% if quick_layout == 'carousel' %} swiper-slide{% endif %}{% if quick_ratio == 'fixed' %} featured-tabs-spotlight-quick__item--fixed{% endif %}"
                 href="{{ quick_link }}"
                 {{ block.shopify_attributes }}
                 {% if quick_ratio == 'fixed' %}
@@ -791,7 +815,7 @@
           {%- endfor -%}
           {%- if quick_count == 0 -%}
             {%- for i in (1..4) -%}
-              <a class="featured-tabs-spotlight-quick__item" href="#">
+              <a class="featured-tabs-spotlight-quick__item{% if quick_layout == 'carousel' %} swiper-slide{% endif %}" href="#">
                 <span class="featured-tabs-spotlight-quick__media">
                   {{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg' }}
                 </span>
@@ -801,7 +825,21 @@
               </a>
             {%- endfor -%}
           {%- endif -%}
-        </div>
+        {%- if quick_layout == 'carousel' -%}
+            </div>
+            {%- if carousel_pagination == 'show_dots'
+              or carousel_pagination == 'show_dots_on_mobile'
+              or carousel_pagination == 'show_progress_bar'
+            -%}
+              <div
+                class="swiper-pagination flex flex-wrap px-15 lh-1 bottom-30 {% if carousel_pagination == 'show_dots_on_mobile' %} hidden-md{% endif %} justify-content-center"
+                style="--swiper-pagination-bottom: 3rem;--swiper-pagination-position: static;z-index: 2"
+              ></div>
+            {%- endif -%}
+          </slide-section>
+        {%- else -%}
+          </div>
+        {%- endif -%}
       {%- else -%}
       {%- assign tab_index = 0 -%}
       {%- for block in section.blocks -%}
