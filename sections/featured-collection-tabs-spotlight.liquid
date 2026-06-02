@@ -202,25 +202,12 @@
     display: none;
   }
 
-  /* Video parallax: scroll-linked transform (compositor-only, no JS). The video
-     is oversized so the translate never exposes a gap; overflow on the wrapper clips it. */
-  @supports (animation-timeline: view()) {
-    #shopify-section-{{ section.id }} .featured-tabs-spotlight--video-parallax .featured-tabs-spotlight__background video {
-      height: 150%;
-      animation: spotlightVideoParallax linear both;
-      animation-timeline: view();
-      animation-range: entry 0% exit 100%;
-    }
-  }
-
-  @keyframes spotlightVideoParallax {
-    from {
-      transform: translateY(-30%);
-    }
-
-    to {
-      transform: translateY(0%);
-    }
+  /* Video parallax: the video is oversized (extra 30%) so the scroll-driven
+     translateY (set by the inline script) never exposes a gap; the wrapper clips it.
+     JS-driven instead of animation-timeline so it also runs on iOS Safari. */
+  #shopify-section-{{ section.id }} .featured-tabs-spotlight--video-parallax .featured-tabs-spotlight__background video {
+    height: 130%;
+    will-change: transform;
   }
 
   #shopify-section-{{ section.id }} .featured-tabs-spotlight__shape {
@@ -1303,6 +1290,62 @@
     {%- endif -%}
   </div>
 </div>
+
+{%- if background_type == 'video' and section_st.video_parallax -%}
+  <script>
+    (function () {
+      var section = document.getElementById('shopify-section-{{ section.id }}');
+      if (!section || (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)) return;
+      var bg = section.querySelector('.featured-tabs-spotlight__background');
+      var videos = section.querySelectorAll('.featured-tabs-spotlight__background video');
+      if (!bg || !videos.length) return;
+
+      var ticking = false;
+      var listening = false;
+
+      function apply() {
+        ticking = false;
+        var rect = bg.getBoundingClientRect();
+        var vh = window.innerHeight || document.documentElement.clientHeight;
+        /* 0 when the block is about to enter from the bottom, 1 when it has left the top */
+        var progress = (vh - rect.top) / (vh + rect.height);
+        progress = progress < 0 ? 0 : progress > 1 ? 1 : progress;
+        var ty = (progress * rect.height * -0.3).toFixed(1);
+        for (var i = 0; i < videos.length; i++) {
+          videos[i].style.transform = 'translate3d(0,' + ty + 'px,0)';
+        }
+      }
+
+      function onScroll() {
+        if (!ticking) {
+          ticking = true;
+          window.requestAnimationFrame(apply);
+        }
+      }
+
+      function setListening(on) {
+        if (on === listening) return;
+        listening = on;
+        if (on) {
+          window.addEventListener('scroll', onScroll, { passive: true });
+          window.addEventListener('resize', onScroll, { passive: true });
+          apply();
+        } else {
+          window.removeEventListener('scroll', onScroll);
+          window.removeEventListener('resize', onScroll);
+        }
+      }
+
+      if ('IntersectionObserver' in window) {
+        new IntersectionObserver(function (entries) {
+          setListening(entries[0].isIntersecting);
+        }).observe(section);
+      } else {
+        setListening(true);
+      }
+    })();
+  </script>
+{%- endif -%}
 
 {% schema %}
 {
