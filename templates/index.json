@@ -380,12 +380,12 @@
       "name": "t:sections.rich_text.name",
       "settings": {
         "section_width": "container",
-        "color_scheme": "scheme-3c376871-4978-462b-aa78-be06bb77863d",
+        "color_scheme": "default",
         "content_alignment": "center",
         "content_max_width": 100,
         "enable_expand_content": true,
         "expand_content_button": "",
-        "padding_top": 40,
+        "padding_top": 0,
         "padding_bottom": 20,
         "reset_spacing": true
       }
