@@ -118,6 +118,7 @@
   #shopify-section-{{ section.id }} .featured-tabs-spotlight {
     --spotlight-bg: {{ section_st.background_color }};
     --spotlight-shape: {{ section_st.shape_color }};
+    --spotlight-shape-opacity: {{ section_st.shape_opacity | divided_by: 100.0 }};
     --spotlight-tab-bg: {{ section_st.tab_background }};
     --spotlight-tab-text: {{ section_st.tab_text_color }};
     --spotlight-tab-active-bg: {{ section_st.tab_active_background }};
@@ -183,6 +184,7 @@
     position: absolute;
     z-index: 1;
     background: var(--spotlight-shape);
+    opacity: var(--spotlight-shape-opacity);
     pointer-events: none;
   }
 
@@ -696,7 +698,9 @@
   {%- endif -%}
   <div class="featured-tabs-spotlight__shape"></div>
   <div class="{{ section_width }} featured-tabs-spotlight__inner">
-    <tab-items data-type="horizontal">
+    {%- if display_mode == 'product_tabs' -%}
+      <tab-items data-type="horizontal">
+    {%- endif -%}
       {%- if heading != blank or description != blank -%}
         <div class="featured-tabs-spotlight__header section__header text-{{ section_st.header_alignment }}">
           {%- if heading != blank -%}
@@ -1061,7 +1065,9 @@
         {%- endif -%}
       {%- endif -%}
       {%- endif -%}
-    </tab-items>
+    {%- if display_mode == 'product_tabs' -%}
+      </tab-items>
+    {%- endif -%}
   </div>
 </div>
 
@@ -1282,6 +1288,16 @@
       "id": "shape_color",
       "label": "Shape color",
       "default": "#d9eee8"
+    },
+    {
+      "type": "range",
+      "id": "shape_opacity",
+      "label": "Shape opacity",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
     },
     {
       "type": "checkbox",
