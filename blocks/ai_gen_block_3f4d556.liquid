@@ -28,6 +28,15 @@
 {%- endcomment -%}
 {%- if age_gate_logo_src != '' -%}
   {% # theme-check-disable AssetPreload %}
+  {%- if request.page_type == 'index' -%}
+    {%- comment -%}
+      Home: el logo del gate es el LCP para visitantes SIN verificar (lo que mide
+      PSI). Preload ESTÁTICO → el preload scanner lo descubre en el stream sin
+      esperar a que corra el JS (eliminaba ~3s de Load Delay → LCP). El hero del
+      home es video diferido, así que no compite con un LCP de imagen real.
+    {%- endcomment -%}
+    <link rel="preload" as="image" href="{{ age_gate_logo_src }}" fetchpriority="high" data-diyvape-age-logo-preload="true">
+  {%- else -%}
   <script>
     (function () {
       try {
@@ -79,6 +88,7 @@
       } catch (error) {}
     })();
   </script>
+  {%- endif -%}
   {% # theme-check-enable AssetPreload %}
 {%- endif -%}
 
@@ -163,16 +173,26 @@
     letter-spacing: 0.08em;
     text-transform: uppercase;
   }
+  /* Mismos valores que age-verification.css (async) para que el título y el
+     texto legal —candidatos a LCP— pinten a su tamaño/layout FINAL desde el
+     primer paint. Sin esto, al cargar el CSS async el texto reflowía
+     (max-width 58ch) y el título engrosaba (900) → relayout → LCP tardío. */
   .ai-age-verify-title {
     margin: 0;
     color: var(--age-text-color, #111);
     font-size: var(--age-heading-size, 28px);
-    line-height: 1.1;
+    font-weight: 900;
+    line-height: 1.08;
+    letter-spacing: 0;
+    max-width: 100%;
   }
   .ai-age-verify-text {
-    margin-top: 10px;
+    margin: 10px 0 0;
+    color: var(--age-text-color, #111);
     font-size: var(--age-text-size, 15px);
     line-height: 1.5;
+    opacity: 0.88;
+    max-width: 58ch;
   }
   .ai-age-verify-actions {
     display: grid;
