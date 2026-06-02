@@ -6,6 +6,7 @@
   assign description = section_st.description
   assign display_mode = section_st.display_mode
   assign product_layout = section_st.product_layout
+  assign quick_layout = section_st.quick_layout
   assign card_surface = section_st.card_surface
   assign interaction_effect = section_st.interaction_effect
   assign background_type = section_st.background_type
@@ -80,7 +81,9 @@
   {% if column_gap < 15 %}--col-gap: {{ column_gap }}px;{% else %}--col-gap: 15px;--col-gap-desktop: {{ column_gap }}px;{% endif %}
 {%- endcapture -%}
 
-{%- if display_mode == 'product_tabs' and product_layout == 'carousel' -%}
+{%- if display_mode == 'product_tabs' and product_layout == 'carousel'
+  or display_mode == 'quick_collections' and quick_layout == 'carousel'
+-%}
   <script>
     (function () {
       var swiperStyle = {{ 'swiper-bundle.min.css' | asset_url | json }};
@@ -469,6 +472,16 @@
     margin-top: 38px;
   }
 
+  #shopify-section-{{ section.id }} .featured-tabs-spotlight-quick.swiper {
+    display: block;
+  }
+
+  #shopify-section-{{ section.id }} .featured-tabs-spotlight-quick.swiper .swiper-wrapper {
+    display: flex;
+    gap: 0;
+    margin-top: 0;
+  }
+
   #shopify-section-{{ section.id }} .featured-tabs-spotlight-quick__item {
     display: block;
     color: var(--spotlight-card-text);
@@ -643,7 +656,7 @@
 {%- endstyle -%}
 
 <div
-  class="section featured-tabs-spotlight featured-tabs-spotlight--shape-{{ section_st.shape_style }} featured-tabs-spotlight--bg-{{ background_type }} featured-tabs-spotlight--mode-{{ display_mode }} featured-tabs-spotlight--layout-{{ product_layout }} featured-tabs-spotlight--cards-{{ card_surface }} featured-tabs-spotlight--fx-{{ interaction_effect }} color-{{ color_scheme }} gradient{% if section_st.animate_shape %} featured-tabs-spotlight--shape-motion{% endif %}{% if section_st.padding_top < 30 %} pt-min{% endif %}{% if section_st.padding_bottom < 30 %} pb-min{% endif %}"
+  class="section featured-tabs-spotlight featured-tabs-spotlight--shape-{{ section_st.shape_style }} featured-tabs-spotlight--bg-{{ background_type }} featured-tabs-spotlight--mode-{{ display_mode }} featured-tabs-spotlight--layout-{{ product_layout }} featured-tabs-spotlight--quick-layout-{{ quick_layout }} featured-tabs-spotlight--cards-{{ card_surface }} featured-tabs-spotlight--fx-{{ interaction_effect }} color-{{ color_scheme }} gradient{% if section_st.animate_shape %} featured-tabs-spotlight--shape-motion{% endif %}{% if section_st.padding_top < 30 %} pt-min{% endif %}{% if section_st.padding_bottom < 30 %} pb-min{% endif %}"
   style="{{ section_style | strip | strip_newlines }}"
 >
   {%- if background_type == 'image' or background_type == 'parallax' -%}
