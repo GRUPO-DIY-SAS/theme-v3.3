@@ -202,6 +202,10 @@
     --spotlight-bg: {{ section_st.background_color }};
     --spotlight-shape: {{ section_st.shape_color }};
     --spotlight-shape-opacity: {{ section_st.shape_opacity | divided_by: 100.0 }};
+    --spotlight-shape-rot: {{ section_st.shape_rotation | default: 0 }}deg;
+    --spotlight-shape-scale: {{ section_st.shape_scale | default: 100 | divided_by: 100.0 }};
+    --spotlight-shape-ox: {{ section_st.shape_offset_x | default: 0 }}px;
+    --spotlight-shape-oy: {{ section_st.shape_offset_y | default: 0 }}px;
     --spotlight-motion-1: {{ section_st.motion_accent_1 | default: '#7c5cff' }};
     --spotlight-motion-2: {{ section_st.motion_accent_2 | default: '#2dd4bf' }};
     --spotlight-motion-opacity: {{ section_st.motion_opacity | default: 55 | divided_by: 100.0 }};
@@ -297,6 +301,11 @@
     background: var(--spotlight-shape);
     opacity: var(--spotlight-shape-opacity);
     pointer-events: none;
+    /* User offset/rotation/scale via individual transform properties — they compose with
+       each style's positioning transform (and with the animation, which oscillates around them). */
+    translate: var(--spotlight-shape-ox, 0px) var(--spotlight-shape-oy, 0px);
+    rotate: var(--spotlight-shape-rot, 0deg);
+    scale: var(--spotlight-shape-scale, 1);
   }
 
   #shopify-section-{{ section.id }} .featured-tabs-spotlight--shape-none .featured-tabs-spotlight__shape {
@@ -339,6 +348,18 @@
     transform: rotate(-6deg);
   }
 
+  /* 9-point anchor (opt-in): places the shape at a fixed spot, overriding the style's
+     built-in position. Rotation/scale/offset still apply via the individual properties. */
+  #shopify-section-{{ section.id }} .featured-tabs-spotlight--shape-anchor-top-left .featured-tabs-spotlight__shape { inset: 0 auto auto 0; transform: none; }
+  #shopify-section-{{ section.id }} .featured-tabs-spotlight--shape-anchor-top-center .featured-tabs-spotlight__shape { inset: 0 auto auto 50%; transform: translateX(-50%); }
+  #shopify-section-{{ section.id }} .featured-tabs-spotlight--shape-anchor-top-right .featured-tabs-spotlight__shape { inset: 0 0 auto auto; transform: none; }
+  #shopify-section-{{ section.id }} .featured-tabs-spotlight--shape-anchor-center-left .featured-tabs-spotlight__shape { inset: 50% auto auto 0; transform: translateY(-50%); }
+  #shopify-section-{{ section.id }} .featured-tabs-spotlight--shape-anchor-center .featured-tabs-spotlight__shape { inset: 50% auto auto 50%; transform: translate(-50%, -50%); }
+  #shopify-section-{{ section.id }} .featured-tabs-spotlight--shape-anchor-center-right .featured-tabs-spotlight__shape { inset: 50% 0 auto auto; transform: translateY(-50%); }
+  #shopify-section-{{ section.id }} .featured-tabs-spotlight--shape-anchor-bottom-left .featured-tabs-spotlight__shape { inset: auto auto 0 0; transform: none; }
+  #shopify-section-{{ section.id }} .featured-tabs-spotlight--shape-anchor-bottom-center .featured-tabs-spotlight__shape { inset: auto auto 0 50%; transform: translateX(-50%); }
+  #shopify-section-{{ section.id }} .featured-tabs-spotlight--shape-anchor-bottom-right .featured-tabs-spotlight__shape { inset: auto 0 0 auto; transform: none; }
+
   #shopify-section-{{ section.id }} .featured-tabs-spotlight--shape-motion .featured-tabs-spotlight__shape {
     animation: spotlightShapeDrift 18s ease-in-out infinite alternate;
   }
@@ -347,15 +368,15 @@
      properties, so the shape's positioning transform stays intact. Composited on the GPU. */
   @keyframes spotlightShapeDrift {
     from {
-      rotate: 0deg;
-      scale: 1;
-      translate: 0 0;
+      rotate: var(--spotlight-shape-rot, 0deg);
+      scale: var(--spotlight-shape-scale, 1);
+      translate: var(--spotlight-shape-ox, 0px) var(--spotlight-shape-oy, 0px);
     }
 
     to {
-      rotate: calc(8deg * var(--spotlight-motion-amp, 1));
-      scale: calc(1 + 0.08 * var(--spotlight-motion-amp, 1));
-      translate: calc(2% * var(--spotlight-motion-amp, 1)) calc(-2.5% * var(--spotlight-motion-amp, 1));
+      rotate: calc(var(--spotlight-shape-rot, 0deg) + 8deg * var(--spotlight-motion-amp, 1));
+      scale: calc(var(--spotlight-shape-scale, 1) + 0.08 * var(--spotlight-motion-amp, 1));
+      translate: calc(var(--spotlight-shape-ox, 0px) + 2% * var(--spotlight-motion-amp, 1)) calc(var(--spotlight-shape-oy, 0px) - 2.5% * var(--spotlight-motion-amp, 1));
     }
   }
 
@@ -1221,7 +1242,7 @@
 {%- endstyle -%}
 
 <div
-  class="section featured-tabs-spotlight featured-tabs-spotlight--shape-{{ section_st.shape_style }} featured-tabs-spotlight--bg-{{ background_type }} featured-tabs-spotlight--mode-{{ display_mode }} featured-tabs-spotlight--layout-{{ product_layout }} featured-tabs-spotlight--quick-layout-{{ quick_layout }} featured-tabs-spotlight--cards-{{ card_surface }} featured-tabs-spotlight--fx-{{ interaction_effect }} color-{{ color_scheme }} gradient{% if section_st.animate_shape %} featured-tabs-spotlight--shape-motion{% endif %}{% if bg_motion != 'none' %} featured-tabs-spotlight--motion-{{ bg_motion }} featured-tabs-spotlight--motion-speed-{{ motion_speed }}{% endif %}{% if hero_aspect_value != blank %} featured-tabs-spotlight--hero-aspect{% endif %}{% if hero_shown %} featured-tabs-spotlight--hero-mobile-{{ hero_mobile_placement }}{% endif %}{% if hero_is_side %} featured-tabs-spotlight--hero-side featured-tabs-spotlight--hero-side-{{ hero_side }} featured-tabs-spotlight--hero-valign-{{ hero_side_valign }}{% endif %}{% if section_st.padding_top < 30 %} pt-min{% endif %}{% if section_st.padding_bottom < 30 %} pb-min{% endif %}{{ reset_spacing }}"
+  class="section featured-tabs-spotlight featured-tabs-spotlight--shape-{{ section_st.shape_style }} featured-tabs-spotlight--bg-{{ background_type }} featured-tabs-spotlight--mode-{{ display_mode }} featured-tabs-spotlight--layout-{{ product_layout }} featured-tabs-spotlight--quick-layout-{{ quick_layout }} featured-tabs-spotlight--cards-{{ card_surface }} featured-tabs-spotlight--fx-{{ interaction_effect }} color-{{ color_scheme }} gradient{% if section_st.animate_shape %} featured-tabs-spotlight--shape-motion{% endif %}{% if section_st.shape_anchor != blank and section_st.shape_anchor != 'auto' %} featured-tabs-spotlight--shape-anchor-{{ section_st.shape_anchor }}{% endif %}{% if bg_motion != 'none' %} featured-tabs-spotlight--motion-{{ bg_motion }} featured-tabs-spotlight--motion-speed-{{ motion_speed }}{% endif %}{% if hero_aspect_value != blank %} featured-tabs-spotlight--hero-aspect{% endif %}{% if hero_shown %} featured-tabs-spotlight--hero-mobile-{{ hero_mobile_placement }}{% endif %}{% if hero_is_side %} featured-tabs-spotlight--hero-side featured-tabs-spotlight--hero-side-{{ hero_side }} featured-tabs-spotlight--hero-valign-{{ hero_side_valign }}{% endif %}{% if section_st.padding_top < 30 %} pt-min{% endif %}{% if section_st.padding_bottom < 30 %} pb-min{% endif %}{{ reset_spacing }}"
   style="{{ section_style | strip | strip_newlines }}"
 >
   {%- if background_type == 'image' or background_type == 'parallax' -%}
@@ -2572,6 +2593,65 @@
       "id": "animate_shape",
       "label": "Animate shape",
       "default": false
+    },
+    {
+      "type": "select",
+      "id": "shape_anchor",
+      "label": "Shape position",
+      "default": "auto",
+      "info": "Auto keeps the style's built-in placement. Any anchor pins the shape to that spot (its built-in rotation is dropped — use Shape rotation below).",
+      "options": [
+        { "value": "auto", "label": "Auto (style default)" },
+        { "value": "top-left", "label": "Top left" },
+        { "value": "top-center", "label": "Top center" },
+        { "value": "top-right", "label": "Top right" },
+        { "value": "center-left", "label": "Center left" },
+        { "value": "center", "label": "Center" },
+        { "value": "center-right", "label": "Center right" },
+        { "value": "bottom-left", "label": "Bottom left" },
+        { "value": "bottom-center", "label": "Bottom center" },
+        { "value": "bottom-right", "label": "Bottom right" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "shape_offset_x",
+      "label": "Shape offset X",
+      "min": -500,
+      "max": 500,
+      "step": 10,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "shape_offset_y",
+      "label": "Shape offset Y",
+      "min": -500,
+      "max": 500,
+      "step": 10,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "shape_rotation",
+      "label": "Shape rotation",
+      "min": -180,
+      "max": 180,
+      "step": 5,
+      "unit": "deg",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "shape_scale",
+      "label": "Shape size",
+      "min": 25,
+      "max": 200,
+      "step": 5,
+      "unit": "%",
+      "default": 100
     },
     {
       "type": "header",
