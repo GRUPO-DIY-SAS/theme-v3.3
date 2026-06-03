@@ -9,6 +9,8 @@
   assign quick_layout = section_st.quick_layout
   assign card_surface = section_st.card_surface
   assign interaction_effect = section_st.interaction_effect
+  assign bg_motion = section_st.bg_motion | default: 'none'
+  assign motion_speed = section_st.motion_speed | default: 'balanced'
   assign background_type = section_st.background_type
   assign background_image = section_st.background_image
   assign mobile_background_image = section_st.mobile_background_image | default: background_image
@@ -128,6 +130,8 @@
     --spotlight-bg: {{ section_st.background_color }};
     --spotlight-shape: {{ section_st.shape_color }};
     --spotlight-shape-opacity: {{ section_st.shape_opacity | divided_by: 100.0 }};
+    --spotlight-motion-1: {{ section_st.motion_accent_1 | default: '#7c5cff' }};
+    --spotlight-motion-2: {{ section_st.motion_accent_2 | default: '#2dd4bf' }};
     --spotlight-tab-bg: {{ section_st.tab_background }};
     --spotlight-tab-text: {{ section_st.tab_text_color }};
     --spotlight-tab-active-bg: {{ section_st.tab_active_background }};
@@ -262,6 +266,93 @@
     to {
       filter: saturate(1.12);
     }
+  }
+
+  /* Animated geometric background field (opt-in via bg_motion).
+     Composited transform/opacity only — no width/top/filter animation that would repaint. */
+  #shopify-section-{{ section.id }} .featured-tabs-spotlight__motion {
+    position: absolute;
+    inset: var(--spotlight-media-inset-y, 0) var(--spotlight-media-inset-x, 0);
+    z-index: 1;
+    overflow: hidden;
+    border-radius: var(--spotlight-media-radius, 0);
+    pointer-events: none;
+  }
+
+  #shopify-section-{{ section.id }} .featured-tabs-spotlight--motion-speed-calm { --spotlight-motion-dur: 28s; }
+  #shopify-section-{{ section.id }} .featured-tabs-spotlight--motion-speed-balanced { --spotlight-motion-dur: 20s; }
+  #shopify-section-{{ section.id }} .featured-tabs-spotlight--motion-speed-lively { --spotlight-motion-dur: 13s; }
+
+  #shopify-section-{{ section.id }} .spotlight-motion__shape {
+    position: absolute;
+    left: var(--x);
+    top: var(--y);
+    width: var(--s);
+    height: var(--s);
+    color: var(--spotlight-shape);
+    opacity: var(--spotlight-shape-opacity);
+    will-change: transform;
+    animation: spotlightFloat calc(var(--spotlight-motion-dur, 20s) * var(--k, 1)) ease-in-out var(--delay, 0s) infinite alternate;
+  }
+
+  #shopify-section-{{ section.id }} .spotlight-motion__shape--ring {
+    border: 3px solid currentColor;
+    border-radius: 50%;
+  }
+
+  #shopify-section-{{ section.id }} .spotlight-motion__shape--dot {
+    background: currentColor;
+    border-radius: 50%;
+  }
+
+  #shopify-section-{{ section.id }} .spotlight-motion__shape--square {
+    background: currentColor;
+    border-radius: 8px;
+  }
+
+  #shopify-section-{{ section.id }} .spotlight-motion__shape--triangle {
+    background: currentColor;
+    clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
+  }
+
+  @keyframes spotlightFloat {
+    from { transform: translate3d(0, 0, 0) rotate(0deg); }
+    to { transform: translate3d(var(--dx, 24px), var(--dy, -28px), 0) rotate(var(--rot, 40deg)); }
+  }
+
+  #shopify-section-{{ section.id }} .spotlight-motion__orb {
+    position: absolute;
+    left: var(--x);
+    top: var(--y);
+    width: var(--s);
+    height: var(--s);
+    border-radius: 50%;
+    background: radial-gradient(circle at 32% 32%, var(--c, var(--spotlight-shape)), transparent 70%);
+    filter: blur(44px);
+    opacity: var(--spotlight-shape-opacity);
+    will-change: transform;
+    animation: spotlightOrb calc(var(--spotlight-motion-dur, 20s) * var(--k, 1)) ease-in-out var(--delay, 0s) infinite alternate;
+  }
+
+  @keyframes spotlightOrb {
+    from { transform: translate3d(0, 0, 0) scale(1); }
+    to { transform: translate3d(var(--dx, 5vw), var(--dy, 4vw), 0) scale(var(--sc, 1.2)); }
+  }
+
+  #shopify-section-{{ section.id }} .spotlight-motion__grid {
+    position: absolute;
+    inset: -20%;
+    color: var(--spotlight-shape);
+    opacity: var(--spotlight-shape-opacity);
+    background-image: radial-gradient(currentColor 1.5px, transparent 1.6px);
+    background-size: 38px 38px;
+    will-change: transform;
+    animation: spotlightGridDrift calc(var(--spotlight-motion-dur, 20s) * 1.4) linear infinite;
+  }
+
+  @keyframes spotlightGridDrift {
+    from { transform: translate3d(0, 0, 0); }
+    to { transform: translate3d(-38px, -38px, 0); }
   }
 
   #shopify-section-{{ section.id }} .featured-tabs-spotlight__inner {
@@ -653,7 +744,10 @@
   @media (prefers-reduced-motion: reduce) {
     #shopify-section-{{ section.id }} .featured-tabs-spotlight--shape-motion .featured-tabs-spotlight__shape,
     #shopify-section-{{ section.id }} .featured-tabs-spotlight--fx-reveal .featured-tabs-spotlight-card,
-    #shopify-section-{{ section.id }} .featured-tabs-spotlight--fx-reveal .featured-tabs-spotlight-quick__item {
+    #shopify-section-{{ section.id }} .featured-tabs-spotlight--fx-reveal .featured-tabs-spotlight-quick__item,
+    #shopify-section-{{ section.id }} .spotlight-motion__shape,
+    #shopify-section-{{ section.id }} .spotlight-motion__orb,
+    #shopify-section-{{ section.id }} .spotlight-motion__grid {
       animation: none;
     }
 
@@ -791,7 +885,7 @@
 {%- endstyle -%}
 
 <div
-  class="section featured-tabs-spotlight featured-tabs-spotlight--shape-{{ section_st.shape_style }} featured-tabs-spotlight--bg-{{ background_type }} featured-tabs-spotlight--mode-{{ display_mode }} featured-tabs-spotlight--layout-{{ product_layout }} featured-tabs-spotlight--quick-layout-{{ quick_layout }} featured-tabs-spotlight--cards-{{ card_surface }} featured-tabs-spotlight--fx-{{ interaction_effect }} color-{{ color_scheme }} gradient{% if section_st.animate_shape %} featured-tabs-spotlight--shape-motion{% endif %}{% if section_st.padding_top < 30 %} pt-min{% endif %}{% if section_st.padding_bottom < 30 %} pb-min{% endif %}{{ reset_spacing }}"
+  class="section featured-tabs-spotlight featured-tabs-spotlight--shape-{{ section_st.shape_style }} featured-tabs-spotlight--bg-{{ background_type }} featured-tabs-spotlight--mode-{{ display_mode }} featured-tabs-spotlight--layout-{{ product_layout }} featured-tabs-spotlight--quick-layout-{{ quick_layout }} featured-tabs-spotlight--cards-{{ card_surface }} featured-tabs-spotlight--fx-{{ interaction_effect }} color-{{ color_scheme }} gradient{% if section_st.animate_shape %} featured-tabs-spotlight--shape-motion{% endif %}{% if bg_motion != 'none' %} featured-tabs-spotlight--motion-{{ bg_motion }} featured-tabs-spotlight--motion-speed-{{ motion_speed }}{% endif %}{% if section_st.padding_top < 30 %} pt-min{% endif %}{% if section_st.padding_bottom < 30 %} pb-min{% endif %}{{ reset_spacing }}"
   style="{{ section_style | strip | strip_newlines }}"
 >
   {%- if background_type == 'image' or background_type == 'parallax' -%}
@@ -847,6 +941,26 @@
     </div>
   {%- endif -%}
   <div class="featured-tabs-spotlight__shape"></div>
+  {%- if bg_motion != 'none' -%}
+    <div class="featured-tabs-spotlight__motion" aria-hidden="true">
+      {%- case bg_motion -%}
+        {%- when 'floating' -%}
+          <span class="spotlight-motion__shape spotlight-motion__shape--ring" style="--x:6%;--y:16%;--s:130px;--dx:34px;--dy:44px;--rot:50deg;--k:1.25;--delay:0s"></span>
+          <span class="spotlight-motion__shape spotlight-motion__shape--dot" style="--x:22%;--y:64%;--s:26px;--dx:-28px;--dy:-36px;--rot:0deg;--k:1.6;--delay:1.2s"></span>
+          <span class="spotlight-motion__shape spotlight-motion__shape--triangle" style="--x:78%;--y:22%;--s:90px;--dx:-30px;--dy:40px;--rot:-45deg;--k:1.1;--delay:0.5s"></span>
+          <span class="spotlight-motion__shape spotlight-motion__shape--square" style="--x:64%;--y:70%;--s:70px;--dx:26px;--dy:-30px;--rot:35deg;--k:1.35;--delay:2s"></span>
+          <span class="spotlight-motion__shape spotlight-motion__shape--ring" style="--x:44%;--y:30%;--s:64px;--dx:20px;--dy:28px;--rot:30deg;--k:1.5;--delay:0.8s"></span>
+          <span class="spotlight-motion__shape spotlight-motion__shape--dot" style="--x:88%;--y:58%;--s:40px;--dx:-22px;--dy:-24px;--rot:0deg;--k:1.2;--delay:1.6s"></span>
+        {%- when 'aurora' -%}
+          <span class="spotlight-motion__orb" style="--x:-8%;--y:-12%;--s:48vw;--c:var(--spotlight-motion-1);--dx:7vw;--dy:6vw;--sc:1.25;--k:1.3;--delay:0s"></span>
+          <span class="spotlight-motion__orb" style="--x:60%;--y:20%;--s:42vw;--c:var(--spotlight-motion-2);--dx:-6vw;--dy:7vw;--sc:1.18;--k:1.5;--delay:1.5s"></span>
+          <span class="spotlight-motion__orb" style="--x:30%;--y:60%;--s:38vw;--c:color-mix(in srgb, var(--spotlight-motion-1), var(--spotlight-motion-2));--dx:5vw;--dy:-6vw;--sc:1.3;--k:1.15;--delay:3s"></span>
+        {%- when 'grid' -%}
+          <span class="spotlight-motion__grid"></span>
+          <span class="spotlight-motion__shape spotlight-motion__shape--ring" style="--x:70%;--y:10%;--s:220px;--dx:-26px;--dy:32px;--rot:28deg;--k:1.5;--delay:0s"></span>
+      {%- endcase -%}
+    </div>
+  {%- endif -%}
   <div class="{{ section_width }} featured-tabs-spotlight__inner">
     {%- if display_mode == 'product_tabs' -%}
       <tab-items data-type="horizontal">
@@ -1671,6 +1785,67 @@
       "id": "animate_shape",
       "label": "Animate shape",
       "default": false
+    },
+    {
+      "type": "header",
+      "content": "Background motion"
+    },
+    {
+      "type": "select",
+      "id": "bg_motion",
+      "label": "Animated background style",
+      "default": "none",
+      "info": "GPU-light moving geometry behind the content. Floating shapes and grid use the Shape color/opacity above; aurora uses the colors below. Respects reduced-motion. Set Shape style to None to avoid overlapping the static shape.",
+      "options": [
+        {
+          "value": "none",
+          "label": "None"
+        },
+        {
+          "value": "floating",
+          "label": "Floating shapes"
+        },
+        {
+          "value": "aurora",
+          "label": "Aurora orbs"
+        },
+        {
+          "value": "grid",
+          "label": "Geometric grid drift"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "motion_speed",
+      "label": "Motion speed",
+      "default": "balanced",
+      "options": [
+        {
+          "value": "calm",
+          "label": "Calm"
+        },
+        {
+          "value": "balanced",
+          "label": "Balanced"
+        },
+        {
+          "value": "lively",
+          "label": "Lively"
+        }
+      ]
+    },
+    {
+      "type": "color",
+      "id": "motion_accent_1",
+      "label": "Aurora color 1",
+      "default": "#7c5cff"
+    },
+    {
+      "type": "color",
+      "id": "motion_accent_2",
+      "label": "Aurora color 2",
+      "default": "#2dd4bf"
     },
     {
       "type": "header",
