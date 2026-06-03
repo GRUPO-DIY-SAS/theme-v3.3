@@ -726,6 +726,12 @@
     margin-top: 32px;
   }
 
+  /* Let the block's chosen body size cascade into the rich text paragraphs/lists. */
+  #shopify-section-{{ section.id }} .featured-tabs-spotlight__richtext-body[style*="font-size"] p,
+  #shopify-section-{{ section.id }} .featured-tabs-spotlight__richtext-body[style*="font-size"] li {
+    font-size: inherit;
+  }
+
   #shopify-section-{{ section.id }} .featured-tabs-spotlight__tabs {
     display: flex;
     align-items: center;
@@ -3790,6 +3796,28 @@
           "step": 20,
           "unit": "px",
           "default": 760
+        },
+        {
+          "type": "range",
+          "id": "heading_size",
+          "label": "Heading font size",
+          "info": "0 = theme default.",
+          "min": 0,
+          "max": 80,
+          "step": 1,
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "text_size",
+          "label": "Text font size",
+          "info": "0 = theme default.",
+          "min": 0,
+          "max": 40,
+          "step": 1,
+          "unit": "px",
+          "default": 0
         }
       ]
     }

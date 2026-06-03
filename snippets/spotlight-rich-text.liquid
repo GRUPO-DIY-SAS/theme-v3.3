@@ -11,10 +11,10 @@
     {{ block.shopify_attributes }}
   >
     {%- if rt.heading != blank -%}
-      <h2 class="featured-tabs-spotlight__richtext-heading h3 mt-0 mb-10">{{ rt.heading }}</h2>
+      <h2 class="featured-tabs-spotlight__richtext-heading h3 mt-0 mb-10"{% if rt.heading_size > 0 %} style="font-size: {{ rt.heading_size }}px; line-height: 1.15;"{% endif %}>{{ rt.heading }}</h2>
     {%- endif -%}
     {%- if rt.content != blank -%}
-      <div class="featured-tabs-spotlight__richtext-body rich__text rich__text-m0">{{ rt.content }}</div>
+      <div class="featured-tabs-spotlight__richtext-body rich__text rich__text-m0"{% if rt.text_size > 0 %} style="font-size: {{ rt.text_size }}px;"{% endif %}>{{ rt.content }}</div>
     {%- endif -%}
   </div>
 {%- endif -%}
