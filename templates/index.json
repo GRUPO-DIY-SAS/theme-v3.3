@@ -1016,6 +1016,16 @@
     "featured_collection_tabs_spotlight_continue1": {
       "type": "featured-collection-tabs-spotlight",
       "blocks": {
+        "rich_text_9fyWX9": {
+          "type": "rich_text",
+          "settings": {
+            "position": "top",
+            "heading": "Escoge el sistema de vapeo de tu preferencia.",
+            "content": "<p>Tenemos todas las opciones disponibles en el mercado</p>",
+            "text_alignment": "center",
+            "max_width": 760
+          }
+        },
         "tab_2": {
           "type": "collection",
           "settings": {
@@ -1025,8 +1035,8 @@
             "collection_title": "",
             "cta_label": "",
             "cta_link": "",
-            "tab_heading": "",
-            "tab_description": "",
+            "tab_heading": "Los mejores vapes desechables en DIY",
+            "tab_description": "<p><em>En DIY Vape Shop reunimos los vapes desechables más populares y confiables del mercado. Variedad de marcas, sabores y presentaciones para que siempre tengas uno listo cuando lo necesites.</em></p>",
             "tab_hero_type": "inherit"
           }
         },
@@ -1039,8 +1049,8 @@
             "collection_title": "Sistemas Recargables",
             "cta_label": "",
             "cta_link": "",
-            "tab_heading": "",
-            "tab_description": "",
+            "tab_heading": "Equipos recargables: los preferidos por nuestros clientes",
+            "tab_description": "<p><em>Para quienes buscan una experiencia de vapeo personalizada, nuestros vapes recargables ofrecen potencia, diseño y libertad para elegir sabores y niveles de nicotina</em></p>",
             "tab_hero_type": "inherit"
           }
         },
@@ -1060,6 +1070,7 @@
         }
       },
       "block_order": [
+        "rich_text_9fyWX9",
         "tab_2",
         "tab_1",
         "tab_3"
