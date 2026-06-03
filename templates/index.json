@@ -1308,7 +1308,7 @@
             "cta_link": "",
             "tab_heading": "Los mejores desechables en DIY",
             "tab_description": "",
-            "tab_hero_type": "video"
+            "tab_hero_type": "inherit"
           }
         },
         "collection_3AmbPU": {
