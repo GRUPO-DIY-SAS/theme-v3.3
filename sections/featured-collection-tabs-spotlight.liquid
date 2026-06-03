@@ -80,6 +80,28 @@
       break
     endif
   endfor
+
+  assign hero_type = section_st.hero_type | default: 'none'
+  assign hero_image = section_st.hero_image
+  assign hero_mobile_image = section_st.hero_mobile_image | default: hero_image
+  assign hero_video = section_st.hero_video
+  assign hero_mobile_video = section_st.hero_mobile_video | default: hero_video
+  assign hero_video_poster = section_st.hero_video_poster | default: hero_video.preview_image
+  assign hero_mobile_video_poster = section_st.hero_mobile_video_poster | default: hero_mobile_video.preview_image | default: hero_video_poster
+  assign hero_video_source = ''
+  assign hero_mobile_video_source = ''
+  for source in hero_video.sources
+    if source.format == 'mp4'
+      assign hero_video_source = source.url
+      break
+    endif
+  endfor
+  for source in hero_mobile_video.sources
+    if source.format == 'mp4'
+      assign hero_mobile_video_source = source.url
+      break
+    endif
+  endfor
 -%}
 
 {%- capture section_style -%}
@@ -153,6 +175,11 @@
     --spotlight-media-radius: {{ section_st.media_radius }}px;
     --spotlight-media-height: {{ section_st.media_height }}px;
     --spotlight-media-height-mobile: {{ section_st.mobile_media_height }}px;
+    --spotlight-hero-height: {{ section_st.hero_height | default: 360 }}px;
+    --spotlight-hero-height-mobile: {{ section_st.hero_mobile_height | default: 220 }}px;
+    --spotlight-hero-radius: {{ section_st.hero_radius | default: 0 }}px;
+    --spotlight-hero-overlay: {{ section_st.hero_overlay_color | default: '#000000' }};
+    --spotlight-hero-overlay-opacity: {{ section_st.hero_overlay_opacity | default: 0 | divided_by: 100.0 }};
     position: relative;
     overflow: hidden;
     background: var(--spotlight-bg);
@@ -358,6 +385,38 @@
   #shopify-section-{{ section.id }} .featured-tabs-spotlight__inner {
     position: relative;
     z-index: 2;
+  }
+
+  /* Foreground hero banner — sits above the tabs/heading in either display mode. */
+  #shopify-section-{{ section.id }} .featured-tabs-spotlight__hero {
+    position: relative;
+    width: 100%;
+    height: var(--spotlight-hero-height, 360px);
+    margin-bottom: 28px;
+    border-radius: var(--spotlight-hero-radius, 0);
+    overflow: hidden;
+  }
+
+  #shopify-section-{{ section.id }} .featured-tabs-spotlight__hero img,
+  #shopify-section-{{ section.id }} .featured-tabs-spotlight__hero video {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  #shopify-section-{{ section.id }} .featured-tabs-spotlight__hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--spotlight-hero-overlay);
+    opacity: var(--spotlight-hero-overlay-opacity);
+    pointer-events: none;
+  }
+
+  #shopify-section-{{ section.id }} .featured-tabs-spotlight__hero-mobile {
+    display: none;
   }
 
   #shopify-section-{{ section.id }} .featured-tabs-spotlight__header {
@@ -808,6 +867,18 @@
       background-attachment: scroll;
     }
 
+    #shopify-section-{{ section.id }} .featured-tabs-spotlight__hero {
+      height: var(--spotlight-hero-height-mobile, 220px);
+    }
+
+    #shopify-section-{{ section.id }} .featured-tabs-spotlight__hero-desktop {
+      display: none;
+    }
+
+    #shopify-section-{{ section.id }} .featured-tabs-spotlight__hero-mobile {
+      display: block;
+    }
+
     #shopify-section-{{ section.id }} .featured-tabs-spotlight__tab {
       min-height: 42px;
       padding: 12px 24px;
@@ -962,6 +1033,49 @@
     </div>
   {%- endif -%}
   <div class="{{ section_width }} featured-tabs-spotlight__inner">
+    {%- if hero_type == 'image' and hero_image != blank -%}
+      <div class="featured-tabs-spotlight__hero">
+        {{ hero_image | image_url: width: 2400 | image_tag: class: 'featured-tabs-spotlight__hero-desktop', widths: '750, 1100, 1500, 2000, 2400', sizes: '100vw', loading: 'lazy', alt: heading }}
+        {%- if hero_mobile_image != blank -%}
+          {{ hero_mobile_image | image_url: width: 1200 | image_tag: class: 'featured-tabs-spotlight__hero-mobile', widths: '375, 550, 750, 950, 1200', sizes: '100vw', loading: 'lazy', alt: heading }}
+        {%- endif -%}
+      </div>
+    {%- elsif hero_type == 'video' and hero_video_source != blank -%}
+      <div class="featured-tabs-spotlight__hero">
+        <video
+          class="featured-tabs-spotlight__hero-desktop lazy-video"
+          autoplay
+          muted
+          loop
+          playsinline
+          preload="none"
+          data-video-load="interaction"
+          data-no-idle="true"
+          data-src="{{ hero_video_source }}"
+          {% if hero_video_poster != blank %}
+            data-poster="{{ hero_video_poster | image_url: width: 1800 }}"
+            poster="{{ hero_video_poster | image_url: width: 1800 }}"
+          {% endif %}
+        ></video>
+        {%- if hero_mobile_video_source != blank -%}
+          <video
+            class="featured-tabs-spotlight__hero-mobile lazy-video"
+            autoplay
+            muted
+            loop
+            playsinline
+            preload="none"
+            data-video-load="interaction"
+            data-no-idle="true"
+            data-src="{{ hero_mobile_video_source }}"
+            {% if hero_mobile_video_poster != blank %}
+              data-poster="{{ hero_mobile_video_poster | image_url: width: 900 }}"
+              poster="{{ hero_mobile_video_poster | image_url: width: 900 }}"
+            {% endif %}
+          ></video>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
     {%- if display_mode == 'product_tabs' -%}
       <tab-items data-type="horizontal">
     {%- endif -%}
@@ -1597,6 +1711,113 @@
       "min": 0,
       "max": 30,
       "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Hero banner"
+    },
+    {
+      "type": "paragraph",
+      "content": "Shown at the top of the section, above the tabs and heading, in both display modes. This sits in front of the content — use Background below for a full-section backdrop behind it."
+    },
+    {
+      "type": "select",
+      "id": "hero_type",
+      "label": "Hero type",
+      "default": "none",
+      "options": [
+        {
+          "value": "none",
+          "label": "None"
+        },
+        {
+          "value": "image",
+          "label": "Image"
+        },
+        {
+          "value": "video",
+          "label": "Video"
+        }
+      ]
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Desktop hero image"
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_mobile_image",
+      "label": "Mobile hero image",
+      "info": "Defaults to the desktop image."
+    },
+    {
+      "type": "video",
+      "id": "hero_video",
+      "label": "Desktop hero video"
+    },
+    {
+      "type": "video",
+      "id": "hero_mobile_video",
+      "label": "Mobile hero video",
+      "info": "Defaults to the desktop video."
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_video_poster",
+      "label": "Desktop video poster",
+      "info": "Shown before the video loads. Defaults to the video's preview frame."
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_mobile_video_poster",
+      "label": "Mobile video poster"
+    },
+    {
+      "type": "color",
+      "id": "hero_overlay_color",
+      "label": "Hero overlay",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "hero_overlay_opacity",
+      "label": "Hero overlay opacity",
+      "min": 0,
+      "max": 90,
+      "step": 5,
+      "unit": "%",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "hero_height",
+      "label": "Hero height (desktop)",
+      "min": 120,
+      "max": 720,
+      "step": 20,
+      "unit": "px",
+      "default": 360
+    },
+    {
+      "type": "range",
+      "id": "hero_mobile_height",
+      "label": "Hero height (mobile)",
+      "min": 100,
+      "max": 520,
+      "step": 20,
+      "unit": "px",
+      "default": 220
+    },
+    {
+      "type": "range",
+      "id": "hero_radius",
+      "label": "Hero corner radius",
+      "min": 0,
+      "max": 48,
+      "step": 2,
       "unit": "px",
       "default": 0
     },
