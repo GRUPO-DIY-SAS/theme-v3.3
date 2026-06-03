@@ -1,0 +1,25 @@
+{%- comment -%}
+  Geometric motion shapes for the collection-tabs-spotlight section.
+  Used both as a bg_motion preset and as an independent geo overlay layer.
+  Accepts: kind ('floating' | 'particles').
+{%- endcomment -%}
+{%- case kind -%}
+  {%- when 'floating' -%}
+    <span class="spotlight-motion__shape spotlight-motion__shape--ring" style="--x:6%;--y:16%;--s:130px;--dx:34px;--dy:44px;--rot:50deg;--k:1.25;--delay:0s"></span>
+    <span class="spotlight-motion__shape spotlight-motion__shape--dot" style="--x:22%;--y:64%;--s:26px;--dx:-28px;--dy:-36px;--rot:0deg;--k:1.6;--delay:1.2s"></span>
+    <span class="spotlight-motion__shape spotlight-motion__shape--triangle" style="--x:78%;--y:22%;--s:90px;--dx:-30px;--dy:40px;--rot:-45deg;--k:1.1;--delay:0.5s"></span>
+    <span class="spotlight-motion__shape spotlight-motion__shape--square" style="--x:64%;--y:70%;--s:70px;--dx:26px;--dy:-30px;--rot:35deg;--k:1.35;--delay:2s"></span>
+    <span class="spotlight-motion__shape spotlight-motion__shape--ring" style="--x:44%;--y:30%;--s:64px;--dx:20px;--dy:28px;--rot:30deg;--k:1.5;--delay:0.8s"></span>
+    <span class="spotlight-motion__shape spotlight-motion__shape--dot" style="--x:88%;--y:58%;--s:40px;--dx:-22px;--dy:-24px;--rot:0deg;--k:1.2;--delay:1.6s"></span>
+  {%- when 'particles' -%}
+    {%- for i in (1..16) -%}
+      {%- assign px = i | times: 61 | modulo: 100 -%}
+      {%- assign py = i | times: 37 | modulo: 100 -%}
+      {%- assign psize = i | modulo: 4 | times: 3 | plus: 5 -%}
+      {%- assign pdx = i | modulo: 5 | times: 9 | minus: 18 -%}
+      {%- assign pdy = i | modulo: 3 | times: 16 | minus: 16 -%}
+      {%- assign pk = i | modulo: 4 | times: 0.3 | plus: 0.9 -%}
+      {%- assign pdelay = i | modulo: 6 | times: 0.4 -%}
+      <span class="spotlight-motion__particle" style="--x:{{ px }}%;--y:{{ py }}%;--s:{{ psize }}px;--dx:{{ pdx }}px;--dy:{{ pdy }}px;--rot:0deg;--k:{{ pk }};--delay:{{ pdelay }}s"></span>
+    {%- endfor -%}
+{%- endcase -%}
