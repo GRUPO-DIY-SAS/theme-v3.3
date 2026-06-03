@@ -1292,7 +1292,7 @@
             "cta_link": "",
             "tab_heading": "Estrenos y lanzamientos en nuestra tienda de vapeo",
             "tab_description": "",
-            "tab_hero_type": "video",
+            "tab_hero_type": "inherit",
             "tab_hero_video": "shopify://files/videos/logo-movil-optimizado.mp4",
             "tab_hero_mobile_video": "shopify://files/videos/logo-movil-optimizado.mp4"
           }
@@ -1322,7 +1322,7 @@
             "cta_link": "",
             "tab_heading": "Equipos recargables: los preferidos por nuestros clientes",
             "tab_description": "",
-            "tab_hero_type": "video",
+            "tab_hero_type": "inherit",
             "tab_hero_video": "shopify://files/videos/Vprime.mp4"
           }
         }
