@@ -1,0 +1,73 @@
+{%- comment -%}
+  One hero media variant for the collection-tabs-spotlight section.
+  Variants stack inside .featured-tabs-spotlight__hero; spotlight-tab-sync shows the
+  one whose data-hero-block matches the active tab, falling back to '__default__'.
+
+  Accepts: media_type (image|video), image, mobile_image, video, mobile_video,
+  video_poster, mobile_video_poster, block_key, alt.
+  Video sources are resolved here to mirror the section's lazy-video pattern.
+{%- endcomment -%}
+{%- liquid
+  assign m_image = image
+  assign m_mobile_image = mobile_image | default: image
+  assign m_mobile_video = mobile_video | default: video
+  assign m_video_poster = video_poster | default: video.preview_image
+  assign m_mobile_video_poster = mobile_video_poster | default: m_mobile_video.preview_image | default: m_video_poster
+  assign m_video_source = ''
+  assign m_mobile_video_source = ''
+  for s in video.sources
+    if s.format == 'mp4'
+      assign m_video_source = s.url
+      break
+    endif
+  endfor
+  for s in m_mobile_video.sources
+    if s.format == 'mp4'
+      assign m_mobile_video_source = s.url
+      break
+    endif
+  endfor
+-%}
+{%- if media_type == 'image' and m_image != blank -%}
+  <div class="featured-tabs-spotlight__hero-media" data-hero-block="{{ block_key }}"{% unless block_key == '__default__' %} hidden{% endunless %}>
+    {{ m_image | image_url: width: 2400 | image_tag: class: 'featured-tabs-spotlight__hero-desktop', widths: '750, 1100, 1500, 2000, 2400', sizes: '100vw', loading: 'lazy', alt: alt }}
+    {%- if m_mobile_image != blank -%}
+      {{ m_mobile_image | image_url: width: 1200 | image_tag: class: 'featured-tabs-spotlight__hero-mobile', widths: '375, 550, 750, 950, 1200', sizes: '100vw', loading: 'lazy', alt: alt }}
+    {%- endif -%}
+  </div>
+{%- elsif media_type == 'video' and m_video_source != blank -%}
+  <div class="featured-tabs-spotlight__hero-media" data-hero-block="{{ block_key }}"{% unless block_key == '__default__' %} hidden{% endunless %}>
+    <video
+      class="featured-tabs-spotlight__hero-desktop lazy-video"
+      autoplay
+      muted
+      loop
+      playsinline
+      preload="none"
+      data-video-load="interaction"
+      data-no-idle="true"
+      data-src="{{ m_video_source }}"
+      {% if m_video_poster != blank %}
+        data-poster="{{ m_video_poster | image_url: width: 1800 }}"
+        poster="{{ m_video_poster | image_url: width: 1800 }}"
+      {% endif %}
+    ></video>
+    {%- if m_mobile_video_source != blank -%}
+      <video
+        class="featured-tabs-spotlight__hero-mobile lazy-video"
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="none"
+        data-video-load="interaction"
+        data-no-idle="true"
+        data-src="{{ m_mobile_video_source }}"
+        {% if m_mobile_video_poster != blank %}
+          data-poster="{{ m_mobile_video_poster | image_url: width: 900 }}"
+          poster="{{ m_mobile_video_poster | image_url: width: 900 }}"
+        {% endif %}
+      ></video>
+    {%- endif -%}
+  </div>
+{%- endif -%}

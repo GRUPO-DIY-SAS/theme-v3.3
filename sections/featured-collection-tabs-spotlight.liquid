@@ -88,20 +88,6 @@
   assign hero_mobile_video = section_st.hero_mobile_video | default: hero_video
   assign hero_video_poster = section_st.hero_video_poster | default: hero_video.preview_image
   assign hero_mobile_video_poster = section_st.hero_mobile_video_poster | default: hero_mobile_video.preview_image | default: hero_video_poster
-  assign hero_video_source = ''
-  assign hero_mobile_video_source = ''
-  for source in hero_video.sources
-    if source.format == 'mp4'
-      assign hero_video_source = source.url
-      break
-    endif
-  endfor
-  for source in hero_mobile_video.sources
-    if source.format == 'mp4'
-      assign hero_mobile_video_source = source.url
-      break
-    endif
-  endfor
 
   assign hero_aspect = section_st.hero_aspect | default: 'fixed'
   case hero_aspect
@@ -153,6 +139,19 @@
   if hero_shown and hero_placement == 'side'
     assign hero_is_side = true
   endif
+
+  assign has_tab_heading = false
+  assign has_tab_desc = false
+  for b in section.blocks
+    if b.type == 'collection'
+      if b.settings.tab_heading != blank
+        assign has_tab_heading = true
+      endif
+      if b.settings.tab_description != blank
+        assign has_tab_desc = true
+      endif
+    endif
+  endfor
 -%}
 
 {%- capture section_style -%}
@@ -455,6 +454,16 @@
   #shopify-section-{{ section.id }} .featured-tabs-spotlight--hero-aspect .featured-tabs-spotlight__hero {
     height: auto;
     aspect-ratio: var(--spotlight-hero-aspect);
+  }
+
+  /* Per-tab media variants stack in the same frame; spotlight-tab-sync toggles [hidden]. */
+  #shopify-section-{{ section.id }} .featured-tabs-spotlight__hero-media {
+    position: absolute;
+    inset: 0;
+  }
+
+  #shopify-section-{{ section.id }} .featured-tabs-spotlight__hero-media[hidden] {
+    display: none;
   }
 
   #shopify-section-{{ section.id }} .featured-tabs-spotlight__hero img,
@@ -1160,46 +1169,35 @@
     </div>
   {%- endif -%}
   {%- capture hero_markup -%}
-    {%- if hero_type == 'image' and hero_image != blank -%}
+    {%- if hero_shown -%}
       <div class="featured-tabs-spotlight__hero">
-        {{ hero_image | image_url: width: 2400 | image_tag: class: 'featured-tabs-spotlight__hero-desktop', widths: '750, 1100, 1500, 2000, 2400', sizes: '100vw', loading: 'lazy', alt: heading }}
-        {%- if hero_mobile_image != blank -%}
-          {{ hero_mobile_image | image_url: width: 1200 | image_tag: class: 'featured-tabs-spotlight__hero-mobile', widths: '375, 550, 750, 950, 1200', sizes: '100vw', loading: 'lazy', alt: heading }}
-        {%- endif -%}
-      </div>
-    {%- elsif hero_type == 'video' and hero_video_source != blank -%}
-      <div class="featured-tabs-spotlight__hero">
-        <video
-          class="featured-tabs-spotlight__hero-desktop lazy-video"
-          autoplay
-          muted
-          loop
-          playsinline
-          preload="none"
-          data-video-load="interaction"
-          data-no-idle="true"
-          data-src="{{ hero_video_source }}"
-          {% if hero_video_poster != blank %}
-            data-poster="{{ hero_video_poster | image_url: width: 1800 }}"
-            poster="{{ hero_video_poster | image_url: width: 1800 }}"
-          {% endif %}
-        ></video>
-        {%- if hero_mobile_video_source != blank -%}
-          <video
-            class="featured-tabs-spotlight__hero-mobile lazy-video"
-            autoplay
-            muted
-            loop
-            playsinline
-            preload="none"
-            data-video-load="interaction"
-            data-no-idle="true"
-            data-src="{{ hero_mobile_video_source }}"
-            {% if hero_mobile_video_poster != blank %}
-              data-poster="{{ hero_mobile_video_poster | image_url: width: 900 }}"
-              poster="{{ hero_mobile_video_poster | image_url: width: 900 }}"
-            {% endif %}
-          ></video>
+        {%- render 'spotlight-hero-media',
+          media_type: hero_type,
+          image: hero_image,
+          mobile_image: hero_mobile_image,
+          video: hero_video,
+          mobile_video: hero_mobile_video,
+          video_poster: hero_video_poster,
+          mobile_video_poster: hero_mobile_video_poster,
+          block_key: '__default__',
+          alt: heading
+        -%}
+        {%- if display_mode == 'product_tabs' -%}
+          {%- for b in section.blocks -%}
+            {%- if b.type == 'collection' and b.settings.tab_hero_type != blank and b.settings.tab_hero_type != 'inherit' and b.settings.tab_hero_type != 'none' -%}
+              {%- render 'spotlight-hero-media',
+                media_type: b.settings.tab_hero_type,
+                image: b.settings.tab_hero_image,
+                mobile_image: b.settings.tab_hero_mobile_image,
+                video: b.settings.tab_hero_video,
+                mobile_video: b.settings.tab_hero_mobile_video,
+                video_poster: b.settings.tab_hero_video_poster,
+                mobile_video_poster: b.settings.tab_hero_mobile_video_poster,
+                block_key: b.id,
+                alt: b.settings.collection_title
+              -%}
+            {%- endif -%}
+          {%- endfor -%}
         {%- endif -%}
       </div>
     {%- endif -%}
@@ -1207,11 +1205,12 @@
   <div class="{{ section_width }} featured-tabs-spotlight__inner">
     {%- if hero_shown and hero_placement != 'side' -%}{{ hero_markup }}{%- endif -%}
     {%- if display_mode == 'product_tabs' -%}
+      <spotlight-tab-sync></spotlight-tab-sync>
       <tab-items data-type="horizontal">
     {%- endif -%}
-      {%- if heading != blank or description != blank -%}
+      {%- if heading != blank or description != blank or has_tab_heading or has_tab_desc -%}
         <div class="featured-tabs-spotlight__header section__header text-{{ section_st.header_alignment }}">
-          {%- if heading != blank -%}
+          {%- if heading != blank or has_tab_heading -%}
             <motion-element
               data-motion="{{ scroll_animation }}"
               data-motion-delay="{{ animate_delay }}"
@@ -1220,12 +1219,12 @@
               {% endif %}
               class="block"
             >
-              <h2 class="section__header-heading heading-letter-spacing {{ header_size }} mt-0{% if description != blank %} mb-10{% else %} mb-0{% endif %}">
+              <h2 class="section__header-heading heading-letter-spacing {{ header_size }} mt-0{% if description != blank or has_tab_desc %} mb-10{% else %} mb-0{% endif %}">
                 {{ heading }}
               </h2>
             </motion-element>
           {%- endif -%}
-          {%- if description != blank -%}
+          {%- if description != blank or has_tab_desc -%}
             {%- assign animate_delay = animate_delay | plus: 50 -%}
             <motion-element
               data-motion="{{ scroll_animation }}"
@@ -1387,6 +1386,8 @@
                 role="tab"
                 aria-selected="{% if tab_button_index == 1 %}true{% else %}false{% endif %}"
                 tabindex="{% if tab_button_index == 1 %}0{% else %}-1{% endif %}"
+                {% if block_st.tab_heading != blank %}data-tab-heading="{{ block_st.tab_heading | escape }}"{% endif %}
+                {% if block_st.tab_description != blank %}data-tab-description="{{ block_st.tab_description | escape }}"{% endif %}
                 {{ block.shopify_attributes }}
               >
                 {%- if collection_title != blank -%}
@@ -1643,6 +1644,84 @@
     {%- endif -%}
   </div>
 </div>
+
+<script>
+  (function () {
+    if (customElements.get('spotlight-tab-sync')) return;
+
+    class SpotlightTabSync extends HTMLElement {
+      connectedCallback() {
+        this.root = this.closest('.featured-tabs-spotlight');
+        if (!this.root) return;
+        this.heading = this.root.querySelector('.featured-tabs-spotlight__header .section__header-heading');
+        this.desc = this.root.querySelector('.featured-tabs-spotlight__header .section__header-des');
+        this.defaultHeading = this.heading ? this.heading.innerHTML : '';
+        this.defaultDesc = this.desc ? this.desc.innerHTML : '';
+        this.heroMedia = this.root.querySelectorAll('.featured-tabs-spotlight__hero-media');
+
+        // A hidden hero variant must never keep playing (the lazy loader autoplays all on first gesture).
+        this.heroMedia.forEach((media) => {
+          media.querySelectorAll('video').forEach((video) => {
+            video.addEventListener('play', () => {
+              if (media.hasAttribute('hidden')) video.pause();
+            });
+          });
+        });
+
+        this.onClick = this.onClick.bind(this);
+        this.root.addEventListener('click', this.onClick);
+
+        var active = this.root.querySelector('.collection-tab__tab-item.active')
+          || this.root.querySelector('.collection-tab__tab-item');
+        this.apply(active ? active.dataset.blockId : null);
+      }
+
+      disconnectedCallback() {
+        if (this.root) this.root.removeEventListener('click', this.onClick);
+      }
+
+      onClick(e) {
+        var tab = e.target.closest('.collection-tab__tab-item');
+        if (tab) this.apply(tab.dataset.blockId);
+      }
+
+      apply(blockId) {
+        var tab = blockId
+          ? this.root.querySelector('.collection-tab__tab-item[data-block-id="' + (window.CSS && CSS.escape ? CSS.escape(blockId) : blockId) + '"]')
+          : null;
+
+        if (this.heading) {
+          var h = tab && tab.dataset.tabHeading;
+          this.heading.innerHTML = h ? h : this.defaultHeading;
+        }
+        if (this.desc) {
+          var d = tab && tab.dataset.tabDescription;
+          this.desc.innerHTML = d ? d : this.defaultDesc;
+        }
+
+        if (this.heroMedia.length) {
+          var target = null;
+          var fallback = null;
+          this.heroMedia.forEach(function (media) {
+            if (media.dataset.heroBlock === '__default__') fallback = media;
+            if (media.dataset.heroBlock === blockId) target = media;
+          });
+          var show = target || fallback;
+          this.heroMedia.forEach(function (media) {
+            var on = media === show;
+            media.hidden = !on;
+            media.querySelectorAll('video').forEach(function (video) {
+              if (on) { if (video.play) video.play().catch(function () {}); }
+              else if (video.pause) video.pause();
+            });
+          });
+        }
+      }
+    }
+
+    customElements.define('spotlight-tab-sync', SpotlightTabSync);
+  })();
+</script>
 
 {% schema %}
 {
@@ -2804,6 +2883,82 @@
           "id": "cta_link",
           "label": "CTA link",
           "info": "Leave blank to use the collection link."
+        },
+        {
+          "type": "header",
+          "content": "Per-tab heading"
+        },
+        {
+          "type": "text",
+          "id": "tab_heading",
+          "label": "Tab heading",
+          "info": "Replaces the section heading while this tab is active. Leave blank to keep the section heading."
+        },
+        {
+          "type": "richtext",
+          "id": "tab_description",
+          "label": "Tab description",
+          "info": "Replaces the section description while this tab is active."
+        },
+        {
+          "type": "header",
+          "content": "Per-tab hero (beside content)"
+        },
+        {
+          "type": "paragraph",
+          "content": "Swaps the hero media when this tab is active. Requires the section Hero banner to be enabled (set Hero type and, for the side layout, Hero placement = Beside content)."
+        },
+        {
+          "type": "select",
+          "id": "tab_hero_type",
+          "label": "Tab hero type",
+          "default": "inherit",
+          "options": [
+            {
+              "value": "inherit",
+              "label": "Use section hero"
+            },
+            {
+              "value": "image",
+              "label": "Image"
+            },
+            {
+              "value": "video",
+              "label": "Video"
+            }
+          ]
+        },
+        {
+          "type": "image_picker",
+          "id": "tab_hero_image",
+          "label": "Tab hero image (desktop)"
+        },
+        {
+          "type": "image_picker",
+          "id": "tab_hero_mobile_image",
+          "label": "Tab hero image (mobile)",
+          "info": "Defaults to the desktop image."
+        },
+        {
+          "type": "video",
+          "id": "tab_hero_video",
+          "label": "Tab hero video (desktop)"
+        },
+        {
+          "type": "video",
+          "id": "tab_hero_mobile_video",
+          "label": "Tab hero video (mobile)",
+          "info": "Defaults to the desktop video."
+        },
+        {
+          "type": "image_picker",
+          "id": "tab_hero_video_poster",
+          "label": "Tab video poster (desktop)"
+        },
+        {
+          "type": "image_picker",
+          "id": "tab_hero_mobile_video_poster",
+          "label": "Tab video poster (mobile)"
         }
       ]
     },
