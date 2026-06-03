@@ -420,6 +420,29 @@
     border-bottom-right-radius: 0;
   }
 
+  /* Fade the background/motion out toward a stitched edge so it dissolves into the shared
+     background instead of ending in a hard rectangle — adjacent blocks cross-fade seamlessly. */
+  #shopify-section-{{ section.id }} .featured-tabs-spotlight--blend-bottom .featured-tabs-spotlight__background,
+  #shopify-section-{{ section.id }} .featured-tabs-spotlight--blend-bottom .featured-tabs-spotlight__motion,
+  #shopify-section-{{ section.id }} .featured-tabs-spotlight--blend-bottom .featured-tabs-spotlight__grain {
+    -webkit-mask-image: linear-gradient(to bottom, #000 72%, transparent 100%);
+    mask-image: linear-gradient(to bottom, #000 72%, transparent 100%);
+  }
+
+  #shopify-section-{{ section.id }} .featured-tabs-spotlight--blend-top .featured-tabs-spotlight__background,
+  #shopify-section-{{ section.id }} .featured-tabs-spotlight--blend-top .featured-tabs-spotlight__motion,
+  #shopify-section-{{ section.id }} .featured-tabs-spotlight--blend-top .featured-tabs-spotlight__grain {
+    -webkit-mask-image: linear-gradient(to top, #000 72%, transparent 100%);
+    mask-image: linear-gradient(to top, #000 72%, transparent 100%);
+  }
+
+  #shopify-section-{{ section.id }} .featured-tabs-spotlight--blend-top.featured-tabs-spotlight--blend-bottom .featured-tabs-spotlight__background,
+  #shopify-section-{{ section.id }} .featured-tabs-spotlight--blend-top.featured-tabs-spotlight--blend-bottom .featured-tabs-spotlight__motion,
+  #shopify-section-{{ section.id }} .featured-tabs-spotlight--blend-top.featured-tabs-spotlight--blend-bottom .featured-tabs-spotlight__grain {
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 24%, #000 76%, transparent 100%);
+    mask-image: linear-gradient(to bottom, transparent 0%, #000 24%, #000 76%, transparent 100%);
+  }
+
   #shopify-section-{{ section.id }} .featured-tabs-spotlight--motion-speed-calm { --spotlight-motion-dur: 32s; }
   #shopify-section-{{ section.id }} .featured-tabs-spotlight--motion-speed-balanced { --spotlight-motion-dur: 18s; }
   #shopify-section-{{ section.id }} .featured-tabs-spotlight--motion-speed-lively { --spotlight-motion-dur: 9s; }
