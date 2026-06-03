@@ -1285,33 +1285,45 @@
           "type": "collection",
           "settings": {
             "tab_key": "",
-            "collection": "",
+            "collection": "novedades",
             "products": [],
             "collection_title": "",
             "cta_label": "",
-            "cta_link": ""
+            "cta_link": "",
+            "tab_heading": "Estrenos y lanzamientos en nuestra tienda de vapeo",
+            "tab_description": "",
+            "tab_hero_type": "video",
+            "tab_hero_video": "shopify://files/videos/logo-movil-optimizado.mp4",
+            "tab_hero_mobile_video": "shopify://files/videos/logo-movil-optimizado.mp4"
           }
         },
         "collection_FgCNze": {
           "type": "collection",
           "settings": {
             "tab_key": "",
-            "collection": "",
+            "collection": "pods-desechables",
             "products": [],
             "collection_title": "",
             "cta_label": "",
-            "cta_link": ""
+            "cta_link": "",
+            "tab_heading": "Los mejores desechables en DIY",
+            "tab_description": "",
+            "tab_hero_type": "video"
           }
         },
         "collection_3AmbPU": {
           "type": "collection",
           "settings": {
             "tab_key": "",
-            "collection": "",
+            "collection": "pod-system",
             "products": [],
             "collection_title": "",
             "cta_label": "",
-            "cta_link": ""
+            "cta_link": "",
+            "tab_heading": "Equipos recargables: los preferidos por nuestros clientes",
+            "tab_description": "",
+            "tab_hero_type": "inherit",
+            "tab_hero_video": "shopify://files/videos/Vprime.mp4"
           }
         }
       },
@@ -1333,7 +1345,7 @@
         "text_size_heading": 0,
         "text_size_description": 0,
         "text_size_tab": 0,
-        "text_size_card_title": 0,
+        "text_size_card_title": 14,
         "text_size_card_meta": 0,
         "text_size_card_price": 0,
         "text_size_quick_title": 0,
@@ -1344,7 +1356,6 @@
         "hero_side_width": 25,
         "hero_side_valign": "center",
         "hero_mobile_placement": "below",
-        "hero_video": "shopify://files/videos/logo-movil-optimizado.mp4",
         "hero_aspect": "square",
         "hero_position": "center",
         "hero_overlay_color": "#000000",
@@ -1377,7 +1388,7 @@
         "card_text_color": "#111111",
         "badge_background": "#111111",
         "badge_text_color": "#ffffff",
-        "card_surface": "solid",
+        "card_surface": "glass",
         "interaction_effect": "lift",
         "image_ratio": "square",
         "image_height": 360,
@@ -1390,14 +1401,14 @@
         "column_gap": 30,
         "items_per_row_mobile": 1.5,
         "show_card_title": true,
-        "show_card_vendor": true,
+        "show_card_vendor": false,
         "show_card_price": true,
         "show_card_compare_price": true,
         "show_card_badges": true,
         "quick_columns": 4,
         "quick_layout": "grid",
         "quick_mobile_columns": 2,
-        "show_arrow": false,
+        "show_arrow": true,
         "carousel_pagination": "show_dots",
         "infinite": false,
         "autoplay": false,
