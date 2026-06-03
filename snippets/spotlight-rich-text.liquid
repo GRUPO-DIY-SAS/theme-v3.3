@@ -1,0 +1,20 @@
+{%- comment -%}
+  Rich text band for the collection-tabs-spotlight super-section.
+  Rendered full-width above (position: top) or below (position: bottom) the tabs/products.
+  Accepts: block.
+{%- endcomment -%}
+{%- assign rt = block.settings -%}
+{%- if rt.heading != blank or rt.content != blank -%}
+  <div
+    class="featured-tabs-spotlight__richtext featured-tabs-spotlight__richtext--{{ rt.position | default: 'top' }} text-{{ rt.text_alignment | default: 'center' }}"
+    {% if rt.max_width > 0 %}style="--spotlight-rt-max: {{ rt.max_width }}px;"{% endif %}
+    {{ block.shopify_attributes }}
+  >
+    {%- if rt.heading != blank -%}
+      <h2 class="featured-tabs-spotlight__richtext-heading h3 mt-0 mb-10">{{ rt.heading }}</h2>
+    {%- endif -%}
+    {%- if rt.content != blank -%}
+      <div class="featured-tabs-spotlight__richtext-body rich__text rich__text-m0">{{ rt.content }}</div>
+    {%- endif -%}
+  </div>
+{%- endif -%}
