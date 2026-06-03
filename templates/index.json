@@ -361,6 +361,7 @@
         "shape_rotation": 0,
         "shape_scale": 100,
         "bg_motion": "floating",
+        "geo_overlay": "none",
         "motion_speed": "lively",
         "motion_accent_1": "#7c5cff",
         "motion_accent_2": "#2dd4bf",
@@ -1406,14 +1407,15 @@
         "shape_offset_y": 0,
         "shape_rotation": 0,
         "shape_scale": 100,
-        "bg_motion": "mesh",
+        "bg_motion": "beams",
+        "geo_overlay": "particles",
         "motion_speed": "lively",
         "motion_accent_1": "#7c5cff",
         "motion_accent_2": "#2dd4bf",
         "motion_opacity": 55,
         "motion_intensity": 100,
         "motion_blend": "normal",
-        "bg_grain": false,
+        "bg_grain": true,
         "grain_opacity": 8,
         "blend_edge": "bottom",
         "blend_overlap": 64,
@@ -1455,8 +1457,7 @@
         "autorotate_speed": 5,
         "padding_top": 60,
         "padding_bottom": 60,
-        "reset_spacing": true,
-        "geo_overlay": "floating"
+        "reset_spacing": true
       }
     },
     "featured_collection_tabs_spotlight_continue1": {
@@ -1464,15 +1465,45 @@
       "blocks": {
         "tab_1": {
           "type": "collection",
-          "settings": {}
+          "settings": {
+            "tab_key": "",
+            "collection": "",
+            "products": [],
+            "collection_title": "",
+            "cta_label": "",
+            "cta_link": "",
+            "tab_heading": "",
+            "tab_description": "",
+            "tab_hero_type": "inherit"
+          }
         },
         "tab_2": {
           "type": "collection",
-          "settings": {}
+          "settings": {
+            "tab_key": "",
+            "collection": "",
+            "products": [],
+            "collection_title": "",
+            "cta_label": "",
+            "cta_link": "",
+            "tab_heading": "",
+            "tab_description": "",
+            "tab_hero_type": "inherit"
+          }
         },
         "tab_3": {
           "type": "collection",
-          "settings": {}
+          "settings": {
+            "tab_key": "",
+            "collection": "",
+            "products": [],
+            "collection_title": "",
+            "cta_label": "",
+            "cta_link": "",
+            "tab_heading": "",
+            "tab_description": "",
+            "tab_hero_type": "inherit"
+          }
         }
       },
       "block_order": [
@@ -1504,8 +1535,6 @@
         "hero_side_width": 25,
         "hero_side_valign": "center",
         "hero_mobile_placement": "hidden",
-        "hero_video": "shopify://files/videos/logo-movil-optimizado.mp4",
-        "hero_mobile_video": "shopify://files/videos/logo-movil-optimizado.mp4",
         "hero_aspect": "square",
         "hero_position": "center",
         "hero_overlay_color": "#000000",
@@ -1524,24 +1553,25 @@
         "shape_style": "none",
         "shape_color": "{{ shop.brand.colors.primary[0].background }}",
         "shape_opacity": 60,
-        "animate_shape": false,
+        "animate_shape": true,
         "shape_anchor": "auto",
         "shape_offset_x": 0,
         "shape_offset_y": 0,
         "shape_rotation": 0,
         "shape_scale": 100,
-        "bg_motion": "mesh",
+        "bg_motion": "beams",
+        "geo_overlay": "particles",
         "motion_speed": "lively",
         "motion_accent_1": "#7c5cff",
         "motion_accent_2": "#2dd4bf",
         "motion_opacity": 55,
         "motion_intensity": 100,
-        "motion_blend": "normal",
-        "bg_grain": false,
-        "grain_opacity": 8,
+        "motion_blend": "multiply",
+        "bg_grain": true,
+        "grain_opacity": 21,
         "blend_edge": "both",
-        "blend_overlap": 64,
-        "motion_phase": 1,
+        "blend_overlap": 8,
+        "motion_phase": 0,
         "background_color": "#f7f4ef",
         "tab_background": "#393752",
         "tab_text_color": "#ffffff",
@@ -1577,32 +1607,46 @@
         "infinite": false,
         "autoplay": false,
         "autorotate_speed": 5,
-        "padding_top": 60,
-        "padding_bottom": 60,
-        "reset_spacing": true,
-        "geo_overlay": "floating"
+        "padding_top": 120,
+        "padding_bottom": 120,
+        "reset_spacing": true
       }
     },
-    "featured_collection_tabs_spotlight_continue2": {
+    "featured_collection_tabs_spotlight_bKMmTX": {
       "type": "featured-collection-tabs-spotlight",
       "blocks": {
-        "tab_1": {
+        "collection_dPwnQH": {
           "type": "collection",
-          "settings": {}
+          "settings": {
+            "tab_key": "",
+            "collection": "salt-nic-ejuice",
+            "products": [],
+            "collection_title": "",
+            "cta_label": "",
+            "cta_link": "",
+            "tab_heading": "",
+            "tab_description": "",
+            "tab_hero_type": "inherit"
+          }
         },
-        "tab_2": {
+        "collection_VT8zKi": {
           "type": "collection",
-          "settings": {}
-        },
-        "tab_3": {
-          "type": "collection",
-          "settings": {}
+          "settings": {
+            "tab_key": "",
+            "collection": "base-libre",
+            "products": [],
+            "collection_title": "Base Libre",
+            "cta_label": "",
+            "cta_link": "",
+            "tab_heading": "",
+            "tab_description": "",
+            "tab_hero_type": "inherit"
+          }
         }
       },
       "block_order": [
-        "tab_1",
-        "tab_2",
-        "tab_3"
+        "collection_dPwnQH",
+        "collection_VT8zKi"
       ],
       "name": "Collection tabs spotlight",
       "settings": {
@@ -1628,8 +1672,6 @@
         "hero_side_width": 25,
         "hero_side_valign": "center",
         "hero_mobile_placement": "hidden",
-        "hero_video": "shopify://files/videos/logo-movil-optimizado.mp4",
-        "hero_mobile_video": "shopify://files/videos/logo-movil-optimizado.mp4",
         "hero_aspect": "square",
         "hero_position": "center",
         "hero_overlay_color": "#000000",
@@ -1648,24 +1690,25 @@
         "shape_style": "none",
         "shape_color": "{{ shop.brand.colors.primary[0].background }}",
         "shape_opacity": 60,
-        "animate_shape": false,
+        "animate_shape": true,
         "shape_anchor": "auto",
         "shape_offset_x": 0,
         "shape_offset_y": 0,
         "shape_rotation": 0,
         "shape_scale": 100,
-        "bg_motion": "mesh",
+        "bg_motion": "beams",
+        "geo_overlay": "particles",
         "motion_speed": "lively",
         "motion_accent_1": "#7c5cff",
         "motion_accent_2": "#2dd4bf",
         "motion_opacity": 55,
         "motion_intensity": 100,
-        "motion_blend": "normal",
-        "bg_grain": false,
-        "grain_opacity": 8,
+        "motion_blend": "multiply",
+        "bg_grain": true,
+        "grain_opacity": 21,
         "blend_edge": "both",
-        "blend_overlap": 64,
-        "motion_phase": 2,
+        "blend_overlap": 100,
+        "motion_phase": 0,
         "background_color": "#f7f4ef",
         "tab_background": "#393752",
         "tab_text_color": "#ffffff",
@@ -1701,32 +1744,46 @@
         "infinite": false,
         "autoplay": false,
         "autorotate_speed": 5,
-        "padding_top": 60,
-        "padding_bottom": 60,
-        "reset_spacing": true,
-        "geo_overlay": "floating"
+        "padding_top": 120,
+        "padding_bottom": 120,
+        "reset_spacing": true
       }
     },
     "featured_collection_tabs_spotlight_continue3": {
       "type": "featured-collection-tabs-spotlight",
       "blocks": {
-        "tab_1": {
-          "type": "collection",
-          "settings": {}
-        },
-        "tab_2": {
-          "type": "collection",
-          "settings": {}
-        },
         "tab_3": {
           "type": "collection",
-          "settings": {}
+          "settings": {
+            "tab_key": "",
+            "collection": "vaporizadores-herbales",
+            "products": [],
+            "collection_title": "Herbales",
+            "cta_label": "",
+            "cta_link": "",
+            "tab_heading": "",
+            "tab_description": "",
+            "tab_hero_type": "inherit"
+          }
+        },
+        "collection_KrDmKR": {
+          "type": "collection",
+          "settings": {
+            "tab_key": "",
+            "collection": "baterias-destilados",
+            "products": [],
+            "collection_title": "Destilados",
+            "cta_label": "",
+            "cta_link": "",
+            "tab_heading": "",
+            "tab_description": "",
+            "tab_hero_type": "inherit"
+          }
         }
       },
       "block_order": [
-        "tab_1",
-        "tab_2",
-        "tab_3"
+        "tab_3",
+        "collection_KrDmKR"
       ],
       "name": "Collection tabs spotlight",
       "settings": {
@@ -1752,8 +1809,6 @@
         "hero_side_width": 25,
         "hero_side_valign": "center",
         "hero_mobile_placement": "hidden",
-        "hero_video": "shopify://files/videos/logo-movil-optimizado.mp4",
-        "hero_mobile_video": "shopify://files/videos/logo-movil-optimizado.mp4",
         "hero_aspect": "square",
         "hero_position": "center",
         "hero_overlay_color": "#000000",
@@ -1772,24 +1827,25 @@
         "shape_style": "none",
         "shape_color": "{{ shop.brand.colors.primary[0].background }}",
         "shape_opacity": 60,
-        "animate_shape": false,
-        "shape_anchor": "auto",
+        "animate_shape": true,
+        "shape_anchor": "bottom-center",
         "shape_offset_x": 0,
         "shape_offset_y": 0,
         "shape_rotation": 0,
         "shape_scale": 100,
-        "bg_motion": "mesh",
-        "motion_speed": "lively",
+        "bg_motion": "beams",
+        "geo_overlay": "particles",
+        "motion_speed": "calm",
         "motion_accent_1": "#7c5cff",
         "motion_accent_2": "#2dd4bf",
         "motion_opacity": 55,
         "motion_intensity": 100,
         "motion_blend": "normal",
-        "bg_grain": false,
+        "bg_grain": true,
         "grain_opacity": 8,
         "blend_edge": "top",
-        "blend_overlap": 64,
-        "motion_phase": 3,
+        "blend_overlap": 160,
+        "motion_phase": 0,
         "background_color": "#f7f4ef",
         "tab_background": "#393752",
         "tab_text_color": "#ffffff",
@@ -1825,10 +1881,9 @@
         "infinite": false,
         "autoplay": false,
         "autorotate_speed": 5,
-        "padding_top": 60,
-        "padding_bottom": 60,
-        "reset_spacing": true,
-        "geo_overlay": "floating"
+        "padding_top": 120,
+        "padding_bottom": 120,
+        "reset_spacing": true
       }
     }
   },
@@ -1850,7 +1905,7 @@
     "custom_html_nCeg8G",
     "featured_collection_tabs_spotlight_EQLJLD",
     "featured_collection_tabs_spotlight_continue1",
-    "featured_collection_tabs_spotlight_continue2",
+    "featured_collection_tabs_spotlight_bKMmTX",
     "featured_collection_tabs_spotlight_continue3"
   ]
 }
