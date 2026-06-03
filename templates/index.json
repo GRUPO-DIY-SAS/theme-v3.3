@@ -1291,7 +1291,7 @@
             "cta_label": "",
             "cta_link": "",
             "tab_heading": "Estrenos y lanzamientos en nuestra tienda de vapeo",
-            "tab_description": "",
+            "tab_description": "<p><em>Mantente siempre al día con lo último en el mundo del vapeo. Descubre nuestras novedades y sé el primero en probar lo mejor de nuestra tienda.</em></p>",
             "tab_hero_type": "inherit"
           }
         },
@@ -1305,7 +1305,7 @@
             "cta_label": "",
             "cta_link": "",
             "tab_heading": "Los mejores desechables en DIY",
-            "tab_description": "",
+            "tab_description": "<p><em>En DIY Vape Shop reunimos los vapes desechables más populares y confiables del mercado. Variedad de marcas, sabores y presentaciones para que siempre tengas uno listo cuando lo necesites.</em></p>",
             "tab_hero_type": "inherit"
           }
         },
@@ -1319,7 +1319,7 @@
             "cta_label": "",
             "cta_link": "",
             "tab_heading": "Equipos recargables: los preferidos por nuestros clientes",
-            "tab_description": "",
+            "tab_description": "<p><em>Para quienes buscan una experiencia de vapeo personalizada, nuestros vapes recargables ofrecen potencia, diseño y libertad para elegir sabores y niveles de nicotina</em></p>",
             "tab_hero_type": "video",
             "tab_hero_video": "shopify://files/videos/Vprime.mp4",
             "tab_hero_mobile_video": "shopify://files/videos/Vprime.mp4"
