@@ -479,39 +479,40 @@
     display: none;
   }
 
-  /* Side placement: media column beside the tabs/content. Stacks on mobile. */
+  /* Side placement: media column beside ONLY the product cards. Header + tab nav stay
+     full width above (they sit outside __split). __split stacks on mobile. */
   @media screen and (min-width: 750px) {
-    #shopify-section-{{ section.id }} .featured-tabs-spotlight--hero-side .featured-tabs-spotlight__inner {
+    #shopify-section-{{ section.id }} .featured-tabs-spotlight--hero-side .featured-tabs-spotlight__split {
       display: flex;
       align-items: stretch;
       gap: 36px;
     }
 
-    #shopify-section-{{ section.id }} .featured-tabs-spotlight--hero-side-right .featured-tabs-spotlight__inner {
+    #shopify-section-{{ section.id }} .featured-tabs-spotlight--hero-side-right .featured-tabs-spotlight__split {
       flex-direction: row-reverse;
     }
 
-    #shopify-section-{{ section.id }} .featured-tabs-spotlight--hero-side .featured-tabs-spotlight__hero {
+    #shopify-section-{{ section.id }} .featured-tabs-spotlight--hero-side .featured-tabs-spotlight__split > .featured-tabs-spotlight__hero {
       flex: 0 0 var(--spotlight-hero-side-width, 42%);
       margin-bottom: 0;
     }
 
-    /* Stretch (default): media fills the content column height to align with the cards.
+    /* Stretch (default): media matches the cards' height.
        Skipped when an aspect ratio is chosen — the ratio wins so the merchant controls the shape. */
-    #shopify-section-{{ section.id }} .featured-tabs-spotlight--hero-side.featured-tabs-spotlight--hero-valign-stretch:not(.featured-tabs-spotlight--hero-aspect) .featured-tabs-spotlight__hero {
+    #shopify-section-{{ section.id }} .featured-tabs-spotlight--hero-side.featured-tabs-spotlight--hero-valign-stretch:not(.featured-tabs-spotlight--hero-aspect) .featured-tabs-spotlight__split > .featured-tabs-spotlight__hero {
       height: auto;
       aspect-ratio: auto;
     }
 
-    #shopify-section-{{ section.id }} .featured-tabs-spotlight--hero-side.featured-tabs-spotlight--hero-valign-top .featured-tabs-spotlight__inner {
+    #shopify-section-{{ section.id }} .featured-tabs-spotlight--hero-side.featured-tabs-spotlight--hero-valign-top .featured-tabs-spotlight__split {
       align-items: flex-start;
     }
 
-    #shopify-section-{{ section.id }} .featured-tabs-spotlight--hero-side.featured-tabs-spotlight--hero-valign-center .featured-tabs-spotlight__inner {
+    #shopify-section-{{ section.id }} .featured-tabs-spotlight--hero-side.featured-tabs-spotlight--hero-valign-center .featured-tabs-spotlight__split {
       align-items: center;
     }
 
-    #shopify-section-{{ section.id }} .featured-tabs-spotlight--hero-side .featured-tabs-spotlight__content {
+    #shopify-section-{{ section.id }} .featured-tabs-spotlight--hero-side .featured-tabs-spotlight__split > :not(.featured-tabs-spotlight__hero) {
       flex: 1 1 auto;
       min-width: 0;
     }
@@ -978,13 +979,24 @@
     }
 
     /* Hero on mobile: above (default), below (reordered), or hidden.
-       Works for both top-banner and side placement. */
-    #shopify-section-{{ section.id }} .featured-tabs-spotlight--hero-mobile-below .featured-tabs-spotlight__inner {
+       Side placement reorders inside __split; top placement reorders inside __inner. */
+    #shopify-section-{{ section.id }} .featured-tabs-spotlight--hero-mobile-below.featured-tabs-spotlight--hero-side .featured-tabs-spotlight__split {
       display: flex;
       flex-direction: column;
     }
 
-    #shopify-section-{{ section.id }} .featured-tabs-spotlight--hero-mobile-below .featured-tabs-spotlight__hero {
+    #shopify-section-{{ section.id }} .featured-tabs-spotlight--hero-mobile-below.featured-tabs-spotlight--hero-side .featured-tabs-spotlight__split > .featured-tabs-spotlight__hero {
+      order: 2;
+      margin-top: 28px;
+      margin-bottom: 0;
+    }
+
+    #shopify-section-{{ section.id }} .featured-tabs-spotlight--hero-mobile-below:not(.featured-tabs-spotlight--hero-side) .featured-tabs-spotlight__inner {
+      display: flex;
+      flex-direction: column;
+    }
+
+    #shopify-section-{{ section.id }} .featured-tabs-spotlight--hero-mobile-below:not(.featured-tabs-spotlight--hero-side) .featured-tabs-spotlight__inner > .featured-tabs-spotlight__hero {
       order: 2;
       margin-top: 28px;
       margin-bottom: 0;
@@ -1147,7 +1159,7 @@
       {%- endcase -%}
     </div>
   {%- endif -%}
-  <div class="{{ section_width }} featured-tabs-spotlight__inner">
+  {%- capture hero_markup -%}
     {%- if hero_type == 'image' and hero_image != blank -%}
       <div class="featured-tabs-spotlight__hero">
         {{ hero_image | image_url: width: 2400 | image_tag: class: 'featured-tabs-spotlight__hero-desktop', widths: '750, 1100, 1500, 2000, 2400', sizes: '100vw', loading: 'lazy', alt: heading }}
@@ -1191,7 +1203,9 @@
         {%- endif -%}
       </div>
     {%- endif -%}
-    {%- if hero_shown -%}<div class="featured-tabs-spotlight__content">{%- endif -%}
+  {%- endcapture -%}
+  <div class="{{ section_width }} featured-tabs-spotlight__inner">
+    {%- if hero_shown and hero_placement != 'side' -%}{{ hero_markup }}{%- endif -%}
     {%- if display_mode == 'product_tabs' -%}
       <tab-items data-type="horizontal">
     {%- endif -%}
@@ -1228,6 +1242,7 @@
       {%- endif -%}
 
       {%- if display_mode == 'quick_collections' -%}
+        {%- if hero_is_side -%}<div class="featured-tabs-spotlight__split">{{ hero_markup }}{%- endif -%}
         {%- if quick_layout == 'carousel' -%}
           <slide-section
             class="featured-tabs-spotlight-quick swiper"
@@ -1344,6 +1359,7 @@
         {%- else -%}
           </div>
         {%- endif -%}
+        {%- if hero_is_side -%}</div>{%- endif -%}
       {%- else -%}
       {%- assign tab_index = 0 -%}
       {%- for block in section.blocks -%}
@@ -1383,6 +1399,7 @@
           {%- endfor -%}
         </div>
 
+        {%- if hero_is_side -%}<div class="featured-tabs-spotlight__split">{{ hero_markup }}{%- endif -%}
         <div class="featured-tabs-spotlight__content tab-content">
           {%- assign tab_content_index = 0 -%}
           {%- for block in section.blocks -%}
@@ -1610,6 +1627,7 @@
             {%- endif -%}
           {%- endfor -%}
         </div>
+        {%- if hero_is_side -%}</div>{%- endif -%}
 
         {%- if show_view_all_button -%}
           <div class="featured-tabs-spotlight__view-all text-center">
@@ -1623,7 +1641,6 @@
     {%- if display_mode == 'product_tabs' -%}
       </tab-items>
     {%- endif -%}
-    {%- if hero_shown -%}</div>{%- endif -%}
   </div>
 </div>
 
@@ -2096,9 +2113,10 @@
       "type": "range",
       "id": "hero_radius",
       "label": "Hero corner radius",
+      "info": "Set high (e.g. 400px+) on a square 1:1 hero for a fully circular image/video.",
       "min": 0,
-      "max": 48,
-      "step": 2,
+      "max": 600,
+      "step": 10,
       "unit": "px",
       "default": 0
     },
