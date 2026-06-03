@@ -212,6 +212,9 @@
     --spotlight-motion-amp: {{ section_st.motion_intensity | default: 100 | divided_by: 100.0 }};
     --spotlight-motion-blend: {{ section_st.motion_blend | default: 'normal' }};
     --spotlight-grain-opacity: {{ section_st.grain_opacity | default: 8 | divided_by: 100.0 }};
+    --spotlight-motion-phase: {{ section_st.motion_phase | default: 0 }};
+    --spotlight-motion-phase-delay: calc({{ section_st.motion_phase | default: 0 }} * -7s);
+    --spotlight-blend-overlap: {{ section_st.blend_overlap | default: 0 }}px;
     --spotlight-tab-bg: {{ section_st.tab_background }};
     --spotlight-tab-text: {{ section_st.tab_text_color }};
     --spotlight-tab-active-bg: {{ section_st.tab_active_background }};
@@ -389,6 +392,31 @@
     overflow: hidden;
     border-radius: var(--spotlight-media-radius, 0);
     pointer-events: none;
+    /* Phase shift so stacked identical blocks don't mirror each other (0 = no shift). */
+    transform: translate(calc(var(--spotlight-motion-phase, 0) * 6%), calc(var(--spotlight-motion-phase, 0) * -8%));
+  }
+
+  /* Seamless stitch with an adjacent block: pull together + drop the joined edge radius. */
+  #shopify-section-{{ section.id }} .featured-tabs-spotlight--blend-top {
+    margin-top: calc(-1 * var(--spotlight-blend-overlap, 0px));
+  }
+
+  #shopify-section-{{ section.id }} .featured-tabs-spotlight--blend-bottom {
+    margin-bottom: calc(-1 * var(--spotlight-blend-overlap, 0px));
+  }
+
+  #shopify-section-{{ section.id }} .featured-tabs-spotlight--blend-top .featured-tabs-spotlight__background,
+  #shopify-section-{{ section.id }} .featured-tabs-spotlight--blend-top .featured-tabs-spotlight__motion,
+  #shopify-section-{{ section.id }} .featured-tabs-spotlight--blend-top .featured-tabs-spotlight__grain {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
+
+  #shopify-section-{{ section.id }} .featured-tabs-spotlight--blend-bottom .featured-tabs-spotlight__background,
+  #shopify-section-{{ section.id }} .featured-tabs-spotlight--blend-bottom .featured-tabs-spotlight__motion,
+  #shopify-section-{{ section.id }} .featured-tabs-spotlight--blend-bottom .featured-tabs-spotlight__grain {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
   }
 
   #shopify-section-{{ section.id }} .featured-tabs-spotlight--motion-speed-calm { --spotlight-motion-dur: 32s; }
@@ -405,7 +433,7 @@
     opacity: var(--spotlight-motion-opacity, 0.55);
     mix-blend-mode: var(--spotlight-motion-blend, normal);
     will-change: transform;
-    animation: spotlightFloat calc(var(--spotlight-motion-dur, 20s) * var(--k, 1)) ease-in-out var(--delay, 0s) infinite alternate;
+    animation: spotlightFloat calc(var(--spotlight-motion-dur, 20s) * var(--k, 1)) ease-in-out calc(var(--delay, 0s) + var(--spotlight-motion-phase-delay, 0s)) infinite alternate;
   }
 
   #shopify-section-{{ section.id }} .spotlight-motion__shape--ring {
@@ -451,7 +479,7 @@
     opacity: var(--spotlight-motion-opacity, 0.55);
     mix-blend-mode: var(--spotlight-motion-blend, normal);
     will-change: transform;
-    animation: spotlightOrb calc(var(--spotlight-motion-dur, 20s) * var(--k, 1)) ease-in-out var(--delay, 0s) infinite alternate;
+    animation: spotlightOrb calc(var(--spotlight-motion-dur, 20s) * var(--k, 1)) ease-in-out calc(var(--delay, 0s) + var(--spotlight-motion-phase-delay, 0s)) infinite alternate;
   }
 
   @keyframes spotlightOrb {
@@ -474,7 +502,7 @@
     background-image: radial-gradient(currentColor 1.5px, transparent 1.6px);
     background-size: 38px 38px;
     will-change: transform;
-    animation: spotlightGridDrift calc(var(--spotlight-motion-dur, 20s) * 1.4) linear infinite;
+    animation: spotlightGridDrift calc(var(--spotlight-motion-dur, 20s) * 1.4) linear var(--spotlight-motion-phase-delay, 0s) infinite;
   }
 
   @keyframes spotlightGridDrift {
@@ -495,7 +523,7 @@
     opacity: var(--spotlight-motion-opacity, 0.55);
     mix-blend-mode: var(--spotlight-motion-blend, normal);
     will-change: transform;
-    animation: spotlightMesh calc(var(--spotlight-motion-dur, 20s) * 1.6) ease-in-out infinite alternate;
+    animation: spotlightMesh calc(var(--spotlight-motion-dur, 20s) * 1.6) ease-in-out var(--spotlight-motion-phase-delay, 0s) infinite alternate;
   }
 
   @keyframes spotlightMesh {
@@ -519,7 +547,7 @@
     opacity: var(--spotlight-motion-opacity, 0.55);
     mix-blend-mode: var(--spotlight-motion-blend, normal);
     will-change: transform;
-    animation: spotlightBeams calc(var(--spotlight-motion-dur, 20s) * 2.2) linear infinite;
+    animation: spotlightBeams calc(var(--spotlight-motion-dur, 20s) * 2.2) linear var(--spotlight-motion-phase-delay, 0s) infinite;
   }
 
   @keyframes spotlightBeams {
@@ -539,7 +567,7 @@
     opacity: var(--spotlight-motion-opacity, 0.55);
     mix-blend-mode: var(--spotlight-motion-blend, normal);
     will-change: transform;
-    animation: spotlightFloat calc(var(--spotlight-motion-dur, 20s) * var(--k, 1)) ease-in-out var(--delay, 0s) infinite alternate;
+    animation: spotlightFloat calc(var(--spotlight-motion-dur, 20s) * var(--k, 1)) ease-in-out calc(var(--delay, 0s) + var(--spotlight-motion-phase-delay, 0s)) infinite alternate;
   }
 
   /* Film grain overlay (independent toggle, composes over any motion). */
@@ -1242,7 +1270,7 @@
 {%- endstyle -%}
 
 <div
-  class="section featured-tabs-spotlight featured-tabs-spotlight--shape-{{ section_st.shape_style }} featured-tabs-spotlight--bg-{{ background_type }} featured-tabs-spotlight--mode-{{ display_mode }} featured-tabs-spotlight--layout-{{ product_layout }} featured-tabs-spotlight--quick-layout-{{ quick_layout }} featured-tabs-spotlight--cards-{{ card_surface }} featured-tabs-spotlight--fx-{{ interaction_effect }} color-{{ color_scheme }} gradient{% if section_st.animate_shape %} featured-tabs-spotlight--shape-motion{% endif %}{% if section_st.shape_anchor != blank and section_st.shape_anchor != 'auto' %} featured-tabs-spotlight--shape-anchor-{{ section_st.shape_anchor }}{% endif %}{% if bg_motion != 'none' %} featured-tabs-spotlight--motion-{{ bg_motion }} featured-tabs-spotlight--motion-speed-{{ motion_speed }}{% endif %}{% if hero_aspect_value != blank %} featured-tabs-spotlight--hero-aspect{% endif %}{% if hero_shown %} featured-tabs-spotlight--hero-mobile-{{ hero_mobile_placement }}{% endif %}{% if hero_is_side %} featured-tabs-spotlight--hero-side featured-tabs-spotlight--hero-side-{{ hero_side }} featured-tabs-spotlight--hero-valign-{{ hero_side_valign }}{% endif %}{% if section_st.padding_top < 30 %} pt-min{% endif %}{% if section_st.padding_bottom < 30 %} pb-min{% endif %}{{ reset_spacing }}"
+  class="section featured-tabs-spotlight featured-tabs-spotlight--shape-{{ section_st.shape_style }} featured-tabs-spotlight--bg-{{ background_type }} featured-tabs-spotlight--mode-{{ display_mode }} featured-tabs-spotlight--layout-{{ product_layout }} featured-tabs-spotlight--quick-layout-{{ quick_layout }} featured-tabs-spotlight--cards-{{ card_surface }} featured-tabs-spotlight--fx-{{ interaction_effect }} color-{{ color_scheme }} gradient{% if section_st.animate_shape %} featured-tabs-spotlight--shape-motion{% endif %}{% if section_st.shape_anchor != blank and section_st.shape_anchor != 'auto' %} featured-tabs-spotlight--shape-anchor-{{ section_st.shape_anchor }}{% endif %}{% if section_st.blend_edge == 'top' or section_st.blend_edge == 'both' %} featured-tabs-spotlight--blend-top{% endif %}{% if section_st.blend_edge == 'bottom' or section_st.blend_edge == 'both' %} featured-tabs-spotlight--blend-bottom{% endif %}{% if bg_motion != 'none' %} featured-tabs-spotlight--motion-{{ bg_motion }} featured-tabs-spotlight--motion-speed-{{ motion_speed }}{% endif %}{% if hero_aspect_value != blank %} featured-tabs-spotlight--hero-aspect{% endif %}{% if hero_shown %} featured-tabs-spotlight--hero-mobile-{{ hero_mobile_placement }}{% endif %}{% if hero_is_side %} featured-tabs-spotlight--hero-side featured-tabs-spotlight--hero-side-{{ hero_side }} featured-tabs-spotlight--hero-valign-{{ hero_side_valign }}{% endif %}{% if section_st.padding_top < 30 %} pt-min{% endif %}{% if section_st.padding_bottom < 30 %} pb-min{% endif %}{{ reset_spacing }}"
   style="{{ section_style | strip | strip_newlines }}"
 >
   {%- if background_type == 'image' or background_type == 'parallax' -%}
@@ -2792,6 +2820,59 @@
       "step": 1,
       "unit": "%",
       "default": 8
+    },
+    {
+      "type": "header",
+      "content": "Block stitching"
+    },
+    {
+      "type": "paragraph",
+      "content": "For stacking several identical blocks into one continuous canvas. Use the same colors/motion in each, then blend the joined edges and give each block a different Motion phase so the effects don't mirror."
+    },
+    {
+      "type": "select",
+      "id": "blend_edge",
+      "label": "Blend with adjacent block",
+      "default": "none",
+      "options": [
+        {
+          "value": "none",
+          "label": "None"
+        },
+        {
+          "value": "top",
+          "label": "Block above"
+        },
+        {
+          "value": "bottom",
+          "label": "Block below"
+        },
+        {
+          "value": "both",
+          "label": "Both"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "blend_overlap",
+      "label": "Blend overlap",
+      "info": "How far this block pulls into the blended neighbour to erase the seam.",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "motion_phase",
+      "label": "Motion phase",
+      "info": "Offsets this block's animation timing and effect position. Give each stacked block a different value (0, 1, 2 …) so they flow instead of mirroring.",
+      "min": 0,
+      "max": 6,
+      "step": 1,
+      "default": 0
     },
     {
       "type": "header",
