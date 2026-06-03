@@ -324,7 +324,7 @@
         "text_size_card_price": 0,
         "text_size_quick_title": 14,
         "text_size_quick_subtitle": 0,
-        "hero_type": "video",
+        "hero_type": "none",
         "hero_placement": "top",
         "hero_side": "left",
         "hero_side_width": 42,
@@ -393,7 +393,7 @@
         "infinite": false,
         "autoplay": false,
         "autorotate_speed": 6,
-        "padding_top": 0,
+        "padding_top": 120,
         "padding_bottom": 80,
         "reset_spacing": true
       }
