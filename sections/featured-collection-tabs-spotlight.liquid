@@ -207,6 +207,7 @@
     --spotlight-motion-opacity: {{ section_st.motion_opacity | default: 55 | divided_by: 100.0 }};
     --spotlight-motion-amp: {{ section_st.motion_intensity | default: 100 | divided_by: 100.0 }};
     --spotlight-motion-blend: {{ section_st.motion_blend | default: 'normal' }};
+    --spotlight-grain-opacity: {{ section_st.grain_opacity | default: 8 | divided_by: 100.0 }};
     --spotlight-tab-bg: {{ section_st.tab_background }};
     --spotlight-tab-text: {{ section_st.tab_text_color }};
     --spotlight-tab-active-bg: {{ section_st.tab_active_background }};
@@ -458,6 +459,79 @@
   @keyframes spotlightGridDrift {
     from { transform: translate3d(0, 0, 0); }
     to { transform: translate3d(-38px, -38px, 0); }
+  }
+
+  /* Mesh gradient: layered radial blobs that slowly rotate and breathe (transform-only). */
+  #shopify-section-{{ section.id }} .spotlight-motion__mesh {
+    position: absolute;
+    inset: -30%;
+    background:
+      radial-gradient(40% 40% at 20% 25%, var(--spotlight-motion-1), transparent 70%),
+      radial-gradient(45% 45% at 80% 20%, var(--spotlight-motion-2), transparent 70%),
+      radial-gradient(50% 50% at 65% 80%, color-mix(in srgb, var(--spotlight-motion-1), var(--spotlight-motion-2)), transparent 72%),
+      radial-gradient(38% 38% at 25% 78%, var(--spotlight-motion-2), transparent 70%);
+    filter: blur(60px);
+    opacity: var(--spotlight-motion-opacity, 0.55);
+    mix-blend-mode: var(--spotlight-motion-blend, normal);
+    will-change: transform;
+    animation: spotlightMesh calc(var(--spotlight-motion-dur, 20s) * 1.6) ease-in-out infinite alternate;
+  }
+
+  @keyframes spotlightMesh {
+    from { transform: rotate(0deg) scale(1.05); }
+    to {
+      transform: rotate(calc(18deg * var(--spotlight-motion-amp, 1))) scale(calc(1.05 + 0.12 * var(--spotlight-motion-amp, 1)));
+    }
+  }
+
+  /* Light beams: rotating conic-gradient streaks. */
+  #shopify-section-{{ section.id }} .spotlight-motion__beams {
+    position: absolute;
+    inset: -55%;
+    background: conic-gradient(from 0deg,
+      transparent 0deg, var(--spotlight-motion-1) 8deg, transparent 22deg,
+      transparent 70deg, var(--spotlight-motion-2) 80deg, transparent 96deg,
+      transparent 160deg, var(--spotlight-motion-1) 172deg, transparent 188deg,
+      transparent 250deg, var(--spotlight-motion-2) 262deg, transparent 280deg,
+      transparent 360deg);
+    filter: blur(46px);
+    opacity: var(--spotlight-motion-opacity, 0.55);
+    mix-blend-mode: var(--spotlight-motion-blend, normal);
+    will-change: transform;
+    animation: spotlightBeams calc(var(--spotlight-motion-dur, 20s) * 2.2) linear infinite;
+  }
+
+  @keyframes spotlightBeams {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  /* Particles: small drifting dots (reuse the spotlightFloat keyframe). */
+  #shopify-section-{{ section.id }} .spotlight-motion__particle {
+    position: absolute;
+    left: var(--x);
+    top: var(--y);
+    width: var(--s);
+    height: var(--s);
+    border-radius: 50%;
+    background: var(--spotlight-shape);
+    opacity: var(--spotlight-motion-opacity, 0.55);
+    mix-blend-mode: var(--spotlight-motion-blend, normal);
+    will-change: transform;
+    animation: spotlightFloat calc(var(--spotlight-motion-dur, 20s) * var(--k, 1)) ease-in-out var(--delay, 0s) infinite alternate;
+  }
+
+  /* Film grain overlay (independent toggle, composes over any motion). */
+  #shopify-section-{{ section.id }} .featured-tabs-spotlight__grain {
+    position: absolute;
+    inset: var(--spotlight-media-inset-y, 0) var(--spotlight-media-inset-x, 0);
+    z-index: 1;
+    pointer-events: none;
+    border-radius: var(--spotlight-media-radius, 0);
+    opacity: var(--spotlight-grain-opacity, 0.08);
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 180px 180px;
   }
 
   #shopify-section-{{ section.id }} .featured-tabs-spotlight__inner {
@@ -966,7 +1040,10 @@
     #shopify-section-{{ section.id }} .featured-tabs-spotlight--fx-reveal .featured-tabs-spotlight-quick__item,
     #shopify-section-{{ section.id }} .spotlight-motion__shape,
     #shopify-section-{{ section.id }} .spotlight-motion__orb,
-    #shopify-section-{{ section.id }} .spotlight-motion__grid {
+    #shopify-section-{{ section.id }} .spotlight-motion__grid,
+    #shopify-section-{{ section.id }} .spotlight-motion__mesh,
+    #shopify-section-{{ section.id }} .spotlight-motion__beams,
+    #shopify-section-{{ section.id }} .spotlight-motion__particle {
       animation: none;
     }
 
@@ -1217,8 +1294,26 @@
         {%- when 'grid' -%}
           <span class="spotlight-motion__grid"></span>
           <span class="spotlight-motion__shape spotlight-motion__shape--ring" style="--x:70%;--y:10%;--s:220px;--dx:-26px;--dy:32px;--rot:28deg;--k:1.5;--delay:0s"></span>
+        {%- when 'mesh' -%}
+          <span class="spotlight-motion__mesh"></span>
+        {%- when 'beams' -%}
+          <span class="spotlight-motion__beams"></span>
+        {%- when 'particles' -%}
+          {%- for i in (1..16) -%}
+            {%- assign px = i | times: 61 | modulo: 100 -%}
+            {%- assign py = i | times: 37 | modulo: 100 -%}
+            {%- assign psize = i | modulo: 4 | times: 3 | plus: 5 -%}
+            {%- assign pdx = i | modulo: 5 | times: 9 | minus: 18 -%}
+            {%- assign pdy = i | modulo: 3 | times: 16 | minus: 16 -%}
+            {%- assign pk = i | modulo: 4 | times: 0.3 | plus: 0.9 -%}
+            {%- assign pdelay = i | modulo: 6 | times: 0.4 -%}
+            <span class="spotlight-motion__particle" style="--x:{{ px }}%;--y:{{ py }}%;--s:{{ psize }}px;--dx:{{ pdx }}px;--dy:{{ pdy }}px;--rot:0deg;--k:{{ pk }};--delay:{{ pdelay }}s"></span>
+          {%- endfor -%}
       {%- endcase -%}
     </div>
+  {%- endif -%}
+  {%- if section_st.bg_grain -%}
+    <div class="featured-tabs-spotlight__grain" aria-hidden="true"></div>
   {%- endif -%}
   {%- capture hero_markup -%}
     {%- if hero_shown -%}
@@ -2504,6 +2599,18 @@
         {
           "value": "grid",
           "label": "Geometric grid drift"
+        },
+        {
+          "value": "mesh",
+          "label": "Mesh gradient"
+        },
+        {
+          "value": "beams",
+          "label": "Light beams"
+        },
+        {
+          "value": "particles",
+          "label": "Particles"
         }
       ]
     },
@@ -2588,6 +2695,23 @@
           "label": "Multiply (darken on light)"
         }
       ]
+    },
+    {
+      "type": "checkbox",
+      "id": "bg_grain",
+      "label": "Film grain overlay",
+      "info": "Subtle noise texture over the background for depth. Combines with any motion style.",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "grain_opacity",
+      "label": "Grain opacity",
+      "min": 0,
+      "max": 30,
+      "step": 1,
+      "unit": "%",
+      "default": 8
     },
     {
       "type": "header",
