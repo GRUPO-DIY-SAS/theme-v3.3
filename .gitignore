@@ -2,12 +2,11 @@
 *.log
 CLAUDE.local.md
 
-# Claude Code: track dotclaude config, ignore local-only state
-.claude/settings.local.json
-.claude/scheduled_tasks.lock
-.claude/projects/
-.claude/cache/
-.claude/state/
+# Claude Code / Codex: ignore new config (e.g. ECC tooling).
+# Files already committed before this rule stay tracked — git ignores
+# .gitignore for tracked paths. Use `git add -f` to commit a new one on purpose.
+.claude/
+.codex/
 
 # IDE / OS
 .vscode/
