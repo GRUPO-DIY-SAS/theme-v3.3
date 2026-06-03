@@ -1668,24 +1668,32 @@
           });
         });
 
-        this.onClick = this.onClick.bind(this);
-        this.root.addEventListener('click', this.onClick);
+        // React to the real active-tab change, however it is triggered (click, keyboard, programmatic).
+        this.sync = this.sync.bind(this);
+        var tabList = this.root.querySelector('.featured-tabs-spotlight__tabs');
+        if (tabList) {
+          this.observer = new MutationObserver(this.sync);
+          this.observer.observe(tabList, { subtree: true, attributes: true, attributeFilter: ['class', 'aria-selected'] });
+        }
+        this.root.addEventListener('click', this.sync);
+        this.sync();
+      }
 
+      disconnectedCallback() {
+        if (this.observer) this.observer.disconnect();
+        if (this.root) this.root.removeEventListener('click', this.sync);
+      }
+
+      sync() {
         var active = this.root.querySelector('.collection-tab__tab-item.active')
           || this.root.querySelector('.collection-tab__tab-item');
         this.apply(active ? active.dataset.blockId : null);
       }
 
-      disconnectedCallback() {
-        if (this.root) this.root.removeEventListener('click', this.onClick);
-      }
-
-      onClick(e) {
-        var tab = e.target.closest('.collection-tab__tab-item');
-        if (tab) this.apply(tab.dataset.blockId);
-      }
-
       apply(blockId) {
+        if (blockId === this._lastBlockId) return;
+        this._lastBlockId = blockId;
+
         var tab = blockId
           ? this.root.querySelector('.collection-tab__tab-item[data-block-id="' + (window.CSS && CSS.escape ? CSS.escape(blockId) : blockId) + '"]')
           : null;
