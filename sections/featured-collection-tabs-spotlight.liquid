@@ -102,6 +102,44 @@
       break
     endif
   endfor
+
+  assign hero_aspect = section_st.hero_aspect | default: 'fixed'
+  case hero_aspect
+    when 'square'
+      assign hero_aspect_value = '1 / 1'
+    when 'portrait'
+      assign hero_aspect_value = '3 / 4'
+    when 'landscape'
+      assign hero_aspect_value = '4 / 3'
+    when 'wide'
+      assign hero_aspect_value = '16 / 9'
+    when 'ultrawide'
+      assign hero_aspect_value = '21 / 9'
+    else
+      assign hero_aspect_value = ''
+  endcase
+
+  assign hero_position = section_st.hero_position | default: 'center'
+  case hero_position
+    when 'top'
+      assign hero_position_value = 'center top'
+    when 'bottom'
+      assign hero_position_value = 'center bottom'
+    when 'left'
+      assign hero_position_value = 'left center'
+    when 'right'
+      assign hero_position_value = 'right center'
+    when 'top-left'
+      assign hero_position_value = 'left top'
+    when 'top-right'
+      assign hero_position_value = 'right top'
+    when 'bottom-left'
+      assign hero_position_value = 'left bottom'
+    when 'bottom-right'
+      assign hero_position_value = 'right bottom'
+    else
+      assign hero_position_value = 'center'
+  endcase
 -%}
 
 {%- capture section_style -%}
@@ -180,6 +218,8 @@
     --spotlight-hero-radius: {{ section_st.hero_radius | default: 0 }}px;
     --spotlight-hero-overlay: {{ section_st.hero_overlay_color | default: '#000000' }};
     --spotlight-hero-overlay-opacity: {{ section_st.hero_overlay_opacity | default: 0 | divided_by: 100.0 }};
+    --spotlight-hero-position: {{ hero_position_value }};
+    {%- if hero_aspect_value != blank -%}--spotlight-hero-aspect: {{ hero_aspect_value }};{%- endif -%}
     position: relative;
     overflow: hidden;
     background: var(--spotlight-bg);
@@ -397,13 +437,19 @@
     overflow: hidden;
   }
 
+  /* When an aspect ratio is chosen, it drives the height instead of the fixed sliders. */
+  #shopify-section-{{ section.id }} .featured-tabs-spotlight--hero-aspect .featured-tabs-spotlight__hero {
+    height: auto;
+    aspect-ratio: var(--spotlight-hero-aspect);
+  }
+
   #shopify-section-{{ section.id }} .featured-tabs-spotlight__hero img,
   #shopify-section-{{ section.id }} .featured-tabs-spotlight__hero video {
     display: block;
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: center;
+    object-position: var(--spotlight-hero-position, center);
   }
 
   #shopify-section-{{ section.id }} .featured-tabs-spotlight__hero::after {
@@ -956,7 +1002,7 @@
 {%- endstyle -%}
 
 <div
-  class="section featured-tabs-spotlight featured-tabs-spotlight--shape-{{ section_st.shape_style }} featured-tabs-spotlight--bg-{{ background_type }} featured-tabs-spotlight--mode-{{ display_mode }} featured-tabs-spotlight--layout-{{ product_layout }} featured-tabs-spotlight--quick-layout-{{ quick_layout }} featured-tabs-spotlight--cards-{{ card_surface }} featured-tabs-spotlight--fx-{{ interaction_effect }} color-{{ color_scheme }} gradient{% if section_st.animate_shape %} featured-tabs-spotlight--shape-motion{% endif %}{% if bg_motion != 'none' %} featured-tabs-spotlight--motion-{{ bg_motion }} featured-tabs-spotlight--motion-speed-{{ motion_speed }}{% endif %}{% if section_st.padding_top < 30 %} pt-min{% endif %}{% if section_st.padding_bottom < 30 %} pb-min{% endif %}{{ reset_spacing }}"
+  class="section featured-tabs-spotlight featured-tabs-spotlight--shape-{{ section_st.shape_style }} featured-tabs-spotlight--bg-{{ background_type }} featured-tabs-spotlight--mode-{{ display_mode }} featured-tabs-spotlight--layout-{{ product_layout }} featured-tabs-spotlight--quick-layout-{{ quick_layout }} featured-tabs-spotlight--cards-{{ card_surface }} featured-tabs-spotlight--fx-{{ interaction_effect }} color-{{ color_scheme }} gradient{% if section_st.animate_shape %} featured-tabs-spotlight--shape-motion{% endif %}{% if bg_motion != 'none' %} featured-tabs-spotlight--motion-{{ bg_motion }} featured-tabs-spotlight--motion-speed-{{ motion_speed }}{% endif %}{% if hero_aspect_value != blank %} featured-tabs-spotlight--hero-aspect{% endif %}{% if section_st.padding_top < 30 %} pt-min{% endif %}{% if section_st.padding_bottom < 30 %} pb-min{% endif %}{{ reset_spacing }}"
   style="{{ section_style | strip | strip_newlines }}"
 >
   {%- if background_type == 'image' or background_type == 'parallax' -%}
@@ -1776,6 +1822,84 @@
       "label": "Mobile video poster"
     },
     {
+      "type": "select",
+      "id": "hero_aspect",
+      "label": "Hero aspect ratio",
+      "default": "fixed",
+      "info": "Pick a ratio for a responsive hero, or Fixed height to use the height sliders below.",
+      "options": [
+        {
+          "value": "fixed",
+          "label": "Fixed height"
+        },
+        {
+          "value": "square",
+          "label": "Square (1:1)"
+        },
+        {
+          "value": "portrait",
+          "label": "Portrait (3:4)"
+        },
+        {
+          "value": "landscape",
+          "label": "Landscape (4:3)"
+        },
+        {
+          "value": "wide",
+          "label": "Wide (16:9)"
+        },
+        {
+          "value": "ultrawide",
+          "label": "Ultrawide (21:9)"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "hero_position",
+      "label": "Hero focal position",
+      "default": "center",
+      "info": "Which part of the image/video stays in frame when cropped.",
+      "options": [
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "top",
+          "label": "Top"
+        },
+        {
+          "value": "bottom",
+          "label": "Bottom"
+        },
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        },
+        {
+          "value": "top-left",
+          "label": "Top left"
+        },
+        {
+          "value": "top-right",
+          "label": "Top right"
+        },
+        {
+          "value": "bottom-left",
+          "label": "Bottom left"
+        },
+        {
+          "value": "bottom-right",
+          "label": "Bottom right"
+        }
+      ]
+    },
+    {
       "type": "color",
       "id": "hero_overlay_color",
       "label": "Hero overlay",
@@ -1795,6 +1919,7 @@
       "type": "range",
       "id": "hero_height",
       "label": "Hero height (desktop)",
+      "info": "Only used when Hero aspect ratio is set to Fixed height.",
       "min": 120,
       "max": 720,
       "step": 20,
