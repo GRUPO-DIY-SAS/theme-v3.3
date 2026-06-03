@@ -140,6 +140,13 @@
     else
       assign hero_position_value = 'center'
   endcase
+
+  assign hero_placement = section_st.hero_placement | default: 'top'
+  assign hero_side = section_st.hero_side | default: 'left'
+  assign hero_is_side = false
+  if hero_type != 'none' and hero_placement == 'side'
+    assign hero_is_side = true
+  endif
 -%}
 
 {%- capture section_style -%}
@@ -219,6 +226,7 @@
     --spotlight-hero-overlay: {{ section_st.hero_overlay_color | default: '#000000' }};
     --spotlight-hero-overlay-opacity: {{ section_st.hero_overlay_opacity | default: 0 | divided_by: 100.0 }};
     --spotlight-hero-position: {{ hero_position_value }};
+    --spotlight-hero-side-width: {{ section_st.hero_side_width | default: 42 }}%;
     {%- if hero_aspect_value != blank -%}--spotlight-hero-aspect: {{ hero_aspect_value }};{%- endif -%}
     position: relative;
     overflow: hidden;
@@ -463,6 +471,29 @@
 
   #shopify-section-{{ section.id }} .featured-tabs-spotlight__hero-mobile {
     display: none;
+  }
+
+  /* Side placement: media column beside the tabs/content. Stacks on mobile. */
+  @media screen and (min-width: 750px) {
+    #shopify-section-{{ section.id }} .featured-tabs-spotlight--hero-side .featured-tabs-spotlight__inner {
+      display: flex;
+      align-items: flex-start;
+      gap: 36px;
+    }
+
+    #shopify-section-{{ section.id }} .featured-tabs-spotlight--hero-side-right .featured-tabs-spotlight__inner {
+      flex-direction: row-reverse;
+    }
+
+    #shopify-section-{{ section.id }} .featured-tabs-spotlight--hero-side .featured-tabs-spotlight__hero {
+      flex: 0 0 var(--spotlight-hero-side-width, 42%);
+      margin-bottom: 0;
+    }
+
+    #shopify-section-{{ section.id }} .featured-tabs-spotlight--hero-side .featured-tabs-spotlight__content {
+      flex: 1 1 auto;
+      min-width: 0;
+    }
   }
 
   #shopify-section-{{ section.id }} .featured-tabs-spotlight__header {
@@ -1002,7 +1033,7 @@
 {%- endstyle -%}
 
 <div
-  class="section featured-tabs-spotlight featured-tabs-spotlight--shape-{{ section_st.shape_style }} featured-tabs-spotlight--bg-{{ background_type }} featured-tabs-spotlight--mode-{{ display_mode }} featured-tabs-spotlight--layout-{{ product_layout }} featured-tabs-spotlight--quick-layout-{{ quick_layout }} featured-tabs-spotlight--cards-{{ card_surface }} featured-tabs-spotlight--fx-{{ interaction_effect }} color-{{ color_scheme }} gradient{% if section_st.animate_shape %} featured-tabs-spotlight--shape-motion{% endif %}{% if bg_motion != 'none' %} featured-tabs-spotlight--motion-{{ bg_motion }} featured-tabs-spotlight--motion-speed-{{ motion_speed }}{% endif %}{% if hero_aspect_value != blank %} featured-tabs-spotlight--hero-aspect{% endif %}{% if section_st.padding_top < 30 %} pt-min{% endif %}{% if section_st.padding_bottom < 30 %} pb-min{% endif %}{{ reset_spacing }}"
+  class="section featured-tabs-spotlight featured-tabs-spotlight--shape-{{ section_st.shape_style }} featured-tabs-spotlight--bg-{{ background_type }} featured-tabs-spotlight--mode-{{ display_mode }} featured-tabs-spotlight--layout-{{ product_layout }} featured-tabs-spotlight--quick-layout-{{ quick_layout }} featured-tabs-spotlight--cards-{{ card_surface }} featured-tabs-spotlight--fx-{{ interaction_effect }} color-{{ color_scheme }} gradient{% if section_st.animate_shape %} featured-tabs-spotlight--shape-motion{% endif %}{% if bg_motion != 'none' %} featured-tabs-spotlight--motion-{{ bg_motion }} featured-tabs-spotlight--motion-speed-{{ motion_speed }}{% endif %}{% if hero_aspect_value != blank %} featured-tabs-spotlight--hero-aspect{% endif %}{% if hero_is_side %} featured-tabs-spotlight--hero-side featured-tabs-spotlight--hero-side-{{ hero_side }}{% endif %}{% if section_st.padding_top < 30 %} pt-min{% endif %}{% if section_st.padding_bottom < 30 %} pb-min{% endif %}{{ reset_spacing }}"
   style="{{ section_style | strip | strip_newlines }}"
 >
   {%- if background_type == 'image' or background_type == 'parallax' -%}
@@ -1122,6 +1153,7 @@
         {%- endif -%}
       </div>
     {%- endif -%}
+    {%- if hero_is_side -%}<div class="featured-tabs-spotlight__content">{%- endif -%}
     {%- if display_mode == 'product_tabs' -%}
       <tab-items data-type="horizontal">
     {%- endif -%}
@@ -1553,6 +1585,7 @@
     {%- if display_mode == 'product_tabs' -%}
       </tab-items>
     {%- endif -%}
+    {%- if hero_is_side -%}</div>{%- endif -%}
   </div>
 </div>
 
@@ -1787,6 +1820,49 @@
           "label": "Video"
         }
       ]
+    },
+    {
+      "type": "select",
+      "id": "hero_placement",
+      "label": "Hero placement",
+      "default": "top",
+      "info": "Top = full-width banner above the tabs. Beside = media column next to the tabs/products (stacks on mobile).",
+      "options": [
+        {
+          "value": "top",
+          "label": "Top banner"
+        },
+        {
+          "value": "side",
+          "label": "Beside content"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "hero_side",
+      "label": "Media side (when beside content)",
+      "default": "left",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "hero_side_width",
+      "label": "Media column width (when beside content)",
+      "min": 25,
+      "max": 60,
+      "step": 1,
+      "unit": "%",
+      "default": 42
     },
     {
       "type": "image_picker",
