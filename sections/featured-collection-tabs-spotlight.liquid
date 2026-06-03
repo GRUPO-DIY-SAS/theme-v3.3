@@ -1205,7 +1205,6 @@
   <div class="{{ section_width }} featured-tabs-spotlight__inner">
     {%- if hero_shown and hero_placement != 'side' -%}{{ hero_markup }}{%- endif -%}
     {%- if display_mode == 'product_tabs' -%}
-      <spotlight-tab-sync></spotlight-tab-sync>
       <tab-items data-type="horizontal">
     {%- endif -%}
       {%- if heading != blank or description != blank or has_tab_heading or has_tab_desc -%}
@@ -1641,6 +1640,7 @@
       {%- endif -%}
     {%- if display_mode == 'product_tabs' -%}
       </tab-items>
+      <spotlight-tab-sync></spotlight-tab-sync>
     {%- endif -%}
   </div>
 </div>
@@ -1651,8 +1651,16 @@
 
     class SpotlightTabSync extends HTMLElement {
       connectedCallback() {
+        // Defer so the whole section is in the DOM even if we upgrade mid-parse or mid-rerender.
+        requestAnimationFrame(() => this.setup());
+      }
+
+      setup() {
+        if (this._ready) return;
         this.root = this.closest('.featured-tabs-spotlight');
         if (!this.root) return;
+        this._ready = true;
+
         this.heading = this.root.querySelector('.featured-tabs-spotlight__header .section__header-heading');
         this.desc = this.root.querySelector('.featured-tabs-spotlight__header .section__header-des');
         this.defaultHeading = this.heading ? this.heading.innerHTML : '';
@@ -1668,23 +1676,33 @@
           });
         });
 
-        // React to the real active-tab change, however it is triggered (click, keyboard, programmatic).
-        this.sync = this.sync.bind(this);
+        this.onClick = this.onClick.bind(this);
+        this.syncFromActive = this.syncFromActive.bind(this);
+
+        // Clicking a tab applies that tab directly (works even if the tab switcher is broken).
+        this.root.addEventListener('click', this.onClick);
+
+        // Also follow the real active-tab change for keyboard/programmatic switches.
         var tabList = this.root.querySelector('.featured-tabs-spotlight__tabs');
         if (tabList) {
-          this.observer = new MutationObserver(this.sync);
+          this.observer = new MutationObserver(this.syncFromActive);
           this.observer.observe(tabList, { subtree: true, attributes: true, attributeFilter: ['class', 'aria-selected'] });
         }
-        this.root.addEventListener('click', this.sync);
-        this.sync();
+
+        this.syncFromActive();
       }
 
       disconnectedCallback() {
         if (this.observer) this.observer.disconnect();
-        if (this.root) this.root.removeEventListener('click', this.sync);
+        if (this.root && this.onClick) this.root.removeEventListener('click', this.onClick);
       }
 
-      sync() {
+      onClick(e) {
+        var tab = e.target.closest('.collection-tab__tab-item');
+        if (tab) this.apply(tab.dataset.blockId);
+      }
+
+      syncFromActive() {
         var active = this.root.querySelector('.collection-tab__tab-item.active')
           || this.root.querySelector('.collection-tab__tab-item');
         this.apply(active ? active.dataset.blockId : null);
