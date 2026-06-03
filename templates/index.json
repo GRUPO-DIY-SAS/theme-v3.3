@@ -315,7 +315,7 @@
         "description": "<p>Calidad y Servicio insuperable</p>",
         "header_size": "large",
         "header_alignment": "center",
-        "show_view_all_button": true,
+        "show_view_all_button": false,
         "text_size_heading": 49,
         "text_size_description": 24,
         "text_size_tab": 0,
@@ -373,7 +373,7 @@
         "image_ratio": "square",
         "image_height": 280,
         "mobile_image_height": 160,
-        "image_fit": "contain",
+        "image_fit": "cover",
         "image_radius": 40,
         "product_layout": "carousel",
         "items_to_show": 8,
@@ -1292,9 +1292,7 @@
             "cta_link": "",
             "tab_heading": "Estrenos y lanzamientos en nuestra tienda de vapeo",
             "tab_description": "",
-            "tab_hero_type": "inherit",
-            "tab_hero_video": "shopify://files/videos/logo-movil-optimizado.mp4",
-            "tab_hero_mobile_video": "shopify://files/videos/logo-movil-optimizado.mp4"
+            "tab_hero_type": "inherit"
           }
         },
         "collection_FgCNze": {
@@ -1322,8 +1320,9 @@
             "cta_link": "",
             "tab_heading": "Equipos recargables: los preferidos por nuestros clientes",
             "tab_description": "",
-            "tab_hero_type": "inherit",
-            "tab_hero_video": "shopify://files/videos/Vprime.mp4"
+            "tab_hero_type": "video",
+            "tab_hero_video": "shopify://files/videos/Vprime.mp4",
+            "tab_hero_mobile_video": "shopify://files/videos/Vprime.mp4"
           }
         }
       },
