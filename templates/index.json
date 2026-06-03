@@ -1354,7 +1354,7 @@
         "hero_side": "left",
         "hero_side_width": 25,
         "hero_side_valign": "center",
-        "hero_mobile_placement": "below",
+        "hero_mobile_placement": "hidden",
         "hero_video": "shopify://files/videos/logo-movil-optimizado.mp4",
         "hero_mobile_video": "shopify://files/videos/logo-movil-optimizado.mp4",
         "hero_aspect": "square",
