@@ -210,6 +210,7 @@
     --spotlight-tab-active-text: {{ section_st.tab_active_text_color }};
     --spotlight-card-bg: {{ section_st.card_background }};
     --spotlight-card-text: {{ section_st.card_text_color }};
+    --spotlight-card-title-lines: {{ section_st.card_title_lines | default: 2 }};
     --spotlight-overlay: {{ section_st.background_overlay_color }};
     --spotlight-overlay-opacity: {{ section_st.background_overlay_opacity | divided_by: 100.0 }};
     --spotlight-image-ratio: {{ image_ratio_value }};
@@ -533,6 +534,10 @@
     margin-right: auto;
   }
 
+  #shopify-section-{{ section.id }} .featured-tabs-spotlight__header-variant[hidden] {
+    display: none;
+  }
+
   #shopify-section-{{ section.id }} .featured-tabs-spotlight__tabs {
     display: flex;
     align-items: center;
@@ -711,6 +716,12 @@
     margin: 0;
     color: var(--spotlight-card-text);
     line-height: 1.25;
+    /* Clamp to N lines and always reserve that height so every card is the same size. */
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: var(--spotlight-card-title-lines, 2);
+    overflow: hidden;
+    min-height: calc(var(--spotlight-card-title-lines, 2) * 1.25em);
   }
 
   #shopify-section-{{ section.id }} .featured-tabs-spotlight-card__title a {
@@ -1209,32 +1220,48 @@
     {%- endif -%}
       {%- if heading != blank or description != blank or has_tab_heading or has_tab_desc -%}
         <div class="featured-tabs-spotlight__header section__header text-{{ section_st.header_alignment }}">
-          {%- if heading != blank or has_tab_heading -%}
-            <motion-element
-              data-motion="{{ scroll_animation }}"
-              data-motion-delay="{{ animate_delay }}"
-              {% if scroll_animation == 'none' %}
-                hold
-              {% endif %}
-              class="block"
-            >
-              <h2 class="section__header-heading heading-letter-spacing {{ header_size }} mt-0{% if description != blank or has_tab_desc %} mb-10{% else %} mb-0{% endif %}">
-                {{ heading }}
-              </h2>
-            </motion-element>
-          {%- endif -%}
-          {%- if description != blank or has_tab_desc -%}
-            {%- assign animate_delay = animate_delay | plus: 50 -%}
-            <motion-element
-              data-motion="{{ scroll_animation }}"
-              data-motion-delay="{{ animate_delay }}"
-              {% if scroll_animation == 'none' %}
-                hold
-              {% endif %}
-              class="section__header-des rich__text-m0 block"
-            >
-              {{ description }}
-            </motion-element>
+          {%- if display_mode == 'product_tabs' -%}
+            {%- comment %} One crawlable h2/h3 variant per tab; the active one is shown, the rest hidden. {% endcomment -%}
+            {%- assign hv_index = 0 -%}
+            {%- for b in section.blocks -%}
+              {%- if b.type == 'collection' -%}
+                {%- assign hv_index = hv_index | plus: 1 -%}
+                {%- assign hv_heading = b.settings.tab_heading | default: heading -%}
+                {%- assign hv_desc = b.settings.tab_description | default: description -%}
+                <div class="featured-tabs-spotlight__header-variant" data-header-block="{{ b.id }}"{% unless hv_index == 1 %} hidden{% endunless %}>
+                  {%- if hv_heading != blank -%}
+                    <h2 class="section__header-heading heading-letter-spacing {{ header_size }} mt-0{% if hv_desc != blank %} mb-10{% else %} mb-0{% endif %}">{{ hv_heading }}</h2>
+                  {%- endif -%}
+                  {%- if hv_desc != blank -%}
+                    <div class="section__header-des rich__text-m0">{{ hv_desc }}</div>
+                  {%- endif -%}
+                </div>
+              {%- endif -%}
+            {%- endfor -%}
+          {%- else -%}
+            {%- if heading != blank -%}
+              <motion-element
+                data-motion="{{ scroll_animation }}"
+                data-motion-delay="{{ animate_delay }}"
+                {% if scroll_animation == 'none' %}hold{% endif %}
+                class="block"
+              >
+                <h2 class="section__header-heading heading-letter-spacing {{ header_size }} mt-0{% if description != blank %} mb-10{% else %} mb-0{% endif %}">
+                  {{ heading }}
+                </h2>
+              </motion-element>
+            {%- endif -%}
+            {%- if description != blank -%}
+              {%- assign animate_delay = animate_delay | plus: 50 -%}
+              <motion-element
+                data-motion="{{ scroll_animation }}"
+                data-motion-delay="{{ animate_delay }}"
+                {% if scroll_animation == 'none' %}hold{% endif %}
+                class="section__header-des rich__text-m0 block"
+              >
+                {{ description }}
+              </motion-element>
+            {%- endif -%}
           {%- endif -%}
         </div>
       {%- endif -%}
@@ -1308,7 +1335,7 @@
                     <span class="featured-tabs-spotlight-quick__eyebrow block">{{ quick_eyebrow }}</span>
                   {%- endif -%}
                   <a class="featured-tabs-spotlight-quick__title-link block" href="{{ quick_link }}">
-                    <span class="featured-tabs-spotlight-quick__title h4 block">{{ quick_title }}</span>
+                    <h3 class="featured-tabs-spotlight-quick__title h4 block">{{ quick_title }}</h3>
                   </a>
                   {%- if quick_subtitle != blank -%}
                     <span class="featured-tabs-spotlight-quick__subtitle block">{{ quick_subtitle }}</span>
@@ -1337,7 +1364,7 @@
                   {{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg' }}
                 </span>
                 <span class="featured-tabs-spotlight-quick__body">
-                  <span class="featured-tabs-spotlight-quick__title h4 block">{{ 'onboarding.collection_title' | t }}</span>
+                  <h3 class="featured-tabs-spotlight-quick__title h4 block">{{ 'onboarding.collection_title' | t }}</h3>
                 </span>
               </a>
             {%- endfor -%}
@@ -1385,8 +1412,6 @@
                 role="tab"
                 aria-selected="{% if tab_button_index == 1 %}true{% else %}false{% endif %}"
                 tabindex="{% if tab_button_index == 1 %}0{% else %}-1{% endif %}"
-                {% if block_st.tab_heading != blank %}data-tab-heading="{{ block_st.tab_heading | escape }}"{% endif %}
-                {% if block_st.tab_description != blank %}data-tab-description="{{ block_st.tab_description | escape }}"{% endif %}
                 {{ block.shopify_attributes }}
               >
                 {%- if collection_title != blank -%}
@@ -1661,10 +1686,7 @@
         if (!this.root) return;
         this._ready = true;
 
-        this.heading = this.root.querySelector('.featured-tabs-spotlight__header .section__header-heading');
-        this.desc = this.root.querySelector('.featured-tabs-spotlight__header .section__header-des');
-        this.defaultHeading = this.heading ? this.heading.innerHTML : '';
-        this.defaultDesc = this.desc ? this.desc.innerHTML : '';
+        this.headerVariants = this.root.querySelectorAll('.featured-tabs-spotlight__header-variant');
         this.heroMedia = this.root.querySelectorAll('.featured-tabs-spotlight__hero-media');
 
         // A hidden hero variant must never keep playing (the lazy loader autoplays all on first gesture).
@@ -1711,37 +1733,31 @@
       apply(blockId) {
         if (blockId === this._lastBlockId) return;
         this._lastBlockId = blockId;
+        this.showVariant(this.headerVariants, 'headerBlock', blockId, false, false);
+        this.showVariant(this.heroMedia, 'heroBlock', blockId, true, true);
+      }
 
-        var tab = blockId
-          ? this.root.querySelector('.collection-tab__tab-item[data-block-id="' + (window.CSS && CSS.escape ? CSS.escape(blockId) : blockId) + '"]')
-          : null;
-
-        if (this.heading) {
-          var h = tab && tab.dataset.tabHeading;
-          this.heading.innerHTML = h ? h : this.defaultHeading;
-        }
-        if (this.desc) {
-          var d = tab && tab.dataset.tabDescription;
-          this.desc.innerHTML = d ? d : this.defaultDesc;
-        }
-
-        if (this.heroMedia.length) {
-          var target = null;
-          var fallback = null;
-          this.heroMedia.forEach(function (media) {
-            if (media.dataset.heroBlock === '__default__') fallback = media;
-            if (media.dataset.heroBlock === blockId) target = media;
-          });
-          var show = target || fallback;
-          this.heroMedia.forEach(function (media) {
-            var on = media === show;
-            media.hidden = !on;
-            media.querySelectorAll('video').forEach(function (video) {
+      // Show the variant whose data-*-block matches the active tab; hide the rest.
+      // hasDefault: fall back to the '__default__' variant. manageVideo: play active / pause hidden.
+      showVariant(list, key, blockId, hasDefault, manageVideo) {
+        if (!list || !list.length) return;
+        var target = null;
+        var fallback = null;
+        list.forEach(function (el) {
+          if (el.dataset[key] === blockId) target = el;
+          if (hasDefault && el.dataset[key] === '__default__') fallback = el;
+        });
+        var show = target || fallback || list[0];
+        list.forEach(function (el) {
+          var on = el === show;
+          el.hidden = !on;
+          if (manageVideo) {
+            el.querySelectorAll('video').forEach(function (video) {
               if (on) { if (video.play) video.play().catch(function () {}); }
               else if (video.pause) video.pause();
             });
-          });
-        }
+          }
+        });
       }
     }
 
@@ -2723,6 +2739,16 @@
       "id": "show_card_title",
       "label": "Show title",
       "default": true
+    },
+    {
+      "type": "range",
+      "id": "card_title_lines",
+      "label": "Max title lines",
+      "info": "Titles clamp to this many lines and reserve the space, so all cards stay the same height.",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "default": 2
     },
     {
       "type": "checkbox",
