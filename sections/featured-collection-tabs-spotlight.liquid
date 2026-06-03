@@ -143,6 +143,8 @@
 
   assign hero_placement = section_st.hero_placement | default: 'top'
   assign hero_side = section_st.hero_side | default: 'left'
+  assign hero_side_valign = section_st.hero_side_valign | default: 'stretch'
+  assign hero_mobile_placement = section_st.hero_mobile_placement | default: 'above'
   assign hero_is_side = false
   if hero_type != 'none' and hero_placement == 'side'
     assign hero_is_side = true
@@ -477,7 +479,7 @@
   @media screen and (min-width: 750px) {
     #shopify-section-{{ section.id }} .featured-tabs-spotlight--hero-side .featured-tabs-spotlight__inner {
       display: flex;
-      align-items: flex-start;
+      align-items: stretch;
       gap: 36px;
     }
 
@@ -488,6 +490,20 @@
     #shopify-section-{{ section.id }} .featured-tabs-spotlight--hero-side .featured-tabs-spotlight__hero {
       flex: 0 0 var(--spotlight-hero-side-width, 42%);
       margin-bottom: 0;
+    }
+
+    /* Stretch (default): media fills the content column height to align with the cards. */
+    #shopify-section-{{ section.id }} .featured-tabs-spotlight--hero-side.featured-tabs-spotlight--hero-valign-stretch .featured-tabs-spotlight__hero {
+      height: auto;
+      aspect-ratio: auto;
+    }
+
+    #shopify-section-{{ section.id }} .featured-tabs-spotlight--hero-side.featured-tabs-spotlight--hero-valign-top .featured-tabs-spotlight__inner {
+      align-items: flex-start;
+    }
+
+    #shopify-section-{{ section.id }} .featured-tabs-spotlight--hero-side.featured-tabs-spotlight--hero-valign-center .featured-tabs-spotlight__inner {
+      align-items: center;
     }
 
     #shopify-section-{{ section.id }} .featured-tabs-spotlight--hero-side .featured-tabs-spotlight__content {
@@ -956,6 +972,22 @@
       display: block;
     }
 
+    /* Side placement on mobile: stack and let the merchant pick above / below / hidden. */
+    #shopify-section-{{ section.id }} .featured-tabs-spotlight--hero-side .featured-tabs-spotlight__inner {
+      display: flex;
+      flex-direction: column;
+    }
+
+    #shopify-section-{{ section.id }} .featured-tabs-spotlight--hero-side.featured-tabs-spotlight--hero-mobile-below .featured-tabs-spotlight__hero {
+      order: 2;
+      margin-top: 28px;
+      margin-bottom: 0;
+    }
+
+    #shopify-section-{{ section.id }} .featured-tabs-spotlight--hero-side.featured-tabs-spotlight--hero-mobile-hidden .featured-tabs-spotlight__hero {
+      display: none;
+    }
+
     #shopify-section-{{ section.id }} .featured-tabs-spotlight__tab {
       min-height: 42px;
       padding: 12px 24px;
@@ -1033,7 +1065,7 @@
 {%- endstyle -%}
 
 <div
-  class="section featured-tabs-spotlight featured-tabs-spotlight--shape-{{ section_st.shape_style }} featured-tabs-spotlight--bg-{{ background_type }} featured-tabs-spotlight--mode-{{ display_mode }} featured-tabs-spotlight--layout-{{ product_layout }} featured-tabs-spotlight--quick-layout-{{ quick_layout }} featured-tabs-spotlight--cards-{{ card_surface }} featured-tabs-spotlight--fx-{{ interaction_effect }} color-{{ color_scheme }} gradient{% if section_st.animate_shape %} featured-tabs-spotlight--shape-motion{% endif %}{% if bg_motion != 'none' %} featured-tabs-spotlight--motion-{{ bg_motion }} featured-tabs-spotlight--motion-speed-{{ motion_speed }}{% endif %}{% if hero_aspect_value != blank %} featured-tabs-spotlight--hero-aspect{% endif %}{% if hero_is_side %} featured-tabs-spotlight--hero-side featured-tabs-spotlight--hero-side-{{ hero_side }}{% endif %}{% if section_st.padding_top < 30 %} pt-min{% endif %}{% if section_st.padding_bottom < 30 %} pb-min{% endif %}{{ reset_spacing }}"
+  class="section featured-tabs-spotlight featured-tabs-spotlight--shape-{{ section_st.shape_style }} featured-tabs-spotlight--bg-{{ background_type }} featured-tabs-spotlight--mode-{{ display_mode }} featured-tabs-spotlight--layout-{{ product_layout }} featured-tabs-spotlight--quick-layout-{{ quick_layout }} featured-tabs-spotlight--cards-{{ card_surface }} featured-tabs-spotlight--fx-{{ interaction_effect }} color-{{ color_scheme }} gradient{% if section_st.animate_shape %} featured-tabs-spotlight--shape-motion{% endif %}{% if bg_motion != 'none' %} featured-tabs-spotlight--motion-{{ bg_motion }} featured-tabs-spotlight--motion-speed-{{ motion_speed }}{% endif %}{% if hero_aspect_value != blank %} featured-tabs-spotlight--hero-aspect{% endif %}{% if hero_is_side %} featured-tabs-spotlight--hero-side featured-tabs-spotlight--hero-side-{{ hero_side }} featured-tabs-spotlight--hero-valign-{{ hero_side_valign }} featured-tabs-spotlight--hero-mobile-{{ hero_mobile_placement }}{% endif %}{% if section_st.padding_top < 30 %} pt-min{% endif %}{% if section_st.padding_bottom < 30 %} pb-min{% endif %}{{ reset_spacing }}"
   style="{{ section_style | strip | strip_newlines }}"
 >
   {%- if background_type == 'image' or background_type == 'parallax' -%}
@@ -1863,6 +1895,47 @@
       "step": 1,
       "unit": "%",
       "default": 42
+    },
+    {
+      "type": "select",
+      "id": "hero_side_valign",
+      "label": "Media vertical alignment (when beside content)",
+      "default": "stretch",
+      "info": "Stretch makes the media match the content height (best for photos/video). Use Top or Center for logos so they aren't cropped.",
+      "options": [
+        {
+          "value": "stretch",
+          "label": "Stretch to fit content"
+        },
+        {
+          "value": "top",
+          "label": "Top"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "hero_mobile_placement",
+      "label": "Mobile placement (when beside content)",
+      "default": "above",
+      "options": [
+        {
+          "value": "above",
+          "label": "Above content"
+        },
+        {
+          "value": "below",
+          "label": "Below content"
+        },
+        {
+          "value": "hidden",
+          "label": "Hide on mobile"
+        }
+      ]
     },
     {
       "type": "image_picker",
