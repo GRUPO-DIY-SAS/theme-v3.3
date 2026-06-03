@@ -887,9 +887,11 @@
           "settings": {
             "position": "top",
             "heading": "Todo en vapeo: desechables, equipos, líquidos y accesorios en un solo lugar",
-            "content": "<p>En DIY Vape Shop siempre encontrarás vaporizadores, líquidos y accesorios pensados para que puedas disfrutar tu experiencia de vapeo a tu manera.</p>",
+            "content": "<p><em>En DIY Vape Shop siempre encontrarás vaporizadores, líquidos y accesorios pensados para que puedas disfrutar tu experiencia de vapeo a tu manera.</em></p>",
             "text_alignment": "center",
-            "max_width": 1100
+            "max_width": 1100,
+            "heading_size": 40,
+            "text_size": 0
           }
         },
         "collection_9J99QA": {
@@ -1022,9 +1024,11 @@
           "settings": {
             "position": "top",
             "heading": "Escoge el sistema de vapeo de tu preferencia.",
-            "content": "<p>Tenemos todas las opciones disponibles en el mercado</p>",
+            "content": "<p><em>Tenemos todas las opciones disponibles en el mercado</em></p>",
             "text_alignment": "center",
-            "max_width": 760
+            "max_width": 760,
+            "heading_size": 40,
+            "text_size": 0
           }
         },
         "tab_2": {
@@ -1155,7 +1159,7 @@
         "image_radius": 18,
         "product_layout": "carousel",
         "items_to_show": 8,
-        "items_per_row": 4,
+        "items_per_row": 5,
         "column_gap": 30,
         "items_per_row_mobile": 1.5,
         "show_card_title": true,
@@ -1185,9 +1189,11 @@
           "settings": {
             "position": "top",
             "heading": "La mejor selección de líquidos y sales premium para vapear",
-            "content": "<p>En DIY Vape Shop reunimos las mejores marcas de líquidos y sales premium. Variedad de presentaciones y sabores para que siempre tengas algo nuevo por probar.</p>",
+            "content": "<p><em>En DIY Vape Shop reunimos las mejores marcas de líquidos y sales premium. Variedad de presentaciones y sabores para que siempre tengas algo nuevo por probar.</em></p>",
             "text_alignment": "center",
-            "max_width": 760
+            "max_width": 760,
+            "heading_size": 40,
+            "text_size": 0
           }
         },
         "collection_dPwnQH": {
@@ -1303,7 +1309,7 @@
         "image_radius": 18,
         "product_layout": "carousel",
         "items_to_show": 8,
-        "items_per_row": 4,
+        "items_per_row": 5,
         "column_gap": 30,
         "items_per_row_mobile": 1.5,
         "show_card_title": true,
@@ -1335,7 +1341,9 @@
             "heading": "Los mejores Vaporizadores de Cannabis y Concentrados están aquí.",
             "content": "<p><em>Compra tu vaporizador herbal con los mejores en Colombia. Las mejores marcas del mercado en un solo lugar. </em></p>",
             "text_alignment": "center",
-            "max_width": 760
+            "max_width": 760,
+            "heading_size": 40,
+            "text_size": 0
           }
         },
         "tab_3": {
@@ -1451,7 +1459,7 @@
         "image_radius": 18,
         "product_layout": "carousel",
         "items_to_show": 8,
-        "items_per_row": 4,
+        "items_per_row": 5,
         "column_gap": 30,
         "items_per_row_mobile": 1.5,
         "show_card_title": true,
