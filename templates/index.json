@@ -309,7 +309,7 @@
       "name": "Collection tabs spotlight",
       "settings": {
         "section_width": "fluid_container",
-        "color_scheme": "",
+        "color_scheme": "default",
         "display_mode": "quick_collections",
         "eyebrow": "",
         "heading": "Vapers en Colombia:  somos la tienda #1 de vapeo",
@@ -375,7 +375,7 @@
         "blend_edge": "none",
         "blend_overlap": 0,
         "motion_phase": 0,
-        "background_color": "#ffffff",
+        "background_color": "#ebebeb",
         "tab_background": "#393752",
         "tab_text_color": "#ffffff",
         "tab_active_background": "#111111",
