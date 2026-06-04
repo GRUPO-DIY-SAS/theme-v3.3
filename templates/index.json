@@ -890,7 +890,7 @@
             "content": "<p><em>En DIY Vape Shop siempre encontrarás vaporizadores, líquidos y accesorios pensados para que puedas disfrutar tu experiencia de vapeo a tu manera.</em></p>",
             "text_alignment": "center",
             "max_width": 1100,
-            "heading_size": 40,
+            "heading_size": 36,
             "text_size": 0
           }
         },
@@ -923,7 +923,7 @@
         "header_size": "large",
         "header_alignment": "center",
         "show_view_all_button": true,
-        "text_size_heading": 0,
+        "text_size_heading": 36,
         "text_size_description": 0,
         "text_size_tab": 0,
         "text_size_card_title": 14,
@@ -1027,7 +1027,7 @@
             "content": "<p><em>Tenemos todas las opciones disponibles en el mercado</em></p>",
             "text_alignment": "center",
             "max_width": 760,
-            "heading_size": 40,
+            "heading_size": 36,
             "text_size": 0
           }
         },
@@ -1090,7 +1090,7 @@
         "header_size": "large",
         "header_alignment": "center",
         "show_view_all_button": true,
-        "text_size_heading": 0,
+        "text_size_heading": 36,
         "text_size_description": 0,
         "text_size_tab": 0,
         "text_size_card_title": 14,
@@ -1194,7 +1194,7 @@
             "content": "<p><em>En DIY Vape Shop reunimos las mejores marcas de líquidos y sales premium. Variedad de presentaciones y sabores para que siempre tengas algo nuevo por probar.</em></p>",
             "text_alignment": "center",
             "max_width": 760,
-            "heading_size": 40,
+            "heading_size": 36,
             "text_size": 0
           }
         },
@@ -1242,7 +1242,7 @@
         "header_size": "large",
         "header_alignment": "center",
         "show_view_all_button": true,
-        "text_size_heading": 0,
+        "text_size_heading": 36,
         "text_size_description": 0,
         "text_size_tab": 0,
         "text_size_card_title": 14,
@@ -1344,7 +1344,7 @@
             "content": "<p><em>Compra tu vaporizador herbal con los mejores en Colombia. Las mejores marcas del mercado en un solo lugar. </em></p>",
             "text_alignment": "center",
             "max_width": 760,
-            "heading_size": 40,
+            "heading_size": 36,
             "text_size": 0
           }
         },
@@ -1392,7 +1392,7 @@
         "header_size": "large",
         "header_alignment": "center",
         "show_view_all_button": true,
-        "text_size_heading": 0,
+        "text_size_heading": 36,
         "text_size_description": 0,
         "text_size_tab": 0,
         "text_size_card_title": 14,
