@@ -62,7 +62,7 @@
       ],
       "settings": {
         "section_width": "fluid_container",
-        "color_scheme": "scheme-3c376871-4978-462b-aa78-be06bb77863d",
+        "color_scheme": "scheme-4faf0e4d-27f4-4d02-bc51-617383bab1a9",
         "enable_back_top": true,
         "separator_line": "inner_page",
         "enable_country_selector": false,
@@ -88,7 +88,7 @@
       ],
       "settings": {
         "section_width": "container",
-        "color_scheme": "scheme-3c376871-4978-462b-aa78-be06bb77863d",
+        "color_scheme": "scheme-4faf0e4d-27f4-4d02-bc51-617383bab1a9",
         "html_custom": "<div style=\"text-align: center;\">\n  <img src=\"https://cdn.shopify.com/s/files/1/0166/9493/5652/files/sic.png?v=1663108988\" alt=\"Logo Superintendencia de Industria y Comercio\" loading=\"lazy\" style=\"display: inline-block;\">\n</div>",
         "padding_top": 0,
         "padding_bottom": 0,
