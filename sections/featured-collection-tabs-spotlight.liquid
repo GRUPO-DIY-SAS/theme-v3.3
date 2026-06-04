@@ -870,16 +870,14 @@
     transition: border-color 0.24s ease, box-shadow 0.24s ease, transform 0.24s ease, backdrop-filter 0.24s ease;
   }
 
-  /* Quick view / quick add overlay — sits over the media corner, reveals on hover (desktop),
-     always visible on touch. The buttons sit above the media link via z-index. */
+  /* Quick view / quick add — a centered row of buttons directly under the card image. */
   #shopify-section-{{ section.id }} .featured-tabs-spotlight-card__actions {
-    position: absolute;
-    top: calc(clamp(12px, 1.4vw, 20px) + 10px);
-    right: calc(clamp(12px, 1.4vw, 20px) + 10px);
-    z-index: 3;
     display: flex;
-    flex-direction: column;
-    gap: 8px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 12px;
   }
 
   #shopify-section-{{ section.id }} .featured-tabs-spotlight-card__qa-form {
@@ -920,21 +918,6 @@
   #shopify-section-{{ section.id }} .featured-tabs-spotlight-card__action[disabled] {
     opacity: 0.5;
     cursor: not-allowed;
-  }
-
-  /* Hover-reveal on devices with a real pointer; touch devices keep them visible. */
-  @media (hover: hover) {
-    #shopify-section-{{ section.id }} .featured-tabs-spotlight-card__actions {
-      opacity: 0;
-      transform: translateY(-6px);
-      transition: opacity 0.22s ease, transform 0.22s ease;
-    }
-
-    #shopify-section-{{ section.id }} .featured-tabs-spotlight-card:hover .featured-tabs-spotlight-card__actions,
-    #shopify-section-{{ section.id }} .featured-tabs-spotlight-card:focus-within .featured-tabs-spotlight-card__actions {
-      opacity: 1;
-      transform: none;
-    }
   }
 
   /* Liquid glass (Apple-style): a luminous translucent material. Backdrop blur + high
