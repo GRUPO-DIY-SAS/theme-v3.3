@@ -1161,7 +1161,7 @@
         "image_radius": 18,
         "product_layout": "carousel",
         "items_to_show": 8,
-        "items_per_row": 5,
+        "items_per_row": 4,
         "column_gap": 30,
         "items_per_row_mobile": 1.5,
         "show_card_title": true,
