@@ -880,12 +880,12 @@
     margin-top: 12px;
   }
 
-  #shopify-section-{{ section.id }} .featured-tabs-spotlight-card__qa-form {
-    margin: 0;
-    line-height: 0;
-  }
-
+  /* Single-variant cards wrap the button in <product-form><form>; shrink those wrappers to
+     the button (inline-flex) so they lay out identically to the multi-variant <select-option>
+     case and the cart button stays centred in the row. */
+  #shopify-section-{{ section.id }} .featured-tabs-spotlight-card__qa-form,
   #shopify-section-{{ section.id }} .featured-tabs-spotlight-card__qa-form .form {
+    display: inline-flex;
     margin: 0;
   }
 
