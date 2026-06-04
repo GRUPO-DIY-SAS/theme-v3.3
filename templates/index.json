@@ -1433,7 +1433,7 @@
         "bg_motion": "aurora",
         "geo_overlay": "particles",
         "motion_speed": "lively",
-        "motion_accent_1": "#e0203a",
+        "motion_accent_1": "#ffffff",
         "motion_accent_2": "#2dd4bf",
         "motion_opacity": 35,
         "motion_intensity": 100,
