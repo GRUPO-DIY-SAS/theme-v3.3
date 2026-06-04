@@ -1036,7 +1036,7 @@
           "type": "_group-media-content",
           "name": "t:blocks.names.media_with_text",
           "settings": {
-            "color_scheme": "",
+            "color_scheme": "scheme-25500afe-f810-44c8-b7cd-8bc90ff950d9",
             "content_width": "25%",
             "media_type": "image",
             "image": "shopify://shop_images/3-67813891cdbcb.webp",
@@ -1302,7 +1302,7 @@
       "name": "t:sections.multi_content.name",
       "settings": {
         "section_width": "fluid_container",
-        "color_scheme": "",
+        "color_scheme": "scheme-25500afe-f810-44c8-b7cd-8bc90ff950d9",
         "heading": "",
         "description": "",
         "show_view_all_button": false,
