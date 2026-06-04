@@ -6,7 +6,8 @@
  * or related systems. Please exercise caution as any changes
  * made to this file may be overwritten.
  * ------------------------------------------------------------
- */{
+ */
+{
   "sections": {
     "featured_collection_tabs_spotlight_Ljzi7w": {
       "type": "featured-collection-tabs-spotlight",
@@ -454,7 +455,7 @@
         "grain_opacity": 8,
         "blend_edge": "both",
         "blend_overlap": 0,
-        "motion_phase": 1,
+        "motion_phase": 0,
         "background_color": "#ebebeb",
         "tab_background": "#393752",
         "tab_text_color": "#ffffff",
@@ -516,7 +517,7 @@
             "tab_key": "",
             "collection": "pods-desechables",
             "products": [],
-            "collection_title": "",
+            "collection_title": "Desechables",
             "cta_label": "",
             "cta_link": "",
             "tab_eyebrow": "",
@@ -531,7 +532,7 @@
             "tab_key": "",
             "collection": "pod-system",
             "products": [],
-            "collection_title": "Sistemas Recargables",
+            "collection_title": "Vapes Recargables",
             "cta_label": "",
             "cta_link": "",
             "tab_eyebrow": "",
@@ -627,7 +628,7 @@
         "grain_opacity": 8,
         "blend_edge": "both",
         "blend_overlap": 160,
-        "motion_phase": 2,
+        "motion_phase": 0,
         "background_color": "#ebebeb",
         "tab_background": "#393752",
         "tab_text_color": "#ffffff",
@@ -782,7 +783,7 @@
         "grain_opacity": 8,
         "blend_edge": "both",
         "blend_overlap": 152,
-        "motion_phase": 3,
+        "motion_phase": 0,
         "background_color": "#ebebeb",
         "tab_background": "#393752",
         "tab_text_color": "#ffffff",
@@ -937,7 +938,7 @@
         "grain_opacity": 8,
         "blend_edge": "top",
         "blend_overlap": 0,
-        "motion_phase": 4,
+        "motion_phase": 0,
         "background_color": "#ebebeb",
         "tab_background": "#393752",
         "tab_text_color": "#ffffff",
