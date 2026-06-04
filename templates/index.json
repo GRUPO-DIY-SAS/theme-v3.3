@@ -904,7 +904,7 @@
             "cta_label": "",
             "cta_link": "",
             "tab_heading": "Estrenos y lanzamientos en nuestra tienda de vapeo",
-            "tab_description": "<p><em>Mantente siempre al día con lo último en el mundo del vapeo. Descubre nuestras novedades y sé el primero en probar lo mejor de nuestra tienda.</em></p>",
+            "tab_description": "<p>Mantente siempre al día con lo último en el mundo del vapeo. Descubre nuestras novedades y sé el primero en probar lo mejor de nuestra tienda.</p>",
             "tab_hero_type": "inherit"
           }
         }
@@ -999,7 +999,7 @@
         "items_per_row_mobile": 2,
         "show_card_title": true,
         "card_title_lines": 2,
-        "show_card_vendor": false,
+        "show_card_vendor": true,
         "show_card_price": true,
         "show_card_compare_price": true,
         "show_card_badges": true,
@@ -1041,7 +1041,7 @@
             "cta_label": "",
             "cta_link": "",
             "tab_heading": "Descubre los vapes desechables de larga duración y alta autonomía",
-            "tab_description": "<p><em>En DIY Vape Shop reunimos los vapes desechables más populares y confiables del mercado. Variedad de marcas, sabores y presentaciones para que siempre tengas uno listo cuando lo necesites.</em></p>",
+            "tab_description": "<p>En DIY Vape Shop reunimos los vapes desechables más populares y confiables del mercado. Variedad de marcas, sabores y presentaciones para que siempre tengas uno listo cuando lo necesites.</p>",
             "tab_hero_type": "inherit"
           }
         },
@@ -1055,7 +1055,7 @@
             "cta_label": "",
             "cta_link": "",
             "tab_heading": "Equipos de vapeo recargables: los preferidos por nuestros clientes",
-            "tab_description": "<p><em>Para quienes buscan una experiencia de vapeo personalizada, nuestros vapes recargables ofrecen potencia, diseño y libertad para elegir sabores y niveles de nicotina</em></p>",
+            "tab_description": "<p>Para quienes buscan una experiencia de vapeo personalizada, nuestros vapes recargables ofrecen potencia, diseño y libertad para elegir sabores y niveles de nicotina.</p>",
             "tab_hero_type": "inherit"
           }
         },
@@ -1069,7 +1069,7 @@
             "cta_label": "",
             "cta_link": "",
             "tab_heading": "Dispositivos IQOS, TEREA y alternativas de tabaco calentado",
-            "tab_description": "<p><em>Encuentra sistemas de calentamiento de tabaco compatibles con TEREA y otras soluciones de última generación. Conoce las diferentes opciones disponibles para quienes buscan alternativas tecnológicas al consumo tradicional de tabaco.</em></p>",
+            "tab_description": "<p>Encuentra sistemas de calentamiento de tabaco compatibles con TEREA y otras soluciones de última generación. Conoce las diferentes opciones disponibles para quienes buscan alternativas tecnológicas al consumo tradicional de tabaco.</p>",
             "tab_hero_type": "inherit"
           }
         }
@@ -1166,7 +1166,7 @@
         "items_per_row_mobile": 2,
         "show_card_title": true,
         "card_title_lines": 2,
-        "show_card_vendor": false,
+        "show_card_vendor": true,
         "show_card_price": true,
         "show_card_compare_price": true,
         "show_card_badges": true,
@@ -1208,7 +1208,7 @@
             "cta_label": "",
             "cta_link": "",
             "tab_heading": "Encuentra tu Nic Salt ideal: más sabores, más opciones",
-            "tab_description": "<p><em>Descubre sales de nicotina con perfiles frutales, mentolados, postres, bebidas y mezclas especiales. Disponibles en concentraciones de 20 mg a 70 mg para usuarios adultos que buscan una experiencia adaptada a sus preferencias.</em></p>",
+            "tab_description": "<p>Descubre sales de nicotina con perfiles frutales, mentolados, postres, bebidas y mezclas especiales. Disponibles en concentraciones de 20 mg a 70 mg para usuarios adultos que buscan una experiencia adaptada a sus preferencias.</p>",
             "tab_hero_type": "inherit"
           }
         },
@@ -1222,7 +1222,7 @@
             "cta_label": "",
             "cta_link": "",
             "tab_heading": "E-Liquids de baja nicotina para equipos de vapeo",
-            "tab_description": "<p><em>Encuentra líquidos para vapeo en presentaciones de gran formato con niveles de nicotina desde 0 mg hasta 12 mg. Ideales para usuarios adultos que buscan largas sesiones de uso, variedad de sabores y una experiencia adaptada a sus preferencias.</em></p>",
+            "tab_description": "<p>Encuentra líquidos para vapeo en presentaciones de gran formato con niveles de nicotina desde 0 mg hasta 12 mg. Ideales para usuarios adultos que buscan largas sesiones de uso, variedad de sabores y una experiencia adaptada a sus preferencias.</p>",
             "tab_hero_type": "inherit"
           }
         }
@@ -1316,7 +1316,7 @@
         "items_per_row_mobile": 2,
         "show_card_title": true,
         "card_title_lines": 2,
-        "show_card_vendor": false,
+        "show_card_vendor": true,
         "show_card_price": true,
         "show_card_compare_price": true,
         "show_card_badges": true,
@@ -1466,7 +1466,7 @@
         "items_per_row_mobile": 2,
         "show_card_title": true,
         "card_title_lines": 2,
-        "show_card_vendor": false,
+        "show_card_vendor": true,
         "show_card_price": true,
         "show_card_compare_price": true,
         "show_card_badges": true,
