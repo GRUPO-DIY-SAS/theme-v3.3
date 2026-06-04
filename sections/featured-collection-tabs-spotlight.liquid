@@ -10,6 +10,17 @@
   assign quick_layout = section_st.quick_layout
   assign card_surface = section_st.card_surface
   assign interaction_effect = section_st.interaction_effect
+  # Above-the-fold priority: opt-in on the first/hero section so its media loads eagerly
+  # (LCP) instead of lazy. Off everywhere else so below-fold blocks stay lazy.
+  assign priority_loading = section_st.priority_loading
+  assign bg_loading = 'lazy'
+  assign bg_fetch = 'auto'
+  assign bg_preload = false
+  if priority_loading
+    assign bg_loading = 'eager'
+    assign bg_fetch = 'high'
+    assign bg_preload = true
+  endif
   assign bg_motion = section_st.bg_motion | default: 'none'
   assign geo_overlay = section_st.geo_overlay | default: 'none'
   assign motion_speed = section_st.motion_speed | default: 'balanced'
@@ -1545,6 +1556,14 @@
   class="section featured-tabs-spotlight featured-tabs-spotlight--shape-{{ section_st.shape_style }} featured-tabs-spotlight--bg-{{ background_type }} featured-tabs-spotlight--mode-{{ display_mode }} featured-tabs-spotlight--layout-{{ product_layout }} featured-tabs-spotlight--quick-layout-{{ quick_layout }} featured-tabs-spotlight--cards-{{ card_surface }} featured-tabs-spotlight--fx-{{ interaction_effect }} color-{{ color_scheme }} gradient{% if section_st.animate_shape %} featured-tabs-spotlight--shape-motion{% endif %}{% if section_st.shape_anchor != blank and section_st.shape_anchor != 'auto' %} featured-tabs-spotlight--shape-anchor-{{ section_st.shape_anchor }}{% endif %}{% if section_st.blend_edge == 'top' or section_st.blend_edge == 'both' %} featured-tabs-spotlight--blend-top{% endif %}{% if section_st.blend_edge == 'bottom' or section_st.blend_edge == 'both' %} featured-tabs-spotlight--blend-bottom{% endif %}{% if bg_motion != 'none' %} featured-tabs-spotlight--motion-{{ bg_motion }} featured-tabs-spotlight--motion-speed-{{ motion_speed }}{% endif %}{% if section_st.geo_parallax and geo_overlay != 'none' %} featured-tabs-spotlight--geo-parallax{% endif %}{% if section_st.glass_refraction and card_surface == 'glass' %} featured-tabs-spotlight--glass-refraction{% endif %}{% if hero_aspect_value != blank %} featured-tabs-spotlight--hero-aspect{% endif %}{% if hero_shown %} featured-tabs-spotlight--hero-mobile-{{ hero_mobile_placement }}{% endif %}{% if hero_is_side %} featured-tabs-spotlight--hero-side featured-tabs-spotlight--hero-side-{{ hero_side }} featured-tabs-spotlight--hero-valign-{{ hero_side_valign }}{% endif %}{% if section_st.padding_top < 30 %} pt-min{% endif %}{% if section_st.padding_bottom < 30 %} pb-min{% endif %}{{ reset_spacing }}"
   style="{{ section_style | strip | strip_newlines }}"
 >
+  {%- comment %} Above-the-fold LCP hint. Image/parallax heroes preload via the image_tag
+     preload argument below; a video background has no image_tag, so its poster (the LCP for
+     that case) is preloaded with a link here. {% endcomment -%}
+  {%- if priority_loading and background_type == 'video' and background_video_poster != blank -%}
+    {% # theme-check-disable AssetPreload %}
+    <link rel="preload" as="image" href="{{ background_video_poster | image_url: width: 1800 }}" fetchpriority="high">
+    {% # theme-check-enable AssetPreload %}
+  {%- endif -%}
   {%- if background_type == 'image' or background_type == 'parallax' -%}
     <div
       class="featured-tabs-spotlight__background"
@@ -1553,10 +1572,10 @@
       {% endif %}
     >
       {%- if background_image != blank -%}
-        {{ background_image | image_url: width: 2400 | image_tag: class: 'featured-tabs-spotlight__background-desktop', widths: '750, 1100, 1500, 2000, 2400', sizes: '100vw', loading: 'lazy', alt: heading }}
+        {{ background_image | image_url: width: 2400 | image_tag: class: 'featured-tabs-spotlight__background-desktop', widths: '750, 1100, 1500, 2000, 2400', sizes: '100vw', loading: bg_loading, fetchpriority: bg_fetch, preload: bg_preload, alt: heading }}
       {%- endif -%}
       {%- if mobile_background_image != blank -%}
-        {{ mobile_background_image | image_url: width: 1200 | image_tag: class: 'featured-tabs-spotlight__background-mobile', widths: '375, 550, 750, 950, 1200', sizes: '100vw', loading: 'lazy', alt: heading }}
+        {{ mobile_background_image | image_url: width: 1200 | image_tag: class: 'featured-tabs-spotlight__background-mobile', widths: '375, 550, 750, 950, 1200', sizes: '100vw', loading: bg_loading, fetchpriority: bg_fetch, alt: heading }}
       {%- endif -%}
     </div>
   {%- elsif background_type == 'video' -%}
@@ -1771,6 +1790,12 @@
                 assign quick_btn1_link = block_st.button_link | default: quick_link
                 assign quick_btn2_label = block_st.button_label_2
                 assign quick_btn2_link = block_st.button_link_2 | default: quick_link
+                assign q_loading = 'lazy'
+                assign q_fetch = 'auto'
+                if priority_loading and quick_count <= 4
+                  assign q_loading = 'eager'
+                  assign q_fetch = 'high'
+                endif
               -%}
               <div
                 class="featured-tabs-spotlight-quick__item text-{{ block_st.text_alignment }}{% if quick_layout == 'carousel' %} swiper-slide{% endif %}{% if quick_ratio == 'fixed' %} featured-tabs-spotlight-quick__item--fixed{% endif %}"
@@ -1785,7 +1810,7 @@
               >
                 <a class="featured-tabs-spotlight-quick__media" href="{{ quick_link }}" aria-label="{{ quick_title | escape }}">
                   {%- if quick_image != blank -%}
-                    {{ quick_image | image_url: width: 900 | image_tag: widths: '240, 360, 480, 640, 760, 900', sizes: '(min-width: 1025px) 25vw, 80vw', loading: 'lazy', alt: quick_title }}
+                    {{ quick_image | image_url: width: 900 | image_tag: widths: '240, 360, 480, 640, 760, 900', sizes: '(min-width: 1025px) 25vw, 80vw', loading: q_loading, fetchpriority: q_fetch, alt: quick_title }}
                   {%- else -%}
                     {{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg' }}
                   {%- endif -%}
@@ -1869,7 +1894,9 @@
                 class="featured-tabs-spotlight__tab collection-tab__tab-item heading-style{% if tab_button_index == 1 %} active{% endif %}"
                 data-block-id="{{ block.id }}"
                 data-style="spotlight"
+                id="spotlight-tab-{{ block.id }}"
                 role="tab"
+                aria-controls="spotlight-panel-{{ block.id }}"
                 aria-selected="{% if tab_button_index == 1 %}true{% else %}false{% endif %}"
                 tabindex="{% if tab_button_index == 1 %}0{% else %}-1{% endif %}"
                 {{ block.shopify_attributes }}
@@ -1908,6 +1935,10 @@
               <div
                 class="collection-tab__tab-content{% if tab_content_index == 1 %} active{% else %} hidden{% endif %}"
                 data-block-id="{{ block.id }}"
+                id="spotlight-panel-{{ block.id }}"
+                role="tabpanel"
+                aria-labelledby="spotlight-tab-{{ block.id }}"
+                tabindex="0"
                 data-collection-url="{{ tab_cta_link }}"
               >
                 <slide-section
@@ -3639,6 +3670,17 @@
       "step": 1,
       "unit": "s",
       "default": 5
+    },
+    {
+      "type": "header",
+      "content": "Performance"
+    },
+    {
+      "type": "checkbox",
+      "id": "priority_loading",
+      "label": "Prioritize loading (above the fold)",
+      "info": "Enable ONLY on the first section of the page. Loads its hero media and first cards eagerly with high priority (improves LCP). Leave off on every other section so below-the-fold media stays lazy.",
+      "default": false
     },
     {
       "type": "header",

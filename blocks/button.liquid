@@ -28,7 +28,7 @@
         {% else %}
           href="{{ block_st.first_button_link | default: "#" }}"
         {% endif %}
-        aria-label="{{ block_st.first_button_label }}"
+        aria-label="{{ block_st.first_button_aria_label | default: block_st.first_button_label }}"
         class="inline-flex no-underline justify-center btn-{{ block_st.first_button_type }}{% if block.settings.show_full_width %} flex-1 w-full justify-content-center{% endif %}"
       >
         {{ block.settings.first_button_label }}
@@ -41,7 +41,7 @@
         {% else %}
           href="{{ block_st.second_button_link | default: "#" }}"
         {% endif %}
-        aria-label="{{ block_st.second_button_label }}"
+        aria-label="{{ block_st.second_button_aria_label | default: block_st.second_button_label }}"
         class="inline-flex no-underline justify-center btn-{{ block_st.second_button_type }}{% if block.settings.show_full_width %} flex-1 w-full justify-content-center{% endif %}"
       >
         {{ block.settings.second_button_label }}
@@ -81,6 +81,12 @@
       "label": "t:sections.all.contents.button.first_button_link.label"
     },
     {
+      "type": "text",
+      "id": "first_button_aria_label",
+      "label": "First button accessible label",
+      "info": "Optional. Screen-reader label when the visible text isn't unique on its own (e.g. repeated 'View location' links). Defaults to the button label."
+    },
+    {
       "type": "select",
       "id": "first_button_type",
       "label": "t:sections.all.contents.button.button_type.label",
@@ -110,6 +116,12 @@
       "type": "url",
       "id": "second_button_link",
       "label": "t:sections.all.contents.button.secondary_button_link.label"
+    },
+    {
+      "type": "text",
+      "id": "second_button_aria_label",
+      "label": "Second button accessible label",
+      "info": "Optional. Screen-reader label when the visible text isn't unique on its own. Defaults to the button label."
     },
     {
       "type": "select",

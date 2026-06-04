@@ -352,7 +352,8 @@
         "padding_top": 120,
         "padding_bottom": 80,
         "reset_spacing": true,
-        "glass_refraction": true
+        "glass_refraction": true,
+        "priority_loading": true
       }
     },
     "featured_collection_tabs_spotlight_EQLJLD": {
@@ -1095,7 +1096,8 @@
                 "second_button_label": "",
                 "second_button_link": "",
                 "second_button_type": "primary",
-                "spacing_bottom": 10
+                "spacing_bottom": 10,
+                "first_button_aria_label": "Ver ubicación de DIY Vape Shop 85"
               },
               "blocks": {}
             }
@@ -1160,7 +1162,8 @@
                 "second_button_label": "",
                 "second_button_link": "",
                 "second_button_type": "primary",
-                "spacing_bottom": 10
+                "spacing_bottom": 10,
+                "first_button_aria_label": "Ver ubicación de DIY Vape Shop 140"
               },
               "blocks": {}
             }
@@ -1225,7 +1228,8 @@
                 "second_button_label": "",
                 "second_button_link": "",
                 "second_button_type": "primary",
-                "spacing_bottom": 10
+                "spacing_bottom": 10,
+                "first_button_aria_label": "Ver ubicación de DIY Vape Shop Salitre"
               },
               "blocks": {}
             }
@@ -1290,7 +1294,8 @@
                 "second_button_label": "",
                 "second_button_link": "",
                 "second_button_type": "primary",
-                "spacing_bottom": 10
+                "spacing_bottom": 10,
+                "first_button_aria_label": "Ver ubicación de DIY Vape Shop Colina"
               },
               "blocks": {}
             }
