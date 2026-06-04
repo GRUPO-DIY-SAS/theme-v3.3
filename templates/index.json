@@ -891,7 +891,7 @@
             "text_alignment": "center",
             "max_width": 1100,
             "heading_size": 36,
-            "text_size": 0
+            "text_size": 18
           }
         },
         "collection_9J99QA": {
@@ -924,7 +924,7 @@
         "header_alignment": "center",
         "show_view_all_button": true,
         "text_size_heading": 36,
-        "text_size_description": 0,
+        "text_size_description": 18,
         "text_size_tab": 0,
         "text_size_card_title": 14,
         "text_size_card_meta": 0,
@@ -1023,12 +1023,12 @@
           "type": "rich_text",
           "settings": {
             "position": "top",
-            "heading": "Escoge el sistema de vapeo de tu preferencia.",
-            "content": "<p><em>Tenemos todas las opciones disponibles en el mercado</em></p>",
+            "heading": "Encuentra el sistema de vapeo ideal para ti",
+            "content": "<p><em>Explora la mayor selección de sistemas de vapeo disponibles. Desde dispositivos desechables y pods hasta kits avanzados y equipos recargables, encuentra la opción que mejor se adapta a tus preferencias, experiencia y estilo de uso.</em></p>",
             "text_alignment": "center",
-            "max_width": 760,
+            "max_width": 1100,
             "heading_size": 36,
-            "text_size": 0
+            "text_size": 18
           }
         },
         "tab_2": {
@@ -1040,7 +1040,7 @@
             "collection_title": "",
             "cta_label": "",
             "cta_link": "",
-            "tab_heading": "Los mejores vapes desechables en DIY",
+            "tab_heading": "Descubre los vapes desechables de larga duración y alta autonomía",
             "tab_description": "<p><em>En DIY Vape Shop reunimos los vapes desechables más populares y confiables del mercado. Variedad de marcas, sabores y presentaciones para que siempre tengas uno listo cuando lo necesites.</em></p>",
             "tab_hero_type": "inherit"
           }
@@ -1054,7 +1054,7 @@
             "collection_title": "Sistemas Recargables",
             "cta_label": "",
             "cta_link": "",
-            "tab_heading": "Equipos recargables: los preferidos por nuestros clientes",
+            "tab_heading": "Equipos de vapeo recargables: los preferidos por nuestros clientes",
             "tab_description": "<p><em>Para quienes buscan una experiencia de vapeo personalizada, nuestros vapes recargables ofrecen potencia, diseño y libertad para elegir sabores y niveles de nicotina</em></p>",
             "tab_hero_type": "inherit"
           }
@@ -1068,8 +1068,8 @@
             "collection_title": "",
             "cta_label": "",
             "cta_link": "",
-            "tab_heading": "Iqos y Terea",
-            "tab_description": "<p>Alternativas de calentamiento de tabaco</p>",
+            "tab_heading": "Dispositivos IQOS, TEREA y alternativas de tabaco calentado",
+            "tab_description": "<p><em>Encuentra sistemas de calentamiento de tabaco compatibles con TEREA y otras soluciones de última generación. Conoce las diferentes opciones disponibles para quienes buscan alternativas tecnológicas al consumo tradicional de tabaco.</em></p>",
             "tab_hero_type": "inherit"
           }
         }
@@ -1091,7 +1091,7 @@
         "header_alignment": "center",
         "show_view_all_button": true,
         "text_size_heading": 36,
-        "text_size_description": 0,
+        "text_size_description": 18,
         "text_size_tab": 0,
         "text_size_card_title": 14,
         "text_size_card_meta": 0,
@@ -1195,7 +1195,7 @@
             "text_alignment": "center",
             "max_width": 760,
             "heading_size": 36,
-            "text_size": 0
+            "text_size": 18
           }
         },
         "collection_dPwnQH": {
@@ -1207,8 +1207,8 @@
             "collection_title": "",
             "cta_label": "",
             "cta_link": "",
-            "tab_heading": "Nic Salts de todos los sabores",
-            "tab_description": "<p>Para los que buscan golpe: disponibles en niveles de nicotina de 20mg a 70mg</p>",
+            "tab_heading": "Encuentra tu Nic Salt ideal: más sabores, más opciones",
+            "tab_description": "<p><em>Descubre sales de nicotina con perfiles frutales, mentolados, postres, bebidas y mezclas especiales. Disponibles en concentraciones de 20 mg a 70 mg para usuarios adultos que buscan una experiencia adaptada a sus preferencias.</em></p>",
             "tab_hero_type": "inherit"
           }
         },
@@ -1221,8 +1221,8 @@
             "collection_title": "Base Libre",
             "cta_label": "",
             "cta_link": "",
-            "tab_heading": "Líquidos con baja concentración de nicotina en gran formato",
-            "tab_description": "<p>Para equipos de vapeo </p>",
+            "tab_heading": "E-Liquids de baja nicotina para equipos de vapeo",
+            "tab_description": "<p><em>Encuentra líquidos para vapeo en presentaciones de gran formato con niveles de nicotina desde 0 mg hasta 12 mg. Ideales para usuarios adultos que buscan largas sesiones de uso, variedad de sabores y una experiencia adaptada a sus preferencias.</em></p>",
             "tab_hero_type": "inherit"
           }
         }
@@ -1243,7 +1243,7 @@
         "header_alignment": "center",
         "show_view_all_button": true,
         "text_size_heading": 36,
-        "text_size_description": 0,
+        "text_size_description": 18,
         "text_size_tab": 0,
         "text_size_card_title": 14,
         "text_size_card_meta": 0,
@@ -1340,12 +1340,12 @@
           "type": "rich_text",
           "settings": {
             "position": "top",
-            "heading": "Los mejores Vaporizadores de Cannabis y Concentrados están aquí.",
-            "content": "<p><em>Compra tu vaporizador herbal con los mejores en Colombia. Las mejores marcas del mercado en un solo lugar. </em></p>",
+            "heading": "Compra vaporizadores herbales y de concentrados de las mejores marcas",
+            "content": "<p><em>Encuentra vaporizadores para hierbas secas y concentrados seleccionados por su calidad, innovación y desempeño. Descubre equipos portátiles y de escritorio de las marcas más reconocidas para usuarios adultos que buscan una experiencia premium.</em></p>",
             "text_alignment": "center",
             "max_width": 760,
             "heading_size": 36,
-            "text_size": 0
+            "text_size": 18
           }
         },
         "tab_3": {
@@ -1357,8 +1357,8 @@
             "collection_title": "Herbales",
             "cta_label": "",
             "cta_link": "",
-            "tab_heading": "",
-            "tab_description": "",
+            "tab_heading": "Vaporizadores herbales de las mejores marcas",
+            "tab_description": "<p>Explora vaporizadores para hierbas secas de marcas líderes en el mercado. Compara sistemas de calentamiento por conducción, convección e híbridos, y encuentra el equipo ideal para tus preferencias y estilo de uso.</p>",
             "tab_hero_type": "inherit"
           }
         },
@@ -1371,8 +1371,8 @@
             "collection_title": "Destilados",
             "cta_label": "",
             "cta_link": "",
-            "tab_heading": "",
-            "tab_description": "",
+            "tab_heading": "Baterías 510 para cartuchos: potencia, compatibilidad y rendimiento",
+            "tab_description": "<p>Descubre baterías con rosca 510 compatibles con una amplia variedad de cartuchos. Encuentra modelos compactos y portátiles con diferentes niveles de potencia, activación por inhalación o botón, y funciones avanzadas diseñadas para ofrecer una experiencia cómoda y confiable.</p>",
             "tab_hero_type": "inherit"
           }
         }
@@ -1393,7 +1393,7 @@
         "header_alignment": "center",
         "show_view_all_button": true,
         "text_size_heading": 36,
-        "text_size_description": 0,
+        "text_size_description": 18,
         "text_size_tab": 0,
         "text_size_card_title": 14,
         "text_size_card_meta": 0,
