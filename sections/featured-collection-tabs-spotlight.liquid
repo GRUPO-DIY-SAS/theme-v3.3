@@ -906,20 +906,14 @@
     transition: transform 0.2s ease, background-color 0.2s ease;
   }
 
-  /* Visible icon keeps its aspect; the loading spinner is taken out of flow (absolute,
-     centered without transform so the spin rotation isn't overridden) so it doesn't push
-     the visible icon off-centre. */
-  #shopify-section-{{ section.id }} .featured-tabs-spotlight-card__action svg {
-    width: auto;
-    height: 16px;
-  }
-
+  /* Icons render at their native attribute size (like the theme's product-item cards) — no
+     forced scaling, which on these no-viewBox sprite symbols caused clipping/offset. The
+     loading spinner is taken out of flow (absolute, centred via margin:auto so the spin
+     rotation isn't overridden) so it never pushes the visible icon off-centre. */
   #shopify-section-{{ section.id }} .featured-tabs-spotlight-card__action .icon-load {
     position: absolute;
     inset: 0;
     margin: auto;
-    width: 15px;
-    height: 15px;
   }
 
   #shopify-section-{{ section.id }} .featured-tabs-spotlight-card__action:hover {
