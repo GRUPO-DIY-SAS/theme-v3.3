@@ -457,7 +457,7 @@
           "btn_outline_color": "#111111",
           "btn_outline_border_color": "#111111",
           "button_link_color": "#111111",
-          "button_link_hover_color": "#111111"
+          "button_link_hover_color": "{{ shop.brand.colors.primary[0].background }}"
         }
       },
       "scheme-9cfc3af7-a794-49ce-b80d-e06b99df04ea": {
