@@ -927,7 +927,7 @@
         "motion_accent_1": "#ffffff",
         "motion_accent_2": "#2dd4bf",
         "motion_opacity": 35,
-        "motion_intensity": 100,
+        "motion_intensity": 130,
         "motion_blend": "normal",
         "bg_grain": true,
         "grain_opacity": 8,
