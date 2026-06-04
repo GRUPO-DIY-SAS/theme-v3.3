@@ -46,6 +46,8 @@
   assign show_card_title = section_st.show_card_title
   assign show_card_vendor = section_st.show_card_vendor
   assign show_card_price = section_st.show_card_price
+  assign show_quick_add = section_st.show_quick_add
+  assign show_quick_view = section_st.show_quick_view
   assign show_card_compare_price = section_st.show_card_compare_price
   assign show_card_badges = section_st.show_card_badges
   assign scroll_animation = settings.scroll_animation
@@ -857,6 +859,7 @@
   }
 
   #shopify-section-{{ section.id }} .featured-tabs-spotlight-card__inner {
+    position: relative;
     display: flex;
     height: 100%;
     min-height: 100%;
@@ -865,6 +868,73 @@
     border-radius: 22px;
     background: var(--spotlight-card-bg);
     transition: border-color 0.24s ease, box-shadow 0.24s ease, transform 0.24s ease, backdrop-filter 0.24s ease;
+  }
+
+  /* Quick view / quick add overlay — sits over the media corner, reveals on hover (desktop),
+     always visible on touch. The buttons sit above the media link via z-index. */
+  #shopify-section-{{ section.id }} .featured-tabs-spotlight-card__actions {
+    position: absolute;
+    top: calc(clamp(12px, 1.4vw, 20px) + 10px);
+    right: calc(clamp(12px, 1.4vw, 20px) + 10px);
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  #shopify-section-{{ section.id }} .featured-tabs-spotlight-card__qa-form {
+    margin: 0;
+    line-height: 0;
+  }
+
+  #shopify-section-{{ section.id }} .featured-tabs-spotlight-card__qa-form .form {
+    margin: 0;
+  }
+
+  #shopify-section-{{ section.id }} .featured-tabs-spotlight-card__action {
+    width: 42px;
+    height: 42px;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 999px;
+    background: #ffffff;
+    color: #111111;
+    cursor: pointer;
+    box-shadow: 0 6px 16px -6px rgba(15, 15, 20, 0.35);
+    transition: transform 0.2s ease, background-color 0.2s ease;
+  }
+
+  #shopify-section-{{ section.id }} .featured-tabs-spotlight-card__action svg {
+    width: 17px;
+    height: 17px;
+  }
+
+  #shopify-section-{{ section.id }} .featured-tabs-spotlight-card__action:hover {
+    transform: scale(1.08);
+    background: #f4f4f4;
+  }
+
+  #shopify-section-{{ section.id }} .featured-tabs-spotlight-card__action[disabled] {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  /* Hover-reveal on devices with a real pointer; touch devices keep them visible. */
+  @media (hover: hover) {
+    #shopify-section-{{ section.id }} .featured-tabs-spotlight-card__actions {
+      opacity: 0;
+      transform: translateY(-6px);
+      transition: opacity 0.22s ease, transform 0.22s ease;
+    }
+
+    #shopify-section-{{ section.id }} .featured-tabs-spotlight-card:hover .featured-tabs-spotlight-card__actions,
+    #shopify-section-{{ section.id }} .featured-tabs-spotlight-card:focus-within .featured-tabs-spotlight-card__actions {
+      opacity: 1;
+      transform: none;
+    }
   }
 
   /* Liquid glass (Apple-style): a luminous translucent material. Backdrop blur + high
@@ -2002,6 +2072,7 @@
                                   {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
                                 {%- endif -%}
                               </a>
+                              {%- render 'spotlight-card-actions', product: product, section_id: section.id, show_quick_view: show_quick_view, show_quick_add: show_quick_add -%}
                               <div class="featured-tabs-spotlight-card__body">
                                 {%- if show_card_vendor and product_eyebrow != blank -%}
                                   <div class="featured-tabs-spotlight-card__eyebrow">{{ product_eyebrow }}</div>
@@ -2039,6 +2110,7 @@
                                 {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
                               {%- endif -%}
                             </a>
+                            {%- render 'spotlight-card-actions', product: product, section_id: section.id, show_quick_view: show_quick_view, show_quick_add: show_quick_add -%}
                             <div class="featured-tabs-spotlight-card__body">
                               {%- if show_card_vendor and product.vendor != blank -%}
                                 <div class="featured-tabs-spotlight-card__vendor">{{ product.vendor }}</div>
@@ -2075,6 +2147,7 @@
                                 {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
                               {%- endif -%}
                             </a>
+                            {%- render 'spotlight-card-actions', product: product, section_id: section.id, show_quick_view: show_quick_view, show_quick_add: show_quick_add -%}
                             <div class="featured-tabs-spotlight-card__body">
                               {%- if show_card_vendor and product.vendor != blank -%}
                                 <div class="featured-tabs-spotlight-card__vendor">{{ product.vendor }}</div>
@@ -3579,6 +3652,20 @@
       "type": "checkbox",
       "id": "show_card_badges",
       "label": "Show custom badges",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_quick_add",
+      "label": "Show quick add",
+      "info": "Adds an add-to-cart button on each product card (opens variant selection for multi-variant products). Uses the theme's cart. Only on real products.",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_quick_view",
+      "label": "Show quick view",
+      "info": "Adds a quick-view button that opens the product preview modal. Only on real products.",
       "default": true
     },
     {

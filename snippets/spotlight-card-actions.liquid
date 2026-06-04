@@ -1,0 +1,61 @@
+{%- comment -%}
+  Quick view + quick add overlay for the collection-tabs-spotlight product cards.
+  Reuses the theme's own custom elements so behaviour matches the rest of the store:
+    - <button-quickview>  opens the product-quickview modal (theme.js)
+    - <product-form>      AJAX add-to-cart + cart notification, for single-variant products
+    - <select-option>     opens the quickview to pick a variant, for multi-variant products
+  Icons (#icon-cart, #icon-quickview, #icon-load) come from snippets/sprite-svg.liquid.
+  Accepts: product (must be a real product), section_id, show_quick_view, show_quick_add.
+{%- endcomment -%}
+{%- if product.id != blank -%}
+{%- if show_quick_view or show_quick_add -%}
+  {%- assign qa_form_id = 'spotlight-quick-add-' | append: section_id | append: '-' | append: product.id -%}
+  <div class="featured-tabs-spotlight-card__actions">
+    {%- if show_quick_add -%}
+      {%- if product.has_only_default_variant -%}
+        <product-form class="featured-tabs-spotlight-card__qa-form">
+          {%- form 'product', product, id: qa_form_id, class: 'form', novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}
+            <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}" disabled>
+            <button
+              id="{{ qa_form_id }}-submit"
+              type="submit"
+              name="add"
+              class="featured-tabs-spotlight-card__action featured-tabs-spotlight-card__qa"
+              data-sold-out-message="true"
+              aria-label="{{ 'products.product.actions.add_to_cart.default.label' | t }}"
+              {% unless product.selected_or_first_available_variant.available %}disabled{% endunless %}
+            >
+              <svg width="14" height="15" fill="none" class="hidden-on-load icon-cart" aria-hidden="true"><use href="#icon-cart" /></svg>
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" class="spin opacity-0 icon-load" aria-hidden="true"><use href="#icon-load"></use></svg>
+            </button>
+          {%- endform -%}
+        </product-form>
+      {%- else -%}
+        <select-option
+          data-url="/products/{{ product.handle }}?section_id=product-quickview&ajax=1"
+          data-custom-class="quickview"
+          data-item="overlay-quickbuy"
+          tabindex="0"
+          class="featured-tabs-spotlight-card__action featured-tabs-spotlight-card__qa"
+          aria-label="{{ 'products.product.actions.select_options.label' | t }}"
+        >
+          <svg width="14" height="15" fill="none" class="hidden-on-load icon-cart" aria-hidden="true"><use href="#icon-cart" /></svg>
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" class="spin opacity-0 icon-load" aria-hidden="true"><use href="#icon-load"></use></svg>
+        </select-option>
+      {%- endif -%}
+    {%- endif -%}
+    {%- if show_quick_view -%}
+      <button-quickview
+        data-url="/products/{{ product.handle }}?section_id=product-quickview&ajax=1"
+        data-custom-class="quickview"
+        tabindex="0"
+        class="featured-tabs-spotlight-card__action featured-tabs-spotlight-card__qv"
+        aria-label="{{ 'products.product.actions.quickview.label' | t }}"
+      >
+        <svg width="16" height="14" fill="none" class="hidden-on-load" aria-hidden="true"><use href="#icon-quickview" /></svg>
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" class="spin opacity-0 icon-load" aria-hidden="true"><use href="#icon-load"></use></svg>
+      </button-quickview>
+    {%- endif -%}
+  </div>
+{%- endif -%}
+{%- endif -%}
