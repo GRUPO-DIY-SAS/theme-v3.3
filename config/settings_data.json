@@ -283,11 +283,6 @@
         "disabled": true,
         "settings": {}
       },
-      "3821540906276787066": {
-        "type": "shopify://apps/dakaas-antitheft/blocks/app-embed/692a8b95-ef22-4bf6-825d-0cc7385ef417",
-        "disabled": true,
-        "settings": {}
-      },
       "1369284949797581044": {
         "type": "shopify://apps/tinyseo/blocks/collection-json-ld-embed/0605268f-f7c4-4e95-b560-e43df7d59ae4",
         "disabled": true,
@@ -447,7 +442,7 @@
       },
       "scheme-25500afe-f810-44c8-b7cd-8bc90ff950d9": {
         "settings": {
-          "background": "#ffffff",
+          "background": "#ebebeb",
           "background_gradient": "",
           "primary_color": "#d0473e",
           "text_color": "#444444",
