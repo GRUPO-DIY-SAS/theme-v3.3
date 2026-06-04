@@ -1370,19 +1370,12 @@
   }
 
   @media screen and (max-width: 749px) {
-    /* Lighter GPU load on phones: smaller blur radii (large-area blur is the priciest op
-       during scroll) and no card backdrop blur — iOS can't run it inside the carousel
-       anyway, and the translucent glass treatment carries the look. */
+    /* Lighter GPU load on phones: smaller blur radii on the big full-viewport motion layers
+       (large-area blur is the priciest scroll op). Card backdrop blur stays on so Grid/Hero
+       glass shows real frosted blur on iPhone; the offscreen-pause keeps scroll smooth. */
     #shopify-section-{{ section.id }} .spotlight-motion__orb { filter: blur(26px); }
     #shopify-section-{{ section.id }} .spotlight-motion__mesh { filter: blur(34px); }
     #shopify-section-{{ section.id }} .spotlight-motion__beams { filter: blur(26px); }
-
-    #shopify-section-{{ section.id }} .featured-tabs-spotlight--layout-grid.featured-tabs-spotlight--cards-glass .featured-tabs-spotlight-card__inner,
-    #shopify-section-{{ section.id }} .featured-tabs-spotlight--layout-hero_cards.featured-tabs-spotlight--cards-glass .featured-tabs-spotlight-card__inner,
-    #shopify-section-{{ section.id }} .featured-tabs-spotlight-quick__item:not(.swiper-slide) .featured-tabs-spotlight-quick__body--glass {
-      backdrop-filter: none;
-      -webkit-backdrop-filter: none;
-    }
 
     #shopify-section-{{ section.id }} .featured-tabs-spotlight--shape-diamond .featured-tabs-spotlight__shape {
       width: 940px;
@@ -3346,8 +3339,8 @@
       "type": "checkbox",
       "id": "glass_refraction",
       "label": "Glass liquid refraction",
-      "info": "Bends the background through the glass for the Apple liquid-glass lens (only with Card surface = Glass). Works where backdrop blur runs — Grid / Hero layout on Chrome/Edge; Safari keeps the frosted look, the carousel keeps the translucent glass. Heavier on the GPU, so it's off by default.",
-      "default": false
+      "info": "Bends the background through the glass for the Apple liquid-glass lens (only with Card surface = Glass). Works where backdrop blur runs — Grid / Hero layout on Chrome/Edge; Safari keeps the frosted look, the carousel keeps the translucent glass.",
+      "default": true
     },
     {
       "type": "select",
