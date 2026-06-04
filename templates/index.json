@@ -316,7 +316,7 @@
         "description": "<p>Calidad y Servicio insuperable</p>",
         "header_size": "large",
         "header_alignment": "center",
-        "header_max_width": 760,
+        "header_max_width": 1100,
         "show_view_all_button": false,
         "text_size_heading": 49,
         "text_size_description": 24,
