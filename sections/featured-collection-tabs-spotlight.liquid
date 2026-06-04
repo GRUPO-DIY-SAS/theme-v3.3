@@ -890,6 +890,7 @@
   }
 
   #shopify-section-{{ section.id }} .featured-tabs-spotlight-card__action {
+    position: relative;
     width: 42px;
     height: 42px;
     padding: 0;
@@ -905,9 +906,20 @@
     transition: transform 0.2s ease, background-color 0.2s ease;
   }
 
+  /* Visible icon keeps its aspect; the loading spinner is taken out of flow (absolute,
+     centered without transform so the spin rotation isn't overridden) so it doesn't push
+     the visible icon off-centre. */
   #shopify-section-{{ section.id }} .featured-tabs-spotlight-card__action svg {
-    width: 17px;
-    height: 17px;
+    width: auto;
+    height: 16px;
+  }
+
+  #shopify-section-{{ section.id }} .featured-tabs-spotlight-card__action .icon-load {
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    width: 15px;
+    height: 15px;
   }
 
   #shopify-section-{{ section.id }} .featured-tabs-spotlight-card__action:hover {
