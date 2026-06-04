@@ -410,8 +410,8 @@
      compose. The layer is over-extended vertically so the shift never exposes an edge. */
   @supports (animation-timeline: view()) {
     #shopify-section-{{ section.id }} .featured-tabs-spotlight--geo-parallax .featured-tabs-spotlight__motion--geo {
-      top: -18%;
-      bottom: -18%;
+      top: -34%;
+      bottom: -34%;
       animation: spotlightGeoParallax linear both;
       animation-timeline: view();
       animation-range: cover;
@@ -419,8 +419,8 @@
   }
 
   @keyframes spotlightGeoParallax {
-    from { translate: 0 calc(13% * var(--spotlight-motion-amp, 1)); }
-    to { translate: 0 calc(-13% * var(--spotlight-motion-amp, 1)); }
+    from { translate: 0 calc(26% * var(--spotlight-motion-amp, 1)); }
+    to { translate: 0 calc(-26% * var(--spotlight-motion-amp, 1)); }
   }
 
   /* Seamless stitch with an adjacent block: pull together + drop the joined edge radius. */
