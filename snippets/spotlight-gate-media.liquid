@@ -1,0 +1,41 @@
+{%- comment -%}
+  Holds the spotlight section's lazy videos until the age gate is approved.
+  Runs inline at parse time (before theme.js's global lazy-video loader), so for an
+  unverified visitor the videos are neutralised (the loader skips them) and only loaded
+  on the diyvape:age-verified event. Verified visitors (cookie already set) keep the
+  normal lazy behaviour. Scoped to its own section via document.currentScript.
+{%- endcomment -%}
+<script>
+  (function () {
+    var s = document.currentScript;
+    var root = s && s.closest(".featured-tabs-spotlight");
+    if (!root) return;
+
+    // Verified already: let the theme's normal lazy loader handle the videos.
+    if (document.documentElement.classList.contains("age-gate-verified")) return;
+
+    var vids = root.querySelectorAll("video.lazy-video[data-src]");
+    if (!vids.length) return;
+
+    // Neutralise so the global lazy-video loader ignores these until verified.
+    vids.forEach(function (v) {
+      v.setAttribute("data-gate-src", v.getAttribute("data-src"));
+      v.removeAttribute("data-src");
+      v.classList.remove("lazy-video");
+    });
+
+    document.addEventListener("diyvape:age-verified", function () {
+      vids.forEach(function (v) {
+        var src = v.getAttribute("data-gate-src");
+        if (!src) return;
+        if (v.dataset.poster && !v.getAttribute("poster")) {
+          v.setAttribute("poster", v.dataset.poster);
+        }
+        v.src = src;
+        v.removeAttribute("data-gate-src");
+        if (v.load) v.load();
+        if (v.hasAttribute("autoplay") && v.play) v.play().catch(function () {});
+      });
+    }, { once: true });
+  })();
+</script>
