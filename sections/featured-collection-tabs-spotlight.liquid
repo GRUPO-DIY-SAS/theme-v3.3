@@ -403,6 +403,26 @@
     transform: translate(calc(var(--spotlight-motion-phase, 0) * 6%), calc(var(--spotlight-motion-phase, 0) * -8%));
   }
 
+  /* Scroll-linked parallax for the geo overlay layer: as the section travels through the
+     viewport the whole shape group glides on the Y axis, so the geometry drifts against the
+     scrolling content. Compositor-driven (view() timeline) — no scroll listeners. The shapes
+     keep their own float (on `transform`); the layer is moved with `translate`, so they
+     compose. The layer is over-extended vertically so the shift never exposes an edge. */
+  @supports (animation-timeline: view()) {
+    #shopify-section-{{ section.id }} .featured-tabs-spotlight--geo-parallax .featured-tabs-spotlight__motion--geo {
+      top: -18%;
+      bottom: -18%;
+      animation: spotlightGeoParallax linear both;
+      animation-timeline: view();
+      animation-range: cover;
+    }
+  }
+
+  @keyframes spotlightGeoParallax {
+    from { translate: 0 calc(13% * var(--spotlight-motion-amp, 1)); }
+    to { translate: 0 calc(-13% * var(--spotlight-motion-amp, 1)); }
+  }
+
   /* Seamless stitch with an adjacent block: pull together + drop the joined edge radius. */
   #shopify-section-{{ section.id }} .featured-tabs-spotlight--blend-top {
     margin-top: calc(-1 * var(--spotlight-blend-overlap, 0px));
@@ -1202,6 +1222,7 @@
   html:not(.age-gate-verified) #shopify-section-{{ section.id }} .spotlight-motion__mesh,
   html:not(.age-gate-verified) #shopify-section-{{ section.id }} .spotlight-motion__beams,
   html:not(.age-gate-verified) #shopify-section-{{ section.id }} .spotlight-motion__particle,
+  html:not(.age-gate-verified) #shopify-section-{{ section.id }} .featured-tabs-spotlight--geo-parallax .featured-tabs-spotlight__motion--geo,
   html:not(.age-gate-verified) #shopify-section-{{ section.id }} .featured-tabs-spotlight--shape-motion .featured-tabs-spotlight__shape {
     animation: none !important;
   }
@@ -1221,7 +1242,8 @@
     #shopify-section-{{ section.id }} .spotlight-motion__grid,
     #shopify-section-{{ section.id }} .spotlight-motion__mesh,
     #shopify-section-{{ section.id }} .spotlight-motion__beams,
-    #shopify-section-{{ section.id }} .spotlight-motion__particle {
+    #shopify-section-{{ section.id }} .spotlight-motion__particle,
+    #shopify-section-{{ section.id }} .featured-tabs-spotlight--geo-parallax .featured-tabs-spotlight__motion--geo {
       animation: none;
     }
 
@@ -1400,7 +1422,7 @@
 {%- endstyle -%}
 
 <div
-  class="section featured-tabs-spotlight featured-tabs-spotlight--shape-{{ section_st.shape_style }} featured-tabs-spotlight--bg-{{ background_type }} featured-tabs-spotlight--mode-{{ display_mode }} featured-tabs-spotlight--layout-{{ product_layout }} featured-tabs-spotlight--quick-layout-{{ quick_layout }} featured-tabs-spotlight--cards-{{ card_surface }} featured-tabs-spotlight--fx-{{ interaction_effect }} color-{{ color_scheme }} gradient{% if section_st.animate_shape %} featured-tabs-spotlight--shape-motion{% endif %}{% if section_st.shape_anchor != blank and section_st.shape_anchor != 'auto' %} featured-tabs-spotlight--shape-anchor-{{ section_st.shape_anchor }}{% endif %}{% if section_st.blend_edge == 'top' or section_st.blend_edge == 'both' %} featured-tabs-spotlight--blend-top{% endif %}{% if section_st.blend_edge == 'bottom' or section_st.blend_edge == 'both' %} featured-tabs-spotlight--blend-bottom{% endif %}{% if bg_motion != 'none' %} featured-tabs-spotlight--motion-{{ bg_motion }} featured-tabs-spotlight--motion-speed-{{ motion_speed }}{% endif %}{% if hero_aspect_value != blank %} featured-tabs-spotlight--hero-aspect{% endif %}{% if hero_shown %} featured-tabs-spotlight--hero-mobile-{{ hero_mobile_placement }}{% endif %}{% if hero_is_side %} featured-tabs-spotlight--hero-side featured-tabs-spotlight--hero-side-{{ hero_side }} featured-tabs-spotlight--hero-valign-{{ hero_side_valign }}{% endif %}{% if section_st.padding_top < 30 %} pt-min{% endif %}{% if section_st.padding_bottom < 30 %} pb-min{% endif %}{{ reset_spacing }}"
+  class="section featured-tabs-spotlight featured-tabs-spotlight--shape-{{ section_st.shape_style }} featured-tabs-spotlight--bg-{{ background_type }} featured-tabs-spotlight--mode-{{ display_mode }} featured-tabs-spotlight--layout-{{ product_layout }} featured-tabs-spotlight--quick-layout-{{ quick_layout }} featured-tabs-spotlight--cards-{{ card_surface }} featured-tabs-spotlight--fx-{{ interaction_effect }} color-{{ color_scheme }} gradient{% if section_st.animate_shape %} featured-tabs-spotlight--shape-motion{% endif %}{% if section_st.shape_anchor != blank and section_st.shape_anchor != 'auto' %} featured-tabs-spotlight--shape-anchor-{{ section_st.shape_anchor }}{% endif %}{% if section_st.blend_edge == 'top' or section_st.blend_edge == 'both' %} featured-tabs-spotlight--blend-top{% endif %}{% if section_st.blend_edge == 'bottom' or section_st.blend_edge == 'both' %} featured-tabs-spotlight--blend-bottom{% endif %}{% if bg_motion != 'none' %} featured-tabs-spotlight--motion-{{ bg_motion }} featured-tabs-spotlight--motion-speed-{{ motion_speed }}{% endif %}{% if section_st.geo_parallax and geo_overlay != 'none' %} featured-tabs-spotlight--geo-parallax{% endif %}{% if hero_aspect_value != blank %} featured-tabs-spotlight--hero-aspect{% endif %}{% if hero_shown %} featured-tabs-spotlight--hero-mobile-{{ hero_mobile_placement }}{% endif %}{% if hero_is_side %} featured-tabs-spotlight--hero-side featured-tabs-spotlight--hero-side-{{ hero_side }} featured-tabs-spotlight--hero-valign-{{ hero_side_valign }}{% endif %}{% if section_st.padding_top < 30 %} pt-min{% endif %}{% if section_st.padding_bottom < 30 %} pb-min{% endif %}{{ reset_spacing }}"
   style="{{ section_style | strip | strip_newlines }}"
 >
   {%- if background_type == 'image' or background_type == 'parallax' -%}
@@ -2919,6 +2941,13 @@
           "label": "Particles"
         }
       ]
+    },
+    {
+      "type": "checkbox",
+      "id": "geo_parallax",
+      "label": "Geometric overlay parallax on scroll",
+      "info": "Drifts the geometric overlay vertically as the section scrolls through the viewport. Scales with Motion intensity. Needs a browser that supports scroll-driven animations; respects reduced-motion.",
+      "default": false
     },
     {
       "type": "select",
