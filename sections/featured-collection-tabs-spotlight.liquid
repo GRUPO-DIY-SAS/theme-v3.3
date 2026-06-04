@@ -4,6 +4,7 @@
   assign color_scheme = section_st.color_scheme
   assign heading = section_st.heading
   assign description = section_st.description
+  assign eyebrow = section_st.eyebrow
   assign display_mode = section_st.display_mode
   assign product_layout = section_st.product_layout
   assign quick_layout = section_st.quick_layout
@@ -143,6 +144,7 @@
 
   assign has_tab_heading = false
   assign has_tab_desc = false
+  assign has_tab_eyebrow = false
   for b in section.blocks
     if b.type == 'collection'
       if b.settings.tab_heading != blank
@@ -150,6 +152,9 @@
       endif
       if b.settings.tab_description != blank
         assign has_tab_desc = true
+      endif
+      if b.settings.tab_eyebrow != blank
+        assign has_tab_eyebrow = true
       endif
     endif
   endfor
@@ -223,6 +228,7 @@
     --spotlight-card-bg: {{ section_st.card_background }};
     --spotlight-card-text: {{ section_st.card_text_color }};
     --spotlight-card-title-lines: {{ section_st.card_title_lines | default: 2 }};
+    --spotlight-header-max: {% if section_st.header_max_width > 0 %}{{ section_st.header_max_width }}px{% else %}none{% endif %};
     --spotlight-overlay: {{ section_st.background_overlay_color }};
     --spotlight-overlay-opacity: {{ section_st.background_overlay_opacity | divided_by: 100.0 }};
     --spotlight-image-ratio: {{ image_ratio_value }};
@@ -694,13 +700,23 @@
   }
 
   #shopify-section-{{ section.id }} .featured-tabs-spotlight__header {
-    max-width: 760px;
+    max-width: var(--spotlight-header-max, 760px);
     margin-left: auto;
     margin-right: auto;
   }
 
   #shopify-section-{{ section.id }} .featured-tabs-spotlight__header-variant[hidden] {
     display: none;
+  }
+
+  #shopify-section-{{ section.id }} .featured-tabs-spotlight__eyebrow {
+    display: block;
+    margin-bottom: 12px;
+    font-size: 13px;
+    letter-spacing: 0.14em;
+    line-height: 1.2;
+    text-transform: uppercase;
+    opacity: 0.7;
   }
 
   /* Rich text band (super-section content block), full width above/below the tabs. */
@@ -727,14 +743,37 @@
   }
 
   #shopify-section-{{ section.id }} .featured-tabs-spotlight__tabs {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 14px;
     margin-top: 32px;
-    padding: 0 1.5rem 4px;
+    padding: 0 1.5rem 7px;
     overflow-x: auto;
     scrollbar-width: none;
+  }
+
+  /* Sliding bar under the active tab. JS sets --ind-x/--ind-w from the active pill's
+     offset; it lives inside the (scrollable) tab row so it tracks horizontal scroll.
+     A thin bar avoids any z-index conflict with the filled pills above it. */
+  #shopify-section-{{ section.id }} .featured-tabs-spotlight__tab-indicator {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 3px;
+    width: var(--ind-w, 0);
+    border-radius: 999px;
+    background: var(--spotlight-tab-active-bg);
+    transform: translateX(var(--ind-x, 0));
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  /* Class added after the first placement so the bar doesn't slide in from x=0 on load. */
+  #shopify-section-{{ section.id }} .featured-tabs-spotlight__tabs.is-indicator-ready .featured-tabs-spotlight__tab-indicator {
+    opacity: 1;
+    transition: transform 0.3s ease, width 0.3s ease;
   }
 
   #shopify-section-{{ section.id }} .featured-tabs-spotlight__tabs::-webkit-scrollbar {
@@ -768,6 +807,17 @@
   #shopify-section-{{ section.id }} .featured-tabs-spotlight__content {
     position: relative;
     margin-top: 38px;
+  }
+
+  /* Soft fade-up when a tab panel becomes active. Interaction-driven (not a loop), so it
+     plays on each switch; the first/default panel fades in once on load. */
+  #shopify-section-{{ section.id }} .collection-tab__tab-content.active {
+    animation: spotlightTabFade 0.28s ease both;
+  }
+
+  @keyframes spotlightTabFade {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
   }
 
   #shopify-section-{{ section.id }} .featured-tabs-spotlight-card {
@@ -1106,6 +1156,29 @@
       animation-timeline: view();
       animation-range: entry 8% cover 28%;
     }
+
+    /* Stagger the leading cards by widening each one's entry range, so the first row
+       cascades in by DOM/visual order instead of snapping together. View timelines
+       ignore animation-delay, so the range is what offsets them. */
+    #shopify-section-{{ section.id }} .featured-tabs-spotlight--fx-reveal .featured-tabs-spotlight-card:nth-child(2),
+    #shopify-section-{{ section.id }} .featured-tabs-spotlight--fx-reveal .featured-tabs-spotlight-quick__item:nth-child(2) {
+      animation-range: entry 12% cover 32%;
+    }
+
+    #shopify-section-{{ section.id }} .featured-tabs-spotlight--fx-reveal .featured-tabs-spotlight-card:nth-child(3),
+    #shopify-section-{{ section.id }} .featured-tabs-spotlight--fx-reveal .featured-tabs-spotlight-quick__item:nth-child(3) {
+      animation-range: entry 16% cover 36%;
+    }
+
+    #shopify-section-{{ section.id }} .featured-tabs-spotlight--fx-reveal .featured-tabs-spotlight-card:nth-child(4),
+    #shopify-section-{{ section.id }} .featured-tabs-spotlight--fx-reveal .featured-tabs-spotlight-quick__item:nth-child(4) {
+      animation-range: entry 20% cover 40%;
+    }
+
+    #shopify-section-{{ section.id }} .featured-tabs-spotlight--fx-reveal .featured-tabs-spotlight-card:nth-child(5),
+    #shopify-section-{{ section.id }} .featured-tabs-spotlight--fx-reveal .featured-tabs-spotlight-quick__item:nth-child(5) {
+      animation-range: entry 24% cover 44%;
+    }
   }
 
   @keyframes spotlightCardReveal {
@@ -1142,6 +1215,7 @@
     #shopify-section-{{ section.id }} .featured-tabs-spotlight--shape-motion .featured-tabs-spotlight__shape,
     #shopify-section-{{ section.id }} .featured-tabs-spotlight--fx-reveal .featured-tabs-spotlight-card,
     #shopify-section-{{ section.id }} .featured-tabs-spotlight--fx-reveal .featured-tabs-spotlight-quick__item,
+    #shopify-section-{{ section.id }} .collection-tab__tab-content.active,
     #shopify-section-{{ section.id }} .spotlight-motion__shape,
     #shopify-section-{{ section.id }} .spotlight-motion__orb,
     #shopify-section-{{ section.id }} .spotlight-motion__grid,
@@ -1154,7 +1228,8 @@
     #shopify-section-{{ section.id }} .featured-tabs-spotlight-card__inner,
     #shopify-section-{{ section.id }} .featured-tabs-spotlight-quick__item,
     #shopify-section-{{ section.id }} .featured-tabs-spotlight-card__media img,
-    #shopify-section-{{ section.id }} .featured-tabs-spotlight-quick__media img {
+    #shopify-section-{{ section.id }} .featured-tabs-spotlight-quick__media img,
+    #shopify-section-{{ section.id }} .featured-tabs-spotlight__tab-indicator {
       transition: none;
     }
   }
@@ -1454,7 +1529,7 @@
     {%- if display_mode == 'product_tabs' -%}
       <tab-items data-type="horizontal">
     {%- endif -%}
-      {%- if heading != blank or description != blank or has_tab_heading or has_tab_desc -%}
+      {%- if heading != blank or description != blank or eyebrow != blank or has_tab_heading or has_tab_desc or has_tab_eyebrow -%}
         <div class="featured-tabs-spotlight__header section__header text-{{ section_st.header_alignment }}">
           {%- if display_mode == 'product_tabs' -%}
             {%- comment %} One crawlable h2/h3 variant per tab; the active one is shown, the rest hidden. {% endcomment -%}
@@ -1462,9 +1537,13 @@
             {%- for b in section.blocks -%}
               {%- if b.type == 'collection' -%}
                 {%- assign hv_index = hv_index | plus: 1 -%}
+                {%- assign hv_eyebrow = b.settings.tab_eyebrow | default: eyebrow -%}
                 {%- assign hv_heading = b.settings.tab_heading | default: heading -%}
                 {%- assign hv_desc = b.settings.tab_description | default: description -%}
                 <div class="featured-tabs-spotlight__header-variant" data-header-block="{{ b.id }}"{% unless hv_index == 1 %} hidden{% endunless %}>
+                  {%- if hv_eyebrow != blank -%}
+                    <span class="featured-tabs-spotlight__eyebrow">{{ hv_eyebrow }}</span>
+                  {%- endif -%}
                   {%- if hv_heading != blank -%}
                     <h2 class="section__header-heading heading-letter-spacing {{ header_size }} mt-0{% if hv_desc != blank %} mb-10{% else %} mb-0{% endif %}">{{ hv_heading }}</h2>
                   {%- endif -%}
@@ -1475,6 +1554,9 @@
               {%- endif -%}
             {%- endfor -%}
           {%- else -%}
+            {%- if eyebrow != blank -%}
+              <span class="featured-tabs-spotlight__eyebrow block">{{ eyebrow }}</span>
+            {%- endif -%}
             {%- if heading != blank -%}
               <motion-element
                 data-motion="{{ scroll_animation }}"
@@ -1658,6 +1740,7 @@
               </button>
             {%- endif -%}
           {%- endfor -%}
+          <span class="featured-tabs-spotlight__tab-indicator" aria-hidden="true"></span>
         </div>
 
         {%- if hero_is_side -%}<div class="featured-tabs-spotlight__split">{{ hero_markup }}{%- endif -%}
@@ -1940,17 +2023,23 @@
           });
         });
 
+        this.tabList = this.root.querySelector('.featured-tabs-spotlight__tabs');
+        this.indicator = this.tabList && this.tabList.querySelector('.featured-tabs-spotlight__tab-indicator');
+
         this.onClick = this.onClick.bind(this);
         this.syncFromActive = this.syncFromActive.bind(this);
+        this.onResize = this.onResize.bind(this);
 
         // Clicking a tab applies that tab directly (works even if the tab switcher is broken).
         this.root.addEventListener('click', this.onClick);
 
+        // The sliding bar is offset-based, so it must be repositioned when the row reflows.
+        if (this.indicator) window.addEventListener('resize', this.onResize);
+
         // Also follow the real active-tab change for keyboard/programmatic switches.
-        var tabList = this.root.querySelector('.featured-tabs-spotlight__tabs');
-        if (tabList) {
+        if (this.tabList) {
           this.observer = new MutationObserver(this.syncFromActive);
-          this.observer.observe(tabList, { subtree: true, attributes: true, attributeFilter: ['class', 'aria-selected'] });
+          this.observer.observe(this.tabList, { subtree: true, attributes: true, attributeFilter: ['class', 'aria-selected'] });
         }
 
         this.syncFromActive();
@@ -1959,6 +2048,7 @@
       disconnectedCallback() {
         if (this.observer) this.observer.disconnect();
         if (this.root && this.onClick) this.root.removeEventListener('click', this.onClick);
+        if (this.onResize) window.removeEventListener('resize', this.onResize);
       }
 
       onClick(e) {
@@ -1977,6 +2067,29 @@
         this._lastBlockId = blockId;
         this.showVariant(this.headerVariants, 'headerBlock', blockId, false, false);
         this.showVariant(this.heroMedia, 'heroBlock', blockId, true, true);
+        this.moveIndicator(blockId);
+      }
+
+      onResize() {
+        this.moveIndicator(this._lastBlockId);
+      }
+
+      // Slide the active-tab bar to the matching pill's offset within the (scrollable) row.
+      moveIndicator(blockId) {
+        if (!this.tabList || !this.indicator) return;
+        var tab = blockId && this.tabList.querySelector('.collection-tab__tab-item[data-block-id="' + blockId + '"]');
+        if (!tab) {
+          tab = this.tabList.querySelector('.collection-tab__tab-item.active')
+            || this.tabList.querySelector('.collection-tab__tab-item');
+        }
+        if (!tab) return;
+        this.tabList.style.setProperty('--ind-x', tab.offsetLeft + 'px');
+        this.tabList.style.setProperty('--ind-w', tab.offsetWidth + 'px');
+        if (!this._indReady) {
+          var list = this.tabList;
+          requestAnimationFrame(function () { list.classList.add('is-indicator-ready'); });
+          this._indReady = true;
+        }
       }
 
       // Show the variant whose data-*-block matches the active tab; hide the rest.
@@ -2067,6 +2180,12 @@
     },
     {
       "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "info": "Small uppercase kicker shown above the heading. Per-tab eyebrows (in each Collection tab) override this."
+    },
+    {
+      "type": "text",
       "id": "heading",
       "label": "Heading",
       "default": "Hand-picked for you"
@@ -2116,6 +2235,17 @@
           "label": "Right"
         }
       ]
+    },
+    {
+      "type": "range",
+      "id": "header_max_width",
+      "label": "Heading / description max width",
+      "info": "Limits the width of the heading, eyebrow and description block. 0 = full section width.",
+      "min": 0,
+      "max": 1100,
+      "step": 20,
+      "unit": "px",
+      "default": 760
     },
     {
       "type": "checkbox",
@@ -3393,6 +3523,12 @@
         {
           "type": "header",
           "content": "Per-tab heading"
+        },
+        {
+          "type": "text",
+          "id": "tab_eyebrow",
+          "label": "Tab eyebrow",
+          "info": "Replaces the section eyebrow while this tab is active. Leave blank to keep the section eyebrow."
         },
         {
           "type": "text",
