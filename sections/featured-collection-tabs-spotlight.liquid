@@ -752,6 +752,10 @@
     opacity: 0.7;
   }
 
+  #shopify-section-{{ section.id }} .featured-tabs-spotlight__hero-cta {
+    margin-top: 24px;
+  }
+
   /* Rich text band (super-section content block), full width above/below the tabs. */
   #shopify-section-{{ section.id }} .featured-tabs-spotlight__richtext {
     position: relative;
@@ -1749,7 +1753,7 @@
     {%- if display_mode == 'product_tabs' -%}
       <tab-items data-type="horizontal">
     {%- endif -%}
-      {%- if heading != blank or description != blank or eyebrow != blank or has_tab_heading or has_tab_desc or has_tab_eyebrow -%}
+      {%- if heading != blank or description != blank or eyebrow != blank or section_st.hero_cta_label != blank or has_tab_heading or has_tab_desc or has_tab_eyebrow -%}
         <div class="featured-tabs-spotlight__header section__header text-{{ section_st.header_alignment }}">
           {%- if display_mode == 'product_tabs' -%}
             {%- comment %} One crawlable h2/h3 variant per tab; the active one is shown, the rest hidden. {% endcomment -%}
@@ -1800,6 +1804,11 @@
                 {{ description }}
               </motion-element>
             {%- endif -%}
+          {%- endif -%}
+          {%- if section_st.hero_cta_label != blank -%}
+            <div class="featured-tabs-spotlight__hero-cta">
+              <a class="btn-primary no-underline inline-flex" href="{{ section_st.hero_cta_link | default: '#' }}">{{ section_st.hero_cta_label }}</a>
+            </div>
           {%- endif -%}
         </div>
       {%- endif -%}
@@ -2466,6 +2475,17 @@
       "id": "description",
       "label": "Description",
       "default": "<p>We guarantee you will love them</p>"
+    },
+    {
+      "type": "text",
+      "id": "hero_cta_label",
+      "label": "Hero button label",
+      "info": "Primary call-to-action under the heading (use it on the top/hero section). Leave blank to hide."
+    },
+    {
+      "type": "url",
+      "id": "hero_cta_link",
+      "label": "Hero button link"
     },
     {
       "type": "select",
