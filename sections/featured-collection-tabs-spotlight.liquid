@@ -48,6 +48,7 @@
   assign show_card_price = section_st.show_card_price
   assign show_quick_add = section_st.show_quick_add
   assign show_quick_view = section_st.show_quick_view
+  assign show_card_rating = section_st.show_card_rating
   assign show_card_compare_price = section_st.show_card_compare_price
   assign show_card_badges = section_st.show_card_badges
   assign scroll_animation = settings.scroll_animation
@@ -562,6 +563,10 @@
     mix-blend-mode: var(--spotlight-motion-blend, normal);
     background-image: radial-gradient(currentColor 1.5px, transparent 1.6px);
     background-size: 38px 38px;
+    /* Fade the dot field out toward the edges so it reads as a soft, refined texture
+       instead of a hard wall-to-wall pattern. */
+    -webkit-mask-image: radial-gradient(120% 80% at 50% 38%, #000 38%, transparent 78%);
+    mask-image: radial-gradient(120% 80% at 50% 38%, #000 38%, transparent 78%);
     animation: spotlightGridDrift calc(var(--spotlight-motion-dur, 20s) * 1.4) linear var(--spotlight-motion-phase-delay, 0s) infinite;
   }
 
@@ -1152,6 +1157,37 @@
     text-decoration: line-through;
   }
 
+  /* Star rating — a single text node of 5 stars, the filled portion painted by a gradient
+     clipped to the glyphs via background-clip:text. No images, no JS. */
+  #shopify-section-{{ section.id }} .featured-tabs-spotlight-card__rating {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin: 2px 0 4px;
+  }
+
+  #shopify-section-{{ section.id }} .featured-tabs-spotlight-card__stars {
+    --pct: 0%;
+    font-size: 14px;
+    line-height: 1;
+    letter-spacing: 1px;
+  }
+
+  #shopify-section-{{ section.id }} .featured-tabs-spotlight-card__stars::before {
+    content: "\2605\2605\2605\2605\2605";
+    background: linear-gradient(90deg, #f5a623 var(--pct), color-mix(in srgb, var(--spotlight-card-text) 24%, transparent) var(--pct));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  #shopify-section-{{ section.id }} .featured-tabs-spotlight-card__rating-count {
+    font-size: 12px;
+    line-height: 1;
+    opacity: 0.6;
+    color: var(--spotlight-card-text);
+  }
+
   #shopify-section-{{ section.id }} .featured-tabs-spotlight-card__badge {
     position: absolute;
     top: 12px;
@@ -1691,7 +1727,6 @@
           <span class="spotlight-motion__orb" style="--x:30%;--y:60%;--s:38vw;--c:color-mix(in srgb, var(--spotlight-motion-1), var(--spotlight-motion-2));--dx:5vw;--dy:-6vw;--sc:1.3;--k:1.15;--delay:3s"></span>
         {%- when 'grid' -%}
           <span class="spotlight-motion__grid"></span>
-          <span class="spotlight-motion__shape spotlight-motion__shape--ring" style="--x:70%;--y:10%;--s:220px;--dx:-26px;--dy:32px;--rot:28deg;--k:1.5;--delay:0s"></span>
         {%- when 'mesh' -%}
           <span class="spotlight-motion__mesh"></span>
         {%- when 'beams' -%}
@@ -2080,6 +2115,7 @@
                                     <a href="{{ product_url }}">{{ product_title }}</a>
                                   </h3>
                                 {%- endif -%}
+                                {%- render 'spotlight-card-rating', product: product, show_rating: show_card_rating -%}
                                 {%- if show_card_price and product != blank -%}
                                   <div class="featured-tabs-spotlight-card__price">
                                     {%- if show_card_compare_price and product.compare_at_price > product.price -%}
@@ -2118,6 +2154,7 @@
                                   <a href="{{ product.url }}">{{ product_title }}</a>
                                 </h3>
                               {%- endif -%}
+                              {%- render 'spotlight-card-rating', product: product, show_rating: show_card_rating -%}
                               {%- if show_card_price -%}
                                 <div class="featured-tabs-spotlight-card__price">
                                   {%- if show_card_compare_price and product.compare_at_price > product.price -%}
@@ -2155,6 +2192,7 @@
                                   <a href="{{ product.url }}">{{ product_title }}</a>
                                 </h3>
                               {%- endif -%}
+                              {%- render 'spotlight-card-rating', product: product, show_rating: show_card_rating -%}
                               {%- if show_card_price -%}
                                 <div class="featured-tabs-spotlight-card__price">
                                   {%- if show_card_compare_price and product.compare_at_price > product.price -%}
@@ -3675,6 +3713,13 @@
       "id": "show_quick_view",
       "label": "Show quick view",
       "info": "Adds a quick-view button that opens the product preview modal. Only on real products.",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_card_rating",
+      "label": "Show star rating",
+      "info": "Shows product star rating from the review metafields (reviews.rating). Server-side stars — no Judge.me script needed. Only on products with reviews.",
       "default": true
     },
     {

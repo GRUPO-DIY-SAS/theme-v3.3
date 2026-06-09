@@ -1,0 +1,22 @@
+{%- comment -%}
+  Server-side star rating for spotlight product cards. Reads the Shopify standard review
+  metafields (reviews.rating + reviews.rating_count, which Judge.me populates), so the stars
+  are pure CSS with no JS and no third-party assets — they render on the homepage where
+  Judge.me itself is gated off the product page. Accepts: product, show_rating.
+{%- endcomment -%}
+{%- if show_rating and product.metafields.reviews.rating_count.value > 0 -%}
+  {%- liquid
+    assign r = product.metafields.reviews.rating.value
+    assign pct = r.rating | times: 100.0 | divided_by: r.scale_max
+    assign count = product.metafields.reviews.rating_count.value
+  -%}
+  <div class="featured-tabs-spotlight-card__rating">
+    <span
+      class="featured-tabs-spotlight-card__stars"
+      style="--pct: {{ pct }}%"
+      role="img"
+      aria-label="{{ r.rating }} de {{ r.scale_max | round }} estrellas · {{ count }} reseñas"
+    ></span>
+    <span class="featured-tabs-spotlight-card__rating-count">({{ count }})</span>
+  </div>
+{%- endif -%}
