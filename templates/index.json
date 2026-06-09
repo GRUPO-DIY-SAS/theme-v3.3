@@ -462,7 +462,7 @@
         "bg_grain": true,
         "grain_opacity": 8,
         "blend_edge": "both",
-        "blend_overlap": 0,
+        "blend_overlap": 80,
         "motion_phase": 0,
         "background_color": "#ebebeb",
         "tab_background": "#393752",
