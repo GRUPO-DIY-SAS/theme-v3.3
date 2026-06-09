@@ -6,7 +6,8 @@
  * or related systems. Please exercise caution as any changes
  * made to this file may be overwritten.
  * ------------------------------------------------------------
- */{
+ */
+{
   "sections": {
     "featured_collection_tabs_spotlight_Ljzi7w": {
       "type": "featured-collection-tabs-spotlight",
@@ -252,6 +253,8 @@
         "eyebrow": "",
         "heading": "Vapers en Colombia:  somos la tienda #1 de vapeo",
         "description": "<p>Calidad y Servicio insuperable</p>",
+        "hero_cta_label": "",
+        "hero_cta_link": "",
         "header_size": "large",
         "header_alignment": "center",
         "header_max_width": 1100,
@@ -291,30 +294,30 @@
         "media_padding_y": 16,
         "media_padding_x": 12,
         "media_radius": 40,
-        "shape_style": "ribbon",
-        "shape_color": "#ffffff",
-        "shape_opacity": 25,
+        "shape_style": "diamond",
+        "shape_color": "#d0473e",
+        "shape_opacity": 45,
         "animate_shape": true,
-        "shape_anchor": "top-center",
-        "shape_offset_x": 0,
-        "shape_offset_y": -80,
+        "shape_anchor": "auto",
+        "shape_offset_x": -210,
+        "shape_offset_y": -230,
         "shape_rotation": 0,
-        "shape_scale": 115,
+        "shape_scale": 45,
         "bg_motion": "aurora",
-        "geo_overlay": "none",
-        "geo_parallax": false,
-        "motion_speed": "balanced",
-        "motion_accent_1": "#E9F4F1",
-        "motion_accent_2": "#DDEBFF",
+        "geo_overlay": "particles",
+        "geo_parallax": true,
+        "motion_speed": "lively",
+        "motion_accent_1": "#e9f4f1",
+        "motion_accent_2": "#2dd4bf",
         "motion_opacity": 25,
-        "motion_intensity": 75,
+        "motion_intensity": 200,
         "motion_blend": "normal",
         "bg_grain": false,
         "grain_opacity": 8,
         "blend_edge": "bottom",
         "blend_overlap": 0,
         "motion_phase": 0,
-        "background_color": "#F4F5F6",
+        "background_color": "#ebebeb",
         "tab_background": "#393752",
         "tab_text_color": "#ffffff",
         "tab_active_background": "#111111",
@@ -324,6 +327,7 @@
         "badge_background": "#111111",
         "badge_text_color": "#ffffff",
         "card_surface": "glass",
+        "glass_refraction": true,
         "interaction_effect": "lift",
         "image_ratio": "square",
         "image_height": 280,
@@ -341,6 +345,8 @@
         "show_card_price": true,
         "show_card_compare_price": true,
         "show_card_badges": true,
+        "show_quick_add": true,
+        "show_quick_view": true,
         "quick_columns": 6,
         "quick_layout": "carousel",
         "quick_mobile_columns": 2,
@@ -349,13 +355,10 @@
         "infinite": false,
         "autoplay": false,
         "autorotate_speed": 6,
+        "priority_loading": true,
         "padding_top": 120,
         "padding_bottom": 80,
-        "reset_spacing": true,
-        "glass_refraction": true,
-        "priority_loading": true,
-        "hero_cta_label": "Explorar el catálogo",
-        "hero_cta_link": "/collections/all"
+        "reset_spacing": true
       }
     },
     "featured_collection_tabs_spotlight_EQLJLD": {
@@ -401,6 +404,8 @@
         "eyebrow": "",
         "heading": "Todo en vapeo: desechables, equipos, líquidos y accesorios en un solo lugar",
         "description": "<p><em>En DIY Vape Shop siempre encontrarás vaporizadores, líquidos y accesorios pensados para que puedas disfrutar tu experiencia de vapeo a tu manera.</em></p>",
+        "hero_cta_label": "",
+        "hero_cta_link": "",
         "header_size": "large",
         "header_alignment": "center",
         "header_max_width": 1100,
@@ -436,7 +441,7 @@
         "media_padding_y": 0,
         "media_padding_x": 0,
         "media_radius": 0,
-        "shape_style": "diamond",
+        "shape_style": "none",
         "shape_color": "{{ shop.brand.colors.primary[0].background }}",
         "shape_opacity": 60,
         "animate_shape": true,
@@ -445,7 +450,7 @@
         "shape_offset_y": 0,
         "shape_rotation": 0,
         "shape_scale": 100,
-        "bg_motion": "aurora",
+        "bg_motion": "none",
         "geo_overlay": "particles",
         "geo_parallax": true,
         "motion_speed": "lively",
@@ -469,6 +474,7 @@
         "badge_background": "#111111",
         "badge_text_color": "#ffffff",
         "card_surface": "glass",
+        "glass_refraction": true,
         "interaction_effect": "sheen",
         "image_ratio": "square",
         "image_height": 360,
@@ -486,6 +492,8 @@
         "show_card_price": true,
         "show_card_compare_price": true,
         "show_card_badges": true,
+        "show_quick_add": true,
+        "show_quick_view": true,
         "quick_columns": 4,
         "quick_layout": "grid",
         "quick_mobile_columns": 2,
@@ -494,10 +502,10 @@
         "infinite": false,
         "autoplay": false,
         "autorotate_speed": 5,
+        "priority_loading": false,
         "padding_top": 60,
         "padding_bottom": 120,
-        "reset_spacing": true,
-        "glass_refraction": true
+        "reset_spacing": true
       }
     },
     "featured_collection_tabs_spotlight_continue1": {
@@ -575,6 +583,8 @@
         "eyebrow": "",
         "heading": "",
         "description": "",
+        "hero_cta_label": "",
+        "hero_cta_link": "",
         "header_size": "large",
         "header_alignment": "center",
         "header_max_width": 1100,
@@ -643,6 +653,7 @@
         "badge_background": "#111111",
         "badge_text_color": "#ffffff",
         "card_surface": "glass",
+        "glass_refraction": true,
         "interaction_effect": "sheen",
         "image_ratio": "square",
         "image_height": 360,
@@ -660,6 +671,8 @@
         "show_card_price": true,
         "show_card_compare_price": true,
         "show_card_badges": true,
+        "show_quick_add": true,
+        "show_quick_view": true,
         "quick_columns": 4,
         "quick_layout": "grid",
         "quick_mobile_columns": 2,
@@ -668,10 +681,10 @@
         "infinite": false,
         "autoplay": false,
         "autorotate_speed": 5,
+        "priority_loading": false,
         "padding_top": 120,
         "padding_bottom": 120,
-        "reset_spacing": true,
-        "glass_refraction": true
+        "reset_spacing": true
       }
     },
     "featured_collection_tabs_spotlight_bKMmTX": {
@@ -733,6 +746,8 @@
         "eyebrow": "",
         "heading": "",
         "description": "",
+        "hero_cta_label": "",
+        "hero_cta_link": "",
         "header_size": "large",
         "header_alignment": "center",
         "header_max_width": 1100,
@@ -799,6 +814,7 @@
         "badge_background": "#111111",
         "badge_text_color": "#ffffff",
         "card_surface": "glass",
+        "glass_refraction": true,
         "interaction_effect": "sheen",
         "image_ratio": "square",
         "image_height": 360,
@@ -816,6 +832,8 @@
         "show_card_price": true,
         "show_card_compare_price": true,
         "show_card_badges": true,
+        "show_quick_add": true,
+        "show_quick_view": true,
         "quick_columns": 4,
         "quick_layout": "grid",
         "quick_mobile_columns": 2,
@@ -824,10 +842,10 @@
         "infinite": false,
         "autoplay": false,
         "autorotate_speed": 5,
+        "priority_loading": false,
         "padding_top": 120,
         "padding_bottom": 120,
-        "reset_spacing": true,
-        "glass_refraction": true
+        "reset_spacing": true
       }
     },
     "featured_collection_tabs_spotlight_continue3": {
@@ -889,6 +907,8 @@
         "eyebrow": "",
         "heading": "",
         "description": "",
+        "hero_cta_label": "",
+        "hero_cta_link": "",
         "header_size": "large",
         "header_alignment": "center",
         "header_max_width": 1100,
@@ -955,6 +975,7 @@
         "badge_background": "#111111",
         "badge_text_color": "#ffffff",
         "card_surface": "glass",
+        "glass_refraction": true,
         "interaction_effect": "sheen",
         "image_ratio": "square",
         "image_height": 360,
@@ -972,6 +993,8 @@
         "show_card_price": true,
         "show_card_compare_price": true,
         "show_card_badges": true,
+        "show_quick_add": true,
+        "show_quick_view": true,
         "quick_columns": 4,
         "quick_layout": "grid",
         "quick_mobile_columns": 2,
@@ -980,10 +1003,72 @@
         "infinite": false,
         "autoplay": false,
         "autorotate_speed": 5,
+        "priority_loading": false,
         "padding_top": 120,
         "padding_bottom": 120,
-        "reset_spacing": true,
-        "glass_refraction": true
+        "reset_spacing": true
+      }
+    },
+    "icon_box_eTQYXg": {
+      "type": "icon-box",
+      "blocks": {
+        "icon_box_y63NTa": {
+          "type": "icon_box",
+          "settings": {
+            "icon_svg": "payment",
+            "custom_svg": "",
+            "heading": "Todos los métodos de pago",
+            "description": "<p>Todos los métodos de pago! Tarjeta, Efectivo y Contra entrega. Compra con tranquilidad compra 100% protegida. </p>"
+          }
+        },
+        "icon_box_cn4cYW": {
+          "type": "icon_box",
+          "settings": {
+            "icon_svg": "check_badge",
+            "custom_svg": "",
+            "heading": "100% productos originales",
+            "description": "<p>Trabajamos directamente con distribuidores autorizados. Cada producto tiene código de autenticidad verificable.</p>"
+          }
+        },
+        "icon_box_Npny4G": {
+          "type": "icon_box",
+          "settings": {
+            "icon_svg": "message_communications",
+            "custom_svg": "",
+            "heading": "Asesores expertos en vapeo",
+            "description": "<p>Nuestro equipo conoce cada producto. Te ayudamos a elegir el vape ideal según tu experiencia, preferencias de sabor y presupuesto.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "icon_box_y63NTa",
+        "icon_box_cn4cYW",
+        "icon_box_Npny4G"
+      ],
+      "name": "t:sections.icon_box.name",
+      "settings": {
+        "section_width": "container",
+        "color_scheme": "scheme-25500afe-f810-44c8-b7cd-8bc90ff950d9",
+        "type": "default",
+        "column_gap": 30,
+        "icon_position": "top",
+        "icon_size": 32,
+        "spacing": 11,
+        "show_border": false,
+        "enable_background": false,
+        "background": "",
+        "content_alignment": "center",
+        "heading_font_size": 16,
+        "heading_font_weight": "heading_weight",
+        "heading_uppercase": false,
+        "heading_spacing_bottom": 10,
+        "des_font_size": 14,
+        "des_font_weight": "body_weight",
+        "carousel_on_mobile": true,
+        "items_per_row_mobile": "1",
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "reset_spacing": true
       }
     },
     "rich_text_ygVepk": {
@@ -1094,12 +1179,13 @@
                 "show_full_width": false,
                 "first_button_label": "Ver ubicación",
                 "first_button_link": "https://maps.app.goo.gl/akrmyuGcYpQu6or88",
+                "first_button_aria_label": "Ver ubicación de DIY Vape Shop 85",
                 "first_button_type": "outline",
                 "second_button_label": "",
                 "second_button_link": "",
+                "second_button_aria_label": "",
                 "second_button_type": "primary",
-                "spacing_bottom": 10,
-                "first_button_aria_label": "Ver ubicación de DIY Vape Shop 85"
+                "spacing_bottom": 10
               },
               "blocks": {}
             }
@@ -1160,12 +1246,13 @@
                 "show_full_width": false,
                 "first_button_label": "Ver ubicación",
                 "first_button_link": "https://maps.app.goo.gl/YgihotxpQBdcH34Q8",
+                "first_button_aria_label": "Ver ubicación de DIY Vape Shop 140",
                 "first_button_type": "outline",
                 "second_button_label": "",
                 "second_button_link": "",
+                "second_button_aria_label": "",
                 "second_button_type": "primary",
-                "spacing_bottom": 10,
-                "first_button_aria_label": "Ver ubicación de DIY Vape Shop 140"
+                "spacing_bottom": 10
               },
               "blocks": {}
             }
@@ -1226,12 +1313,13 @@
                 "show_full_width": false,
                 "first_button_label": "Ver ubicación",
                 "first_button_link": "https://maps.app.goo.gl/SqqrBSKbaTjdETmD9",
+                "first_button_aria_label": "Ver ubicación de DIY Vape Shop Salitre",
                 "first_button_type": "outline",
                 "second_button_label": "",
                 "second_button_link": "",
+                "second_button_aria_label": "",
                 "second_button_type": "primary",
-                "spacing_bottom": 10,
-                "first_button_aria_label": "Ver ubicación de DIY Vape Shop Salitre"
+                "spacing_bottom": 10
               },
               "blocks": {}
             }
@@ -1292,12 +1380,13 @@
                 "show_full_width": false,
                 "first_button_label": "Ver ubicación",
                 "first_button_link": "https://maps.app.goo.gl/pM2KGBtTopCELAgj8",
+                "first_button_aria_label": "Ver ubicación de DIY Vape Shop Colina",
                 "first_button_type": "outline",
                 "second_button_label": "",
                 "second_button_link": "",
+                "second_button_aria_label": "",
                 "second_button_type": "primary",
-                "spacing_bottom": 10,
-                "first_button_aria_label": "Ver ubicación de DIY Vape Shop Colina"
+                "spacing_bottom": 10
               },
               "blocks": {}
             }
@@ -1333,68 +1422,6 @@
         "items_per_row_mobile": 2,
         "padding_top": 30,
         "padding_bottom": 30,
-        "reset_spacing": true
-      }
-    },
-    "icon_box_eTQYXg": {
-      "type": "icon-box",
-      "blocks": {
-        "icon_box_y63NTa": {
-          "type": "icon_box",
-          "settings": {
-            "icon_svg": "payment",
-            "custom_svg": "",
-            "heading": "Todos los métodos de pago",
-            "description": "<p>Todos los métodos de pago! Tarjeta, Efectivo y Contra entrega. Compra con tranquilidad compra 100% protegida. </p>"
-          }
-        },
-        "icon_box_cn4cYW": {
-          "type": "icon_box",
-          "settings": {
-            "icon_svg": "check_badge",
-            "custom_svg": "",
-            "heading": "100% productos originales",
-            "description": "<p>Trabajamos directamente con distribuidores autorizados. Cada producto tiene código de autenticidad verificable.</p>"
-          }
-        },
-        "icon_box_Npny4G": {
-          "type": "icon_box",
-          "settings": {
-            "icon_svg": "message_communications",
-            "custom_svg": "",
-            "heading": "Asesores expertos en vapeo",
-            "description": "<p>Nuestro equipo conoce cada producto. Te ayudamos a elegir el vape ideal según tu experiencia, preferencias de sabor y presupuesto.</p>"
-          }
-        }
-      },
-      "block_order": [
-        "icon_box_y63NTa",
-        "icon_box_cn4cYW",
-        "icon_box_Npny4G"
-      ],
-      "name": "t:sections.icon_box.name",
-      "settings": {
-        "section_width": "container",
-        "color_scheme": "scheme-25500afe-f810-44c8-b7cd-8bc90ff950d9",
-        "type": "default",
-        "column_gap": 30,
-        "icon_position": "top",
-        "icon_size": 32,
-        "spacing": 11,
-        "show_border": false,
-        "enable_background": false,
-        "background": "",
-        "content_alignment": "center",
-        "heading_font_size": 16,
-        "heading_font_weight": "heading_weight",
-        "heading_uppercase": false,
-        "heading_spacing_bottom": 10,
-        "des_font_size": 14,
-        "des_font_weight": "body_weight",
-        "carousel_on_mobile": true,
-        "items_per_row_mobile": "1",
-        "padding_top": 0,
-        "padding_bottom": 0,
         "reset_spacing": true
       }
     },
