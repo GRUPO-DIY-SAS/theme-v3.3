@@ -1164,6 +1164,8 @@
     align-items: center;
     gap: 6px;
     margin: 2px 0 4px;
+    /* Always reserve the row (even with no reviews) so cards stay the same height. */
+    min-height: 16px;
   }
 
   #shopify-section-{{ section.id }} .featured-tabs-spotlight-card__stars {

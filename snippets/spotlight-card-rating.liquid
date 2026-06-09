@@ -4,19 +4,23 @@
   are pure CSS with no JS and no third-party assets — they render on the homepage where
   Judge.me itself is gated off the product page. Accepts: product, show_rating.
 {%- endcomment -%}
-{%- if show_rating and product.metafields.reviews.rating_count.value > 0 -%}
-  {%- liquid
-    assign r = product.metafields.reviews.rating.value
-    assign pct = r.rating | times: 100.0 | divided_by: r.scale_max
-    assign count = product.metafields.reviews.rating_count.value
-  -%}
+{%- comment %} Render the row whenever ratings are enabled — empty when a product has no
+   reviews — so every card reserves the same height and the grid stays symmetric. {% endcomment -%}
+{%- if show_rating -%}
   <div class="featured-tabs-spotlight-card__rating">
-    <span
-      class="featured-tabs-spotlight-card__stars"
-      style="--pct: {{ pct }}%"
-      role="img"
-      aria-label="{{ r.rating }} de {{ r.scale_max | round }} estrellas · {{ count }} reseñas"
-    ></span>
-    <span class="featured-tabs-spotlight-card__rating-count">({{ count }})</span>
+    {%- if product.metafields.reviews.rating_count.value > 0 -%}
+      {%- liquid
+        assign r = product.metafields.reviews.rating.value
+        assign pct = r.rating | times: 100.0 | divided_by: r.scale_max
+        assign count = product.metafields.reviews.rating_count.value
+      -%}
+      <span
+        class="featured-tabs-spotlight-card__stars"
+        style="--pct: {{ pct }}%"
+        role="img"
+        aria-label="{{ r.rating }} de {{ r.scale_max | round }} estrellas · {{ count }} reseñas"
+      ></span>
+      <span class="featured-tabs-spotlight-card__rating-count">({{ count }})</span>
+    {%- endif -%}
   </div>
 {%- endif -%}
