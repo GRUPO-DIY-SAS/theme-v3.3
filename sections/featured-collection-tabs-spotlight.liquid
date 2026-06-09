@@ -2244,7 +2244,9 @@
                     {%- endif -%}
                   {%- endif -%}
                 </slide-section>
-                  {%- if tab_cta_label != blank -%}
+                  {%- comment %} In side-hero layout the CTA renders below the split (see after
+                     the split close) so the hero centers against the cards, not the CTA. {% endcomment -%}
+                  {%- if tab_cta_label != blank and hero_is_side != true -%}
                     <div class="featured-tabs-spotlight__tab-cta text-center">
                       <a class="btn-primary no-underline inline-flex" href="{{ tab_cta_link }}">
                         {{ tab_cta_label }}
@@ -2256,6 +2258,30 @@
           {%- endfor -%}
         </div>
         {%- if hero_is_side -%}</div>{%- endif -%}
+
+        {%- comment %} Side-hero CTA row: rendered outside __split (full width below) so it's not
+           part of the hero's vertical centering. Same data-block-id + .collection-tab__tab-content
+           class means TabItems toggles it in sync with the active tab. {% endcomment -%}
+        {%- if hero_is_side -%}
+          {%- assign cta_idx = 0 -%}
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'collection' -%}
+              {%- liquid
+                assign cta_idx = cta_idx | plus: 1
+                assign cta_block_st = block.settings
+                assign cta_label = cta_block_st.cta_label
+                assign cta_link = cta_block_st.cta_link | default: cta_block_st.collection.url | default: '#'
+              -%}
+              {%- if cta_label != blank -%}
+                <div class="collection-tab__tab-content featured-tabs-spotlight__cta-row{% if cta_idx == 1 %} active{% else %} hidden{% endif %}" data-block-id="{{ block.id }}">
+                  <div class="featured-tabs-spotlight__tab-cta text-center">
+                    <a class="btn-primary no-underline inline-flex" href="{{ cta_link }}">{{ cta_label }}</a>
+                  </div>
+                </div>
+              {%- endif -%}
+            {%- endif -%}
+          {%- endfor -%}
+        {%- endif -%}
 
         {%- if show_view_all_button -%}
           <div class="featured-tabs-spotlight__view-all text-center">
