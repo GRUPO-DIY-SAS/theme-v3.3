@@ -414,16 +414,22 @@
     }, { once: true });
 
     if (isAgeVerified()) {
-      window.setTimeout(function () {
+      // Start the deferred bundle (theme.js, global.js, swiper, motion) during idle time
+      // instead of the next tick: the burst's script execution then yields to any early
+      // tap/click, so a first interaction isn't stuck behind it (INP). 2s timeout caps the
+      // wait so features stay ready quickly.
+      runWhenIdle(function () {
         loadDeferredAssets();
         releasePostGateDynamicAssets();
-      }, 0);
+      }, 2000);
     } else {
       document.addEventListener('DOMContentLoaded', function () {
         var gate = document.querySelector('age-verification-gate');
         if (!gate || !gate.classList.contains('active') || gate.getAttribute('aria-hidden') === 'true') {
-          loadDeferredAssets();
-          releasePostGateDynamicAssets();
+          runWhenIdle(function () {
+            loadDeferredAssets();
+            releasePostGateDynamicAssets();
+          }, 2000);
         }
       }, { once: true });
     }
