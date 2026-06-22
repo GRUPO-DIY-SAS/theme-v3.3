@@ -158,6 +158,33 @@
 
     {% comment %} SEO: noindex para colecciones con filtros activos o vista AJAX (inyectado via JS porque Liquid no accede a query params desde el layout) {% endcomment %}
     <script>if(location.search.indexOf('filter.')>-1||location.search.indexOf('view=ajax')>-1){document.head.insertAdjacentHTML('beforeend','<meta name="robots" content="noindex, follow">')}</script>
+
+    {% comment %}
+      Lazy product images carry .bls-loading-image (filter: blur 3px); global.js clears it on
+      load, but global.js is queued behind the age gate, so on collection/search pages the
+      images stayed blurry for a long time. Clear the blur inline (not deferred) the instant
+      each image loads — capture phase because the load event doesn't bubble. Idempotent with
+      global.js's BlsLazyloadImg.
+    {% endcomment %}
+    <script>
+      (function () {
+        function clear(img) {
+          if (!img || !img.classList || !img.classList.contains('bls-loading-image')) return;
+          img.classList.remove('bls-loading-image');
+          var m = img.closest && img.closest('motion-element');
+          if (m) m.classList.remove('bls-loading-image');
+        }
+        document.addEventListener('load', function (e) {
+          if (e.target && e.target.tagName === 'IMG') clear(e.target);
+        }, true);
+        function sweep() {
+          var imgs = document.querySelectorAll('.bls-image-js img.bls-loading-image');
+          for (var i = 0; i < imgs.length; i++) { if (imgs[i].complete) clear(imgs[i]); }
+        }
+        if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', sweep);
+        else sweep();
+      })();
+    </script>
     {% render 'schema-local-business' %}
     {% render 'schema-homepage-products' %}
     {% render 'schema-faq-collection' %}
