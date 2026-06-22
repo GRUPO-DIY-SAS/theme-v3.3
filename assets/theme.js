@@ -8110,33 +8110,35 @@ class TabItems extends HTMLElement {
       const isMatch = c.dataset.blockId === blockId;
       
       if (isMatch && !c.classList.contains("active")) {
-        Motion.animate(c, 
-          { 
+        Motion.animate(c,
+          {
             opacity: [0, 1],
             y: [20, 0]
-          }, 
-          { 
+          },
+          {
             duration: 0.3,
           }
         );
         c.classList.add("active");
         c.classList.remove("hidden");
-        this.initContentSwiper();
       } else if (!isMatch && c.classList.contains("active")) {
-        Motion.animate(c, 
-          { 
+        Motion.animate(c,
+          {
             opacity: [1, 0],
             y: [0, 20]
-          }, 
-          { 
+          },
+          {
             duration: 0.3,
           }
         );
         c.classList.remove("active");
         c.classList.add("hidden");
-        this.initContentSwiper();
       }
     });
+
+    // Recalc the now-visible carousel once per switch (was called per-panel before — and
+    // it destroyed+re-created the Swiper every time, a major INP cost on tab clicks).
+    this.initContentSwiper();
 
     this.querySelectorAll(".collection-tab__tab-item").forEach((t) => {
       const isMatch = t.dataset.blockId === blockId;
@@ -8183,22 +8185,19 @@ class TabItems extends HTMLElement {
 
   initContentSwiper() {
     const slideSection = this.querySelector('.collection-tab__tab-content.active slide-section');
-    if (slideSection && slideSection.swiper) {
-        try {
-          if (slideSection.swiper.initialized) {
-            slideSection.swiper.destroy(true, false);
-            slideSection.init();
+    if (slideSection && slideSection.swiper && slideSection.swiper.initialized) {
+      try {
+        // The panel was display:none, so Swiper's cached sizes are stale. update()
+        // recalculates size/slides/progress without the cost of destroy()+init() on
+        // every tab change (that re-creation was the main INP hit on tab clicks).
+        slideSection.swiper.update();
+        requestAnimationFrame(() => {
+          if (slideSection.swiper && slideSection.swiper.initialized) {
+            slideSection.swiper.update();
           }
-          
-          setTimeout(() => {
-            if (slideSection.swiper && slideSection.swiper.initialized) {
-              slideSection.swiper.update();
-            }
-          }, 10);
-        } catch (e) {
-          console.warn('Error updating swiper:', e);
-        }
-      }
+        });
+      } catch (e) {}
+    }
   }
 }
 customElements.define("tab-items", TabItems);
