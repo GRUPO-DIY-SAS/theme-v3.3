@@ -592,7 +592,7 @@
         "view_full_details": "Ver todos los detalles",
         "instock": "En stock",
         "outstock": "Agotado",
-        "pre_order": "Hacer un pedido",
+        "pre_order": "Preventa ",
         "add_to_cart": "Agregar al carrito"
       },
       "quantity": {
@@ -660,7 +660,7 @@
       "sale": "{{discount}}% apagado",
       "value_unavailable": "{{ option_value }} - No disponible",
       "sold_out": "Agotado",
-      "pre_order": "Hacer un pedido",
+      "pre_order": "Preventa ",
       "unavailable": "Indisponible",
       "add_to_cart": "Agregar al carrito",
       "fake_sold": "{{ sold }} vendidos en las últimas {{ hours }} horas",
