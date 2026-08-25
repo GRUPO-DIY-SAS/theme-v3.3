@@ -198,6 +198,12 @@ body .shopify-payment-button__more-options:hover:not([disabled]) {
   --btn-primary-bg-color: var(--color-primary);
   --btn-primary-bg-graident-color: var(--color-primary);
 }
+/* Shopify marca el botón dinámico como aria-disabled cuando la variante está agotada; el
+   override de color primario lo dejaba viéndose activo. */
+.shopify-payment-button__button[aria-disabled="true"] {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
 body .shopify-payment-button__button--unbranded:hover:not([disabled]) {
   background-color: var(--color-primary);
 }
