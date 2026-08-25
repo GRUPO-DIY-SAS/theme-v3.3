@@ -405,6 +405,20 @@
       return null;
     }
 
+    /* Todas las cookies con este nombre, no sólo la primera. Con duplicados
+       (host-only + domain heredado), quedarse con la primera hace que un residuo
+       viejo tape la cookie recién escrita. */
+    getAllCookieValues(name) {
+      const prefix = name + "=";
+      const parts = document.cookie ? document.cookie.split(";") : [];
+      const values = [];
+      for (let i = 0; i < parts.length; i += 1) {
+        const cookie = parts[i].trim();
+        if (cookie.indexOf(prefix) === 0) values.push(cookie.slice(prefix.length));
+      }
+      return values;
+    }
+
     parseVerified(raw) {
       if (!raw) return null;
 
@@ -492,12 +506,21 @@
     }
 
     clearVerificationCookies() {
+      const host = location.hostname;
+      const bare = host.replace(/^www\./, "");
+      /* Barrer TODAS las variantes de dominio, no sólo this.cookieDomain. Una
+         cookie escrita con domain=.diyvape.co NO se borra con una petición
+         host-only; si el merchant vacía el setting de dominio, ese residuo queda
+         huérfano, se lee antes que la cookie nueva y bloquea la verificación de
+         forma permanente (read-back siempre falso). */
+      const domains = ["", host, "." + host, bare, "." + bare];
+      if (this.cookieDomain) domains.push(this.cookieDomain);
+
       this.cookieAliases.forEach((name) => {
-        document.cookie = name + "=;path=/;Max-Age=0;expires=Thu, 01 Jan 1970 00:00:00 GMT";
-        if (this.cookieDomain) {
+        domains.forEach((d) => {
           document.cookie =
-            name + "=;path=/;domain=" + this.cookieDomain + ";Max-Age=0;expires=Thu, 01 Jan 1970 00:00:00 GMT";
-        }
+            name + "=;path=/;Max-Age=0;expires=Thu, 01 Jan 1970 00:00:00 GMT" + (d ? ";domain=" + d : "");
+        });
         try { localStorage.removeItem(name); } catch (error) {}
       });
     }
@@ -526,11 +549,20 @@
     }
 
     getVerifiedObjectFromCookies() {
+      let expiredFallback = null;
       for (let i = 0; i < this.cookieAliases.length; i += 1) {
-        const parsed = this.parseVerified(this.getCookie(this.cookieAliases[i]));
-        if (parsed) return parsed;
+        const values = this.getAllCookieValues(this.cookieAliases[i]);
+        for (let j = 0; j < values.length; j += 1) {
+          const parsed = this.parseVerified(values[j]);
+          if (!parsed) continue;
+          /* Con duplicados gana la primera VIGENTE, no la primera a secas: un
+             residuo vencido no debe tapar una verificación válida ni disparar
+             la purga de lo recién guardado. */
+          if (!this.isVerificationExpired(parsed)) return parsed;
+          expiredFallback = expiredFallback || parsed;
+        }
       }
-      return null;
+      return expiredFallback;
     }
 
     getVerifiedObjectFromStorage() {
@@ -620,13 +652,16 @@
       };
 
       write(domain);
-      if (this.getCookie(name) === encoded) return true;
+      /* Read-back sobre TODAS las cookies homónimas: si un residuo con otro
+         dominio aparece primero en document.cookie, comparar sólo contra
+         getCookie() daría falso negativo sobre una escritura correcta. */
+      if (this.getAllCookieValues(name).indexOf(encoded) !== -1) return true;
 
       if (domain) {
         document.cookie = `${name}=;path=/;domain=${domain};Max-Age=0;expires=Thu, 01 Jan 1970 00:00:00 GMT`;
       }
       write("");
-      return this.getCookie(name) === encoded;
+      return this.getAllCookieValues(name).indexOf(encoded) !== -1;
     }
 
     persistVerificationFallbacks(payload) {
@@ -655,17 +690,21 @@
         ttl.type === "expires" ? Object.assign({}, payload, { exp: Date.now() + ttl.ms }) : payload;
       const raw = JSON.stringify(stamped);
 
-      /* Borrar el estado anterior ANTES de escribir. Sin esto, un residuo
-         vencido (p. ej. una verificación de hace meses, escrita por una versión
-         previa del asset y sin sello `exp`) puede leerse antes que el dato nuevo
-         y disparar purgeVerification(), que borra cookie Y localStorage —
-         destruyendo lo que se acaba de guardar. Efecto visible: una verificación
-         vencida impedía volver a verificarse, de forma permanente. */
+      /* Borrar el estado anterior ANTES de escribir, en todas las variantes de
+         dominio. Sin esto, un residuo vencido (verificación de hace meses,
+         escrita con otro domain y sin sello `exp`) se lee antes que el dato
+         nuevo: el read-back falla y purgeVerification() borra cookie Y
+         localStorage, destruyendo lo recién guardado. Efecto visible: una
+         verificación vencida impedía volver a verificarse. */
+      const clearHost = location.hostname;
+      const clearBare = clearHost.replace(/^www\./, "");
+      const clearDomains = ["", clearHost, "." + clearHost, clearBare, "." + clearBare];
+      if (this.cookieDomain) clearDomains.push(this.cookieDomain);
       this.cookieAliases.forEach((name) => {
-        document.cookie = name + "=;path=/;Max-Age=0";
-        if (this.cookieDomain) {
-          document.cookie = name + "=;path=/;domain=" + this.cookieDomain + ";Max-Age=0";
-        }
+        clearDomains.forEach((d) => {
+          document.cookie =
+            name + "=;path=/;Max-Age=0;expires=Thu, 01 Jan 1970 00:00:00 GMT" + (d ? ";domain=" + d : "");
+        });
       });
 
       let cookieOk = true;
@@ -1548,11 +1587,15 @@
   window.DiyvapeAgeGate.reset = function () {
     const gate = document.querySelector(ELEMENT_NAME);
     const names = gate && gate.cookieAliases ? gate.cookieAliases : [CANONICAL_COOKIE_NAME];
+    const host = location.hostname;
+    const bare = host.replace(/^www\./, "");
+    const domains = ["", host, "." + host, bare, "." + bare];
+    if (gate && gate.cookieDomain) domains.push(gate.cookieDomain);
+
     names.forEach((name) => {
-      document.cookie = name + "=;path=/;Max-Age=0";
-      if (gate && gate.cookieDomain) {
-        document.cookie = name + "=;path=/;domain=" + gate.cookieDomain + ";Max-Age=0";
-      }
+      domains.forEach((d) => {
+        document.cookie = name + "=;path=/;Max-Age=0" + (d ? ";domain=" + d : "");
+      });
       try { localStorage.removeItem(name); } catch (e) {}
       try { sessionStorage.removeItem(name); } catch (e) {}
     });
