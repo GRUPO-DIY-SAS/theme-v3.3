@@ -93,49 +93,57 @@
       para que CSS y JS posteriores (deferred-assets-loader) puedan tomar
       decisiones según el estado. El preload condicional del logo del age
       gate vive en el bloque (blocks/ai_gen_block_3f4d556.liquid) porque
-      ahí tenemos logo_width_2x dinámico que evita drift de URL. {%- endcomment -%}
-    <script>
-      (function () {
-        var cookieName = 'age_verified_diyvape';
-        var parseVerified = function (raw) {
-          if (!raw) return false;
-          try {
-            var parsed = JSON.parse(decodeURIComponent(raw));
-            return Boolean(parsed && parsed.verified && parsed.dob && parsed.id);
-          } catch (error) {
+      ahí tenemos logo_width_2x dinámico que evita drift de URL.
+
+      FIX — el guard de design mode ahora es LIQUID, no JS.
+      Antes este script hacía:
+          if (window.Shopify && window.Shopify.designMode) { ...remove; return; }
+      pero corre ANTES de {{ content_for_header }}, que es justamente lo que
+      define el global `Shopify`. window.Shopify era undefined, la condición
+      nunca se cumplía y el return jamás corría. Resultado: en el Theme Editor,
+      si el merchant tenía cookie de visitas reales, la clase age-gate-verified
+      SÍ se añadía y la regla
+          html.age-gate-verified .ai-age-verify-overlay { display:none !important }
+      ganaba sobre los estilos inline de showGate() del bloque — el botón
+      "Preview Age Verification" no mostraba nada.
+      Con {%- unless request.design_mode -%} el script simplemente no se emite
+      en el editor, que es el comportamiento que el comentario original
+      describía. {%- endcomment -%}
+    {%- unless request.design_mode -%}
+      <script>
+        (function () {
+          var cookieName = 'age_verified_diyvape';
+          var parseVerified = function (raw) {
+            if (!raw) return false;
             try {
-              var fallback = JSON.parse(raw);
-              return Boolean(fallback && fallback.verified && fallback.dob && fallback.id);
-            } catch (innerError) {
-              return false;
+              var parsed = JSON.parse(decodeURIComponent(raw));
+              return Boolean(parsed && parsed.verified && parsed.dob && parsed.id);
+            } catch (error) {
+              try {
+                var fallback = JSON.parse(raw);
+                return Boolean(fallback && fallback.verified && fallback.dob && fallback.id);
+              } catch (innerError) {
+                return false;
+              }
             }
-          }
-        };
-        var getCookie = function (name) {
-          var prefix = name + '=';
-          var parts = document.cookie ? document.cookie.split(';') : [];
-          for (var i = 0; i < parts.length; i += 1) {
-            var value = parts[i].trim();
-            if (value.indexOf(prefix) === 0) return value.slice(prefix.length);
-          }
-          return '';
-        };
-        /* En design mode (Shopify Theme Editor) NO añadimos la clase age-gate-verified
-           aunque la cookie/localStorage indique que sí. El merchant probablemente tiene
-           cookie de visitas reales al shop, y la clase haría que el age gate quede
-           invisible en el editor (vía CSS html.age-gate-verified .ai-age-verify-overlay
-           { display:none !important }). En design mode queremos poder editar el bloque. */
-        if (window.Shopify && window.Shopify.designMode) {
-          document.documentElement.classList.remove('age-gate-verified');
-          return;
-        }
-        try {
-          if (parseVerified(getCookie(cookieName)) || parseVerified(localStorage.getItem(cookieName))) {
-            document.documentElement.classList.add('age-gate-verified');
-          }
-        } catch (error) {}
-      })();
-    </script>
+          };
+          var getCookie = function (name) {
+            var prefix = name + '=';
+            var parts = document.cookie ? document.cookie.split(';') : [];
+            for (var i = 0; i < parts.length; i += 1) {
+              var value = parts[i].trim();
+              if (value.indexOf(prefix) === 0) return value.slice(prefix.length);
+            }
+            return '';
+          };
+          try {
+            if (parseVerified(getCookie(cookieName)) || parseVerified(localStorage.getItem(cookieName))) {
+              document.documentElement.classList.add('age-gate-verified');
+            }
+          } catch (error) {}
+        })();
+      </script>
+    {%- endunless -%}
     <link rel="canonical" href="{{ canonical_url }}">
     {%- if settings.favicon != blank -%}
       <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
