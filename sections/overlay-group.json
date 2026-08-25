@@ -48,7 +48,7 @@
             "cookie_persistence": "session",
             "cookie_hours": "24",
             "cookie_days_v2": "7",
-            "cookie_custom_value": 1,
+            "cookie_custom_value": 2,
             "cookie_custom_unit": "hours",
             "cart_sync_enabled": true,
             "cart_attr_prefix": "age_verification",
