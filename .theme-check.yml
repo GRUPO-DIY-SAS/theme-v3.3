@@ -1,7 +1,8 @@
-# Archivos que la app Foxify (page builder) inyecta en el theme y escribe de vuelta al repo;
+# Archivos que las apps Foxify (page builder) y Foxkit inyectan en el theme y escribe de vuelta al repo;
 # los mantiene la app, no este repo, y referencian assets/locales que viven en la app.
 ignore:
   - sections/foxify-*
   - snippets/foxify-*
+  - snippets/foxkit-*
   - layout/theme.foxify.liquid
   - templates/*.foxify-*
