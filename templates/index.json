@@ -277,7 +277,7 @@
         "card_text_color": "#000000",
         "badge_background": "#cc0033",
         "badge_text_color": "#ffffff",
-        "card_surface": "solid",
+        "card_surface": "glass",
         "glass_refraction": true,
         "interaction_effect": "lift",
         "image_ratio": "square",
