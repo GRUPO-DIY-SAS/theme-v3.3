@@ -623,7 +623,9 @@
           "button_link_hover_color": "#000000"
         }
       }
-    }
+    },
+    "wishlist_page": "lista-de-deseos",
+    "compare_page": "comparacion-de-productos"
   },
   "presets": {
     "Default": {

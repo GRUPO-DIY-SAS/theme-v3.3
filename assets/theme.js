@@ -5351,7 +5351,7 @@ class ButtonWishlist extends HTMLElement {
             }
           } else {
             listProductIds.push(...parseLocalListProductIds);
-            window.location.href = `${window.shopUrl}${window.Shopify.routes.root}pages/wishlist`;
+            window.location.href = window.wishlistPageUrl || `${window.shopUrl}${window.Shopify.routes.root}pages/wishlist`;
           }
         } else {
           listProductIds.push(...parseLocalListProductIds);
@@ -5457,7 +5457,7 @@ class ButtonCompare extends HTMLElement {
             this.actionWhenClicked(allThisProductIds, false);
           } else {
             listProductIds.push(...parseLocalListProductIds);
-            window.location.href = `${window.shopUrl}${window.Shopify.routes.root}pages/compare`;
+            window.location.href = window.comparePageUrl || `${window.shopUrl}${window.Shopify.routes.root}pages/compare`;
           }
         } else {
           listProductIds.push(...parseLocalListProductIds);

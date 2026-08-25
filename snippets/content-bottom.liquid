@@ -130,6 +130,9 @@
     sale: `{{ 'products.product.label.sale_label' | t }}`
   };
 
+  // Páginas de wishlist/comparar: configurables porque el handle cambia por tienda.
+  window.wishlistPageUrl = {{ settings.wishlist_page.url | default: '/pages/wishlist' | json }};
+  window.comparePageUrl = {{ settings.compare_page.url | default: '/pages/compare' | json }};
   window.flashingBrowseTab = {
     enable: {{ theme_st.enable_browser_tab_notifications }},
     firstNotification: `{{ theme_st.first_notification }}`,

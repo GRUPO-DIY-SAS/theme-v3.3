@@ -11,7 +11,7 @@
   {{ 'customer.account.your_addresses' | t }}
 </a>
 <a
-  href="/pages/wishlist"
+  href="{{ settings.wishlist_page.url | default: '/pages/wishlist' }}"
   class="no-underline heading-color subheading_weight border-bottom px-20 py-15 block lh-normal"
 >
   {{ 'customer.account.your_wishlist' | t }}

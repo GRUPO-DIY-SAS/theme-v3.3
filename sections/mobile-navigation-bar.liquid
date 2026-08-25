@@ -119,7 +119,7 @@
         {% when 'wishlist' %}
           <a
             id="wishlist-icon-bubble-mobile"
-            href="/pages/wishlist"
+            href="{{ settings.wishlist_page.url | default: '/pages/wishlist' }}"
             class="wishlist-icon-bubble no-underline lh-normal inline-flex content-center flex-column text-center heading-color"
             aria-label="{{ 'mobile_navbar.wishlist' | t }}"
           >

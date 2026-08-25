@@ -1288,6 +1288,18 @@
             "label": "t:settings_schema.wishlist.settings.action_when_click_added_wishlist.go_to_page.label"
           }
         ]
+      },
+      {
+        "type": "page",
+        "id": "wishlist_page",
+        "label": "Página de lista de deseos",
+        "info": "Página con la plantilla page.wishlist. Si se deja vacío se usa /pages/wishlist."
+      },
+      {
+        "type": "page",
+        "id": "compare_page",
+        "label": "Página de comparar productos",
+        "info": "Página con la plantilla page.compare. Si se deja vacío se usa /pages/compare."
       }
     ]
   },

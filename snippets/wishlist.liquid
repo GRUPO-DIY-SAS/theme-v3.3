@@ -1,6 +1,6 @@
 <div class="header__wishlist hidden block-1025">
   <a
-    href="/pages/wishlist"
+    href="{{ settings.wishlist_page.url | default: '/pages/wishlist' }}"
     class="header-icon header-color w-44 h-44 inline-flex content-center"
     aria-label="{{ 'templates.wishlist.wishlist' | t }}"
   >

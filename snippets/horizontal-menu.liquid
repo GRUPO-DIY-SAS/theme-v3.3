@@ -479,7 +479,7 @@
           <li class="level0 hidden-1025">
             <a
               class="no-underline py-10 lh-normal flex border-bottom border-bottom-1025-0 min-h-55 min-h-1025-50 align-center{% if uppercase_first %} uppercase{% endif %}"
-              href="/pages/wishlist"
+              href="{{ settings.wishlist_page.url | default: '/pages/wishlist' }}"
               aria-label="{{ 'templates.wishlist.wishlist' | t }}"
             >
               <svg width="17" height="15" viewBox="0 0 19 16" class="me-10" fill="none">
@@ -962,7 +962,7 @@
           <li class="level0 hidden-1025">
             <a
               class="no-underline py-10 lh-normal flex border-bottom border-bottom-1025-0 min-h-55 min-h-1025-50 align-center{% if uppercase_first %} uppercase{% endif %}"
-              href="/pages/wishlist"
+              href="{{ settings.wishlist_page.url | default: '/pages/wishlist' }}"
               aria-label="{{ 'templates.wishlist.wishlist' | t }}"
             >
               <svg width="17" height="15" viewBox="0 0 19 16" class="me-10" fill="none">

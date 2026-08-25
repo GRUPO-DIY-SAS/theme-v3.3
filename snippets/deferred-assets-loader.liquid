@@ -39,7 +39,7 @@
       if (node.tagName === 'SCRIPT') url = node.src || '';
       else if (node.tagName === 'LINK') url = node.href || '';
       url = String(url).toLowerCase();
-      return url.indexOf('judge.me') !== -1 || url.indexOf('judgeme-505') !== -1;
+      return url.indexOf('judge.me') !== -1 || url.indexOf('/judgeme-') !== -1;
     }
 
     if (pageType !== 'product') {
