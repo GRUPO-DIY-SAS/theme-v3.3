@@ -22,8 +22,14 @@
           ? [this.canonicalCookieName]
           : [this.canonicalCookieName, this.cookieName];
       this.cookieDaysLegacy = parseInt(this.dataset.cookieDays || "365", 10);
-      this.cookieDomain = this.dataset.cookieDomain || ".diyvape.co";
-      this.editorModeBehavior = (this.dataset.editorModeBehavior || "show_in_editor").trim();
+      /* FIX: default host-only ("") en vez de ".diyvape.co" hardcodeado.
+         Un domain que no corresponde al host actual (preview *.myshopify.com,
+         staging, localhost) hace que el navegador DESCARTE la cookie en
+         silencio — document.cookie nunca lanza excepción. El valor real sigue
+         viniendo del setting del bloque cuando existe. */
+      this.cookieDomain = (this.dataset.cookieDomain || "").trim();
+      /* FIX: default alineado con el schema del bloque (era "show_in_editor"). */
+      this.editorModeBehavior = (this.dataset.editorModeBehavior || "only_preview_button").trim();
       this.cookiePersistence = (this.dataset.cookiePersistence || "legacy_days").trim();
       this.cookieHours = parseInt(this.dataset.cookieHours || "24", 10);
       this.cookieDaysV2 = parseInt(this.dataset.cookieDaysV2 || String(this.cookieDaysLegacy || 365), 10);
@@ -48,8 +54,11 @@
       this.errId = this.querySelector('[data-error="id"]');
       this.errCookie = this.querySelector('[data-error="cookie"]');
       this.submitBtn = this.form ? this.form.querySelector('button[type="submit"]') : null;
-      this.editorTriggerWrap = this.querySelector("[data-editor-trigger]") || document.querySelector(`[data-age-editor-trigger-for="${this.id}"]`);
-      this.editorTriggerBtn = this.editorTriggerWrap ? this.editorTriggerWrap.querySelector("button") : null;
+      /* FIX: el trigger del editor vive DESPUÉS de </age-verification-gate> en
+         el bloque, así que en el constructor todavía no existe en el DOM y
+         querySelector devolvía null siempre. Se resuelve en connectedCallback. */
+      this.editorTriggerWrap = null;
+      this.editorTriggerBtn = null;
       this.modal = this.querySelector("[data-age-modal]");
       this._cartSyncInFlight = false;
       this._cartSyncSessionKey = "av_cart_synced_" + this.canonicalCookieName;
@@ -64,10 +73,12 @@
       this._perfEnabled = this.isPerfEnabled();
       this._perfMarks = {};
       this._lastSubmitPerfAt = 0;
+      this._lastCookieWriteOk = null;
     }
 
     connectedCallback() {
       this.setDobBounds();
+      this.resolveEditorTrigger();
       this.installCartSyncRescueEvents();
       this.installPerfObserver();
 
@@ -75,6 +86,12 @@
 
       const verified = this.getVerifiedObject();
       if (verified) {
+        /* FIX (Safari/ITP): las cookies escritas vía document.cookie se capan a
+           7 días sin importar que pidamos 365, y el localStorage script-writable
+           también entra en evicción. Reescribir en cada carga verificada renueva
+           la ventana (rolling expiry) y además hace que el modo "hours" se
+           extienda con el uso en vez de vencer en seco. */
+        this.refreshPersistence(verified);
         document.documentElement.classList.add("age-gate-verified");
         this.hide();
         this.dispatchVerifiedEvent(this.isCartVerified() ? "cart_verified_with_local_data" : "cookie_present");
@@ -91,6 +108,13 @@
       }
 
       this.show();
+    }
+
+    resolveEditorTrigger() {
+      this.editorTriggerWrap =
+        this.querySelector("[data-editor-trigger]") ||
+        document.querySelector(`[data-age-editor-trigger-for="${this.id}"]`);
+      this.editorTriggerBtn = this.editorTriggerWrap ? this.editorTriggerWrap.querySelector("button") : null;
     }
 
     applyEditorModeBehavior() {
@@ -201,7 +225,11 @@
     }
 
     setDobBounds() {
-      if (!this.dobInput) return;
+      /* En el bloque actual [data-dob-input] es un <input type="hidden">
+         alimentado por la rueda custom de 3 columnas, así que min/max no
+         aplican. Se mantiene por compatibilidad si algún día vuelve a ser
+         un input[type=date]. La validación real vive en isRealDate/isOver18. */
+      if (!this.dobInput || this.dobInput.type === "hidden") return;
       const now = new Date();
       const max = new Date(now.getFullYear() - 18, now.getMonth(), now.getDate());
       this.dobInput.max = this.formatDateInputValue(max);
@@ -245,6 +273,11 @@
 
       this.persistVerificationFallbacks(payload);
 
+      /* getVerifiedObject() consulta cookie OR localStorage, así que este
+         chequeo sólo detecta el fallo TOTAL. El fallo parcial (cookie
+         rechazada, storage vivo) se registra dentro de
+         persistVerificationFallbacks con console.warn — no bloquea el flujo
+         pero deja traza, que es lo que faltaba para depurar persistencia. */
       if (!this.getVerifiedObject()) {
         this.showError(this.errCookie, this.cookieErrorMessage);
         this.setSubmitLoading(false);
@@ -349,10 +382,31 @@
       return Boolean(id && /^\d+$/.test(id) && id.length >= 6 && id.length <= 10);
     }
 
+    /* ==========================================================================
+       FIX PRINCIPAL — lector de cookies inmune a duplicados.
+
+       La versión anterior hacía:
+           document.cookie.split("; " + name + "=")
+           if (parts.length === 2) return ...
+           return null;
+       Con DOS cookies del mismo nombre (una host-only y una con
+       domain=.diyvape.co, o un residuo de una versión previa del theme) el
+       split devuelve 3 partes y la función retornaba null AUNQUE la cookie
+       existiera. Eso hacía fallar el read-back de setCookieStrongFlexible, que
+       lo interpretaba como "dominio rechazado" y escribía una segunda cookie
+       host-only — realimentando el problema hasta dejar el sitio dependiendo
+       sólo de localStorage.
+
+       Ahora itera y devuelve el primer match. Gana la más específica que el
+       navegador haya puesto primero y nunca retorna null por duplicados.
+       ========================================================================== */
     getCookie(name) {
-      const value = `; ${document.cookie}`;
-      const parts = value.split(`; ${name}=`);
-      if (parts.length === 2) return parts.pop().split(";").shift();
+      const parts = document.cookie ? document.cookie.split(";") : [];
+      const prefix = name + "=";
+      for (let i = 0; i < parts.length; i += 1) {
+        const cookie = parts[i].trim();
+        if (cookie.indexOf(prefix) === 0) return cookie.slice(prefix.length);
+      }
       return null;
     }
 
@@ -435,40 +489,84 @@
       return { type: "expires", ms: days * 24 * 60 * 60 * 1000 };
     }
 
+    /* ==========================================================================
+       FIX — escritura de cookie robusta.
+
+       1) Max-Age además de expires. `expires` es una fecha ABSOLUTA que el
+          navegador evalúa contra el reloj del dispositivo: un celular con la
+          hora adelantada recibe una fecha ya vencida y descarta la cookie o la
+          degrada a cookie de sesión. Max-Age es relativo, tiene precedencia
+          sobre expires, y elimina esa clase completa de fallos.
+
+       2) Read-back por comparación EXACTA del valor que acabamos de escribir,
+          no "¿hay algún valor válido?". Antes un falso negativo disparaba una
+          escritura host-only extra y generaba el duplicado permanente.
+
+       3) Antes de caer a host-only, borra el residuo del dominio rechazado
+          para no acumular cookies del mismo nombre.
+
+       Devuelve true/false para que el llamador pueda registrar el fallo.
+       ========================================================================== */
     setCookieStrongFlexible(name, value, ttl, domain) {
       const secure = location && location.protocol === "https:" ? ";Secure" : "";
+      const encoded = encodeURIComponent(value);
+
       const write = (cookieDomain) => {
         const domainAttr = cookieDomain ? `;domain=${cookieDomain}` : "";
-        const base = `${name}=${encodeURIComponent(value)};path=/${domainAttr};SameSite=Lax${secure}`;
+        const base = `${name}=${encoded};path=/${domainAttr};SameSite=Lax${secure}`;
 
         if (ttl && ttl.type === "session") {
           document.cookie = base;
           return;
         }
 
-        const ms = ttl && typeof ttl.ms === "number" ? ttl.ms : 365 * 24 * 60 * 60 * 1000;
-        const date = new Date();
-        date.setTime(date.getTime() + ms);
-        document.cookie = `${base};expires=${date.toUTCString()}`;
+        const ms = ttl && typeof ttl.ms === "number" && ttl.ms > 0 ? ttl.ms : 365 * 24 * 60 * 60 * 1000;
+        const date = new Date(Date.now() + ms);
+        document.cookie = `${base};Max-Age=${Math.floor(ms / 1000)};expires=${date.toUTCString()}`;
       };
 
       write(domain);
-      if (!this.parseVerified(this.getCookie(name))) {
-        write("");
+      if (this.getCookie(name) === encoded) return true;
+
+      if (domain) {
+        document.cookie = `${name}=;path=/;domain=${domain};Max-Age=0;expires=Thu, 01 Jan 1970 00:00:00 GMT`;
       }
+      write("");
+      return this.getCookie(name) === encoded;
     }
 
     persistVerificationFallbacks(payload) {
-      if (!payload || !payload.verified || !payload.dob || !payload.id) return;
+      if (!payload || !payload.verified || !payload.dob || !payload.id) return false;
 
       const raw = JSON.stringify(payload);
       const ttl = this.getCookieTTL();
+      let cookieOk = true;
+
       this.cookieAliases.forEach((name) => {
-        this.setCookieStrongFlexible(name, raw, ttl, this.cookieDomain);
+        const written = this.setCookieStrongFlexible(name, raw, ttl, this.cookieDomain);
+        if (!written) cookieOk = false;
         try {
           localStorage.setItem(name, raw);
         } catch (error) {}
       });
+
+      this._lastCookieWriteOk = cookieOk;
+
+      if (!cookieOk && window.console && console.warn) {
+        console.warn("[AgeGate] cookie NO persistida — operando sólo con localStorage", {
+          domainSetting: this.cookieDomain,
+          host: location.hostname,
+          persistence: this.cookiePersistence,
+          ttl,
+        });
+      }
+
+      return cookieOk;
+    }
+
+    refreshPersistence(verifiedObj) {
+      if (!verifiedObj) return;
+      this.persistVerificationFallbacks(verifiedObj);
     }
 
     restoreCookieFromStorageIfNeeded() {
@@ -1209,4 +1307,49 @@
   }
 
   customElements.define(ELEMENT_NAME, AgeVerificationGate);
+
+  /* ==========================================================================
+     Helper de diagnóstico. En consola:  DiyvapeAgeGate.diagnose()
+
+     Devuelve, de una sola vez, todo lo necesario para decidir si el problema
+     es de ESCRITURA (nada guardado), de BORRADO (el navegador limpia site
+     data) o de FORMA (el JSON no pasa parseVerified). Corre esto justo después
+     de verificar edad y otra vez tras cerrar y reabrir la pestaña.
+     ========================================================================== */
+  window.DiyvapeAgeGate = window.DiyvapeAgeGate || {};
+  window.DiyvapeAgeGate.diagnose = function () {
+    const gate = document.querySelector(ELEMENT_NAME);
+    const names = gate && gate.cookieAliases ? gate.cookieAliases : [CANONICAL_COOKIE_NAME];
+    const report = {
+      host: location.hostname,
+      protocol: location.protocol,
+      cookieDomainSetting: gate ? gate.cookieDomain : "<sin gate en el DOM>",
+      persistence: gate ? gate.cookiePersistence : null,
+      htmlHasVerifiedClass: document.documentElement.classList.contains("age-gate-verified"),
+      lastCookieWriteOk: gate ? gate._lastCookieWriteOk : null,
+      rawAgeCookies: (document.cookie || "")
+        .split(";")
+        .map((c) => c.trim())
+        .filter((c) => c.indexOf("age_verified") !== -1),
+      cookies: {},
+      storage: {},
+      verified: gate ? Boolean(gate.getVerifiedObject()) : null,
+    };
+
+    names.forEach((name) => {
+      report.cookies[name] = gate ? gate.getCookie(name) : null;
+      try {
+        report.storage[name] = localStorage.getItem(name);
+      } catch (error) {
+        report.storage[name] = "<localStorage bloqueado>";
+      }
+    });
+
+    if (report.rawAgeCookies.length > 1) {
+      report.WARNING = "Hay más de una cookie age_verified — duplicados. Borra todas las cookies del sitio y vuelve a verificar.";
+    }
+
+    if (window.console && console.log) console.log("[AgeGate diagnose]", report);
+    return report;
+  };
 })();
