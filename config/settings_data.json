@@ -93,7 +93,7 @@
     "free_shipping_bogota_minimum": "500000",
     "free_shipping_national_label": "Capitales",
     "free_shipping_national_minimum": "1000000",
-    "free_shipping_max_weight_kg": 30,
+    "free_shipping_max_weight_kg": 100,
     "free_shipping_pending_text": "Agrega productos para desbloquear envío gratis",
     "free_shipping_remaining_text": "Te faltan {{ amount }} para envío gratis",
     "free_shipping_unlocked_text": "¡Envío gratis desbloqueado!",
@@ -610,7 +610,12 @@
       }
     },
     "wishlist_page": "lista-de-deseos",
-    "compare_page": "comparacion-de-productos"
+    "compare_page": "comparacion-de-productos",
+    "widget_ship_days": "mon_fri",
+    "widget_cutoff_hour": 13,
+    "widget_cutoff_title": "Horario de corte",
+    "widget_text_ships_today": "Pide antes de la 1:00 p.m. y procesamos tu pedido hoy",
+    "widget_trust_text": "Despachamos de lunes a viernes. Tu pedido sale en máximo 5 días hábiles después de confirmado el pago."
   },
   "presets": {
     "Default": {
