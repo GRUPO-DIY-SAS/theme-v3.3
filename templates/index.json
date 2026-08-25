@@ -1074,7 +1074,7 @@
           "type": "rich_text",
           "settings": {
             "position": "top",
-            "heading": "Otras Categorías Superventas",
+            "heading": "Otras Categorías para el hogar #1 en ventas",
             "content": "<p>Maletas de viaje, Hogar, Sillas de Oficina</p>",
             "text_alignment": "center",
             "max_width": 1100,
@@ -1107,37 +1107,7 @@
             "cta_label": "Ver mesas",
             "cta_link": "",
             "tab_eyebrow": "",
-            "tab_heading": "Bicicletas de ruta livianas y veloces",
-            "tab_description": "",
-            "tab_hero_type": "inherit"
-          }
-        },
-        "collection_RYiBzy": {
-          "type": "collection",
-          "settings": {
-            "tab_key": "infantil",
-            "collection": "bicicleta-infantil",
-            "products": [],
-            "collection_title": "Infantiles",
-            "cta_label": "Ver bicicletas infantiles",
-            "cta_link": "",
-            "tab_eyebrow": "",
-            "tab_heading": "Bicicletas para niños de todas las edades",
-            "tab_description": "",
-            "tab_hero_type": "inherit"
-          }
-        },
-        "collection_MXiCUc": {
-          "type": "collection",
-          "settings": {
-            "tab_key": "electricas",
-            "collection": "bicicletas-electricas",
-            "products": [],
-            "collection_title": "Eléctricas",
-            "cta_label": "Ver bicicletas eléctricas",
-            "cta_link": "",
-            "tab_eyebrow": "",
-            "tab_heading": "Bicicletas eléctricas Roadmaster: hasta 60 km/h de autonomía urbana",
+            "tab_heading": "Mesas de ping pong al mejor precio de Colombia.",
             "tab_description": "",
             "tab_hero_type": "inherit"
           }
@@ -1146,9 +1116,7 @@
       "block_order": [
         "rich_text_9BFJym",
         "collection_FnX4GX",
-        "collection_Ed9EQM",
-        "collection_RYiBzy",
-        "collection_MXiCUc"
+        "collection_Ed9EQM"
       ],
       "settings": {
         "section_width": "fluid_container",
