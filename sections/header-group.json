@@ -140,7 +140,7 @@
         "transparent_bg_color": "#000000",
         "mega_menu": "main-menu",
         "dropdowns_animation": "down-to-up",
-        "uppercase_first": false,
+        "uppercase_first": true,
         "hot": "Hot",
         "label_color_hot": "#ffffff",
         "label_background_hot": "#cc0033",
