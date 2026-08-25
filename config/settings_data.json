@@ -56,7 +56,7 @@
     "show_sold_out": true,
     "sold_out_background": "#757575",
     "custom_badge_background": "#14854e",
-    "custom_badge_tags": "IVA 0|IVA 0%\nIVA 5|IVA 5%",
+    "custom_badge_tags": "",
     "product_style": "card",
     "show_quick_view": true,
     "show_compare": true,
