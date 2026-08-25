@@ -1111,12 +1111,28 @@
             "tab_description": "",
             "tab_hero_type": "inherit"
           }
+        },
+        "collection_Qh3bLd": {
+          "type": "collection",
+          "settings": {
+            "tab_key": "Maletas",
+            "collection": "travel-system",
+            "products": [],
+            "collection_title": "Maletas de Viaje",
+            "cta_label": "Ver todas",
+            "cta_link": "{{ block.settings.collection.url }}",
+            "tab_eyebrow": "",
+            "tab_heading": "",
+            "tab_description": "",
+            "tab_hero_type": "inherit"
+          }
         }
       },
       "block_order": [
         "rich_text_9BFJym",
         "collection_FnX4GX",
-        "collection_Ed9EQM"
+        "collection_Ed9EQM",
+        "collection_Qh3bLd"
       ],
       "settings": {
         "section_width": "fluid_container",
