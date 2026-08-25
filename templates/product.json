@@ -217,7 +217,7 @@
         "addi_banner_homesale": {
           "type": "custom-liquid",
           "settings": {
-            "custom_liquid": "<a href=\"https://co.addi.com/\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"block mt-15\" aria-label=\"Paga hasta en 24 cuotas con Addi\"><img src=\"{{ 'ADDI-BANNER-1.png' | file_img_url: '800x' }}\" alt=\"Paga hasta en 24 cuotas con Addi\" loading=\"lazy\" width=\"800\" style=\"max-width:100%;height:auto;border-radius:var(--rounded-radius, 5px);\"></a>"
+            "custom_liquid": "<a href=\"https://co.addi.com/\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"block mt-15\" aria-label=\"Paga hasta en 24 cuotas con Addi\"><img src=\"//homesale.com.co/cdn/shop/files/ADDI-BANNER-1.png?width=800\" alt=\"Paga hasta en 24 cuotas con Addi\" loading=\"lazy\" width=\"800\" height=\"200\" style=\"max-width:100%;height:auto;border-radius:var(--rounded-radius, 5px);\"></a>"
           }
         },
         "specs_homesale": {
