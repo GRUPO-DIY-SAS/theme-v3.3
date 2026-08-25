@@ -207,6 +207,12 @@
               "nota_titulo": "Nota Importante"
             },
             "blocks": {}
+          },
+          "feature_product_description_VxPqQ9": {
+            "type": "_feature-product-description",
+            "name": "t:sections.product-single-layout.blocks.description.name",
+            "settings": {},
+            "blocks": {}
           }
         },
         "block_order": [
@@ -216,7 +222,8 @@
           "product_badges_nJA7Cf",
           "product_quickview_variant_picker_dmihRd",
           "product_quickview_buy_buttons_LbUDqN",
-          "product_metadatos_KkVVDq"
+          "product_metadatos_KkVVDq",
+          "feature_product_description_VxPqQ9"
         ],
         "settings": {}
       },
