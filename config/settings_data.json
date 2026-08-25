@@ -332,14 +332,14 @@
           "heading_color": "#000000",
           "border_color": "#eeeeee",
           "btn_primary_color": "#ffffff",
-          "btn_primary_background": "#000000",
+          "btn_primary_background": "#0A2B60",
           "btn_primary_gradient": "",
           "btn_primary_hover_color": "#ffffff",
           "btn_primary_hover_background": "#cc0033",
           "btn_primary_hover_background_gradient": "",
           "btn_outline_color": "#000000",
           "btn_outline_border_color": "#000000",
-          "button_link_color": "#000000",
+          "button_link_color": "#0A2B60",
           "button_link_hover_color": "#cc0033"
         }
       },
