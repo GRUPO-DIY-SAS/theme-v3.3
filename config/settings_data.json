@@ -43,11 +43,11 @@
     "sale_color": "#fff",
     "sale_background": "#cc0033",
     "sale_badge_type": "percent",
-    "sale_badge_addons": "scrolling",
+    "sale_badge_addons": "countdown",
     "scrolling_color": "#cc0033",
     "scrolling_background": "rgba(0,0,0,0)",
     "scrolling_text": "Promoción [percent_sale] OFF",
-    "countdown_style": "highlight",
+    "countdown_style": "normal",
     "show_new": true,
     "new_background": "#0a2b60",
     "new_badge_display_period": 30,
@@ -56,6 +56,7 @@
     "show_sold_out": true,
     "sold_out_background": "#757575",
     "custom_badge_background": "#14854e",
+    "custom_badge_tags": "IVA 0|IVA 0%\nIVA 5|IVA 5%",
     "product_style": "card",
     "show_quick_view": true,
     "show_compare": true,
@@ -137,6 +138,9 @@
     "show_check_box_in_quick_view": false,
     "text_terms_conditions": "<p>Estoy de acuerdo con los <a href=\"/policies/terms-of-service\" target=\"_blank\" title=\"Términos y Condiciones\"><strong>Términos y Condiciones</strong></a></p>",
     "page_terms_conditions": "",
+    "addi_enable": true,
+    "addi_ally_slug": "homesale-ecommerce",
+    "addi_element_reference": ".product-detail__price",
     "rate_color": "#ea0606",
     "sections": {
       "custom-colors": {
@@ -607,11 +611,7 @@
           "button_link_hover_color": "#000000"
         }
       }
-    },
-    "custom_badge_tags": "IVA 0|IVA 0%\nIVA 5|IVA 5%",
-    "addi_enable": true,
-    "addi_ally_slug": "homesale-ecommerce",
-    "addi_element_reference": ".product-detail__price"
+    }
   },
   "presets": {
     "Default": {
