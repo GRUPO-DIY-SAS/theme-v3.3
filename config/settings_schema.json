@@ -1428,7 +1428,7 @@
           { "value": "mon_fri", "label": "Lunes a viernes" }
         ],
         "default": "mon_sat",
-        "info": "Define qué días cuenta el widget como hábiles para el próximo despacho."
+        "info": "Define qué días cuenta el widget como hábiles para calcular el próximo despacho (los festivos se configuran abajo)."
       },
       {
         "type": "text",
