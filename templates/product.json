@@ -101,6 +101,15 @@
           },
           "blocks": {}
         },
+        "trust_badge_homesale": {
+          "type": "_product-trust-badge",
+          "settings": {
+            "message": "Compra con confianza: pago seguro en cada pedido.",
+            "trust_badge_image": "shopify://shop_images/Payment_6ca1a29f-0fb4-4fbe-a624-35dfe7ae119f.png",
+            "image_width": 300
+          },
+          "blocks": {}
+        },
         "model_size_XM7z6E": {
           "type": "_product-modal-size",
           "settings": {},
@@ -126,14 +135,38 @@
           },
           "blocks": {}
         },
+        "meta_homesale": {
+          "type": "_product-meta",
+          "settings": {
+            "show_barcode": false,
+            "show_sku": true,
+            "show_available": true,
+            "show_tags": false,
+            "show_type": true,
+            "show_collections": false
+          },
+          "blocks": {}
+        },
         "collapsible_row_m3g6f8": {
           "type": "_product-collapsible-row",
           "settings": {
             "heading": "Descripción",
             "content": "",
             "use_product_description": true,
+            "hide_tables": true,
+            "metafield_key": "",
+            "open": true
+          },
+          "blocks": {}
+        },
+        "specs_homesale": {
+          "type": "_product-specs",
+          "settings": {
+            "heading": "Especificaciones técnicas",
             "open": true,
-            "hide_tables": true
+            "metafield_key": "custom.especificaciones",
+            "parse_description": true,
+            "max_rows": 40
           },
           "blocks": {}
         },
@@ -149,6 +182,13 @@
           },
           "blocks": {}
         },
+        "addi_banner_homesale": {
+          "type": "custom-liquid",
+          "settings": {
+            "custom_liquid": "<a href=\"https://co.addi.com/\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"block mt-15\" aria-label=\"Paga hasta en 24 cuotas con Addi\"><img src=\"//homesale.com.co/cdn/shop/files/ADDI-BANNER-1.png?width=800\" alt=\"Paga hasta en 24 cuotas con Addi\" loading=\"lazy\" width=\"800\" height=\"200\" style=\"max-width:100%;height:auto;border-radius:var(--rounded-radius, 5px);\"></a>"
+          },
+          "blocks": {}
+        },
         "product_collapsible_row_4gGjVF": {
           "type": "_product-collapsible-row",
           "name": "t:blocks.general.collapsible_row.name",
@@ -156,6 +196,8 @@
             "heading": "Envíos y Entrega",
             "content": "<h4>🚚 Envíos de {{ product.title }} a todo Colombia</h4><p>Despachamos tu pedido en un <strong>máximo de 5 días hábiles</strong> después de confirmado el pago. El tiempo total de entrega depende de la transportadora y de tu ciudad. No realizamos envíos domingos ni festivos.</p><p><strong>Envío gratis</strong> en pedidos superiores a <strong>$1.000.000</strong> con destino a capitales de departamento (promoción \"Envío gratis, aplican T&C\"). Para otras ciudades te informamos el costo del envío después del pago.</p><p><strong>Al recibir:</strong> revisa el empaque y el producto antes de firmar la guía. Si llega dañado, repórtalo a la transportadora en el momento de la entrega y envíanos fotos el mismo día para gestionar la reclamación ante el seguro del transporte.</p><p>Consulta las condiciones completas en nuestra <a href=\"/policies/shipping-policy\" target=\"_blank\" title=\"Política de envíos\">política de envíos</a>.</p>",
             "use_product_description": false,
+            "hide_tables": false,
+            "metafield_key": "",
             "open": false
           },
           "blocks": {}
@@ -190,45 +232,11 @@
             "heading": "Garantía",
             "content": "<h4>Garantía y devoluciones</h4><p>Todos nuestros productos cuentan con la garantía legal establecida en la <strong>Ley 1480 de 2011</strong> (Estatuto del Consumidor). El término de garantía puede variar según el producto y la marca; revísalo en la descripción del producto.</p><p>Para hacer efectiva la garantía o ejercer el derecho de retracto (5 días hábiles desde la entrega, producto sin uso y en su empaque original), escríbenos por <a href=\"https://wa.me/573132882596\" target=\"_blank\" title=\"WhatsApp Homesale\">WhatsApp</a>, al correo <a href=\"mailto:servicioalcliente@home-sale.com.co\">servicioalcliente@home-sale.com.co</a> o a través de nuestro <a href=\"/pages/pqrs\" title=\"PQRS\">formulario PQRS</a>.</p><p>Consulta las condiciones completas en nuestra <a href=\"/policies/refund-policy\" target=\"_blank\" title=\"Política de garantías y devoluciones\">política de garantías y devoluciones</a>.</p>",
             "use_product_description": false,
-            "open": false,
-            "metafield_key": "custom.garantia"
+            "hide_tables": false,
+            "metafield_key": "custom.garantia",
+            "open": false
           },
           "blocks": {}
-        },
-        "meta_homesale": {
-          "type": "_product-meta",
-          "settings": {
-            "show_barcode": false,
-            "show_sku": true,
-            "show_available": true,
-            "show_tags": false,
-            "show_type": true,
-            "show_collections": false
-          }
-        },
-        "trust_badge_homesale": {
-          "type": "_product-trust-badge",
-          "settings": {
-            "message": "Compra con confianza: pago seguro en cada pedido.",
-            "trust_badge_image": "shopify://shop_images/Payment_6ca1a29f-0fb4-4fbe-a624-35dfe7ae119f.png",
-            "image_width": 300
-          }
-        },
-        "addi_banner_homesale": {
-          "type": "custom-liquid",
-          "settings": {
-            "custom_liquid": "<a href=\"https://co.addi.com/\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"block mt-15\" aria-label=\"Paga hasta en 24 cuotas con Addi\"><img src=\"//homesale.com.co/cdn/shop/files/ADDI-BANNER-1.png?width=800\" alt=\"Paga hasta en 24 cuotas con Addi\" loading=\"lazy\" width=\"800\" height=\"200\" style=\"max-width:100%;height:auto;border-radius:var(--rounded-radius, 5px);\"></a>"
-          }
-        },
-        "specs_homesale": {
-          "type": "_product-specs",
-          "settings": {
-            "heading": "Especificaciones técnicas",
-            "open": true,
-            "metafield_key": "custom.especificaciones",
-            "parse_description": true,
-            "max_rows": 40
-          }
         }
       },
       "block_order": [
@@ -243,7 +251,6 @@
         "product_addons_YRaprz",
         "buy_buttons_LcQGtR",
         "trust_badge_homesale",
-        "addi_banner_homesale",
         "model_size_XM7z6E",
         "pickup_availability_cyVydQ",
         "product_grouped_6epkNf",
@@ -252,6 +259,7 @@
         "collapsible_row_m3g6f8",
         "specs_homesale",
         "complementary_products_Wip9YG",
+        "addi_banner_homesale",
         "product_collapsible_row_4gGjVF",
         "product_delivery_return_d4tVYn",
         "collapsible_row_eLaQpR"
