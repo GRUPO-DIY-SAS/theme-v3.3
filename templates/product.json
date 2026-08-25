@@ -164,7 +164,7 @@
           "name": "t:blocks.product.delivery_return.name",
           "settings": {
             "enable_widget": true,
-            "use_theme_defaults": true,
+            "use_theme_defaults": false,
             "cutoff_title": "Horario de corte",
             "cutoff_hour": 13,
             "shipping_title": "Envío gratis",
