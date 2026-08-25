@@ -14,6 +14,7 @@
     "logo_on_transparent": "shopify://shop_images/Homesale-Logo.png",
     "desktop_logo_width": 160,
     "mobile_logo_width": 120,
+    "page_width": 1200,
     "fluid_container_width": 1620,
     "enable_rounded": true,
     "rounded_corner": 5,
@@ -28,11 +29,13 @@
     "font_heading_system": "rubik_n5",
     "font_body_heading_embed": "",
     "font_heading_google": "",
+    "heading_font_weight": 500,
     "subheading_font_weight": 500,
     "heading_text_transform": "unset",
     "heading_letter_spacing": "unset",
     "menu_font": "heading_font",
     "button_font": "heading_font",
+    "button_radius": 30,
     "first_notification": "👉 Vuelve Ahora!",
     "secondary_notification": "⚡ Tus productos te esperan!",
     "badges_rounded_corner": 5,
@@ -62,6 +65,7 @@
     "product_size": 15,
     "price_size": 15,
     "show_vendor": true,
+    "show_rate": true,
     "show_secondary_image": false,
     "product_image_ratio": "square",
     "product_hover_effect": "hover_fade",
@@ -82,12 +86,12 @@
     "show_message_when_remove": true,
     "action_when_click_added_wishlist": "remove",
     "action_after_add_cart": "open_drawer",
-    "free_shipping_minimum": 1000000,
+    "free_shipping_minimum": "1000000",
     "free_shipping_drawer_title": "Envío Gratis",
     "free_shipping_bogota_label": "Bogotá",
-    "free_shipping_bogota_minimum": 1000000,
+    "free_shipping_bogota_minimum": "1000000",
     "free_shipping_national_label": "Capitales",
-    "free_shipping_national_minimum": 1000000,
+    "free_shipping_national_minimum": "1000000",
     "free_shipping_max_weight_kg": 30,
     "free_shipping_pending_text": "Agrega productos para desbloquear envío gratis",
     "free_shipping_remaining_text": "Te faltan {{ amount }} para envío gratis",
@@ -239,16 +243,6 @@
     },
     "content_for_index": [],
     "blocks": {
-      "124348908681409149": {
-        "type": "shopify://apps/simple-bundles-kits/blocks/simple-bundles-v2/e553276b-36b2-446d-b80a-aa47fe5f96ac",
-        "disabled": false,
-        "settings": {
-          "select_placeholder": "Please select an option",
-          "disable_oos_options": true,
-          "custom_css": "",
-          "custom_js": ""
-        }
-      },
       "12948015482042402483": {
         "type": "shopify://apps/mercado-pago-antifraud-plus/blocks/embed-block/b19ea721-f94a-4308-bee5-0057c043bac5",
         "disabled": false,
@@ -273,18 +267,8 @@
           "hide_full_price": false
         }
       },
-      "1132875404383792405": {
-        "type": "shopify://apps/instaindex/blocks/seo-tags/b4acb396-1232-4a24-bdc0-89d05041b7ff",
-        "disabled": true,
-        "settings": {}
-      },
       "1369284949797581044": {
         "type": "shopify://apps/tinyseo/blocks/collection-json-ld-embed/0605268f-f7c4-4e95-b560-e43df7d59ae4",
-        "disabled": true,
-        "settings": {}
-      },
-      "13768625480086291342": {
-        "type": "shopify://apps/forms/blocks/forms/8744a304-fcb1-4347-b211-bb6b4759a76a",
         "disabled": true,
         "settings": {}
       },
@@ -298,18 +282,8 @@
         "disabled": false,
         "settings": {}
       },
-      "16555213172727936593": {
-        "type": "shopify://apps/ns-discount-in-cart/blocks/discount_block/0cbbbcdd-bf54-49df-885c-9ca3fd52a671",
-        "disabled": true,
-        "settings": {}
-      },
       "15154131639906026026": {
         "type": "shopify://apps/tinyseo/blocks/broken-link-embed/0605268f-f7c4-4e95-b560-e43df7d59ae4",
-        "disabled": false,
-        "settings": {}
-      },
-      "14060646107696862457": {
-        "type": "shopify://apps/judge-me-reviews/blocks/judgeme_core/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
         "disabled": false,
         "settings": {}
       }
@@ -615,11 +589,7 @@
           "button_link_hover_color": "#000000"
         }
       }
-    },
-    "heading_font_weight": 500,
-    "button_radius": 30,
-    "page_width": 1200,
-    "show_rate": true
+    }
   },
   "presets": {
     "Default": {

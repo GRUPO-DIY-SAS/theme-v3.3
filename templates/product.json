@@ -164,6 +164,7 @@
           "name": "t:blocks.product.delivery_return.name",
           "settings": {
             "enable_widget": true,
+            "use_theme_defaults": true,
             "cutoff_title": "Horario de corte",
             "cutoff_hour": 13,
             "shipping_title": "Envío gratis",
@@ -178,8 +179,7 @@
             "discount_content_icon": "none",
             "discount_content": "",
             "return_content_icon": "free_shipping",
-            "return_content": "<p><strong>Envío gratis</strong> en pedidos superiores a <strong>$1.000.000</strong> a capitales de departamento (<a href=\"/policies/shipping-policy\" target=\"_blank\" title=\"Política de envíos\">T&C</a>).</p>",
-            "use_theme_defaults": true
+            "return_content": "<p><strong>Envío gratis</strong> en pedidos superiores a <strong>$1.000.000</strong> a capitales de departamento (<a href=\"/policies/shipping-policy\" target=\"_blank\" title=\"Política de envíos\">T&C</a>).</p>"
           },
           "blocks": {}
         },
@@ -329,20 +329,6 @@
     },
     "1716793714ce89e457": {
       "type": "apps",
-      "blocks": {
-        "judge_me_reviews_review_widget_KFVR47": {
-          "type": "shopify://apps/judge-me-reviews/blocks/review_widget/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
-          "settings": {
-            "review_data": "sample_data",
-            "max_width": 1200,
-            "show_shop_reviews": false,
-            "empty_state": "empty_widget"
-          }
-        }
-      },
-      "block_order": [
-        "judge_me_reviews_review_widget_KFVR47"
-      ],
       "settings": {}
     },
     "divider_TKLM6L": {

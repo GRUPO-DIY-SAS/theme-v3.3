@@ -36,51 +36,10 @@
         "padding_top": 0,
         "padding_bottom": 0,
         "reset_spacing": true
-      },
-      "blocks": {},
-      "block_order": []
+      }
     },
     "categories": {
       "type": "collection-list",
-      "settings": {
-        "section_width": "fluid_container",
-        "color_scheme": "default",
-        "heading": "",
-        "description": "",
-        "show_view_all_button": false,
-        "header_size": "medium",
-        "header_alignment": "left",
-        "display_mode": "carousel",
-        "image_ratio": "square",
-        "custom_ratio": "",
-        "items_per_row": 8,
-        "column_gap": 30,
-        "show_arrow": false,
-        "carousel_pagination": "disable",
-        "infinite": false,
-        "autoplay": false,
-        "autorotate_speed": 5,
-        "reveal": false,
-        "items_per_row_mobile": 3,
-        "design": "default",
-        "collection_information_position": "below_image",
-        "text_alignment": "center",
-        "show_product_count": false,
-        "show_icon": false,
-        "show_description": false,
-        "column_reverse_content": false,
-        "font_size": 14,
-        "font_weight": "heading_weight",
-        "font_size_description": 14,
-        "font_weight_description": "body_weight",
-        "information_spacing": 10,
-        "rounded_image": true,
-        "image_custom_width": true,
-        "image_width": 90,
-        "padding_top": 30,
-        "padding_bottom": 10,
-        "reset_spacing": true
-      },
       "blocks": {
         "cat_bicicletas": {
           "type": "collection",
@@ -156,29 +115,49 @@
         "cat_bambino",
         "cat_travel_system",
         "cat_arboles_de_navidad"
-      ]
-    },
-    "promo_row": {
-      "type": "multi-content",
+      ],
       "settings": {
         "section_width": "fluid_container",
         "color_scheme": "default",
         "heading": "",
         "description": "",
         "show_view_all_button": false,
-        "link_view_all_button": "",
-        "space_between_header": true,
         "header_size": "medium",
-        "header_alignment": "center",
+        "header_alignment": "left",
+        "display_mode": "carousel",
+        "image_ratio": "square",
+        "custom_ratio": "",
+        "items_per_row": 8,
         "column_gap": 30,
-        "equal_height_adjustment": true,
-        "vertical_align": "start",
-        "carousel_on_mobile": true,
-        "items_per_row_mobile": 1,
+        "show_arrow": false,
+        "carousel_pagination": "disable",
+        "infinite": false,
+        "autoplay": false,
+        "autorotate_speed": 5,
+        "reveal": false,
+        "items_per_row_mobile": 3,
+        "design": "default",
+        "collection_information_position": "below_image",
+        "text_alignment": "center",
+        "show_product_count": false,
+        "show_icon": false,
+        "show_description": false,
+        "column_reverse_content": false,
+        "font_size": 14,
+        "font_weight": "heading_weight",
+        "font_size_description": 14,
+        "font_weight_description": "body_weight",
+        "information_spacing": 10,
+        "rounded_image": false,
+        "image_custom_width": true,
+        "image_width": 90,
         "padding_top": 30,
-        "padding_bottom": 30,
+        "padding_bottom": 10,
         "reset_spacing": true
-      },
+      }
+    },
+    "promo_row": {
+      "type": "multi-content",
       "blocks": {
         "promo_fitness": {
           "type": "_group-media-content",
@@ -189,6 +168,7 @@
             "image": "shopify://shop_images/2-equipos-de-ejercicio.jpg",
             "mobile_image": "shopify://shop_images/2-equipos-de-ejercicio.jpg",
             "image_link": "shopify://collections/fitness",
+            "video_url": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
             "autoplay": false,
             "video_ratio": "16/9",
             "overlay_opacity": 0,
@@ -208,7 +188,8 @@
                 "font_weight": "heading_weight",
                 "uppercase": false,
                 "spacing_bottom": 6
-              }
+              },
+              "blocks": {}
             },
             "subheading": {
               "type": "subheading",
@@ -218,7 +199,8 @@
                 "font_weight": "body_weight",
                 "uppercase": false,
                 "spacing_bottom": 12
-              }
+              },
+              "blocks": {}
             },
             "button": {
               "type": "button",
@@ -233,7 +215,8 @@
                 "second_button_aria_label": "",
                 "second_button_type": "primary",
                 "spacing_bottom": 0
-              }
+              },
+              "blocks": {}
             }
           },
           "block_order": [
@@ -251,6 +234,7 @@
             "image": "shopify://shop_images/8-bicicletas-mtb2.jpg",
             "mobile_image": "shopify://shop_images/8-bicicletas-mtb2.jpg",
             "image_link": "shopify://collections/bicicletas",
+            "video_url": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
             "autoplay": false,
             "video_ratio": "16/9",
             "overlay_opacity": 0,
@@ -270,7 +254,8 @@
                 "font_weight": "heading_weight",
                 "uppercase": false,
                 "spacing_bottom": 6
-              }
+              },
+              "blocks": {}
             },
             "subheading": {
               "type": "subheading",
@@ -280,7 +265,8 @@
                 "font_weight": "body_weight",
                 "uppercase": false,
                 "spacing_bottom": 12
-              }
+              },
+              "blocks": {}
             },
             "button": {
               "type": "button",
@@ -295,7 +281,8 @@
                 "second_button_aria_label": "",
                 "second_button_type": "primary",
                 "spacing_bottom": 0
-              }
+              },
+              "blocks": {}
             }
           },
           "block_order": [
@@ -313,6 +300,7 @@
             "image": "shopify://shop_images/17-herramientas.jpg",
             "mobile_image": "shopify://shop_images/17-herramientas.jpg",
             "image_link": "shopify://collections/max-tools",
+            "video_url": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
             "autoplay": false,
             "video_ratio": "16/9",
             "overlay_opacity": 0,
@@ -332,7 +320,8 @@
                 "font_weight": "heading_weight",
                 "uppercase": false,
                 "spacing_bottom": 6
-              }
+              },
+              "blocks": {}
             },
             "subheading": {
               "type": "subheading",
@@ -342,7 +331,8 @@
                 "font_weight": "body_weight",
                 "uppercase": false,
                 "spacing_bottom": 12
-              }
+              },
+              "blocks": {}
             },
             "button": {
               "type": "button",
@@ -357,7 +347,8 @@
                 "second_button_aria_label": "",
                 "second_button_type": "primary",
                 "spacing_bottom": 0
-              }
+              },
+              "blocks": {}
             }
           },
           "block_order": [
@@ -371,13 +362,10 @@
         "promo_fitness",
         "promo_bikes",
         "promo_tools"
-      ]
-    },
-    "addi_banner": {
-      "type": "multi-content",
+      ],
       "settings": {
         "section_width": "fluid_container",
-        "color_scheme": "scheme-homesale-gray",
+        "color_scheme": "default",
         "heading": "",
         "description": "",
         "show_view_all_button": false,
@@ -387,13 +375,16 @@
         "header_alignment": "center",
         "column_gap": 30,
         "equal_height_adjustment": true,
-        "vertical_align": "center",
-        "carousel_on_mobile": false,
+        "vertical_align": "start",
+        "carousel_on_mobile": true,
         "items_per_row_mobile": 1,
-        "padding_top": 40,
-        "padding_bottom": 40,
-        "reset_spacing": false
-      },
+        "padding_top": 30,
+        "padding_bottom": 30,
+        "reset_spacing": true
+      }
+    },
+    "addi_banner": {
+      "type": "multi-content",
       "blocks": {
         "addi_image": {
           "type": "_group-media-content",
@@ -404,6 +395,7 @@
             "image": "shopify://shop_images/ADDI-BANNER-1.png",
             "mobile_image": "shopify://shop_images/ADDI-BANNER-1.png",
             "image_link": "https://co.addi.com/",
+            "video_url": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
             "autoplay": false,
             "video_ratio": "16/9",
             "overlay_opacity": 0,
@@ -413,7 +405,8 @@
             "content_padding_block": 10,
             "content_padding_inline": 10,
             "content_mobile_image": false
-          }
+          },
+          "blocks": {}
         },
         "addi_text": {
           "type": "_group-text",
@@ -434,7 +427,8 @@
                 "font_weight": "heading_weight",
                 "uppercase": true,
                 "spacing_bottom": 10
-              }
+              },
+              "blocks": {}
             },
             "subheading": {
               "type": "subheading",
@@ -444,7 +438,8 @@
                 "font_weight": "subheading_weight",
                 "uppercase": false,
                 "spacing_bottom": 10
-              }
+              },
+              "blocks": {}
             },
             "description": {
               "type": "description",
@@ -453,7 +448,8 @@
                 "font_size": 15,
                 "font_weight": "body_weight",
                 "spacing_bottom": 20
-              }
+              },
+              "blocks": {}
             },
             "button": {
               "type": "button",
@@ -468,7 +464,8 @@
                 "second_button_aria_label": "",
                 "second_button_type": "primary",
                 "spacing_bottom": 0
-              }
+              },
+              "blocks": {}
             }
           },
           "block_order": [
@@ -482,121 +479,29 @@
       "block_order": [
         "addi_image",
         "addi_text"
-      ]
+      ],
+      "settings": {
+        "section_width": "fluid_container",
+        "color_scheme": "scheme-homesale-gray",
+        "heading": "",
+        "description": "",
+        "show_view_all_button": false,
+        "link_view_all_button": "",
+        "space_between_header": true,
+        "header_size": "medium",
+        "header_alignment": "center",
+        "column_gap": 30,
+        "equal_height_adjustment": true,
+        "vertical_align": "center",
+        "carousel_on_mobile": false,
+        "items_per_row_mobile": 1,
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "reset_spacing": false
+      }
     },
     "picks": {
       "type": "featured-collection-tabs-spotlight",
-      "settings": {
-        "section_width": "fluid_container",
-        "color_scheme": "default",
-        "display_mode": "product_tabs",
-        "eyebrow": "",
-        "heading": "",
-        "description": "",
-        "hero_cta_label": "",
-        "hero_cta_link": "",
-        "header_size": "large",
-        "header_alignment": "center",
-        "header_max_width": 1100,
-        "show_view_all_button": false,
-        "text_size_heading": 36,
-        "text_size_description": 18,
-        "text_size_tab": 0,
-        "text_size_card_title": 14,
-        "text_size_card_meta": 0,
-        "text_size_card_price": 0,
-        "text_size_quick_title": 0,
-        "text_size_quick_subtitle": 0,
-        "hero_type": "image",
-        "hero_placement": "side",
-        "hero_side": "right",
-        "hero_side_width": 30,
-        "hero_side_valign": "stretch",
-        "hero_mobile_placement": "below",
-        "hero_aspect": "fixed",
-        "hero_position": "center",
-        "hero_overlay_color": "#000000",
-        "hero_overlay_opacity": 0,
-        "hero_height": 360,
-        "hero_mobile_height": 220,
-        "hero_radius": 10,
-        "background_type": "color",
-        "background_overlay_color": "#000000",
-        "background_overlay_opacity": 0,
-        "media_height": 0,
-        "mobile_media_height": 0,
-        "media_padding_y": 0,
-        "media_padding_x": 0,
-        "media_radius": 0,
-        "shape_style": "none",
-        "shape_color": "#cc0033",
-        "shape_opacity": 0,
-        "animate_shape": false,
-        "shape_anchor": "auto",
-        "shape_offset_x": 0,
-        "shape_offset_y": 0,
-        "shape_rotation": 0,
-        "shape_scale": 100,
-        "bg_motion": "none",
-        "geo_overlay": "none",
-        "geo_parallax": false,
-        "motion_speed": "calm",
-        "motion_accent_1": "#cc0033",
-        "motion_accent_2": "#0a2b60",
-        "motion_opacity": 0,
-        "motion_intensity": 100,
-        "motion_blend": "normal",
-        "bg_grain": false,
-        "grain_opacity": 0,
-        "blend_edge": "none",
-        "blend_overlap": 0,
-        "motion_phase": 0,
-        "background_color": "#ffffff",
-        "tab_background": "#000000",
-        "tab_text_color": "#ffffff",
-        "tab_active_background": "#cc0033",
-        "tab_active_text_color": "#ffffff",
-        "card_background": "#ffffff",
-        "card_text_color": "#000000",
-        "badge_background": "#cc0033",
-        "badge_text_color": "#ffffff",
-        "card_surface": "solid",
-        "glass_refraction": false,
-        "interaction_effect": "lift",
-        "image_ratio": "square",
-        "image_height": 360,
-        "mobile_image_height": 260,
-        "image_fit": "cover",
-        "image_radius": 6,
-        "product_layout": "carousel",
-        "items_to_show": 8,
-        "items_per_row": 4,
-        "column_gap": 20,
-        "items_per_row_mobile": 2,
-        "show_card_title": true,
-        "card_title_lines": 2,
-        "show_card_vendor": true,
-        "show_card_price": true,
-        "show_card_compare_price": true,
-        "show_card_badges": true,
-        "show_quick_add": true,
-        "show_quick_view": true,
-        "show_card_rating": true,
-        "quick_columns": 4,
-        "quick_layout": "grid",
-        "quick_mobile_columns": 2,
-        "show_arrow": true,
-        "carousel_pagination": "show_dots_on_mobile",
-        "infinite": false,
-        "autoplay": false,
-        "autorotate_speed": 5,
-        "priority_loading": false,
-        "padding_top": 48,
-        "padding_bottom": 48,
-        "reset_spacing": true,
-        "hero_image": "shopify://shop_images/WhatsApp_Image_2025-05-28_at_08.59.59_1.jpg",
-        "hero_mobile_image": "shopify://shop_images/WhatsApp_Image_2025-05-28_at_08.59.59_1.jpg"
-      },
       "blocks": {
         "intro": {
           "type": "rich_text",
@@ -678,113 +583,10 @@
         "tab_fitness",
         "tab_emobility",
         "tab_tools"
-      ]
-    },
-    "fitness_categories": {
-      "type": "collection-list",
+      ],
       "settings": {
         "section_width": "fluid_container",
         "color_scheme": "default",
-        "heading": "Máquinas de ejercicio y Fitness",
-        "description": "",
-        "show_view_all_button": false,
-        "header_size": "medium",
-        "header_alignment": "left",
-        "display_mode": "grid",
-        "image_ratio": "landscape",
-        "custom_ratio": "",
-        "items_per_row": 3,
-        "column_gap": 30,
-        "show_arrow": false,
-        "carousel_pagination": "disable",
-        "infinite": false,
-        "autoplay": false,
-        "autorotate_speed": 5,
-        "reveal": false,
-        "items_per_row_mobile": 2,
-        "design": "default",
-        "collection_information_position": "overlay_image",
-        "text_alignment": "left",
-        "show_product_count": true,
-        "show_icon": false,
-        "show_description": false,
-        "column_reverse_content": false,
-        "font_size": 18,
-        "font_weight": "heading_weight",
-        "font_size_description": 14,
-        "font_weight_description": "body_weight",
-        "information_spacing": 12,
-        "rounded_image": false,
-        "image_custom_width": false,
-        "image_width": 200,
-        "padding_top": 40,
-        "padding_bottom": 40,
-        "reset_spacing": false
-      },
-      "blocks": {
-        "fit_abdominales": {
-          "type": "collection",
-          "settings": {
-            "collection": "abdominales",
-            "collection_image": "",
-            "collection_title": "Máquinas Abdominales"
-          }
-        },
-        "fit_elipticas": {
-          "type": "collection",
-          "settings": {
-            "collection": "elipticas",
-            "collection_image": "",
-            "collection_title": "Elípticas"
-          }
-        },
-        "fit_caminadoras": {
-          "type": "collection",
-          "settings": {
-            "collection": "caminadoras-y-trotadoras",
-            "collection_image": "",
-            "collection_title": "Caminadoras y Trotadoras"
-          }
-        },
-        "fit_pesas": {
-          "type": "collection",
-          "settings": {
-            "collection": "pesas",
-            "collection_image": "",
-            "collection_title": "Pesas y Accesorios"
-          }
-        },
-        "fit_spinning": {
-          "type": "collection",
-          "settings": {
-            "collection": "bicicletas-de-spinning",
-            "collection_image": "",
-            "collection_title": "Spinning"
-          }
-        },
-        "fit_plataformas": {
-          "type": "collection",
-          "settings": {
-            "collection": "plataformas-vibratorias",
-            "collection_image": "",
-            "collection_title": "Plataformas Vibratorias"
-          }
-        }
-      },
-      "block_order": [
-        "fit_abdominales",
-        "fit_elipticas",
-        "fit_caminadoras",
-        "fit_pesas",
-        "fit_spinning",
-        "fit_plataformas"
-      ]
-    },
-    "bikes": {
-      "type": "featured-collection-tabs-spotlight",
-      "settings": {
-        "section_width": "fluid_container",
-        "color_scheme": "scheme-homesale-gray",
         "display_mode": "product_tabs",
         "eyebrow": "",
         "heading": "",
@@ -805,10 +607,12 @@
         "text_size_quick_subtitle": 0,
         "hero_type": "image",
         "hero_placement": "side",
-        "hero_side": "left",
+        "hero_side": "right",
         "hero_side_width": 30,
         "hero_side_valign": "stretch",
-        "hero_mobile_placement": "above",
+        "hero_mobile_placement": "below",
+        "hero_image": "shopify://shop_images/WhatsApp_Image_2025-05-28_at_08.59.59_1.jpg",
+        "hero_mobile_image": "shopify://shop_images/WhatsApp_Image_2025-05-28_at_08.59.59_1.jpg",
         "hero_aspect": "fixed",
         "hero_position": "center",
         "hero_overlay_color": "#000000",
@@ -847,7 +651,7 @@
         "blend_edge": "none",
         "blend_overlap": 0,
         "motion_phase": 0,
-        "background_color": "#f7f7f7",
+        "background_color": "#ffffff",
         "tab_background": "#000000",
         "tab_text_color": "#ffffff",
         "tab_active_background": "#cc0033",
@@ -889,10 +693,105 @@
         "priority_loading": false,
         "padding_top": 48,
         "padding_bottom": 48,
-        "reset_spacing": true,
-        "hero_image": "shopify://shop_images/banner-bicicletas-m.jpg",
-        "hero_mobile_image": "shopify://shop_images/banner-bicicletas-m.jpg"
+        "reset_spacing": true
+      }
+    },
+    "fitness_categories": {
+      "type": "collection-list",
+      "blocks": {
+        "fit_abdominales": {
+          "type": "collection",
+          "settings": {
+            "collection": "abdominales",
+            "collection_title": "Máquinas Abdominales"
+          }
+        },
+        "fit_elipticas": {
+          "type": "collection",
+          "settings": {
+            "collection": "elipticas",
+            "collection_title": "Elípticas"
+          }
+        },
+        "fit_caminadoras": {
+          "type": "collection",
+          "settings": {
+            "collection": "caminadoras-y-trotadoras",
+            "collection_title": "Caminadoras y Trotadoras"
+          }
+        },
+        "fit_pesas": {
+          "type": "collection",
+          "settings": {
+            "collection": "pesas",
+            "collection_title": "Pesas y Accesorios"
+          }
+        },
+        "fit_spinning": {
+          "type": "collection",
+          "settings": {
+            "collection": "bicicletas-de-spinning",
+            "collection_title": "Spinning"
+          }
+        },
+        "fit_plataformas": {
+          "type": "collection",
+          "settings": {
+            "collection": "plataformas-vibratorias",
+            "collection_title": "Plataformas Vibratorias"
+          }
+        }
       },
+      "block_order": [
+        "fit_abdominales",
+        "fit_elipticas",
+        "fit_caminadoras",
+        "fit_pesas",
+        "fit_spinning",
+        "fit_plataformas"
+      ],
+      "settings": {
+        "section_width": "fluid_container",
+        "color_scheme": "default",
+        "heading": "Máquinas de ejercicio y Fitness",
+        "description": "",
+        "show_view_all_button": false,
+        "header_size": "medium",
+        "header_alignment": "left",
+        "display_mode": "grid",
+        "image_ratio": "landscape",
+        "custom_ratio": "",
+        "items_per_row": 3,
+        "column_gap": 30,
+        "show_arrow": false,
+        "carousel_pagination": "disable",
+        "infinite": false,
+        "autoplay": false,
+        "autorotate_speed": 5,
+        "reveal": false,
+        "items_per_row_mobile": 2,
+        "design": "default",
+        "collection_information_position": "overlay_image",
+        "text_alignment": "left",
+        "show_product_count": true,
+        "show_icon": false,
+        "show_description": false,
+        "column_reverse_content": false,
+        "font_size": 18,
+        "font_weight": "heading_weight",
+        "font_size_description": 14,
+        "font_weight_description": "body_weight",
+        "information_spacing": 12,
+        "rounded_image": false,
+        "image_custom_width": false,
+        "image_width": 200,
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "reset_spacing": false
+      }
+    },
+    "bikes": {
+      "type": "featured-collection-tabs-spotlight",
       "blocks": {
         "intro": {
           "type": "rich_text",
@@ -973,49 +872,121 @@
         "tab_ruta",
         "tab_infantil",
         "tab_electricas"
-      ]
-    },
-    "popular_categories": {
-      "type": "collection-list",
+      ],
       "settings": {
         "section_width": "fluid_container",
-        "color_scheme": "default",
-        "heading": "Categorías populares",
+        "color_scheme": "scheme-homesale-gray",
+        "display_mode": "product_tabs",
+        "eyebrow": "",
+        "heading": "",
         "description": "",
+        "hero_cta_label": "",
+        "hero_cta_link": "",
+        "header_size": "large",
+        "header_alignment": "center",
+        "header_max_width": 1100,
         "show_view_all_button": false,
-        "header_size": "medium",
-        "header_alignment": "left",
-        "display_mode": "grid",
+        "text_size_heading": 36,
+        "text_size_description": 18,
+        "text_size_tab": 0,
+        "text_size_card_title": 14,
+        "text_size_card_meta": 0,
+        "text_size_card_price": 0,
+        "text_size_quick_title": 0,
+        "text_size_quick_subtitle": 0,
+        "hero_type": "image",
+        "hero_placement": "side",
+        "hero_side": "left",
+        "hero_side_width": 30,
+        "hero_side_valign": "stretch",
+        "hero_mobile_placement": "above",
+        "hero_image": "shopify://shop_images/banner-bicicletas-m.jpg",
+        "hero_mobile_image": "shopify://shop_images/banner-bicicletas-m.jpg",
+        "hero_aspect": "fixed",
+        "hero_position": "center",
+        "hero_overlay_color": "#000000",
+        "hero_overlay_opacity": 0,
+        "hero_height": 360,
+        "hero_mobile_height": 220,
+        "hero_radius": 10,
+        "background_type": "color",
+        "background_overlay_color": "#000000",
+        "background_overlay_opacity": 0,
+        "media_height": 0,
+        "mobile_media_height": 0,
+        "media_padding_y": 0,
+        "media_padding_x": 0,
+        "media_radius": 0,
+        "shape_style": "none",
+        "shape_color": "#cc0033",
+        "shape_opacity": 0,
+        "animate_shape": false,
+        "shape_anchor": "auto",
+        "shape_offset_x": 0,
+        "shape_offset_y": 0,
+        "shape_rotation": 0,
+        "shape_scale": 100,
+        "bg_motion": "none",
+        "geo_overlay": "none",
+        "geo_parallax": false,
+        "motion_speed": "calm",
+        "motion_accent_1": "#cc0033",
+        "motion_accent_2": "#0a2b60",
+        "motion_opacity": 0,
+        "motion_intensity": 100,
+        "motion_blend": "normal",
+        "bg_grain": false,
+        "grain_opacity": 0,
+        "blend_edge": "none",
+        "blend_overlap": 0,
+        "motion_phase": 0,
+        "background_color": "#f7f7f7",
+        "tab_background": "#000000",
+        "tab_text_color": "#ffffff",
+        "tab_active_background": "#cc0033",
+        "tab_active_text_color": "#ffffff",
+        "card_background": "#ffffff",
+        "card_text_color": "#000000",
+        "badge_background": "#cc0033",
+        "badge_text_color": "#ffffff",
+        "card_surface": "solid",
+        "glass_refraction": false,
+        "interaction_effect": "lift",
         "image_ratio": "square",
-        "custom_ratio": "",
-        "items_per_row": 6,
+        "image_height": 360,
+        "mobile_image_height": 260,
+        "image_fit": "cover",
+        "image_radius": 6,
+        "product_layout": "carousel",
+        "items_to_show": 8,
+        "items_per_row": 4,
         "column_gap": 20,
-        "show_arrow": false,
-        "carousel_pagination": "disable",
+        "items_per_row_mobile": 2,
+        "show_card_title": true,
+        "card_title_lines": 2,
+        "show_card_vendor": true,
+        "show_card_price": true,
+        "show_card_compare_price": true,
+        "show_card_badges": true,
+        "show_quick_add": true,
+        "show_quick_view": true,
+        "show_card_rating": true,
+        "quick_columns": 4,
+        "quick_layout": "grid",
+        "quick_mobile_columns": 2,
+        "show_arrow": true,
+        "carousel_pagination": "show_dots_on_mobile",
         "infinite": false,
         "autoplay": false,
         "autorotate_speed": 5,
-        "reveal": false,
-        "items_per_row_mobile": 3,
-        "design": "default",
-        "collection_information_position": "below_image",
-        "text_alignment": "center",
-        "show_product_count": false,
-        "show_icon": false,
-        "show_description": false,
-        "column_reverse_content": false,
-        "font_size": 14,
-        "font_weight": "heading_weight",
-        "font_size_description": 14,
-        "font_weight_description": "body_weight",
-        "information_spacing": 10,
-        "rounded_image": true,
-        "image_custom_width": false,
-        "image_width": 200,
-        "padding_top": 40,
-        "padding_bottom": 40,
-        "reset_spacing": false
-      },
+        "priority_loading": false,
+        "padding_top": 48,
+        "padding_bottom": 48,
+        "reset_spacing": true
+      }
+    },
+    "popular_categories": {
+      "type": "collection-list",
       "blocks": {
         "pop_fitness": {
           "type": "collection",
@@ -1127,7 +1098,46 @@
         "pop_travel_system",
         "pop_arboles_de_navidad",
         "pop_elipticas"
-      ]
+      ],
+      "settings": {
+        "section_width": "fluid_container",
+        "color_scheme": "default",
+        "heading": "Categorías populares",
+        "description": "",
+        "show_view_all_button": false,
+        "header_size": "medium",
+        "header_alignment": "left",
+        "display_mode": "grid",
+        "image_ratio": "square",
+        "custom_ratio": "",
+        "items_per_row": 6,
+        "column_gap": 20,
+        "show_arrow": false,
+        "carousel_pagination": "disable",
+        "infinite": false,
+        "autoplay": false,
+        "autorotate_speed": 5,
+        "reveal": false,
+        "items_per_row_mobile": 3,
+        "design": "default",
+        "collection_information_position": "below_image",
+        "text_alignment": "center",
+        "show_product_count": false,
+        "show_icon": false,
+        "show_description": false,
+        "column_reverse_content": false,
+        "font_size": 14,
+        "font_weight": "heading_weight",
+        "font_size_description": 14,
+        "font_weight_description": "body_weight",
+        "information_spacing": 10,
+        "rounded_image": true,
+        "image_custom_width": false,
+        "image_width": 200,
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "reset_spacing": false
+      }
     },
     "bestsellers": {
       "type": "featured-collection",
@@ -1168,36 +1178,10 @@
         "padding_top": 40,
         "padding_bottom": 40,
         "reset_spacing": false
-      },
-      "blocks": {},
-      "block_order": []
+      }
     },
     "trust": {
       "type": "icon-box",
-      "settings": {
-        "section_width": "fluid_container",
-        "color_scheme": "scheme-homesale-gray",
-        "type": "default",
-        "column_gap": 30,
-        "icon_position": "left",
-        "icon_size": 48,
-        "spacing": 14,
-        "show_border": false,
-        "enable_background": false,
-        "background": "",
-        "content_alignment": "left",
-        "heading_font_size": 16,
-        "heading_font_weight": "heading_weight",
-        "heading_uppercase": false,
-        "heading_spacing_bottom": 6,
-        "des_font_size": 14,
-        "des_font_weight": "body_weight",
-        "carousel_on_mobile": true,
-        "items_per_row_mobile": "1",
-        "padding_top": 35,
-        "padding_bottom": 35,
-        "reset_spacing": false
-      },
       "blocks": {
         "trust_store": {
           "type": "icon_box",
@@ -1245,7 +1229,31 @@
         "trust_support",
         "trust_shipping",
         "trust_prices"
-      ]
+      ],
+      "settings": {
+        "section_width": "fluid_container",
+        "color_scheme": "scheme-homesale-gray",
+        "type": "default",
+        "column_gap": 30,
+        "icon_position": "left",
+        "icon_size": 48,
+        "spacing": 14,
+        "show_border": false,
+        "enable_background": false,
+        "background": "",
+        "content_alignment": "left",
+        "heading_font_size": 16,
+        "heading_font_weight": "heading_weight",
+        "heading_uppercase": false,
+        "heading_spacing_bottom": 6,
+        "des_font_size": 14,
+        "des_font_weight": "body_weight",
+        "carousel_on_mobile": true,
+        "items_per_row_mobile": "1",
+        "padding_top": 35,
+        "padding_bottom": 35,
+        "reset_spacing": false
+      }
     }
   },
   "order": [
