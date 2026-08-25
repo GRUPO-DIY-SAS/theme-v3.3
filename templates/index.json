@@ -16,7 +16,7 @@
         "color_scheme": "default",
         "image": "shopify://shop_images/fitness_6.png",
         "image_mobile": "shopify://shop_images/homesale-banner-movil.jpg",
-        "image_behavior": "zoom-in",
+        "image_behavior": "ambient",
         "overlay_opacity": 0,
         "image_height": "custom",
         "desktop_height": 600,
