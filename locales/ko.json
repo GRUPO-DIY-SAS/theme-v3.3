@@ -592,6 +592,8 @@
         "view_full_details": "전체 세부정보 보기",
         "instock": "재고",
         "outstock": "품절",
+        "sold_out_whatsapp": "Ask availability on WhatsApp",
+        "sold_out_whatsapp_message": "Hi, is {{ product }} available?",
         "pre_order": "선주문",
         "add_to_cart": "장바구니에 추가"
       },

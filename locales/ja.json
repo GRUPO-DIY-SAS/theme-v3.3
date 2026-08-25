@@ -592,6 +592,8 @@
         "view_full_details": "詳細を表示",
         "instock": "在庫あり",
         "outstock": "在庫切れ",
+        "sold_out_whatsapp": "Ask availability on WhatsApp",
+        "sold_out_whatsapp_message": "Hi, is {{ product }} available?",
         "pre_order": "予約注文",
         "add_to_cart": "カートに追加"
       },

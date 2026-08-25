@@ -592,6 +592,8 @@
         "view_full_details": "Visa fullständiga detaljer",
         "instock": "På lager",
         "outstock": "Slut i lager",
+        "sold_out_whatsapp": "Ask availability on WhatsApp",
+        "sold_out_whatsapp_message": "Hi, is {{ product }} available?",
         "pre_order": "Förbeställ",
         "add_to_cart": "Lägg till i varukorgen"
       },

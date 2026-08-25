@@ -592,6 +592,8 @@
         "view_full_details": "Посмотреть полную информацию",
         "instock": "В наличии",
         "outstock": "Распродано",
+        "sold_out_whatsapp": "Ask availability on WhatsApp",
+        "sold_out_whatsapp_message": "Hi, is {{ product }} available?",
         "pre_order": "Предварительный заказ",
         "add_to_cart": "добавить в корзину"
       },

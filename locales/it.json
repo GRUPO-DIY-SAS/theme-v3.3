@@ -592,6 +592,8 @@
         "view_full_details": "Visualizza i dettagli completi",
         "instock": "In magazzino",
         "outstock": "Esaurito",
+        "sold_out_whatsapp": "Ask availability on WhatsApp",
+        "sold_out_whatsapp_message": "Hi, is {{ product }} available?",
         "pre_order": "Ordine prestabilito",
         "add_to_cart": "Aggiungi al carrello"
       },

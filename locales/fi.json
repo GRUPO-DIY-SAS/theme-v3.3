@@ -592,6 +592,8 @@
         "view_full_details": "Näytä täydelliset tiedot",
         "instock": "Varastossa",
         "outstock": "Loppunut varastosta",
+        "sold_out_whatsapp": "Ask availability on WhatsApp",
+        "sold_out_whatsapp_message": "Hi, is {{ product }} available?",
         "pre_order": "Ennakkotilaus",
         "add_to_cart": "Lisää ostoskoriin"
       },

@@ -592,6 +592,8 @@
         "view_full_details": "查看完整详情",
         "instock": "有存货",
         "outstock": "缺货",
+        "sold_out_whatsapp": "Ask availability on WhatsApp",
+        "sold_out_whatsapp_message": "Hi, is {{ product }} available?",
         "pre_order": "预购",
         "add_to_cart": "添加到购物车"
       },

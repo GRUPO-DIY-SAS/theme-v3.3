@@ -592,6 +592,8 @@
         "view_full_details": "Tüm Ayrıntıları Görüntüle",
         "instock": "Stokta var",
         "outstock": "Stoklar tükendi",
+        "sold_out_whatsapp": "Ask availability on WhatsApp",
+        "sold_out_whatsapp_message": "Hi, is {{ product }} available?",
         "pre_order": "Ön Sipariş",
         "add_to_cart": "Sepete ekle"
       },

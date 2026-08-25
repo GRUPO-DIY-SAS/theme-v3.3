@@ -592,6 +592,8 @@
         "view_full_details": "पूर्ण विवरण देखें",
         "instock": "स्टॉक में",
         "outstock": "स्टॉक ख़त्म",
+        "sold_out_whatsapp": "Ask availability on WhatsApp",
+        "sold_out_whatsapp_message": "Hi, is {{ product }} available?",
         "pre_order": "पूर्व आदेश",
         "add_to_cart": "कार्ट में जोड़ें"
       },

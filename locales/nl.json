@@ -592,6 +592,8 @@
         "view_full_details": "Bekijk volledige details",
         "instock": "Op voorraad",
         "outstock": "Niet op voorraad",
+        "sold_out_whatsapp": "Ask availability on WhatsApp",
+        "sold_out_whatsapp_message": "Hi, is {{ product }} available?",
         "pre_order": "Voorbestellen",
         "add_to_cart": "Voeg toe aan winkelwagen"
       },
