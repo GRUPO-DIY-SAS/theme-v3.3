@@ -81,7 +81,10 @@
         continue
       endif
       assign seen_keys = seen_keys | append: key_token
-      assign row = '<tr><th scope="row">' | append: key | escape | append: '</th><td>' | append: value | escape | append: '</td></tr>'
+      # Escapar antes de concatenar: `append: key | escape` escaparía toda la fila, etiquetas incluidas.
+      assign key_esc = key | escape
+      assign value_esc = value | escape
+      assign row = '<tr><th scope="row">' | append: key_esc | append: '</th><td>' | append: value_esc | append: '</td></tr>'
       assign rows = rows | append: row
       assign row_count = row_count | plus: 1
     endfor
