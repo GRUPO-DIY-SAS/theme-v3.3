@@ -638,6 +638,7 @@
         "promo_bikes",
         "promo_tools"
       ],
+      "disabled": true,
       "settings": {
         "section_width": "fluid_container",
         "color_scheme": "scheme-homesale-footer",
@@ -829,6 +830,7 @@
         "fit_spinning",
         "fit_plataformas"
       ],
+      "disabled": true,
       "settings": {
         "section_width": "fluid_container",
         "color_scheme": "default",
@@ -1215,7 +1217,7 @@
         "image_width": 200,
         "padding_top": 40,
         "padding_bottom": 40,
-        "reset_spacing": false
+        "reset_spacing": true
       }
     },
     "bestsellers": {
@@ -1248,15 +1250,15 @@
         "autoplay": false,
         "autorotate_speed": 5,
         "reveal": false,
-        "equal_height_adjustment": true,
-        "sticky_block": false,
+        "equal_height_adjustment": false,
+        "sticky_block": true,
         "content_width": 30,
         "block_position": "left",
         "carousel_on_mobile": true,
         "items_per_row_mobile": 2,
         "padding_top": 40,
         "padding_bottom": 40,
-        "reset_spacing": false
+        "reset_spacing": true
       }
     }
   },
