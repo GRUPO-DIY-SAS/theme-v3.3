@@ -819,6 +819,12 @@
         "id": "custom_badge_background",
         "label": "t:settings_schema.badges.settings.background_color.label",
         "default": "#D0473E"
+      },
+      {
+        "type": "textarea",
+        "id": "custom_badge_tags",
+        "label": "Badges por tag (una línea por badge: tag|Texto)",
+        "info": "Muestra un badge con los colores del badge personalizado cuando el producto tiene ese tag. Ej.: IVA 0|IVA 0%"
       }
     ]
   },
@@ -1827,6 +1833,30 @@
         "type": "page",
         "id": "page_terms_conditions",
         "label": "t:settings_schema.terms_conditions.settings.page_terms_conditions.label"
+      }
+    ]
+  },
+  {
+    "name": "Addi (pago a cuotas)",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "addi_enable",
+        "label": "Mostrar widget de cuotas Addi en la página de producto",
+        "default": false
+      },
+      {
+        "type": "text",
+        "id": "addi_ally_slug",
+        "label": "Ally slug de Addi",
+        "info": "Identificador que entrega Addi al activar la tienda (ej. homesale-ecommerce)."
+      },
+      {
+        "type": "text",
+        "id": "addi_element_reference",
+        "label": "Selector CSS del precio",
+        "default": ".product-detail__price",
+        "info": "El widget se inserta debajo del elemento que coincida con este selector."
       }
     ]
   }

@@ -3,10 +3,31 @@
   assign product = closest.product
   assign section_st = section.settings
   assign enable_skeleton_loading = section_st.enable_skeleton_loading
+  # Un metafield del producto (p. ej. custom.garantia) reemplaza el texto fijo: permite
+  # garantías/condiciones distintas por categoría o marca sin duplicar bloques.
+  assign row_content = block_st.content
+  assign mf_parts = block_st.metafield_key | strip | split: '.'
+  if product != blank and mf_parts.size == 2
+    assign mf = product.metafields[mf_parts[0]][mf_parts[1]]
+    if mf != blank
+      assign row_content = mf | metafield_tag
+    endif
+  endif
+  if block_st.use_product_description and product != blank
+    assign row_content = product.description
+    if block_st.hide_tables and row_content contains '<table'
+      # Las tablas se muestran en el bloque Especificaciones; aquí se quitan para no duplicarlas.
+      assign dparts = row_content | split: '<table'
+      assign row_content = dparts[0]
+      for dp in dparts offset: 1
+        assign after = dp | split: '</table>'
+        for a in after offset: 1
+          assign row_content = row_content | append: a
+        endfor
+      endfor
+    endif
+  endif
 %}
-{% if block_st.use_product_description == true and product != blank %}
-  {% render 'diyvape-pdp-compat' %}
-  {% endif %} 
 <collapsible-block
   tabindex="0"
   {{ block.shopify_attributes }}
@@ -25,14 +46,10 @@
     {% endif %}
   >
     <div class="collapsible-content_inner mb-12 rich__text-mt-0{% if block_st.use_product_description == true %} product_description{% endif %}">
-      {% if block_st.use_product_description == true %}
-        {%- if product != blank -%}
-          {{ product.description }}
-        {%- else -%}
-          {{ 'onboarding.default_description' | t }}
-        {% endif %}
+      {% if block_st.use_product_description == true and product == blank %}
+        {{ 'onboarding.default_description' | t }}
       {% else %}
-        {{ block_st.content }}
+        {{ row_content }}
       {% endif %}
     </div>
   </div>
@@ -58,6 +75,20 @@
       "id": "use_product_description",
       "default": false,
       "label": "t:sections.main-product.blocks.collapsible_row.settings.use_product_description"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_tables",
+      "default": false,
+      "label": "Ocultar tablas de la descripción",
+      "info": "Úsalo junto al bloque Especificaciones técnicas, que las muestra aparte.",
+      "visible_if": "{{ block.settings.use_product_description }}"
+    },
+    {
+      "type": "text",
+      "id": "metafield_key",
+      "label": "Metafield que reemplaza el contenido (namespace.key)",
+      "info": "Si el producto tiene ese metafield, se muestra en lugar del contenido fijo. Ej.: custom.garantia"
     },
     {
       "type": "checkbox",

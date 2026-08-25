@@ -1,0 +1,169 @@
+{%- comment -%}
+  Especificaciones técnicas del producto en una tabla propia, separada de la
+  descripción. Fuentes, en orden de prioridad:
+    1. Metafield `metafield_key` (texto multilínea "Clave: Valor" o rich text).
+    2. Tablas <table> incluidas en la descripción (se copian tal cual).
+    3. Líneas "Clave: Valor" de listas <li>, y párrafos "Clave-------Valor"
+       (formato que Homesale trae de Megamog). Los "Clave: Valor" en párrafos
+       sueltos sólo se aceptan después de un encabezado que contenga
+       "Especificaciones", para no capturar frases narrativas.
+  Sin filas ni tablas no renderiza nada.
+{%- endcomment -%}
+{%- liquid
+  assign block_st = block.settings
+  assign product = closest.product
+  assign section_st = section.settings
+  assign enable_skeleton_loading = section_st.enable_skeleton_loading
+  assign source = ''
+  assign from_metafield = false
+  assign mf_parts = block_st.metafield_key | strip | split: '.'
+  if product != blank and mf_parts.size == 2
+    assign mf = product.metafields[mf_parts[0]][mf_parts[1]]
+    if mf != blank
+      assign source = mf | metafield_tag
+      assign from_metafield = true
+    endif
+  endif
+  if source == blank and block_st.parse_description and product != blank
+    assign source = product.description
+  endif
+
+  assign tables_html = ''
+  assign rows = ''
+  assign row_count = 0
+  assign seen_keys = '|'
+  if source != blank
+    assign src = source | replace: '<br>', '</p><p>' | replace: '<br/>', '</p><p>' | replace: '<br />', '</p><p>' | replace: '<li>', '<p>§li§' | replace: '</li>', '</p>'
+    if src contains '<table'
+      assign tparts = src | split: '<table'
+      for tp in tparts offset: 1
+        assign tbl = tp | split: '</table>' | first
+        assign tables_html = tables_html | append: '<table' | append: tbl | append: '</table>'
+      endfor
+    endif
+    assign after_specs_heading = from_metafield
+    assign chunks = src | split: '</p>'
+    for chunk in chunks
+      if row_count >= block_st.max_rows
+        break
+      endif
+      assign line = chunk | strip_html | strip
+      if line == blank
+        continue
+      endif
+      assign is_li = false
+      if line contains '§li§'
+        assign is_li = true
+        assign line = line | remove: '§li§' | strip
+      endif
+      assign line_down = line | downcase
+      if line_down contains 'especificaciones'
+        assign after_specs_heading = true
+        continue
+      endif
+      assign key = ''
+      assign value = ''
+      if line contains '----'
+        assign kv = line | split: '-'
+        assign key = kv | first | strip
+        assign value = kv | last | strip
+      elsif line contains ':'
+        if is_li or after_specs_heading
+          assign key = line | split: ':' | first | strip
+          assign value = line | remove_first: key | remove_first: ':' | strip
+        endif
+      endif
+      if key == blank or value == blank or key.size > 40 or value.size > 160
+        continue
+      endif
+      assign key_token = '|' | append: key | downcase | append: '|'
+      if seen_keys contains key_token
+        continue
+      endif
+      assign seen_keys = seen_keys | append: key_token
+      assign row = '<tr><th scope="row">' | append: key | escape | append: '</th><td>' | append: value | escape | append: '</td></tr>'
+      assign rows = rows | append: row
+      assign row_count = row_count | plus: 1
+    endfor
+  endif
+-%}
+{%- if tables_html != blank or rows != blank -%}
+  {% style %}
+    .product-specs table { width: 100%; border-collapse: collapse; font-size: 1.4rem; }
+    .product-specs th, .product-specs td { padding: 0.9rem 1.2rem; border-bottom: 1px solid var(--color-border, #eee); text-align: left; vertical-align: top; }
+    .product-specs th { width: 40%; font-weight: var(--subheading-weight, 500); color: var(--color-heading); }
+    .product-specs tr:nth-child(odd) > * { background: rgba(0, 0, 0, 0.025); }
+    .product-specs table + table { margin-top: 1.5rem; }
+  {% endstyle %}
+  <collapsible-block
+    tabindex="0"
+    {{ block.shopify_attributes }}
+    class="bls-toggle{% if block_st.open %} active{% endif %} relative border-bottom block{% if enable_skeleton_loading %} skeleton-loading{% endif %}"
+  >
+    <h3 class="h6 my-0 pointer py-17 relative collapsible-heading heading-letter-spacing">
+      {{- block_st.heading -}}
+      <span class="open-children-toggle absolute inset-0 flex flex-end pointer">
+        <span class="icon_plus-animation"> </span>
+      </span>
+    </h3>
+    <div
+      class="overflow-hidden{% if block_st.open %} open_collab{% endif %} collapsible-content"
+      {% unless block_st.open %}style="display: none;"{% endunless %}
+    >
+      <div class="collapsible-content_inner mb-12 product-specs">
+        {{ tables_html }}
+        {%- if rows != blank -%}
+          <table class="product-specs__table"><tbody>{{ rows }}</tbody></table>
+        {%- endif -%}
+      </div>
+    </div>
+  </collapsible-block>
+{%- endif -%}
+{% schema %}
+{
+  "name": "Especificaciones técnicas",
+  "tag": null,
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Título",
+      "default": "Especificaciones técnicas"
+    },
+    {
+      "type": "checkbox",
+      "id": "open",
+      "label": "Abierto por defecto",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "metafield_key",
+      "label": "Metafield de especificaciones (namespace.key)",
+      "default": "custom.especificaciones",
+      "info": "Texto multilínea con una línea por dato (\"Motor: 500W\") o rich text. Si existe, tiene prioridad sobre la descripción."
+    },
+    {
+      "type": "checkbox",
+      "id": "parse_description",
+      "label": "Extraer especificaciones de la descripción",
+      "default": true,
+      "info": "Toma tablas, listas \"Clave: Valor\" y líneas \"Clave-----Valor\" que aparezcan tras un encabezado \"Especificaciones\"."
+    },
+    {
+      "type": "range",
+      "id": "max_rows",
+      "label": "Máximo de filas",
+      "min": 5,
+      "max": 60,
+      "step": 5,
+      "default": 40
+    }
+  ],
+  "presets": [
+    {
+      "name": "Especificaciones técnicas"
+    }
+  ]
+}
+{% endschema %}

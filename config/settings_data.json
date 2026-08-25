@@ -607,7 +607,11 @@
           "button_link_hover_color": "#000000"
         }
       }
-    }
+    },
+    "custom_badge_tags": "IVA 0|IVA 0%\nIVA 5|IVA 5%",
+    "addi_enable": true,
+    "addi_ally_slug": "homesale-ecommerce",
+    "addi_element_reference": ".product-detail__price"
   },
   "presets": {
     "Default": {

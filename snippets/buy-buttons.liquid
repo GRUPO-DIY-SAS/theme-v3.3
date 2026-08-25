@@ -136,6 +136,19 @@
                 </button>
               </div>
             </div>
+            {%- comment -%} Producto de ticket alto sin stock: en vez de un botón muerto, canal directo
+              para consultar reposición o alternativas. {%- endcomment -%}
+            {%- if product.selected_or_first_available_variant.available == false and settings.whatsapp != blank -%}
+              {%- assign wa_text = 'products.product.general.sold_out_whatsapp_message' | t: product: product.title | url_encode -%}
+              <a
+                class="btn-link inline-flex align-center gap-10 mt-15 heading_weight"
+                href="{{ settings.whatsapp }}{% if settings.whatsapp contains '?' %}&{% else %}?{% endif %}text={{ wa_text }}"
+                target="_blank"
+                rel="noopener"
+              >
+                {{ 'products.product.general.sold_out_whatsapp' | t }}
+              </a>
+            {%- endif -%}
             {% if show_wishlist == true %}
               {% if wishlist == empty %}
                 {% assign action_when_click_added_wishlist = 'remove' %}

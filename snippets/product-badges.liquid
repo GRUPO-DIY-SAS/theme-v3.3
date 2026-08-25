@@ -167,6 +167,19 @@
   if sticky == 'sticky'
     assign show_product_badges = false
   endif
+  # Badges por tag definidos en Ajustes del tema (una línea "tag|Texto"), p. ej. IVA 0%.
+  assign tag_badge_labels = ''
+  if theme_st.custom_badge_tags != blank and card_product != blank
+    assign tag_lines = theme_st.custom_badge_tags | newline_to_br | split: '<br />'
+    for tag_line in tag_lines
+      assign pair = tag_line | strip | split: '|'
+      assign badge_tag = pair[0] | strip
+      if badge_tag != blank and card_product.tags contains badge_tag
+        assign badge_label = pair[1] | default: badge_tag | strip
+        assign tag_badge_labels = tag_badge_labels | append: badge_label | append: '|||'
+      endif
+    endfor
+  endif
 -%}
 {%- if sale
   or sold_out
@@ -174,6 +187,7 @@
   or card_product.metafields.custom.custom_product_badge
   or show_new
   or subscription > 0
+  or tag_badge_labels != blank
 -%}
   {% if show_product_badges %}
     <div
@@ -244,6 +258,17 @@
           {{ card_product.metafields.custom.custom_product_badge }}
         </div>
       {% endif %}
+      {%- assign tag_badge_list = tag_badge_labels | split: '|||' -%}
+      {%- for tag_badge in tag_badge_list -%}
+        {%- if tag_badge != blank -%}
+          <div
+            class="product__badges-custom product__badges-tag product__badges-inner align-self-start px-15 pre-order inline-flex content-center subheading_weight text-center lh-normal"
+            style="--badges-color: {{ settings.custom_badge_color }};--badges-bg:{{ settings.custom_badge_background }};"
+          >
+            {{ tag_badge }}
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
       {% if subscription > 0 %}
         <div
           class="product__badges-custom subscription product__badges-inner align-self-start px-15 pre-order inline-flex content-center subheading_weight text-center lh-normal"
