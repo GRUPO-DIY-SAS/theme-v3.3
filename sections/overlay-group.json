@@ -43,7 +43,7 @@
             "blocked_message": "<p>De acuerdo con la normativa vigente en Colombia. Debes tener 18 años o más para acceder a este sitio web.</p>",
             "editor_mode_behavior": "hide_in_editor",
             "cookie_name": "age_verified_diyvape",
-            "cookie_domain": ".diyvape.co",
+            "cookie_domain": "",
             "cookie_duration": "1",
             "cookie_persistence": "session",
             "cookie_hours": "24",
