@@ -38,6 +38,81 @@
         "reset_spacing": true
       }
     },
+    "trust": {
+      "type": "icon-box",
+      "blocks": {
+        "trust_store": {
+          "type": "icon_box",
+          "settings": {
+            "icon_image": "shopify://shop_images/001-store.png",
+            "icon_svg": "none",
+            "custom_svg": "",
+            "heading": "Selección de alta calidad",
+            "description": "<p>Control total de la calidad de nuestros productos para su tranquilidad.</p>"
+          }
+        },
+        "trust_support": {
+          "type": "icon_box",
+          "settings": {
+            "icon_image": "shopify://shop_images/003-headset.png",
+            "icon_svg": "none",
+            "custom_svg": "",
+            "heading": "Soporte en línea",
+            "description": "<p>Acceso instantáneo a soporte profesional por WhatsApp.</p>"
+          }
+        },
+        "trust_shipping": {
+          "type": "icon_box",
+          "settings": {
+            "icon_image": "shopify://shop_images/002-truck_67f28be3-299c-4d60-a57e-031a9bdba753.png",
+            "icon_svg": "none",
+            "custom_svg": "",
+            "heading": "Envíos rápidos",
+            "description": "<p>Entrega rápida y confiable desde nuestras bodegas.</p>"
+          }
+        },
+        "trust_prices": {
+          "type": "icon_box",
+          "settings": {
+            "icon_image": "shopify://shop_images/004-wallet.png",
+            "icon_svg": "none",
+            "custom_svg": "",
+            "heading": "Precios asequibles",
+            "description": "<p>Precios directos de fábrica para un máximo ahorro.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "trust_store",
+        "trust_support",
+        "trust_shipping",
+        "trust_prices"
+      ],
+      "settings": {
+        "section_width": "fluid_container",
+        "color_scheme": "scheme-homesale-gray",
+        "type": "default",
+        "column_gap": 30,
+        "icon_position": "left",
+        "icon_size": 48,
+        "spacing": 14,
+        "show_border": false,
+        "enable_background": false,
+        "background": "",
+        "content_alignment": "left",
+        "heading_font_size": 16,
+        "heading_font_weight": "heading_weight",
+        "heading_uppercase": false,
+        "heading_spacing_bottom": 6,
+        "des_font_size": 14,
+        "des_font_weight": "body_weight",
+        "carousel_on_mobile": true,
+        "items_per_row_mobile": "1",
+        "padding_top": 35,
+        "padding_bottom": 35,
+        "reset_spacing": true
+      }
+    },
     "categories": {
       "type": "collection-list",
       "blocks": {
@@ -1179,85 +1254,11 @@
         "padding_bottom": 40,
         "reset_spacing": false
       }
-    },
-    "trust": {
-      "type": "icon-box",
-      "blocks": {
-        "trust_store": {
-          "type": "icon_box",
-          "settings": {
-            "icon_image": "shopify://shop_images/001-store.png",
-            "icon_svg": "none",
-            "custom_svg": "",
-            "heading": "Selección de alta calidad",
-            "description": "<p>Control total de la calidad de nuestros productos para su tranquilidad.</p>"
-          }
-        },
-        "trust_support": {
-          "type": "icon_box",
-          "settings": {
-            "icon_image": "shopify://shop_images/003-headset.png",
-            "icon_svg": "none",
-            "custom_svg": "",
-            "heading": "Soporte en línea",
-            "description": "<p>Acceso instantáneo a soporte profesional por WhatsApp.</p>"
-          }
-        },
-        "trust_shipping": {
-          "type": "icon_box",
-          "settings": {
-            "icon_image": "shopify://shop_images/002-truck_67f28be3-299c-4d60-a57e-031a9bdba753.png",
-            "icon_svg": "none",
-            "custom_svg": "",
-            "heading": "Envíos rápidos",
-            "description": "<p>Entrega rápida y confiable desde nuestras bodegas.</p>"
-          }
-        },
-        "trust_prices": {
-          "type": "icon_box",
-          "settings": {
-            "icon_image": "shopify://shop_images/004-wallet.png",
-            "icon_svg": "none",
-            "custom_svg": "",
-            "heading": "Precios asequibles",
-            "description": "<p>Precios directos de fábrica para un máximo ahorro.</p>"
-          }
-        }
-      },
-      "block_order": [
-        "trust_store",
-        "trust_support",
-        "trust_shipping",
-        "trust_prices"
-      ],
-      "settings": {
-        "section_width": "fluid_container",
-        "color_scheme": "scheme-homesale-gray",
-        "type": "default",
-        "column_gap": 30,
-        "icon_position": "left",
-        "icon_size": 48,
-        "spacing": 14,
-        "show_border": false,
-        "enable_background": false,
-        "background": "",
-        "content_alignment": "left",
-        "heading_font_size": 16,
-        "heading_font_weight": "heading_weight",
-        "heading_uppercase": false,
-        "heading_spacing_bottom": 6,
-        "des_font_size": 14,
-        "des_font_weight": "body_weight",
-        "carousel_on_mobile": true,
-        "items_per_row_mobile": "1",
-        "padding_top": 35,
-        "padding_bottom": 35,
-        "reset_spacing": false
-      }
     }
   },
   "order": [
     "hero",
+    "trust",
     "categories",
     "promo_row",
     "addi_banner",
@@ -1265,7 +1266,6 @@
     "fitness_categories",
     "bikes",
     "popular_categories",
-    "bestsellers",
-    "trust"
+    "bestsellers"
   ]
 }

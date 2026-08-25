@@ -131,7 +131,7 @@
         "show_email": false,
         "show_phone": false,
         "enable_login_popup": true,
-        "separator_line": "all-page",
+        "separator_line": "unset",
         "sticky_header_type": "on-scroll-up",
         "sticky_header_mobile": true,
         "transparent_header": true,
