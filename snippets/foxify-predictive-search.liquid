@@ -1,0 +1,265 @@
+{%- liquid
+assign element_key = ELEMENT_KEY | default: 'f'
+assign prefix_class = PREFIX_CLASS | default: 'f:'
+-%}
+<script src="{{ 'foxify-predictive-search.gen2.js' | asset_url }}" defer="defer"></script>
+{{ 'foxify-predictive-search.css' | asset_url | stylesheet_tag }}
+
+{% capture icon_search %}
+  <svg xmlns="http://www.w3.org/2000/svg" class="x-icon x-icon-search" viewBox="0 0 24 24" fill="none">
+    <path d="M10.875 18.75C15.2242 18.75 18.75 15.2242 18.75 10.875C18.75 6.52576 15.2242 3 10.875 3C6.52576 3 3 6.52576 3 10.875C3 15.2242 6.52576 18.75 10.875 18.75Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+    <path d="M16.4434 16.4453L20.9997 21.0016" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+  </svg>
+{% endcapture %}
+<{{ element_key }}-predictive-search class="{{ prefix_class }}predictive-search__form" data-results-limit="{{ number_results_to_show | default: 3 }}">
+  {%- if layout == 'input' -%}
+  <div class="{{ prefix_class }}predictive-search__trigger {{ prefix_class }}predictive-search__field">
+    <input type="text" readonly
+      id="XSearchInput-{{ section_id }}"
+      class="{{ prefix_class }}predictive-search__input {{ prefix_class }}form-control {{ prefix_class }}predictive-search__trigger-input"
+      placeholder="{{ translation.templates.search.search_placeholder | default: 'Search' }}"
+      aria-label="{{ translation.templates.search.search_placeholder | default: 'Search' }}"
+      data-predictive-search-trigger>
+    <button type="submit"
+      id="XSearchInput-{{ section_id }}"
+      class="{{ prefix_class }}predictive-search__icon"
+      aria-label="{{ translation.templates.search.search_placeholder | default: 'Search' }}"
+      data-predictive-search-trigger>
+      {{ icon_search }}
+    </button>
+  </div>
+  {%- endif -%}
+  {%- if layout == 'icon' -%}
+  <button type="submit" class="{{ prefix_class }}predictive-search__icon-with-text"
+    id="XSearchInput-{{ section_id }}"
+    aria-label="{{ translation.templates.search.search_placeholder | default: 'Search' }}" data-predictive-search-trigger>
+    {% if button_icon_position == 'left' %}
+      {{ icon_search }}
+    {% endif %}
+    {% if button_text %}
+    <span class="{{ prefix_class }}predictive-search__icon-text">{{ button_text }}</span>
+    {% endif %}
+    {% if button_icon_position == 'right' %}
+      {{ icon_search }}
+    {% endif %}
+  </button>
+  {%- endif -%}
+  <div class="x-model-search" id="XModelSearch-{{ section_id }}" aria-hidden="true">
+    <div class="x-model-search__overlay" data-predictive-search-close></div>
+    <div class="x-model-search__container">
+      <form action="{{ routes.search_url }}" method="get" role="search" id="XPredictiveSearch-{{ section_id }}">
+        <input type="hidden" name="options[prefix]" value="last">
+        <div class="{{ prefix_class }}predictive-search__field">
+          <input id="XSearchInput-{{ section_id }}"
+            class="{{ prefix_class }}predictive-search__input {{ prefix_class }}form-control" type="search" name="q" {%
+            if context=='page' %} value="{{ search.terms | escape }}" {% endif %}
+            placeholder="{{ translation.templates.search.search_placeholder | default: 'Search' }}" role="combobox"
+            aria-expanded="false" aria-owns="{{ prefix_class }}search-results"
+            aria-controls="{{ prefix_class }}predictive-search-results" aria-haspopup="listbox" aria-autocomplete="list"
+            autocorrect="off" autocomplete="off" autocapitalize="off" spellcheck="false">
+          <label class="{{ prefix_class }}visually-hidden" for="XSearchInput-{{ section_id }}">
+            {{- translation.templates.search.search_placeholder | default: 'Search' -}}
+          </label>
+          <button type="reset" class="{{ prefix_class }}predictive-search__reset"
+            aria-label="{{ translation.templates.search.reset_label | default: 'Reset' }}">
+            <span>{{ translation.templates.search.clear_label | default: 'Clear' }}</span>
+            <div class="{{ prefix_class }}loading__spinner x-hidden">
+              <svg aria-hidden="true" focusable="false" class="x-spinner x-icon x-icon-loader" viewBox="0 0 66 66"
+                xmlns="http://www.w3.org/2000/svg">
+                <circle class="path" fill="none" stroke-width="4" cx="33" cy="33" r="30"></circle>
+              </svg>
+            </div>
+          </button>
+          <button type="submit"
+            class="{{ prefix_class }}predictive-search__field-icon {{ prefix_class }}predictive-search__icon-search"
+            id="XSearchInput-{{ section_id }}"
+            aria-label="{{ translation.templates.search.search_placeholder | default: 'Search' }}">
+            <svg xmlns="http://www.w3.org/2000/svg" class="x-icon x-icon-search" viewBox="0 0 24 24"
+              fill="none">
+              <path
+                d="M10.875 18.75C15.2242 18.75 18.75 15.2242 18.75 10.875C18.75 6.52576 15.2242 3 10.875 3C6.52576 3 3 6.52576 3 10.875C3 15.2242 6.52576 18.75 10.875 18.75Z"
+                stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+              <path d="M16.4434 16.4453L20.9997 21.0016" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                stroke-linejoin="round"></path>
+            </svg>
+          </button>
+        </div>
+      </form>
+      <button type="button" class="x-model-search__close"
+        aria-label="{{ translation.templates.search.close_label | default: 'Close' }}" data-predictive-search-close>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+      <div class="{{ prefix_class }}predictive-search__content">
+        <div class="{{ prefix_class }}predictive-search__box {{ prefix_class }}predictive-search__results">
+          <div id="XPredictiveSearchResults-{{ section_id }}" role="listbox">
+            {%- if predictive_search.performed -%}
+            {%- if predictive_search.resources.queries.size > 0
+            or predictive_search.resources.products.size > 0
+            or predictive_search.resources.collections.size > 0
+            or predictive_search.resources.articles.size > 0
+            or predictive_search.resources.pages.size > 0
+            -%}
+            <div class="{{ prefix_class }}flex {{ prefix_class }}flex-col sm:{{ prefix_class }}flex-row">
+
+              {% comment %} Queries query {% endcomment %}
+              <div class="{{ prefix_class }}predictive-search__left">
+                {%- if predictive_search.resources.queries.size > 0 -%}
+                <div
+                  class="{{ prefix_class }}predictive-search__box-others {% if predictive_search.resources.products.size == 0 %} {{ prefix_class }}no-products{% endif %}">
+                  <div
+                    class="{{ prefix_class }}predictive-search-result {{ prefix_class }}predictive-search__box-item {{ prefix_class }}predictive-search-result--queries">
+                    <h4 class="h5 {{ prefix_class }}predictive-search-result__heading">
+                      {{- translation.templates.search.suggestions | default: 'Suggestions' -}}
+                    </h4>
+                    <ul id="{{ prefix_class }}search-results-queries-list" role="group"
+                      aria-labelledby="predictive-search-queries"
+                      class="{{ prefix_class }}predictive-search-result__list">
+                      {%- for query in predictive_search.resources.queries -%}
+                      <li id="{{ prefix_class }}search-option-query-{{ forloop.index }}"
+                        class="{{ prefix_class }}predictive-search-result__list-item {{ prefix_class }}flex"
+                        role="option" aria-selected="false">
+                        <a href="{{ query.url }}" class="{{ prefix_class }}reversed-link" aria-label="{{ query.text }}">
+                          <span>{{ query.styled_text }}</span>
+                        </a>
+                      </li>
+                      {%- endfor -%}
+                    </ul>
+                  </div>
+                </div>
+                {%- endif -%}
+                {% comment %} Collection query {% endcomment %}
+                {%- if predictive_search.resources.collections.size > 0 -%}
+                <div
+                  class="{{ prefix_class }}predictive-search__box-others {% if predictive_search.resources.products.size == 0 %} {{ prefix_class }}no-products{% endif %}">
+                  <div
+                    class="{{ prefix_class }}predictive-search-result {{ prefix_class }}predictive-search__box-item {{ prefix_class }}predictive-search-result--collections">
+                    <h4 class="h5 {{ prefix_class }}predictive-search-result__heading">
+                      {{ translation.templates.search.collections | default: 'Collections' }}
+                    </h4>
+                    <ul id="{{ prefix_class }}search-results-collection-list" role="group"
+                      aria-labelledby="{{ prefix_class }}predictive-search-collection"
+                      class="{{ prefix_class }}predictive-search-result__list">
+                      {%- for collection in predictive_search.resources.collections -%}
+                      <li id="{{ prefix_class }}search-option-collection-{{ forloop.index }}"
+                        class="{{ prefix_class }}predictive-search-result__list-item {{ prefix_class }}flex" role="option"
+                        aria-selected="false">
+                        <a href="{{ collection.url }}">
+                          {{ collection.title | escape }}
+                        </a>
+                      </li>
+                      {%- endfor -%}
+                    </ul>
+                  </div>
+                </div>
+                {%- endif -%}
+  
+                {% comment %} Articles and Pages query {% endcomment %}
+                {%- if predictive_search.resources.articles.size > 0 or predictive_search.resources.pages.size > 0 -%}
+                <div
+                  class="{{ prefix_class }}predictive-search__box-others {% if predictive_search.resources.products.size == 0 %} {{ prefix_class }}no-products{% endif %}">
+                  <div
+                    class="{{ prefix_class }}predictive-search-result {{ prefix_class }}predictive-search__box-item {{ prefix_class }}predictive-search-result--article">
+                    <h4 class="h5 {{ prefix_class }}predictive-search-result__heading">
+                      {{ translation.templates.search.articles_pages | default: 'Articles and Pages' }}
+                    </h4>
+                    <ul id="{{ prefix_class }}search-results-article-page-list"
+                      class="{{ prefix_class }}predictive-search-result__list" role="group"
+                      aria-labelledby="{{ prefix_class }}predictive-search-article-page">
+                      {%- for article in predictive_search.resources.articles -%}
+                      <li id="{{ prefix_class }}search-option-article-{{ forloop.index }}"
+                        class="{{ prefix_class }}predictive-search-result__list-item {{ prefix_class }}flex"
+                        role="option" aria-selected="false">
+                        <a href="{{ article.url }}">
+                          {{ article.title | escape }}
+                        </a>
+                      </li>
+                      {%- endfor -%}
+                      {%- for page in predictive_search.resources.pages -%}
+                      <li id="{{ prefix_class }}search-option-page-{{ forloop.index }}"
+                        class="{{ prefix_class }}predictive-search-result__list-item" role="option"
+                        aria-selected="false">
+                        <a href="{{ page.url }}" class="{{ prefix_class }}reversed-link">
+                          {{ page.title | escape }}
+                        </a>
+                      </li>
+                      {%- endfor -%}
+                    </ul>
+                  </div>
+                </div>
+                {%- endif -%}
+              </div>
+
+
+              {% comment %} Products query {% endcomment %}
+              {%- if predictive_search.resources.products.size > 0 -%}
+              <div class="{{ prefix_class }}predictive-search__box-products">
+                <div
+                  class="{{ prefix_class }}predictive-search-result {{ prefix_class }}predictive-search__box-item {{ prefix_class }}predictive-search-result--products">
+                  <h4 class="h5 {{ prefix_class }}predictive-search-result__heading">
+                    {{- translation.templates.search.products | default: 'Products' -}}
+                  </h4>
+                  <div id="{{ prefix_class }}search-results-products-list">
+                    {%- for product in predictive_search.resources.products -%}
+                    <a href="{{ product.url }}" class="{{ prefix_class }}predictive-search__item" tabindex="-1">
+                      {%- if product.featured_media != blank -%}
+                      <img class="{{ prefix_class }}predictive-search__image"
+                        src="{{ product.featured_media | image_url: width: 150 }}"
+                        alt="{{ product.featured_media.alt | escape }}" width="50"
+                        height="{{ 50 | divided_by: product.featured_media.preview_image.aspect_ratio }}">
+                      {%- endif -%}
+                      <div class="{{ prefix_class }}predictive-search__item-content">
+                        {%- if settings.predictive_search_show_vendor -%}
+                        <span class="visually-hidden">{{ products.product.vendor | default: 'Vendor' }}</span>
+                        <div class="{{ prefix_class }}predictive-search__item-vendor">
+                          {{ product.vendor }}
+                        </div>
+                        {%- endif -%}
+                        <p class="{{ prefix_class }}predictive-search__item-heading h5">{{ product.title | escape }}</p>
+                        {%- render 'foxify-price',
+                        product: product,
+                        use_variant: false,
+                        show_sale_badge: false,
+                        sale_badge_type: 'percentage',
+                        show_soldout_badge: false,
+                        ELEMENT_KEY: 'x',
+                        PREFIX_CLASS: 'x-'
+                        -%}
+                      </div>
+                    </a>
+                    {%- endfor -%}
+                  </div>
+                </div>
+              </div>
+              {%- endif -%}
+            </div>
+            <div class="{{ prefix_class }}predictive-search__results-all">
+              {%- assign search_term = predictive_search.terms
+              | split: 'AND'
+              | last
+              | strip
+              | replace: '%20', ' '
+              -%}
+              <button type="submit" class="{{ prefix_class }}btn-reset" form="XPredictiveSearch-{{ section_id }}">
+                {{ translation.templates.search.search_for | default: 'Search for' }}: {{ search_term }}
+              </button>
+            </div>
+            {%- else -%}
+            <div class="{{ prefix_class }}empty-state">
+              {%- assign search_term = predictive_search.terms | split: 'AND' | last | strip | replace: '%20', ' ' -%}
+              <h4>
+                {{ translation.templates.search.no_results_text | default: 'No results found' }}: {{ search_term }}
+              </h4>
+              <p>{{ translation.templates.search.no_results_message | default: 'No results found' }}</p>
+            </div>
+            {%- endif -%}
+            {%- endif -%}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</{{ element_key }}-predictive-search>

@@ -1,0 +1,23 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "foxify-1707335884WIr6I": {
+      "type": "foxify-1707335884WIr6I",
+      "settings": {
+        "f-add-to-cart-button-1717080828qszgP": "homesale-scooter-roadmaster",
+        "f-add-to-cart-button-1717082048pIHZ2": "homesale-scooter-roadmaster"
+      }
+    }
+  },
+  "order": [
+    "foxify-1707335884WIr6I"
+  ]
+}

@@ -169,7 +169,7 @@
                         data-shipping-protection-line="{{ item.index | plus: 1 }}"
                         data-shipping-protection-quantity="{{ item.quantity }}"
                         style="--custom-width: 10rem"
-                      >
+                       data-foxkit-product-id={{ item.product.id }} data-foxkit-collections="{{ collections }}">
                         <td
                           class="cart-item__media border-0 px-0 flex align-center gap-10 border-bottom py-30 w-custom"
                         >

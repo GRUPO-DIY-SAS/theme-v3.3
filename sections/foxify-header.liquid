@@ -1,0 +1,57 @@
+
+{% liquid
+  
+    assign locales = shop.metafields.foxify.locales.value
+    assign current_locale = request.locale.iso_code
+    assign primary_locale = current_locale
+    for locale in shop.published_locales
+    if locale.primary
+        assign primary_locale = locale.iso_code
+        break
+    endif
+    endfor
+    assign translation = locales[current_locale] | default: locales[primary_locale]
+
+    assign theme_settings = shop.metafields.foxify.theme_settings.value
+    assign productCard = theme_settings.productCard
+  
+  
+%}
+
+<div class="f-app f:content">
+{{ 'foxify-header.css' | asset_url | stylesheet_tag }}
+{{ 'foxify-section-header.css' | asset_url | stylesheet_tag }}{{ 'foxify-component-drawer.css' | asset_url | stylesheet_tag }}<script src="{{ 'foxify-header.js' | asset_url }}" defer=""></script><f-sticky-header class="f:header__wrapper" data-header-sticky="true" data-header-transparent="false"><header id="f-1700503083OzAf0" class="f:sections f:header f-1700503083OzAf0 f:section--no-margin f:header--divider "><div class="f:container"><div class="f:header__inner f:header__inner-middle f:header__inner-mobile-left"><div class="f:nav-mobile f:flex lg:f:hidden"><f-drawer-opener class="f:mobile-nav-toggle" data-drawer="#FDrawer-MobileNav"><button class="f:btn f:btn--plain f:btn--icon"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" role="presentation" class="icon icon-hamburger" fill="none" viewBox="0 0 18 16"><path d="M1 .5a.5.5 0 100 1h15.71a.5.5 0 000-1H1zM.5 8a.5.5 0 01.5-.5h15.71a.5.5 0 010 1H1A.5.5 0 01.5 8zm0 7a.5.5 0 01.5-.5h15.71a.5.5 0 010 1H1a.5.5 0 01-.5-.5z" fill="currentColor"></path></svg></button></f-drawer-opener></div></div></div></header></f-sticky-header>
+
+</div>
+{% schema %}
+  {
+  "name": "Foxify header",
+  "class": "foxify-header f-app",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Customize header",
+      "info": "Go to [Foxify app](https://admin.shopify.com/store/homesaleco/apps/foxify-builder) to edit this section."
+    }
+  ],
+  "locales": {
+    "en": {
+      "f-1700503083PXqb8-text_html": "Information",
+      "f-1700503083MwgUG-text_html": "Quick links",
+      "f-1700503083udX3N-text_html": "Subscribe to our emails",
+      "f-17005030838c13q-text_html": "<p>You deserve to feel good. Subscribe to our newsletter.</p>",
+      "f-1700503083W0J44-email_placeholder_html": "Enter your email",
+      "f-1700503083OPAan-copyright_html": "© 2022, Foxify Powered by Shopify"
+    },
+    "es": {
+      "f-1700503083PXqb8-text_html": "Information",
+      "f-1700503083MwgUG-text_html": "Quick links",
+      "f-1700503083udX3N-text_html": "Subscribe to our emails",
+      "f-17005030838c13q-text_html": "<p>You deserve to feel good. Subscribe to our newsletter.</p>",
+      "f-1700503083W0J44-email_placeholder_html": "Enter your email",
+      "f-1700503083OPAan-copyright_html": "© 2022, Foxify Powered by Shopify"
+    }
+  }
+}
+{% endschema %}
+  

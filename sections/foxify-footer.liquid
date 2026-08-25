@@ -1,0 +1,67 @@
+
+{% liquid
+  
+    assign locales = shop.metafields.foxify.locales.value
+    assign current_locale = request.locale.iso_code
+    assign primary_locale = current_locale
+    for locale in shop.published_locales
+    if locale.primary
+        assign primary_locale = locale.iso_code
+        break
+    endif
+    endfor
+    assign translation = locales[current_locale] | default: locales[primary_locale]
+
+    assign theme_settings = shop.metafields.foxify.theme_settings.value
+    assign productCard = theme_settings.productCard
+  
+  
+%}
+
+<div class="f-app f:content">
+{{ 'foxify-footer.css' | asset_url | stylesheet_tag }}
+{{ 'foxify-section-footer.css' | asset_url | stylesheet_tag }}<div id="f-1700503083OPAan" class="f:sections f:footer f-1700503083OPAan f:section--no-margin"><div class="f:container"><div class="f:footer__top"><div id="f-170050308378ISU" class="f:blocks f:grid f-170050308378ISU" style="--f-grid-columns-sm:minmax(0, 12fr);--f-grid-columns-md:minmax(0, 6fr) minmax(0, 6fr);--f-grid-columns-lg:minmax(0, 4fr) minmax(0, 4fr) minmax(0, 4fr);--f-grid-columns-xl:minmax(0, 4fr) minmax(0, 4fr) minmax(0, 4fr)"><div id="f-1700503083vkKuA" class="f:blocks f:col f-1700503083vkKuA f:column"><h3 id="f-1700503083PXqb8" class="f:blocks f:heading f-1700503083PXqb8 f:content-block"><span>
+{{ 'sections.foxify-footer.f-1700503083PXqb8-text_html' | t }}</span></h3><div id="f-1700503083s1EWJ" class="f:blocks f:menu-block f-1700503083s1EWJ">{% liquid 
+        assign menu_f-1700503083s1EWJ = shop.metafields.foxify.menus.value['undefined']
+      %}{% if menu_f-1700503083s1EWJ %}<ul class="f:list-none">{% for item in menu_f-1700503083s1EWJ %}<li><a href="{{ item.link }}">{{ item.label }}</a></li>{% endfor %}</ul>{% endif %}</div></div><div id="f-1700503083TJX3j" class="f:blocks f:col f-1700503083TJX3j f:column"><h3 id="f-1700503083MwgUG" class="f:blocks f:heading f-1700503083MwgUG f:content-block"><span>
+{{ 'sections.foxify-footer.f-1700503083MwgUG-text_html' | t }}</span></h3><div id="f-1700503083F0prU" class="f:blocks f:menu-block f-1700503083F0prU">{% liquid 
+        assign menu_f-1700503083F0prU = shop.metafields.foxify.menus.value['undefined']
+      %}{% if menu_f-1700503083F0prU %}<ul class="f:list-none">{% for item in menu_f-1700503083F0prU %}<li><a href="{{ item.link }}">{{ item.label }}</a></li>{% endfor %}</ul>{% endif %}</div></div><div id="f-1700503083CD9yZ" class="f:blocks f:col f-1700503083CD9yZ f:column"><h3 id="f-1700503083udX3N" class="f:blocks f:heading f-1700503083udX3N f:content-block"><span>
+{{ 'sections.foxify-footer.f-1700503083udX3N-text_html' | t }}</span></h3><div id="f-17005030838c13q" class="f:blocks f:richtext f-17005030838c13q f:content-block f:rte">
+{{ 'sections.foxify-footer.f-17005030838c13q-text_html' | t }}</div><div id="f-1700503083W0J44" class="f:blocks f:subscribe-form f-1700503083W0J44 f:content-block">{{ 'foxify-newsletter.css' | asset_url | stylesheet_tag }}<div class="f:newsletter-form f:newsletter-form--btn-text">{% form 'customer', id: ContactSubscribe-f-1700503083W0J44 %}<input type="hidden" name="contact[tags]" value="newsletter"/><label class="f:block f:newsletter-form__label f:visually-hidden" for="ContactSubscribe-f-1700503083W0J44-email">{{ translation.newsletter.label }}</label><div class="f:newsletter-form__wrapper f:flex"><input type="email" name="contact[email]" id="ContactSubscribe-f-1700503083W0J44-email" placeholder="
+{{ 'sections.foxify-footer.f-1700503083W0J44-email_placeholder_html' | t }}" autoCorrect="off" autoCapitalize="off" class="f:form-control" required="" value="{% if customer.email != blank %}{{ customer.email }}{% endif %}"/><button type="submit" aria-label="" class="f:newsletter-form__submit f:btn "><span>Subscribe</span></button></div>{%- if form.posted_successfully? -%}<div class="f:form-status"><div class="f:form-message--success" data-form-status="true" tabindex="-1" autofocus="">{{ translation.newsletter.success }}</div></div>{%- endif -%}{%- if form.errors -%}<div class="f:form-status"><div class="f:form-status__error f:form-message--error">{{ form.errors.translated_fields['email'] | capitalize }} {{ form.errors.messages['email'] }}</div></div>{% endif %}{% endform %}</div></div></div></div></div><div class="f:footer__bottom f:footer__bottom--show-divider"><div class="f:footer__copyright">
+{{ 'sections.foxify-footer.f-1700503083OPAan-copyright_html' | t }}</div></div></div></div>
+
+</div>
+{% schema %}
+  {
+  "name": "Foxify footer",
+  "class": "foxify-footer f-app",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Customize footer",
+      "info": "Go to [Foxify app](https://admin.shopify.com/store/homesaleco/apps/foxify-builder) to edit this section."
+    }
+  ],
+  "locales": {
+    "en": {
+      "f-1700503083PXqb8-text_html": "Information",
+      "f-1700503083MwgUG-text_html": "Quick links",
+      "f-1700503083udX3N-text_html": "Subscribe to our emails",
+      "f-17005030838c13q-text_html": "<p>You deserve to feel good. Subscribe to our newsletter.</p>",
+      "f-1700503083W0J44-email_placeholder_html": "Enter your email",
+      "f-1700503083OPAan-copyright_html": "© 2022, Foxify Powered by Shopify"
+    },
+    "es": {
+      "f-1700503083PXqb8-text_html": "Information",
+      "f-1700503083MwgUG-text_html": "Quick links",
+      "f-1700503083udX3N-text_html": "Subscribe to our emails",
+      "f-17005030838c13q-text_html": "<p>You deserve to feel good. Subscribe to our newsletter.</p>",
+      "f-1700503083W0J44-email_placeholder_html": "Enter your email",
+      "f-1700503083OPAan-copyright_html": "© 2022, Foxify Powered by Shopify"
+    }
+  }
+}
+{% endschema %}
+  

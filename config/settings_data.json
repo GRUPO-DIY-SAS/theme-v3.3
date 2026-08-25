@@ -308,6 +308,13 @@
           "mobile_side_margin": 16,
           "mobile_bottom_margin": 46
         }
+      },
+      "6868439170666289573": {
+        "type": "shopify://apps/foxkit-all-in-one-sales-boost/blocks/foxkit-theme-helper/13f41957-6b79-47c1-99a2-e52431f06fff",
+        "disabled": false,
+        "settings": {
+          "enable_ajax_atc": true
+        }
       }
     },
     "color_schemes": {
