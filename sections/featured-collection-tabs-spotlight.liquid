@@ -1424,26 +1424,6 @@
     }
   }
 
-  /* Hold heavy effects until the age gate is approved (html gets .age-gate-verified on
-     verify or when the cookie is already present). Behind the gate overlay nothing
-     animates and no backdrop blur runs — saves CPU/GPU and respects the gate. */
-  html:not(.age-gate-verified) #shopify-section-{{ section.id }} .spotlight-motion__shape,
-  html:not(.age-gate-verified) #shopify-section-{{ section.id }} .spotlight-motion__orb,
-  html:not(.age-gate-verified) #shopify-section-{{ section.id }} .spotlight-motion__grid,
-  html:not(.age-gate-verified) #shopify-section-{{ section.id }} .spotlight-motion__mesh,
-  html:not(.age-gate-verified) #shopify-section-{{ section.id }} .spotlight-motion__beams,
-  html:not(.age-gate-verified) #shopify-section-{{ section.id }} .spotlight-motion__particle,
-  html:not(.age-gate-verified) #shopify-section-{{ section.id }} .featured-tabs-spotlight--geo-parallax .featured-tabs-spotlight__motion--geo,
-  html:not(.age-gate-verified) #shopify-section-{{ section.id }} .featured-tabs-spotlight--shape-motion .featured-tabs-spotlight__shape {
-    animation: none !important;
-  }
-
-  html:not(.age-gate-verified) #shopify-section-{{ section.id }} .featured-tabs-spotlight--cards-glass .featured-tabs-spotlight-card__inner,
-  html:not(.age-gate-verified) #shopify-section-{{ section.id }} .featured-tabs-spotlight-quick__body--glass {
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
-  }
-
   /* Pause the continuous motion while the block is offscreen (JS toggles .is-offscreen via
      IntersectionObserver). Big scroll-jank win on low-GPU devices when several spotlight
      blocks are stacked — offscreen blocks stop compositing their animations. */
@@ -2312,7 +2292,7 @@
       </filter>
     </svg>
   {%- endif -%}
-  {%- render 'spotlight-gate-media' -%}
+
 </div>
 
 <script>

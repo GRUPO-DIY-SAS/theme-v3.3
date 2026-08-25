@@ -1,3 +1,20 @@
+{%- comment -%}
+  Carga diferida de los assets del theme. layout/theme.liquid y scripts-tag
+  encolan CSS/JS en window.diyvapeDeferredAssets; aquí arrancan en idle para
+  que el burst de ejecución de theme.js/global.js/swiper ceda ante el primer
+  tap del usuario (INP). Emite diyvape:deferred-visual-ready cuando el CSS
+  visual está aplicado (levanta las reglas FOUC de critical-base y el
+  preload-page) y diyvape:deferred-assets-loaded al terminar los scripts.
+
+  Fuera de product page intercepta appendChild/insertBefore para descartar el
+  widget de Judge.me: el app embed lo inyecta vía content_for_header en todas
+  las páginas y no se puede filtrar server-side, pero las reseñas sólo se
+  muestran en PDP. En product page no se parchea nada: overhead cero en la
+  ruta de mayor tráfico.
+
+  Los identificadores `diyvape*` son nombres internos heredados del theme base
+  (critical-base, preload-page y theme.js los consumen); no son visibles.
+{%- endcomment -%}
 <script>
   window.diyvapeDeferredAssets = window.diyvapeDeferredAssets || [];
   (function () {
@@ -15,121 +32,29 @@
     var visualReady = false;
     var visualReadyTimer = null;
     var originalPush = assets.push.bind(assets);
-    var originalAppendChild = Node.prototype.appendChild;
-    var originalInsertBefore = Node.prototype.insertBefore;
-    var blockedDynamicAssets = [];
-    var releasingDynamicAssets = false;
-    var postGateDynamicAssetsScheduled = false;
-    var releasedDynamicGroups = {};
-    var initiallyAgeVerified = isAgeVerified();
 
-    function getNodeUrl(node) {
-      if (!node || node.nodeType !== 1) return '';
-      var tagName = node.tagName;
-      if (tagName === 'SCRIPT') return node.src || '';
-      if (tagName === 'LINK') return node.href || '';
-      return '';
+    function isReviewWidgetAsset(node) {
+      if (!node || node.nodeType !== 1) return false;
+      var url = '';
+      if (node.tagName === 'SCRIPT') url = node.src || '';
+      else if (node.tagName === 'LINK') url = node.href || '';
+      url = String(url).toLowerCase();
+      return url.indexOf('judge.me') !== -1 || url.indexOf('judgeme-505') !== -1;
     }
 
-    function getDeferredDynamicGroup(url) {
-      var value = String(url || '').toLowerCase();
-      if (!value) return '';
+    if (pageType !== 'product') {
+      var originalAppendChild = Node.prototype.appendChild;
+      var originalInsertBefore = Node.prototype.insertBefore;
 
-      if (
-        value.indexOf('rapi-487') !== -1 ||
-        value.indexOf('rappi-front.') !== -1 ||
-        value.indexOf('rapi-front.') !== -1
-      ) {
-        return 'rapi';
-      }
+      Node.prototype.appendChild = function (node) {
+        if (isReviewWidgetAsset(node)) return node;
+        return originalAppendChild.call(this, node);
+      };
 
-      if (
-        value.indexOf('mercadopago-pf-app') !== -1 ||
-        value.indexOf('generate-meli-session-id') !== -1 ||
-        value.indexOf('mercadopago.com') !== -1 ||
-        value.indexOf('melidata') !== -1
-      ) {
-        return 'commerce';
-      }
-
-      if (
-        value.indexOf('judgeme-505') !== -1 ||
-        value.indexOf('judge.me') !== -1 ||
-        value.indexOf('cdnwidget.judge.me') !== -1
-      ) {
-        return 'reviews';
-      }
-
-      if (
-        value.indexOf('googletagmanager.com/gtag/js') !== -1 ||
-        value.indexOf('/wpm/') !== -1 ||
-        value.indexOf('web-pixels-manager') !== -1 ||
-        value.indexOf('splmn-shopify-prod') !== -1
-      ) {
-        return 'analytics';
-      }
-
-      return '';
-    }
-
-    function shouldReleaseDynamicAsset(entry, group) {
-      if (!entry) return false;
-      if (group && entry.group !== group) return false;
-      /* Rapi y Judge.me sólo tienen sentido en PDP. En cualquier otra página
-         los seguimos bloqueando incluso después del age gate — el merchant
-         confirmó que Judge.me solo se usa en product page y Rapi también. */
-      if (entry.group === 'rapi' && pageType !== 'product') return false;
-      if (entry.group === 'reviews' && pageType !== 'product') return false;
-      return true;
-    }
-
-    function blockDynamicAsset(parent, node, referenceNode) {
-      var url = getNodeUrl(node);
-      var group = getDeferredDynamicGroup(url);
-      if (!group) return false;
-      if (group === 'rapi' && pageType !== 'product') return true;
-      if (group === 'reviews' && pageType !== 'product') return true;
-      if (releasingDynamicAssets || releasedDynamicGroups[group] || initiallyAgeVerified) return false;
-      blockedDynamicAssets.push({
-        parent: parent,
-        node: node,
-        referenceNode: referenceNode,
-        url: url,
-        group: group
-      });
-      return true;
-    }
-
-    function appendDynamicAsset(entry) {
-      var parent = entry.parent || document.head || document.documentElement;
-      if (entry.referenceNode && entry.referenceNode.parentNode === parent) {
-        originalInsertBefore.call(parent, entry.node, entry.referenceNode);
-      } else {
-        originalAppendChild.call(parent, entry.node);
-      }
-    }
-
-    function releaseDynamicAssets(group) {
-      if (group) {
-        releasedDynamicGroups[group] = true;
-      } else {
-        releasedDynamicGroups.rapi = true;
-        releasedDynamicGroups.commerce = true;
-        releasedDynamicGroups.reviews = true;
-        releasedDynamicGroups.analytics = true;
-      }
-      if (!blockedDynamicAssets.length) return;
-      releasingDynamicAssets = true;
-      var remaining = [];
-      blockedDynamicAssets.splice(0).forEach(function (entry) {
-        if (group && entry.group !== group) {
-          remaining.push(entry);
-          return;
-        }
-        if (shouldReleaseDynamicAsset(entry, group)) appendDynamicAsset(entry);
-      });
-      blockedDynamicAssets = remaining;
-      releasingDynamicAssets = false;
+      Node.prototype.insertBefore = function (node, referenceNode) {
+        if (isReviewWidgetAsset(node)) return node;
+        return originalInsertBefore.call(this, node, referenceNode);
+      };
     }
 
     function runWhenIdle(callback, timeout) {
@@ -138,144 +63,6 @@
       } else {
         window.setTimeout(callback, timeout || 1);
       }
-    }
-
-    function closestTarget(event, selector) {
-      var target = event && event.target;
-      if (target && target.nodeType !== 1) target = target.parentElement;
-      return target && target.closest ? target.closest(selector) : null;
-    }
-
-    function releaseCommerceAssets() {
-      releaseDynamicAssets('commerce');
-    }
-
-    function scheduleCommerceAssets() {
-      if (releasedDynamicGroups.commerce) return;
-      var released = false;
-      var selector = [
-        'a[href*="/cart"]',
-        'a[href*="/checkout"]',
-        'button[name="add"]',
-        'button[name="checkout"]',
-        '[data-add-to-cart]',
-        '[data-cart]',
-        '.shopify-payment-button',
-        '.product-form__submit',
-        'cart-drawer',
-        'cart-items'
-      ].join(',');
-
-      var release = function () {
-        if (released) return;
-        released = true;
-        document.removeEventListener('click', onClick, true);
-        document.removeEventListener('submit', onSubmit, true);
-        releaseCommerceAssets();
-      };
-
-      var onClick = function (event) {
-        if (closestTarget(event, selector)) release();
-      };
-
-      var onSubmit = function (event) {
-        var target = event && event.target;
-        var action = target && target.getAttribute ? target.getAttribute('action') || '' : '';
-        if (action.indexOf('/cart') !== -1 || closestTarget(event, 'form[action*="/cart"]')) release();
-      };
-
-      document.addEventListener('click', onClick, true);
-      document.addEventListener('submit', onSubmit, true);
-      runWhenIdle(release, 10000);
-    }
-
-    function scheduleReviewAssets() {
-      if (releasedDynamicGroups.reviews) return;
-      var release = function () {
-        releaseDynamicAssets('reviews');
-      };
-      var reviewRoot = document.querySelector('#judgeme_product_reviews, .jdgm-widget, [class*="jdgm-"]');
-      if (reviewRoot && 'IntersectionObserver' in window) {
-        var observer = new IntersectionObserver(function (entries) {
-          entries.forEach(function (entry) {
-            if (entry.isIntersecting || entry.intersectionRatio > 0) {
-              observer.disconnect();
-              release();
-            }
-          });
-        }, { rootMargin: '500px 0px' });
-        observer.observe(reviewRoot);
-      } else {
-        runWhenIdle(release, 6000);
-      }
-    }
-
-    function scheduleAnalyticsAssets() {
-      runWhenIdle(function () {
-        releaseDynamicAssets('analytics');
-      }, 2000);
-    }
-
-    function releasePostGateDynamicAssets() {
-      if (postGateDynamicAssetsScheduled) return;
-      postGateDynamicAssetsScheduled = true;
-      releaseDynamicAssets('rapi');
-      scheduleCommerceAssets();
-      scheduleReviewAssets();
-      scheduleAnalyticsAssets();
-    }
-
-    function parseVerified(raw) {
-      if (!raw) return false;
-      try {
-        var parsed = JSON.parse(decodeURIComponent(raw));
-        return Boolean(parsed && parsed.verified && parsed.dob && parsed.id);
-      } catch (error) {
-        try {
-          var fallback = JSON.parse(raw);
-          return Boolean(fallback && fallback.verified && fallback.dob && fallback.id);
-        } catch (innerError) {
-          return false;
-        }
-      }
-    }
-
-    function getCookie(name) {
-      var prefix = name + '=';
-      var parts = document.cookie ? document.cookie.split(';') : [];
-      for (var i = 0; i < parts.length; i += 1) {
-        var value = parts[i].trim();
-        if (value.indexOf(prefix) === 0) return value.slice(prefix.length);
-      }
-      return '';
-    }
-
-    function isAgeVerified() {
-      if (document.documentElement.classList.contains('age-gate-verified')) return true;
-      if (parseVerified(getCookie('age_verified_diyvape'))) return true;
-      try {
-        return parseVerified(localStorage.getItem('age_verified_diyvape'));
-      } catch (error) {
-        return false;
-      }
-    }
-
-    /* Interceptamos appendChild/insertBefore en estos casos:
-       1) Usuario NO verificado (cualquier página) — para bloquear todo hasta age gate.
-       2) Página != product (incluso para verified) — para bloquear reviews y rapi en
-          collection/home/search donde no aportan valor pero sí pesan.
-       Skip total para verified-en-PDP: preserva el win de v2 (cero overhead en el
-       caso de mayor tráfico, los usuarios recurrentes viendo producto). */
-    if (!initiallyAgeVerified || pageType !== 'product') {
-      Node.prototype.appendChild = function (node) {
-        if (blockDynamicAsset(this, node, null)) return node;
-        return originalAppendChild.call(this, node);
-      };
-
-      Node.prototype.insertBefore = function (node, referenceNode) {
-        if (blockDynamicAsset(this, node, referenceNode)) return node;
-        return originalInsertBefore.call(this, node, referenceNode);
-      };
     }
 
     function markVisualReady() {
@@ -404,34 +191,8 @@
 
     window.diyvapeLoadDeferredAssets = loadDeferredAssets;
 
-    window.addEventListener('diyvape:age-verified', function () {
-      loadDeferredAssets();
-      releasePostGateDynamicAssets();
-    }, { once: true });
-    document.addEventListener('diyvape:age-verified', function () {
-      loadDeferredAssets();
-      releasePostGateDynamicAssets();
-    }, { once: true });
-
-    if (isAgeVerified()) {
-      // Start the deferred bundle (theme.js, global.js, swiper, motion) during idle time
-      // instead of the next tick: the burst's script execution then yields to any early
-      // tap/click, so a first interaction isn't stuck behind it (INP). 2s timeout caps the
-      // wait so features stay ready quickly.
-      runWhenIdle(function () {
-        loadDeferredAssets();
-        releasePostGateDynamicAssets();
-      }, 2000);
-    } else {
-      document.addEventListener('DOMContentLoaded', function () {
-        var gate = document.querySelector('age-verification-gate');
-        if (!gate || !gate.classList.contains('active') || gate.getAttribute('aria-hidden') === 'true') {
-          runWhenIdle(function () {
-            loadDeferredAssets();
-            releasePostGateDynamicAssets();
-          }, 2000);
-        }
-      }, { once: true });
-    }
+    // Idle con tope de 2s: el burst cede ante un tap temprano sin retrasar
+    // demasiado las features que dependen de theme.js.
+    runWhenIdle(loadDeferredAssets, 2000);
   })();
 </script>

@@ -13,7 +13,7 @@
 {% endcomment %}
 
 {%- if request.page_type == 'product' -%}
-  {%- if defer_by_age_gate -%}
+  {%- if defer -%}
     <script>
       window.diyvapeDeferredAssets.push(
         { type: 'style', href: {{ 'diyvape-pdp-components.css' | asset_url | json }} },

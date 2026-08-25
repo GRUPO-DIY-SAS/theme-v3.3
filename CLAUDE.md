@@ -1,32 +1,29 @@
-# DIY Vape Shop — Shopify Theme (theme-v3.4)
+# Homesale — Shopify Theme (branch `homesale`, derived from DIY Vape theme-v3.4)
 
 ## Commands
 
 ```bash
 # Push working tree to a dev theme (preview-only, doesn't publish)
-shopify theme push --store=diy-ejuice-colombia.myshopify.com --theme=<id> --nodelete --only "<files>"
+shopify theme push --store=<homesale-store>.myshopify.com --theme=<id> --nodelete --only "<files>"
 
 # Lighthouse 10-run median against live or preview URL
-bash ~/lighthouse-reports/lh-median.sh "https://diyvape.co/products/<handle>" 10 mobile
-
-# Lighthouse with age-verified cookie pre-set (verified user scenario)
-node ~/lighthouse-reports/lh-with-cookie.mjs "<url>" 10 <outdir>
+bash ~/lighthouse-reports/lh-median.sh "https://www.homesale.com.co/products/<handle>" 10 mobile
 ```
 
 ## Architecture
 
 - **Shopify Liquid theme**. Standard structure: `assets/`, `blocks/`, `config/`, `layout/`, `locales/`, `sections/`, `snippets/`, `templates/`.
-- **Deferred asset loader** (`snippets/deferred-assets-loader.liquid`) gates third-party scripts (Rapi, MercadoPago, Judge.me, analytics) by age verification status + page type. Patches `Node.prototype.appendChild/insertBefore` for unverified or non-product pages; skipped for verified-on-PDP to preserve zero overhead.
-- **Age gate** (`blocks/ai_gen_block_3f4d556.liquid`) is legally required (Ley 1581 de 2012). Cookie `age_verified_diyvape` stores DOB + ID + sig. Verification syncs to cart as attributes — never remove or bypass.
-- **Live theme syncs from GitHub branch `pagespeed-settings-improvements` → live theme `#158298636540`** via Shopify GitHub integration.
+- **Deferred asset loader** (`snippets/deferred-assets-loader.liquid`): theme CSS/JS are queued in `window.diyvapeDeferredAssets` from `layout/theme.liquid` + `snippets/scripts-tag.liquid` and start on idle (INP). Off product pages it drops Judge.me widget scripts (reviews are PDP-only; the app embed injects via `content_for_header` and can't be filtered server-side). `diyvape*` identifiers are internal names inherited from the base theme, not user-visible.
+- **No age gate.** Homesale sells no age-restricted products; the DIY age gate (block, assets, cookie detector, cart attribute sync) was removed on this branch. Do not re-add it.
+- **Branch strategy**: `homesale` diverges from `pagespeed-settings-improvements` (DIY Vape live). Shared code lives in `sections/`, `snippets/`, `assets/`; brand config in `config/settings_data.json`, `templates/*.json`, `sections/*-group.json`. Cherry-pick perf/bug fixes from the DIY branch.
 
 ## Key Decisions
 
-- **Judge.me + Rapi restricted to product pages**: app embeds load via `content_for_header` which we can't filter server-side. The deferred-assets-loader blocks them client-side on non-PDP pages permanently. See commit `ceddca5`.
-- **Shop Pay (`payment_button`) intact**: was tested for removal but reverted — affects PDP UX and conversion.
+- **Judge.me stays** (to be installed on Homesale), restricted to product pages by the deferred loader.
+- **Rapi and LeadConnector chat removed**: DIY-only apps/accounts.
+- **Shop Pay (`payment_button`) intact**: affects PDP UX and conversion.
 
 ## Don'ts
 
-- Don't bypass age verification or remove the cart sync of age attributes (regulatory).
+- Don't push directly to the Homesale live theme — work on dev themes via Shopify CLI.
 - Don't add `payment_button`/dynamic checkout changes without explicit confirmation.
-- Don't push directly to live theme — work on dev themes (e.g. `#158388027644 lh-test`) via Shopify CLI.
