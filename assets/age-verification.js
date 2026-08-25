@@ -458,10 +458,22 @@
       if (!obj) return false;
       const ttl = this.getCookieTTL();
       if (ttl.type !== "expires") return false;
+
       const born = this.parseAddedAt(obj.added_at);
-      /* Sin timestamp legible no podemos juzgar: dejamos que mande la cookie. */
-      if (!Number.isFinite(born)) return false;
-      return Date.now() - born > ttl.ms;
+
+      /* FAIL-CLOSED (compliance): sin timestamp legible no podemos PROBAR que
+         la verificación siga vigente, así que se trata como vencida. Un payload
+         corrupto o manipulado no debe conceder acceso indefinido. */
+      if (!Number.isFinite(born)) return true;
+
+      /* Vence si se cumplió el TTL VIGENTE del selector o el sello absoluto
+         guardado al escribir, lo que ocurra primero. Tomar el más estricto hace
+         que bajar el selector (365 días → 24 horas) aplique de inmediato a las
+         verificaciones ya guardadas, sin esperar a que expire el valor anterior. */
+      if (Date.now() - born > ttl.ms) return true;
+      if (Number.isFinite(obj.exp) && Date.now() > obj.exp) return true;
+
+      return false;
     }
 
     purgeVerification() {
@@ -616,19 +628,29 @@
     persistVerificationFallbacks(payload) {
       if (!payload || !payload.verified || !payload.dob || !payload.id) return false;
 
-      const raw = JSON.stringify(payload);
-
       /* Modo por pestaña: nada persistente. sessionStorage muere con la pestaña. */
       if (this.isSessionMode()) {
+        const sessionRaw = JSON.stringify(payload);
         this.clearVerificationCookies();
         this.cookieAliases.forEach((name) => {
-          try { sessionStorage.setItem(name, raw); } catch (error) {}
+          try { sessionStorage.setItem(name, sessionRaw); } catch (error) {}
         });
         this._lastCookieWriteOk = true;
         return true;
       }
 
       const ttl = this.effectiveTTL(payload);
+
+      /* Sello absoluto de expiración dentro del payload. Sirve para dos cosas:
+         (1) el detector de theme.liquid puede descartar una verificación vencida
+             antes de que cargue este asset (que va con defer), evitando que el
+             sitio se vea unos ms sin el modal;
+         (2) queda evidencia del vencimiento en el propio dato, no sólo en el
+             atributo de la cookie. */
+      const stamped =
+        ttl.type === "expires" ? Object.assign({}, payload, { exp: Date.now() + ttl.ms }) : payload;
+      const raw = JSON.stringify(stamped);
+
       let cookieOk = true;
 
       this.cookieAliases.forEach((name) => {
@@ -1465,7 +1487,8 @@
           const restanMs = ttl.ms - (Date.now() - born);
           report.caducaEl = new Date(born + ttl.ms).toLocaleString("es-CO");
           report.restanHoras = +(restanMs / 3600000).toFixed(2);
-          report.vencida = restanMs <= 0;
+          report.selloExp = Number.isFinite(obj.exp) ? new Date(obj.exp).toLocaleString("es-CO") : "(sin sello)";
+          report.vencida = gate.isVerificationExpired(obj);
         }
       } else {
         report.verificadaEl = "(sin verificación almacenada)";
