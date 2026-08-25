@@ -572,7 +572,7 @@
         "items_per_row_mobile": 1,
         "padding_top": 40,
         "padding_bottom": 40,
-        "reset_spacing": false
+        "reset_spacing": true
       }
     },
     "picks": {
@@ -582,8 +582,8 @@
           "type": "rich_text",
           "settings": {
             "position": "top",
-            "heading": "Tu mejor selección para entrenar en casa",
-            "content": "<p>Los seleccionamos por ti: productos destacados por su conveniencia, funcionalidad y efectividad para entrenar en casa.</p>",
+            "heading": "La mejor selección de productos en Homesale",
+            "content": "<p>Los seleccionamos por ti: productos destacados por su conveniencia y funcionalidad yen nuestra tienda.</p>",
             "text_alignment": "center",
             "max_width": 1100,
             "heading_size": 36,
