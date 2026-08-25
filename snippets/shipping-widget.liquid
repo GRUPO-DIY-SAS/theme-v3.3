@@ -13,6 +13,8 @@
     bogota_threshold   · pesos enteros COP               (default 80000)
     national_threshold · pesos enteros COP               (default 250000)
     max_weight         · KG                              (default 3)
+    ship_days          · 'mon_sat' | 'mon_fri'             (default mon_sat)
+    text_ships_today   · texto del estado 'despacha hoy'
     cutoff_title       · texto                           (default 'Horario de Corte')
     shipping_title     · texto                           (default 'Envío Gratis')
     trust_text         · texto del footer
@@ -47,6 +49,12 @@
   assign sw_bogota_label = bogota_label | default: 'Bogotá'
   assign sw_national_label = national_label | default: 'Nacional'
   assign sw_wrapper_class = wrapper_class | default: ''
+  assign sw_ship_days = ship_days | default: 'mon_sat'
+  assign sw_days_label = 'Lun – Sáb'
+  if sw_ship_days == 'mon_fri'
+    assign sw_days_label = 'Lun – Vie'
+  endif
+  assign sw_text_ships_today = text_ships_today | default: '¡Pide ahora y se despacha hoy!'
 
   comment
     cart.total_price viene en centavos. Dividimos para comparar en
@@ -110,6 +118,8 @@
   data-national-threshold="{{ sw_national_th }}"
   data-cart-total="{{ sw_cart_total }}"
   data-holidays="{{ sw_holidays_clean }}"
+  data-ship-days="{{ sw_ship_days }}"
+  data-text-ships-today="{{ sw_text_ships_today | escape }}"
   {{ extra_attrs }}
 >
   <div class="sw-grid">
@@ -125,7 +135,7 @@
         </svg>
         <div>
           <h3 class="sw-card__title">{{ sw_cutoff_title }}</h3>
-          <p class="sw-card__subtitle">Lun – Sáb · {{ sw_cutoff }}:00 p.m. COT</p>
+          <p class="sw-card__subtitle">{{ sw_days_label }} · {{ sw_cutoff }}:00 p.m. COT</p>
         </div>
       </div>
 

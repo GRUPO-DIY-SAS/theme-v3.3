@@ -122,7 +122,7 @@
               "type": "_faq-item",
               "settings": {
                 "faq_title": "¿Cuánto tarda en llegar mi pedido?",
-                "faq_content": "Despachamos tu pedido en un máximo de <strong>5 días hábiles</strong> después de confirmado el pago. El tiempo de entrega depende de la transportadora y de tu ciudad. No realizamos envíos domingos ni festivos."
+                "faq_content": "Despachamos tu pedido en un máximo de <strong>5 días hábiles</strong> después de confirmado el pago. El tiempo de entrega depende de la transportadora y de tu ciudad. Despachamos de lunes a viernes; no hay despachos sábados, domingos ni festivos."
               }
             },
             "buy_1": {

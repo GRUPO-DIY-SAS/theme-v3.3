@@ -105,6 +105,10 @@
           this._wired = true;
 
           this.cutoff = parseInt(this.dataset.cutoffHour, 10) || 13;
+          // mon_sat (default) o mon_fri: define si el sábado cuenta como día de despacho.
+          this.shipDays = this.dataset.shipDays || "mon_sat";
+          this.textShipsToday = this.dataset.textShipsToday || "¡Pide ahora y se despacha hoy!";
+          this.textNext = this.dataset.textNext || "Próximo despacho: ";
           this.bogotaTh = parseInt(this.dataset.bogotaThreshold, 10) || 0;
           this.nationalTh = parseInt(this.dataset.nationalThreshold, 10) || 0;
           this.cartTotal = parseInt(this.dataset.cartTotal, 10) || 0;
@@ -233,7 +237,10 @@
         }
 
         isNonWorkDay(date) {
-          return date.getDay() === 0 || this.isHoliday(date);
+          var day = date.getDay();
+          if (day === 0) return true;
+          if (day === 6 && this.shipDays === "mon_fri") return true;
+          return this.isHoliday(date);
         }
 
         tick() {
@@ -272,13 +279,13 @@
             this.elText.style.color = color;
             if (ships) {
               if (this.elDot) this.elDot.classList.add("sw-dot--on");
-              this.elText.textContent = "¡Pide ahora y se despacha hoy!";
+              this.elText.textContent = this.textShipsToday;
             } else {
               if (this.elDot) this.elDot.classList.remove("sw-dot--on");
               var reason = "";
               if (this.isHoliday(now)) reason = "Hoy es festivo. ";
               this.elText.textContent =
-                reason + "Próximo despacho: " + DAYS[next.getDay()];
+                reason + this.textNext + DAYS[next.getDay()];
             }
           }
         }

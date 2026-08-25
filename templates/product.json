@@ -194,7 +194,7 @@
           "name": "t:blocks.general.collapsible_row.name",
           "settings": {
             "heading": "Envíos y Entrega",
-            "content": "<h4>🚚 Envíos de {{ product.title }} a todo Colombia</h4><p>Despachamos tu pedido en un <strong>máximo de 5 días hábiles</strong> después de confirmado el pago. El tiempo total de entrega depende de la transportadora y de tu ciudad. No realizamos envíos domingos ni festivos.</p><p><strong>Envío gratis</strong> en pedidos superiores a <strong>$1.000.000</strong> con destino a capitales de departamento (promoción \"Envío gratis, aplican T&C\"). Para otras ciudades te informamos el costo del envío después del pago.</p><p><strong>Al recibir:</strong> revisa el empaque y el producto antes de firmar la guía. Si llega dañado, repórtalo a la transportadora en el momento de la entrega y envíanos fotos el mismo día para gestionar la reclamación ante el seguro del transporte.</p><p>Consulta las condiciones completas en nuestra <a href=\"/policies/shipping-policy\" target=\"_blank\" title=\"Política de envíos\">política de envíos</a>.</p>",
+            "content": "<h4>🚚 Envíos de {{ product.title }} a todo Colombia</h4><p>Despachamos tu pedido en un <strong>máximo de 5 días hábiles</strong> después de confirmado el pago. El tiempo total de entrega depende de la transportadora y de tu ciudad. Despachamos de lunes a viernes; no hay despachos sábados, domingos ni festivos.</p><p><strong>Envío gratis</strong> en pedidos superiores a <strong>$1.000.000</strong> con destino a capitales de departamento (promoción \"Envío gratis, aplican T&C\"). Para otras ciudades te informamos el costo del envío después del pago.</p><p><strong>Al recibir:</strong> revisa el empaque y el producto antes de firmar la guía. Si llega dañado, repórtalo a la transportadora en el momento de la entrega y envíanos fotos el mismo día para gestionar la reclamación ante el seguro del transporte.</p><p>Consulta las condiciones completas en nuestra <a href=\"/policies/shipping-policy\" target=\"_blank\" title=\"Política de envíos\">política de envíos</a>.</p>",
             "use_product_description": false,
             "hide_tables": false,
             "metafield_key": "",
@@ -218,7 +218,7 @@
             "holidays_list": "2026-01-01\n2026-01-12\n2026-03-23\n2026-04-02\n2026-04-03\n2026-05-01\n2026-05-18\n2026-06-08\n2026-06-15\n2026-06-29\n2026-07-20\n2026-08-07\n2026-08-17\n2026-10-12\n2026-11-02\n2026-11-16\n2026-12-08\n2026-12-25",
             "delivery_design": "horizontal",
             "delivery_content_icon": "truck",
-            "delivery_content": "<p>Despachamos tu pedido en un <strong>máximo de 5 días hábiles</strong>. No realizamos envíos <strong>domingos ni festivos</strong>.</p>",
+            "delivery_content": "<p>Despachamos tu pedido en un <strong>máximo de 5 días hábiles</strong>. Despachos de <strong>lunes a viernes</strong>, no festivos.</p>",
             "discount_content_icon": "none",
             "discount_content": "",
             "return_content_icon": "free_shipping",

@@ -2627,66 +2627,6 @@ class VideoSection extends HTMLElement {
 }
 customElements.define("video-section", VideoSection);
 
-class AgeVerifier extends HTMLElement {
-  constructor() {
-    super();
-    this.ageVerifyDetail = this.querySelector(".age-verify-detail");
-    this.declineVerifyDetail = this.querySelector(".decline-verify-detail");
-    this.init();
-    this.mainFunction();
-  }
-  init() {
-    const _this = this;
-    if (!Shopify.designMode) {
-      if (!getCookie("age_verifier")) {
-        this.classList.add("active");
-        this.declineVerifyDetail.classList.add("hidden");
-        this.ageVerifyDetail.classList.remove("hidden");
-      } else {
-        if (getCookie("age_verifier") == "false") {
-          this.classList.add("active");
-          this.declineVerifyDetail.classList.remove("hidden");
-          this.ageVerifyDetail.classList.add("hidden");
-        } else {
-          this.remove();
-        }
-      }
-    }
-  }
-
-  mainFunction() {
-    const approve = this.querySelector(".age-verifier-approve");
-    const decline = this.querySelector(".age-verifier-decline");
-    const returnBtn = this.querySelector(".age-verifier-return");
-    if (returnBtn) {
-      returnBtn.addEventListener("click", () => this.handleReturn());
-    }
-
-    if (!approve || !decline) return;
-    approve.addEventListener("click", () => this.handleApprove());
-    decline.addEventListener("click", () => this.handleDecline());
-  }
-  handleReturn() {
-    if (!Shopify.designMode) {
-      setCookie("age_verifier", "false", "-1");
-      this.init();
-    }
-  }
-  handleDecline() {
-    if (!Shopify.designMode) {
-      setCookie("age_verifier", "false", "365");
-      this.init();
-    }
-  }
-  handleApprove() {
-    setCookie("age_verifier", "true", "false");
-    this.classList.add("fadeOut");
-    setTimeout(() => {
-      this.remove();
-    }, 1000);
-  }
-}
-customElements.define("age-verifier", AgeVerifier);
 
 class PromotionPopup extends HTMLElement {
   constructor() {

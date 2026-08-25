@@ -1379,9 +1379,9 @@
         "type": "range",
         "id": "free_shipping_max_weight_kg",
         "label": "Peso máximo envío gratis",
-        "min": 1,
-        "max": 30,
-        "step": 1,
+        "min": 5,
+        "max": 300,
+        "step": 5,
         "unit": "KG",
         "default": 3
       },
@@ -1418,6 +1418,23 @@
         "step": 1,
         "default": 13,
         "info": "13 = 1:00 p.m. hora Colombia"
+      },
+      {
+        "type": "select",
+        "id": "widget_ship_days",
+        "label": "Días de despacho",
+        "options": [
+          { "value": "mon_sat", "label": "Lunes a sábado" },
+          { "value": "mon_fri", "label": "Lunes a viernes" }
+        ],
+        "default": "mon_sat",
+        "info": "Define qué días cuenta el widget como hábiles para el próximo despacho."
+      },
+      {
+        "type": "text",
+        "id": "widget_text_ships_today",
+        "label": "Texto cuando aún alcanza el corte de hoy",
+        "default": "¡Pide ahora y se despacha hoy!"
       },
       {
         "type": "text",
