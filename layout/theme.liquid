@@ -423,6 +423,7 @@
     {%- if settings.addi_enable and settings.addi_ally_slug != blank and request.page_type == 'product' -%}
       {%- comment -%} Widget de cuotas Addi: se inserta debajo del precio del PDP (selector
         configurable en Ajustes del tema). Sólo en product page: fuera de ahí no aporta y pesa. {%- endcomment -%}
+      {% # theme-check-disable RemoteAsset %}
       <script
         defer
         data-name="shopifyAddiWidget"
@@ -431,6 +432,7 @@
         data-element-reference="{{ settings.addi_element_reference | default: '.product-detail__price' }}"
         src="https://statics.addi.com/shopify/js/shopify-co-widget-wrapper.bundle.min.js"
       ></script>
+      {% # theme-check-enable RemoteAsset %}
     {%- endif -%}
     {%- render 'scripts-tag', defer: defer_theme_assets -%}
     {%- render 'sprite-svg' -%}
