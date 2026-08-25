@@ -89,7 +89,7 @@
     "free_shipping_minimum": "1000000",
     "free_shipping_drawer_title": "Envío Gratis",
     "free_shipping_bogota_label": "Bogotá",
-    "free_shipping_bogota_minimum": "1000000",
+    "free_shipping_bogota_minimum": "500000",
     "free_shipping_national_label": "Capitales",
     "free_shipping_national_minimum": "1000000",
     "free_shipping_max_weight_kg": 30,
