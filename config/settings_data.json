@@ -88,7 +88,7 @@
     "free_shipping_bogota_minimum": 1000000,
     "free_shipping_national_label": "Capitales",
     "free_shipping_national_minimum": 1000000,
-    "free_shipping_max_weight_kg": 100,
+    "free_shipping_max_weight_kg": 30,
     "free_shipping_pending_text": "Agrega productos para desbloquear envío gratis",
     "free_shipping_remaining_text": "Te faltan {{ amount }} para envío gratis",
     "free_shipping_unlocked_text": "¡Envío gratis desbloqueado!",

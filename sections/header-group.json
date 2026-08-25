@@ -136,7 +136,7 @@
         "section_width": "stretch_width",
         "color_scheme": "default",
         "logo_position": "left",
-        "separator_line": "middle",
+        "separator_line": "all-page",
         "enable_login_popup": true,
         "sticky_header_type": "on-scroll-up",
         "sticky_header_mobile": true,

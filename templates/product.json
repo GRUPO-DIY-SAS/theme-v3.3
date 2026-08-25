@@ -167,9 +167,9 @@
             "cutoff_title": "Horario de corte",
             "cutoff_hour": 13,
             "shipping_title": "Envío gratis",
-            "bogota_threshold_k": 1000,
-            "national_threshold_k": 1000,
-            "max_weight_kg": 100,
+            "bogota_threshold_k": 500,
+            "national_threshold_k": 500,
+            "max_weight_kg": 30,
             "trust_text": "Despachamos tu pedido en un máximo de 5 días hábiles después de confirmado el pago",
             "holidays_list": "2026-01-01\n2026-01-12\n2026-03-23\n2026-04-02\n2026-04-03\n2026-05-01\n2026-05-18\n2026-06-08\n2026-06-15\n2026-06-29\n2026-07-20\n2026-08-07\n2026-08-17\n2026-10-12\n2026-11-02\n2026-11-16\n2026-12-08\n2026-12-25",
             "delivery_design": "horizontal",
@@ -178,7 +178,8 @@
             "discount_content_icon": "none",
             "discount_content": "",
             "return_content_icon": "free_shipping",
-            "return_content": "<p><strong>Envío gratis</strong> en pedidos superiores a <strong>$1.000.000</strong> a capitales de departamento (<a href=\"/policies/shipping-policy\" target=\"_blank\" title=\"Política de envíos\">T&C</a>).</p>"
+            "return_content": "<p><strong>Envío gratis</strong> en pedidos superiores a <strong>$1.000.000</strong> a capitales de departamento (<a href=\"/policies/shipping-policy\" target=\"_blank\" title=\"Política de envíos\">T&C</a>).</p>",
+            "use_theme_defaults": true
           },
           "blocks": {}
         },
