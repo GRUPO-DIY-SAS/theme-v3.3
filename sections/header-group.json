@@ -33,25 +33,18 @@
             "change_every": 4,
             "hidden_on_mobile": false
           }
-        },
-        "socials": {
-          "type": "socials",
-          "settings": {
-            "hidden_on_mobile": true
-          }
         }
       },
       "block_order": [
         "cur_lang",
-        "text_slider",
-        "socials"
+        "text_slider"
       ],
       "settings": {
         "section_width": "stretch_width",
-        "color_scheme": "default",
+        "color_scheme": "scheme-homesale-navy",
         "show_mobile": true,
         "show_separator_line": true,
-        "uppercase": false,
+        "uppercase": true,
         "font_size": 12,
         "font_weight": "body_weight",
         "padding_top": 8,
@@ -135,11 +128,13 @@
       "settings": {
         "section_width": "stretch_width",
         "color_scheme": "default",
-        "separator_line": "all-page",
+        "show_email": false,
+        "show_phone": false,
         "enable_login_popup": true,
+        "separator_line": "all-page",
         "sticky_header_type": "on-scroll-up",
         "sticky_header_mobile": true,
-        "transparent_header": false,
+        "transparent_header": true,
         "transparent_mobile": false,
         "transparent_text_icon_color": "#ffffff",
         "transparent_bg_color": "#000000",
@@ -159,7 +154,7 @@
         "label_color_popular": "#ffffff",
         "label_background_popular": "#14854e",
         "redirect_to_link": true,
-        "menu_tab": "custom-collections",
+        "menu_tab": "unset",
         "collection_list": [],
         "menu_mobile_color": "#ffffff",
         "menu_mobile_background": "#000000",
@@ -171,9 +166,7 @@
         "show_language": false,
         "show_recently_viewed": true,
         "padding_top": 10,
-        "padding_bottom": 10,
-        "show_email": false,
-        "show_phone": false
+        "padding_bottom": 10
       }
     }
   },

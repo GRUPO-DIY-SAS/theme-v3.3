@@ -365,7 +365,7 @@
       ],
       "settings": {
         "section_width": "fluid_container",
-        "color_scheme": "default",
+        "color_scheme": "scheme-homesale-footer",
         "heading": "",
         "description": "",
         "show_view_all_button": false,
@@ -389,7 +389,7 @@
         "addi_image": {
           "type": "_group-media-content",
           "settings": {
-            "color_scheme": "scheme-homesale-gray",
+            "color_scheme": "scheme-homesale-navy",
             "content_width": "50%",
             "media_type": "image",
             "image": "shopify://shop_images/ADDI-BANNER-1.png",
@@ -411,7 +411,7 @@
         "addi_text": {
           "type": "_group-text",
           "settings": {
-            "color_scheme": "scheme-homesale-gray",
+            "color_scheme": "scheme-homesale-navy",
             "content_width": "50%",
             "content_alignment": "center",
             "vertical_align": "center",
@@ -482,7 +482,7 @@
       ],
       "settings": {
         "section_width": "fluid_container",
-        "color_scheme": "scheme-homesale-gray",
+        "color_scheme": "scheme-homesale-navy",
         "heading": "",
         "description": "",
         "show_view_all_button": false,
