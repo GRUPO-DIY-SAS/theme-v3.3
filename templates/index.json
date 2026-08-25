@@ -887,6 +887,21 @@
             "text_size": 18
           }
         },
+        "tab_electricas": {
+          "type": "collection",
+          "settings": {
+            "tab_key": "electricas",
+            "collection": "bicicletas-electricas",
+            "products": [],
+            "collection_title": "Eléctricas",
+            "cta_label": "Ver bicicletas eléctricas",
+            "cta_link": "",
+            "tab_eyebrow": "",
+            "tab_heading": "Bicicletas eléctricas Roadmaster: hasta 60 km/h de autonomía urbana",
+            "tab_description": "",
+            "tab_hero_type": "inherit"
+          }
+        },
         "tab_mtb": {
           "type": "collection",
           "settings": {
@@ -931,29 +946,14 @@
             "tab_description": "",
             "tab_hero_type": "inherit"
           }
-        },
-        "tab_electricas": {
-          "type": "collection",
-          "settings": {
-            "tab_key": "electricas",
-            "collection": "bicicletas-electricas",
-            "products": [],
-            "collection_title": "Eléctricas",
-            "cta_label": "Ver bicicletas eléctricas",
-            "cta_link": "",
-            "tab_eyebrow": "",
-            "tab_heading": "Bicicletas eléctricas Roadmaster: hasta 60 km/h de autonomía urbana",
-            "tab_description": "",
-            "tab_hero_type": "inherit"
-          }
         }
       },
       "block_order": [
         "intro",
+        "tab_electricas",
         "tab_mtb",
         "tab_ruta",
-        "tab_infantil",
-        "tab_electricas"
+        "tab_infantil"
       ],
       "settings": {
         "section_width": "fluid_container",
