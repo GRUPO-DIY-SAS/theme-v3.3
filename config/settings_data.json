@@ -122,7 +122,7 @@
     "whatsapp": "https://wa.me/573132882596",
     "enable_preload": true,
     "preload_page": "dot",
-    "zoom_image": false,
+    "zoom_image": true,
     "scroll_animation": "fade-up-lg",
     "store_phone": "+57 3132882596",
     "store_email": "servicioalcliente@home-sale.com.co",
