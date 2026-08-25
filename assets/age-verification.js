@@ -285,7 +285,11 @@
 
       this.persistVerificationFallbacks(payload);
 
-      if (!this.getVerifiedObject()) {
+      /* Verificar que SE GUARDÓ, no que esté vigente. El dato se acaba de
+         escribir, así que evaluar caducidad aquí es contradictorio: el
+         fail-closed de isVerificationExpired purgaría lo recién guardado y
+         mostraría el error de cookie sobre una escritura correcta. */
+      if (!this.getVerifiedObjectFromCookies() && !this.getVerifiedObjectFromStorage()) {
         this.showError(this.errCookie, this.cookieErrorMessage);
         this.setSubmitLoading(false);
         return;
@@ -650,6 +654,19 @@
       const stamped =
         ttl.type === "expires" ? Object.assign({}, payload, { exp: Date.now() + ttl.ms }) : payload;
       const raw = JSON.stringify(stamped);
+
+      /* Borrar el estado anterior ANTES de escribir. Sin esto, un residuo
+         vencido (p. ej. una verificación de hace meses, escrita por una versión
+         previa del asset y sin sello `exp`) puede leerse antes que el dato nuevo
+         y disparar purgeVerification(), que borra cookie Y localStorage —
+         destruyendo lo que se acaba de guardar. Efecto visible: una verificación
+         vencida impedía volver a verificarse, de forma permanente. */
+      this.cookieAliases.forEach((name) => {
+        document.cookie = name + "=;path=/;Max-Age=0";
+        if (this.cookieDomain) {
+          document.cookie = name + "=;path=/;domain=" + this.cookieDomain + ";Max-Age=0";
+        }
+      });
 
       let cookieOk = true;
 
