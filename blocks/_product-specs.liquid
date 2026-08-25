@@ -64,9 +64,14 @@
       assign key = ''
       assign value = ''
       if line contains '----'
-        assign kv = line | split: '-'
+        # Dividir por corridas de guiones ("--"), no por guion simple: "Plomo-ácido" debe sobrevivir.
+        assign kv = line | split: '--'
         assign key = kv | first | strip
         assign value = kv | last | strip
+        assign first_char = value | slice: 0
+        if first_char == '-'
+          assign value = value | remove_first: '-' | strip
+        endif
       elsif line contains ':'
         if is_li or after_specs_heading
           assign key = line | split: ':' | first | strip
