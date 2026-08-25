@@ -653,7 +653,9 @@
             "tab_eyebrow": "",
             "tab_heading": "Herramientas Max Tools para el hogar y el taller",
             "tab_description": "",
-            "tab_hero_type": "image"
+            "tab_hero_type": "image",
+            "tab_hero_image": "shopify://shop_images/21-herramientas.jpg",
+            "tab_hero_mobile_image": "shopify://shop_images/21-herramientas.jpg"
           }
         }
       },
@@ -690,7 +692,7 @@
         "hero_side_width": 30,
         "hero_side_valign": "stretch",
         "hero_mobile_placement": "below",
-        "hero_aspect": "fixed",
+        "hero_aspect": "square",
         "hero_position": "center",
         "hero_overlay_color": "#000000",
         "hero_overlay_opacity": 0,
@@ -708,7 +710,7 @@
         "shape_style": "none",
         "shape_color": "#cc0033",
         "shape_opacity": 0,
-        "animate_shape": false,
+        "animate_shape": true,
         "shape_anchor": "auto",
         "shape_offset_x": 0,
         "shape_offset_y": 0,
