@@ -613,7 +613,7 @@
             "tab_eyebrow": "",
             "tab_heading": "Equipos de ejercicio seleccionados para tu casa",
             "tab_description": "",
-            "tab_hero_type": "inherit",
+            "tab_hero_type": "image",
             "tab_hero_image": "shopify://shop_images/pesa-hexagonal-40-lbs-nucleo-en-hierro-y-revestimiento-de-caucho-mancuernas-homesale-9024215.png",
             "tab_hero_mobile_image": "shopify://shop_images/pesa-hexagonal-40-lbs-nucleo-en-hierro-y-revestimiento-de-caucho-mancuernas-homesale-6551606.png"
           }
@@ -636,7 +636,9 @@
             "tab_eyebrow": "",
             "tab_heading": "Movilidad Eléctrica Roadmaster: innovación y sostenibilidad en cada trayecto",
             "tab_description": "",
-            "tab_hero_type": "inherit"
+            "tab_hero_type": "image",
+            "tab_hero_image": "shopify://shop_images/bicicleta-electrica-roadmaster-aguila-ninja-72v-blanco-verde-bicicleta-electrica-roadmaster-4585689.jpg",
+            "tab_hero_mobile_image": "shopify://shop_images/D_Q_NP_2X_854143-MLA114121647443_072026-R.jpg"
           }
         },
         "tab_tools": {
@@ -651,7 +653,7 @@
             "tab_eyebrow": "",
             "tab_heading": "Herramientas Max Tools para el hogar y el taller",
             "tab_description": "",
-            "tab_hero_type": "inherit"
+            "tab_hero_type": "image"
           }
         }
       },

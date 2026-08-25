@@ -62,7 +62,7 @@
       ],
       "settings": {
         "section_width": "fluid_container",
-        "color_scheme": "scheme-homesale-footer",
+        "color_scheme": "scheme-homesale-navy",
         "enable_back_top": true,
         "separator_line": "inner_page",
         "enable_country_selector": false,
@@ -88,7 +88,7 @@
       ],
       "settings": {
         "section_width": "container",
-        "color_scheme": "scheme-homesale-footer",
+        "color_scheme": "scheme-homesale-navy",
         "html_custom": "<div style=\"text-align: center;\">\n  <a href=\"https://www.sic.gov.co/\" target=\"_blank\" rel=\"noopener\"><img src=\"https://cdn.shopify.com/s/files/1/0166/9493/5652/files/sic.png?v=1663108988\" alt=\"Superintendencia de Industria y Comercio\" loading=\"lazy\" style=\"display: inline-block;\"></a>\n</div>",
         "padding_top": 0,
         "padding_bottom": 0,
