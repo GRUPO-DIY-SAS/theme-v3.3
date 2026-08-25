@@ -113,15 +113,29 @@
       <script>
         (function () {
           var cookieName = 'age_verified_diyvape';
+          /* El sello `exp` lo escribe age-verification.js al persistir. Se revisa
+             aquí para que una verificación VENCIDA no reciba la clase
+             age-gate-verified: sin este chequeo, la regla
+             html.age-gate-verified .ai-age-verify-overlay { display:none !important }
+             ocultaría el modal durante los ms que tarda en cargar el asset (defer),
+             y el visitante vería el sitio sin gate.
+
+             Alcance: este detector sólo conoce el sello, no el selector actual.
+             Si el merchant BAJA el TTL (365 días → 24 horas), en la primera carga
+             el sello viejo todavía deja pasar; el asset lo corrige al hidratar.
+             La fuente de verdad para compliance es getVerifiedObject() en el JS. */
           var parseVerified = function (raw) {
             if (!raw) return false;
+            var check = function (obj) {
+              if (!obj || !obj.verified || !obj.dob || !obj.id) return false;
+              if (typeof obj.exp === 'number' && Date.now() > obj.exp) return false;
+              return true;
+            };
             try {
-              var parsed = JSON.parse(decodeURIComponent(raw));
-              return Boolean(parsed && parsed.verified && parsed.dob && parsed.id);
+              return check(JSON.parse(decodeURIComponent(raw)));
             } catch (error) {
               try {
-                var fallback = JSON.parse(raw);
-                return Boolean(fallback && fallback.verified && fallback.dob && fallback.id);
+                return check(JSON.parse(raw));
               } catch (innerError) {
                 return false;
               }
