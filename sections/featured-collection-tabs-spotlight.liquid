@@ -51,6 +51,12 @@
   assign show_card_rating = section_st.show_card_rating
   assign show_card_compare_price = section_st.show_card_compare_price
   assign show_card_badges = section_st.show_card_badges
+  # Mismas clases que product-item.liquid para que los badges del theme (Oferta %, Nuevo,
+  # Agotado, Preventa, badge personalizado, marquee) se vean igual que en las product cards.
+  assign badge_position = 'pointer-none absolute top-sm-15 top-10 left-sm-15 left-10 z-2'
+  if settings.rtl
+    assign badge_position = 'pointer-none absolute top-sm-15 top-10 right-sm-15 right-10 z-2'
+  endif
   assign scroll_animation = settings.scroll_animation
   assign header_size = ''
   assign animate_delay = 0
@@ -1193,7 +1199,7 @@
   #shopify-section-{{ section.id }} .featured-tabs-spotlight-card__badge {
     position: absolute;
     top: 12px;
-    left: 12px;
+    right: 12px;
     z-index: 1;
     padding: 6px 10px;
     border-radius: 999px;
@@ -2078,6 +2084,9 @@
                           >
                             <div class="featured-tabs-spotlight-card__inner">
                               <a class="featured-tabs-spotlight-card__media" href="{{ product_url }}" aria-label="{{ product_title | escape }}">
+{%- if show_card_badges and product != blank -%}
+{%- render 'product-badges', card_product: product, type: 'product_item', class: badge_position -%}
+{%- endif -%}
                                 {%- if show_card_badges and product_badge != blank -%}
                                   <span class="featured-tabs-spotlight-card__badge">{{ product_badge }}</span>
                                 {%- endif -%}
@@ -2120,6 +2129,9 @@
                         <div class="featured-tabs-spotlight-card swiper-slide">
                           <div class="featured-tabs-spotlight-card__inner">
                             <a class="featured-tabs-spotlight-card__media" href="{{ product.url }}" aria-label="{{ product_title | escape }}">
+{%- if show_card_badges and product != blank -%}
+{%- render 'product-badges', card_product: product, type: 'product_item', class: badge_position -%}
+{%- endif -%}
                               {%- if product_image != blank -%}
                                 {{ product_image | image_url: width: 900 | image_tag: widths: '240, 360, 480, 640, 760, 900', sizes: '(min-width: 1025px) 25vw, 80vw', loading: 'lazy', alt: product_title }}
                               {%- else -%}
@@ -2158,6 +2170,9 @@
                         <div class="featured-tabs-spotlight-card swiper-slide">
                           <div class="featured-tabs-spotlight-card__inner">
                             <a class="featured-tabs-spotlight-card__media" href="{{ product.url }}" aria-label="{{ product_title | escape }}">
+{%- if show_card_badges and product != blank -%}
+{%- render 'product-badges', card_product: product, type: 'product_item', class: badge_position -%}
+{%- endif -%}
                               {%- if product_image != blank -%}
                                 {{ product_image | image_url: width: 900 | image_tag: widths: '240, 360, 480, 640, 760, 900', sizes: '(min-width: 1025px) 25vw, 80vw', loading: 'lazy', alt: product_title }}
                               {%- else -%}
@@ -3465,13 +3480,13 @@
     {
       "type": "color",
       "id": "badge_background",
-      "label": "Custom badge background",
+      "label": "Custom badge background (custom product blocks)",
       "default": "#111111"
     },
     {
       "type": "color",
       "id": "badge_text_color",
-      "label": "Custom badge text",
+      "label": "Custom badge text (custom product blocks)",
       "default": "#ffffff"
     },
     {
@@ -3706,7 +3721,7 @@
     {
       "type": "checkbox",
       "id": "show_card_badges",
-      "label": "Show custom badges",
+      "label": "Show product badges (theme badge settings)",
       "default": true
     },
     {
