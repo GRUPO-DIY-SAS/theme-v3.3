@@ -198,6 +198,20 @@
             },
             "blocks": {}
           },
+          "product_metadatos_KkVVDq": {
+            "type": "_product-metadatos",
+            "name": "Producto: Metadatos + Manual + Nota",
+            "settings": {
+              "heading_metadatos": "Metadatos del Producto",
+              "open_metadatos": false,
+              "heading_manual": "Manual de Uso",
+              "open_manual": false,
+              "heading_nota": "Nota Importante",
+              "open_nota": false,
+              "nota_titulo": "Nota Importante"
+            },
+            "blocks": {}
+          },
           "feature_product_description_VxPqQ9": {
             "type": "_feature-product-description",
             "name": "t:sections.product-single-layout.blocks.description.name",
@@ -212,6 +226,7 @@
           "product_badges_nJA7Cf",
           "product_quickview_variant_picker_dmihRd",
           "product_quickview_buy_buttons_LbUDqN",
+          "product_metadatos_KkVVDq",
           "feature_product_description_VxPqQ9"
         ],
         "settings": {}
