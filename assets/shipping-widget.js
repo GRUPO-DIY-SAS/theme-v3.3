@@ -1,7 +1,7 @@
 /* ============================================================
    assets/shipping-widget.js
    ============================================================
-   Lógica compartida del Widget Interactivo de Envíos DIY Vape Shop.
+   Lógica compartida del Widget Interactivo de Envíos Homesale.
 
    - Se autoejecuta una sola vez (guard window.__diyvapeShippingWidget).
    - Parcha window.fetch UNA vez para emitir el evento `cart:updated`

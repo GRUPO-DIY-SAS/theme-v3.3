@@ -10,14 +10,14 @@
         "heading_AD7cNj": {
           "type": "heading",
           "settings": {
-            "page_title": "Centro de Ayuda Preguntas Frecuentes (FAQ) - Resuelve tus Dudas sobre Vapeo",
+            "page_title": "Centro de ayuda: preguntas frecuentes",
             "header_size": "small"
           }
         },
         "description_9AFHt4": {
           "type": "description",
           "settings": {
-            "description": "<p>Contáctate con nuestro centro de ayuda en WhatsApp al <a href=\"https:\/\/wa.me\/573206682351\" target=\"_blank\" title=\"https:\/\/wa.me\/573206682351\">+57 3206682351<\/a>. Estamos para ayudarte en todo momento. <\/p>"
+            "description": "<p>¿No encuentras tu respuesta? Escríbenos por WhatsApp al <a href=\"https://wa.me/573132882596\" target=\"_blank\" title=\"WhatsApp Homesale\">+57 313 288 2596</a>. Estamos para ayudarte.</p>"
           }
         }
       },
@@ -43,86 +43,74 @@
           "type": "_message-faqs",
           "settings": {},
           "blocks": {
-            "description_CQpczE": {
+            "intro": {
               "type": "description",
-              "name": "t:blocks.general.text.name",
               "settings": {
-                "text": "<p>Dudas o Inconvenientes?.<\/p>",
+                "text": "<p>¿Dudas o inconvenientes?</p>",
                 "font_size": 14,
                 "font_weight": "body_weight",
                 "spacing_bottom": 10
-              },
-              "blocks": {}
+              }
             },
-            "heading_PRf3BE": {
+            "title": {
               "type": "heading",
-              "name": "t:sections.all.contents.heading.label",
               "settings": {
                 "heading": "Contáctanos",
                 "font_size": 36,
                 "font_weight": "heading_weight",
                 "uppercase": false,
                 "spacing_bottom": 20
-              },
-              "blocks": {}
+              }
             },
-            "description_XCMXQX": {
+            "text": {
               "type": "description",
-              "name": "t:blocks.general.text.name",
               "settings": {
-                "text": "<p>Si tienes una duda o inconveniente que requiere atención inmediata, haz clic en el botón de abajo para chatear en vivo con un asesor de Servicio al Cliente.<\/p>",
+                "text": "<p>Si tienes una duda o inconveniente que requiere atención inmediata, escríbenos por WhatsApp o usa el formulario de contacto.</p>",
                 "font_size": 14,
                 "font_weight": "body_weight",
                 "spacing_bottom": 10
-              },
-              "blocks": {}
+              }
             },
-            "description_awnC6D": {
+            "hours": {
               "type": "description",
-              "name": "t:blocks.general.text.name",
               "settings": {
-                "text": "<p>Nuestro equipo de Servicio al Cliente está disponible. de Lunes a Sábado de 10am a 7:30pm <\/p>",
+                "text": "<p>Nuestro equipo de servicio al cliente atiende de lunes a viernes de 8:00 a.m. a 5:00 p.m. y sábados de 9:00 a.m. a 12:00 p.m.</p>",
                 "font_size": 14,
                 "font_weight": "body_weight",
                 "spacing_bottom": 10
-              },
-              "blocks": {}
+              }
             },
-            "button_ADHf7a": {
+            "cta": {
               "type": "button",
-              "name": "t:sections.all.contents.button.label",
               "settings": {
                 "show_full_width": false,
                 "first_button_label": "Contáctanos",
-                "first_button_link": "shopify:\/\/pages\/contactanos",
+                "first_button_link": "shopify://pages/contactanos",
                 "first_button_type": "outline",
-                "second_button_label": "DIY Vape Shop",
-                "second_button_link": "",
+                "second_button_label": "WhatsApp",
+                "second_button_link": "https://wa.me/573132882596",
                 "second_button_type": "primary",
                 "spacing_bottom": 20
-              },
-              "blocks": {}
+              }
             },
-            "heading_XBDPCj": {
+            "subtitle": {
               "type": "heading",
-              "name": "t:sections.all.contents.heading.label",
               "settings": {
-                "heading": "Preguntas frecuentes del proceso de Compra:",
+                "heading": "Preguntas frecuentes sobre tu compra:",
                 "font_size": 24,
                 "font_weight": "heading_weight",
                 "uppercase": false,
-                "spacing_bottom": 10
-              },
-              "blocks": {}
+                "spacing_bottom": 20
+              }
             }
           },
           "block_order": [
-            "description_CQpczE",
-            "heading_PRf3BE",
-            "description_XCMXQX",
-            "description_awnC6D",
-            "button_ADHf7a",
-            "heading_XBDPCj"
+            "intro",
+            "title",
+            "text",
+            "hours",
+            "cta",
+            "subtitle"
           ]
         },
         "group_faq_item_QqRPdT": {
@@ -130,58 +118,48 @@
           "name": "t:sections.faqs-page.blocks.question.questions",
           "settings": {},
           "blocks": {
-            "faq_item_BLC8XC": {
+            "buy_0": {
               "type": "_faq-item",
-              "name": "t:sections.faqs-page.blocks.question.name",
               "settings": {
-                "faq_title": "¿Dónde están ubicadas las tiendas físicas de DIY Vape Shop?",
-                "faq_content": "Nuestras tiendas físicas se encuentran en varias ubicaciones principales en Bogotá. Puedes encontrar la tienda más cercana a ti en nuestra página web, en la sección \"<a href=\"\/pages\/nuestras-tiendas\" target=\"_blank\" title=\"Tiendas de Vapeo, Vaporizadores y cigarrillos electronicos cerca de mi\">Nuestras Tiendas<\/a>\". Allí proporcionamos direcciones y horas de operación."
-              },
-              "blocks": {}
+                "faq_title": "¿Cuánto tarda en llegar mi pedido?",
+                "faq_content": "Despachamos tu pedido en un máximo de <strong>5 días hábiles</strong> después de confirmado el pago. El tiempo de entrega depende de la transportadora y de tu ciudad. No realizamos envíos domingos ni festivos."
+              }
             },
-            "faq_item_xfGxAb": {
+            "buy_1": {
               "type": "_faq-item",
-              "name": "t:sections.faqs-page.blocks.question.name",
               "settings": {
-                "faq_title": "¿Qué puedo comprar en las tiendas físicas de DIY Vape Shop?",
-                "faq_content": "Nuestras tiendas físicas ofrecen una amplia gama de productos, desde dispositivos de vapeo, e-líquidos, hasta accesorios y kits de inicio. También ofrecemos asesoramiento experto para ayudarte a encontrar el producto perfecto para tus necesidades de vapeo."
-              },
-              "blocks": {}
+                "faq_title": "¿El envío es gratis?",
+                "faq_content": "Sí, en pedidos superiores a <strong>$1.000.000</strong> con destino a capitales de departamento (promoción \"Envío gratis, aplican T&C\"). Para otras ciudades te informamos el costo del envío después del pago. Consulta nuestra <a href=\"/policies/shipping-policy\" target=\"_blank\" title=\"Política de envíos\">política de envíos</a>."
+              }
             },
-            "faq_item_3Rwywj": {
+            "buy_2": {
               "type": "_faq-item",
-              "name": "t:sections.faqs-page.blocks.question.name",
               "settings": {
-                "faq_title": "¿Cómo puedo pagar mis compras en DIY Vape Shop?",
-                "faq_content": "Aceptamos una variedad de métodos de pago tanto en nuestras tiendas físicas como en línea. Esto incluye tarjetas de crédito, tarjetas de débito, Mercadopago, Epayco, Sistecrédito y transferencias bancarias Davivienda, Bancolombia, Nequi y Daviplata."
-              },
-              "blocks": {}
+                "faq_title": "¿Cómo puedo pagar?",
+                "faq_content": "Aceptamos tarjetas de crédito y débito, PSE y pago a cuotas con <strong>Addi</strong>. Todos los pagos se procesan de forma segura."
+              }
             },
-            "faq_item_pVtdzJ": {
+            "buy_3": {
               "type": "_faq-item",
-              "name": "t:sections.faqs-page.blocks.question.name",
               "settings": {
-                "faq_title": "¿Tienen garantía los productos de DIY Vape Shop?",
-                "faq_content": "Sí, todos nuestros productos de vapeo vienen con una garantía. El período de garantía puede variar dependiendo del producto, así que asegúrate de revisar los detalles de la garantía antes de hacer tu compra o revisando <a href=\"\/policies\/refund-policy\" target=\"_blank\" title=\"Refund Policy\">nuestra política de garantía y reversión de pago<\/a>."
-              },
-              "blocks": {}
+                "faq_title": "¿Puedo pagar a cuotas?",
+                "faq_content": "Sí. Con <strong>Addi</strong> puedes pagar hasta en <strong>24 cuotas</strong>; solo necesitas tu cédula y WhatsApp. Sujeto a criterios de elegibilidad de Addi."
+              }
             },
-            "faq_item_Y69KNM": {
+            "buy_4": {
               "type": "_faq-item",
-              "name": "t:sections.faqs-page.blocks.question.name",
               "settings": {
-                "faq_title": "¿Cómo puedo contactar al servicio al cliente de DIY Vape Shop?",
-                "faq_content": "Puedes contactar a nuestro servicio al cliente a través de nuestro <a href=\"\/pages\/peticiones-quejas-y-reclamos\" target=\"_blank\" title=\"Peticiones, Quejas y Reclamos\">formulario de contacto<\/a> en la página web, por correo electrónico <a href=\"mailto:info@diyvape.co\" target=\"_blank\" title=\"mailto:info@diyvape.co\">info@diyvape.co<\/a>, o por teléfono al <a href=\"https:\/\/wa.me\/573205682351\" target=\"_blank\" title=\"https:\/\/wa.me\/573205682351\">+57 3205682351<\/a> durante nuestras horas de operación. Estamos aquí para ayudarte con cualquier pregunta o problema que puedas tener."
-              },
-              "blocks": {}
+                "faq_title": "¿Qué hago si mi pedido llega dañado?",
+                "faq_content": "Revisa el empaque y el producto al recibirlo. Si presenta daños, repórtalo ante la transportadora en el momento de la entrega y envíanos fotos el mismo día por WhatsApp o correo para gestionar la reclamación ante el seguro del transporte."
+              }
             }
           },
           "block_order": [
-            "faq_item_BLC8XC",
-            "faq_item_xfGxAb",
-            "faq_item_3Rwywj",
-            "faq_item_pVtdzJ",
-            "faq_item_Y69KNM"
+            "buy_0",
+            "buy_1",
+            "buy_2",
+            "buy_3",
+            "buy_4"
           ]
         }
       },
@@ -212,316 +190,78 @@
                 "spacing_bottom": 0
               },
               "blocks": {
-                "heading_7KRDp4": {
+                "group_0_heading": {
                   "type": "heading",
                   "settings": {
-                    "heading": "Preguntas Generales",
+                    "heading": "Garantías y devoluciones",
                     "font_size": 24,
                     "font_weight": "heading_weight",
                     "uppercase": false,
                     "spacing_bottom": 20
-                  },
-                  "blocks": {}
+                  }
                 },
-                "faq_item_FreeTL": {
+                "group_0_faq_0": {
                   "type": "_faq-item",
                   "settings": {
-                    "faq_title": "¿Los vapes pueden ayudar a dejar de fumar?",
-                    "faq_content": "Para algunas personas, el vapeo puede ser un paso útil para dejar de fumar. Sin embargo, no todos tienen éxito con este método y deberías hablar con un profesional de la salud antes de intentarlo."
-                  },
-                  "blocks": {}
+                    "faq_title": "¿Los productos tienen garantía?",
+                    "faq_content": "Sí. Todos nuestros productos cuentan con la garantía legal establecida en la Ley 1480 de 2011 (Estatuto del Consumidor). El término puede variar según el producto y la marca; revísalo en la descripción del producto o en nuestra <a href=\"/policies/refund-policy\" target=\"_blank\" title=\"Política de garantías\">política de garantías y devoluciones</a>."
+                  }
                 },
-                "faq_item_EdXG6P": {
+                "group_0_faq_1": {
                   "type": "_faq-item",
                   "settings": {
-                    "faq_title": "¿Puedo comprar vapeadores si soy menor de edad?",
-                    "faq_content": "No. La venta de cigarrillos electrónicos y dispositivos de vapeo está prohibida para menores de 18 años, conforme a la Ley 2354 de 2024 "
-                  },
-                  "blocks": {}
+                    "faq_title": "¿Puedo devolver un producto?",
+                    "faq_content": "Puedes ejercer el derecho de retracto dentro de los cinco (5) días hábiles siguientes a la entrega, siempre que el producto esté sin uso y en su empaque original. Los costos de transporte de la devolución corren por cuenta del comprador. Consulta las condiciones completas en nuestra política de garantías y devoluciones."
+                  }
                 },
-                "faq_item_3Aczp9": {
+                "group_0_faq_2": {
                   "type": "_faq-item",
                   "settings": {
-                    "faq_title": "¿Es el vapeo más seguro que fumar cigarrillos tradicionales?",
-                    "faq_content": "Sí, según varios estudios, el vapeo es significativamente menos perjudicial que el tabaquismo tradicional. No obstante, no está completamente exento de riesgos."
-                  },
-                  "blocks": {}
+                    "faq_title": "¿Cómo presento una petición, queja o reclamo (PQRS)?",
+                    "faq_content": "Usa nuestro <a href=\"/pages/pqrs\" title=\"PQRS\">formulario de PQRS</a> o escríbenos a <a href=\"mailto:servicioalcliente@home-sale.com.co\">servicioalcliente@home-sale.com.co</a>. Te responderemos dentro de los plazos legales."
+                  }
                 },
-                "faq_item_6AbCNV": {
-                  "type": "_faq-item",
-                  "name": "t:sections.faqs-page.blocks.question.name",
-                  "settings": {
-                    "faq_title": "¿El vapeo puede llevar a la adicción?",
-                    "faq_content": "Sí, los productos de vapeo que contienen nicotina pueden causar adicción, al igual que los cigarrillos tradicionales."
-                  },
-                  "blocks": {}
-                },
-                "faq_item_Hzpxhh": {
-                  "type": "_faq-item",
-                  "name": "t:sections.faqs-page.blocks.question.name",
-                  "settings": {
-                    "faq_title": "¿Puedo vapear si estoy embarazada?",
-                    "faq_content": "No se recomienda el vapeo durante el embarazo, ya que la nicotina puede tener efectos adversos en el desarrollo fetal."
-                  },
-                  "blocks": {}
-                },
-                "faq_item_DxgXcw": {
-                  "type": "_faq-item",
-                  "name": "t:sections.faqs-page.blocks.question.name",
-                  "settings": {
-                    "faq_title": "¿Puedo vapear en lugares públicos?",
-                    "faq_content": "Las leyes sobre el vapeo en lugares públicos varían según el país y la región. Algunos lugares permiten el vapeo en cualquier lugar donde se permita fumar, mientras que otros tienen restricciones más estrictas. Es importante conocer y respetar las leyes locales sobre el vapeo."
-                  },
-                  "blocks": {}
-                },
-                "heading_FLXA7X": {
+                "group_1_heading": {
                   "type": "heading",
-                  "name": "t:sections.all.contents.heading.label",
                   "settings": {
-                    "heading": "Experiencia de Vapeo",
+                    "heading": "Productos y asesoría",
                     "font_size": 24,
                     "font_weight": "heading_weight",
                     "uppercase": false,
                     "spacing_bottom": 20
-                  },
-                  "blocks": {}
+                  }
                 },
-                "faq_item_dti7VT": {
+                "group_1_faq_0": {
                   "type": "_faq-item",
-                  "name": "t:sections.faqs-page.blocks.question.name",
                   "settings": {
-                    "faq_title": "¿Qué es el golpe de garganta en el vapeo?",
-                    "faq_content": "El golpe de garganta se refiere a la sensación que se experimenta al inhalar vapor de un e-cigarrillo. Muchos ex fumadores buscan esta sensación al vapear, ya que simula la sensación de inhalar humo de tabaco. El golpe de garganta puede ser influenciado por el nivel de nicotina, el tipo de e-líquido y la configuración del dispositivo."
-                  },
-                  "blocks": {}
+                    "faq_title": "¿Venden al por mayor?",
+                    "faq_content": "Sí. Somos mayoristas de equipos de gimnasia, bicicletas, movilidad eléctrica, maletas de viaje, herramientas de mano y juguetería montable. Escríbenos por WhatsApp o correo para recibir nuestro catálogo institucional."
+                  }
                 },
-                "faq_item_6WwfKX": {
+                "group_1_faq_1": {
                   "type": "_faq-item",
-                  "name": "t:sections.faqs-page.blocks.question.name",
                   "settings": {
-                    "faq_title": "¿Por qué tengo una sequedad en la boca cuando vapeo?",
-                    "faq_content": "El vapeo puede deshidratar, lo que puede resultar en sequedad en la boca. Es importante mantenerse hidratado mientras se vapea, bebiendo agua regularmente."
-                  },
-                  "blocks": {}
+                    "faq_title": "¿Dónde están ubicados?",
+                    "faq_content": "Nuestra bodega y servicio al cliente están en el KM 7 vía Bogotá – Medellín, Celta Trade Park, Bodega 3 Lote 33. Atendemos de lunes a viernes de 8:00 a.m. a 5:00 p.m. y sábados de 9:00 a.m. a 12:00 p.m. Contáctanos antes de visitarnos para confirmar disponibilidad."
+                  }
                 },
-                "faq_item_fabf4a": {
+                "group_1_faq_2": {
                   "type": "_faq-item",
-                  "name": "t:sections.faqs-page.blocks.question.name",
                   "settings": {
-                    "faq_title": "¿Por qué mi vape sabe a quemado?",
-                    "faq_content": "El sabor a quemado generalmente se debe a una mecha seca o a una bobina quemada. Asegúrate de que tu mecha esté siempre saturada con e-líquido y cambia las bobinas regularmente para evitar este problema."
-                  },
-                  "blocks": {}
-                },
-                "faq_item_PFwe9g": {
-                  "type": "_faq-item",
-                  "name": "t:sections.faqs-page.blocks.question.name",
-                  "settings": {
-                    "faq_title": "¿Con qué frecuencia debo cambiar la bobina o resistencia de mi vape?",
-                    "faq_content": "La frecuencia con la que debes cambiar la bobina de tu vape depende de cuánto lo uses generalmente unos 7-8 días. Un buen indicador es el sabor y la cantidad de vapor que produce tu vape. Si notas que el sabor disminuye o que produce menos vapor, podría ser hora de cambiar la bobina."
-                  },
-                  "blocks": {}
-                },
-                "faq_item_d7Nxf7": {
-                  "type": "_faq-item",
-                  "name": "t:sections.faqs-page.blocks.question.name",
-                  "settings": {
-                    "faq_title": "¿Por qué no produce vapor mi vape?",
-                    "faq_content": "Si tu vape no está produciendo vapor, verifica que esté encendido y que el tanque tenga líquido. Si aún no produce vapor, puede que necesites reemplazar la bobina."
-                  },
-                  "blocks": {}
-                },
-                "faq_item_MgNHNf": {
-                  "type": "_faq-item",
-                  "name": "t:sections.faqs-page.blocks.question.name",
-                  "settings": {
-                    "faq_title": "¿Por qué no produce vapor mi vape?",
-                    "faq_content": "Si tu vape no está produciendo vapor, verifica que esté encendido y que el tanque tenga líquido. Si aún no produce vapor, puede que necesites reemplazar la bobina."
-                  },
-                  "blocks": {}
-                },
-                "faq_item_Qadwj7": {
-                  "type": "_faq-item",
-                  "name": "t:sections.faqs-page.blocks.question.name",
-                  "settings": {
-                    "faq_title": "¿Cómo puedo prolongar la vida útil de mi batería de vape?",
-                    "faq_content": "Para prolongar la vida útil de la batería de tu vape, intenta no dejarla completamente descargada durante períodos prolongados y evita sobrecargarla. También puedes conservar la batería apagando el vape cuando no lo estés usando."
-                  },
-                  "blocks": {}
-                },
-                "faq_item_9fhjEM": {
-                  "type": "_faq-item",
-                  "name": "t:sections.faqs-page.blocks.question.name",
-                  "settings": {
-                    "faq_title": "¿Puedo viajar con mi vape?",
-                    "faq_content": "Sí, puedes viajar con tu vape, pero la mayoría de las aerolíneas requieren que guardes el dispositivo y cualquier batería adicional en tu equipaje de mano. También, recuerda que algunas ciudades y países tienen restricciones sobre el vapeo."
-                  },
-                  "blocks": {}
-                },
-                "heading_YCnirf": {
-                  "type": "heading",
-                  "name": "t:sections.all.contents.heading.label",
-                  "settings": {
-                    "heading": "Funcionamiento de un Vape",
-                    "font_size": 24,
-                    "font_weight": "heading_weight",
-                    "uppercase": false,
-                    "spacing_bottom": 20
-                  },
-                  "blocks": {}
-                },
-                "faq_item_JKWKYw": {
-                  "type": "_faq-item",
-                  "name": "t:sections.faqs-page.blocks.question.name",
-                  "settings": {
-                    "faq_title": "¿Cómo enciendo mi vape?",
-                    "faq_content": "En la mayoría de los dispositivos de vapeo, se presiona el botón de encendido cinco veces para encender y apagar el dispositivo. Recuerda verificar el manual de tu dispositivo para instrucciones específicas."
-                  },
-                  "blocks": {}
-                },
-                "faq_item_fF4rxc": {
-                  "type": "_faq-item",
-                  "name": "t:sections.faqs-page.blocks.question.name",
-                  "settings": {
-                    "faq_title": "¿Cómo lleno mi tanque de vapeo con e-líquido?",
-                    "faq_content": "Para llenar tu tanque, primero debes desenroscar la tapa superior o inferior, dependiendo de tu modelo. Luego, vierte el e-líquido en el tanque, evitando el tubo central. Finalmente, vuelve a enroscar la tapa y deja que el e-líquido se asiente durante unos minutos antes de vapear."
-                  },
-                  "blocks": {}
-                },
-                "faq_item_8mYLcX": {
-                  "type": "_faq-item",
-                  "name": "t:sections.faqs-page.blocks.question.name",
-                  "settings": {
-                    "faq_title": "¿Cómo regulo la cantidad de vapor que produce mi vape?",
-                    "faq_content": "La cantidad de vapor que produce tu vape puede ajustarse modificando la configuración de potencia o voltaje de tu dispositivo. Recuerda que un mayor voltaje o potencia resultará en más vapor. Sin embargo, asegúrate de no exceder las recomendaciones de potencia de tu bobina."
-                  },
-                  "blocks": {}
-                },
-                "faq_item_Q6tqHR": {
-                  "type": "_faq-item",
-                  "name": "t:sections.faqs-page.blocks.question.name",
-                  "settings": {
-                    "faq_title": "¿Cómo debo inhalar cuando estoy vapeando?",
-                    "faq_content": "Hay dos métodos principales para inhalar mientras se vapea: la inhalación directa al pulmón (D2L) y la inhalación bucal. En D2L, inhalas el vapor directamente a tus pulmones, similar a como lo harías con un inhalador. La inhalación bucal implica primero llevar el vapor a tu boca y luego inhalarlo a tus pulmones. Experimenta con ambos métodos para ver cuál prefieres."
-                  },
-                  "blocks": {}
-                },
-                "faq_item_BNG7hb": {
-                  "type": "_faq-item",
-                  "name": "t:sections.faqs-page.blocks.question.name",
-                  "settings": {
-                    "faq_title": "¿Con qué frecuencia debo cargar mi vape?",
-                    "faq_content": "La frecuencia de carga depende de tu uso. Algunas personas necesitan cargar su dispositivo diariamente, mientras que otras pueden durar varios días con una carga. Es aconsejable cargar tu dispositivo antes de que se agote completamente para prolongar la vida útil de la batería."
-                  },
-                  "blocks": {}
-                },
-                "faq_item_dBcH9h": {
-                  "type": "_faq-item",
-                  "name": "t:sections.faqs-page.blocks.question.name",
-                  "settings": {
-                    "faq_title": "¿Cómo sé cuándo mi vape está completamente cargado?",
-                    "faq_content": "La mayoría de los vapes tienen una luz indicadora que te permite saber cuándo están completamente cargados. Esta luz suele cambiar de color o parpadear para indicar que la batería está llena. Consulta el manual de tu dispositivo para obtener información específica."
-                  },
-                  "blocks": {}
-                },
-                "faq_item_peKtYG": {
-                  "type": "_faq-item",
-                  "name": "t:sections.faqs-page.blocks.question.name",
-                  "settings": {
-                    "faq_title": "¿Puedo usar cualquier e-líquido en mi vape?",
-                    "faq_content": "Aunque la mayoría de los e-líquidos son compatibles con la mayoría de los vapes, es importante leer las especificaciones de tu dispositivo. Algunos vapes no son compatibles con e-líquidos de alta VG (glicerina vegetal), mientras que otros pueden no funcionar bien con e-líquidos de alta PG (propilenglicol). <em>Nota: Siempre consulta el manual del usuario de tu dispositivo para obtener instrucciones específicas sobre su uso.<\/em>"
-                  },
-                  "blocks": {}
-                },
-                "heading_JUMiXa": {
-                  "type": "heading",
-                  "name": "t:sections.all.contents.heading.label",
-                  "settings": {
-                    "heading": "Mantenimiento y solución de problemas",
-                    "font_size": 36,
-                    "font_weight": "heading_weight",
-                    "uppercase": false,
-                    "spacing_bottom": 20
-                  },
-                  "blocks": {}
-                },
-                "faq_item_3fV6mb": {
-                  "type": "_faq-item",
-                  "name": "t:sections.faqs-page.blocks.question.name",
-                  "settings": {
-                    "faq_title": "¿Cómo limpio mi dispositivo de vapeo?",
-                    "faq_content": "Para limpiar tu dispositivo de vapeo, desmonta todas las piezas y límpialas con un paño seco. Puedes usar un hisopo de algodón para limpiar las áreas difíciles de alcanzar. Asegúrate de que todas las piezas estén secas antes de volver a ensamblar el dispositivo."
-                  },
-                  "blocks": {}
-                },
-                "faq_item_fCfBKq": {
-                  "type": "_faq-item",
-                  "name": "t:sections.faqs-page.blocks.question.name",
-                  "settings": {
-                    "faq_title": "¿Por qué mi vape sabe a quemado?",
-                    "faq_content": "Si tu vape sabe a quemado, podría deberse a que la bobina está gastada o a que el tanque de líquido está vacío. Prueba reemplazando la bobina o rellenando el tanque para solucionar el problema."
-                  },
-                  "blocks": {}
-                },
-                "faq_item_CmHFmU": {
-                  "type": "_faq-item",
-                  "name": "t:sections.faqs-page.blocks.question.name",
-                  "settings": {
-                    "faq_title": "¿Por qué mi vape está filtrando líquido?",
-                    "faq_content": "Una fuga en tu vape puede ser causada por una serie de cosas, desde un tanque mal cerrado hasta una bobina desgastada. Asegúrate de que todas las piezas estén correctamente ajustadas y de que la bobina esté en buen estado."
-                  },
-                  "blocks": {}
-                },
-                "faq_item_HqBp3K": {
-                  "type": "_faq-item",
-                  "name": "t:sections.faqs-page.blocks.question.name",
-                  "settings": {
-                    "faq_title": "¿Cómo cambio la bobina o resistencia de mi vape?",
-                    "faq_content": "Para cambiar la bobina de tu vape, desenrosca la base del tanque y luego desenrosca la bobina vieja. Enrosca la nueva bobina, asegurándote de que esté bien ajustada, luego rellena el tanque y vuelve a colocar la base."
-                  },
-                  "blocks": {}
-                },
-                "faq_item_UUA4e4": {
-                  "type": "_faq-item",
-                  "name": "t:sections.faqs-page.blocks.question.name",
-                  "settings": {
-                    "faq_title": "¿Con qué frecuencia debo cambiar la bobina o resistencia de mi vape?",
-                    "faq_content": "La frecuencia con la que debes cambiar la bobina de tu vape depende de cuánto lo uses generalmente unos 7-8 días. Un buen indicador es el sabor y la cantidad de vapor que produce tu vape. Si notas que el sabor disminuye o que produce menos vapor, podría ser hora de cambiar la bobina."
-                  },
-                  "blocks": {}
+                    "faq_title": "¿Cómo elijo la bicicleta o el equipo de ejercicio adecuado?",
+                    "faq_content": "Cada producto incluye sus especificaciones técnicas (tamaño, capacidad, potencia, peso máximo). Si tienes dudas, escríbenos por WhatsApp al <a href=\"https://wa.me/573132882596\" target=\"_blank\" title=\"WhatsApp Homesale\">+57 313 288 2596</a> y te asesoramos."
+                  }
                 }
               },
               "block_order": [
-                "heading_7KRDp4",
-                "faq_item_FreeTL",
-                "faq_item_EdXG6P",
-                "faq_item_3Aczp9",
-                "faq_item_6AbCNV",
-                "faq_item_Hzpxhh",
-                "faq_item_DxgXcw",
-                "heading_FLXA7X",
-                "faq_item_dti7VT",
-                "faq_item_6WwfKX",
-                "faq_item_fabf4a",
-                "faq_item_PFwe9g",
-                "faq_item_d7Nxf7",
-                "faq_item_MgNHNf",
-                "faq_item_Qadwj7",
-                "faq_item_9fhjEM",
-                "heading_YCnirf",
-                "faq_item_JKWKYw",
-                "faq_item_fF4rxc",
-                "faq_item_8mYLcX",
-                "faq_item_Q6tqHR",
-                "faq_item_BNG7hb",
-                "faq_item_dBcH9h",
-                "faq_item_peKtYG",
-                "heading_JUMiXa",
-                "faq_item_3fV6mb",
-                "faq_item_fCfBKq",
-                "faq_item_CmHFmU",
-                "faq_item_HqBp3K",
-                "faq_item_UUA4e4"
+                "group_0_heading",
+                "group_0_faq_0",
+                "group_0_faq_1",
+                "group_0_faq_2",
+                "group_1_heading",
+                "group_1_faq_0",
+                "group_1_faq_1",
+                "group_1_faq_2"
               ]
             }
           },

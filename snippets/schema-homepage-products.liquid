@@ -10,9 +10,9 @@
 {% enddoc %}
 
 {%- if template == 'index' -%}
-  {%- assign hp_sections = 'novedades,pods-desechables,pod-system,salt-nic-ejuice,vaporizadores-herbales' | split: ',' -%}
-  {%- assign hp_names    = 'Estrenos y Lanzamientos,Vapes Desechables Más Vendidos,Equipos Recargables Favoritos,Líquidos y Sales Premium,Vaporizadores de Cannabis y Concentrados' | split: ',' -%}
-  {%- assign hp_limits   = '4,6,6,8,8' | split: ',' -%}
+  {%- assign hp_sections = 'fitness,movilidad-electrica,bicicletas,max-tools,sale' | split: ',' -%}
+  {%- assign hp_names    = 'Entrenar en casa,Movilidad eléctrica Roadmaster,Bicicletas,Herramientas Max Tools,Los más vendidos en Homesale' | split: ',' -%}
+  {%- assign hp_limits   = '8,8,8,8,12' | split: ',' -%}
 
   {%- for handle in hp_sections -%}
     {%- assign collection   = collections[handle] -%}
@@ -56,7 +56,7 @@
                   "availability": "https://schema.org/InStock",
                   "seller": {
                     "@type": "Organization",
-                    "name": "DIY Vape Shop"
+                    "name": {{ shop.name | json }}
                   }
                 }{% if jdgm_rating != blank and count_value > 0 %},
                 "aggregateRating": {

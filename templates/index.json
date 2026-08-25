@@ -9,1410 +9,160 @@
  */
 {
   "sections": {
-    "featured_collection_tabs_spotlight_Ljzi7w": {
-      "type": "featured-collection-tabs-spotlight",
-      "blocks": {
-        "quick_collection_8gThjB": {
-          "type": "quick_collection",
-          "settings": {
-            "collection": "pods-desechables",
-            "custom_image": "{{ block.settings.collection.metafields.custom.collection_image_icon.value }}",
-            "title": "Vapes Desechables",
-            "eyebrow": "",
-            "subtitle": "",
-            "description": "",
-            "text_alignment": "center",
-            "text_surface": "glass",
-            "custom_link": "{{ block.settings.collection.url }}",
-            "button_label": "",
-            "button_link": "",
-            "button_label_2": "",
-            "button_link_2": "",
-            "image_ratio": "inherit",
-            "image_height": 210,
-            "mobile_image_height": 190,
-            "image_fit": "cover"
-          }
-        },
-        "quick_collection_z8Upgh": {
-          "type": "quick_collection",
-          "settings": {
-            "collection": "pod-system",
-            "custom_image": "{{ block.settings.collection.metafields.custom.collection_image_icon.value }}",
-            "title": "Pods Recargables",
-            "eyebrow": "",
-            "subtitle": "",
-            "description": "",
-            "text_alignment": "center",
-            "text_surface": "glass",
-            "custom_link": "{{ block.settings.collection.url }}",
-            "button_label": "",
-            "button_link": "",
-            "button_label_2": "",
-            "button_link_2": "",
-            "image_ratio": "inherit",
-            "image_height": 360,
-            "mobile_image_height": 260,
-            "image_fit": "cover"
-          }
-        },
-        "quick_collection_z4jjkt": {
-          "type": "quick_collection",
-          "settings": {
-            "collection": "kits-de-inicio",
-            "custom_image": "{{ block.settings.collection.metafields.custom.collection_image_icon.value }}",
-            "title": "Kits de Vapeo",
-            "eyebrow": "",
-            "subtitle": "",
-            "description": "",
-            "text_alignment": "center",
-            "text_surface": "glass",
-            "custom_link": "{{ block.settings.collection.url }}",
-            "button_label": "",
-            "button_link": "",
-            "button_label_2": "",
-            "button_link_2": "",
-            "image_ratio": "inherit",
-            "image_height": 360,
-            "mobile_image_height": 260,
-            "image_fit": "cover"
-          }
-        },
-        "quick_collection_tThbBN": {
-          "type": "quick_collection",
-          "settings": {
-            "collection": "salt-nic-ejuice",
-            "custom_image": "{{ block.settings.collection.metafields.custom.collection_image_icon.value }}",
-            "title": "",
-            "eyebrow": "",
-            "subtitle": "",
-            "description": "",
-            "text_alignment": "center",
-            "text_surface": "glass",
-            "custom_link": "{{ block.settings.collection.url }}",
-            "button_label": "",
-            "button_link": "",
-            "button_label_2": "",
-            "button_link_2": "",
-            "image_ratio": "inherit",
-            "image_height": 360,
-            "mobile_image_height": 260,
-            "image_fit": "cover"
-          }
-        },
-        "quick_collection_MkF7ca": {
-          "type": "quick_collection",
-          "settings": {
-            "collection": "base-libre",
-            "custom_image": "{{ block.settings.collection.metafields.custom.collection_image_icon.value }}",
-            "title": "",
-            "eyebrow": "",
-            "subtitle": "",
-            "description": "",
-            "text_alignment": "center",
-            "text_surface": "glass",
-            "custom_link": "{{ block.settings.collection.url }}",
-            "button_label": "",
-            "button_link": "",
-            "button_label_2": "",
-            "button_link_2": "",
-            "image_ratio": "inherit",
-            "image_height": 360,
-            "mobile_image_height": 260,
-            "image_fit": "cover"
-          }
-        },
-        "quick_collection_FR4xfV": {
-          "type": "quick_collection",
-          "settings": {
-            "collection": "resistencias-comerciales",
-            "custom_image": "{{ block.settings.collection.metafields.custom.collection_image_icon.value }}",
-            "title": "Resistencias y Pods",
-            "eyebrow": "",
-            "subtitle": "",
-            "description": "",
-            "text_alignment": "center",
-            "text_surface": "glass",
-            "custom_link": "",
-            "button_label": "",
-            "button_link": "",
-            "button_label_2": "",
-            "button_link_2": "",
-            "image_ratio": "inherit",
-            "image_height": 360,
-            "mobile_image_height": 260,
-            "image_fit": "cover"
-          }
-        },
-        "quick_collection_e4QQNd": {
-          "type": "quick_collection",
-          "settings": {
-            "collection": "pouches-de-nicotina-y-cafeina",
-            "custom_image": "{{ block.settings.collection.metafields.custom.collection_image_icon.value }}",
-            "title": "Bolsas de Nicotina",
-            "eyebrow": "",
-            "subtitle": "",
-            "description": "",
-            "text_alignment": "center",
-            "text_surface": "glass",
-            "custom_link": "{{ block.settings.collection.url }}",
-            "button_label": "",
-            "button_link": "",
-            "button_label_2": "",
-            "button_link_2": "",
-            "image_ratio": "inherit",
-            "image_height": 360,
-            "mobile_image_height": 260,
-            "image_fit": "cover"
-          }
-        },
-        "quick_collection_gWwkzQ": {
-          "type": "quick_collection",
-          "settings": {
-            "collection": "vaporizadores-herbales",
-            "custom_image": "{{ block.settings.collection.metafields.custom.collection_image_icon.value }}",
-            "title": "Vape Herbal",
-            "eyebrow": "",
-            "subtitle": "",
-            "description": "",
-            "text_alignment": "center",
-            "text_surface": "glass",
-            "custom_link": "{{ block.settings.collection.url }}",
-            "button_label": "",
-            "button_link": "",
-            "button_label_2": "",
-            "button_link_2": "",
-            "image_ratio": "inherit",
-            "image_height": 360,
-            "mobile_image_height": 260,
-            "image_fit": "cover"
-          }
-        },
-        "quick_collection_qkntJd": {
-          "type": "quick_collection",
-          "settings": {
-            "collection": "alquimia",
-            "custom_image": "{{ block.settings.collection.metafields.custom.collection_image_icon.value }}",
-            "title": "Prepara tu e-líquido",
-            "eyebrow": "",
-            "subtitle": "",
-            "description": "",
-            "text_alignment": "center",
-            "text_surface": "glass",
-            "custom_link": "{{ block.settings.collection.url }}",
-            "button_label": "",
-            "button_link": "",
-            "button_label_2": "",
-            "button_link_2": "",
-            "image_ratio": "inherit",
-            "image_height": 360,
-            "mobile_image_height": 260,
-            "image_fit": "cover"
-          }
-        },
-        "quick_collection_XFdCzy": {
-          "type": "quick_collection",
-          "settings": {
-            "collection": "iqos",
-            "custom_image": "{{ block.settings.collection.metafields.custom.collection_image_icon.value }}",
-            "title": "Iqos Terea",
-            "eyebrow": "",
-            "subtitle": "",
-            "description": "",
-            "text_alignment": "center",
-            "text_surface": "glass",
-            "custom_link": "{{ block.settings.collection.url }}",
-            "button_label": "",
-            "button_link": "",
-            "button_label_2": "",
-            "button_link_2": "",
-            "image_ratio": "inherit",
-            "image_height": 360,
-            "mobile_image_height": 260,
-            "image_fit": "cover"
-          }
-        }
-      },
-      "block_order": [
-        "quick_collection_8gThjB",
-        "quick_collection_z8Upgh",
-        "quick_collection_z4jjkt",
-        "quick_collection_tThbBN",
-        "quick_collection_MkF7ca",
-        "quick_collection_FR4xfV",
-        "quick_collection_e4QQNd",
-        "quick_collection_gWwkzQ",
-        "quick_collection_qkntJd",
-        "quick_collection_XFdCzy"
-      ],
-      "name": "Collection tabs spotlight",
+    "hero": {
+      "type": "image-with-text-overlay",
       "settings": {
-        "section_width": "fluid_container",
+        "section_width": "full_width",
         "color_scheme": "default",
-        "display_mode": "quick_collections",
-        "eyebrow": "",
-        "heading": "Vapers en Colombia:  somos la tienda #1 de vapeo",
-        "description": "<p>Calidad y Servicio insuperable</p>",
-        "hero_cta_label": "",
-        "hero_cta_link": "",
-        "header_size": "large",
-        "header_alignment": "center",
-        "header_max_width": 1100,
-        "show_view_all_button": false,
-        "text_size_heading": 49,
-        "text_size_description": 24,
-        "text_size_tab": 0,
-        "text_size_card_title": 0,
-        "text_size_card_meta": 0,
-        "text_size_card_price": 0,
-        "text_size_quick_title": 14,
-        "text_size_quick_subtitle": 0,
-        "hero_type": "none",
-        "hero_placement": "top",
-        "hero_side": "left",
-        "hero_side_width": 42,
-        "hero_side_valign": "center",
-        "hero_mobile_placement": "above",
-        "hero_aspect": "fixed",
-        "hero_position": "center",
-        "hero_overlay_color": "#000000",
-        "hero_overlay_opacity": 0,
-        "hero_height": 120,
-        "hero_mobile_height": 220,
-        "hero_radius": 0,
-        "background_type": "color",
-        "background_image": "shopify://shop_images/imagen-banner-682229870258a.webp",
-        "mobile_background_image": "shopify://shop_images/imagen-banner-682229870258a.webp",
-        "background_video": "shopify://files/videos/video-hero-diy-optimizado.mp4",
-        "mobile_background_video": "shopify://files/videos/video-hero-diy-optimizado.mp4",
-        "background_video_poster": "shopify://shop_images/imagen-banner-682229870258a.webp",
-        "mobile_background_video_poster": "shopify://shop_images/imagen-banner-682229870258a.webp",
-        "background_overlay_color": "#000000",
-        "background_overlay_opacity": 0,
-        "media_height": 700,
-        "mobile_media_height": 0,
-        "media_padding_y": 16,
-        "media_padding_x": 12,
-        "media_radius": 40,
-        "shape_style": "diamond",
-        "shape_color": "#d0473e",
-        "shape_opacity": 45,
-        "animate_shape": true,
-        "shape_anchor": "auto",
-        "shape_offset_x": -210,
-        "shape_offset_y": -230,
-        "shape_rotation": 0,
-        "shape_scale": 45,
-        "bg_motion": "grid",
-        "geo_overlay": "none",
-        "geo_parallax": true,
-        "motion_speed": "lively",
-        "motion_accent_1": "#e9f4f1",
-        "motion_accent_2": "#2dd4bf",
-        "motion_opacity": 40,
-        "motion_intensity": 200,
-        "motion_blend": "normal",
-        "bg_grain": false,
-        "grain_opacity": 8,
-        "blend_edge": "bottom",
-        "blend_overlap": 0,
-        "motion_phase": 0,
-        "background_color": "#ebebeb",
-        "tab_background": "#393752",
-        "tab_text_color": "#ffffff",
-        "tab_active_background": "#111111",
-        "tab_active_text_color": "#ffffff",
-        "card_background": "#ffffff",
-        "card_text_color": "{{ shop.brand.colors.primary[0].background }}",
-        "badge_background": "#111111",
-        "badge_text_color": "#ffffff",
-        "card_surface": "glass",
-        "glass_refraction": true,
-        "interaction_effect": "lift",
-        "image_ratio": "square",
-        "image_height": 280,
-        "mobile_image_height": 160,
-        "image_fit": "cover",
-        "image_radius": 40,
-        "product_layout": "carousel",
-        "items_to_show": 8,
-        "items_per_row": 4,
-        "column_gap": 30,
-        "items_per_row_mobile": 1.5,
-        "show_card_title": true,
-        "card_title_lines": 2,
-        "show_card_vendor": true,
-        "show_card_price": true,
-        "show_card_compare_price": true,
-        "show_card_badges": true,
-        "show_quick_add": true,
-        "show_quick_view": true,
-        "show_card_rating": true,
-        "quick_columns": 6,
-        "quick_layout": "carousel",
-        "quick_mobile_columns": 2,
-        "show_arrow": true,
-        "carousel_pagination": "show_dots_on_mobile",
-        "infinite": false,
-        "autoplay": false,
-        "autorotate_speed": 6,
-        "priority_loading": true,
-        "padding_top": 120,
-        "padding_bottom": 80,
-        "reset_spacing": true
-      }
-    },
-    "featured_collection_tabs_spotlight_EQLJLD": {
-      "type": "featured-collection-tabs-spotlight",
-      "blocks": {
-        "rich_text_XCcRGn": {
-          "type": "rich_text",
-          "settings": {
-            "position": "top",
-            "heading": "Todo en vapeo: desechables, equipos, líquidos y accesorios en un solo lugar",
-            "content": "<p><em>En DIY Vape Shop siempre encontrarás vaporizadores, líquidos y accesorios pensados para que puedas disfrutar tu experiencia de vapeo a tu manera.</em></p>",
-            "text_alignment": "center",
-            "max_width": 1100,
-            "heading_size": 36,
-            "text_size": 18
-          }
-        },
-        "collection_9J99QA": {
-          "type": "collection",
-          "settings": {
-            "tab_key": "",
-            "collection": "novedades",
-            "products": [],
-            "collection_title": "Nuevos Productos",
-            "cta_label": "Ver todas las novedades",
-            "cta_link": "",
-            "tab_eyebrow": "",
-            "tab_heading": "Estrenos y lanzamientos en nuestra tienda de vapeo",
-            "tab_description": "<p>Mantente siempre al día con lo último en el mundo del vapeo. Descubre nuestras novedades y sé el primero en probar lo mejor de nuestra tienda.</p>",
-            "tab_hero_type": "inherit"
-          }
-        }
-      },
-      "block_order": [
-        "rich_text_XCcRGn",
-        "collection_9J99QA"
-      ],
-      "name": "Collection tabs spotlight",
-      "settings": {
-        "section_width": "fluid_container",
-        "color_scheme": "",
-        "display_mode": "product_tabs",
-        "eyebrow": "",
-        "heading": "Todo en vapeo: desechables, equipos, líquidos y accesorios en un solo lugar",
-        "description": "<p><em>En DIY Vape Shop siempre encontrarás vaporizadores, líquidos y accesorios pensados para que puedas disfrutar tu experiencia de vapeo a tu manera.</em></p>",
-        "hero_cta_label": "",
-        "hero_cta_link": "",
-        "header_size": "large",
-        "header_alignment": "center",
-        "header_max_width": 1100,
-        "show_view_all_button": false,
-        "text_size_heading": 36,
-        "text_size_description": 18,
-        "text_size_tab": 0,
-        "text_size_card_title": 14,
-        "text_size_card_meta": 0,
-        "text_size_card_price": 0,
-        "text_size_quick_title": 0,
-        "text_size_quick_subtitle": 0,
-        "hero_type": "video",
-        "hero_placement": "side",
-        "hero_side": "left",
-        "hero_side_width": 25,
-        "hero_side_valign": "center",
-        "hero_mobile_placement": "hidden",
-        "hero_video": "shopify://files/videos/logo-movil-optimizado.mp4",
-        "hero_mobile_video": "shopify://files/videos/logo-movil-optimizado.mp4",
-        "hero_aspect": "square",
-        "hero_position": "center",
-        "hero_overlay_color": "#000000",
-        "hero_overlay_opacity": 0,
-        "hero_height": 120,
-        "hero_mobile_height": 220,
-        "hero_radius": 50,
-        "background_type": "color",
-        "background_overlay_color": "#000000",
-        "background_overlay_opacity": 0,
-        "media_height": 0,
-        "mobile_media_height": 0,
-        "media_padding_y": 0,
-        "media_padding_x": 0,
-        "media_radius": 0,
-        "shape_style": "none",
-        "shape_color": "{{ shop.brand.colors.primary[0].background }}",
-        "shape_opacity": 60,
-        "animate_shape": true,
-        "shape_anchor": "auto",
-        "shape_offset_x": 0,
-        "shape_offset_y": 0,
-        "shape_rotation": 0,
-        "shape_scale": 100,
-        "bg_motion": "grid",
-        "geo_overlay": "none",
-        "geo_parallax": true,
-        "motion_speed": "lively",
-        "motion_accent_1": "#ffffff",
-        "motion_accent_2": "#2dd4bf",
-        "motion_opacity": 40,
-        "motion_intensity": 200,
-        "motion_blend": "multiply",
-        "bg_grain": true,
-        "grain_opacity": 8,
-        "blend_edge": "both",
-        "blend_overlap": 80,
-        "motion_phase": 0,
-        "background_color": "#ebebeb",
-        "tab_background": "#393752",
-        "tab_text_color": "#ffffff",
-        "tab_active_background": "{{ shop.brand.colors.primary[0].background }}",
-        "tab_active_text_color": "#ffffff",
-        "card_background": "#ffffff",
-        "card_text_color": "#111111",
-        "badge_background": "#111111",
-        "badge_text_color": "#ffffff",
-        "card_surface": "glass",
-        "glass_refraction": true,
-        "interaction_effect": "sheen",
-        "image_ratio": "square",
-        "image_height": 360,
-        "mobile_image_height": 260,
-        "image_fit": "cover",
-        "image_radius": 0,
-        "product_layout": "carousel",
-        "items_to_show": 8,
-        "items_per_row": 4,
-        "column_gap": 20,
-        "items_per_row_mobile": 2,
-        "show_card_title": true,
-        "card_title_lines": 2,
-        "show_card_vendor": true,
-        "show_card_price": true,
-        "show_card_compare_price": true,
-        "show_card_badges": true,
-        "show_quick_add": true,
-        "show_quick_view": true,
-        "show_card_rating": true,
-        "quick_columns": 4,
-        "quick_layout": "grid",
-        "quick_mobile_columns": 2,
-        "show_arrow": true,
-        "carousel_pagination": "show_dots",
-        "infinite": false,
-        "autoplay": false,
-        "autorotate_speed": 5,
-        "priority_loading": false,
-        "padding_top": 60,
-        "padding_bottom": 120,
-        "reset_spacing": true
-      }
-    },
-    "featured_collection_tabs_spotlight_continue1": {
-      "type": "featured-collection-tabs-spotlight",
-      "blocks": {
-        "rich_text_9fyWX9": {
-          "type": "rich_text",
-          "settings": {
-            "position": "top",
-            "heading": "Encuentra el sistema de vapeo ideal para ti",
-            "content": "<p><em>Explora la mayor selección de sistemas de vapeo disponibles. Desde dispositivos desechables y pods hasta kits avanzados y equipos recargables, encuentra la opción que mejor se adapta a tus preferencias, experiencia y estilo de uso.</em></p>",
-            "text_alignment": "center",
-            "max_width": 1100,
-            "heading_size": 36,
-            "text_size": 18
-          }
-        },
-        "tab_2": {
-          "type": "collection",
-          "settings": {
-            "tab_key": "",
-            "collection": "pods-desechables",
-            "products": [],
-            "collection_title": "Desechables",
-            "cta_label": "Ver todos los desechables",
-            "cta_link": "",
-            "tab_eyebrow": "",
-            "tab_heading": "Descubre los vapes desechables de larga duración y alta autonomía",
-            "tab_description": "<p>En DIY Vape Shop reunimos los vapes desechables más populares y confiables del mercado. Variedad de marcas, sabores y presentaciones para que siempre tengas uno listo cuando lo necesites.</p>",
-            "tab_hero_type": "inherit"
-          }
-        },
-        "tab_1": {
-          "type": "collection",
-          "settings": {
-            "tab_key": "",
-            "collection": "pod-system",
-            "products": [],
-            "collection_title": "Vapes Recargables",
-            "cta_label": "Ver vapes recargables",
-            "cta_link": "",
-            "tab_eyebrow": "",
-            "tab_heading": "Equipos de vapeo recargables: los preferidos por nuestros clientes",
-            "tab_description": "<p>Para quienes buscan una experiencia de vapeo personalizada, nuestros vapes recargables ofrecen potencia, diseño y libertad para elegir sabores y niveles de nicotina.</p>",
-            "tab_hero_type": "inherit"
-          }
-        },
-        "tab_3": {
-          "type": "collection",
-          "settings": {
-            "tab_key": "",
-            "collection": "iqos",
-            "products": [],
-            "collection_title": "IQOS y Terea",
-            "cta_label": "Ver IQOS y Terea",
-            "cta_link": "",
-            "tab_eyebrow": "",
-            "tab_heading": "Dispositivos IQOS, TEREA y alternativas de tabaco calentado",
-            "tab_description": "<p>Encuentra sistemas de calentamiento de tabaco compatibles con TEREA y otras soluciones de última generación. Conoce las diferentes opciones disponibles para quienes buscan alternativas tecnológicas al consumo tradicional de tabaco.</p>",
-            "tab_hero_type": "inherit"
-          }
-        }
-      },
-      "block_order": [
-        "rich_text_9fyWX9",
-        "tab_2",
-        "tab_1",
-        "tab_3"
-      ],
-      "name": "Collection tabs spotlight",
-      "settings": {
-        "section_width": "fluid_container",
-        "color_scheme": "",
-        "display_mode": "product_tabs",
-        "eyebrow": "",
-        "heading": "",
-        "description": "",
-        "hero_cta_label": "",
-        "hero_cta_link": "",
-        "header_size": "large",
-        "header_alignment": "center",
-        "header_max_width": 1100,
-        "show_view_all_button": false,
-        "text_size_heading": 36,
-        "text_size_description": 18,
-        "text_size_tab": 0,
-        "text_size_card_title": 14,
-        "text_size_card_meta": 0,
-        "text_size_card_price": 0,
-        "text_size_quick_title": 0,
-        "text_size_quick_subtitle": 0,
-        "hero_type": "video",
-        "hero_placement": "side",
-        "hero_side": "right",
-        "hero_side_width": 25,
-        "hero_side_valign": "center",
-        "hero_mobile_placement": "below",
-        "hero_video": "shopify://files/videos/Vprime.mp4",
-        "hero_mobile_video": "shopify://files/videos/Vprime.mp4",
-        "hero_aspect": "square",
-        "hero_position": "center",
-        "hero_overlay_color": "#000000",
-        "hero_overlay_opacity": 0,
-        "hero_height": 120,
-        "hero_mobile_height": 220,
-        "hero_radius": 50,
-        "background_type": "color",
-        "background_overlay_color": "#000000",
-        "background_overlay_opacity": 0,
-        "media_height": 0,
-        "mobile_media_height": 0,
-        "media_padding_y": 0,
-        "media_padding_x": 0,
-        "media_radius": 0,
-        "shape_style": "none",
-        "shape_color": "{{ shop.brand.colors.primary[0].background }}",
-        "shape_opacity": 60,
-        "animate_shape": true,
-        "shape_anchor": "auto",
-        "shape_offset_x": 0,
-        "shape_offset_y": 0,
-        "shape_rotation": 0,
-        "shape_scale": 100,
-        "bg_motion": "grid",
-        "geo_overlay": "none",
-        "geo_parallax": true,
-        "motion_speed": "lively",
-        "motion_accent_1": "#e0203a",
-        "motion_accent_2": "#2dd4bf",
-        "motion_opacity": 40,
-        "motion_intensity": 250,
-        "motion_blend": "multiply",
-        "bg_grain": true,
-        "grain_opacity": 8,
-        "blend_edge": "both",
-        "blend_overlap": 160,
-        "motion_phase": 0,
-        "background_color": "#ebebeb",
-        "tab_background": "#393752",
-        "tab_text_color": "#ffffff",
-        "tab_active_background": "{{ shop.brand.colors.primary[0].background }}",
-        "tab_active_text_color": "#ffffff",
-        "card_background": "#ffffff",
-        "card_text_color": "#111111",
-        "badge_background": "#111111",
-        "badge_text_color": "#ffffff",
-        "card_surface": "glass",
-        "glass_refraction": true,
-        "interaction_effect": "sheen",
-        "image_ratio": "square",
-        "image_height": 360,
-        "mobile_image_height": 260,
-        "image_fit": "cover",
-        "image_radius": 0,
-        "product_layout": "carousel",
-        "items_to_show": 8,
-        "items_per_row": 4,
-        "column_gap": 20,
-        "items_per_row_mobile": 2,
-        "show_card_title": true,
-        "card_title_lines": 2,
-        "show_card_vendor": true,
-        "show_card_price": true,
-        "show_card_compare_price": true,
-        "show_card_badges": true,
-        "show_quick_add": true,
-        "show_quick_view": true,
-        "show_card_rating": true,
-        "quick_columns": 4,
-        "quick_layout": "grid",
-        "quick_mobile_columns": 2,
-        "show_arrow": true,
-        "carousel_pagination": "show_dots",
-        "infinite": false,
-        "autoplay": false,
-        "autorotate_speed": 5,
-        "priority_loading": false,
-        "padding_top": 120,
-        "padding_bottom": 120,
-        "reset_spacing": true
-      }
-    },
-    "featured_collection_tabs_spotlight_bKMmTX": {
-      "type": "featured-collection-tabs-spotlight",
-      "blocks": {
-        "rich_text_a6cJBm": {
-          "type": "rich_text",
-          "settings": {
-            "position": "top",
-            "heading": "La mejor selección de e-líquidos y sales de nicotina premium para vapear",
-            "content": "<p><em>En DIY Vape Shop reunimos las mejores marcas de líquidos y sales premium. Variedad de presentaciones y sabores para que siempre tengas algo nuevo por probar.</em></p>",
-            "text_alignment": "center",
-            "max_width": 1100,
-            "heading_size": 36,
-            "text_size": 18
-          }
-        },
-        "collection_dPwnQH": {
-          "type": "collection",
-          "settings": {
-            "tab_key": "",
-            "collection": "salt-nic-ejuice",
-            "products": [],
-            "collection_title": "",
-            "cta_label": "Ver todas las sales de nicotina",
-            "cta_link": "",
-            "tab_eyebrow": "",
-            "tab_heading": "Encuentra tu Nic Salt ideal: más sabores, más opciones",
-            "tab_description": "<p>Descubre sales de nicotina con perfiles frutales, mentolados, postres, bebidas y mezclas especiales. Disponibles en concentraciones de 20 mg a 70 mg para usuarios adultos que buscan una experiencia adaptada a sus preferencias.</p>",
-            "tab_hero_type": "inherit"
-          }
-        },
-        "collection_VT8zKi": {
-          "type": "collection",
-          "settings": {
-            "tab_key": "",
-            "collection": "base-libre",
-            "products": [],
-            "collection_title": "E-Liquid Base Libre",
-            "cta_label": "Ver e-liquids base libre",
-            "cta_link": "",
-            "tab_eyebrow": "",
-            "tab_heading": "E-Liquids de baja nicotina para equipos de vapeo",
-            "tab_description": "<p>Encuentra líquidos para vapeo en presentaciones de gran formato con niveles de nicotina desde 0 mg hasta 12 mg. Ideales para usuarios adultos que buscan largas sesiones de uso, variedad de sabores y una experiencia adaptada a sus preferencias.</p>",
-            "tab_hero_type": "inherit"
-          }
-        }
-      },
-      "block_order": [
-        "rich_text_a6cJBm",
-        "collection_dPwnQH",
-        "collection_VT8zKi"
-      ],
-      "name": "Collection tabs spotlight",
-      "settings": {
-        "section_width": "fluid_container",
-        "color_scheme": "",
-        "display_mode": "product_tabs",
-        "eyebrow": "",
-        "heading": "",
-        "description": "",
-        "hero_cta_label": "",
-        "hero_cta_link": "",
-        "header_size": "large",
-        "header_alignment": "center",
-        "header_max_width": 1100,
-        "show_view_all_button": false,
-        "text_size_heading": 36,
-        "text_size_description": 18,
-        "text_size_tab": 0,
-        "text_size_card_title": 14,
-        "text_size_card_meta": 0,
-        "text_size_card_price": 0,
-        "text_size_quick_title": 0,
-        "text_size_quick_subtitle": 0,
-        "hero_type": "none",
-        "hero_placement": "side",
-        "hero_side": "left",
-        "hero_side_width": 25,
-        "hero_side_valign": "center",
-        "hero_mobile_placement": "hidden",
-        "hero_aspect": "square",
-        "hero_position": "center",
-        "hero_overlay_color": "#000000",
-        "hero_overlay_opacity": 0,
-        "hero_height": 120,
-        "hero_mobile_height": 220,
-        "hero_radius": 50,
-        "background_type": "color",
-        "background_overlay_color": "#000000",
-        "background_overlay_opacity": 0,
-        "media_height": 0,
-        "mobile_media_height": 0,
-        "media_padding_y": 0,
-        "media_padding_x": 0,
-        "media_radius": 0,
-        "shape_style": "none",
-        "shape_color": "{{ shop.brand.colors.primary[0].background }}",
-        "shape_opacity": 60,
-        "animate_shape": true,
-        "shape_anchor": "auto",
-        "shape_offset_x": 0,
-        "shape_offset_y": 0,
-        "shape_rotation": 0,
-        "shape_scale": 100,
-        "bg_motion": "grid",
-        "geo_overlay": "none",
-        "geo_parallax": true,
-        "motion_speed": "lively",
-        "motion_accent_1": "#e0203a",
-        "motion_accent_2": "#2dd4bf",
-        "motion_opacity": 40,
-        "motion_intensity": 200,
-        "motion_blend": "multiply",
-        "bg_grain": true,
-        "grain_opacity": 8,
-        "blend_edge": "both",
-        "blend_overlap": 152,
-        "motion_phase": 0,
-        "background_color": "#ebebeb",
-        "tab_background": "#393752",
-        "tab_text_color": "#ffffff",
-        "tab_active_background": "{{ shop.brand.colors.primary[0].background }}",
-        "tab_active_text_color": "#ffffff",
-        "card_background": "#ffffff",
-        "card_text_color": "#111111",
-        "badge_background": "#111111",
-        "badge_text_color": "#ffffff",
-        "card_surface": "glass",
-        "glass_refraction": true,
-        "interaction_effect": "sheen",
-        "image_ratio": "square",
-        "image_height": 360,
-        "mobile_image_height": 260,
-        "image_fit": "contain",
-        "image_radius": 0,
-        "product_layout": "carousel",
-        "items_to_show": 8,
-        "items_per_row": 5,
-        "column_gap": 20,
-        "items_per_row_mobile": 2,
-        "show_card_title": true,
-        "card_title_lines": 2,
-        "show_card_vendor": true,
-        "show_card_price": true,
-        "show_card_compare_price": true,
-        "show_card_badges": true,
-        "show_quick_add": true,
-        "show_quick_view": true,
-        "show_card_rating": true,
-        "quick_columns": 4,
-        "quick_layout": "grid",
-        "quick_mobile_columns": 2,
-        "show_arrow": true,
-        "carousel_pagination": "show_dots",
-        "infinite": false,
-        "autoplay": false,
-        "autorotate_speed": 5,
-        "priority_loading": false,
-        "padding_top": 120,
-        "padding_bottom": 120,
-        "reset_spacing": true
-      }
-    },
-    "featured_collection_tabs_spotlight_continue3": {
-      "type": "featured-collection-tabs-spotlight",
-      "blocks": {
-        "rich_text_VTpprq": {
-          "type": "rich_text",
-          "settings": {
-            "position": "top",
-            "heading": "Compra vaporizadores herbales y de concentrados de las mejores marcas",
-            "content": "<p><em>Encuentra vaporizadores para hierbas secas y concentrados seleccionados por su calidad, innovación y desempeño. Descubre equipos portátiles y de escritorio de las marcas más reconocidas para usuarios adultos que buscan una experiencia premium.</em></p>",
-            "text_alignment": "center",
-            "max_width": 1100,
-            "heading_size": 36,
-            "text_size": 18
-          }
-        },
-        "tab_3": {
-          "type": "collection",
-          "settings": {
-            "tab_key": "",
-            "collection": "vaporizadores-herbales",
-            "products": [],
-            "collection_title": "Vaporizadores Herbales",
-            "cta_label": "Ver vaporizadores herbales",
-            "cta_link": "",
-            "tab_eyebrow": "",
-            "tab_heading": "Vaporizadores herbales de las mejores marcas",
-            "tab_description": "<p>Explora vaporizadores para hierbas secas de marcas líderes en el mercado. Compara sistemas de calentamiento por conducción, convección e híbridos, y encuentra el equipo ideal para tus preferencias y estilo de uso.</p>",
-            "tab_hero_type": "inherit"
-          }
-        },
-        "collection_KrDmKR": {
-          "type": "collection",
-          "settings": {
-            "tab_key": "",
-            "collection": "baterias-destilados",
-            "products": [],
-            "collection_title": "Baterías Destilados",
-            "cta_label": "Ver baterías para destilados",
-            "cta_link": "",
-            "tab_eyebrow": "",
-            "tab_heading": "Baterías 510 para cartuchos: potencia, compatibilidad y rendimiento",
-            "tab_description": "<p>Descubre baterías con rosca 510 compatibles con una amplia variedad de cartuchos. Encuentra modelos compactos y portátiles con diferentes niveles de potencia, activación por inhalación o botón, y funciones avanzadas diseñadas para ofrecer una experiencia cómoda y confiable.</p>",
-            "tab_hero_type": "inherit"
-          }
-        }
-      },
-      "block_order": [
-        "rich_text_VTpprq",
-        "tab_3",
-        "collection_KrDmKR"
-      ],
-      "name": "Collection tabs spotlight",
-      "settings": {
-        "section_width": "fluid_container",
-        "color_scheme": "default",
-        "display_mode": "product_tabs",
-        "eyebrow": "",
-        "heading": "",
-        "description": "",
-        "hero_cta_label": "",
-        "hero_cta_link": "",
-        "header_size": "large",
-        "header_alignment": "center",
-        "header_max_width": 1100,
-        "show_view_all_button": false,
-        "text_size_heading": 36,
-        "text_size_description": 18,
-        "text_size_tab": 0,
-        "text_size_card_title": 14,
-        "text_size_card_meta": 0,
-        "text_size_card_price": 0,
-        "text_size_quick_title": 0,
-        "text_size_quick_subtitle": 0,
-        "hero_type": "none",
-        "hero_placement": "side",
-        "hero_side": "left",
-        "hero_side_width": 25,
-        "hero_side_valign": "center",
-        "hero_mobile_placement": "hidden",
-        "hero_aspect": "square",
-        "hero_position": "center",
-        "hero_overlay_color": "#000000",
-        "hero_overlay_opacity": 0,
-        "hero_height": 120,
-        "hero_mobile_height": 220,
-        "hero_radius": 50,
-        "background_type": "color",
-        "background_overlay_color": "#000000",
-        "background_overlay_opacity": 0,
-        "media_height": 0,
-        "mobile_media_height": 0,
-        "media_padding_y": 0,
-        "media_padding_x": 0,
-        "media_radius": 0,
-        "shape_style": "diamond",
-        "shape_color": "{{ shop.brand.colors.primary[0].background }}",
-        "shape_opacity": 45,
-        "animate_shape": true,
-        "shape_anchor": "bottom-center",
-        "shape_offset_x": 80,
-        "shape_offset_y": 160,
-        "shape_rotation": -65,
-        "shape_scale": 35,
-        "bg_motion": "grid",
-        "geo_overlay": "none",
-        "geo_parallax": true,
-        "motion_speed": "lively",
-        "motion_accent_1": "#e9f4f1",
-        "motion_accent_2": "#2dd4bf",
-        "motion_opacity": 40,
-        "motion_intensity": 200,
-        "motion_blend": "multiply",
-        "bg_grain": true,
-        "grain_opacity": 8,
-        "blend_edge": "top",
-        "blend_overlap": 0,
-        "motion_phase": 0,
-        "background_color": "#ebebeb",
-        "tab_background": "#393752",
-        "tab_text_color": "#ffffff",
-        "tab_active_background": "{{ shop.brand.colors.primary[0].background }}",
-        "tab_active_text_color": "#ffffff",
-        "card_background": "#ffffff",
-        "card_text_color": "#111111",
-        "badge_background": "#111111",
-        "badge_text_color": "#ffffff",
-        "card_surface": "glass",
-        "glass_refraction": true,
-        "interaction_effect": "sheen",
-        "image_ratio": "square",
-        "image_height": 360,
-        "mobile_image_height": 260,
-        "image_fit": "cover",
-        "image_radius": 0,
-        "product_layout": "carousel",
-        "items_to_show": 8,
-        "items_per_row": 5,
-        "column_gap": 20,
-        "items_per_row_mobile": 2,
-        "show_card_title": true,
-        "card_title_lines": 2,
-        "show_card_vendor": true,
-        "show_card_price": true,
-        "show_card_compare_price": true,
-        "show_card_badges": true,
-        "show_quick_add": true,
-        "show_quick_view": true,
-        "show_card_rating": true,
-        "quick_columns": 4,
-        "quick_layout": "grid",
-        "quick_mobile_columns": 2,
-        "show_arrow": true,
-        "carousel_pagination": "show_dots",
-        "infinite": false,
-        "autoplay": false,
-        "autorotate_speed": 5,
-        "priority_loading": false,
-        "padding_top": 120,
-        "padding_bottom": 120,
-        "reset_spacing": true
-      }
-    },
-    "icon_box_eTQYXg": {
-      "type": "icon-box",
-      "blocks": {
-        "icon_box_y63NTa": {
-          "type": "icon_box",
-          "settings": {
-            "icon_svg": "payment",
-            "custom_svg": "",
-            "heading": "Todos los métodos de pago",
-            "description": "<p>Todos los métodos de pago! Tarjeta, Efectivo y Contra entrega. Compra con tranquilidad compra 100% protegida. </p>"
-          }
-        },
-        "icon_box_cn4cYW": {
-          "type": "icon_box",
-          "settings": {
-            "icon_svg": "check_badge",
-            "custom_svg": "",
-            "heading": "100% productos originales",
-            "description": "<p>Trabajamos directamente con distribuidores autorizados. Cada producto tiene código de autenticidad verificable.</p>"
-          }
-        },
-        "icon_box_Npny4G": {
-          "type": "icon_box",
-          "settings": {
-            "icon_svg": "message_communications",
-            "custom_svg": "",
-            "heading": "Asesores expertos en vapeo",
-            "description": "<p>Nuestro equipo conoce cada producto. Te ayudamos a elegir el vape ideal según tu experiencia, preferencias de sabor y presupuesto.</p>"
-          }
-        }
-      },
-      "block_order": [
-        "icon_box_y63NTa",
-        "icon_box_cn4cYW",
-        "icon_box_Npny4G"
-      ],
-      "name": "t:sections.icon_box.name",
-      "settings": {
-        "section_width": "container",
-        "color_scheme": "scheme-25500afe-f810-44c8-b7cd-8bc90ff950d9",
-        "type": "default",
-        "column_gap": 30,
-        "icon_position": "top",
-        "icon_size": 32,
-        "spacing": 11,
-        "show_border": false,
-        "enable_background": false,
-        "background": "",
+        "image": "shopify://shop_images/fitness_6.png",
+        "image_mobile": "shopify://shop_images/Banner_homesale-banner.jpg",
+        "image_behavior": "none",
+        "overlay_opacity": 0,
+        "image_height": "adapt",
+        "desktop_height": 600,
+        "mobile_height": 500,
+        "product_list": [],
         "content_alignment": "center",
-        "heading_font_size": 16,
-        "heading_font_weight": "heading_weight",
-        "heading_uppercase": false,
-        "heading_spacing_bottom": 10,
-        "des_font_size": 14,
-        "des_font_weight": "body_weight",
-        "carousel_on_mobile": true,
-        "items_per_row_mobile": "1",
+        "content_position": "middle-center",
+        "content_width": "container",
+        "content_max_width": 100,
+        "content_padding_block": 15,
+        "content_padding_inline": 0,
+        "show_content_background": false,
+        "content_background": "#fff",
+        "content_box_opacity": 100,
+        "content_below_image": false,
+        "content_alignment_mobile": "center",
         "padding_top": 0,
         "padding_bottom": 0,
         "reset_spacing": true
-      }
-    },
-    "rich_text_ygVepk": {
-      "type": "rich-text",
-      "blocks": {
-        "subheading_JHrUEX": {
-          "type": "subheading",
-          "name": "t:sections.all.contents.subheading.label",
-          "settings": {
-            "subheading": "4 tiendas físicas en Bogotá",
-            "font_size": 16,
-            "font_weight": "subheading_weight",
-            "uppercase": true,
-            "spacing_bottom": 12
-          },
-          "blocks": {}
-        },
-        "heading_yVd7KP": {
-          "type": "heading",
-          "settings": {
-            "heading": "Vísita nuestros Vape Shops",
-            "font_size": 36,
-            "font_weight": "heading_weight",
-            "uppercase": false,
-            "spacing_bottom": 10
-          },
-          "blocks": {}
-        },
-        "description_L9UpLU": {
-          "type": "description",
-          "settings": {
-            "text": "<p>No somos solo una tienda online. Visítanos en nuestras sedes DIY 85, DIY 140, Salitre y Colina. Atención de lunes a sábado, 10am a 7:30pm.</p>",
-            "font_size": 18,
-            "font_weight": "body_weight",
-            "spacing_bottom": 10
-          },
-          "blocks": {}
-        }
       },
-      "block_order": [
-        "subheading_JHrUEX",
-        "heading_yVd7KP",
-        "description_L9UpLU"
-      ],
-      "name": "t:sections.rich_text.name",
-      "settings": {
-        "section_width": "container",
-        "color_scheme": "scheme-25500afe-f810-44c8-b7cd-8bc90ff950d9",
-        "content_alignment": "center",
-        "content_max_width": 100,
-        "enable_expand_content": false,
-        "expand_content_button": "See all Information",
-        "padding_top": 30,
-        "padding_bottom": 30,
-        "reset_spacing": true
-      }
+      "blocks": {},
+      "block_order": []
     },
-    "multi_content_cyRgdQ": {
-      "type": "multi-content",
-      "blocks": {
-        "group_media_content_CxLmbE": {
-          "type": "_group-media-content",
-          "name": "t:blocks.names.media_with_text",
-          "settings": {
-            "color_scheme": "scheme-25500afe-f810-44c8-b7cd-8bc90ff950d9",
-            "content_width": "25%",
-            "media_type": "image",
-            "image": "shopify://shop_images/3-67813891cdbcb.webp",
-            "mobile_image": "shopify://shop_images/3-67813891cdbcb.webp",
-            "image_link": "https://maps.app.goo.gl/akrmyuGcYpQu6or88",
-            "video_url": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
-            "autoplay": true,
-            "video_ratio": "16/9",
-            "overlay_opacity": 0,
-            "content_type": "below",
-            "content_alignment": "center",
-            "content_position": "top-left",
-            "content_padding_block": 10,
-            "content_padding_inline": 10,
-            "content_mobile_image": false
-          },
-          "blocks": {
-            "heading_qXEmJm": {
-              "type": "heading",
-              "settings": {
-                "heading": "DIY Vape Shop 85",
-                "font_size": 16,
-                "font_weight": "subheading_weight",
-                "uppercase": false,
-                "spacing_bottom": 20
-              },
-              "blocks": {}
-            },
-            "description_xjhMF9": {
-              "type": "description",
-              "name": "t:blocks.general.text.name",
-              "settings": {
-                "text": "<p><a href=\"https://maps.app.goo.gl/akrmyuGcYpQu6or88\" target=\"_blank\" title=\"DIY Vape Shop 85\">CRA. 14 # 85- 86</a></p>",
-                "font_size": 14,
-                "font_weight": "body_weight",
-                "spacing_bottom": 10
-              },
-              "blocks": {}
-            },
-            "button_PPXWwy": {
-              "type": "button",
-              "settings": {
-                "show_full_width": false,
-                "first_button_label": "Ver ubicación",
-                "first_button_link": "https://maps.app.goo.gl/akrmyuGcYpQu6or88",
-                "first_button_aria_label": "Ver ubicación de DIY Vape Shop 85",
-                "first_button_type": "outline",
-                "second_button_label": "",
-                "second_button_link": "",
-                "second_button_aria_label": "",
-                "second_button_type": "primary",
-                "spacing_bottom": 10
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "heading_qXEmJm",
-            "description_xjhMF9",
-            "button_PPXWwy"
-          ]
-        },
-        "group_media_content_pFkFXQ": {
-          "type": "_group-media-content",
-          "name": "t:blocks.names.media_with_text",
-          "settings": {
-            "color_scheme": "scheme-25500afe-f810-44c8-b7cd-8bc90ff950d9",
-            "content_width": "25%",
-            "media_type": "image",
-            "image": "shopify://shop_images/2-67813891ce266.webp",
-            "mobile_image": "shopify://shop_images/2-67813891ce266.webp",
-            "image_link": "https://maps.app.goo.gl/YgihotxpQBdcH34Q8",
-            "video_url": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
-            "autoplay": true,
-            "video_ratio": "16/9",
-            "overlay_opacity": 0,
-            "content_type": "below",
-            "content_alignment": "center",
-            "content_position": "top-left",
-            "content_padding_block": 10,
-            "content_padding_inline": 10,
-            "content_mobile_image": false
-          },
-          "blocks": {
-            "heading_NRPJrg": {
-              "type": "heading",
-              "settings": {
-                "heading": "DIY Vape Shop 140",
-                "font_size": 16,
-                "font_weight": "subheading_weight",
-                "uppercase": false,
-                "spacing_bottom": 20
-              },
-              "blocks": {}
-            },
-            "description_XNTLE8": {
-              "type": "description",
-              "name": "t:blocks.general.text.name",
-              "settings": {
-                "text": "<p><a href=\"https://maps.app.goo.gl/YgihotxpQBdcH34Q8\" target=\"_blank\" title=\"DIY Vape Shop 140\">Cll. 140 # 7C-10 LC11</a></p>",
-                "font_size": 14,
-                "font_weight": "body_weight",
-                "spacing_bottom": 10
-              },
-              "blocks": {}
-            },
-            "button_rz67jT": {
-              "type": "button",
-              "settings": {
-                "show_full_width": false,
-                "first_button_label": "Ver ubicación",
-                "first_button_link": "https://maps.app.goo.gl/YgihotxpQBdcH34Q8",
-                "first_button_aria_label": "Ver ubicación de DIY Vape Shop 140",
-                "first_button_type": "outline",
-                "second_button_label": "",
-                "second_button_link": "",
-                "second_button_aria_label": "",
-                "second_button_type": "primary",
-                "spacing_bottom": 10
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "heading_NRPJrg",
-            "description_XNTLE8",
-            "button_rz67jT"
-          ]
-        },
-        "group_media_content_7tb4XG": {
-          "type": "_group-media-content",
-          "name": "t:blocks.names.media_with_text",
-          "settings": {
-            "color_scheme": "scheme-25500afe-f810-44c8-b7cd-8bc90ff950d9",
-            "content_width": "25%",
-            "media_type": "image",
-            "image": "shopify://shop_images/4-6781389287839.webp",
-            "mobile_image": "shopify://shop_images/4-6781389287839.webp",
-            "image_link": "https://maps.app.goo.gl/SqqrBSKbaTjdETmD9",
-            "video_url": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
-            "autoplay": true,
-            "video_ratio": "16/9",
-            "overlay_opacity": 0,
-            "content_type": "below",
-            "content_alignment": "center",
-            "content_position": "top-left",
-            "content_padding_block": 10,
-            "content_padding_inline": 10,
-            "content_mobile_image": false
-          },
-          "blocks": {
-            "heading_RBJeWE": {
-              "type": "heading",
-              "settings": {
-                "heading": "DIY Vape Shop Salitre",
-                "font_size": 16,
-                "font_weight": "subheading_weight",
-                "uppercase": false,
-                "spacing_bottom": 20
-              },
-              "blocks": {}
-            },
-            "description_tYpzKF": {
-              "type": "description",
-              "name": "t:blocks.general.text.name",
-              "settings": {
-                "text": "<p><a href=\"https://maps.app.goo.gl/SqqrBSKbaTjdETmD9\" target=\"_blank\" title=\"DIY Vape Shop Salitre\">AC. 24 #69A-15</a></p>",
-                "font_size": 14,
-                "font_weight": "body_weight",
-                "spacing_bottom": 10
-              },
-              "blocks": {}
-            },
-            "button_qPAm8f": {
-              "type": "button",
-              "settings": {
-                "show_full_width": false,
-                "first_button_label": "Ver ubicación",
-                "first_button_link": "https://maps.app.goo.gl/SqqrBSKbaTjdETmD9",
-                "first_button_aria_label": "Ver ubicación de DIY Vape Shop Salitre",
-                "first_button_type": "outline",
-                "second_button_label": "",
-                "second_button_link": "",
-                "second_button_aria_label": "",
-                "second_button_type": "primary",
-                "spacing_bottom": 10
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "heading_RBJeWE",
-            "description_tYpzKF",
-            "button_qPAm8f"
-          ]
-        },
-        "group_media_content_REM9EF": {
-          "type": "_group-media-content",
-          "name": "t:blocks.names.media_with_text",
-          "settings": {
-            "color_scheme": "scheme-25500afe-f810-44c8-b7cd-8bc90ff950d9",
-            "content_width": "25%",
-            "media_type": "image",
-            "image": "shopify://shop_images/5-678138928ec68.webp",
-            "mobile_image": "shopify://shop_images/5-678138928ec68.webp",
-            "image_link": "https://maps.app.goo.gl/pM2KGBtTopCELAgj8",
-            "video_url": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
-            "autoplay": true,
-            "video_ratio": "16/9",
-            "overlay_opacity": 0,
-            "content_type": "below",
-            "content_alignment": "center",
-            "content_position": "top-left",
-            "content_padding_block": 10,
-            "content_padding_inline": 10,
-            "content_mobile_image": false
-          },
-          "blocks": {
-            "heading_ihT6C6": {
-              "type": "heading",
-              "settings": {
-                "heading": "DIY Vape Shop Colina",
-                "font_size": 16,
-                "font_weight": "subheading_weight",
-                "uppercase": false,
-                "spacing_bottom": 20
-              },
-              "blocks": {}
-            },
-            "description_gKjMwV": {
-              "type": "description",
-              "name": "t:blocks.general.text.name",
-              "settings": {
-                "text": "<p><a href=\"https://maps.app.goo.gl/pM2KGBtTopCELAgj8\" target=\"_blank\" title=\"DIY Vape Shop Colina Camprestre\">Cll 138 # 55-49</a></p>",
-                "font_size": 14,
-                "font_weight": "body_weight",
-                "spacing_bottom": 10
-              },
-              "blocks": {}
-            },
-            "button_bjxXCT": {
-              "type": "button",
-              "settings": {
-                "show_full_width": false,
-                "first_button_label": "Ver ubicación",
-                "first_button_link": "https://maps.app.goo.gl/pM2KGBtTopCELAgj8",
-                "first_button_aria_label": "Ver ubicación de DIY Vape Shop Colina",
-                "first_button_type": "outline",
-                "second_button_label": "",
-                "second_button_link": "",
-                "second_button_aria_label": "",
-                "second_button_type": "primary",
-                "spacing_bottom": 10
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "heading_ihT6C6",
-            "description_gKjMwV",
-            "button_bjxXCT"
-          ]
-        }
-      },
-      "block_order": [
-        "group_media_content_CxLmbE",
-        "group_media_content_pFkFXQ",
-        "group_media_content_7tb4XG",
-        "group_media_content_REM9EF"
-      ],
-      "name": "t:sections.multi_content.name",
+    "categories": {
+      "type": "collection-list",
       "settings": {
         "section_width": "fluid_container",
-        "color_scheme": "scheme-25500afe-f810-44c8-b7cd-8bc90ff950d9",
+        "color_scheme": "default",
+        "heading": "",
+        "description": "",
+        "show_view_all_button": false,
+        "header_size": "medium",
+        "header_alignment": "left",
+        "display_mode": "carousel",
+        "image_ratio": "square",
+        "custom_ratio": "",
+        "items_per_row": 8,
+        "column_gap": 30,
+        "show_arrow": false,
+        "carousel_pagination": "disable",
+        "infinite": false,
+        "autoplay": false,
+        "autorotate_speed": 5,
+        "reveal": false,
+        "items_per_row_mobile": 3,
+        "design": "default",
+        "collection_information_position": "below_image",
+        "text_alignment": "center",
+        "show_product_count": false,
+        "show_icon": false,
+        "show_description": false,
+        "column_reverse_content": false,
+        "font_size": 14,
+        "font_weight": "heading_weight",
+        "font_size_description": 14,
+        "font_weight_description": "body_weight",
+        "information_spacing": 10,
+        "rounded_image": true,
+        "image_custom_width": true,
+        "image_width": 90,
+        "padding_top": 30,
+        "padding_bottom": 10,
+        "reset_spacing": true
+      },
+      "blocks": {
+        "cat_bicicletas": {
+          "type": "collection",
+          "settings": {
+            "collection": "bicicletas",
+            "collection_image": "shopify://shop_images/Bicicletas.jpg",
+            "collection_title": "Bicicletas"
+          }
+        },
+        "cat_fitness": {
+          "type": "collection",
+          "settings": {
+            "collection": "fitness",
+            "collection_image": "shopify://shop_images/Icono_Fitness.png",
+            "collection_title": "Fitness"
+          }
+        },
+        "cat_jugueteria": {
+          "type": "collection",
+          "settings": {
+            "collection": "jugueteria",
+            "collection_image": "shopify://shop_images/Icono_Jugueteria.png",
+            "collection_title": "Juguetería"
+          }
+        },
+        "cat_movilidad_electrica": {
+          "type": "collection",
+          "settings": {
+            "collection": "movilidad-electrica",
+            "collection_image": "shopify://shop_images/Icono_Movilidad_Electrica.jpg",
+            "collection_title": "Movilidad eléctrica"
+          }
+        },
+        "cat_max_tools": {
+          "type": "collection",
+          "settings": {
+            "collection": "max-tools",
+            "collection_image": "shopify://shop_images/Icono_Herramientas.png",
+            "collection_title": "Herramientas"
+          }
+        },
+        "cat_bambino": {
+          "type": "collection",
+          "settings": {
+            "collection": "bambino",
+            "collection_image": "shopify://shop_images/Icono_Coches_Bebe.jpg",
+            "collection_title": "Coches para bebé"
+          }
+        },
+        "cat_travel_system": {
+          "type": "collection",
+          "settings": {
+            "collection": "travel-system",
+            "collection_image": "shopify://shop_images/Icono_Maletas_de_Viaje.png",
+            "collection_title": "Maletas de viaje"
+          }
+        },
+        "cat_arboles_de_navidad": {
+          "type": "collection",
+          "settings": {
+            "collection": "arboles-de-navidad",
+            "collection_image": "shopify://shop_images/Icono_Arboles_de_Navidad.png",
+            "collection_title": "Navidad"
+          }
+        }
+      },
+      "block_order": [
+        "cat_bicicletas",
+        "cat_fitness",
+        "cat_jugueteria",
+        "cat_movilidad_electrica",
+        "cat_max_tools",
+        "cat_bambino",
+        "cat_travel_system",
+        "cat_arboles_de_navidad"
+      ]
+    },
+    "promo_row": {
+      "type": "multi-content",
+      "settings": {
+        "section_width": "fluid_container",
+        "color_scheme": "default",
         "heading": "",
         "description": "",
         "show_view_all_button": false,
@@ -1424,64 +174,1090 @@
         "equal_height_adjustment": true,
         "vertical_align": "start",
         "carousel_on_mobile": true,
-        "items_per_row_mobile": 2,
+        "items_per_row_mobile": 1,
         "padding_top": 30,
         "padding_bottom": 30,
         "reset_spacing": true
-      }
-    },
-    "rich_text_M6AB4X": {
-      "type": "rich-text",
+      },
       "blocks": {
-        "heading_J3dGiq": {
-          "type": "heading",
+        "promo_fitness": {
+          "type": "_group-media-content",
           "settings": {
-            "heading": "Advertencia:",
-            "font_size": 24,
-            "font_weight": "heading_weight",
-            "uppercase": false,
-            "spacing_bottom": 20
+            "color_scheme": "default",
+            "content_width": "33.3333%",
+            "media_type": "image",
+            "image": "shopify://shop_images/2-equipos-de-ejercicio.jpg",
+            "mobile_image": "shopify://shop_images/2-equipos-de-ejercicio.jpg",
+            "image_link": "shopify://collections/fitness",
+            "autoplay": false,
+            "video_ratio": "16/9",
+            "overlay_opacity": 0,
+            "content_type": "below",
+            "content_alignment": "start",
+            "content_position": "bottom-left",
+            "content_padding_block": 16,
+            "content_padding_inline": 10,
+            "content_mobile_image": false
           },
-          "blocks": {}
+          "blocks": {
+            "heading": {
+              "type": "heading",
+              "settings": {
+                "heading": "Ejercicio en casa al mejor precio",
+                "font_size": 22,
+                "font_weight": "heading_weight",
+                "uppercase": false,
+                "spacing_bottom": 6
+              }
+            },
+            "subheading": {
+              "type": "subheading",
+              "settings": {
+                "subheading": "Bicicleta de spinning desde $539.900",
+                "font_size": 15,
+                "font_weight": "body_weight",
+                "uppercase": false,
+                "spacing_bottom": 12
+              }
+            },
+            "button": {
+              "type": "button",
+              "settings": {
+                "show_full_width": false,
+                "first_button_label": "Comprar Fitness",
+                "first_button_link": "shopify://collections/fitness",
+                "first_button_aria_label": "Comprar Fitness",
+                "first_button_type": "link",
+                "second_button_label": "",
+                "second_button_link": "",
+                "second_button_aria_label": "",
+                "second_button_type": "primary",
+                "spacing_bottom": 0
+              }
+            }
+          },
+          "block_order": [
+            "heading",
+            "subheading",
+            "button"
+          ]
         },
-        "description_dnEAR8": {
-          "type": "description",
+        "promo_bikes": {
+          "type": "_group-media-content",
           "settings": {
-            "text": "<p><em>Los productos contienen nicotina, una sustancia adictiva. Venta exclusiva para mayores de 18 años (</em><a href=\"/policies/terms-of-service\" target=\"_blank\" title=\"Terms of Service\"><em>Ver Términos y Condiciones</em></a><em>). </em></p><p></p>",
-            "font_size": 18,
-            "font_weight": "body_weight",
-            "spacing_bottom": 10
+            "color_scheme": "default",
+            "content_width": "33.3333%",
+            "media_type": "image",
+            "image": "shopify://shop_images/8-bicicletas-mtb2.jpg",
+            "mobile_image": "shopify://shop_images/8-bicicletas-mtb2.jpg",
+            "image_link": "shopify://collections/bicicletas",
+            "autoplay": false,
+            "video_ratio": "16/9",
+            "overlay_opacity": 0,
+            "content_type": "below",
+            "content_alignment": "start",
+            "content_position": "bottom-left",
+            "content_padding_block": 16,
+            "content_padding_inline": 10,
+            "content_mobile_image": false
           },
-          "blocks": {}
+          "blocks": {
+            "heading": {
+              "type": "heading",
+              "settings": {
+                "heading": "Bicicletas Roadmaster Huricane 29\"",
+                "font_size": 22,
+                "font_weight": "heading_weight",
+                "uppercase": false,
+                "spacing_bottom": 6
+              }
+            },
+            "subheading": {
+              "type": "subheading",
+              "settings": {
+                "subheading": "Desde $579.900",
+                "font_size": 15,
+                "font_weight": "body_weight",
+                "uppercase": false,
+                "spacing_bottom": 12
+              }
+            },
+            "button": {
+              "type": "button",
+              "settings": {
+                "show_full_width": false,
+                "first_button_label": "Comprar Bicicletas",
+                "first_button_link": "shopify://collections/bicicletas",
+                "first_button_aria_label": "Comprar Bicicletas",
+                "first_button_type": "link",
+                "second_button_label": "",
+                "second_button_link": "",
+                "second_button_aria_label": "",
+                "second_button_type": "primary",
+                "spacing_bottom": 0
+              }
+            }
+          },
+          "block_order": [
+            "heading",
+            "subheading",
+            "button"
+          ]
+        },
+        "promo_tools": {
+          "type": "_group-media-content",
+          "settings": {
+            "color_scheme": "default",
+            "content_width": "33.3333%",
+            "media_type": "image",
+            "image": "shopify://shop_images/17-herramientas.jpg",
+            "mobile_image": "shopify://shop_images/17-herramientas.jpg",
+            "image_link": "shopify://collections/max-tools",
+            "autoplay": false,
+            "video_ratio": "16/9",
+            "overlay_opacity": 0,
+            "content_type": "below",
+            "content_alignment": "start",
+            "content_position": "bottom-left",
+            "content_padding_block": 16,
+            "content_padding_inline": 10,
+            "content_mobile_image": false
+          },
+          "blocks": {
+            "heading": {
+              "type": "heading",
+              "settings": {
+                "heading": "Herramientas de mano",
+                "font_size": 22,
+                "font_weight": "heading_weight",
+                "uppercase": false,
+                "spacing_bottom": 6
+              }
+            },
+            "subheading": {
+              "type": "subheading",
+              "settings": {
+                "subheading": "Desde $99.000",
+                "font_size": 15,
+                "font_weight": "body_weight",
+                "uppercase": false,
+                "spacing_bottom": 12
+              }
+            },
+            "button": {
+              "type": "button",
+              "settings": {
+                "show_full_width": false,
+                "first_button_label": "Comprar Herramientas",
+                "first_button_link": "shopify://collections/max-tools",
+                "first_button_aria_label": "Comprar Herramientas",
+                "first_button_type": "link",
+                "second_button_label": "",
+                "second_button_link": "",
+                "second_button_aria_label": "",
+                "second_button_type": "primary",
+                "spacing_bottom": 0
+              }
+            }
+          },
+          "block_order": [
+            "heading",
+            "subheading",
+            "button"
+          ]
         }
       },
       "block_order": [
-        "heading_J3dGiq",
-        "description_dnEAR8"
-      ],
-      "name": "t:sections.rich_text.name",
+        "promo_fitness",
+        "promo_bikes",
+        "promo_tools"
+      ]
+    },
+    "addi_banner": {
+      "type": "multi-content",
       "settings": {
-        "section_width": "container",
-        "color_scheme": "scheme-25500afe-f810-44c8-b7cd-8bc90ff950d9",
-        "content_alignment": "center",
-        "content_max_width": 100,
-        "enable_expand_content": false,
-        "expand_content_button": "See all Information",
-        "padding_top": 60,
-        "padding_bottom": 100,
-        "reset_spacing": true
-      }
+        "section_width": "fluid_container",
+        "color_scheme": "scheme-homesale-gray",
+        "heading": "",
+        "description": "",
+        "show_view_all_button": false,
+        "link_view_all_button": "",
+        "space_between_header": true,
+        "header_size": "medium",
+        "header_alignment": "center",
+        "column_gap": 30,
+        "equal_height_adjustment": true,
+        "vertical_align": "center",
+        "carousel_on_mobile": false,
+        "items_per_row_mobile": 1,
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "reset_spacing": false
+      },
+      "blocks": {
+        "addi_image": {
+          "type": "_group-media-content",
+          "settings": {
+            "color_scheme": "scheme-homesale-gray",
+            "content_width": "50%",
+            "media_type": "image",
+            "image": "shopify://shop_images/ADDI-BANNER-1.png",
+            "mobile_image": "shopify://shop_images/ADDI-BANNER-1.png",
+            "image_link": "https://co.addi.com/",
+            "autoplay": false,
+            "video_ratio": "16/9",
+            "overlay_opacity": 0,
+            "content_type": "below",
+            "content_alignment": "center",
+            "content_position": "middle-center",
+            "content_padding_block": 10,
+            "content_padding_inline": 10,
+            "content_mobile_image": false
+          }
+        },
+        "addi_text": {
+          "type": "_group-text",
+          "settings": {
+            "color_scheme": "scheme-homesale-gray",
+            "content_width": "50%",
+            "content_alignment": "center",
+            "vertical_align": "center",
+            "content_padding_block": 20,
+            "content_padding_inline": 20
+          },
+          "blocks": {
+            "heading": {
+              "type": "heading",
+              "settings": {
+                "heading": "Compra ahora, paga después",
+                "font_size": 36,
+                "font_weight": "heading_weight",
+                "uppercase": true,
+                "spacing_bottom": 10
+              }
+            },
+            "subheading": {
+              "type": "subheading",
+              "settings": {
+                "subheading": "Compra en Home Sale y paga hasta en 24 cuotas con Addi.",
+                "font_size": 18,
+                "font_weight": "subheading_weight",
+                "uppercase": false,
+                "spacing_bottom": 10
+              }
+            },
+            "description": {
+              "type": "description",
+              "settings": {
+                "text": "<p><strong>¡Solo necesitas tu cédula y WhatsApp!</strong> <a href=\"https://co.addi.com/terminos-y-condiciones\" target=\"_blank\" title=\"Términos y condiciones Addi\">Sujeto a criterios de elegibilidad</a>.</p>",
+                "font_size": 15,
+                "font_weight": "body_weight",
+                "spacing_bottom": 20
+              }
+            },
+            "button": {
+              "type": "button",
+              "settings": {
+                "show_full_width": false,
+                "first_button_label": "Compra ahora",
+                "first_button_link": "shopify://collections/producto-destacados",
+                "first_button_aria_label": "Ver productos destacados",
+                "first_button_type": "primary",
+                "second_button_label": "",
+                "second_button_link": "",
+                "second_button_aria_label": "",
+                "second_button_type": "primary",
+                "spacing_bottom": 0
+              }
+            }
+          },
+          "block_order": [
+            "heading",
+            "subheading",
+            "description",
+            "button"
+          ]
+        }
+      },
+      "block_order": [
+        "addi_image",
+        "addi_text"
+      ]
+    },
+    "picks": {
+      "type": "featured-collection-tabs-spotlight",
+      "settings": {
+        "section_width": "fluid_container",
+        "color_scheme": "default",
+        "display_mode": "product_tabs",
+        "eyebrow": "",
+        "heading": "",
+        "description": "",
+        "hero_cta_label": "",
+        "hero_cta_link": "",
+        "header_size": "large",
+        "header_alignment": "center",
+        "header_max_width": 1100,
+        "show_view_all_button": false,
+        "text_size_heading": 36,
+        "text_size_description": 18,
+        "text_size_tab": 0,
+        "text_size_card_title": 14,
+        "text_size_card_meta": 0,
+        "text_size_card_price": 0,
+        "text_size_quick_title": 0,
+        "text_size_quick_subtitle": 0,
+        "hero_type": "image",
+        "hero_placement": "side",
+        "hero_side": "right",
+        "hero_side_width": 30,
+        "hero_side_valign": "stretch",
+        "hero_mobile_placement": "below",
+        "hero_aspect": "fixed",
+        "hero_position": "center",
+        "hero_overlay_color": "#000000",
+        "hero_overlay_opacity": 0,
+        "hero_height": 360,
+        "hero_mobile_height": 220,
+        "hero_radius": 5,
+        "background_type": "color",
+        "background_overlay_color": "#000000",
+        "background_overlay_opacity": 0,
+        "media_height": 0,
+        "mobile_media_height": 0,
+        "media_padding_y": 0,
+        "media_padding_x": 0,
+        "media_radius": 0,
+        "shape_style": "none",
+        "shape_color": "#cc0033",
+        "shape_opacity": 0,
+        "animate_shape": false,
+        "shape_anchor": "auto",
+        "shape_offset_x": 0,
+        "shape_offset_y": 0,
+        "shape_rotation": 0,
+        "shape_scale": 100,
+        "bg_motion": "none",
+        "geo_overlay": "none",
+        "geo_parallax": false,
+        "motion_speed": "calm",
+        "motion_accent_1": "#cc0033",
+        "motion_accent_2": "#0a2b60",
+        "motion_opacity": 0,
+        "motion_intensity": 100,
+        "motion_blend": "normal",
+        "bg_grain": false,
+        "grain_opacity": 0,
+        "blend_edge": "none",
+        "blend_overlap": 0,
+        "motion_phase": 0,
+        "background_color": "#ffffff",
+        "tab_background": "#000000",
+        "tab_text_color": "#ffffff",
+        "tab_active_background": "#cc0033",
+        "tab_active_text_color": "#ffffff",
+        "card_background": "#ffffff",
+        "card_text_color": "#000000",
+        "badge_background": "#cc0033",
+        "badge_text_color": "#ffffff",
+        "card_surface": "solid",
+        "glass_refraction": false,
+        "interaction_effect": "lift",
+        "image_ratio": "square",
+        "image_height": 360,
+        "mobile_image_height": 260,
+        "image_fit": "cover",
+        "image_radius": 5,
+        "product_layout": "carousel",
+        "items_to_show": 8,
+        "items_per_row": 4,
+        "column_gap": 20,
+        "items_per_row_mobile": 2,
+        "show_card_title": true,
+        "card_title_lines": 2,
+        "show_card_vendor": true,
+        "show_card_price": true,
+        "show_card_compare_price": true,
+        "show_card_badges": true,
+        "show_quick_add": true,
+        "show_quick_view": true,
+        "show_card_rating": true,
+        "quick_columns": 4,
+        "quick_layout": "grid",
+        "quick_mobile_columns": 2,
+        "show_arrow": true,
+        "carousel_pagination": "show_dots_on_mobile",
+        "infinite": false,
+        "autoplay": false,
+        "autorotate_speed": 5,
+        "priority_loading": false,
+        "padding_top": 50,
+        "padding_bottom": 50,
+        "reset_spacing": true,
+        "hero_image": "shopify://shop_images/WhatsApp_Image_2025-05-28_at_08.59.59_1.jpg",
+        "hero_mobile_image": "shopify://shop_images/WhatsApp_Image_2025-05-28_at_08.59.59_1.jpg"
+      },
+      "blocks": {
+        "intro": {
+          "type": "rich_text",
+          "settings": {
+            "position": "top",
+            "heading": "Tu mejor selección para entrenar en casa",
+            "content": "<p>Los seleccionamos por ti: productos destacados por su conveniencia, funcionalidad y efectividad para entrenar en casa.</p>",
+            "text_alignment": "center",
+            "max_width": 1100,
+            "heading_size": 36,
+            "text_size": 18
+          }
+        },
+        "tab_fitness": {
+          "type": "collection",
+          "settings": {
+            "tab_key": "fitness",
+            "collection": "fitness",
+            "products": [
+              "caminadora-electrica-walkingpad-controlremoto-facil-guardado-negro-110v",
+              "homesale-bicicleta-de-spinning",
+              "banda-caminadora-trotadora-mecanica-4-funciones-en-1",
+              "homesale-eliptica-mecanica-10-en-1",
+              "par-de-pesas-hexagonales-10-lbs-encauchetadas-20-lbs-en-total",
+              "caminadora-electrica-trotadora-plegable-bluetooth-inclinacion",
+              "homesale-kit-de-pesas-20-kg",
+              "homesale-banda-caminadora-electrica",
+              "par-de-pesas-hexagonales-20-lbs-encauchetadas-40-lbs-en-total",
+              "mesa-de-ping-pong-profesional-18mm-color-azulclaro-con-rueda"
+            ],
+            "collection_title": "Entrenar en casa",
+            "cta_label": "Ver todo Fitness",
+            "cta_link": "",
+            "tab_eyebrow": "",
+            "tab_heading": "Equipos de ejercicio seleccionados para tu casa",
+            "tab_description": "",
+            "tab_hero_type": "inherit"
+          }
+        },
+        "tab_emobility": {
+          "type": "collection",
+          "settings": {
+            "tab_key": "movilidad",
+            "collection": "movilidad-electrica",
+            "products": [
+              "bicicleta-electrica-roadmaster-aguila-pro-60v-60-km-h-baul",
+              "moto-electrica-roadmaster-aguila-45kmh-800watts-freno-hidraulico-copia",
+              "bicicleta-electrica-roadmaster-1000-watts-freno-disco-72-v-gris-oscuro",
+              "bicicleta-el-ctrica-roadmaster-rayopro",
+              "bicicleta-electrica-roadmaster-350watts-40km-pantallalcd-48v-rosada"
+            ],
+            "collection_title": "Movilidad eléctrica",
+            "cta_label": "Ver movilidad eléctrica",
+            "cta_link": "",
+            "tab_eyebrow": "",
+            "tab_heading": "Movilidad Eléctrica Roadmaster: innovación y sostenibilidad en cada trayecto",
+            "tab_description": "",
+            "tab_hero_type": "inherit"
+          }
+        },
+        "tab_tools": {
+          "type": "collection",
+          "settings": {
+            "tab_key": "herramientas",
+            "collection": "max-tools",
+            "products": [],
+            "collection_title": "Herramientas",
+            "cta_label": "Ver herramientas",
+            "cta_link": "",
+            "tab_eyebrow": "",
+            "tab_heading": "Herramientas Max Tools para el hogar y el taller",
+            "tab_description": "",
+            "tab_hero_type": "inherit"
+          }
+        }
+      },
+      "block_order": [
+        "intro",
+        "tab_fitness",
+        "tab_emobility",
+        "tab_tools"
+      ]
+    },
+    "fitness_categories": {
+      "type": "collection-list",
+      "settings": {
+        "section_width": "fluid_container",
+        "color_scheme": "default",
+        "heading": "Máquinas de ejercicio y Fitness",
+        "description": "",
+        "show_view_all_button": false,
+        "header_size": "medium",
+        "header_alignment": "left",
+        "display_mode": "grid",
+        "image_ratio": "landscape",
+        "custom_ratio": "",
+        "items_per_row": 3,
+        "column_gap": 30,
+        "show_arrow": false,
+        "carousel_pagination": "disable",
+        "infinite": false,
+        "autoplay": false,
+        "autorotate_speed": 5,
+        "reveal": false,
+        "items_per_row_mobile": 2,
+        "design": "default",
+        "collection_information_position": "overlay_image",
+        "text_alignment": "left",
+        "show_product_count": true,
+        "show_icon": false,
+        "show_description": false,
+        "column_reverse_content": false,
+        "font_size": 18,
+        "font_weight": "heading_weight",
+        "font_size_description": 14,
+        "font_weight_description": "body_weight",
+        "information_spacing": 12,
+        "rounded_image": false,
+        "image_custom_width": false,
+        "image_width": 200,
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "reset_spacing": false
+      },
+      "blocks": {
+        "fit_abdominales": {
+          "type": "collection",
+          "settings": {
+            "collection": "abdominales",
+            "collection_image": "",
+            "collection_title": "Máquinas Abdominales"
+          }
+        },
+        "fit_elipticas": {
+          "type": "collection",
+          "settings": {
+            "collection": "elipticas",
+            "collection_image": "",
+            "collection_title": "Elípticas"
+          }
+        },
+        "fit_caminadoras": {
+          "type": "collection",
+          "settings": {
+            "collection": "caminadoras-y-trotadoras",
+            "collection_image": "",
+            "collection_title": "Caminadoras y Trotadoras"
+          }
+        },
+        "fit_pesas": {
+          "type": "collection",
+          "settings": {
+            "collection": "pesas",
+            "collection_image": "",
+            "collection_title": "Pesas y Accesorios"
+          }
+        },
+        "fit_spinning": {
+          "type": "collection",
+          "settings": {
+            "collection": "bicicletas-de-spinning",
+            "collection_image": "",
+            "collection_title": "Spinning"
+          }
+        },
+        "fit_plataformas": {
+          "type": "collection",
+          "settings": {
+            "collection": "plataformas-vibratorias",
+            "collection_image": "",
+            "collection_title": "Plataformas Vibratorias"
+          }
+        }
+      },
+      "block_order": [
+        "fit_abdominales",
+        "fit_elipticas",
+        "fit_caminadoras",
+        "fit_pesas",
+        "fit_spinning",
+        "fit_plataformas"
+      ]
+    },
+    "bikes": {
+      "type": "featured-collection-tabs-spotlight",
+      "settings": {
+        "section_width": "fluid_container",
+        "color_scheme": "scheme-homesale-gray",
+        "display_mode": "product_tabs",
+        "eyebrow": "",
+        "heading": "",
+        "description": "",
+        "hero_cta_label": "",
+        "hero_cta_link": "",
+        "header_size": "large",
+        "header_alignment": "center",
+        "header_max_width": 1100,
+        "show_view_all_button": false,
+        "text_size_heading": 36,
+        "text_size_description": 18,
+        "text_size_tab": 0,
+        "text_size_card_title": 14,
+        "text_size_card_meta": 0,
+        "text_size_card_price": 0,
+        "text_size_quick_title": 0,
+        "text_size_quick_subtitle": 0,
+        "hero_type": "image",
+        "hero_placement": "side",
+        "hero_side": "left",
+        "hero_side_width": 30,
+        "hero_side_valign": "stretch",
+        "hero_mobile_placement": "above",
+        "hero_aspect": "fixed",
+        "hero_position": "center",
+        "hero_overlay_color": "#000000",
+        "hero_overlay_opacity": 0,
+        "hero_height": 360,
+        "hero_mobile_height": 220,
+        "hero_radius": 5,
+        "background_type": "color",
+        "background_overlay_color": "#000000",
+        "background_overlay_opacity": 0,
+        "media_height": 0,
+        "mobile_media_height": 0,
+        "media_padding_y": 0,
+        "media_padding_x": 0,
+        "media_radius": 0,
+        "shape_style": "none",
+        "shape_color": "#cc0033",
+        "shape_opacity": 0,
+        "animate_shape": false,
+        "shape_anchor": "auto",
+        "shape_offset_x": 0,
+        "shape_offset_y": 0,
+        "shape_rotation": 0,
+        "shape_scale": 100,
+        "bg_motion": "none",
+        "geo_overlay": "none",
+        "geo_parallax": false,
+        "motion_speed": "calm",
+        "motion_accent_1": "#cc0033",
+        "motion_accent_2": "#0a2b60",
+        "motion_opacity": 0,
+        "motion_intensity": 100,
+        "motion_blend": "normal",
+        "bg_grain": false,
+        "grain_opacity": 0,
+        "blend_edge": "none",
+        "blend_overlap": 0,
+        "motion_phase": 0,
+        "background_color": "#f7f7f7",
+        "tab_background": "#000000",
+        "tab_text_color": "#ffffff",
+        "tab_active_background": "#cc0033",
+        "tab_active_text_color": "#ffffff",
+        "card_background": "#ffffff",
+        "card_text_color": "#000000",
+        "badge_background": "#cc0033",
+        "badge_text_color": "#ffffff",
+        "card_surface": "solid",
+        "glass_refraction": false,
+        "interaction_effect": "lift",
+        "image_ratio": "square",
+        "image_height": 360,
+        "mobile_image_height": 260,
+        "image_fit": "cover",
+        "image_radius": 5,
+        "product_layout": "carousel",
+        "items_to_show": 8,
+        "items_per_row": 4,
+        "column_gap": 20,
+        "items_per_row_mobile": 2,
+        "show_card_title": true,
+        "card_title_lines": 2,
+        "show_card_vendor": true,
+        "show_card_price": true,
+        "show_card_compare_price": true,
+        "show_card_badges": true,
+        "show_quick_add": true,
+        "show_quick_view": true,
+        "show_card_rating": true,
+        "quick_columns": 4,
+        "quick_layout": "grid",
+        "quick_mobile_columns": 2,
+        "show_arrow": true,
+        "carousel_pagination": "show_dots_on_mobile",
+        "infinite": false,
+        "autoplay": false,
+        "autorotate_speed": 5,
+        "priority_loading": false,
+        "padding_top": 50,
+        "padding_bottom": 50,
+        "reset_spacing": true,
+        "hero_image": "shopify://shop_images/banner-bicicletas-m.jpg",
+        "hero_mobile_image": "shopify://shop_images/banner-bicicletas-m.jpg"
+      },
+      "blocks": {
+        "intro": {
+          "type": "rich_text",
+          "settings": {
+            "position": "top",
+            "heading": "Descubre nuestra gama exclusiva de bicicletas",
+            "content": "<p>Roadmaster y GW: montaña, ruta, infantiles y eléctricas con garantía y envío a todo Colombia.</p>",
+            "text_alignment": "center",
+            "max_width": 1100,
+            "heading_size": 36,
+            "text_size": 18
+          }
+        },
+        "tab_mtb": {
+          "type": "collection",
+          "settings": {
+            "tab_key": "mtb",
+            "collection": "bicicletas-mtb",
+            "products": [],
+            "collection_title": "MTB",
+            "cta_label": "Ver bicicletas MTB",
+            "cta_link": "",
+            "tab_eyebrow": "",
+            "tab_heading": "Bicicletas de montaña para todos los niveles",
+            "tab_description": "",
+            "tab_hero_type": "inherit"
+          }
+        },
+        "tab_ruta": {
+          "type": "collection",
+          "settings": {
+            "tab_key": "ruta",
+            "collection": "bicicletas-ruta",
+            "products": [],
+            "collection_title": "Ruta",
+            "cta_label": "Ver bicicletas de ruta",
+            "cta_link": "",
+            "tab_eyebrow": "",
+            "tab_heading": "Bicicletas de ruta livianas y veloces",
+            "tab_description": "",
+            "tab_hero_type": "inherit"
+          }
+        },
+        "tab_infantil": {
+          "type": "collection",
+          "settings": {
+            "tab_key": "infantil",
+            "collection": "bicicleta-infantil",
+            "products": [],
+            "collection_title": "Infantiles",
+            "cta_label": "Ver bicicletas infantiles",
+            "cta_link": "",
+            "tab_eyebrow": "",
+            "tab_heading": "Bicicletas para niños de todas las edades",
+            "tab_description": "",
+            "tab_hero_type": "inherit"
+          }
+        },
+        "tab_electricas": {
+          "type": "collection",
+          "settings": {
+            "tab_key": "electricas",
+            "collection": "bicicletas-electricas",
+            "products": [],
+            "collection_title": "Eléctricas",
+            "cta_label": "Ver bicicletas eléctricas",
+            "cta_link": "",
+            "tab_eyebrow": "",
+            "tab_heading": "Bicicletas eléctricas Roadmaster: hasta 60 km/h de autonomía urbana",
+            "tab_description": "",
+            "tab_hero_type": "inherit"
+          }
+        }
+      },
+      "block_order": [
+        "intro",
+        "tab_mtb",
+        "tab_ruta",
+        "tab_infantil",
+        "tab_electricas"
+      ]
+    },
+    "popular_categories": {
+      "type": "collection-list",
+      "settings": {
+        "section_width": "fluid_container",
+        "color_scheme": "default",
+        "heading": "Categorías populares",
+        "description": "",
+        "show_view_all_button": false,
+        "header_size": "medium",
+        "header_alignment": "left",
+        "display_mode": "grid",
+        "image_ratio": "square",
+        "custom_ratio": "",
+        "items_per_row": 6,
+        "column_gap": 20,
+        "show_arrow": false,
+        "carousel_pagination": "disable",
+        "infinite": false,
+        "autoplay": false,
+        "autorotate_speed": 5,
+        "reveal": false,
+        "items_per_row_mobile": 3,
+        "design": "default",
+        "collection_information_position": "below_image",
+        "text_alignment": "center",
+        "show_product_count": false,
+        "show_icon": false,
+        "show_description": false,
+        "column_reverse_content": false,
+        "font_size": 14,
+        "font_weight": "heading_weight",
+        "font_size_description": 14,
+        "font_weight_description": "body_weight",
+        "information_spacing": 10,
+        "rounded_image": true,
+        "image_custom_width": false,
+        "image_width": 200,
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "reset_spacing": false
+      },
+      "blocks": {
+        "pop_fitness": {
+          "type": "collection",
+          "settings": {
+            "collection": "fitness",
+            "collection_image": "{{ block.settings.collection.metafields.my_fields.logo.value }}",
+            "collection_title": "Equipos de Ejercicio"
+          }
+        },
+        "pop_pesas": {
+          "type": "collection",
+          "settings": {
+            "collection": "pesas",
+            "collection_image": "{{ block.settings.collection.metafields.my_fields.logo.value }}",
+            "collection_title": "Pesas y Accesorios"
+          }
+        },
+        "pop_bicicletas_mtb": {
+          "type": "collection",
+          "settings": {
+            "collection": "bicicletas-mtb",
+            "collection_image": "{{ block.settings.collection.metafields.my_fields.logo.value }}",
+            "collection_title": "Bicicletas MTB"
+          }
+        },
+        "pop_bicicleta_infantil": {
+          "type": "collection",
+          "settings": {
+            "collection": "bicicleta-infantil",
+            "collection_image": "{{ block.settings.collection.metafields.my_fields.logo.value }}",
+            "collection_title": "Bicicletas infantiles"
+          }
+        },
+        "pop_carros_y_camionetas_electricas": {
+          "type": "collection",
+          "settings": {
+            "collection": "carros-y-camionetas-electricas",
+            "collection_image": "{{ block.settings.collection.metafields.my_fields.logo.value }}",
+            "collection_title": "Montables Eléctricos"
+          }
+        },
+        "pop_bambino": {
+          "type": "collection",
+          "settings": {
+            "collection": "bambino",
+            "collection_image": "{{ block.settings.collection.metafields.my_fields.logo.value }}",
+            "collection_title": "Coches para Bebés"
+          }
+        },
+        "pop_patinetas_electricas": {
+          "type": "collection",
+          "settings": {
+            "collection": "patinetas-electricas",
+            "collection_image": "{{ block.settings.collection.metafields.my_fields.logo.value }}",
+            "collection_title": "Patinetas Eléctricas"
+          }
+        },
+        "pop_bicicletas_electricas": {
+          "type": "collection",
+          "settings": {
+            "collection": "bicicletas-electricas",
+            "collection_image": "{{ block.settings.collection.metafields.my_fields.logo.value }}",
+            "collection_title": "Bicicletas Eléctricas"
+          }
+        },
+        "pop_max_tools": {
+          "type": "collection",
+          "settings": {
+            "collection": "max-tools",
+            "collection_image": "{{ block.settings.collection.metafields.my_fields.logo.value }}",
+            "collection_title": "Herramientas"
+          }
+        },
+        "pop_travel_system": {
+          "type": "collection",
+          "settings": {
+            "collection": "travel-system",
+            "collection_image": "{{ block.settings.collection.metafields.my_fields.logo.value }}",
+            "collection_title": "Maletas de Viaje"
+          }
+        },
+        "pop_arboles_de_navidad": {
+          "type": "collection",
+          "settings": {
+            "collection": "arboles-de-navidad",
+            "collection_image": "{{ block.settings.collection.metafields.my_fields.logo.value }}",
+            "collection_title": "Árboles de Navidad"
+          }
+        },
+        "pop_elipticas": {
+          "type": "collection",
+          "settings": {
+            "collection": "elipticas",
+            "collection_image": "{{ block.settings.collection.metafields.my_fields.logo.value }}",
+            "collection_title": "Elípticas"
+          }
+        }
+      },
+      "block_order": [
+        "pop_fitness",
+        "pop_pesas",
+        "pop_bicicletas_mtb",
+        "pop_bicicleta_infantil",
+        "pop_carros_y_camionetas_electricas",
+        "pop_bambino",
+        "pop_patinetas_electricas",
+        "pop_bicicletas_electricas",
+        "pop_max_tools",
+        "pop_travel_system",
+        "pop_arboles_de_navidad",
+        "pop_elipticas"
+      ]
+    },
+    "bestsellers": {
+      "type": "featured-collection",
+      "settings": {
+        "section_width": "fluid_container",
+        "color_scheme": "default",
+        "heading": "Los más vendidos en Homesale",
+        "description": "",
+        "show_view_all_button": true,
+        "space_between_header": true,
+        "header_size": "medium",
+        "header_alignment": "left",
+        "show_header_on_mobile": true,
+        "enable_collection_deal": false,
+        "messages": "",
+        "end_time": "",
+        "timer_style": "default",
+        "collections_type": "carousel",
+        "collection": "sale",
+        "items_to_show": 12,
+        "items_per_row": 5,
+        "rows_on_desktop": 2,
+        "enable_load_more": false,
+        "button_label": "",
+        "column_gap": 20,
+        "show_arrow": true,
+        "carousel_pagination": "show_dots_on_mobile",
+        "infinite": false,
+        "autoplay": false,
+        "autorotate_speed": 5,
+        "reveal": false,
+        "equal_height_adjustment": true,
+        "sticky_block": false,
+        "content_width": 30,
+        "block_position": "left",
+        "carousel_on_mobile": true,
+        "items_per_row_mobile": 2,
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "reset_spacing": false
+      },
+      "blocks": {},
+      "block_order": []
+    },
+    "trust": {
+      "type": "icon-box",
+      "settings": {
+        "section_width": "fluid_container",
+        "color_scheme": "scheme-homesale-gray",
+        "type": "default",
+        "column_gap": 30,
+        "icon_position": "left",
+        "icon_size": 48,
+        "spacing": 14,
+        "show_border": false,
+        "enable_background": false,
+        "background": "",
+        "content_alignment": "left",
+        "heading_font_size": 16,
+        "heading_font_weight": "heading_weight",
+        "heading_uppercase": false,
+        "heading_spacing_bottom": 6,
+        "des_font_size": 14,
+        "des_font_weight": "body_weight",
+        "carousel_on_mobile": true,
+        "items_per_row_mobile": "1",
+        "padding_top": 35,
+        "padding_bottom": 35,
+        "reset_spacing": false
+      },
+      "blocks": {
+        "trust_store": {
+          "type": "icon_box",
+          "settings": {
+            "icon_image": "shopify://shop_images/001-store.png",
+            "icon_svg": "none",
+            "custom_svg": "",
+            "heading": "Selección de alta calidad",
+            "description": "<p>Control total de la calidad de nuestros productos para su tranquilidad.</p>"
+          }
+        },
+        "trust_support": {
+          "type": "icon_box",
+          "settings": {
+            "icon_image": "shopify://shop_images/003-headset.png",
+            "icon_svg": "none",
+            "custom_svg": "",
+            "heading": "Soporte en línea",
+            "description": "<p>Acceso instantáneo a soporte profesional por WhatsApp.</p>"
+          }
+        },
+        "trust_shipping": {
+          "type": "icon_box",
+          "settings": {
+            "icon_image": "shopify://shop_images/002-truck_67f28be3-299c-4d60-a57e-031a9bdba753.png",
+            "icon_svg": "none",
+            "custom_svg": "",
+            "heading": "Envíos rápidos",
+            "description": "<p>Entrega rápida y confiable desde nuestras bodegas.</p>"
+          }
+        },
+        "trust_prices": {
+          "type": "icon_box",
+          "settings": {
+            "icon_image": "shopify://shop_images/004-wallet.png",
+            "icon_svg": "none",
+            "custom_svg": "",
+            "heading": "Precios asequibles",
+            "description": "<p>Precios directos de fábrica para un máximo ahorro.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "trust_store",
+        "trust_support",
+        "trust_shipping",
+        "trust_prices"
+      ]
     }
   },
   "order": [
-    "featured_collection_tabs_spotlight_Ljzi7w",
-    "featured_collection_tabs_spotlight_EQLJLD",
-    "featured_collection_tabs_spotlight_continue1",
-    "featured_collection_tabs_spotlight_bKMmTX",
-    "featured_collection_tabs_spotlight_continue3",
-    "icon_box_eTQYXg",
-    "rich_text_ygVepk",
-    "multi_content_cyRgdQ",
-    "rich_text_M6AB4X"
+    "hero",
+    "categories",
+    "promo_row",
+    "addi_banner",
+    "picks",
+    "fitness_categories",
+    "bikes",
+    "popular_categories",
+    "bestsellers",
+    "trust"
   ]
 }

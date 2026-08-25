@@ -68,7 +68,7 @@
           "type": "_product-countdown-timer",
           "settings": {
             "timer_style": "default",
-            "content": "🔥 Hurry Up! Sale ends in:"
+            "content": "🔥 ¡Date prisa! La oferta termina en:"
           },
           "blocks": {}
         },
@@ -76,9 +76,9 @@
           "type": "_product-variant-picker",
           "settings": {
             "variant_type": "swatches",
-            "show_size_guide": true,
-            "size_guide_label": "ADVERTENCIAS NICOTINA",
-            "size_guide_page": "advertencia-productos-con-nicotina"
+            "show_size_guide": false,
+            "size_guide_label": "Guía de tallas",
+            "size_guide_page": ""
           },
           "blocks": {}
         },
@@ -90,12 +90,6 @@
             "show_share": true
           },
           "blocks": {}
-        },
-        "rapi_rapi_bundle_FtiRHf": {
-          "type": "shopify://apps/rapi/blocks/rapi-bundle/99617c17-a32b-4e70-a883-7a155610d032",
-          "settings": {
-            "product": "{{closest.product}}"
-          }
         },
         "buy_buttons_LcQGtR": {
           "type": "_product-buy-buttons",
@@ -145,7 +139,7 @@
         "complementary_products_Wip9YG": {
           "type": "_product-complementary-products",
           "settings": {
-            "heading": "Combina bien con:",
+            "heading": "Complementa tu compra:",
             "product_list_limit": 10,
             "products_per_page": 3,
             "show_navigation": true,
@@ -159,7 +153,7 @@
           "name": "t:blocks.general.collapsible_row.name",
           "settings": {
             "heading": "Envíos y Entrega",
-            "content": "<h4>🚚 Envíos rápidos de {{ product.title }} en todo Colombia</h4><p><strong>Horario de corte:</strong> 1:00 p.m. (lunes a sábado).</p><p>No realizamos entregas los <strong>domingos ni festivos</strong>. Los pedidos realizados después del horario de corte o en días no hábiles se procesarán el siguiente día hábil.</p><p><strong>Tiempos de entrega estimados:</strong></p><ul><li><strong>Quick⚡ Bogotá y alrededores (Zona 1 a 3):</strong> entrega prioritaria estimada el mismo día (3:00 p.m. a 9:00 p.m.) para pedidos realizados antes de la 1:00 p.m., sujeta a condiciones logísticas y cobertura.</li><li><strong>Quick⚡ Zona 4 (Chía, Cajicá, Soacha, Funza, Madrid y Mosquera):</strong> hasta 48 horas posteriores al despacho, según condiciones de transporte y ubicación.</li><li><strong>Local Bogotá (Coordinadora, Envía, Servientrega):</strong> 1 a 2 días hábiles.</li><li><strong>Envío Nacional (Coordinadora, Envía, Servientrega):</strong> 2 a 5 días hábiles.</li><li><strong>Envío Zonal / Rural (Coordinadora Zonal):</strong> 3 a 8 días hábiles.</li></ul><p>⚠️ <strong>Nota importante:</strong> Los tiempos de entrega son <strong>estimados</strong> y pueden variar por factores externos como alta demanda de transportadoras, condiciones climáticas, cierres viales o fuerza mayor. GRUPO DIY S.A.S. brindará acompañamiento para el seguimiento del envío ante la transportadora correspondiente.</p><p><strong>Tarifas de envío (referenciales):</strong></p><p></p><ul><li>🚚 Envío gratis Bogotá en pedidos superiores a $80.000 (hasta 3 kg).</li><li>🚚 Envío gratis nacional en pedidos superiores a $250.000 (hasta 3 kg).</li><li>⚡ Quick Bogotá: desde $8.000.</li><li>📦 Envío local Bogotá: desde $8.000.</li><li>🌎 Envío nacional: desde $16.000.</li><li>🏞️ Envío zonal: desde $18.000.</li></ul><p></p><p><strong>📍 Cobertura:</strong> Envíos a nivel nacional en Colombia.</p><p><strong>👉 ¿Dudas? Escríbenos:</strong> <a href=\"mailto:ventas@diyvape.co\">ventas@diyvape.co</a> o al WhatsApp: <a href=\"https://wa.me/573161616713\" target=\"_blank\" title=\"https://wa.me/573161616713\">+573161616713</a>.</p>",
+            "content": "<h4>🚚 Envíos de {{ product.title }} a todo Colombia</h4><p>Despachamos tu pedido en un <strong>máximo de 5 días hábiles</strong> después de confirmado el pago. El tiempo total de entrega depende de la transportadora y de tu ciudad. No realizamos envíos domingos ni festivos.</p><p><strong>Envío gratis</strong> en pedidos superiores a <strong>$1.000.000</strong> con destino a capitales de departamento (promoción \"Envío gratis, aplican T&C\"). Para otras ciudades te informamos el costo del envío después del pago.</p><p><strong>Al recibir:</strong> revisa el empaque y el producto antes de firmar la guía. Si llega dañado, repórtalo a la transportadora en el momento de la entrega y envíanos fotos el mismo día para gestionar la reclamación ante el seguro del transporte.</p><p>Consulta las condiciones completas en nuestra <a href=\"/policies/shipping-policy\" target=\"_blank\" title=\"Política de envíos\">política de envíos</a>.</p>",
             "use_product_description": false,
             "open": false
           },
@@ -170,21 +164,21 @@
           "name": "t:blocks.product.delivery_return.name",
           "settings": {
             "enable_widget": true,
-            "cutoff_title": "Horario de Corte",
+            "cutoff_title": "Horario de corte",
             "cutoff_hour": 13,
-            "shipping_title": "Envío Gratis",
-            "bogota_threshold_k": 80,
-            "national_threshold_k": 250,
-            "max_weight_kg": 3,
-            "trust_text": "Despacho mismo día para pedidos confirmados antes de la 1:00 p.m. (hora Colombia)",
+            "shipping_title": "Envío gratis",
+            "bogota_threshold_k": 1000,
+            "national_threshold_k": 1000,
+            "max_weight_kg": 100,
+            "trust_text": "Despachamos tu pedido en un máximo de 5 días hábiles después de confirmado el pago",
             "holidays_list": "2026-01-01\n2026-01-12\n2026-03-23\n2026-04-02\n2026-04-03\n2026-05-01\n2026-05-18\n2026-06-08\n2026-06-15\n2026-06-29\n2026-07-20\n2026-08-07\n2026-08-17\n2026-10-12\n2026-11-02\n2026-11-16\n2026-12-08\n2026-12-25",
             "delivery_design": "horizontal",
             "delivery_content_icon": "truck",
-            "delivery_content": "<p>Realiza tu pedido de <strong>lunes a sábado</strong> <strong>antes de la 1:00 p.m.</strong> para que sea despachado el mismo día de tu compra</p>",
+            "delivery_content": "<p>Despachamos tu pedido en un <strong>máximo de 5 días hábiles</strong>. No realizamos envíos <strong>domingos ni festivos</strong>.</p>",
             "discount_content_icon": "none",
             "discount_content": "",
             "return_content_icon": "free_shipping",
-            "return_content": "<p><strong>Envío Gratis </strong>a partir de <strong>$80.000</strong> en Bogotá y <strong>$250.000</strong> a nivel Nacional (Válido de 0 - 3 KG).</p>"
+            "return_content": "<p><strong>Envío gratis</strong> en pedidos superiores a <strong>$1.000.000</strong> a capitales de departamento (<a href=\"/policies/shipping-policy\" target=\"_blank\" title=\"Política de envíos\">T&C</a>).</p>"
           },
           "blocks": {}
         },
@@ -192,23 +186,9 @@
           "type": "_product-collapsible-row",
           "settings": {
             "heading": "Garantía",
-            "content": "<h4>POLÍTICA DE GARANTÍA, DEVOLUCIONES Y REVERSIÓN DEL PAGO </h4><h4>1. Garantía Legal</h4><p>De acuerdo con los artículos 3, 7, 8, 10 y 11 de la Ley 1480 de 2011 (Estatuto del Consumidor) y la Ley 2354 de 2024, GRUPO DIY S.A.S. garantiza que los productos comercializados cumplen con los estándares de calidad, idoneidad y seguridad exigidos.</p><h4>Término de la Garantía:</h4><p>Los productos no consumibles cuentan con una garantía legal de <strong>tres (3) meses</strong> a partir de la fecha de compra.</p><p>Los productos consumibles tienen una garantía de <strong>veinticuatro (24) horas</strong> desde la recepción del producto.</p><p><em>Nota:</em> Algunos productos pueden tener términos de garantía específicos, los cuales se indicarán en la descripción del producto o en el certificado de garantía.</p><h4>2. Productos Consumibles</h4><p>Se consideran consumibles los siguientes productos:</p><p>Aromas, bases, baterías, boquillas, cartuchos, claromizadores, líquidos base libre, sales de nicotina, pods de recambio, resistencias (coils), vidrios y equipos desechables.</p><h4>Condiciones de Garantía para Consumibles:</h4><p>La garantía de estos productos es de <strong>24 horas</strong> tras su entrega.</p><p>Si un producto consumible presenta fallas de fabricación o llega defectuoso, el usuario deberá comunicarse con GRUPO DIY S.A.S. a través de:<br/><br/><strong>Formulario Web:</strong> <a href=\"https://diyvape.co/pages/peticiones-quejas-y-reclamos\">Peticiones, Quejas y Reclamos</a></p><p><strong>WhatsApp:</strong> <a href=\"https://wa.me/573206682351\" target=\"_blank\" title=\"https://wa.me/573206682351\">+57 320 668 2351</a></p><p><strong>Correo electrónico:</strong> <a href=\"mailto:pqrs@diyvape.co\">pqrs@diyvape.co</a><br/><br/>Pasado este tiempo, se considera que el usuario ha recibido el producto en condiciones óptimas y la garantía expira.</p><h4><strong>Líquidos y Desechables:</strong></h4><p><strong>No se aceptan devoluciones ni cambios de líquidos base libre, sales de nicotina, aromas o bases abiertos</strong> debido a razones de higiene y seguridad.</p><p>Los dispositivos desechables cuentan con garantía en defectos de fábrica reportados dentro de las primeras <strong>24 horas</strong> tras la entrega.</p><h4>3. Exclusiones de Garantía</h4><p>La garantía no aplicará en los siguientes casos:</p><p>Uso indebido o manipulación contraria a las instrucciones del producto.</p><p>Desgaste normal de piezas como resistencias, boquillas y baterías.</p><p>Daños por fluctuaciones eléctricas, golpes, caídas, humedad o intervención de personal no autorizado.</p><p>Productos abiertos, modificados o reparados por terceros.</p><h4>4. Procedimiento para Reclamos de Garantía</h4><p>Para radicar una solicitud de garantía, el usuario debe enviar un correo electrónico o utilizar nuestro formulario web. La solicitud debe contener:</p><p>Nombre completo.</p><p>Número de cédula.</p><p>Teléfono y correo electrónico.</p><p>Descripción del producto y la falla presentada.</p><p>Evidencias como fotos o videos.</p><p>El producto defectuoso deberá ser enviado o entregado en uno de nuestros puntos físicos. La respuesta será entregada en un plazo máximo de <strong>15 días hábiles</strong>.</p><h4>5. Derecho de Retracto</h4><p>El usuario podrá ejercer el derecho de retracto dentro de los <strong>cinco (5) días hábiles</strong> posteriores a la recepción del producto. El producto debe estar sin uso y con empaques originales. Los costos de devolución son asumidos por el cliente.</p><h4>6. Reversión del Pago</h4><p>El usuario podrá solicitar la reversión del pago en los siguientes casos:</p><p>El producto no fue entregado en la fecha acordada.</p><p>El producto no corresponde al solicitado o está defectuoso.</p><p>El usuario fue víctima de fraude.</p><p>La solicitud debe presentarse dentro de los <strong>cinco (5) días hábiles</strong> posteriores a la recepción del producto.</p><h4>Información Adicional</h4><p>Para mayor información o aclaraciones, contáctenos:</p><p><strong>WhatsApp Principal:</strong> <a href=\"https://wa.me/573206682351\">+57 320 668 2351</a></p><p><strong>Formulario Web:</strong> <a href=\"https://diyvape.co/pages/peticiones-quejas-y-reclamos\">Peticiones, Quejas y Reclamos</a></p><p><strong>Correo electrónico:</strong> <a href=\"mailto:pqrs@diyvape.co\">pqrs@diyvape.co</a></p><p><strong>¡Gracias por confiar en DIYVAPE.CO!</strong></p>",
+            "content": "<h4>Garantía y devoluciones</h4><p>Todos nuestros productos cuentan con la garantía legal establecida en la <strong>Ley 1480 de 2011</strong> (Estatuto del Consumidor). El término de garantía puede variar según el producto y la marca; revísalo en la descripción del producto.</p><p>Para hacer efectiva la garantía o ejercer el derecho de retracto (5 días hábiles desde la entrega, producto sin uso y en su empaque original), escríbenos por <a href=\"https://wa.me/573132882596\" target=\"_blank\" title=\"WhatsApp Homesale\">WhatsApp</a>, al correo <a href=\"mailto:servicioalcliente@home-sale.com.co\">servicioalcliente@home-sale.com.co</a> o a través de nuestro <a href=\"/pages/pqrs\" title=\"PQRS\">formulario PQRS</a>.</p><p>Consulta las condiciones completas en nuestra <a href=\"/policies/refund-policy\" target=\"_blank\" title=\"Política de garantías y devoluciones\">política de garantías y devoluciones</a>.</p>",
             "use_product_description": false,
             "open": false
-          },
-          "blocks": {}
-        },
-        "product_metadatos_4hE9km": {
-          "type": "_product-metadatos",
-          "name": "Producto: Metadatos + Manual + Nota",
-          "settings": {
-            "heading_metadatos": "Metadatos del Producto",
-            "open_metadatos": false,
-            "heading_manual": "Manual de Uso",
-            "open_manual": false,
-            "heading_nota": "Nota Importante",
-            "open_nota": false,
-            "nota_titulo": "Nota Importante"
           },
           "blocks": {}
         }
@@ -223,7 +203,6 @@
         "countdown_timer_QB4Ydn",
         "variant_picker_tcCihG",
         "product_addons_YRaprz",
-        "rapi_rapi_bundle_FtiRHf",
         "buy_buttons_LcQGtR",
         "model_size_XM7z6E",
         "pickup_availability_cyVydQ",
@@ -233,8 +212,7 @@
         "complementary_products_Wip9YG",
         "product_collapsible_row_4gGjVF",
         "product_delivery_return_d4tVYn",
-        "collapsible_row_eLaQpR",
-        "product_metadatos_4hE9km"
+        "collapsible_row_eLaQpR"
       ],
       "settings": {
         "section_width": "container",
@@ -299,19 +277,19 @@
         "scrolling_text_bPAypi": {
           "type": "scrolling_text",
           "settings": {
-            "content": "Envío Gratis a partir de $80.000"
+            "content": "Envío gratis en pedidos superiores a $1.000.000"
           }
         },
         "scrolling_text_neDyj9": {
           "type": "scrolling_text",
           "settings": {
-            "content": "Los mejores productos de Vapeo"
+            "content": "Paga hasta en 24 cuotas con Addi"
           }
         },
         "scrolling_text_NCYz3A": {
           "type": "scrolling_text",
           "settings": {
-            "content": "Vape Shop Nº1 en Colombia"
+            "content": "Garantía en todos nuestros productos"
           }
         }
       },

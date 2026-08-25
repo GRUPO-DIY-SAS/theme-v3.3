@@ -10,14 +10,14 @@
         "heading_xwFKKa": {
           "type": "heading",
           "settings": {
-            "page_title": "Blog de Vapeo en Colombia: Guías, Comparativas y Regulación",
+            "page_title": "Blog Homesale: guías, consejos y novedades",
             "header_size": "default"
           }
         },
         "description_YRWpkt": {
           "type": "description",
           "settings": {
-            "description": "<p>Aprende todo sobre vapeo en Colombia. Guías para principiantes, comparativas de dispositivos, sales de nicotina y regulación vigente. Contenido verificado.<\/p>"
+            "description": "<p>Consejos para entrenar en casa, elegir tu bicicleta o tu equipo de movilidad eléctrica, y novedades de nuestras marcas.</p>"
           }
         }
       },
@@ -64,8 +64,8 @@
         "image_banner_mhPKkQ": {
           "type": "image_banner",
           "settings": {
-            "image": "shopify:\/\/shop_images\/DIYVAPESHOP.webp",
-            "url": "shopify:\/\/collections\/all",
+            "image": "shopify://shop_images/ADDI-BANNER-1.png",
+            "url": "shopify://collections/sale",
             "open_link": true
           }
         }

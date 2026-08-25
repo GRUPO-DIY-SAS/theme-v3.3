@@ -25,12 +25,13 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "Grupo DIY S.A.S.",
-    "url": {{ shop.url | json }},
+    "name": "Home Sale S.A.S.",
+    "url": {{ shop.url | json }}{%- if settings.logo != blank -%},
     "logo": {
       "@type": "ImageObject",
-      "url": "https:{{ 'logo.png' | file_url }}"
+      "url": {{ settings.logo | image_url: width: 600 | prepend: 'https:' | json }}
     }
+    {%- endif %}
   },
   "inLanguage": "es-CO"
 }

@@ -14,12 +14,6 @@
   if request.page_type == 'index' or request.page_type == 'product' or request.page_type == 'collection' or request.page_type == 'search' or request.page_type == 'cart'
     assign load_swiper_assets = true
   endif
-  # Page templates con carruseles (products-carousel, collection-tab, spotlight)
-  # usan Swiper, pero page_type 'page' no lo cargaba y los slides se apilaban.
-  # Swiper debe encolarse ANTES que global.js (que hace new Swiper).
-  if template.suffix == 'vape-shop'
-    assign load_swiper_assets = true
-  endif
 
   assign load_motion_effects = false
   if settings.scroll_animation != 'none' or settings.zoom_image
@@ -32,9 +26,12 @@
     assign load_account_popup_assets = true
   endif
 
-  assign defer_theme_assets_until_age_gate = true
+  # CSS/JS del theme se encolan en deferred-assets-loader y arrancan en idle
+  # para que el burst de ejecución no bloquee el primer tap (INP). En el editor
+  # se cargan directo: sin loader, las secciones renderizan al instante.
+  assign defer_theme_assets = true
   if request.design_mode
-    assign defer_theme_assets_until_age_gate = false
+    assign defer_theme_assets = false
   endif
 %}
 
@@ -47,7 +44,7 @@
     <meta name="theme-color" content="">
     {%- if request.design_mode -%}
       {%- comment -%} En el Shopify Theme Editor el deferred-assets-loader no
-        se renderiza (defer_theme_assets_until_age_gate = false), así que las
+        se renderiza (defer_theme_assets = false), así que las
         reglas FOUC-prevention de critical-base.liquid (html:not(.diyvape-deferred-visual-ready) main { visibility:hidden })
         nunca se levantan. Sin estas classes, el editor muestra una página
         blanca. Las añadimos inmediato en design mode para que todo el FOUC
@@ -89,75 +86,6 @@
         {% # theme-check-enable AssetPreload %}
       {%- endif -%}
     {%- endif -%}
-    {%- comment -%} Detección temprana de age-verified: añade clase a <html>
-      para que CSS y JS posteriores (deferred-assets-loader) puedan tomar
-      decisiones según el estado. El preload condicional del logo del age
-      gate vive en el bloque (blocks/ai_gen_block_3f4d556.liquid) porque
-      ahí tenemos logo_width_2x dinámico que evita drift de URL.
-
-      FIX — el guard de design mode ahora es LIQUID, no JS.
-      Antes este script hacía:
-          if (window.Shopify && window.Shopify.designMode) { ...remove; return; }
-      pero corre ANTES de {{ content_for_header }}, que es justamente lo que
-      define el global `Shopify`. window.Shopify era undefined, la condición
-      nunca se cumplía y el return jamás corría. Resultado: en el Theme Editor,
-      si el merchant tenía cookie de visitas reales, la clase age-gate-verified
-      SÍ se añadía y la regla
-          html.age-gate-verified .ai-age-verify-overlay { display:none !important }
-      ganaba sobre los estilos inline de showGate() del bloque — el botón
-      "Preview Age Verification" no mostraba nada.
-      Con {%- unless request.design_mode -%} el script simplemente no se emite
-      en el editor, que es el comportamiento que el comentario original
-      describía. {%- endcomment -%}
-    {%- unless request.design_mode -%}
-      <script>
-        (function () {
-          var cookieName = 'age_verified_diyvape';
-          /* El sello `exp` lo escribe age-verification.js al persistir. Se revisa
-             aquí para que una verificación VENCIDA no reciba la clase
-             age-gate-verified: sin este chequeo, la regla
-             html.age-gate-verified .ai-age-verify-overlay { display:none !important }
-             ocultaría el modal durante los ms que tarda en cargar el asset (defer),
-             y el visitante vería el sitio sin gate.
-
-             Alcance: este detector sólo conoce el sello, no el selector actual.
-             Si el merchant BAJA el TTL (365 días → 24 horas), en la primera carga
-             el sello viejo todavía deja pasar; el asset lo corrige al hidratar.
-             La fuente de verdad para compliance es getVerifiedObject() en el JS. */
-          var parseVerified = function (raw) {
-            if (!raw) return false;
-            var check = function (obj) {
-              if (!obj || !obj.verified || !obj.dob || !obj.id) return false;
-              if (typeof obj.exp === 'number' && Date.now() > obj.exp) return false;
-              return true;
-            };
-            try {
-              return check(JSON.parse(decodeURIComponent(raw)));
-            } catch (error) {
-              try {
-                return check(JSON.parse(raw));
-              } catch (innerError) {
-                return false;
-              }
-            }
-          };
-          var getCookie = function (name) {
-            var prefix = name + '=';
-            var parts = document.cookie ? document.cookie.split(';') : [];
-            for (var i = 0; i < parts.length; i += 1) {
-              var value = parts[i].trim();
-              if (value.indexOf(prefix) === 0) return value.slice(prefix.length);
-            }
-            return '';
-          };
-          try {
-            if (parseVerified(getCookie(cookieName)) || parseVerified(localStorage.getItem(cookieName))) {
-              document.documentElement.classList.add('age-gate-verified');
-            }
-          } catch (error) {}
-        })();
-      </script>
-    {%- endunless -%}
     <link rel="canonical" href="{{ canonical_url }}">
     {%- if settings.favicon != blank -%}
       <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
@@ -166,7 +94,7 @@
       {{ page_title }}
       {%- if current_tags %} &ndash; tagged "{{ current_tags | join: ', ' }}"{% endif -%}
       {%- if current_page != 1 %} &ndash; Page {{ current_page }}{% endif -%}
-      {%- unless page_title contains 'DIY' %} &ndash; {{ shop.name }}{% endunless -%}
+      {%- unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless -%}
     </title>
     {% if page_description %}
       <meta name="description" content="{{ page_description | escape }}">
@@ -214,7 +142,7 @@
     {% render 'schema-faq-page' %}
     {% render 'breadcrumb-schema' %}
         
-    {% if defer_theme_assets_until_age_gate %}
+    {% if defer_theme_assets %}
       <script>
         window.diyvapeDeferredAssets = window.diyvapeDeferredAssets || [];
         window.diyvapeDeferredAssets.push(
@@ -253,7 +181,7 @@
       1 render-blocking HTTP request. Ahorro ~50-200ms FCP en cold cache. {%- endcomment -%}
     {% render 'critical-base' %}
     {{ content_for_header }}
-    {% if defer_theme_assets_until_age_gate %}
+    {% if defer_theme_assets %}
       <noscript>
         {{ 'critical.css' | asset_url | stylesheet_tag }}
         {{ 'product-card.css' | asset_url | stylesheet_tag }}
@@ -268,7 +196,7 @@
       <noscript>{{ 'critical.css' | asset_url | stylesheet_tag }}</noscript>
     {% endif %}
     {% if enable_rtl %}{{ 'rtl.css' | asset_url | stylesheet_tag: preload: true }}{% endif %}
-    {% unless defer_theme_assets_until_age_gate %}
+    {% unless defer_theme_assets %}
       {%- comment -%} INP optimization — preload solo donde el CSS es crítico above-fold {%- endcomment -%}
       {%- if request.page_type == 'collection' or request.page_type == 'index' or request.page_type == 'search' -%}
         {{ 'product-card.css' | asset_url | stylesheet_tag: preload: true }}
@@ -428,7 +356,7 @@
         }
       }
     {% endstyle %}
-    {% if defer_theme_assets_until_age_gate %}
+    {% if defer_theme_assets %}
       <script>
         window.diyvapeDeferredAssets.push(
           {% if load_account_popup_assets %}
@@ -471,7 +399,7 @@
         document.documentElement.classList.add('shopify-design-mode');
       }
     </script>
-  {% render 'diyvape-pdp-assets', defer_by_age_gate: defer_theme_assets_until_age_gate %}
+  {% render 'diyvape-pdp-assets', defer: defer_theme_assets %}
   </head>
   <body
     class="gradient{% if settings.rounded_corner > 1 and settings.enable_rounded %} rounded-style{% endif %}{% if settings.action_after_add_cart == 'show_popup' %} minicart_type-popup{% endif %}{% if enable_rtl %} rtl{% endif %} {% if request.page_type == 'cart'%}template-cart{% endif %} {{ request.page_type }}"
@@ -494,7 +422,7 @@
     -%}
     {% section 'top-search' %}
     {%- render 'minicart' -%}
-    {%- render 'scripts-tag', defer_by_age_gate: defer_theme_assets_until_age_gate -%}
+    {%- render 'scripts-tag', defer: defer_theme_assets -%}
     {%- render 'sprite-svg' -%}
     {%- render 'content-bottom' -%}
   </body>

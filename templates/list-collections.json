@@ -15,14 +15,14 @@
         "heading_B3DXTc": {
           "type": "heading",
           "settings": {
-            "page_title": "Encuentra los mejores productos de vapeo y vaporizadores aquí en DIY Vape Shop",
+            "page_title": "Todas las categorías de Homesale",
             "header_size": "default"
           }
         },
         "description_tLPCVn": {
           "type": "description",
           "settings": {
-            "description": "<p>Explora todas nuestras colecciones de Vapeo y las mejores marcas premium del mercado. Las mejores opciones en vapeo aquí en la mejor tienda de Colombia.</p>"
+            "description": "<p>Bicicletas, fitness, movilidad eléctrica, juguetería, herramientas, bebés y maletas de viaje. Explora todas nuestras categorías y encuentra lo que necesitas al mejor precio.</p>"
           }
         }
       },
@@ -43,136 +43,176 @@
     "main": {
       "type": "main-list-collections",
       "blocks": {
-        "collection_8NL9h8": {
+        "col_bicicletas": {
           "type": "collection",
           "settings": {
-            "collection": "pods-desechables",
-            "collection_title": ""
+            "collection": "bicicletas"
           }
         },
-        "collection_ixqmzx": {
+        "col_bicicletas_mtb": {
           "type": "collection",
           "settings": {
-            "collection": "sistemas-cerrados-pods-semi-desechables",
-            "collection_title": "Sistemas Cerrados (Semi Desechables)"
+            "collection": "bicicletas-mtb"
           }
         },
-        "collection_xUtUyD": {
+        "col_bicicletas_ruta": {
           "type": "collection",
           "settings": {
-            "collection": "equipos",
-            "collection_title": "Equipos de Vapeo Recargables"
+            "collection": "bicicletas-ruta"
           }
         },
-        "collection_pEV4Th": {
+        "col_bicicleta_infantil": {
           "type": "collection",
           "settings": {
-            "collection": "vape-sales-de-nicotina",
-            "collection_title": ""
+            "collection": "bicicleta-infantil"
           }
         },
-        "collection_fAD3kY": {
+        "col_bicicletas_electricas": {
           "type": "collection",
           "settings": {
-            "collection": "vape-base-libre",
-            "collection_title": ""
+            "collection": "bicicletas-electricas"
           }
         },
-        "collection_HdxXKw": {
+        "col_fitness": {
           "type": "collection",
           "settings": {
-            "collection": "resistencias-comerciales",
-            "collection_title": ""
+            "collection": "fitness"
           }
         },
-        "collection_pGDGVB": {
+        "col_caminadoras_y_trotadoras": {
           "type": "collection",
           "settings": {
-            "collection": "base-libre",
-            "collection_title": "Líquidos Base Libre (0mg - 12mg)"
+            "collection": "caminadoras-y-trotadoras"
           }
         },
-        "collection_46ENJV": {
+        "col_elipticas": {
           "type": "collection",
           "settings": {
-            "collection": "salt-nic-ejuice",
-            "collection_title": "Sales de Nicotina (20mg - 70mg)"
+            "collection": "elipticas"
           }
         },
-        "collection_N4aMtN": {
+        "col_pesas": {
           "type": "collection",
           "settings": {
-            "collection": "vaporizadores-herbales",
-            "collection_title": ""
+            "collection": "pesas"
           }
         },
-        "collection_kKfjhm": {
+        "col_bicicletas_de_spinning": {
           "type": "collection",
           "settings": {
-            "collection": "baterias-destilados",
-            "collection_title": ""
+            "collection": "bicicletas-de-spinning"
           }
         },
-        "collection_zg8Dfe": {
+        "col_abdominales": {
           "type": "collection",
           "settings": {
-            "collection": "pouches-de-nicotina-y-cafeina",
-            "collection_title": ""
+            "collection": "abdominales"
           }
         },
-        "collection_JfM9hn": {
+        "col_plataformas_vibratorias": {
           "type": "collection",
           "settings": {
-            "collection": "iqos",
-            "collection_title": ""
+            "collection": "plataformas-vibratorias"
           }
         },
-        "collection_3B6H3R": {
+        "col_movilidad_electrica": {
           "type": "collection",
           "settings": {
-            "collection": "alquimia",
-            "collection_title": "Prepara tus Líquidos"
+            "collection": "movilidad-electrica"
           }
         },
-        "collection_YGW4VH": {
+        "col_patinetas_electricas": {
           "type": "collection",
           "settings": {
-            "collection": "one-shots",
-            "collection_title": "Saborizantes One Shot´s"
+            "collection": "patinetas-electricas"
           }
         },
-        "collection_jfFteK": {
+        "col_motos_y_triciclos_electricos": {
           "type": "collection",
           "settings": {
-            "collection": "todos-los-aromas",
-            "collection_title": "Aromas"
+            "collection": "motos-y-triciclos-electricos"
           }
         },
-        "collection_kVYwyn": {
+        "col_jugueteria": {
           "type": "collection",
           "settings": {
-            "collection": "bases",
-            "collection_title": "Bases"
+            "collection": "jugueteria"
+          }
+        },
+        "col_carros_y_camionetas_electricas": {
+          "type": "collection",
+          "settings": {
+            "collection": "carros-y-camionetas-electricas"
+          }
+        },
+        "col_montables": {
+          "type": "collection",
+          "settings": {
+            "collection": "montables"
+          }
+        },
+        "col_max_tools": {
+          "type": "collection",
+          "settings": {
+            "collection": "max-tools"
+          }
+        },
+        "col_bambino": {
+          "type": "collection",
+          "settings": {
+            "collection": "bambino"
+          }
+        },
+        "col_travel_system": {
+          "type": "collection",
+          "settings": {
+            "collection": "travel-system"
+          }
+        },
+        "col_mesas_de_ping_pong": {
+          "type": "collection",
+          "settings": {
+            "collection": "mesas-de-ping-pong"
+          }
+        },
+        "col_hogar": {
+          "type": "collection",
+          "settings": {
+            "collection": "hogar"
+          }
+        },
+        "col_arboles_de_navidad": {
+          "type": "collection",
+          "settings": {
+            "collection": "arboles-de-navidad"
           }
         }
       },
       "block_order": [
-        "collection_8NL9h8",
-        "collection_ixqmzx",
-        "collection_xUtUyD",
-        "collection_pEV4Th",
-        "collection_fAD3kY",
-        "collection_HdxXKw",
-        "collection_pGDGVB",
-        "collection_46ENJV",
-        "collection_N4aMtN",
-        "collection_kKfjhm",
-        "collection_zg8Dfe",
-        "collection_JfM9hn",
-        "collection_3B6H3R",
-        "collection_YGW4VH",
-        "collection_jfFteK",
-        "collection_kVYwyn"
+        "col_bicicletas",
+        "col_bicicletas_mtb",
+        "col_bicicletas_ruta",
+        "col_bicicleta_infantil",
+        "col_bicicletas_electricas",
+        "col_fitness",
+        "col_caminadoras_y_trotadoras",
+        "col_elipticas",
+        "col_pesas",
+        "col_bicicletas_de_spinning",
+        "col_abdominales",
+        "col_plataformas_vibratorias",
+        "col_movilidad_electrica",
+        "col_patinetas_electricas",
+        "col_motos_y_triciclos_electricos",
+        "col_jugueteria",
+        "col_carros_y_camionetas_electricas",
+        "col_montables",
+        "col_max_tools",
+        "col_bambino",
+        "col_travel_system",
+        "col_mesas_de_ping_pong",
+        "col_hogar",
+        "col_arboles_de_navidad"
       ],
       "settings": {
         "section_width": "fluid_container",
@@ -199,12 +239,12 @@
       "settings": {
         "section_width": "fluid_container",
         "color_scheme": "",
-        "heading": "Todo sobre el Vapeo en Colombia: Guía Completa, Regulación y Recomendaciones.",
-        "description": "<p>Aprende todo sobre el vapeo en Colombia: desde cómo elegir tu primer dispositivo hasta qué líquidos usar según tu estilo. Guía práctica para tomar la mejor decisión.</p>",
+        "heading": "Consejos y novedades de Homesale",
+        "description": "<p>Guías para elegir tu bicicleta, entrenar en casa y sacar el máximo provecho a tus equipos.</p>",
         "show_view_all": false,
         "header_size": "medium",
         "header_alignment": "center",
-        "blog": "diy",
+        "blog": "",
         "image_ratio": "landscape",
         "custom_ratio": "",
         "show_category": true,
@@ -227,7 +267,8 @@
         "padding_top": 0,
         "padding_bottom": 0,
         "reset_spacing": false
-      }
+      },
+      "disabled": true
     }
   },
   "order": [

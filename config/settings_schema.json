@@ -1,11 +1,11 @@
 [
   {
     "name": "theme_info",
-    "theme_name": "DIY Vape Shop",
-    "theme_version": "3.4.0",
-    "theme_author": "DIY Vape Shop",
-    "theme_documentation_url": "https://diyvape.co",
-    "theme_support_url": "https://diyvape.co"
+    "theme_name": "Homesale Theme",
+    "theme_version": "1.0.0",
+    "theme_author": "Homesale S.A.S.",
+    "theme_documentation_url": "https://www.homesale.com.co",
+    "theme_support_url": "https://www.homesale.com.co"
   },
   {
     "name": "t:settings_schema.logo_favicon.name",

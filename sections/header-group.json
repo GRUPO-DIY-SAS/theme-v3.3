@@ -11,196 +11,152 @@
   "name": "t:sections.header.name",
   "type": "header",
   "sections": {
-    "top_bar_CbXNYj": {
+    "top_bar": {
       "type": "top-bar",
       "blocks": {
-        "cur_lang_aPwfT9": {
+        "cur_lang": {
           "type": "cur_lang",
           "settings": {
-            "menu_link": "",
+            "menu_link": "footer",
             "show_currency": false,
             "show_language": false,
-            "show_our_store": true,
+            "show_our_store": false,
             "hidden_on_mobile": true
           }
         },
-        "text_slider_LFaC38": {
+        "text_slider": {
           "type": "text_slider",
           "settings": {
-            "text1": "<strong>Envío Gratis $80.000</strong> Bogotá (<a href=\"/policies/shipping-policy\" target=\"_blank\" title=\"Shipping Policy\"><strong>T&C</strong></a>).",
-            "text2": "<strong>Productos Exclusivos</strong> en <strong>DIY Vape Shop</strong>",
-            "text3": "<strong>Envío Gratis $250.000</strong> Nacional (<a href=\"/policies/shipping-policy\" target=\"_blank\" title=\"Shipping Policy\"><strong>T&C</strong></a>).",
-            "change_every": 3,
+            "text1": "<strong>Envío gratis</strong> en pedidos superiores a $1.000.000 (<a href=\"/policies/shipping-policy\" target=\"_blank\" title=\"Política de envíos\"><strong>T&C</strong></a>)",
+            "text2": "<strong>Paga hasta en 24 cuotas</strong> con Addi — solo necesitas tu cédula y WhatsApp",
+            "text3": "<strong>Atención al público:</strong> Lun–Vie 8:00 a.m. – 5:00 p.m. · Sáb 9:00 a.m. – 12:00 p.m.",
+            "change_every": 4,
             "hidden_on_mobile": false
+          }
+        },
+        "socials": {
+          "type": "socials",
+          "settings": {
+            "hidden_on_mobile": true
           }
         }
       },
       "block_order": [
-        "cur_lang_aPwfT9",
-        "text_slider_LFaC38"
+        "cur_lang",
+        "text_slider",
+        "socials"
       ],
       "settings": {
         "section_width": "stretch_width",
-        "color_scheme": "scheme-9cfc3af7-a794-49ce-b80d-e06b99df04ea",
+        "color_scheme": "default",
         "show_mobile": true,
-        "show_separator_line": false,
+        "show_separator_line": true,
         "uppercase": false,
         "font_size": 12,
         "font_weight": "body_weight",
-        "padding_top": 10,
-        "padding_bottom": 10
+        "padding_top": 8,
+        "padding_bottom": 8
       }
     },
     "header": {
       "type": "header",
       "blocks": {
-        "menu_product_TmbDpT": {
-          "type": "menu_product",
-          "settings": {
-            "text": "Bolsas de Nicotina",
-            "open-link-newtab": false,
-            "item_label": "unset",
-            "product_menu_column": 3,
-            "mega_custom_width": 1030,
-            "center_submenu": true,
-            "full_width": true,
-            "product_width": 50,
-            "product_1": "zyn",
-            "product_2": "velo-pouches-bolsas-de-nicotina",
-            "product_3": "waka-pouches-bolsas-de-nicotina"
-          }
-        },
-        "menu_product_HiHQqP": {
-          "type": "menu_product",
-          "settings": {
-            "text": "Vape Recargable",
-            "open-link-newtab": false,
-            "item_label": "unset",
-            "product_menu_column": 2,
-            "mega_custom_width": 1030,
-            "center_submenu": true,
-            "full_width": true,
-            "product_width": 50,
-            "product_1": "oxva-nexlim-kit",
-            "product_2": "oxva-xlim-go-kit",
-            "product_3": "oxva-vprime-kit"
-          }
-        },
-        "menu_product_KpXT79": {
-          "type": "menu_product",
-          "settings": {
-            "text": "Vape Desechable",
-            "open-link-newtab": false,
-            "item_label": "unset",
-            "product_menu_column": 2,
-            "mega_custom_width": 1030,
-            "center_submenu": true,
-            "full_width": true,
-            "product_width": 50,
-            "product_1": "mijo-sajo-15000-puff",
-            "product_2": "memers-wukong-v40000",
-            "product_3": "lit-vapes-litpod-kit"
-          }
-        },
-        "menu_collection_hrkHGf": {
+        "menu_bicicletas": {
           "type": "menu_collection",
           "settings": {
-            "text": "Líquidos de Vapeo",
+            "text": "Bicicletas",
             "open-link-newtab": false,
             "item_label": "unset",
-            "collection_menu_column": 2,
-            "mega_custom_width": 1030,
-            "center_submenu": true,
-            "full_width": true,
-            "collection_width": 40,
-            "collection_1": "base-libre",
-            "collection_2": "salt-nic-ejuice",
-            "collection_3": ""
-          }
-        },
-        "menu_collection_P9qw3n": {
-          "type": "menu_collection",
-          "settings": {
-            "text": "Vape Herbal",
-            "open-link-newtab": false,
-            "item_label": "unset",
-            "collection_menu_column": 2,
+            "collection_menu_column": 3,
             "mega_custom_width": 1030,
             "center_submenu": true,
             "full_width": true,
             "collection_width": 60,
-            "collection_1": "portatiles",
-            "collection_2": "herbal-electronico",
-            "collection_3": "dynavap"
+            "collection_1": "bicicletas-mtb",
+            "collection_2": "bicicletas-ruta",
+            "collection_3": "bicicleta-infantil"
           }
         },
-        "menu_collection_XMgnAz": {
+        "menu_fitness": {
           "type": "menu_collection",
           "settings": {
-            "text": "Prepara tus elíquidos",
+            "text": "Fitness",
             "open-link-newtab": false,
             "item_label": "unset",
-            "collection_menu_column": 2,
+            "collection_menu_column": 3,
             "mega_custom_width": 1030,
             "center_submenu": true,
             "full_width": true,
             "collection_width": 60,
-            "collection_1": "todos-los-aromas",
-            "collection_2": "one-shots",
-            "collection_3": "bases"
+            "collection_1": "caminadoras-y-trotadoras",
+            "collection_2": "elipticas",
+            "collection_3": "pesas"
           }
         },
-        "menu_product_TBApei": {
-          "type": "menu_product",
+        "menu_movilidad": {
+          "type": "menu_collection",
           "settings": {
-            "text": "Promociones",
+            "text": "Movilidad eléctrica",
             "open-link-newtab": false,
             "item_label": "unset",
-            "product_menu_column": 2,
+            "collection_menu_column": 3,
             "mega_custom_width": 1030,
             "center_submenu": true,
             "full_width": true,
-            "product_width": 50,
-            "product_1": "asmodus-blank-bar-sales-30ml-15000-puff",
-            "product_2": "rabbeats-rc-10000-puff",
-            "product_3": "oxbar-magic-maze-pro-10-000-puff"
+            "collection_width": 60,
+            "collection_1": "bicicletas-electricas",
+            "collection_2": "patinetas-electricas",
+            "collection_3": "motos-y-triciclos-electricos"
+          }
+        },
+        "menu_jugueteria": {
+          "type": "menu_collection",
+          "settings": {
+            "text": "Juguetería",
+            "open-link-newtab": false,
+            "item_label": "unset",
+            "collection_menu_column": 3,
+            "mega_custom_width": 1030,
+            "center_submenu": true,
+            "full_width": true,
+            "collection_width": 60,
+            "collection_1": "carros-y-camionetas-electricas",
+            "collection_2": "montables",
+            "collection_3": "jugueteria"
           }
         }
       },
       "block_order": [
-        "menu_product_TmbDpT",
-        "menu_product_HiHQqP",
-        "menu_product_KpXT79",
-        "menu_collection_hrkHGf",
-        "menu_collection_P9qw3n",
-        "menu_collection_XMgnAz",
-        "menu_product_TBApei"
+        "menu_bicicletas",
+        "menu_fitness",
+        "menu_movilidad",
+        "menu_jugueteria"
       ],
       "settings": {
         "section_width": "stretch_width",
         "color_scheme": "default",
         "logo_position": "left",
-        "separator_line": "unset",
+        "separator_line": "middle",
         "enable_login_popup": true,
         "sticky_header_type": "on-scroll-up",
         "sticky_header_mobile": true,
-        "transparent_header": true,
-        "transparent_mobile": true,
+        "transparent_header": false,
+        "transparent_mobile": false,
         "transparent_text_icon_color": "#ffffff",
-        "transparent_bg_color": "#111111",
+        "transparent_bg_color": "#000000",
         "box_menu": false,
-        "mega_menu": "main-menu-1",
+        "mega_menu": "main-menu",
         "dropdowns_animation": "down-to-up",
         "uppercase_first": false,
         "hot": "Hot",
         "label_color_hot": "#ffffff",
-        "label_background_hot": "{{ shop.brand.colors.primary[0].background }}",
-        "new": "New",
+        "label_background_hot": "#cc0033",
+        "new": "Nuevo",
         "label_color_new": "#ffffff",
-        "label_background_new": "#516cf4",
-        "sale": "Sale",
+        "label_background_new": "#0a2b60",
+        "sale": "Oferta",
         "label_color_sale": "#ffffff",
-        "label_background_sale": "{{ shop.brand.colors.primary[0].background }}",
+        "label_background_sale": "#cc0033",
         "popular": "Popular",
         "label_color_popular": "#ffffff",
         "label_background_popular": "#14854e",
@@ -208,7 +164,7 @@
         "menu_tab": "custom-collections",
         "collection_list": [],
         "menu_mobile_color": "#ffffff",
-        "menu_mobile_background": "{{ shop.brand.colors.primary[0].background }}",
+        "menu_mobile_background": "#000000",
         "show_search": true,
         "show_account_icon": true,
         "show_wishlist_icon": true,
@@ -222,7 +178,7 @@
     }
   },
   "order": [
-    "top_bar_CbXNYj",
+    "top_bar",
     "header"
   ]
 }

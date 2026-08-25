@@ -192,7 +192,7 @@
     },
     "product": {
       "view_detail": "Ver detalles",
-      "size_guide": "Advertencias Nicotina"
+      "size_guide": "Guía de tallas"
     },
     "hotspot": {
       "dot": "Puntos",
@@ -794,7 +794,7 @@
   "fake_order": {
     "purchased": "comprado",
     "time_minutes": "hace minutos",
-    "product_name": "DIY Vape Shop"
+    "product_name": "Homesale"
   },
   "shopify": {
     "checkout": {
@@ -810,7 +810,7 @@
         "pick_up": "Recogida en tienda"
       },
       "shipping": {
-        "shipping_method_notice": "¡Atención antes de finalizar tu compra! Recuerda que no realizamos envíos los domingos ni en días festivos. Los horarios de corte para despacho son: Coordinadora y Servientrega, de lunes a viernes hasta la 1:00 p. m., y Quick⚡, de lunes a sábado hasta la 1:00 p. m. Si la tarifa de envío seleccionada no corresponde a tu zona de entrega en Bogotá, se ajustará automáticamente al costo correcto antes del despacho. La entrega se realizará únicamente a una persona mayor de edad, previa exhibición del documento de identidad al momento de la entrega. ¡Gracias por elegir DIY Vape Shop!"
+        "shipping_method_notice": "¡Atención antes de finalizar tu compra! No realizamos envíos los domingos ni en días festivos. Los pedidos se despachan en un máximo de 5 días hábiles. Al recibir, revisa el empaque y el producto antes de firmar la guía; cualquier daño de transporte debe reportarse con fotos el mismo día de la entrega. ¡Gracias por elegir Homesale!"
       },
       "payment_gateway": {
         "bank_deposit_label": "Transferencia Bancaria: Bancolombia, Davivienda, Daviplata, Nequi ",

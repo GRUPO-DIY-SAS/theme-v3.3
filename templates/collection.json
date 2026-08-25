@@ -12,82 +12,81 @@
     "collection_list_i9XW4C": {
       "type": "collection-list",
       "blocks": {
-        "collection_Qh8dPV": {
+        "cat_bicicletas": {
           "type": "collection",
           "settings": {
-            "collection": "pods-desechables",
-            "collection_image": "{{ block.settings.collection.metafields.custom.collection_image_icon.value }}",
-            "collection_title": ""
+            "collection": "bicicletas",
+            "collection_image": "shopify://shop_images/Bicicletas.jpg",
+            "collection_title": "Bicicletas"
           }
         },
-        "collection_yaxhJP": {
+        "cat_fitness": {
           "type": "collection",
           "settings": {
-            "collection": "pod-system",
-            "collection_image": "{{ block.settings.collection.metafields.custom.collection_image_icon.value }}",
-            "collection_title": "Pod Recargable"
+            "collection": "fitness",
+            "collection_image": "shopify://shop_images/Icono_Fitness.png",
+            "collection_title": "Fitness"
           }
         },
-        "collection_x7RCwh": {
+        "cat_jugueteria": {
           "type": "collection",
           "settings": {
-            "collection": "kits-de-inicio",
-            "collection_image": "{{ block.settings.collection.metafields.custom.collection_image_icon.value }}",
-            "collection_title": "Kit de Vapeo"
+            "collection": "jugueteria",
+            "collection_image": "shopify://shop_images/Icono_Jugueteria.png",
+            "collection_title": "Juguetería"
           }
         },
-        "collection_y3einU": {
+        "cat_movilidad_electrica": {
           "type": "collection",
           "settings": {
-            "collection": "salt-nic-ejuice",
-            "collection_image": "{{ block.settings.collection.metafields.custom.collection_image_icon.value }}",
-            "collection_title": ""
+            "collection": "movilidad-electrica",
+            "collection_image": "shopify://shop_images/Icono_Movilidad_Electrica.jpg",
+            "collection_title": "Movilidad eléctrica"
           }
         },
-        "collection_HVULkV": {
+        "cat_max_tools": {
           "type": "collection",
           "settings": {
-            "collection": "base-libre",
-            "collection_image": "{{ block.settings.collection.metafields.custom.collection_image_icon.value }}",
-            "collection_title": ""
+            "collection": "max-tools",
+            "collection_image": "shopify://shop_images/Icono_Herramientas.png",
+            "collection_title": "Herramientas"
           }
         },
-        "collection_ABnXwx": {
+        "cat_bambino": {
           "type": "collection",
           "settings": {
-            "collection": "resistencias-comerciales",
-            "collection_image": "{{ block.settings.collection.metafields.custom.collection_image_icon.value }}",
-            "collection_title": "Coils y Pods"
+            "collection": "bambino",
+            "collection_image": "shopify://shop_images/Icono_Coches_Bebe.jpg",
+            "collection_title": "Coches para bebé"
           }
         },
-        "collection_TYic8Q": {
+        "cat_travel_system": {
           "type": "collection",
           "settings": {
-            "collection": "alquimia",
-            "collection_image": "{{ block.settings.collection.metafields.custom.collection_image_icon.value }}",
-            "collection_title": "Prepara tu Eliquid"
+            "collection": "travel-system",
+            "collection_image": "shopify://shop_images/Icono_Maletas_de_Viaje.png",
+            "collection_title": "Maletas de viaje"
           }
         },
-        "collection_NKVbYN": {
+        "cat_arboles_de_navidad": {
           "type": "collection",
           "settings": {
-            "collection": "pouches-de-nicotina-y-cafeina",
-            "collection_image": "{{ block.settings.collection.metafields.custom.collection_image_icon.value }}",
-            "collection_title": "Pouches"
+            "collection": "arboles-de-navidad",
+            "collection_image": "shopify://shop_images/Icono_Arboles_de_Navidad.png",
+            "collection_title": "Navidad"
           }
         }
       },
       "block_order": [
-        "collection_Qh8dPV",
-        "collection_yaxhJP",
-        "collection_x7RCwh",
-        "collection_y3einU",
-        "collection_HVULkV",
-        "collection_ABnXwx",
-        "collection_TYic8Q",
-        "collection_NKVbYN"
+        "cat_bicicletas",
+        "cat_fitness",
+        "cat_jugueteria",
+        "cat_movilidad_electrica",
+        "cat_max_tools",
+        "cat_bambino",
+        "cat_travel_system",
+        "cat_arboles_de_navidad"
       ],
-      "disabled": true,
       "settings": {
         "section_width": "fluid_container",
         "color_scheme": "scheme-3c376871-4978-462b-aa78-be06bb77863d",
@@ -134,7 +133,7 @@
         "section_width": "fluid_container",
         "color_scheme": "scheme-3c376871-4978-462b-aa78-be06bb77863d",
         "heading": "",
-        "description": "<p>Encuentra otros productos relacionados con {{ collection.title }} y todo para vapeo en DIY.</p>",
+        "description": "<p>Encuentra otros productos relacionados con {{ collection.title }} y todo para tu hogar en Homesale.</p>",
         "header_size": "small",
         "header_alignment": "left",
         "image_ratio": "adapt",
@@ -209,7 +208,7 @@
         "image_banner_UUJxtT": {
           "type": "image_banner",
           "settings": {
-            "image": "{{ collection.metafields.custom.collection_image_icon.value }}",
+            "image": "{{ collection.metafields.my_fields.logo.value }}",
             "url": "shopify://collections",
             "open_link": true
           }
@@ -257,7 +256,7 @@
       "settings": {
         "section_width": "container",
         "color_scheme": "",
-        "custom_liquid": "{% render 'diy-collection-description' %}",
+        "custom_liquid": "{% render 'collection-description-collapsible' %}",
         "padding_top": 0,
         "padding_bottom": 0,
         "reset_spacing": false

@@ -5,7 +5,7 @@
 {%- if diy_len < 200 -%}{%- assign diy_variant = 'diy-brief' -%}{%- endif -%}
 <style>
   .diy-collapsible-wrap {
-    --lab-red:  #C8102E;
+    --lab-red:  #cc0033;
     --carbon:   #0A0A0A;
     --bone:     #F5F2EC;
     --steel:    #B8B4AC;
@@ -87,7 +87,7 @@
 
   .diy-divider {
     display: block; height: 1px; margin: 0 0 16px; opacity: 0.5;
-    background: linear-gradient(to right, #C8102E 0%, #2a0008 60%, transparent 100%);
+    background: linear-gradient(to right, #cc0033 0%, #2a0008 60%, transparent 100%);
   }
 
   .diy-rich-text { color: var(--steel); }
@@ -145,9 +145,9 @@
 
   <button type="button" class="diy-toggle-btn" id="diyToggle-{{ collection.id }}" aria-expanded="false" aria-controls="diyContent-{{ collection.id }}">
     <span>
-      <span class="diy-eyebrow">DIY Vape Shop · Guía de colección</span>
+      <span class="diy-eyebrow">{{ shop.name }} · Guía de colección</span>
       <span class="diy-title-text">
-        <span class="diy-label-more">Seguir leyendo sobre <span style="color:#C8102E;">{{ collection.title }}</span> y todo lo relacionado con el mundo del vapeo</span>
+        <span class="diy-label-more">Seguir leyendo sobre <span style="color:#cc0033;">{{ collection.title }}</span> y todo lo relacionado con el mundo del vapeo</span>
         <span class="diy-label-less">Mostrar menos</span>
       </span>
     </span>
