@@ -2,6 +2,21 @@
   const ELEMENT_NAME = "age-verification-gate";
   const CANONICAL_COOKIE_NAME = "age_verified_diyvape";
 
+  /* ==========================================================================
+     VENTANA DE CADUCIDAD — cambie este flag según el comportamiento que quiera.
+
+       false (actual) = ventana FIJA desde la verificación original.
+                        Con TTL de 24h, quien verificó ayer a las 10:00 vuelve a
+                        ver el modal hoy a las 10:00, aunque haya entrado 5 veces
+                        en el intermedio.
+
+       true           = ventana RODANTE. Cada visita reinicia el contador; sólo
+                        reverifica tras 24h de INACTIVIDAD. Ojo: al mover
+                        added_at cambia la firma (sig) y el carrito se
+                        re-sincroniza en cada visita.
+     ========================================================================== */
+  const ROLLING_WINDOW = false;
+
   if (customElements.get(ELEMENT_NAME)) return;
 
   const idle = (callback) => {
@@ -22,13 +37,10 @@
           ? [this.canonicalCookieName]
           : [this.canonicalCookieName, this.cookieName];
       this.cookieDaysLegacy = parseInt(this.dataset.cookieDays || "365", 10);
-      /* FIX: default host-only ("") en vez de ".diyvape.co" hardcodeado.
-         Un domain que no corresponde al host actual (preview *.myshopify.com,
-         staging, localhost) hace que el navegador DESCARTE la cookie en
-         silencio — document.cookie nunca lanza excepción. El valor real sigue
-         viniendo del setting del bloque cuando existe. */
+      /* Default host-only (""): un domain que no corresponde al host actual
+         (preview *.myshopify.com, staging) hace que el navegador DESCARTE la
+         cookie en silencio — document.cookie nunca lanza excepción. */
       this.cookieDomain = (this.dataset.cookieDomain || "").trim();
-      /* FIX: default alineado con el schema del bloque (era "show_in_editor"). */
       this.editorModeBehavior = (this.dataset.editorModeBehavior || "only_preview_button").trim();
       this.cookiePersistence = (this.dataset.cookiePersistence || "legacy_days").trim();
       this.cookieHours = parseInt(this.dataset.cookieHours || "24", 10);
@@ -54,9 +66,8 @@
       this.errId = this.querySelector('[data-error="id"]');
       this.errCookie = this.querySelector('[data-error="cookie"]');
       this.submitBtn = this.form ? this.form.querySelector('button[type="submit"]') : null;
-      /* FIX: el trigger del editor vive DESPUÉS de </age-verification-gate> en
-         el bloque, así que en el constructor todavía no existe en el DOM y
-         querySelector devolvía null siempre. Se resuelve en connectedCallback. */
+      /* El trigger del editor vive DESPUÉS de </age-verification-gate>, así que
+         en el constructor todavía no existe. Se resuelve en connectedCallback. */
       this.editorTriggerWrap = null;
       this.editorTriggerBtn = null;
       this.modal = this.querySelector("[data-age-modal]");
@@ -74,6 +85,7 @@
       this._perfMarks = {};
       this._lastSubmitPerfAt = 0;
       this._lastCookieWriteOk = null;
+      this._lastExpiryPurgeAt = null;
     }
 
     connectedCallback() {
@@ -84,13 +96,10 @@
 
       this.restoreCookieFromStorageIfNeeded();
 
+      /* getVerifiedObject() ya descarta y purga las verificaciones vencidas,
+         así que aquí sólo llegan las vigentes. */
       const verified = this.getVerifiedObject();
       if (verified) {
-        /* FIX (Safari/ITP): las cookies escritas vía document.cookie se capan a
-           7 días sin importar que pidamos 365, y el localStorage script-writable
-           también entra en evicción. Reescribir en cada carga verificada renueva
-           la ventana (rolling expiry) y además hace que el modo "hours" se
-           extienda con el uso en vez de vencer en seco. */
         this.refreshPersistence(verified);
         document.documentElement.classList.add("age-gate-verified");
         this.hide();
@@ -99,6 +108,10 @@
         return;
       }
 
+      /* Importante: quitar la clase. El detector de theme.liquid la añade sin
+         mirar caducidad, y la regla
+         html.age-gate-verified .ai-age-verify-overlay { display:none !important }
+         dejaría el modal invisible aunque show() añada .active. */
       document.documentElement.classList.remove("age-gate-verified");
       this.setupEvents();
 
@@ -225,10 +238,9 @@
     }
 
     setDobBounds() {
-      /* En el bloque actual [data-dob-input] es un <input type="hidden">
-         alimentado por la rueda custom de 3 columnas, así que min/max no
-         aplican. Se mantiene por compatibilidad si algún día vuelve a ser
-         un input[type=date]. La validación real vive en isRealDate/isOver18. */
+      /* En el bloque actual [data-dob-input] es un input hidden alimentado por
+         la rueda custom, así que min/max no aplican. La validación real vive en
+         isRealDate/isOver18. */
       if (!this.dobInput || this.dobInput.type === "hidden") return;
       const now = new Date();
       const max = new Date(now.getFullYear() - 18, now.getMonth(), now.getDate());
@@ -273,11 +285,6 @@
 
       this.persistVerificationFallbacks(payload);
 
-      /* getVerifiedObject() consulta cookie OR localStorage, así que este
-         chequeo sólo detecta el fallo TOTAL. El fallo parcial (cookie
-         rechazada, storage vivo) se registra dentro de
-         persistVerificationFallbacks con console.warn — no bloquea el flujo
-         pero deja traza, que es lo que faltaba para depurar persistencia. */
       if (!this.getVerifiedObject()) {
         this.showError(this.errCookie, this.cookieErrorMessage);
         this.setSubmitLoading(false);
@@ -292,8 +299,7 @@
       /* includeNav: true durante 800ms absorbe el "ghost click" de Safari iOS:
          al cerrar el modal rápidamente, el touch del usuario sobre el botón
          "Sí" se completa en el elemento que queda debajo (hamburguesa/search),
-         abriendo el menú "sin razón". 800ms es imperceptible pero suficiente
-         para que la touch event queue de iOS se vacíe. */
+         abriendo el menú "sin razón". */
       this.suppressMinicartDrawer(800, { includeNav: true });
       document.documentElement.classList.add("age-gate-verified");
       this.hide();
@@ -382,24 +388,9 @@
       return Boolean(id && /^\d+$/.test(id) && id.length >= 6 && id.length <= 10);
     }
 
-    /* ==========================================================================
-       FIX PRINCIPAL — lector de cookies inmune a duplicados.
-
-       La versión anterior hacía:
-           document.cookie.split("; " + name + "=")
-           if (parts.length === 2) return ...
-           return null;
-       Con DOS cookies del mismo nombre (una host-only y una con
-       domain=.diyvape.co, o un residuo de una versión previa del theme) el
-       split devuelve 3 partes y la función retornaba null AUNQUE la cookie
-       existiera. Eso hacía fallar el read-back de setCookieStrongFlexible, que
-       lo interpretaba como "dominio rechazado" y escribía una segunda cookie
-       host-only — realimentando el problema hasta dejar el sitio dependiendo
-       sólo de localStorage.
-
-       Ahora itera y devuelve el primer match. Gana la más específica que el
-       navegador haya puesto primero y nunca retorna null por duplicados.
-       ========================================================================== */
+    /* Lector inmune a cookies duplicadas: itera y devuelve el primer match.
+       La versión con split(`; ${name}=`) devolvía null cuando había dos cookies
+       del mismo nombre, aunque la cookie existiera. */
     getCookie(name) {
       const parts = document.cookie ? document.cookie.split(";") : [];
       const prefix = name + "=";
@@ -430,8 +421,92 @@
       return Boolean(this.getVerifiedObjectFromCookies());
     }
 
+    isSessionMode() {
+      return this.getCookieTTL().type === "session";
+    }
+
+    verificationStore() {
+      try {
+        return this.isSessionMode() ? sessionStorage : localStorage;
+      } catch (error) {
+        return null;
+      }
+    }
+
+    /* ==========================================================================
+       CADUCIDAD REAL
+
+       El problema: el respaldo en localStorage NO tiene expiración, y
+       restoreCookieFromStorageIfNeeded() reconstruía la cookie desde ahí en
+       cada carga. La cookie vencía, el respaldo la revivía, y el TTL
+       configurado no significaba nada en la práctica.
+
+       Ahora el timestamp added_at del payload es la fuente de verdad: si pasó
+       más tiempo que el TTL, la verificación se descarta y se purga TODO
+       (cookie + localStorage + sessionStorage), de modo que el modal reaparece.
+       ========================================================================== */
+    parseAddedAt(value) {
+      if (!value) return NaN;
+      const raw = String(value).trim();
+      const m = raw.match(/^(\d{4})-(\d{2})-(\d{2})[ T](\d{2}):(\d{2}):(\d{2})/);
+      if (!m) return Date.parse(raw);
+      /* formatColombiaTimestamp emite "YYYY-MM-DD HH:mm:ss GMT-5" */
+      return Date.parse(`${m[1]}-${m[2]}-${m[3]}T${m[4]}:${m[5]}:${m[6]}-05:00`);
+    }
+
+    isVerificationExpired(obj) {
+      if (!obj) return false;
+      const ttl = this.getCookieTTL();
+      if (ttl.type !== "expires") return false;
+      const born = this.parseAddedAt(obj.added_at);
+      /* Sin timestamp legible no podemos juzgar: dejamos que mande la cookie. */
+      if (!Number.isFinite(born)) return false;
+      return Date.now() - born > ttl.ms;
+    }
+
+    purgeVerification() {
+      this._lastExpiryPurgeAt = Date.now();
+      this.clearVerificationCookies();
+      this.cookieAliases.forEach((name) => {
+        try { sessionStorage.removeItem(name); } catch (error) {}
+      });
+      try { sessionStorage.removeItem(this._cartSyncSessionKey); } catch (error) {}
+      this.clearPendingCartSyncPayload();
+      document.documentElement.classList.remove("age-gate-verified");
+    }
+
+    clearVerificationCookies() {
+      this.cookieAliases.forEach((name) => {
+        document.cookie = name + "=;path=/;Max-Age=0;expires=Thu, 01 Jan 1970 00:00:00 GMT";
+        if (this.cookieDomain) {
+          document.cookie =
+            name + "=;path=/;domain=" + this.cookieDomain + ";Max-Age=0;expires=Thu, 01 Jan 1970 00:00:00 GMT";
+        }
+        try { localStorage.removeItem(name); } catch (error) {}
+      });
+    }
+
     getVerifiedObject() {
-      return this.getVerifiedObjectFromCookies() || this.getVerifiedObjectFromStorage();
+      let found = null;
+
+      if (this.isSessionMode()) {
+        /* Por pestaña: sessionStorage es la única fuente de verdad. Una cookie
+           de sesión sobrevive al cierre de pestaña, así que no sirve acá. */
+        found = this.getVerifiedObjectFromStorage();
+        if (!found) {
+          this.clearVerificationCookies();
+          return null;
+        }
+      } else {
+        found = this.getVerifiedObjectFromCookies() || this.getVerifiedObjectFromStorage();
+      }
+
+      if (found && this.isVerificationExpired(found)) {
+        this.purgeVerification();
+        return null;
+      }
+
+      return found;
     }
 
     getVerifiedObjectFromCookies() {
@@ -443,9 +518,11 @@
     }
 
     getVerifiedObjectFromStorage() {
+      const store = this.verificationStore();
+      if (!store) return null;
       try {
         for (let i = 0; i < this.cookieAliases.length; i += 1) {
-          const parsed = this.parseVerified(localStorage.getItem(this.cookieAliases[i]));
+          const parsed = this.parseVerified(store.getItem(this.cookieAliases[i]));
           if (parsed) return parsed;
         }
       } catch (error) {}
@@ -489,24 +566,25 @@
       return { type: "expires", ms: days * 24 * 60 * 60 * 1000 };
     }
 
-    /* ==========================================================================
-       FIX — escritura de cookie robusta.
+    /* TTL efectivo para ESTA escritura. Con ventana fija, la cookie se escribe
+       con el tiempo RESTANTE desde added_at, no con el TTL completo — así el
+       navegador también la vence solo y no dependemos únicamente del chequeo JS. */
+    effectiveTTL(payload) {
+      const ttl = this.getCookieTTL();
+      if (ttl.type !== "expires" || ROLLING_WINDOW) return ttl;
+      const born = this.parseAddedAt(payload && payload.added_at);
+      if (!Number.isFinite(born)) return ttl;
+      const remaining = ttl.ms - (Date.now() - born);
+      return { type: "expires", ms: Math.max(remaining, 1000) };
+    }
 
-       1) Max-Age además de expires. `expires` es una fecha ABSOLUTA que el
-          navegador evalúa contra el reloj del dispositivo: un celular con la
-          hora adelantada recibe una fecha ya vencida y descarta la cookie o la
-          degrada a cookie de sesión. Max-Age es relativo, tiene precedencia
-          sobre expires, y elimina esa clase completa de fallos.
-
-       2) Read-back por comparación EXACTA del valor que acabamos de escribir,
-          no "¿hay algún valor válido?". Antes un falso negativo disparaba una
-          escritura host-only extra y generaba el duplicado permanente.
-
-       3) Antes de caer a host-only, borra el residuo del dominio rechazado
-          para no acumular cookies del mismo nombre.
-
-       Devuelve true/false para que el llamador pueda registrar el fallo.
-       ========================================================================== */
+    /* Escritura robusta:
+       1) Max-Age además de expires. `expires` es absoluto y se evalúa contra el
+          reloj del dispositivo; un equipo con la hora adelantada recibe una
+          fecha ya vencida. Max-Age es relativo y tiene precedencia.
+       2) Read-back por comparación EXACTA del valor escrito.
+       3) Borra el residuo del dominio rechazado antes de reintentar host-only,
+          para no acumular cookies duplicadas del mismo nombre. */
     setCookieStrongFlexible(name, value, ttl, domain) {
       const secure = location && location.protocol === "https:" ? ";Secure" : "";
       const encoded = encodeURIComponent(value);
@@ -539,7 +617,18 @@
       if (!payload || !payload.verified || !payload.dob || !payload.id) return false;
 
       const raw = JSON.stringify(payload);
-      const ttl = this.getCookieTTL();
+
+      /* Modo por pestaña: nada persistente. sessionStorage muere con la pestaña. */
+      if (this.isSessionMode()) {
+        this.clearVerificationCookies();
+        this.cookieAliases.forEach((name) => {
+          try { sessionStorage.setItem(name, raw); } catch (error) {}
+        });
+        this._lastCookieWriteOk = true;
+        return true;
+      }
+
+      const ttl = this.effectiveTTL(payload);
       let cookieOk = true;
 
       this.cookieAliases.forEach((name) => {
@@ -564,15 +653,31 @@
       return cookieOk;
     }
 
+    /* Refresco en cada carga verificada. Con ventana fija sólo renueva el
+       soporte (Safari/ITP capa las cookies a 7 días) sin mover added_at, así que
+       la caducidad lógica se respeta. Con ROLLING_WINDOW = true, reinicia el
+       contador en cada visita. */
     refreshPersistence(verifiedObj) {
       if (!verifiedObj) return;
-      this.persistVerificationFallbacks(verifiedObj);
+      const payload = ROLLING_WINDOW
+        ? Object.assign({}, verifiedObj, { added_at: this.formatColombiaTimestamp() })
+        : verifiedObj;
+      this.persistVerificationFallbacks(payload);
     }
 
     restoreCookieFromStorageIfNeeded() {
+      if (this.isSessionMode()) return;
       if (this.isVerifiedCookieValid()) return;
+
       const stored = this.getVerifiedObjectFromStorage();
-      if (stored) this.persistVerificationFallbacks(stored);
+      if (!stored) return;
+
+      if (this.isVerificationExpired(stored)) {
+        this.purgeVerification();
+        return;
+      }
+
+      this.persistVerificationFallbacks(stored);
     }
 
     deferCartSync(verifiedObj, opts) {
@@ -1309,47 +1414,114 @@
   customElements.define(ELEMENT_NAME, AgeVerificationGate);
 
   /* ==========================================================================
-     Helper de diagnóstico. En consola:  DiyvapeAgeGate.diagnose()
+     Helpers de consola.
 
-     Devuelve, de una sola vez, todo lo necesario para decidir si el problema
-     es de ESCRITURA (nada guardado), de BORRADO (el navegador limpia site
-     data) o de FORMA (el JSON no pasa parseVerified). Corre esto justo después
-     de verificar edad y otra vez tras cerrar y reabrir la pestaña.
+       DiyvapeAgeGate.diagnose()   → estado completo, incluyendo cuánto falta
+                                     para que caduque la verificación actual.
+       DiyvapeAgeGate.expireNow()  → simula el vencimiento SIN esperar el TTL:
+                                     mueve added_at hacia atrás y recarga.
+                                     El modal debe reaparecer.
+       DiyvapeAgeGate.reset()      → borra todo y recarga (verificación limpia).
      ========================================================================== */
   window.DiyvapeAgeGate = window.DiyvapeAgeGate || {};
+
   window.DiyvapeAgeGate.diagnose = function () {
     const gate = document.querySelector(ELEMENT_NAME);
     const names = gate && gate.cookieAliases ? gate.cookieAliases : [CANONICAL_COOKIE_NAME];
+    const ttl = gate ? gate.getCookieTTL() : null;
+
     const report = {
       host: location.hostname,
-      protocol: location.protocol,
-      cookieDomainSetting: gate ? gate.cookieDomain : "<sin gate en el DOM>",
-      persistence: gate ? gate.cookiePersistence : null,
-      htmlHasVerifiedClass: document.documentElement.classList.contains("age-gate-verified"),
-      lastCookieWriteOk: gate ? gate._lastCookieWriteOk : null,
-      rawAgeCookies: (document.cookie || "")
+      modo: gate ? gate.cookiePersistence : null,
+      ventana: ROLLING_WINDOW ? "rodante (reinicia en cada visita)" : "fija (desde la verificación original)",
+      ttlHoras: ttl && ttl.type === "expires" ? ttl.ms / 3600000 : null,
+      tipoTTL: ttl ? ttl.type : null,
+      dominioSetting: gate ? gate.cookieDomain || "(vacío = host-only)" : null,
+      claseVerificado: document.documentElement.classList.contains("age-gate-verified"),
+      modalActivo: !!document.querySelector(ELEMENT_NAME + ".active"),
+      ultimaEscrituraOK: gate ? gate._lastCookieWriteOk : null,
+      purgaPorVencimiento: gate && gate._lastExpiryPurgeAt ? new Date(gate._lastExpiryPurgeAt).toLocaleString("es-CO") : null,
+      cookiesCrudas: (document.cookie || "")
         .split(";")
         .map((c) => c.trim())
         .filter((c) => c.indexOf("age_verified") !== -1),
       cookies: {},
-      storage: {},
-      verified: gate ? Boolean(gate.getVerifiedObject()) : null,
+      localStorage: {},
+      sessionStorage: {},
     };
 
     names.forEach((name) => {
       report.cookies[name] = gate ? gate.getCookie(name) : null;
-      try {
-        report.storage[name] = localStorage.getItem(name);
-      } catch (error) {
-        report.storage[name] = "<localStorage bloqueado>";
-      }
+      try { report.localStorage[name] = localStorage.getItem(name); } catch (e) { report.localStorage[name] = "<bloqueado>"; }
+      try { report.sessionStorage[name] = sessionStorage.getItem(name); } catch (e) { report.sessionStorage[name] = "<bloqueado>"; }
     });
 
-    if (report.rawAgeCookies.length > 1) {
-      report.WARNING = "Hay más de una cookie age_verified — duplicados. Borra todas las cookies del sitio y vuelve a verificar.";
+    if (gate) {
+      const obj = gate.getVerifiedObjectFromCookies() || gate.getVerifiedObjectFromStorage();
+      if (obj) {
+        const born = gate.parseAddedAt(obj.added_at);
+        report.verificadaEl = Number.isFinite(born) ? new Date(born).toLocaleString("es-CO") : "(added_at ilegible)";
+        if (Number.isFinite(born) && ttl && ttl.type === "expires") {
+          const restanMs = ttl.ms - (Date.now() - born);
+          report.caducaEl = new Date(born + ttl.ms).toLocaleString("es-CO");
+          report.restanHoras = +(restanMs / 3600000).toFixed(2);
+          report.vencida = restanMs <= 0;
+        }
+      } else {
+        report.verificadaEl = "(sin verificación almacenada)";
+      }
+    }
+
+    if (report.cookiesCrudas.length > 1) {
+      report.AVISO = "Más de una cookie age_verified — duplicados. Corre DiyvapeAgeGate.reset().";
     }
 
     if (window.console && console.log) console.log("[AgeGate diagnose]", report);
     return report;
+  };
+
+  window.DiyvapeAgeGate.expireNow = function () {
+    const gate = document.querySelector(ELEMENT_NAME);
+    if (!gate) return "No hay age-verification-gate en el DOM";
+    const ttl = gate.getCookieTTL();
+    if (ttl.type !== "expires") return "El modo actual no usa expiración por tiempo";
+
+    const obj = gate.getVerifiedObjectFromCookies() || gate.getVerifiedObjectFromStorage();
+    if (!obj) return "No hay verificación almacenada — verifica edad primero";
+
+    /* added_at al doble del TTL hacia atrás → garantizado vencido */
+    const past = new Date(Date.now() - ttl.ms * 2);
+    obj.added_at = gate.formatColombiaTimestamp(past);
+    const raw = JSON.stringify(obj);
+
+    gate.cookieAliases.forEach((name) => {
+      document.cookie = name + "=" + encodeURIComponent(raw) + ";path=/";
+      try { localStorage.setItem(name, raw); } catch (e) {}
+      try { sessionStorage.setItem(name, raw); } catch (e) {}
+    });
+
+    console.log("[AgeGate] added_at movido a", obj.added_at, "— recargando…");
+    setTimeout(() => location.reload(), 400);
+    return "Vencimiento simulado. Al recargar debe aparecer el modal.";
+  };
+
+  window.DiyvapeAgeGate.reset = function () {
+    const gate = document.querySelector(ELEMENT_NAME);
+    const names = gate && gate.cookieAliases ? gate.cookieAliases : [CANONICAL_COOKIE_NAME];
+    names.forEach((name) => {
+      document.cookie = name + "=;path=/;Max-Age=0";
+      if (gate && gate.cookieDomain) {
+        document.cookie = name + "=;path=/;domain=" + gate.cookieDomain + ";Max-Age=0";
+      }
+      try { localStorage.removeItem(name); } catch (e) {}
+      try { sessionStorage.removeItem(name); } catch (e) {}
+    });
+    if (gate) {
+      try { localStorage.removeItem(gate._pendingCartSyncKey); } catch (e) {}
+      try { sessionStorage.removeItem(gate._cartSyncSessionKey); } catch (e) {}
+    }
+    document.documentElement.classList.remove("age-gate-verified");
+    setTimeout(() => location.reload(), 300);
+    return "Verificación borrada. Recargando…";
   };
 })();
