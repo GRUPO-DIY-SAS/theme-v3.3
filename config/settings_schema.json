@@ -1383,7 +1383,7 @@
         "max": 300,
         "step": 5,
         "unit": "KG",
-        "default": 3
+        "default": 5
       },
       {
         "type": "text",

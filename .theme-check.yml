@@ -1,0 +1,5 @@
+# Archivos que la app Foxify (page builder) inyecta en el theme y escribe de vuelta al repo;
+# los mantiene la app, no este repo, y traen assets/locales que no existen aquí.
+ignore:
+  - sections/foxify-*
+  - templates/*.foxify-*
