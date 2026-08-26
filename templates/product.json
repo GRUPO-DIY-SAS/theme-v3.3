@@ -54,24 +54,6 @@
           },
           "blocks": {}
         },
-        "live_view_rzDP6G": {
-          "type": "_product-live-view",
-          "settings": {
-            "min_number": 10,
-            "max_number": 40,
-            "interval_time": 10,
-            "content": "[count] personas están viendo este producto"
-          },
-          "blocks": {}
-        },
-        "countdown_timer_QB4Ydn": {
-          "type": "_product-countdown-timer",
-          "settings": {
-            "timer_style": "default",
-            "content": "🔥 ¡Date prisa! La oferta termina en:"
-          },
-          "blocks": {}
-        },
         "variant_picker_tcCihG": {
           "type": "_product-variant-picker",
           "settings": {
@@ -237,6 +219,28 @@
             "open": false
           },
           "blocks": {}
+        },
+        "key_specs_homesale": {
+          "type": "_product-key-specs",
+          "settings": {
+            "max_items": 4,
+            "metafield_key": "custom.especificaciones",
+            "aria_label": "Datos clave del producto"
+          }
+        },
+        "trust_strip_homesale": {
+          "type": "_product-trust-strip",
+          "settings": {}
+        },
+        "battery_care_homesale": {
+          "type": "_product-battery-care",
+          "settings": {}
+        },
+        "faq_homesale": {
+          "type": "_product-category-faq",
+          "settings": {
+            "open": false
+          }
         }
       },
       "block_order": [
@@ -245,12 +249,12 @@
         "price_VJ4N8m",
         "badges_RwfTMp",
         "short_description_9BGxVm",
-        "live_view_rzDP6G",
-        "countdown_timer_QB4Ydn",
+        "key_specs_homesale",
         "variant_picker_tcCihG",
         "product_addons_YRaprz",
         "buy_buttons_LcQGtR",
         "trust_badge_homesale",
+        "trust_strip_homesale",
         "model_size_XM7z6E",
         "pickup_availability_cyVydQ",
         "product_grouped_6epkNf",
@@ -258,11 +262,13 @@
         "meta_homesale",
         "collapsible_row_m3g6f8",
         "specs_homesale",
+        "battery_care_homesale",
         "complementary_products_Wip9YG",
         "addi_banner_homesale",
         "product_collapsible_row_4gGjVF",
         "product_delivery_return_d4tVYn",
-        "collapsible_row_eLaQpR"
+        "collapsible_row_eLaQpR",
+        "faq_homesale"
       ],
       "settings": {
         "section_width": "container",
