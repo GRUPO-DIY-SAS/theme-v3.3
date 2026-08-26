@@ -487,6 +487,21 @@
                     style="--rounded-radius: 5px;"
                   >
                     {%- for product in collection.products limit: block_st.items_to_show -%}
+                      {%- if section_st.hide_sold_out -%}
+                        {%- liquid
+                          # Mismo criterio que el grid: solo productos con inventario disponible.
+                          assign in_stock = false
+                          for v in product.variants
+                            if v.inventory_management == blank or v.inventory_quantity > 0
+                              assign in_stock = true
+                              break
+                            endif
+                          endfor
+                        -%}
+                        {%- if in_stock == false -%}
+                          {%- continue -%}
+                        {%- endif -%}
+                      {%- endif -%}
                       {% render 'product-item',
                         card_product: product,
                         template_enable_price: true,
