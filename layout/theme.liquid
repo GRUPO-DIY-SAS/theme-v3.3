@@ -129,7 +129,7 @@
     {%- endif -%}
 
     {% comment %} SEO: noindex para colecciones con filtros activos o vista AJAX (inyectado via JS porque Liquid no accede a query params desde el layout) {% endcomment %}
-    <script>if(location.search.indexOf('filter.')>-1||location.search.indexOf('view=ajax')>-1){document.head.insertAdjacentHTML('beforeend','<meta name="robots" content="noindex, follow">')}</script>
+    <script>if(location.search.indexOf('filter.')>-1||location.search.indexOf('view=ajax')>-1){var r=document.createElement('meta');r.name='robots';r.content='noindex, follow';document.head.appendChild(r)}</script>
 
     {% comment %}
       Lazy product images carry .bls-loading-image (filter: blur 3px); global.js clears it on
