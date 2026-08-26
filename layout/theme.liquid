@@ -90,19 +90,41 @@
     {%- if settings.favicon != blank -%}
       <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
     {%- endif -%}
+    {%- liquid
+      # Marca del sufijo del <title>: el nombre de la tienda en Shopify no siempre es la marca
+      # ("Homesaleco" vs Homesale). La comparación ignora espacios y puntos para no duplicarla
+      # cuando el meta title ya trae "Home Sale S.A.S" o "Homesale".
+      assign seo_brand = settings.seo_brand_name | default: shop.name
+      assign seo_brand_key = seo_brand | downcase | remove: ' ' | remove: '.'
+      assign seo_title_key = page_title | downcase | remove: ' ' | remove: '.'
+      # Sin meta description Google inventa el snippet; damos un respaldo por tipo de página.
+      assign seo_description = page_description
+      if seo_description == blank
+        case request.page_type
+          when 'collection'
+            assign seo_description = settings.seo_collection_description_fallback | replace: '[collection]', collection.title | replace: '[brand]', seo_brand
+          when 'product'
+            assign seo_description = product.description | strip_html | strip_newlines | truncate: 155
+          when 'page'
+            assign seo_description = page.content | strip_html | strip_newlines | truncate: 155
+          when 'article'
+            assign seo_description = article.excerpt_or_content | strip_html | strip_newlines | truncate: 155
+        endcase
+      endif
+    -%}
     <title>
       {{ page_title }}
       {%- if current_tags %} &ndash; tagged "{{ current_tags | join: ', ' }}"{% endif -%}
       {%- if current_page != 1 %} &ndash; Page {{ current_page }}{% endif -%}
-      {%- unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless -%}
+      {%- unless seo_title_key contains seo_brand_key %} &ndash; {{ seo_brand }}{% endunless -%}
     </title>
-    {% if page_description %}
-      <meta name="description" content="{{ page_description | escape }}">
+    {% if seo_description != blank %}
+      <meta name="description" content="{{ seo_description | strip | escape }}">
     {% endif %}
     {% render 'meta-tags' %}
 
-    {% comment %} SEO: noindex para vendors {% endcomment %}
-    {%- if canonical_url contains '/vendors' -%}
+    {% comment %} SEO: noindex para listados por vendor/tipo (/collections/vendors?q=, /collections/types?q=): duplican colecciones reales {% endcomment %}
+    {%- if canonical_url contains '/collections/vendors' or canonical_url contains '/collections/types' -%}
       <meta name="robots" content="noindex, follow">
     {%- endif -%}
 

@@ -1888,5 +1888,23 @@
         "info": "El widget se inserta debajo del elemento que coincida con este selector."
       }
     ]
+  },
+  {
+    "name": "SEO",
+    "settings": [
+      {
+        "type": "text",
+        "id": "seo_brand_name",
+        "label": "Marca para el sufijo del título",
+        "info": "Se añade al final del título de la pestaña cuando el meta title no la incluye. Vacío = nombre de la tienda en Shopify."
+      },
+      {
+        "type": "text",
+        "id": "seo_collection_description_fallback",
+        "label": "Meta description de respaldo para colecciones",
+        "default": "Compra [collection] en [brand]. Envío a todo Colombia y pago hasta en 24 cuotas con Addi.",
+        "info": "Solo se usa cuando la colección no tiene meta description. Variables: [collection], [brand]."
+      }
+    ]
   }
 ]

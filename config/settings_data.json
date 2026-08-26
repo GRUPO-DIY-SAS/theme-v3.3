@@ -615,7 +615,9 @@
     "widget_cutoff_hour": 13,
     "widget_cutoff_title": "Horario de corte",
     "widget_text_ships_today": "Pide antes de la 1:00 p.m. y procesamos tu pedido hoy",
-    "widget_trust_text": "Despachamos de lunes a viernes. Tu pedido sale en máximo 5 días hábiles después de confirmado el pago."
+    "widget_trust_text": "Despachamos de lunes a viernes. Tu pedido sale en máximo 5 días hábiles después de confirmado el pago.",
+    "seo_brand_name": "Homesale",
+    "seo_collection_description_fallback": "Compra [collection] en [brand]. Envío a todo Colombia y pago hasta en 24 cuotas con Addi."
   },
   "presets": {
     "Default": {
