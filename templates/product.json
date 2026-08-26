@@ -130,6 +130,18 @@
           "settings": {},
           "blocks": {}
         },
+        "meta_homesale": {
+          "type": "_product-meta",
+          "settings": {
+            "show_barcode": false,
+            "show_sku": true,
+            "show_available": true,
+            "show_tags": false,
+            "show_type": true,
+            "show_collections": false
+          },
+          "blocks": {}
+        },
         "product_grouped_6epkNf": {
           "type": "_product-grouped",
           "settings": {
@@ -275,18 +287,6 @@
             "content_hogar": "<p><strong>¿Necesita armado?</strong> La ficha técnica indica si el producto llega armado o requiere ensamble; los muebles y maletas traen instrucciones cuando aplica.</p><p><strong>¿Puedo cambiarlo si no era lo que esperaba?</strong> Tienes 5 días hábiles desde la entrega para ejercer el derecho de retracto, con el producto sin uso y en su empaque original.</p><p><strong>¿Cómo funciona la garantía?</strong> Aplica la garantía legal de la Ley 1480 y, cuando la ficha lo indica, la garantía del vendedor. Escríbenos por WhatsApp o al correo servicioalcliente@homesale.com.co.</p><p><strong>¿Cuánto tarda el envío?</strong> Despachamos en máximo 5 días hábiles después del pago, de lunes a viernes, a todo Colombia.</p>"
           },
           "blocks": {}
-        },
-        "meta_homesale": {
-          "type": "_product-meta",
-          "settings": {
-            "show_barcode": false,
-            "show_sku": true,
-            "show_available": true,
-            "show_tags": false,
-            "show_type": true,
-            "show_collections": false
-          },
-          "blocks": {}
         }
       },
       "block_order": [
@@ -303,6 +303,7 @@
         "trust_strip_homesale",
         "model_size_XM7z6E",
         "pickup_availability_cyVydQ",
+        "meta_homesale",
         "product_grouped_6epkNf",
         "more_colors_3zmxGq",
         "collapsible_row_m3g6f8",
@@ -313,8 +314,7 @@
         "product_collapsible_row_4gGjVF",
         "product_delivery_return_d4tVYn",
         "collapsible_row_eLaQpR",
-        "faq_homesale",
-        "meta_homesale"
+        "faq_homesale"
       ],
       "settings": {
         "section_width": "container",
