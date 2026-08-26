@@ -747,3 +747,47 @@ variant-radios-detail fieldset:last-of-type {
 .collapsible-content_inner li {
   margin-bottom: 0.5rem;
 }
+
+/* ---- Infomercial description (classes emitted by the description builder) ---- */
+.collapsible-content_inner .pd-lead { font-size: 1.7rem; line-height: 1.5; font-weight: var(--subheading-weight, 500); color: var(--color-heading); margin: 0 0 1.6rem; }
+.collapsible-content_inner .pd-title { font-size: 1.2rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(var(--color-text-rgb), 0.65); margin: 2.2rem 0 0.9rem; font-weight: 600; }
+.collapsible-content_inner .pd-title:first-child { margin-top: 0; }
+.pd-essentials { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr; gap: 1rem; }
+@media (min-width: 768px) { .pd-essentials { grid-template-columns: 1fr 1fr; } }
+.pd-essentials li { position: relative; margin: 0; padding: 1.2rem 1.4rem 1.2rem 4.6rem; border: 1px solid var(--color-border); border-radius: 8px; background: var(--color-background); line-height: 1.55; }
+.pd-essentials li::before { content: ""; position: absolute; left: 1.4rem; top: 1.35rem; width: 2.2rem; height: 2.2rem; border-radius: 50%; background: var(--color-primary); }
+.pd-essentials li::after { content: ""; position: absolute; left: 2.2rem; top: 1.85rem; width: 0.5rem; height: 0.95rem; border: solid #fff; border-width: 0 2px 2px 0; transform: rotate(45deg); }
+.pd-essentials strong { display: block; color: var(--color-heading); margin-bottom: 0.2rem; }
+.pd-ideal { position: relative; margin: 0; padding: 1.4rem 1.6rem 1.4rem 1.9rem; border-left: 4px solid var(--color-primary); background: rgba(var(--color-primary-rgb), 0.05); border-radius: 0 8px 8px 0; line-height: 1.6; }
+.pd-includes { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.6rem; }
+.pd-includes li { margin: 0; padding: 0.55rem 1rem 0.55rem 2.6rem; border: 1px solid var(--color-border); border-radius: 999px; font-size: 1.35rem; position: relative; background: var(--color-background); }
+.pd-includes li::before { content: ""; position: absolute; left: 1rem; top: 50%; width: 1.1rem; height: 1.1rem; transform: translateY(-50%); border-radius: 50%; background: var(--color-primary); }
+.pd-steps { list-style: none; margin: 0; padding: 0; counter-reset: pd-step; display: grid; gap: 0.8rem; }
+.pd-steps li { position: relative; margin: 0; padding: 1rem 1.2rem 1rem 5rem; border: 1px solid var(--color-border); border-radius: 8px; line-height: 1.55; counter-increment: pd-step; background: var(--color-background); }
+.pd-steps li::before { content: counter(pd-step); position: absolute; left: 1.2rem; top: 0.9rem; width: 2.6rem; height: 2.6rem; border-radius: 50%; background: var(--color-primary); color: #fff; font-weight: 700; font-size: 1.3rem; display: flex; align-items: center; justify-content: center; }
+.pd-note { font-size: 1.3rem; color: rgba(var(--color-text-rgb), 0.7); margin: 1rem 0 0; }
+
+/* ---- Battery care (electric vehicles) ---- */
+.battery-care { border: 1px solid var(--color-border); border-radius: 10px; padding: 2rem 2rem 1.6rem; background: var(--color-background); }
+.battery-care__eyebrow { display: block; font-size: 1.1rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-primary); font-weight: 700; margin-bottom: 0.3rem; }
+.battery-care__title { font-size: 2rem; line-height: 1.2; margin-bottom: 1.4rem !important; }
+.battery-care__steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.9rem; }
+@media (min-width: 768px) { .battery-care__steps { grid-template-columns: 1fr 1fr; } }
+.battery-care__step { display: grid; grid-template-columns: auto auto 1fr; gap: 0.9rem; align-items: start; padding: 1.2rem 1.3rem; border-radius: 8px; background: rgba(var(--color-primary-rgb), 0.05); border: 1px solid rgba(var(--color-primary-rgb), 0.18); margin: 0; }
+.battery-care__num { font-size: 3rem; line-height: 1; font-weight: 700; color: rgba(var(--color-primary-rgb), 0.35); font-variant-numeric: tabular-nums; }
+.battery-care__icon { width: 3.2rem; height: 3.2rem; color: var(--color-primary); margin-top: 0.2rem; }
+.battery-care__icon svg { width: 100%; height: 100%; }
+.battery-care__step-title { display: block; color: var(--color-heading); margin-bottom: 0.2rem; }
+.battery-care__step-text { display: block; font-size: 1.35rem; line-height: 1.5; }
+.battery-care__footer { margin: 1.4rem 0 0; font-size: 1.35rem; text-align: center; color: rgba(var(--color-text-rgb), 0.8); }
+.battery-care__warning { display: flex; gap: 0.8rem; align-items: flex-start; margin: 1rem 0 0; padding: 1rem 1.2rem; border-radius: 8px; background: rgba(var(--color-primary-rgb), 0.08); color: var(--color-heading); font-size: 1.35rem; font-weight: 500; }
+.battery-care__warning svg { width: 2rem; height: 2rem; flex: 0 0 auto; color: var(--color-primary); margin-top: 0.1rem; }
+
+/* ---- Trust strip ---- */
+.trust-strip { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem; }
+.trust-strip__item { display: flex; gap: 0.8rem; align-items: flex-start; margin: 0; padding: 1rem 1.1rem; border: 1px solid var(--color-border); border-radius: 8px; background: var(--color-background); }
+.trust-strip__icon { width: 2.4rem; height: 2.4rem; flex: 0 0 auto; color: var(--color-primary); }
+.trust-strip__icon svg { width: 100%; height: 100%; }
+.trust-strip__text { font-size: 1.3rem; line-height: 1.4; min-width: 0; }
+.trust-strip__text strong { display: block; color: var(--color-heading); }
+.trust-strip__text span { display: block; color: rgba(var(--color-text-rgb), 0.75); }

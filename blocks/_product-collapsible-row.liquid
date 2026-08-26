@@ -15,6 +15,11 @@
   endif
   if block_st.use_product_description and product != blank
     assign row_content = product.description
+    if product.metafields.custom.short_description != blank and row_content contains '<p class="pd-lead">'
+      # El gancho ya se muestra bajo el precio (descripción corta); no repetirlo como primer párrafo.
+      assign lead = row_content | split: '</p>' | first | append: '</p>'
+      assign row_content = row_content | remove_first: lead
+    endif
     if block_st.hide_tables and row_content contains '<table'
       # Las tablas se muestran en el bloque Especificaciones; aquí se quitan para no duplicarlas.
       assign dparts = row_content | split: '<table'

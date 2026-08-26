@@ -1,0 +1,85 @@
+{%- comment -%}
+  Preguntas frecuentes por familia de producto, elegidas por product.type para que una sola
+  plantilla maestra sirva a todo el catálogo. El contenido vive en los ajustes del bloque
+  (editable en el editor de temas); el mapeo tipo → familia sigue la taxonomía de Homesale.
+{%- endcomment -%}
+{%- liquid
+  assign block_st = block.settings
+  assign section_st = section.settings
+  assign product = closest.product
+  assign enable_skeleton_loading = section_st.enable_skeleton_loading
+  assign ptype = product.type | downcase
+  assign family = 'hogar'
+  case ptype
+    when 'fitness', 'mancuernas'
+      assign family = 'fitness'
+    when 'bicicletas', 'accesorios bicicleta'
+      assign family = 'bicicletas'
+    when 'bicicleta eléctrica', 'patinetas eléctricas'
+      assign family = 'electricos'
+    when 'herramientas'
+      assign family = 'herramientas'
+    when 'montable', 'juguetería', 'coches para bebes'
+      assign family = 'ninos'
+  endcase
+  assign heading_key = 'heading_' | append: family
+  assign content_key = 'content_' | append: family
+  assign heading = block_st[heading_key]
+  assign content = block_st[content_key]
+  if heading == blank
+    assign heading = block_st.heading_hogar
+  endif
+  if content == blank
+    assign content = block_st.content_hogar
+  endif
+-%}
+{%- if content != blank -%}
+  <collapsible-block
+    tabindex="0"
+    {{ block.shopify_attributes }}
+    class="bls-toggle{% if block_st.open %} active{% endif %} relative border-bottom block{% if enable_skeleton_loading %} skeleton-loading{% endif %}"
+  >
+    <h3 class="h6 my-0 pointer py-17 relative collapsible-heading heading-letter-spacing">
+      {{- heading -}}
+      <span class="open-children-toggle absolute inset-0 flex flex-end pointer">
+        <span class="icon_plus-animation"> </span>
+      </span>
+    </h3>
+    <div
+      class="overflow-hidden{% if block_st.open %} open_collab{% endif %} collapsible-content"
+      {% unless block_st.open %}style="display: none;"{% endunless %}
+    >
+      <div class="collapsible-content_inner mb-12 pd-faq">
+        {{ content }}
+      </div>
+    </div>
+  </collapsible-block>
+{%- endif -%}
+{% schema %}
+{
+  "name": "Preguntas por categoría",
+  "tag": null,
+  "settings": [
+    { "type": "checkbox", "id": "open", "label": "Abierto por defecto", "default": false },
+    { "type": "header", "content": "Fitness" },
+    { "type": "text", "id": "heading_fitness", "label": "Título", "default": "Preguntas frecuentes sobre equipos de fitness" },
+    { "type": "richtext", "id": "content_fitness", "label": "Contenido", "default": "<p><strong>¿Necesito armarlo?</strong> Cada ficha indica si el equipo llega armado o requiere ensamble; los que requieren ensamble traen manual y herramienta básica.</p><p><strong>¿Cuál es el peso máximo de usuario?</strong> Aparece en los datos clave y en la ficha técnica de cada producto. Elige siempre un equipo con margen sobre tu peso.</p><p><strong>¿Qué pasa si llega golpeado o con una falla?</strong> Revisa el empaque antes de firmar la guía y escríbenos por WhatsApp o al correo servicioalcliente@home-sale.com.co: aplica la garantía legal de la Ley 1480 y el derecho de retracto de 5 días hábiles.</p><p><strong>¿Hacen envíos a mi ciudad?</strong> Despachamos a todo Colombia en máximo 5 días hábiles después del pago; el tiempo de entrega depende de la transportadora y de tu ciudad.</p>" },
+    { "type": "header", "content": "Bicicletas y accesorios" },
+    { "type": "text", "id": "heading_bicicletas", "label": "Título", "default": "Preguntas frecuentes sobre bicicletas" },
+    { "type": "richtext", "id": "content_bicicletas", "label": "Contenido", "default": "<p><strong>¿Cómo elijo la talla?</strong> La ficha técnica indica las tallas disponibles de cada modelo; si dudas entre dos, escríbenos por WhatsApp con tu estatura y te orientamos antes de comprar.</p><p><strong>¿La bicicleta llega armada?</strong> Llega en caja con ensamble parcial: normalmente se instalan manubrio, pedales, sillín y rueda delantera. Recomendamos una revisión de ajuste en un taller antes del primer uso.</p><p><strong>¿Tienen garantía?</strong> Sí: la garantía legal de la Ley 1480 y, cuando aplica, la garantía del vendedor indicada en la ficha. Para hacerla efectiva escríbenos por WhatsApp o al correo servicioalcliente@home-sale.com.co.</p><p><strong>¿Cuánto tarda el envío?</strong> Despachamos en máximo 5 días hábiles después del pago, de lunes a viernes, a todo Colombia.</p>" },
+    { "type": "header", "content": "Movilidad eléctrica" },
+    { "type": "text", "id": "heading_electricos", "label": "Título", "default": "Preguntas frecuentes sobre movilidad eléctrica" },
+    { "type": "richtext", "id": "content_electricos", "label": "Contenido", "default": "<p><strong>¿Qué autonomía tiene?</strong> La autonomía y el tiempo de carga están en la ficha técnica de cada modelo y dependen del peso del usuario, el terreno y el uso del acelerador.</p><p><strong>¿Necesita licencia o SOAT?</strong> Depende de la potencia y la velocidad del vehículo según la normativa vigente en Colombia; consúltalo con nosotros por WhatsApp antes de comprar si tienes dudas sobre tu modelo.</p><p><strong>¿Cómo se atiende la garantía?</strong> Aplica la garantía legal de la Ley 1480 y, cuando la ficha lo indica, la garantía del vendedor. Escríbenos por WhatsApp o al correo servicioalcliente@home-sale.com.co.</p><p><strong>¿Cuánto tarda el envío?</strong> Despachamos en máximo 5 días hábiles después del pago, de lunes a viernes, a todo Colombia. Al recibir, revisa el producto antes de firmar la guía.</p>" },
+    { "type": "header", "content": "Niños: montables, juguetes y coches" },
+    { "type": "text", "id": "heading_ninos", "label": "Título", "default": "Preguntas frecuentes sobre montables y juguetes" },
+    { "type": "richtext", "id": "content_ninos", "label": "Contenido", "default": "<p><strong>¿Para qué edad es?</strong> La edad recomendada y el peso máximo aparecen en los datos clave de cada producto; respétalos para que el montable sea seguro.</p><p><strong>¿Cuánto dura la batería?</strong> Cuando el fabricante lo informa, está en la ficha técnica. Carga la batería por completo antes del primer uso y evita dejarla descargada por semanas.</p><p><strong>¿Puedo devolverlo si no le gustó?</strong> Tienes 5 días hábiles desde la entrega para ejercer el derecho de retracto, con el producto sin uso y en su empaque original.</p><p><strong>¿Cuánto tarda el envío?</strong> Despachamos en máximo 5 días hábiles después del pago, de lunes a viernes, a todo Colombia.</p>" },
+    { "type": "header", "content": "Herramientas" },
+    { "type": "text", "id": "heading_herramientas", "label": "Título", "default": "Preguntas frecuentes sobre herramientas" },
+    { "type": "richtext", "id": "content_herramientas", "label": "Contenido", "default": "<p><strong>¿Funciona a 110 V?</strong> El voltaje de cada herramienta está en los datos clave y en la ficha técnica; verifica que coincida con tu instalación antes de comprar.</p><p><strong>¿Qué incluye la caja?</strong> La sección «Qué incluye» de cada producto lista accesorios, estuche y baterías cuando vienen incluidos.</p><p><strong>¿Cómo funciona la garantía?</strong> Aplica la garantía legal de la Ley 1480 y, cuando la ficha lo indica, la garantía del vendedor. Conserva la factura y escríbenos por WhatsApp o al correo servicioalcliente@home-sale.com.co.</p><p><strong>¿Cuánto tarda el envío?</strong> Despachamos en máximo 5 días hábiles después del pago, de lunes a viernes, a todo Colombia.</p>" },
+    { "type": "header", "content": "Hogar y otros tipos" },
+    { "type": "text", "id": "heading_hogar", "label": "Título", "default": "Preguntas frecuentes" },
+    { "type": "richtext", "id": "content_hogar", "label": "Contenido", "default": "<p><strong>¿Necesita armado?</strong> La ficha técnica indica si el producto llega armado o requiere ensamble; los muebles y maletas traen instrucciones cuando aplica.</p><p><strong>¿Puedo cambiarlo si no era lo que esperaba?</strong> Tienes 5 días hábiles desde la entrega para ejercer el derecho de retracto, con el producto sin uso y en su empaque original.</p><p><strong>¿Cómo funciona la garantía?</strong> Aplica la garantía legal de la Ley 1480 y, cuando la ficha lo indica, la garantía del vendedor. Escríbenos por WhatsApp o al correo servicioalcliente@home-sale.com.co.</p><p><strong>¿Cuánto tarda el envío?</strong> Despachamos en máximo 5 días hábiles después del pago, de lunes a viernes, a todo Colombia.</p>" }
+  ],
+  "presets": [ { "name": "Preguntas por categoría" } ]
+}
+{% endschema %}

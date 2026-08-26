@@ -38,7 +38,11 @@
       if k == blank or v == blank or v.size > 60
         continue
       endif
-      assign item = '<li class="key-spec"><span class="key-spec__label">' | append: k | append: '</span><span class="key-spec__value">' | append: v | append: '</span></li>'
+      assign vclass = 'key-spec__value'
+      if v.size > 18
+        assign vclass = 'key-spec__value key-spec__value--long'
+      endif
+      assign item = '<li class="key-spec"><span class="key-spec__label">' | append: k | append: '</span><span class="' | append: vclass | append: '">' | append: v | append: '</span></li>'
       assign items = items | append: item
       assign count = count | plus: 1
     endfor
@@ -49,7 +53,8 @@
     .key-specs { display: flex; flex-wrap: wrap; gap: 0.8rem; list-style: none; margin: 0 0 2.2rem; padding: 0; }
     .key-spec { flex: 1 1 calc(50% - 0.8rem); min-width: 12rem; border: 1px solid var(--color-border); border-radius: 6px; padding: 0.9rem 1.1rem; background: var(--color-background); }
     .key-spec__label { display: block; font-size: 1.1rem; letter-spacing: 0.04em; text-transform: uppercase; color: rgba(var(--color-text-rgb), 0.7); margin-bottom: 0.2rem; }
-    .key-spec__value { display: block; font-size: 1.5rem; font-weight: var(--subheading-weight, 500); color: var(--color-heading); line-height: 1.3; }
+    .key-spec__value { display: block; font-size: 1.5rem; font-weight: var(--subheading-weight, 500); color: var(--color-heading); line-height: 1.3; overflow-wrap: anywhere; }
+    .key-spec__value--long { font-size: 1.3rem; font-weight: 500; }
     @media (min-width: 768px) { .key-spec { flex-basis: calc(25% - 0.8rem); } }
   {% endstyle %}
   <ul

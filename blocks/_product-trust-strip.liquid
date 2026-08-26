@@ -1,0 +1,60 @@
+{%- comment -%}
+  Franja de razones para comprar en Homesale (importador directo, bodega, despacho, garantía).
+  Cuatro ítems con icono, editables; sustituye la repetición de estas promesas en cada descripción.
+{%- endcomment -%}
+{%- liquid
+  assign block_st = block.settings
+  assign section_st = section.settings
+  assign enable_skeleton_loading = section_st.enable_skeleton_loading
+-%}
+<ul class="trust-strip mb-30{% if enable_skeleton_loading %} skeleton-loading{% endif %}" {{ block.shopify_attributes }} aria-label="{{ block_st.aria_label | escape }}">
+  {%- for i in (1..4) -%}
+    {%- assign tk = 'item' | append: i | append: '_title' -%}
+    {%- assign xk = 'item' | append: i | append: '_text' -%}
+    {%- assign ik = 'item' | append: i | append: '_icon' -%}
+    {%- assign t = block_st[tk] -%}
+    {%- assign x = block_st[xk] -%}
+    {%- assign ic = block_st[ik] -%}
+    {%- if t != blank -%}
+      <li class="trust-strip__item">
+        <span class="trust-strip__icon" aria-hidden="true">
+          {%- case ic -%}
+            {%- when 'truck' -%}
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7z"/><circle cx="7" cy="18" r="1.6"/><circle cx="17" cy="18" r="1.6"/></svg>
+            {%- when 'warehouse' -%}
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21V9l9-5 9 5v12"/><path d="M7 21v-7h10v7"/><path d="M10 21v-4h4v4"/></svg>
+            {%- when 'shield' -%}
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4 6v6c0 4.5 3.4 7.6 8 9 4.6-1.4 8-4.5 8-9V6z"/><path d="m9 12 2 2 4-4"/></svg>
+            {%- when 'chat' -%}
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H8l-4 4z"/><path d="M8 9h8M8 12h5"/></svg>
+            {%- else -%}
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8l9-4 9 4-9 4z"/><path d="M3 8v8l9 4 9-4V8"/><path d="M12 12v8"/></svg>
+          {%- endcase -%}
+        </span>
+        <span class="trust-strip__text"><strong>{{ t }}</strong>{% if x != blank %}<span>{{ x }}</span>{% endif %}</span>
+      </li>
+    {%- endif -%}
+  {%- endfor -%}
+</ul>
+{% schema %}
+{
+  "name": "Franja de confianza",
+  "tag": null,
+  "settings": [
+    { "type": "text", "id": "aria_label", "label": "Etiqueta accesible", "default": "Por qué comprar en Homesale" },
+    { "type": "select", "id": "item1_icon", "label": "Ítem 1 · icono", "options": [ { "value": "box", "label": "Caja" }, { "value": "truck", "label": "Camión" }, { "value": "warehouse", "label": "Bodega" }, { "value": "shield", "label": "Escudo" }, { "value": "chat", "label": "Chat" } ], "default": "box" },
+    { "type": "text", "id": "item1_title", "label": "Ítem 1 · título", "default": "Importador directo" },
+    { "type": "text", "id": "item1_text", "label": "Ítem 1 · texto", "default": "Sin intermediarios: precio de importador y repuestos." },
+    { "type": "select", "id": "item2_icon", "label": "Ítem 2 · icono", "options": [ { "value": "box", "label": "Caja" }, { "value": "truck", "label": "Camión" }, { "value": "warehouse", "label": "Bodega" }, { "value": "shield", "label": "Escudo" }, { "value": "chat", "label": "Chat" } ], "default": "warehouse" },
+    { "type": "text", "id": "item2_title", "label": "Ítem 2 · título", "default": "Bodega en Bogotá" },
+    { "type": "text", "id": "item2_text", "label": "Ítem 2 · texto", "default": "Stock real: lo que ves disponible está en bodega." },
+    { "type": "select", "id": "item3_icon", "label": "Ítem 3 · icono", "options": [ { "value": "box", "label": "Caja" }, { "value": "truck", "label": "Camión" }, { "value": "warehouse", "label": "Bodega" }, { "value": "shield", "label": "Escudo" }, { "value": "chat", "label": "Chat" } ], "default": "truck" },
+    { "type": "text", "id": "item3_title", "label": "Ítem 3 · título", "default": "Despacho en máximo 5 días hábiles" },
+    { "type": "text", "id": "item3_text", "label": "Ítem 3 · texto", "default": "A todo Colombia, de lunes a viernes." },
+    { "type": "select", "id": "item4_icon", "label": "Ítem 4 · icono", "options": [ { "value": "box", "label": "Caja" }, { "value": "truck", "label": "Camión" }, { "value": "warehouse", "label": "Bodega" }, { "value": "shield", "label": "Escudo" }, { "value": "chat", "label": "Chat" } ], "default": "shield" },
+    { "type": "text", "id": "item4_title", "label": "Ítem 4 · título", "default": "Garantía legal Ley 1480" },
+    { "type": "text", "id": "item4_text", "label": "Ítem 4 · texto", "default": "Y retracto de 5 días hábiles desde la entrega." }
+  ],
+  "presets": [ { "name": "Franja de confianza" } ]
+}
+{% endschema %}
