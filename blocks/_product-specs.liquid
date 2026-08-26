@@ -42,7 +42,12 @@
       endfor
     endif
     assign after_specs_heading = from_metafield
+    # When the description ships its own <table>, that table is the spec sheet: skip the line
+    # parser so "Beneficio: texto" list items from the AIDCAR template don't leak into it.
     assign chunks = src | split: '</p>'
+    if tables_html != blank
+      assign chunks = ''
+    endif
     for chunk in chunks
       if row_count >= block_st.max_rows
         break

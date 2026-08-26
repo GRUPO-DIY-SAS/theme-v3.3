@@ -1,0 +1,97 @@
+{%- comment -%}
+  Franja de datos clave bajo el precio: las primeras N filas de la ficha técnica del producto
+  (misma fuente que el bloque Especificaciones: metafield o <table> de la descripción). En un
+  catálogo de alta rotación es lo que el comprador compara antes de leer nada: motor, velocidad,
+  peso máximo, edad… El orden lo fija la descripción (claves canónicas por categoría).
+{%- endcomment -%}
+{%- liquid
+  assign block_st = block.settings
+  assign product = closest.product
+  assign section_st = section.settings
+  assign enable_skeleton_loading = section_st.enable_skeleton_loading
+  assign source = ''
+  assign mf_parts = block_st.metafield_key | strip | split: '.'
+  if product != blank and mf_parts.size == 2
+    assign mf = product.metafields[mf_parts[0]][mf_parts[1]]
+    if mf != blank
+      assign source = mf | metafield_tag
+    endif
+  endif
+  if source == blank and product != blank
+    assign source = product.description
+  endif
+  assign items = ''
+  assign count = 0
+  if source contains '<table'
+    assign tbl = source | split: '<table' | last | split: '</table>' | first
+    assign trs = tbl | split: '<tr'
+    for tr in trs offset: 1
+      if count >= block_st.max_items
+        break
+      endif
+      assign cells = tr | split: '</t'
+      if cells.size < 2
+        continue
+      endif
+      assign k = cells[0] | split: '>' | last | strip_html | strip
+      assign v = cells[1] | split: '>' | last | strip_html | strip
+      if k == blank or v == blank or v.size > 60
+        continue
+      endif
+      assign item = '<li class="key-spec"><span class="key-spec__label">' | append: k | append: '</span><span class="key-spec__value">' | append: v | append: '</span></li>'
+      assign items = items | append: item
+      assign count = count | plus: 1
+    endfor
+  endif
+-%}
+{%- if items != blank -%}
+  {% style %}
+    .key-specs { display: flex; flex-wrap: wrap; gap: 0.8rem; list-style: none; margin: 0 0 2.2rem; padding: 0; }
+    .key-spec { flex: 1 1 calc(50% - 0.8rem); min-width: 12rem; border: 1px solid var(--color-border); border-radius: 6px; padding: 0.9rem 1.1rem; background: var(--color-background); }
+    .key-spec__label { display: block; font-size: 1.1rem; letter-spacing: 0.04em; text-transform: uppercase; color: rgba(var(--color-text-rgb), 0.7); margin-bottom: 0.2rem; }
+    .key-spec__value { display: block; font-size: 1.5rem; font-weight: var(--subheading-weight, 500); color: var(--color-heading); line-height: 1.3; }
+    @media (min-width: 768px) { .key-spec { flex-basis: calc(25% - 0.8rem); } }
+  {% endstyle %}
+  <ul
+    class="key-specs{% if enable_skeleton_loading %} skeleton-loading{% endif %}"
+    {{ block.shopify_attributes }}
+    aria-label="{{ block_st.aria_label | escape }}"
+  >
+    {{ items }}
+  </ul>
+{%- endif -%}
+{% schema %}
+{
+  "name": "Datos clave",
+  "tag": null,
+  "settings": [
+    {
+      "type": "range",
+      "id": "max_items",
+      "label": "Cantidad de datos",
+      "min": 2,
+      "max": 6,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "text",
+      "id": "metafield_key",
+      "label": "Metafield de especificaciones (namespace.key)",
+      "default": "custom.especificaciones",
+      "info": "Si existe, tiene prioridad sobre la tabla de la descripción."
+    },
+    {
+      "type": "text",
+      "id": "aria_label",
+      "label": "Etiqueta accesible",
+      "default": "Datos clave del producto"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Datos clave"
+    }
+  ]
+}
+{% endschema %}
