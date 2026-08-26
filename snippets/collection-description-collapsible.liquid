@@ -1,159 +1,133 @@
-{%- assign diy_plain = collection.description | strip_html | strip -%}
-{%- assign diy_len = diy_plain | size -%}
-{%- if diy_len > 0 -%}
-{%- assign diy_variant = 'diy-standard' -%}
-{%- if diy_len < 200 -%}{%- assign diy_variant = 'diy-brief' -%}{%- endif -%}
+{%- comment -%}
+  Collection description rendered at the bottom of the collection template (custom-liquid section),
+  clamped to a peek height with a "keep reading" toggle so a two-paragraph SEO text doesn't push
+  the product grid down. Colours come from the section's colour scheme variables so it follows the
+  theme palette. Short descriptions (< 200 chars) render without the toggle.
+{%- endcomment -%}
+{%- assign guide_plain = collection.description | strip_html | strip -%}
+{%- assign guide_len = guide_plain | size -%}
+{%- if guide_len > 0 -%}
+{%- assign guide_brand = settings.seo_brand_name | default: shop.name -%}
+{%- assign guide_variant = 'collection-guide--standard' -%}
+{%- if guide_len < 200 -%}{%- assign guide_variant = 'collection-guide--brief' -%}{%- endif -%}
 <style>
-  .diy-collapsible-wrap {
-    --lab-red:  #cc0033;
-    --carbon:   #0A0A0A;
-    --bone:     #F5F2EC;
-    --steel:    #B8B4AC;
-    --diy-peek: 260px;
-    background: var(--carbon);
-    border-radius: 2px;
-    padding: 0;
+  .collection-guide {
+    --guide-peek: 240px;
     position: relative;
     margin: 2rem 0;
-    border-left: 3px solid var(--lab-red);
+    background: var(--color-background);
+    border: 1px solid var(--color-border);
+    border-left: 3px solid var(--color-primary);
+    border-radius: 6px;
+    color: var(--color-text);
   }
-
-  .diy-content-outer {
+  .collection-guide__outer {
     position: relative;
     overflow: hidden;
     max-height: none;
-    opacity: 1;
     transition: max-height 0.42s cubic-bezier(0.4, 0, 0.2, 1);
   }
-  .diy-collapsible-wrap.diy-clamped .diy-content-outer { max-height: var(--diy-peek); }
-  .diy-content-inner { padding: 20px 28px 24px; line-height: 1.8; }
+  .collection-guide--clamped .collection-guide__outer { max-height: var(--guide-peek); }
+  .collection-guide__inner { padding: 20px 28px 24px; line-height: 1.8; }
 
-  .diy-fade {
+  .collection-guide__fade {
     display: none;
     position: absolute;
     left: 0; right: 0; bottom: 0;
     height: 96px;
-    background: linear-gradient(to bottom, rgba(10, 10, 10, 0) 0%, #0A0A0A 92%);
+    background: linear-gradient(to bottom, transparent 0%, var(--color-background) 92%);
     pointer-events: none;
     transition: opacity 0.3s ease;
   }
-  .diy-collapsible-wrap.diy-clamped .diy-fade { display: block; opacity: 1; }
-  .diy-collapsible-wrap.diy-open   .diy-fade { opacity: 0; }
+  .collection-guide--clamped .collection-guide__fade { display: block; opacity: 1; }
+  .collection-guide--open .collection-guide__fade { opacity: 0; }
 
-  .diy-toggle-btn { display: none; }
-  .diy-collapsible-wrap.diy-clamped .diy-toggle-btn,
-  .diy-collapsible-wrap.diy-open    .diy-toggle-btn {
+  .collection-guide__toggle { display: none; }
+  .collection-guide--clamped .collection-guide__toggle,
+  .collection-guide--open .collection-guide__toggle {
     display: flex; align-items: center; justify-content: space-between;
     gap: 16px; width: 100%; background: none; border: none;
-    border-top: 1px solid #1f1f1f;
-    padding: 18px 24px 18px 28px; cursor: pointer; text-align: left;
+    border-top: 1px solid var(--color-border);
+    padding: 16px 24px 16px 28px; cursor: pointer; text-align: left;
     font: inherit; color: inherit;
     transition: background 0.2s;
   }
-  .diy-toggle-btn:hover { background: rgba(200, 16, 46, 0.06); }
-  .diy-toggle-btn:focus-visible { outline: 2px solid var(--lab-red); outline-offset: -2px; }
+  .collection-guide__toggle:hover { background: rgba(var(--color-primary-rgb), 0.05); }
+  .collection-guide__toggle:focus-visible { outline: 2px solid var(--color-primary); outline-offset: -2px; }
 
-  .diy-eyebrow {
-    font-size: 10px; font-weight: 700; letter-spacing: 0.2em;
-    text-transform: uppercase; color: var(--lab-red);
-    display: block; margin-bottom: 6px;
+  .collection-guide__eyebrow {
+    font-size: 10px; font-weight: 700; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--color-primary);
+    display: block; margin-bottom: 4px;
   }
-  .diy-title-text {
-    font-size: 14px; font-weight: 600; color: var(--bone);
-    line-height: 1.4; transition: color 0.2s; display: block;
+  .collection-guide__label {
+    font-size: 14px; font-weight: 600; color: var(--color-heading);
+    line-height: 1.4; display: block;
   }
-  .diy-toggle-btn:hover .diy-title-text { color: #FFFFFF; }
-  .diy-label-less { display: none; }
-  .diy-collapsible-wrap.diy-open .diy-label-more { display: none; }
-  .diy-collapsible-wrap.diy-open .diy-label-less { display: inline; }
+  .collection-guide__label-less { display: none; }
+  .collection-guide--open .collection-guide__label-more { display: none; }
+  .collection-guide--open .collection-guide__label-less { display: inline; }
 
-  .diy-icon {
+  .collection-guide__icon {
     flex-shrink: 0; width: 26px; height: 26px;
-    border: 1px solid #2e2e2e; border-radius: 50%;
+    border: 1px solid var(--color-border); border-radius: 50%;
     display: flex; align-items: center; justify-content: center;
     position: relative; transition: border-color 0.2s;
   }
-  .diy-toggle-btn:hover .diy-icon,
-  .diy-collapsible-wrap.diy-open .diy-icon { border-color: var(--lab-red); }
-  .diy-icon-bar {
-    position: absolute; background: #555; border-radius: 1px;
+  .collection-guide__toggle:hover .collection-guide__icon,
+  .collection-guide--open .collection-guide__icon { border-color: var(--color-primary); }
+  .collection-guide__bar {
+    position: absolute; background: rgba(var(--color-heading-rgb), 0.6); border-radius: 1px;
     transition: transform 0.28s ease, opacity 0.28s ease, background 0.2s;
   }
-  .diy-icon-bar.h { width: 10px; height: 1.5px; }
-  .diy-icon-bar.v { width: 1.5px; height: 10px; }
-  .diy-toggle-btn:hover .diy-icon-bar,
-  .diy-collapsible-wrap.diy-open .diy-icon-bar { background: var(--lab-red); }
-  .diy-collapsible-wrap.diy-open .diy-icon-bar.v { transform: rotate(90deg); opacity: 0; }
+  .collection-guide__bar--h { width: 10px; height: 1.5px; }
+  .collection-guide__bar--v { width: 1.5px; height: 10px; }
+  .collection-guide__toggle:hover .collection-guide__bar,
+  .collection-guide--open .collection-guide__bar { background: var(--color-primary); }
+  .collection-guide--open .collection-guide__bar--v { transform: rotate(90deg); opacity: 0; }
 
-  .diy-divider {
-    display: block; height: 1px; margin: 0 0 16px; opacity: 0.5;
-    background: linear-gradient(to right, #cc0033 0%, #2a0008 60%, transparent 100%);
-  }
+  .collection-guide__text > *:first-child { margin-top: 0; }
+  .collection-guide__text > *:last-child { margin-bottom: 0; }
+  .collection-guide__text p:empty, .collection-guide__text br:first-child { display: none; }
+  .collection-guide__text h1, .collection-guide__text h2 { font-size: 18px; margin: 0 0 14px; line-height: 1.3; }
+  .collection-guide__text h3 { font-size: 15px; margin: 22px 0 10px; line-height: 1.35; }
+  .collection-guide__text h4 { font-size: 14px; margin: 18px 0 8px; line-height: 1.4; }
+  .collection-guide__text p { font-size: 14px; margin: 0 0 12px; }
+  .collection-guide__text a { color: var(--color-primary); text-decoration: underline; text-underline-offset: 3px; }
+  .collection-guide__text ul, .collection-guide__text ol { padding-left: 18px; margin: 0 0 12px; }
+  .collection-guide__text li { margin-bottom: 4px; }
+  .collection-guide__text img { max-width: 100%; height: auto; }
 
-  .diy-rich-text { color: var(--steel); }
-  .diy-rich-text > *:first-child { margin-top: 0 !important; }
-  .diy-rich-text > *:last-child  { margin-bottom: 0 !important; }
-  .diy-rich-text p:empty, .diy-rich-text br:first-child { display: none; }
-  .diy-rich-text h1, .diy-rich-text h2 {
-    font-size: 18px !important; font-weight: 700 !important; color: var(--bone) !important;
-    margin: 0 0 14px !important; line-height: 1.3 !important;
-  }
-  .diy-rich-text h3 {
-    font-size: 15px !important; font-weight: 700 !important; color: var(--bone) !important;
-    margin: 22px 0 10px !important; line-height: 1.35 !important;
-  }
-  .diy-rich-text h4 {
-    font-size: 14px !important; font-weight: 600 !important; color: var(--bone) !important;
-    margin: 18px 0 8px !important; line-height: 1.4 !important;
-  }
-  .diy-rich-text p {
-    color: var(--steel) !important; font-size: 14px !important; margin: 0 0 12px !important;
-  }
-  .diy-rich-text a {
-    color: var(--lab-red) !important;
-    text-decoration: underline !important;
-    text-underline-offset: 3px !important;
-  }
-  .diy-rich-text a:hover { color: #ff2040 !important; }
-  .diy-rich-text strong, .diy-rich-text b { color: var(--bone) !important; font-weight: 600 !important; }
-  .diy-rich-text ul, .diy-rich-text ol {
-    color: var(--steel) !important; padding-left: 18px !important; margin: 0 0 12px !important;
-  }
-  .diy-rich-text li { color: var(--steel) !important; margin-bottom: 4px !important; }
-  .diy-rich-text img { max-width: 100%; height: auto; }
-
-  .diy-collapsible-wrap.diy-brief .diy-content-inner { padding: 16px 24px 18px; }
-  .diy-collapsible-wrap.diy-brief .diy-divider { display: none; }
-  .diy-collapsible-wrap.diy-brief .diy-toggle-btn { display: none !important; }
-  .diy-collapsible-wrap.diy-brief .diy-fade { display: none !important; }
+  .collection-guide--brief .collection-guide__inner { padding: 16px 24px 18px; }
+  .collection-guide--brief .collection-guide__toggle,
+  .collection-guide--brief .collection-guide__fade { display: none !important; }
 
   @media (prefers-reduced-motion: reduce) {
-    .diy-content-outer, .diy-fade, .diy-icon-bar { transition: none; }
+    .collection-guide__outer, .collection-guide__fade, .collection-guide__bar { transition: none; }
   }
 </style>
 
-<div class="diy-collapsible-wrap {{ diy_variant }}" data-diy-collapsible>
-  <div class="diy-content-outer" id="diyContent-{{ collection.id }}" role="region" aria-labelledby="diyToggle-{{ collection.id }}">
-    <div class="diy-content-inner">
-      <span class="diy-divider"></span>
-      <div class="diy-rich-text">
+<div class="collection-guide {{ guide_variant }}" data-collection-guide>
+  <div class="collection-guide__outer" id="collectionGuide-{{ collection.id }}" role="region" aria-labelledby="collectionGuideToggle-{{ collection.id }}">
+    <div class="collection-guide__inner">
+      <div class="collection-guide__text rich__text-m0">
         {{ collection.description }}
       </div>
     </div>
-    <span class="diy-fade"></span>
+    <span class="collection-guide__fade"></span>
   </div>
 
-  <button type="button" class="diy-toggle-btn" id="diyToggle-{{ collection.id }}" aria-expanded="false" aria-controls="diyContent-{{ collection.id }}">
+  <button type="button" class="collection-guide__toggle" id="collectionGuideToggle-{{ collection.id }}" aria-expanded="false" aria-controls="collectionGuide-{{ collection.id }}">
     <span>
-      <span class="diy-eyebrow">{{ shop.name }} · Guía de colección</span>
-      <span class="diy-title-text">
-        <span class="diy-label-more">Seguir leyendo sobre <span style="color:#cc0033;">{{ collection.title }}</span> y todo lo relacionado con el mundo del vapeo</span>
-        <span class="diy-label-less">Mostrar menos</span>
+      <span class="collection-guide__eyebrow">{{ guide_brand }} &middot; Guía de compra</span>
+      <span class="collection-guide__label">
+        <span class="collection-guide__label-more">Seguir leyendo sobre {{ collection.title }}</span>
+        <span class="collection-guide__label-less">Mostrar menos</span>
       </span>
     </span>
-    <span class="diy-icon">
-      <span class="diy-icon-bar h"></span>
-      <span class="diy-icon-bar v"></span>
+    <span class="collection-guide__icon" aria-hidden="true">
+      <span class="collection-guide__bar collection-guide__bar--h"></span>
+      <span class="collection-guide__bar collection-guide__bar--v"></span>
     </span>
   </button>
 </div>
@@ -161,66 +135,65 @@
 <script>
 (function () {
   function peekOf(wrap) {
-    var v = getComputedStyle(wrap).getPropertyValue('--diy-peek');
-    return parseInt(v, 10) || 260;
+    var v = getComputedStyle(wrap).getPropertyValue('--guide-peek');
+    return parseInt(v, 10) || 240;
   }
 
   function measure() {
-    var wraps = document.querySelectorAll('[data-diy-collapsible]');
+    var wraps = document.querySelectorAll('[data-collection-guide]');
     for (var i = 0; i < wraps.length; i++) {
       var wrap = wraps[i];
-      if (wrap.classList.contains('diy-brief')) continue;
-      if (wrap.classList.contains('diy-open')) continue;
-      var box = wrap.querySelector('.diy-content-outer');
+      if (wrap.classList.contains('collection-guide--brief')) continue;
+      if (wrap.classList.contains('collection-guide--open')) continue;
+      var box = wrap.querySelector('.collection-guide__outer');
       if (!box) continue;
-      wrap.classList.remove('diy-clamped');
+      wrap.classList.remove('collection-guide--clamped');
       box.style.maxHeight = '';
-      if (box.scrollHeight > peekOf(wrap) + 40) wrap.classList.add('diy-clamped');
+      if (box.scrollHeight > peekOf(wrap) + 40) wrap.classList.add('collection-guide--clamped');
     }
   }
 
   function toggle(wrap) {
-    var btn = wrap.querySelector('.diy-toggle-btn');
-    var box = wrap.querySelector('.diy-content-outer');
+    var btn = wrap.querySelector('.collection-guide__toggle');
+    var box = wrap.querySelector('.collection-guide__outer');
     if (!btn || !box) return;
 
-    if (wrap.classList.contains('diy-open')) {
+    if (wrap.classList.contains('collection-guide--open')) {
       box.style.maxHeight = box.scrollHeight + 'px';
       requestAnimationFrame(function () {
-        wrap.classList.remove('diy-open');
-        wrap.classList.add('diy-clamped');
+        wrap.classList.remove('collection-guide--open');
+        wrap.classList.add('collection-guide--clamped');
         btn.setAttribute('aria-expanded', 'false');
         box.style.maxHeight = peekOf(wrap) + 'px';
       });
     } else {
       box.style.maxHeight = box.scrollHeight + 'px';
-      wrap.classList.add('diy-open');
+      wrap.classList.add('collection-guide--open');
       btn.setAttribute('aria-expanded', 'true');
       box.addEventListener('transitionend', function () {
-        if (wrap.classList.contains('diy-open')) {
-          wrap.classList.remove('diy-clamped');
+        if (wrap.classList.contains('collection-guide--open')) {
+          wrap.classList.remove('collection-guide--clamped');
           box.style.maxHeight = '';
         }
       }, { once: true });
     }
   }
 
-  if (!window.__diyCollapsibleBound) {
-    window.__diyCollapsibleBound = true;
+  if (!window.__collectionGuideBound) {
+    window.__collectionGuideBound = true;
     document.addEventListener('click', function (e) {
       var t = e.target;
-      while (t && t !== document && !(t.classList && t.classList.contains('diy-toggle-btn'))) t = t.parentNode;
+      while (t && t !== document && !(t.classList && t.classList.contains('collection-guide__toggle'))) t = t.parentNode;
       if (!t || t === document) return;
-      var wrap = t.parentNode;
-      while (wrap && wrap !== document && !(wrap.hasAttribute && wrap.hasAttribute('data-diy-collapsible'))) wrap = wrap.parentNode;
-      if (wrap && wrap !== document) toggle(wrap);
+      var wrap = t.closest('[data-collection-guide]');
+      if (wrap) toggle(wrap);
     });
     document.addEventListener('shopify:section:load', measure);
     document.addEventListener('shopify:section:select', measure);
     window.addEventListener('load', measure);
     window.addEventListener('resize', function () {
-      clearTimeout(window.__diyCollapsibleT);
-      window.__diyCollapsibleT = setTimeout(measure, 200);
+      clearTimeout(window.__collectionGuideT);
+      window.__collectionGuideT = setTimeout(measure, 200);
     });
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(measure);
   }
