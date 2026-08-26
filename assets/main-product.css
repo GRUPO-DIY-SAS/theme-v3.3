@@ -723,3 +723,27 @@ variant-radios-detail fieldset:last-of-type {
   padding-left: 0;
   padding-right: 0;
 }
+
+/* Product description written with the AIDCAR template: h2/h3 inside the accordion must read as
+   section labels, not page titles (base h2 is 3.6rem). */
+.collapsible-content_inner h2 {
+  font-size: 1.7rem;
+  margin: 1.8rem 0 0.6rem;
+}
+.collapsible-content_inner h2:first-child {
+  margin-top: 0;
+}
+.collapsible-content_inner h3 {
+  font-size: 1.5rem;
+  margin: 1.4rem 0 0.5rem;
+}
+.collapsible-content_inner p.lead {
+  font-size: 1.6rem;
+  line-height: 1.5;
+}
+.collapsible-content_inner ul {
+  padding-left: 1.8rem;
+}
+.collapsible-content_inner li {
+  margin-bottom: 0.5rem;
+}
