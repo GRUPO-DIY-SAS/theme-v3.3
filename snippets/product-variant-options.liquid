@@ -106,6 +106,27 @@
           assign swatch_value = 'rgb(' | append: value.swatch.color.rgb | append: ')'
         else
           assign swatch_value = null
+          # Sin enlace a la taxonomía: buscar el nombre en el mapa de colores del theme (Nombre: #hex[,#hex]).
+          assign cmap = settings.custom_color_map | newline_to_br | split: '<br />'
+          assign vkey = value | downcase | strip
+          for line in cmap
+            assign parts = line | split: ':'
+            if parts.size < 2
+              continue
+            endif
+            assign lname = parts[0] | downcase | strip
+            if lname == vkey
+              assign cols = parts[1] | strip | split: ','
+              if cols.size > 1
+                assign c1 = cols[0] | strip
+                assign c2 = cols[1] | strip
+                assign swatch_value = 'linear-gradient(135deg, ' | append: c1 | append: ' 50%, ' | append: c2 | append: ' 50%)'
+              else
+                assign swatch_value = cols[0] | strip
+              endif
+              break
+            endif
+          endfor
         endif
       -%}
       <label

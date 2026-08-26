@@ -1182,6 +1182,13 @@
         ]
       },
       {
+      "type": "textarea",
+      "id": "custom_color_map",
+      "label": "Colores por nombre (uno por línea: Nombre: #hex o Nombre: #hex,#hex)",
+      "info": "Se usa cuando el valor de la opción no está enlazado a la taxonomía de colores de Shopify. Dos colores separados por coma pintan el círculo a mitades (p. ej. Negro Verde: #111,#05aa3d).",
+      "default": "Negro: #111111\nBlanco: #f4f4f4\nRojo: #d0021b\nAzul: #1f4fd8\nAzul Marino: #282099\nRosado: #f48fb1\nRosada: #f48fb1\nVerde: #05aa3d\nAmarillo: #ffe500\nNaranja: #ff8a00\nGris: #8a8a8a\nGris Azul: #6b7a99\nCafé: #6b4423\nCafe: #6b4423\nMorado: #7b2cbf\nVioleta: #7b2cbf\nNegro Verde: #111111,#05aa3d\nNegro Rojo: #111111,#d0021b\nNegro Blanco: #111111,#f4f4f4\nNegro Gris: #111111,#8a8a8a\nNegro Naranja: #111111,#ff8a00\nNegro Amarillo: #111111,#ffe500\nRojo Azul: #d0021b,#1f4fd8\nBlanco Cafe Naranja: #f4f4f4,#ff8a00\nBlanco Verde Naranja: #f4f4f4,#05aa3d\nRojo azul Negro: #d0021b,#111111"
+    },
+    {
         "type": "text",
         "id": "color_swatch_trigger",
         "label": "t:settings_schema.color_swatches.settings.color_swatch_trigger.label",

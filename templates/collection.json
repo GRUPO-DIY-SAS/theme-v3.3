@@ -247,7 +247,8 @@
         "promotion_postion": 1,
         "items_per_row_mobile": "2",
         "padding_top": 0,
-        "padding_bottom": 50
+        "padding_bottom": 50,
+        "hide_sold_out": true
       }
     },
     "custom_liquid_JxNGBM": {

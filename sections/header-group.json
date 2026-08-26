@@ -117,13 +117,30 @@
             "collection_2": "montables",
             "collection_3": "jugueteria"
           }
+        },
+        "menu_hogar": {
+          "type": "menu_collection",
+          "settings": {
+            "text": "Hogar",
+            "open-link-newtab": false,
+            "item_label": "unset",
+            "collection_menu_column": 3,
+            "mega_custom_width": 1030,
+            "center_submenu": true,
+            "full_width": true,
+            "collection_width": 60,
+            "collection_1": "sillas-de-oficina",
+            "collection_2": "mesas-de-ping-pong",
+            "collection_3": "trampolines"
+          }
         }
       },
       "block_order": [
         "menu_bicicletas",
         "menu_fitness",
         "menu_movilidad",
-        "menu_jugueteria"
+        "menu_jugueteria",
+        "menu_hogar"
       ],
       "settings": {
         "section_width": "stretch_width",

@@ -174,6 +174,21 @@
                   assign found = false
                 -%}
                 {%- for product in collection.products -%}
+                  {%- if section_st.hide_sold_out -%}
+                    {%- liquid
+                      # Inventario > 0 en alguna variante (o variante sin control de inventario); product.available no basta si se vende sin stock.
+                      assign in_stock = false
+                      for v in product.variants
+                        if v.inventory_management == blank or v.inventory_quantity > 0
+                          assign in_stock = true
+                          break
+                        endif
+                      endfor
+                    -%}
+                    {%- if in_stock == false -%}
+                      {%- continue -%}
+                    {%- endif -%}
+                  {%- endif -%}
                   {%- liquid
                     assign index = forloop.index0 | plus: 1 | plus: midnum
                     assign item_int = banner_positions | plus: 0
@@ -417,6 +432,13 @@
     {
       "type": "header",
       "content": "t:sections.collection-main.settings.header.product_grid"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_sold_out",
+      "label": "Ocultar productos agotados",
+      "default": false,
+      "info": "Muestra solo productos con inventario disponible."
     },
     {
       "type": "range",
