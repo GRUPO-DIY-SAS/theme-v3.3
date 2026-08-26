@@ -25,7 +25,7 @@
   endif
 -%}
 {%- if show -%}
-  <div class="battery-care mb-30{% if enable_skeleton_loading %} skeleton-loading{% endif %}" {{ block.shopify_attributes }}>
+  <div class="battery-care{% if enable_skeleton_loading %} skeleton-loading{% endif %}" {{ block.shopify_attributes }}>
     <div class="battery-care__head">
       <span class="battery-care__eyebrow">{{ block_st.eyebrow }}</span>
       <h3 class="battery-care__title h5 my-0">{{ block_st.heading }}</h3>

@@ -7,7 +7,7 @@
   assign section_st = section.settings
   assign enable_skeleton_loading = section_st.enable_skeleton_loading
 -%}
-<ul class="trust-strip mb-30{% if enable_skeleton_loading %} skeleton-loading{% endif %}" {{ block.shopify_attributes }} aria-label="{{ block_st.aria_label | escape }}">
+<ul class="trust-strip{% if enable_skeleton_loading %} skeleton-loading{% endif %}" {{ block.shopify_attributes }} aria-label="{{ block_st.aria_label | escape }}">
   {%- for i in (1..4) -%}
     {%- assign tk = 'item' | append: i | append: '_title' -%}
     {%- assign xk = 'item' | append: i | append: '_text' -%}
@@ -49,11 +49,11 @@
     { "type": "text", "id": "item2_title", "label": "Ítem 2 · título", "default": "Bodega en Bogotá" },
     { "type": "text", "id": "item2_text", "label": "Ítem 2 · texto", "default": "Stock real: lo que ves disponible está en bodega." },
     { "type": "select", "id": "item3_icon", "label": "Ítem 3 · icono", "options": [ { "value": "box", "label": "Caja" }, { "value": "truck", "label": "Camión" }, { "value": "warehouse", "label": "Bodega" }, { "value": "shield", "label": "Escudo" }, { "value": "chat", "label": "Chat" } ], "default": "truck" },
-    { "type": "text", "id": "item3_title", "label": "Ítem 3 · título", "default": "Despacho en máximo 5 días hábiles" },
-    { "type": "text", "id": "item3_text", "label": "Ítem 3 · texto", "default": "A todo Colombia, de lunes a viernes." },
-    { "type": "select", "id": "item4_icon", "label": "Ítem 4 · icono", "options": [ { "value": "box", "label": "Caja" }, { "value": "truck", "label": "Camión" }, { "value": "warehouse", "label": "Bodega" }, { "value": "shield", "label": "Escudo" }, { "value": "chat", "label": "Chat" } ], "default": "shield" },
-    { "type": "text", "id": "item4_title", "label": "Ítem 4 · título", "default": "Garantía legal Ley 1480" },
-    { "type": "text", "id": "item4_text", "label": "Ítem 4 · texto", "default": "Y retracto de 5 días hábiles desde la entrega." }
+    { "type": "text", "id": "item3_title", "label": "Ítem 3 · título", "default": "Despacho rápido a todo Colombia" },
+    { "type": "text", "id": "item3_text", "label": "Ítem 3 · texto", "default": "Envío gratis (aplican T&C)." },
+    { "type": "select", "id": "item4_icon", "label": "Ítem 4 · icono", "options": [ { "value": "box", "label": "Caja" }, { "value": "truck", "label": "Camión" }, { "value": "warehouse", "label": "Bodega" }, { "value": "shield", "label": "Escudo" }, { "value": "chat", "label": "Chat" } ], "default": "chat" },
+    { "type": "text", "id": "item4_title", "label": "Ítem 4 · título", "default": "Asesoría por WhatsApp" },
+    { "type": "text", "id": "item4_text", "label": "Ítem 4 · texto", "default": "Te ayudamos a elegir antes y después de comprar." }
   ],
   "presets": [ { "name": "Franja de confianza" } ]
 }

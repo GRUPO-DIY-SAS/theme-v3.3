@@ -768,7 +768,7 @@ variant-radios-detail fieldset:last-of-type {
 .pd-note { font-size: 1.3rem; color: rgba(var(--color-text-rgb), 0.7); margin: 1rem 0 0; }
 
 /* ---- Battery care (electric vehicles) ---- */
-.battery-care { border: 1px solid var(--color-border); border-radius: 10px; padding: 2rem 2rem 1.6rem; background: var(--color-background); }
+.battery-care { border: 1px solid var(--color-border); border-radius: 10px; padding: 2rem 2rem 1.6rem; margin: 0 0 3rem; background: var(--color-background); }
 .battery-care__eyebrow { display: block; font-size: 1.1rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-primary); font-weight: 700; margin-bottom: 0.3rem; }
 .battery-care__title { font-size: 2rem; line-height: 1.2; margin-bottom: 1.4rem !important; }
 .battery-care__steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.9rem; }
@@ -784,7 +784,7 @@ variant-radios-detail fieldset:last-of-type {
 .battery-care__warning svg { width: 2rem; height: 2rem; flex: 0 0 auto; color: var(--color-primary); margin-top: 0.1rem; }
 
 /* ---- Trust strip ---- */
-.trust-strip { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem; }
+.trust-strip { list-style: none; margin: 0 0 2.8rem; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem; }
 .trust-strip__item { display: flex; gap: 0.8rem; align-items: flex-start; margin: 0; padding: 1rem 1.1rem; border: 1px solid var(--color-border); border-radius: 8px; background: var(--color-background); }
 .trust-strip__icon { width: 2.4rem; height: 2.4rem; flex: 0 0 auto; color: var(--color-primary); }
 .trust-strip__icon svg { width: 100%; height: 100%; }
