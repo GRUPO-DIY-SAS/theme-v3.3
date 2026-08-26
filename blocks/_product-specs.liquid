@@ -100,6 +100,23 @@
     endfor
   endif
 -%}
+{%- liquid
+  # Término de garantía del vendedor (T&C: 1 mes salvo indicación distinta en la ficha) como última fila si la ficha no lo trae.
+  assign has_warranty = false
+  assign probe = tables_html | append: rows | downcase
+  if probe contains 'garant'
+    assign has_warranty = true
+  endif
+  if has_warranty == false and block_st.default_warranty != blank
+    assign wv = product.metafields.custom.garantia | default: block_st.default_warranty
+    assign wrow = '<tr><th scope="row">Garantía del vendedor</th><td>' | append: wv | append: '</td></tr>'
+    if tables_html != blank and rows == blank
+      assign tables_html = tables_html | replace_last: '</tbody>', wrow | append: '</tbody>'
+    else
+      assign rows = rows | append: wrow
+    endif
+  endif
+-%}
 {%- if tables_html != blank or rows != blank -%}
   {% style %}
     .product-specs table { width: 100%; border-collapse: collapse; font-size: 1.4rem; }
@@ -162,6 +179,13 @@
       "label": "Extraer especificaciones de la descripción",
       "default": true,
       "info": "Toma tablas, listas \"Clave: Valor\" y líneas \"Clave-----Valor\" que aparezcan tras un encabezado \"Especificaciones\"."
+    },
+    {
+      "type": "text",
+      "id": "default_warranty",
+      "label": "Garantía del vendedor por defecto",
+      "default": "1 mes (Ley 1480; salvo que la ficha indique otro término)",
+      "info": "Se añade como última fila cuando la ficha no trae garantía. Se puede sobrescribir por producto con el metafield custom.garantia."
     },
     {
       "type": "range",
