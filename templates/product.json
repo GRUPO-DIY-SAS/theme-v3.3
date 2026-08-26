@@ -54,6 +54,15 @@
           },
           "blocks": {}
         },
+        "key_specs_homesale": {
+          "type": "_product-key-specs",
+          "settings": {
+            "max_items": 4,
+            "metafield_key": "custom.especificaciones",
+            "aria_label": "Datos clave del producto"
+          },
+          "blocks": {}
+        },
         "variant_picker_tcCihG": {
           "type": "_product-variant-picker",
           "settings": {
@@ -92,6 +101,25 @@
           },
           "blocks": {}
         },
+        "trust_strip_homesale": {
+          "type": "_product-trust-strip",
+          "settings": {
+            "aria_label": "Por qué comprar en Homesale",
+            "item1_icon": "box",
+            "item1_title": "Importador directo",
+            "item1_text": "Sin intermediarios: precio de importador y repuestos.",
+            "item2_icon": "warehouse",
+            "item2_title": "Bodega en Bogotá",
+            "item2_text": "Stock real: lo que ves disponible está en bodega.",
+            "item3_icon": "truck",
+            "item3_title": "Despacho rápido a todo Colombia",
+            "item3_text": "Envío gratis (aplican T&C).",
+            "item4_icon": "chat",
+            "item4_title": "Asesoría por WhatsApp",
+            "item4_text": "Te ayudamos a elegir antes y después de comprar."
+          },
+          "blocks": {}
+        },
         "model_size_XM7z6E": {
           "type": "_product-modal-size",
           "settings": {},
@@ -117,18 +145,6 @@
           },
           "blocks": {}
         },
-        "meta_homesale": {
-          "type": "_product-meta",
-          "settings": {
-            "show_barcode": false,
-            "show_sku": true,
-            "show_available": true,
-            "show_tags": false,
-            "show_type": true,
-            "show_collections": false
-          },
-          "blocks": {}
-        },
         "collapsible_row_m3g6f8": {
           "type": "_product-collapsible-row",
           "settings": {
@@ -149,6 +165,25 @@
             "metafield_key": "custom.especificaciones",
             "parse_description": true,
             "max_rows": 40
+          },
+          "blocks": {}
+        },
+        "battery_care_homesale": {
+          "type": "_product-battery-care",
+          "settings": {
+            "eyebrow": "Homesale · Roadmaster",
+            "heading": "Dale buen uso a la batería de tu vehículo eléctrico",
+            "step1_title": "Cárgala aunque no la uses",
+            "step1_text": "Si va a estar guardada, cárgala al menos una vez por semana. Una batería descargada durante semanas pierde capacidad y no la recupera.",
+            "step2_title": "Desconecta cuando el indicador esté en verde",
+            "step2_text": "Cuando el cargador marque carga completa, desconéctalo. Dejarla conectada por horas sobrecarga la batería y acorta su vida útil.",
+            "step3_title": "Carga con la batería baja, no a medias",
+            "step3_text": "Evita poner a cargar con más del 60 % de carga. Lo ideal es cargarla cuando baje del 20 % y completar el ciclo sin interrupciones.",
+            "step4_title": "Elige bien el lugar de carga",
+            "step4_text": "Carga en un espacio ventilado, lejos de materiales inflamables, con el cargador apoyado sobre una superficie plana y firme para evitar el sobrecalentamiento.",
+            "footer": "Un buen uso de la batería mantiene el vehículo en buen estado y alarga su vida útil.",
+            "warning": "Sigue las instrucciones del fabricante: los daños por uso inadecuado de la batería no están cubiertos por la garantía.",
+            "extra_types": ""
           },
           "blocks": {}
         },
@@ -196,6 +231,8 @@
             "bogota_threshold_k": 500,
             "national_threshold_k": 1000,
             "max_weight_kg": 30,
+            "ship_days": "mon_sat",
+            "text_ships_today": "¡Pide ahora y se despacha hoy!",
             "trust_text": "Despachamos tu pedido en un máximo de 5 días hábiles después de confirmado el pago",
             "holidays_list": "2026-01-01\n2026-01-12\n2026-03-23\n2026-04-02\n2026-04-03\n2026-05-01\n2026-05-18\n2026-06-08\n2026-06-15\n2026-06-29\n2026-07-20\n2026-08-07\n2026-08-17\n2026-10-12\n2026-11-02\n2026-11-16\n2026-12-08\n2026-12-25",
             "delivery_design": "horizontal",
@@ -220,27 +257,36 @@
           },
           "blocks": {}
         },
-        "key_specs_homesale": {
-          "type": "_product-key-specs",
-          "settings": {
-            "max_items": 4,
-            "metafield_key": "custom.especificaciones",
-            "aria_label": "Datos clave del producto"
-          }
-        },
-        "trust_strip_homesale": {
-          "type": "_product-trust-strip",
-          "settings": {}
-        },
-        "battery_care_homesale": {
-          "type": "_product-battery-care",
-          "settings": {}
-        },
         "faq_homesale": {
           "type": "_product-category-faq",
           "settings": {
-            "open": false
-          }
+            "open": false,
+            "heading_fitness": "Preguntas frecuentes sobre equipos de fitness",
+            "content_fitness": "<p><strong>¿Necesito armarlo?</strong> Cada ficha indica si el equipo llega armado o requiere ensamble; los que requieren ensamble traen manual y herramienta básica.</p><p><strong>¿Cuál es el peso máximo de usuario?</strong> Aparece en los datos clave y en la ficha técnica de cada producto. Elige siempre un equipo con margen sobre tu peso.</p><p><strong>¿Qué pasa si llega golpeado o con una falla?</strong> Revisa el empaque antes de firmar la guía y escríbenos por WhatsApp o al correo servicioalcliente@homesale.com.co: aplica la garantía legal de la Ley 1480 y el derecho de retracto de 5 días hábiles.</p><p><strong>¿Hacen envíos a mi ciudad?</strong> Despachamos a todo Colombia en máximo 5 días hábiles después del pago; el tiempo de entrega depende de la transportadora y de tu ciudad.</p>",
+            "heading_bicicletas": "Preguntas frecuentes sobre bicicletas",
+            "content_bicicletas": "<p><strong>¿Cómo elijo la talla?</strong> La ficha técnica indica las tallas disponibles de cada modelo; si dudas entre dos, escríbenos por WhatsApp con tu estatura y te orientamos antes de comprar.</p><p><strong>¿La bicicleta llega armada?</strong> Llega en caja con ensamble parcial: normalmente se instalan manubrio, pedales, sillín y rueda delantera. Recomendamos una revisión de ajuste en un taller antes del primer uso.</p><p><strong>¿Tienen garantía?</strong> Sí: la garantía legal de la Ley 1480 y, cuando aplica, la garantía del vendedor indicada en la ficha. Para hacerla efectiva escríbenos por WhatsApp o al correo servicioalcliente@homesale.com.co.</p><p><strong>¿Cuánto tarda el envío?</strong> Despachamos en máximo 5 días hábiles después del pago, de lunes a viernes, a todo Colombia.</p>",
+            "heading_electricos": "Preguntas frecuentes sobre movilidad eléctrica",
+            "content_electricos": "<p><strong>¿Qué autonomía tiene?</strong> La autonomía y el tiempo de carga están en la ficha técnica de cada modelo y dependen del peso del usuario, el terreno y el uso del acelerador.</p><p><strong>¿Necesita licencia o SOAT?</strong> Depende de la potencia y la velocidad del vehículo según la normativa vigente en Colombia; consúltalo con nosotros por WhatsApp antes de comprar si tienes dudas sobre tu modelo.</p><p><strong>¿Cómo se atiende la garantía?</strong> Aplica la garantía legal de la Ley 1480 y, cuando la ficha lo indica, la garantía del vendedor. Escríbenos por WhatsApp o al correo servicioalcliente@homesale.com.co.</p><p><strong>¿Cuánto tarda el envío?</strong> Despachamos en máximo 5 días hábiles después del pago, de lunes a viernes, a todo Colombia. Al recibir, revisa el producto antes de firmar la guía.</p>",
+            "heading_ninos": "Preguntas frecuentes sobre montables y juguetes",
+            "content_ninos": "<p><strong>¿Para qué edad es?</strong> La edad recomendada y el peso máximo aparecen en los datos clave de cada producto; respétalos para que el montable sea seguro.</p><p><strong>¿Cuánto dura la batería?</strong> Cuando el fabricante lo informa, está en la ficha técnica. Carga la batería por completo antes del primer uso y evita dejarla descargada por semanas.</p><p><strong>¿Puedo devolverlo si no le gustó?</strong> Tienes 5 días hábiles desde la entrega para ejercer el derecho de retracto, con el producto sin uso y en su empaque original.</p><p><strong>¿Cuánto tarda el envío?</strong> Despachamos en máximo 5 días hábiles después del pago, de lunes a viernes, a todo Colombia.</p>",
+            "heading_herramientas": "Preguntas frecuentes sobre herramientas",
+            "content_herramientas": "<p><strong>¿Funciona a 110 V?</strong> El voltaje de cada herramienta está en los datos clave y en la ficha técnica; verifica que coincida con tu instalación antes de comprar.</p><p><strong>¿Qué incluye la caja?</strong> La sección «Qué incluye» de cada producto lista accesorios, estuche y baterías cuando vienen incluidos.</p><p><strong>¿Cómo funciona la garantía?</strong> Aplica la garantía legal de la Ley 1480 y, cuando la ficha lo indica, la garantía del vendedor. Conserva la factura y escríbenos por WhatsApp o al correo servicioalcliente@homesale.com.co.</p><p><strong>¿Cuánto tarda el envío?</strong> Despachamos en máximo 5 días hábiles después del pago, de lunes a viernes, a todo Colombia.</p>",
+            "heading_hogar": "Preguntas frecuentes",
+            "content_hogar": "<p><strong>¿Necesita armado?</strong> La ficha técnica indica si el producto llega armado o requiere ensamble; los muebles y maletas traen instrucciones cuando aplica.</p><p><strong>¿Puedo cambiarlo si no era lo que esperaba?</strong> Tienes 5 días hábiles desde la entrega para ejercer el derecho de retracto, con el producto sin uso y en su empaque original.</p><p><strong>¿Cómo funciona la garantía?</strong> Aplica la garantía legal de la Ley 1480 y, cuando la ficha lo indica, la garantía del vendedor. Escríbenos por WhatsApp o al correo servicioalcliente@homesale.com.co.</p><p><strong>¿Cuánto tarda el envío?</strong> Despachamos en máximo 5 días hábiles después del pago, de lunes a viernes, a todo Colombia.</p>"
+          },
+          "blocks": {}
+        },
+        "meta_homesale": {
+          "type": "_product-meta",
+          "settings": {
+            "show_barcode": false,
+            "show_sku": true,
+            "show_available": true,
+            "show_tags": false,
+            "show_type": true,
+            "show_collections": false
+          },
+          "blocks": {}
         }
       },
       "block_order": [
@@ -259,7 +305,6 @@
         "pickup_availability_cyVydQ",
         "product_grouped_6epkNf",
         "more_colors_3zmxGq",
-        "meta_homesale",
         "collapsible_row_m3g6f8",
         "specs_homesale",
         "battery_care_homesale",
@@ -268,7 +313,8 @@
         "product_collapsible_row_4gGjVF",
         "product_delivery_return_d4tVYn",
         "collapsible_row_eLaQpR",
-        "faq_homesale"
+        "faq_homesale",
+        "meta_homesale"
       ],
       "settings": {
         "section_width": "container",
@@ -276,14 +322,14 @@
         "enable_sticky_content_on_desktop": true,
         "enable_skeleton_loading": false,
         "desktop_media_width": 50,
-        "desktop_layout": "thumbnail_bottom",
+        "desktop_layout": "stack",
         "image_zoom": "open_lightbox",
         "enable_video_looping": true,
         "enable_video_autoplay": true,
         "enable_frequently_bought_together": true,
         "enable_on_desktop": false,
         "enable_on_mobile": false,
-        "mobile_options": "hidden_thumbnail",
+        "mobile_options": "show_thumbnails",
         "padding_top": 0,
         "padding_bottom": 0,
         "reset_spacing": false
