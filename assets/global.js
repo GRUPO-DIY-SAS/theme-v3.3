@@ -338,15 +338,32 @@ class SlideSection extends HTMLElement {
             e.autoplay.stop();
           }
           if (_this?.dataset.autoplay === "true") {
-            Motion.inView(
-              _this,
-              async () => {
-                if (e.autoplay?.start) {
-                  e.autoplay.start();
-                }
-              },
-              { margin: "0px 0px -50px 0px" }
-            );
+            const startInView = () =>
+              Motion.inView(
+                _this,
+                async () => {
+                  if (e.autoplay?.start) {
+                    e.autoplay.start();
+                  }
+                },
+                { margin: "0px 0px -50px 0px" }
+              );
+            // data-autoplay-start="interaction": el top bar rotaba cada 3 s desde el primer render y cada cambio
+            // de texto contaba como progreso visual pendiente (Speed Index). Arranca al primer gesto o a los 15 s.
+            if (_this?.dataset.autoplayStart === "interaction") {
+              let started = false;
+              const go = () => {
+                if (started) return;
+                started = true;
+                startInView();
+              };
+              ["pointerdown", "keydown", "touchstart", "wheel", "scroll"].forEach((ev) =>
+                window.addEventListener(ev, go, { once: true, passive: true })
+              );
+              setTimeout(go, 15000);
+            } else {
+              startInView();
+            }
           }
 
           if (sec__tiktok) {

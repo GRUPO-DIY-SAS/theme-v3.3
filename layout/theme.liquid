@@ -112,6 +112,7 @@
         (paralela al HTML de 740 KB) y acorta el tiempo en que main sigue oculto (LCP). {%- endcomment -%}
       {{ 'critical.css' | asset_url | preload_tag: as: 'style' }}
       {{ 'product-card.css' | asset_url | preload_tag: as: 'style' }}
+      {%- if template.name == 'index' -%}{{ 'banner.css' | asset_url | preload_tag: as: 'style' }}{%- endif -%}
     {%- endif -%}
     <link rel="canonical" href="{{ canonical_url }}">
     {%- if settings.favicon != blank -%}

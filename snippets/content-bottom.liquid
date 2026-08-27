@@ -49,7 +49,7 @@
 {%- if theme_st.enable_cookies != blank -%}
   <cookie-bar
     id="cookie"
-    class="maxcookie hidden text-center gradient fixed shadow p-30 z-10 rounded-15 bottom-30{% if enable_rtl %} left-30{% else %} right-30{% endif %}"
+    class="maxcookie text-center gradient fixed shadow p-30 z-10 rounded-15 bottom-30{% if enable_rtl %} left-30{% else %} right-30{% endif %}"
   >
     {% if theme_st.heading_cookies != blank or theme_st.content_cookies != blank %}
       <div class="cookie-content">
@@ -78,6 +78,11 @@
       {% endif %}
     </div>
   </cookie-bar>
+  <script>
+    // Se renderiza visible y se oculta aquí si ya hay consentimiento: antes theme.js la mostraba ~3,5 s
+    // después del primer pintado y ese cambio tardío penalizaba el Speed Index.
+    if (/(^|;\s*)cookie_bar=/.test(document.cookie)) document.getElementById('cookie').classList.add('hidden');
+  </script>
 {%- endif -%}
 <script>
   

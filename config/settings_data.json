@@ -129,7 +129,7 @@
     "vimeo": "",
     "linkedin": "",
     "whatsapp": "https://wa.me/573132882596",
-    "enable_preload": true,
+    "enable_preload": false,
     "preload_page": "dot",
     "zoom_image": true,
     "scroll_animation": "fade-up-lg",
