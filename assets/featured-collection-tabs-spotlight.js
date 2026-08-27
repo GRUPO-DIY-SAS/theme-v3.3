@@ -46,6 +46,45 @@
       }
 
       this.syncFromActive();
+      this.setupLazyPanels();
+    }
+
+    // Paneles con data-lazy-url: sus productos no vienen en el HTML inicial. Se piden todos en idle
+    // tras window.load (para que el clic sea instantáneo) y, si el usuario llega antes, al activar la pestaña.
+    setupLazyPanels() {
+      var lazy = this.root.querySelectorAll('[data-lazy-url]');
+      if (!lazy.length) return;
+      var self = this;
+      var prefetch = function () {
+        var idle = window.requestIdleCallback || function (cb) { setTimeout(cb, 1500); };
+        idle(function () { lazy.forEach(function (c) { self.loadPanel(c); }); }, { timeout: 8000 });
+      };
+      if (document.readyState === 'complete') prefetch();
+      else window.addEventListener('load', prefetch, { once: true });
+    }
+
+    loadPanel(container) {
+      if (!container || container.__spotlightLoading || !container.hasAttribute('data-lazy-url')) return container && container.__spotlightLoading;
+      var url = container.getAttribute('data-lazy-url');
+      var panel = container.closest('.collection-tab__tab-content');
+      var blockId = panel && panel.dataset.blockId;
+      container.__spotlightLoading = fetch(url, { credentials: 'same-origin' })
+        .then(function (r) { return r.text(); })
+        .then(function (html) {
+          var doc = new DOMParser().parseFromString(html, 'text/html');
+          var src = doc.querySelector('#spotlight-panel-' + blockId + ' [data-spotlight-products]');
+          if (!src) return;
+          container.innerHTML = src.innerHTML;
+          container.removeAttribute('data-lazy-url');
+          var slide = container.closest('slide-section');
+          if (slide) {
+            // El Swiper se creó sobre un wrapper vacío: se rehace una sola vez con los slides reales.
+            if (slide.swiper && slide.swiper.destroy) { try { slide.swiper.destroy(true, true); } catch (e) {} }
+            if (typeof slide.initSlide === 'function' && window.Swiper) { try { slide.initSlide(); } catch (e) {} }
+          }
+        })
+        .catch(function () { container.__spotlightLoading = null; });
+      return container.__spotlightLoading;
     }
 
     disconnectedCallback() {
@@ -68,6 +107,8 @@
     apply(blockId) {
       if (blockId === this._lastBlockId) return;
       this._lastBlockId = blockId;
+      var lazyPanel = blockId && this.root.querySelector('#spotlight-panel-' + blockId + ' [data-lazy-url]');
+      if (lazyPanel) this.loadPanel(lazyPanel);
       this.showVariant(this.headerVariants, 'headerBlock', blockId, false, false);
       this.showVariant(this.heroMedia, 'heroBlock', blockId, true, true);
       this.moveIndicator(blockId);

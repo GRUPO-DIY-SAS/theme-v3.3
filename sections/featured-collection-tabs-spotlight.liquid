@@ -34,6 +34,10 @@
   assign background_video_source = ''
   assign mobile_background_video_source = ''
   assign items_to_show = section_st.items_to_show
+  # Pestañas bajo demanda: en el HTML solo van los productos de la primera pestaña; las demás se piden por
+  # Section Rendering API (/collections/<handle>?section_id=…). En esa petición `collection` es la de la pestaña.
+  assign lazy_tabs = section_st.lazy_tabs
+  assign page_collection_handle = collection.handle
   assign items_per_row = section_st.items_per_row
   assign items_per_row_mobile = section_st.items_per_row_mobile
   assign column_gap = section_st.column_gap
@@ -714,6 +718,10 @@
                 assign tab_cta_label = block_st.cta_label
                 assign tab_cta_link = block_st.cta_link | default: collection_url
                 assign custom_product_count = 0
+                assign render_products = true
+                if lazy_tabs and tab_content_index > 1 and collection.handle != page_collection_handle
+                  assign render_products = false
+                endif
               -%}
               {%- for product_block in section.blocks -%}
                 {%- if product_block.type == 'custom_product' and product_block.settings.tab_key == tab_key -%}
@@ -752,7 +760,10 @@
                   <div
                     class="{% if product_layout == 'carousel' %}swiper-wrapper{% else %}featured-tabs-spotlight-products featured-tabs-spotlight-products--{{ product_layout }}{% endif %}"
                     style="{{ slider_style | strip | strip_newlines }}"
+                    data-spotlight-products
+                    {% unless render_products %}data-lazy-url="{{ collection.url }}?section_id={{ section.id }}"{% endunless %}
                   >
+                  {%- if render_products -%}
                     {%- if custom_product_count > 0 -%}
                       {%- assign rendered_custom_products = 0 -%}
                       {%- for product_block in section.blocks -%}
@@ -923,6 +934,7 @@
                         </div>
                       {%- endfor -%}
                     {%- endif -%}
+                  {%- endif -%}
                   </div>
                   {%- if product_layout == 'carousel' -%}
                     {%- if carousel_pagination == 'show_dots'
@@ -2189,6 +2201,13 @@
           "label": "Hero + cards"
         }
       ]
+    },
+    {
+      "type": "checkbox",
+      "id": "lazy_tabs",
+      "label": "Cargar las pestañas secundarias bajo demanda",
+      "info": "Solo la primera pestaña va en el HTML; las demás se cargan al abrir la página (en segundo plano) o al pulsarlas. Reduce el peso de la portada.",
+      "default": true
     },
     {
       "type": "range",
