@@ -75,7 +75,7 @@
     "show_action_on_mobile": true,
     "enable_color_swatches": true,
     "limit_color": "4",
-    "swatch_item_type": "variant_images",
+    "swatch_item_type": "color_swatches",
     "color_swatch_trigger": "Color,Colour,Cor,",
     "size_trigger": "Size, Talla, Tamaño,",
     "search_type": "drawer",
@@ -86,6 +86,8 @@
     "show_search_price": true,
     "show_message_when_remove": true,
     "action_when_click_added_wishlist": "remove",
+    "wishlist_page": "lista-de-deseos",
+    "compare_page": "comparacion-de-productos",
     "action_after_add_cart": "open_drawer",
     "free_shipping_minimum": "1000000",
     "free_shipping_drawer_title": "Envío Gratis",
@@ -97,6 +99,11 @@
     "free_shipping_pending_text": "Agrega productos para desbloquear envío gratis",
     "free_shipping_remaining_text": "Te faltan {{ amount }} para envío gratis",
     "free_shipping_unlocked_text": "¡Envío gratis desbloqueado!",
+    "widget_cutoff_hour": 13,
+    "widget_ship_days": "mon_fri",
+    "widget_text_ships_today": "Pide antes de la 1:00 p.m. y procesamos tu pedido hoy",
+    "widget_cutoff_title": "Horario de corte",
+    "widget_trust_text": "Despachamos de lunes a viernes. Tu pedido sale en máximo 5 días hábiles después de confirmado el pago.",
     "show_duration_on_minicart_cart_page": false,
     "cart_duration": 10,
     "enable_cart_note": true,
@@ -141,6 +148,8 @@
     "addi_enable": true,
     "addi_ally_slug": "homesale-ecommerce",
     "addi_element_reference": ".product-detail__price",
+    "seo_brand_name": "Homesale",
+    "seo_collection_description_fallback": "Compra [collection] en [brand]. Envío a todo Colombia y pago hasta en 24 cuotas con Addi.",
     "rate_color": "#ea0606",
     "sections": {
       "custom-colors": {
@@ -317,14 +326,14 @@
           "heading_color": "#000000",
           "border_color": "#eeeeee",
           "btn_primary_color": "#ffffff",
-          "btn_primary_background": "#0A2B60",
+          "btn_primary_background": "#0a2b60",
           "btn_primary_gradient": "",
           "btn_primary_hover_color": "#ffffff",
           "btn_primary_hover_background": "#cc0033",
           "btn_primary_hover_background_gradient": "",
           "btn_outline_color": "#000000",
           "btn_outline_border_color": "#000000",
-          "button_link_color": "#0A2B60",
+          "button_link_color": "#0a2b60",
           "button_link_hover_color": "#cc0033"
         }
       },
@@ -608,16 +617,7 @@
           "button_link_hover_color": "#000000"
         }
       }
-    },
-    "wishlist_page": "lista-de-deseos",
-    "compare_page": "comparacion-de-productos",
-    "widget_ship_days": "mon_fri",
-    "widget_cutoff_hour": 13,
-    "widget_cutoff_title": "Horario de corte",
-    "widget_text_ships_today": "Pide antes de la 1:00 p.m. y procesamos tu pedido hoy",
-    "widget_trust_text": "Despachamos de lunes a viernes. Tu pedido sale en máximo 5 días hábiles después de confirmado el pago.",
-    "seo_brand_name": "Homesale",
-    "seo_collection_description_fallback": "Compra [collection] en [brand]. Envío a todo Colombia y pago hasta en 24 cuotas con Addi."
+    }
   },
   "presets": {
     "Default": {
