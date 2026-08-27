@@ -29,6 +29,10 @@
     var loaded = {};
     var loadedPromises = {};
     var visualStylePromises = [];
+    // Todas las hojas diferidas (no sólo las 'visual'): critical-base oculta la barra de cookies hasta que
+    // llegan, porque su geometría final depende de popup.css/theme.css y el cambio contaba como CLS.
+    var stylePromises = [];
+    var stylesReady = false;
     var visualReady = false;
     var visualReadyTimer = null;
     var originalPush = assets.push.bind(assets);
@@ -122,6 +126,13 @@
       window.dispatchEvent(new CustomEvent('diyvape:deferred-visual-ready'));
     }
 
+    function markStylesReady() {
+      if (stylesReady) return;
+      stylesReady = true;
+      document.documentElement.classList.add('diyvape-deferred-styles-ready');
+      window.dispatchEvent(new CustomEvent('diyvape:deferred-styles-ready'));
+    }
+
     function waitForVisualStyles() {
       if (visualReady) return;
       if (!visualStylePromises.length) {
@@ -212,9 +223,12 @@
       assets.slice().forEach(function (asset) {
         var assetPromise = loadAsset(asset);
         if (isVisualStyle(asset)) visualStylePromises.push(assetPromise || Promise.resolve());
+        if (asset.type === 'style') stylePromises.push(assetPromise || Promise.resolve());
       });
 
       waitForVisualStyles();
+      Promise.all(stylePromises.slice()).then(markStylesReady);
+      window.setTimeout(markStylesReady, 5000);
 
       scriptChain.then(function () {
         document.documentElement.classList.add('diyvape-deferred-assets-loaded');
@@ -230,6 +244,7 @@
       if (requested) {
         incoming.forEach(function (asset) {
           var assetPromise = loadAsset(asset);
+          if (!stylesReady && asset.type === 'style') stylePromises.push(assetPromise || Promise.resolve());
           if (!visualReady && isVisualStyle(asset)) {
             visualStylePromises.push(assetPromise || Promise.resolve());
             waitForVisualStyles();
@@ -246,7 +261,9 @@
     // mantienen ocupado el hilo). Los scripts sí esperan al idle (INP).
     assets.slice().forEach(function (asset) {
       if (!isVisualStyle(asset)) return;
-      visualStylePromises.push(loadAsset(asset) || Promise.resolve());
+      var visualPromise = loadAsset(asset) || Promise.resolve();
+      visualStylePromises.push(visualPromise);
+      stylePromises.push(visualPromise);
     });
     if (visualStylePromises.length) waitForVisualStyles();
 

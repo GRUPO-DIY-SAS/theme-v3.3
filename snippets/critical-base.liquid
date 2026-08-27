@@ -275,6 +275,12 @@
     display: none !important;
   }
 
+  /* Barra de cookies: se renderiza visible (Speed Index) pero su geometría final depende de popup.css y
+     theme.css (diferidos); pintarla antes y verla cambiar contaba 0,08 de CLS. Oculta hasta que llegan. */
+  html:not(.diyvape-deferred-styles-ready) cookie-bar {
+    visibility: hidden !important;
+  }
+
   /* Scrolling text / announcement marquees: renderean en bucle si no hay
      CSS para constreñirlas. Hide hasta que theme.css cargue. */
   html:not(.diyvape-deferred-visual-ready) .scrolling-text,
