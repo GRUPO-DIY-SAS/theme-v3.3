@@ -367,7 +367,7 @@
                     {%- endif -%}
                     {% comment %} Product item quickview {% endcomment %}
                     {%- if show_quick_view == true -%}
-                      <button-quickview
+                      <button-quickview role="button"
                         data-custom-class="quickview"
                         tabindex="0"
                         class="{% if product_style == 'card' %}invisible-1025 product__action-animation transition-btn {% endif %}product-item__button pointer product-item__button-quickview tooltip relative btn-hover transition-btn btn-white rounded-50 p-0 shadow w-45 h-45 inline-flex-1025 hidden content-center"
@@ -398,7 +398,7 @@
                   -%}
                   {%- if card_product.variants.size > 1 or qty_rules -%}
                     {% comment %} Case select options {% endcomment %}
-                    <select-option
+                    <select-option role="button"
                       tabindex="0"
                       data-custom-class="quickview"
                       data-item="overlay-quickbuy"
@@ -580,7 +580,7 @@
               -%}
               {%- if card_product.variants.size > 1 or qty_rules -%}
                 {% comment %} Case select options {% endcomment %}
-                <select-option
+                <select-option role="button"
                   tabindex="0"
                   data-item="overlay-quickbuy"
                   class="product-item__select-options bls-add-cart-list pointer transition btn-primary block relative grow-1 max-w-custom text-center"
@@ -718,7 +718,7 @@
               -%}
               {%- if card_product.variants.size > 1 or qty_rules -%}
                 {% comment %} Case select options {% endcomment %}
-                <select-option
+                <select-option role="button"
                   tabindex="0"
                   data-custom-class="quickview"
                   data-item="overlay-quickbuy"

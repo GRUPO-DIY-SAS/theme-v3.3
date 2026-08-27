@@ -32,6 +32,7 @@
         </product-form>
       {%- else -%}
         <select-option
+          role="button"
           data-url="/products/{{ product.handle }}?section_id=product-quickview&ajax=1"
           data-custom-class="quickview"
           data-item="overlay-quickbuy"
@@ -46,6 +47,7 @@
     {%- endif -%}
     {%- if show_quick_view -%}
       <button-quickview
+        role="button"
         data-url="/products/{{ product.handle }}?section_id=product-quickview&ajax=1"
         data-custom-class="quickview"
         tabindex="0"

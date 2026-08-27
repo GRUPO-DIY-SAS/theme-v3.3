@@ -734,7 +734,7 @@
                 "show_full_width": false,
                 "first_button_label": "Compra ahora",
                 "first_button_link": "shopify://collections/producto-destacados",
-                "first_button_aria_label": "Ver productos destacados",
+                "first_button_aria_label": "Compra ahora: ver productos destacados",
                 "first_button_type": "primary",
                 "second_button_label": "",
                 "second_button_link": "",

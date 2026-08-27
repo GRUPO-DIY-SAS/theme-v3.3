@@ -309,7 +309,7 @@
                         {%- endif -%}
                         {% comment %} Product item quickview {% endcomment %}
                         {%- if show_quick_view == true -%}
-                          <button-quickview
+                          <button-quickview role="button"
                             data-custom-class="quickview"
                             tabindex="0"
                             class="{% if product_style == 'card' %}invisible-1025 product__action-animation transition-btn {% endif %}product-item__button pointer product-item__button-quickview tooltip relative btn-hover transition-btn btn-white rounded-50 p-0 shadow w-45 h-45 inline-flex-1025 hidden content-center"

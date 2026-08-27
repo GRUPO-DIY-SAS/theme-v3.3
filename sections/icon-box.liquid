@@ -25,6 +25,16 @@
   style="{{ style | strip | strip_newlines }}"
 >
   <div class="{{ section_width }}">
+      {%- liquid
+        # Nivel de encabezado de los ítems: h3 si la sección tiene su propio h2 (bloque heading), si no h2.
+        assign item_heading_tag = 'h2'
+        for b in section.blocks
+          if b.type == 'heading' and b.settings.heading != blank
+            assign item_heading_tag = 'h3'
+            break
+          endif
+        endfor
+      -%}
     {% for block in section.blocks %}
       {%- liquid
         assign block_st = block.settings
@@ -148,12 +158,12 @@
                 {% if block_st.heading != blank or block_st.description != blank %}
                   <div class="sec__icon-box-content text-{{ section_st.content_alignment }} word-break{% if section_st.icon_position == 'left' or  section_st.content_alignment == 'right' %} align-self-center{% endif %}">
                     {% if block_st.heading != blank %}
-                      <h3
+                      <{{ item_heading_tag }}
                         class="sec__icon-box-content-heading mt-0 fs-custom mb-custom {{ section_st.heading_font_weight }}{% if section_st.heading_uppercase %} uppercase{% endif %}"
                         style="--font-size: {{ section_st.heading_font_size }}; --space-bottom: {{ section_st.heading_spacing_bottom }}"
                       >
                         {{ block_st.heading }}
-                      </h3>
+                      </{{ item_heading_tag }}>
                     {% endif %}
                     {% if block_st.description != blank %}
                       <div

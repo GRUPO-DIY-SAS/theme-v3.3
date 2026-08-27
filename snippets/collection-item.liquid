@@ -139,9 +139,7 @@
       {% elsif collection_information_position == 'overlay_image' and design == 'morden' %}
         <div class="flex-1 {% if show_description and column_reverse_content %}flex flex-column-reverse{% endif %}">
       {% endif %}
-      <a
-        aria-label="{{ card_collection.title }}"
-        class="collection-item__name no-underline word-break heading-color {{ section_st.font_weight }}{% if font_size > 14 %} fs-medium-list{% else %} fs-custom{% endif %}{% if collection_information_position == 'below_image' %} mb-10{% else %} inline-flex gap-5 align-center justify-content-{{ section_st.text_alignment }}{% endif %}{% if collection_information_position == 'overlay_image' and  design == 'default' %} btn btn-white{% endif %}
+      <a class="collection-item__name no-underline word-break heading-color {{ section_st.font_weight }}{% if font_size > 14 %} fs-medium-list{% else %} fs-custom{% endif %}{% if collection_information_position == 'below_image' %} mb-10{% else %} inline-flex gap-5 align-center justify-content-{{ section_st.text_alignment }}{% endif %}{% if collection_information_position == 'overlay_image' and  design == 'default' %} btn btn-white{% endif %}
         {% if show_description and column_reverse_content %} mt-5{% endif %}"
         style="--font-size: {{ font_size }};--space-bottom: {{ section_st.spacing }}"
         href="{{ card_collection.url }}"

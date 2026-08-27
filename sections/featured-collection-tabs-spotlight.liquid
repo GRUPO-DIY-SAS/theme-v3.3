@@ -773,7 +773,7 @@
                             {% endif %}
                           >
                             <div class="featured-tabs-spotlight-card__inner">
-                              <a class="featured-tabs-spotlight-card__media" href="{{ product_url }}" aria-label="{{ product_title | escape }}">
+                              <a class="featured-tabs-spotlight-card__media" href="{{ product_url }}">
 {%- if show_card_badges and product != blank -%}
 {%- render 'product-badges', card_product: product, type: 'product_item', class: badge_position -%}
 {%- endif -%}
@@ -818,7 +818,7 @@
                         -%}
                         <div class="featured-tabs-spotlight-card swiper-slide">
                           <div class="featured-tabs-spotlight-card__inner">
-                            <a class="featured-tabs-spotlight-card__media" href="{{ product.url }}" aria-label="{{ product_title | escape }}">
+                            <a class="featured-tabs-spotlight-card__media" href="{{ product.url }}">
 {%- if show_card_badges and product != blank -%}
 {%- render 'product-badges', card_product: product, type: 'product_item', class: badge_position -%}
 {%- endif -%}
@@ -859,7 +859,7 @@
                         -%}
                         <div class="featured-tabs-spotlight-card swiper-slide">
                           <div class="featured-tabs-spotlight-card__inner">
-                            <a class="featured-tabs-spotlight-card__media" href="{{ product.url }}" aria-label="{{ product_title | escape }}">
+                            <a class="featured-tabs-spotlight-card__media" href="{{ product.url }}">
 {%- if show_card_badges and product != blank -%}
 {%- render 'product-badges', card_product: product, type: 'product_item', class: badge_position -%}
 {%- endif -%}
