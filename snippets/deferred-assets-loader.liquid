@@ -33,6 +33,52 @@
     var visualReadyTimer = null;
     var originalPush = assets.push.bind(assets);
 
+    // Scripts de terceros que no aportan al primer render y bloquean el hilo principal en la home
+    // (Lighthouse: mercadopago security.js ~1 s de bloqueo, fbevents, RetailCRM). Se retienen y se
+    // insertan tras window.load + idle. En carrito/checkout no se retrasan (MercadoPago los necesita).
+    // Dos cubos: 'idle' (píxeles/analytics: se cargan tras load+idle para no perder PageViews) e
+    // 'interaction' (MercadoPago security.js solo sirve en checkout: se carga a la primera interacción o 10 s tras load).
+    var delayHosts = { 'mercadopago.com': 'interaction', 'mercadolibre.com': 'interaction', 'connect.facebook.net': 'idle', 'retailcrm.tech': 'idle' };
+    var delayEnabled = pageType !== 'cart' && pageType !== 'checkout';
+    var delayedNodes = [];
+    function delayBucket(node) {
+      if (!delayEnabled || !node || node.nodeType !== 1 || node.tagName !== 'SCRIPT') return '';
+      var url = String(node.src || '').toLowerCase();
+      if (!url) return '';
+      for (var host in delayHosts) {
+        if (url.indexOf(host) !== -1) return delayHosts[host];
+      }
+      return '';
+    }
+    var delayedFlushed = { idle: false, interaction: false };
+    function flushDelayed(bucket) {
+      if (delayedFlushed[bucket]) return;
+      delayedFlushed[bucket] = true;
+      var pending = delayedNodes.filter(function (e) { return e.bucket === bucket; });
+      delayedNodes = delayedNodes.filter(function (e) { return e.bucket !== bucket; });
+      pending.forEach(function (entry) {
+        try { entry.parent.appendChild(entry.node); } catch (e) {}
+      });
+    }
+    var delayScheduled = { idle: false, interaction: false };
+    function scheduleDelayedFlush(bucket) {
+      if (delayScheduled[bucket]) return;
+      delayScheduled[bucket] = true;
+      var afterLoad = function (fn) {
+        if (document.readyState === 'complete') fn();
+        else window.addEventListener('load', fn, { once: true });
+      };
+      if (bucket === 'idle') {
+        afterLoad(function () { runWhenIdle(function () { flushDelayed('idle'); }, 4000); });
+        window.setTimeout(function () { flushDelayed('idle'); }, 8000);
+      } else {
+        var onInteract = function () { flushDelayed('interaction'); };
+        ['pointerdown', 'keydown', 'touchstart', 'scroll'].forEach(function (ev) {
+          window.addEventListener(ev, onInteract, { once: true, passive: true });
+        });
+        afterLoad(function () { window.setTimeout(onInteract, 10000); });
+      }
+    }
     function isReviewWidgetAsset(node) {
       if (!node || node.nodeType !== 1) return false;
       var url = '';
@@ -42,17 +88,21 @@
       return url.indexOf('judge.me') !== -1 || url.indexOf('/judgeme-') !== -1;
     }
 
-    if (pageType !== 'product') {
+    if (pageType !== 'product' || delayEnabled) {
       var originalAppendChild = Node.prototype.appendChild;
       var originalInsertBefore = Node.prototype.insertBefore;
 
       Node.prototype.appendChild = function (node) {
-        if (isReviewWidgetAsset(node)) return node;
+        if (pageType !== 'product' && isReviewWidgetAsset(node)) return node;
+        var bucket = delayBucket(node);
+        if (bucket && !delayedFlushed[bucket]) { delayedNodes.push({ parent: this, node: node, bucket: bucket }); scheduleDelayedFlush(bucket); return node; }
         return originalAppendChild.call(this, node);
       };
 
       Node.prototype.insertBefore = function (node, referenceNode) {
-        if (isReviewWidgetAsset(node)) return node;
+        if (pageType !== 'product' && isReviewWidgetAsset(node)) return node;
+        var bucket = delayBucket(node);
+        if (bucket && !delayedFlushed[bucket]) { delayedNodes.push({ parent: this, node: node, bucket: bucket }); scheduleDelayedFlush(bucket); return node; }
         return originalInsertBefore.call(this, node, referenceNode);
       };
     }
