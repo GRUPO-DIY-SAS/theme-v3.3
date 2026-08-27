@@ -241,7 +241,16 @@
 
     window.diyvapeLoadDeferredAssets = loadDeferredAssets;
 
-    // Idle con tope de 2s: el burst cede ante un tap temprano sin retrasar
+    // El CSS visual (critical.css, product-card.css…) arranca ya: main y header siguen ocultos hasta
+    // que llega, y esperar al idle añadía ~2 s de render delay al LCP en 4G (los app embeds del head
+    // mantienen ocupado el hilo). Los scripts sí esperan al idle (INP).
+    assets.slice().forEach(function (asset) {
+      if (!isVisualStyle(asset)) return;
+      visualStylePromises.push(loadAsset(asset) || Promise.resolve());
+    });
+    if (visualStylePromises.length) waitForVisualStyles();
+
+    // Idle con tope de 2s: el burst de scripts cede ante un tap temprano sin retrasar
     // demasiado las features que dependen de theme.js.
     runWhenIdle(loadDeferredAssets, 2000);
   })();

@@ -107,6 +107,12 @@
       {%- endif -%}
       {% # theme-check-enable AssetPreload %}
     {%- endif -%}
+    {%- if defer_theme_assets -%}
+      {%- comment -%} El CSS visual se inyecta desde el loader; precargarlo desde el head adelanta la descarga
+        (paralela al HTML de 740 KB) y acorta el tiempo en que main sigue oculto (LCP). {%- endcomment -%}
+      {{ 'critical.css' | asset_url | preload_tag: as: 'style' }}
+      {{ 'product-card.css' | asset_url | preload_tag: as: 'style' }}
+    {%- endif -%}
     <link rel="canonical" href="{{ canonical_url }}">
     {%- if settings.favicon != blank -%}
       <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
