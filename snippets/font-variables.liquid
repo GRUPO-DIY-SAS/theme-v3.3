@@ -77,8 +77,25 @@
   {% # theme-check-disable AssetPreload %}
   <link rel="preload" as="font" href="{{ font_body_regular | font_url }}" type="font/woff2" crossorigin>
   {% # theme-check-disable AssetPreload %}
-  {%- capture font_family_body -%}{{ font_body_shopify.family }}, {{ font_body_shopify.fallback_families }};{%- endcapture -%}
+  {%- liquid
+    # Fallback local (Arial) con métricas ajustadas por peso a la fuente (size/ascent/descent/line-gap override):
+    # el texto no cambia de tamaño al llegar la webfont, así el swap no desplaza el layout (CLS).
+    assign body_fallback_metrics = ''
+    if font_body_shopify.family == 'Rubik'
+      assign body_fallback_metrics = 'rubik'
+    endif
+  -%}
+  {%- if body_fallback_metrics != blank -%}
+    {%- capture font_family_body -%}{{ font_body_shopify.family }}, "{{ font_body_shopify.family }} Fallback", {{ font_body_shopify.fallback_families }};{%- endcapture -%}
+  {%- else -%}
+    {%- capture font_family_body -%}{{ font_body_shopify.family }}, {{ font_body_shopify.fallback_families }};{%- endcapture -%}
+  {%- endif -%}
   {%- style -%}
+    {%- if body_fallback_metrics != blank -%}
+      @font-face { font-family: "{{ font_body_shopify.family }} Fallback"; font-weight: 400; src: local("Arial"); size-adjust: 104.45%; ascent-override: 89.52%; descent-override: 23.93%; line-gap-override: 0%; }
+      @font-face { font-family: "{{ font_body_shopify.family }} Fallback"; font-weight: 500; src: local("Arial"); size-adjust: 107.89%; ascent-override: 86.66%; descent-override: 23.17%; line-gap-override: 0%; }
+      @font-face { font-family: "{{ font_body_shopify.family }} Fallback"; font-weight: 600 900; src: local("Arial"); size-adjust: 111.35%; ascent-override: 83.97%; descent-override: 22.45%; line-gap-override: 0%; }
+    {%- endif -%}
     {{ font_body_regular | font_face: font_display: 'swap' }}
     {{ font_body_medium | font_face: font_display: 'swap' }}
     {{ font_body_semibold | font_face: font_display: 'swap' }}
@@ -164,8 +181,23 @@
   {% # theme-check-disable AssetPreload %}
   <link rel="preload" as="font" href="{{ font_heading_primary | font_url }}" type="font/woff2" crossorigin>
   {% # theme-check-disable AssetPreload %}
-  {%- capture font_family_heading -%}{{ font_heading_shopify.family }}, {{ font_heading_shopify.fallback_families }};{%- endcapture -%}
+  {%- liquid
+    assign heading_fallback_metrics = ''
+    if font_heading_shopify.family == 'Rubik'
+      assign heading_fallback_metrics = 'rubik'
+    endif
+  -%}
+  {%- if heading_fallback_metrics != blank -%}
+    {%- capture font_family_heading -%}{{ font_heading_shopify.family }}, "{{ font_heading_shopify.family }} Fallback", {{ font_heading_shopify.fallback_families }};{%- endcapture -%}
+  {%- else -%}
+    {%- capture font_family_heading -%}{{ font_heading_shopify.family }}, {{ font_heading_shopify.fallback_families }};{%- endcapture -%}
+  {%- endif -%}
   {%- style -%}
+    {%- if heading_fallback_metrics != blank and heading_fallback_metrics != body_fallback_metrics -%}
+      @font-face { font-family: "{{ font_heading_shopify.family }} Fallback"; font-weight: 400; src: local("Arial"); size-adjust: 104.45%; ascent-override: 89.52%; descent-override: 23.93%; line-gap-override: 0%; }
+      @font-face { font-family: "{{ font_heading_shopify.family }} Fallback"; font-weight: 500; src: local("Arial"); size-adjust: 107.89%; ascent-override: 86.66%; descent-override: 23.17%; line-gap-override: 0%; }
+      @font-face { font-family: "{{ font_heading_shopify.family }} Fallback"; font-weight: 600 900; src: local("Arial"); size-adjust: 111.35%; ascent-override: 83.97%; descent-override: 22.45%; line-gap-override: 0%; }
+    {%- endif -%}
     {{ font_heading_primary | font_face: font_display: 'swap' }}
     {%- unless heading_weight == '700' -%}
       {{ font_heading_bold | font_face: font_display: 'swap' }}
