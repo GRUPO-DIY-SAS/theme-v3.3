@@ -4250,7 +4250,7 @@ nav.mobile {
   opacity: 0;
   pointer-events: none;
   transform: translateY(3rem);
-  transition: all 0.3s;
+  transition: opacity 0.3s, visibility 0.3s, transform 0.3s;
 }
 
 .idea-product.active .idea-product-list {
