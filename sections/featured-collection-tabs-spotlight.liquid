@@ -88,6 +88,13 @@
     assign data_free_scroll = 'true'
   endif
   assign grid_mobile_columns = items_per_row_mobile | ceil
+  # sizes reales de las cards: 100vw / columnas (Lighthouse pedía imágenes de 760px para huecos de ~180px en móvil: 70 KB de más).
+  assign card_desktop_vw = 100 | divided_by: items_per_row | plus: 1
+  assign card_mobile_vw = 100 | divided_by: grid_mobile_columns | plus: 1
+  assign card_sizes = '(min-width: 1025px) ' | append: card_desktop_vw | append: 'vw, ' | append: card_mobile_vw | append: 'vw'
+  assign quick_desktop_vw = 100 | divided_by: section_st.quick_columns | plus: 1
+  assign quick_mobile_vw = 100 | divided_by: section_st.quick_mobile_columns | plus: 1
+  assign quick_sizes = '(min-width: 1025px) ' | append: quick_desktop_vw | append: 'vw, ' | append: quick_mobile_vw | append: 'vw'
 
   for source in background_video.sources
     if source.format == 'mp4'
@@ -591,7 +598,7 @@
               >
                 <a class="featured-tabs-spotlight-quick__media" href="{{ quick_link }}" aria-label="{{ quick_title | escape }}">
                   {%- if quick_image != blank -%}
-                    {{ quick_image | image_url: width: 900 | image_tag: widths: '240, 360, 480, 640, 760, 900', sizes: '(min-width: 1025px) 25vw, 80vw', loading: q_loading, fetchpriority: q_fetch, alt: quick_title }}
+                    {{ quick_image | image_url: width: 900 | image_tag: widths: '240, 360, 480, 640, 760, 900', sizes: quick_sizes, loading: q_loading, fetchpriority: q_fetch, alt: quick_title }}
                   {%- else -%}
                     {{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg' }}
                   {%- endif -%}
@@ -781,7 +788,7 @@
                                   <span class="featured-tabs-spotlight-card__badge">{{ product_badge }}</span>
                                 {%- endif -%}
                                 {%- if product_image != blank -%}
-                                  {{ product_image | image_url: width: 900 | image_tag: widths: '240, 360, 480, 640, 760, 900', sizes: '(min-width: 1025px) 25vw, 80vw', loading: 'lazy', alt: product_title }}
+                                  {{ product_image | image_url: width: 900 | image_tag: widths: '240, 360, 480, 640, 760, 900', sizes: card_sizes, loading: 'lazy', alt: product_title }}
                                 {%- else -%}
                                   {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
                                 {%- endif -%}
@@ -823,7 +830,7 @@
 {%- render 'product-badges', card_product: product, type: 'product_item', class: badge_position -%}
 {%- endif -%}
                               {%- if product_image != blank -%}
-                                {{ product_image | image_url: width: 900 | image_tag: widths: '240, 360, 480, 640, 760, 900', sizes: '(min-width: 1025px) 25vw, 80vw', loading: 'lazy', alt: product_title }}
+                                {{ product_image | image_url: width: 900 | image_tag: widths: '240, 360, 480, 640, 760, 900', sizes: card_sizes, loading: 'lazy', alt: product_title }}
                               {%- else -%}
                                 {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
                               {%- endif -%}
@@ -864,7 +871,7 @@
 {%- render 'product-badges', card_product: product, type: 'product_item', class: badge_position -%}
 {%- endif -%}
                               {%- if product_image != blank -%}
-                                {{ product_image | image_url: width: 900 | image_tag: widths: '240, 360, 480, 640, 760, 900', sizes: '(min-width: 1025px) 25vw, 80vw', loading: 'lazy', alt: product_title }}
+                                {{ product_image | image_url: width: 900 | image_tag: widths: '240, 360, 480, 640, 760, 900', sizes: card_sizes, loading: 'lazy', alt: product_title }}
                               {%- else -%}
                                 {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
                               {%- endif -%}
