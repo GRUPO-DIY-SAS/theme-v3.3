@@ -86,6 +86,27 @@
         {% # theme-check-enable AssetPreload %}
       {%- endif -%}
     {%- endif -%}
+    {%- comment -%}
+      LCP de la portada: el banner está ~380 KB HTML más abajo (head con app embeds + header con doble menú),
+      así que en 4G el navegador tarda ~1,7 s en descubrirlo. Con el preload la petición sale con el <head>.
+      Mismos srcset/sizes que responsive-image para que el candidato elegido coincida y no se descargue dos veces.
+    {%- endcomment -%}
+    {%- if template.name == 'index' -%}
+      {% # theme-check-disable AssetPreload %}
+      {%- if settings.home_lcp_image_mobile != blank -%}
+        <link rel="preload" as="image" media="(max-width: 767px)" fetchpriority="high" imagesrcset="{{ settings.home_lcp_image_mobile | image_url: width: 480 }} 480w, {{ settings.home_lcp_image_mobile | image_url: width: 360 }} 360w" imagesizes="100vw">
+      {%- endif -%}
+      {%- if settings.home_lcp_image != blank -%}
+        {%- capture home_lcp_srcset -%}
+          {%- assign home_lcp_widths = '1920,1500,1370,1100,720,660,550,480,360' | split: ',' -%}
+          {%- for w in home_lcp_widths -%}
+            {{- settings.home_lcp_image | image_url: width: w }} {{ w }}w{% unless forloop.last %}, {% endunless -%}
+          {%- endfor -%}
+        {%- endcapture -%}
+        <link rel="preload" as="image" media="(min-width: 768px)" fetchpriority="high" imagesrcset="{{ home_lcp_srcset | strip }}" imagesizes="100vw">
+      {%- endif -%}
+      {% # theme-check-enable AssetPreload %}
+    {%- endif -%}
     <link rel="canonical" href="{{ canonical_url }}">
     {%- if settings.favicon != blank -%}
       <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">

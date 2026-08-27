@@ -1897,6 +1897,25 @@
     ]
   },
   {
+    "name": "Rendimiento",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Precarga la imagen principal de la portada desde el <head> (LCP). Debe ser la MISMA imagen configurada en la primera sección de la portada; si cambias el banner, actualízala aquí también."
+      },
+      {
+        "type": "image_picker",
+        "id": "home_lcp_image_mobile",
+        "label": "Banner de portada (móvil) a precargar"
+      },
+      {
+        "type": "image_picker",
+        "id": "home_lcp_image",
+        "label": "Banner de portada (escritorio) a precargar"
+      }
+    ]
+  },
+  {
     "name": "SEO",
     "settings": [
       {

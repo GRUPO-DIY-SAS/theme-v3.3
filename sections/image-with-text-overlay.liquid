@@ -47,12 +47,20 @@
       >
         {%- if image != blank or image_mobile != blank -%}
           {%- assign image_alt = image.alt | default: 'image_mobile' -%}
+          {%- liquid
+            # La primera sección de la página es el candidato LCP: eager + fetchpriority=high (antes cargaba lazy).
+            assign hero_first = false
+            if section.index == 1
+              assign hero_first = true
+            endif
+          -%}
           {% render 'responsive-image',
             type: 'banner',
             container: section_width,
             image: image,
             image_mobile: image_mobile,
             image_alt: image_alt,
+            first: hero_first,
             no_animate: true
           %}
         {%- else -%}
