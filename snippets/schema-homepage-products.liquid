@@ -33,41 +33,12 @@
           {%- assign count_value  = jdgm_count.value | plus: 0 -%}
           {%- assign rating_value = jdgm_rating.value.rating | round: 2 -%}
 
+          {%- comment -%}
+            JSON compacto y sin description/sku/seller: los 5 ItemList de la home pesaban 58 KB de HTML
+            (Google no usa ItemList de la home para rich results de producto; name/url/image/offers/rating bastan).
+          {%- endcomment -%}
           {%- capture item_json -%}
-            {
-              "@type": "ListItem",
-              "position": {{ position }},
-              "item": {
-                "@type": "Product",
-                "name": {{ product.title | json }},
-                "url": "{{ shop.url }}{{ product.url }}",
-                "image": "{{ product.featured_image | image_url: width: 800 }}",
-                "description": {{ product.description | strip_html | truncate: 200 | json }},
-                "sku": {{ product.selected_or_first_available_variant.sku | json }},
-                "brand": {
-                  "@type": "Brand",
-                  "name": {{ product.vendor | json }}
-                },
-                "offers": {
-                  "@type": "Offer",
-                  "url": "{{ shop.url }}{{ product.url }}",
-                  "priceCurrency": "COP",
-                  "price": "{{ product.price | money_without_currency | remove: '.' | remove: ',' }}",
-                  "availability": "https://schema.org/InStock",
-                  "seller": {
-                    "@type": "Organization",
-                    "name": {{ shop.name | json }}
-                  }
-                }{% if jdgm_rating != blank and count_value > 0 %},
-                "aggregateRating": {
-                  "@type": "AggregateRating",
-                  "ratingValue": "{{ rating_value }}",
-                  "reviewCount": {{ count_value }},
-                  "bestRating": "5",
-                  "worstRating": "1"
-                }{% endif %}
-              }
-            }
+            {"@type":"ListItem","position":{{ position }},"item":{"@type":"Product","name":{{ product.title | json }},"url":"{{ shop.url }}{{ product.url }}","image":"{{ product.featured_image | image_url: width: 800 }}","brand":{"@type":"Brand","name":{{ product.vendor | json }}},"offers":{"@type":"Offer","url":"{{ shop.url }}{{ product.url }}","priceCurrency":"COP","price":"{{ product.price | money_without_currency | remove: '.' | remove: ',' }}","availability":"https://schema.org/InStock"}{% if jdgm_rating != blank and count_value > 0 %},"aggregateRating":{"@type":"AggregateRating","ratingValue":"{{ rating_value }}","reviewCount":{{ count_value }},"bestRating":"5","worstRating":"1"}{% endif %}}}
           {%- endcapture -%}
 
           {%- if items_json == '' -%}
@@ -79,15 +50,7 @@
       {%- endfor -%}
 
       {%- if position > 0 -%}
-        <script type="application/ld+json">
-        {
-          "@context": "https://schema.org",
-          "@type": "ItemList",
-          "name": {{ section_name | json }},
-          "numberOfItems": {{ position }},
-          "itemListElement": [{{ items_json }}]
-        }
-        </script>
+        <script type="application/ld+json">{"@context":"https://schema.org","@type":"ItemList","name":{{ section_name | json }},"numberOfItems":{{ position }},"itemListElement":[{{ items_json }}]}</script>
       {%- endif -%}
     {%- endif -%}
   {%- endfor -%}
