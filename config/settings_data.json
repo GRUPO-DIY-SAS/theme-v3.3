@@ -76,7 +76,7 @@
     "enable_color_swatches": true,
     "limit_color": "4",
     "swatch_item_type": "color_swatches",
-    "color_swatch_trigger": "Color,Colour,Cor,",
+    "color_swatch_trigger": "Color, Colour, Cor",
     "size_trigger": "Size, Talla, Tamaño,",
     "search_type": "drawer",
     "search_result": "all",
