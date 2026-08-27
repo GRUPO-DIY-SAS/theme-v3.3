@@ -17,6 +17,7 @@
   assign has_color = false
   for opt in product.options_with_values
     for color_trigger_name in option_name
+      assign color_trigger_name = color_trigger_name | strip
       if opt.name == color_trigger_name
         assign has_color = true
       endif
