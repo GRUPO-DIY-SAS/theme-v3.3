@@ -1,0 +1,72 @@
+{%- comment -%}
+  Resuelve el nombre de un valor de opción de color a un background CSS usando el ajuste
+  «Colores por nombre» (settings.custom_color_map, líneas "Nombre: #hex"). Si el nombre exacto
+  no está, lo descompone en palabras (Negro Gris, Rojo - Negro, Blanco/Verde, Azul y Amarillo)
+  y combina hasta 3 colores base: 2 → círculo partido en diagonal, 3 → tres franjas.
+  Uso: {% capture swatch_value %}{% render 'swatch-color', value: value %}{% endcapture %}
+{%- endcomment -%}
+{%- liquid
+  assign vkey = value | downcase | strip
+  assign cmap = settings.custom_color_map | newline_to_br | split: '<br />'
+  assign found = ''
+  for line in cmap
+    assign parts = line | split: ':'
+    if parts.size < 2
+      continue
+    endif
+    assign lname = parts[0] | downcase | strip
+    if lname == vkey
+      assign found = parts[1] | strip
+      break
+    endif
+  endfor
+  if found == blank
+    # descomponer en palabras y mapear cada una
+    assign words = vkey | replace: '/', ' ' | replace: '-', ' ' | replace: ',', ' ' | replace: '+', ' ' | replace: '&', ' ' | split: ' '
+    assign cols = ''
+    assign ncols = 0
+    for w in words
+      assign ww = w | strip
+      if ww == blank or ww == 'y' or ww == 'con' or ww == 'and' or ww == 'e' or ww == 'de'
+        continue
+      endif
+      for line in cmap
+        assign parts = line | split: ':'
+        if parts.size < 2
+          continue
+        endif
+        assign lname = parts[0] | downcase | strip
+        if lname == ww
+          assign c = parts[1] | strip | split: ',' | first | strip
+          if ncols == 0
+            assign cols = c
+          else
+            assign cols = cols | append: ',' | append: c
+          endif
+          assign ncols = ncols | plus: 1
+          break
+        endif
+      endfor
+      if ncols >= 3
+        break
+      endif
+    endfor
+    assign found = cols
+  endif
+  assign out = ''
+  if found != blank
+    assign cl = found | split: ','
+    if cl.size >= 3
+      assign c1 = cl[0] | strip
+      assign c2 = cl[1] | strip
+      assign c3 = cl[2] | strip
+      assign out = 'linear-gradient(90deg, ' | append: c1 | append: ' 0 33.4%, ' | append: c2 | append: ' 33.4% 66.7%, ' | append: c3 | append: ' 66.7% 100%)'
+    elsif cl.size == 2
+      assign c1 = cl[0] | strip
+      assign c2 = cl[1] | strip
+      assign out = 'linear-gradient(135deg, ' | append: c1 | append: ' 50%, ' | append: c2 | append: ' 50%)'
+    else
+      assign out = cl[0] | strip
+    endif
+  endif
+-%}{{ out }}

@@ -76,6 +76,13 @@
               assign swatch_value = 'rgb(' | append: value.swatch.color.rgb | append: ')'
             else
               assign swatch_value = null
+              capture swatch_value
+                render 'swatch-color', value: value
+              endcapture
+              assign swatch_value = swatch_value | strip
+              if swatch_value == blank
+                assign swatch_value = null
+              endif
             endif
           -%}
 
@@ -540,6 +547,13 @@
                 assign swatch_value = 'rgb(' | append: value.swatch.color.rgb | append: ')'
               else
                 assign swatch_value = null
+                capture swatch_value
+                  render 'swatch-color', value: value
+                endcapture
+                assign swatch_value = swatch_value | strip
+                if swatch_value == blank
+                  assign swatch_value = null
+                endif
               endif
             -%}
             <div

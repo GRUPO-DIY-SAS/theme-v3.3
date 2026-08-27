@@ -77,6 +77,7 @@
     "limit_color": "4",
     "swatch_item_type": "color_swatches",
     "color_swatch_trigger": "Color, Colour, Cor",
+    "custom_color_map": "Negro: #111111\nBlack: #111111\nBlanco: #f4f4f4\nBlanca: #f4f4f4\nWhite: #f4f4f4\nRojo: #d0021b\nRoja: #d0021b\nRed: #d0021b\nAzul: #1f4fd8\nBlue: #1f4fd8\nAzul Marino: #282099\nNavy: #282099\nCeleste: #7fc4ff\nAzul Celeste: #7fc4ff\nLight Blue: #7fc4ff\nVerde: #05aa3d\nGreen: #05aa3d\nVerde Neón: #39ff14\nVerde Neon: #39ff14\nNeon Green: #39ff14\nAmarillo: #ffe500\nYellow: #ffe500\nNaranja: #ff8a00\nOrange: #ff8a00\nGris: #8a8a8a\nGrey: #8a8a8a\nGray: #8a8a8a\nGris Azul: #6b7a99\nRosado: #f48fb1\nRosada: #f48fb1\nRosa: #f48fb1\nPink: #f48fb1\nFucsia: #e91e63\nFuchsia: #e91e63\nMorado: #7b2cbf\nPurpura: #7b2cbf\nPúrpura: #7b2cbf\nPurple: #7b2cbf\nVioleta: #8e44ad\nViolet: #8e44ad\nLila: #c8a2c8\nLilac: #c8a2c8\nCafé: #6b4423\nCafe: #6b4423\nMarrón: #6b4423\nMarron: #6b4423\nBrown: #6b4423\nBeige: #e8dcc5\nCrema: #f5efe0\nCream: #f5efe0\nDorado: #d4af37\nGold: #d4af37\nPlateado: #c0c0c0\nSilver: #c0c0c0\nCromado: #d9d9d9\nChrome: #d9d9d9\nTurquesa: #1abc9c\nTurquoise: #1abc9c\nCoral: #ff6f61\nVinotinto: #7b1e2b\nBurdeos: #7b1e2b\nWine: #7b1e2b\nOliva: #6b8e23\nOlive: #6b8e23\nMenta: #98e2c0\nMint: #98e2c0\nMulticolor: #d0021b,#ffe500,#1f4fd8\nTransparente: #ffffff\nClear: #ffffff",
     "size_trigger": "Size, Talla, Tamaño,",
     "search_type": "drawer",
     "search_result": "all",
