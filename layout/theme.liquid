@@ -225,11 +225,14 @@
           {% endif %}
         );
       </script>
-      {% render 'deferred-assets-loader' %}
     {% endif %}
     {%- comment -%} critical-base inlined (era assets/critical-base.css) — elimina
       1 render-blocking HTTP request. Ahorro ~50-200ms FCP en cold cache. {%- endcomment -%}
     {% render 'critical-base' %}
+      {%- comment -%} Debe ir DESPUÉS de critical-base: el loader inserta critical.css en cuanto corre y, si lo hace antes
+        del <style> inline de critical-base, las utilidades .block/.flex de éste quedan por encima de las reglas
+        responsive de critical.css (.hidden-1025/.block-1025) y el escritorio hereda el layout móvil. {%- endcomment -%}
+      {% render 'deferred-assets-loader' %}
     {{ content_for_header }}
     {% if defer_theme_assets %}
       <noscript>
