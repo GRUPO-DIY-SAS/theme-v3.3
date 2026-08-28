@@ -266,6 +266,7 @@
       stylePromises.push(visualPromise);
     });
     if (visualStylePromises.length) waitForVisualStyles();
+    else markVisualReady(); // el CSS del primer pintado ya es <link> bloqueante en el head
 
     // Idle con tope de 2s: el burst de scripts cede ante un tap temprano sin retrasar
     // demasiado las features que dependen de theme.js.

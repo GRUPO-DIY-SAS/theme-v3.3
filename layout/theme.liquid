@@ -111,8 +111,6 @@
     {%- if defer_theme_assets -%}
       {%- comment -%} El CSS visual se inyecta desde el loader; precargarlo desde el head adelanta la descarga
         (paralela al HTML de 740 KB) y acorta el tiempo en que main sigue oculto (LCP). {%- endcomment -%}
-      {{ 'critical.css' | asset_url | preload_tag: as: 'style' }}
-      {{ 'product-card.css' | asset_url | preload_tag: as: 'style' }}
       {%- if template.name == 'index' -%}{{ 'banner.css' | asset_url | preload_tag: as: 'style' }}{%- endif -%}
     {%- endif -%}
     <link rel="canonical" href="{{ canonical_url }}">
@@ -196,39 +194,39 @@
     {% if defer_theme_assets %}
       <script>
         window.diyvapeDeferredAssets = window.diyvapeDeferredAssets || [];
-        window.diyvapeDeferredAssets.push(
-          { type: 'style', href: {{ 'critical.css' | asset_url | json }} },
-          {% if request.page_type == 'collection' or request.page_type == 'index' or request.page_type == 'search' %}
-            { type: 'style', href: {{ 'product-card.css' | asset_url | json }} },
+        {%- comment -%} critical.css, theme.css y product-card.css ya no van en la cola: se cargan como <link> bloqueante
+          tras critical-base, así el primer pintado no depende del JS del loader (Lantern encadenaba terceros antes del FCP). {%- endcomment -%}
+        {% if load_swiper_assets %}
+          window.diyvapeDeferredAssets.push({ type: 'style', href: {{ 'swiper-bundle.min.css' | asset_url | json }} });
+        {% endif %}
+        {% if request.page_type == 'collection' %}
+          window.diyvapeDeferredAssets.push({ type: 'style', href: {{ 'collection-page.css' | asset_url | json }} });
+        {% endif %}
+        {% if request.page_type == 'product' %}
+          {% if template.suffix == 'layout-2' %}
+            window.diyvapeDeferredAssets.push({ type: 'style', href: {{ 'main-product-layout-2.css' | asset_url | json }} });
           {% else %}
-            { type: 'style', href: {{ 'product-card.css' | asset_url | json }} },
+            window.diyvapeDeferredAssets.push({ type: 'style', href: {{ 'main-product.css' | asset_url | json }} });
           {% endif %}
-          {% if load_swiper_assets %}
-            { type: 'style', href: {{ 'swiper-bundle.min.css' | asset_url | json }} },
-          {% endif %}
-          {% if request.page_type == 'collection' %}
-            { type: 'style', href: {{ 'collection-page.css' | asset_url | json }} },
-          {% endif %}
-          {% if request.page_type == 'product' %}
-            {% if template.suffix == 'layout-2' %}
-              { type: 'style', href: {{ 'main-product-layout-2.css' | asset_url | json }} },
-            {% else %}
-              { type: 'style', href: {{ 'main-product.css' | asset_url | json }} },
-            {% endif %}
-            { type: 'style', href: {{ 'component-deferred-media.css' | asset_url | json }} },
-          {% endif %}
-          { type: 'style', href: {{ 'judgeme-reviews.css' | asset_url | json }}, visual: false },
-          { type: 'style', href: {{ 'theme.css' | asset_url | json }} },
-          { type: 'style', href: {{ 'popup.css' | asset_url | json }}, visual: false }
-          {% if load_account_popup_assets %}
-            ,{ type: 'style', href: {{ 'header-account-popup.css' | asset_url | json }}, visual: false }
-          {% endif %}
-        );
+          window.diyvapeDeferredAssets.push({ type: 'style', href: {{ 'component-deferred-media.css' | asset_url | json }} });
+        {% endif %}
+        window.diyvapeDeferredAssets.push({ type: 'style', href: {{ 'judgeme-reviews.css' | asset_url | json }}, visual: false });
+        window.diyvapeDeferredAssets.push({ type: 'style', href: {{ 'popup.css' | asset_url | json }}, visual: false });
+        {% if load_account_popup_assets %}
+          window.diyvapeDeferredAssets.push({ type: 'style', href: {{ 'header-account-popup.css' | asset_url | json }}, visual: false });
+        {% endif %}
       </script>
     {% endif %}
     {%- comment -%} critical-base inlined (era assets/critical-base.css) — elimina
       1 render-blocking HTTP request. Ahorro ~50-200ms FCP en cold cache. {%- endcomment -%}
     {% render 'critical-base' %}
+    {% if defer_theme_assets %}
+      {%- comment -%} CSS del primer pintado, bloqueante y sin JS de por medio (~25 KB gz, misma conexión que el HTML).
+        Antes iban por el loader y header/main quedaban ocultos hasta que un script marcaba visual-ready. {%- endcomment -%}
+      {{ 'critical.css' | asset_url | stylesheet_tag }}
+      {{ 'theme.css' | asset_url | stylesheet_tag }}
+      {{ 'product-card.css' | asset_url | stylesheet_tag }}
+    {% endif %}
       {%- comment -%} Debe ir DESPUÉS de critical-base: el loader inserta critical.css en cuanto corre y, si lo hace antes
         del <style> inline de critical-base, las utilidades .block/.flex de éste quedan por encima de las reglas
         responsive de critical.css (.hidden-1025/.block-1025) y el escritorio hereda el layout móvil. {%- endcomment -%}
@@ -236,11 +234,8 @@
     {{ content_for_header }}
     {% if defer_theme_assets %}
       <noscript>
-        {{ 'critical.css' | asset_url | stylesheet_tag }}
-        {{ 'product-card.css' | asset_url | stylesheet_tag }}
         {% if load_swiper_assets %}{{ 'swiper-bundle.min.css' | asset_url | stylesheet_tag }}{% endif %}
         {{ 'judgeme-reviews.css' | asset_url | stylesheet_tag }}
-        {{ 'theme.css' | asset_url | stylesheet_tag }}
         {{ 'popup.css' | asset_url | stylesheet_tag }}
         {% if load_account_popup_assets %}{{ 'header-account-popup.css' | asset_url | stylesheet_tag }}{% endif %}
       </noscript>

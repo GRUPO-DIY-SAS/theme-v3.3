@@ -242,12 +242,10 @@
   {{ 'featured-collection-tabs-spotlight.css' | asset_url | stylesheet_tag }}
   <script src="{{ 'featured-collection-tabs-spotlight.js' | asset_url }}" defer></script>
 {%- else -%}
+  {{ 'featured-collection-tabs-spotlight.css' | asset_url | stylesheet_tag }}
   <script>
     window.diyvapeDeferredAssets = window.diyvapeDeferredAssets || [];
-    window.diyvapeDeferredAssets.push(
-      { type: 'style', href: {{ 'featured-collection-tabs-spotlight.css' | asset_url | json }} },
-      { type: 'script', src: {{ 'featured-collection-tabs-spotlight.js' | asset_url | json }} }
-    );
+    window.diyvapeDeferredAssets.push({ type: 'script', src: {{ 'featured-collection-tabs-spotlight.js' | asset_url | json }} });
   </script>
 {%- endif -%}
 {%- style -%}
