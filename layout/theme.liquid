@@ -197,7 +197,7 @@
         {%- comment -%} critical.css, theme.css y product-card.css ya no van en la cola: se cargan como <link> bloqueante
           tras critical-base, así el primer pintado no depende del JS del loader (Lantern encadenaba terceros antes del FCP). {%- endcomment -%}
         {% if load_swiper_assets %}
-          window.diyvapeDeferredAssets.push({ type: 'style', href: {{ 'swiper-bundle.min.css' | asset_url | json }} });
+          window.diyvapeDeferredAssets.push({ type: 'style', href: {{ 'swiper-bundle.min.css' | asset_url | json }}, visual: false });
         {% endif %}
         {% if request.page_type == 'collection' %}
           window.diyvapeDeferredAssets.push({ type: 'style', href: {{ 'collection-page.css' | asset_url | json }} });

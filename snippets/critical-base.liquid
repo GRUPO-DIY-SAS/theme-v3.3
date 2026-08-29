@@ -254,31 +254,29 @@
     visibility: hidden !important;
   }
 
-  /* Header completo: hide hasta que el CSS visual cargue. Sin theme.css,
-     el header renderea sin flex/grid → logo desalineado, icons flotando,
-     menu como lista vertical con bullets. El preload-page (z:100) cubre
-     visualmente pero también añadimos visibility:hidden por seguridad. */
-  html:not(.diyvape-deferred-visual-ready) .header,
-  html:not(.diyvape-deferred-visual-ready) .header__inner,
-  html:not(.diyvape-deferred-visual-ready) .top-bar,
-  html:not(.diyvape-deferred-visual-ready) shopify-section-header {
-    visibility: hidden !important;
-  }
-
-  /* Antes del CSS diferido, el drawer de búsqueda (#search-form) se pintaba en flujo a pantalla completa y las
-     flechas/slides del top bar sumaban ~110px: al llegar critical.css todo subía (CLS 0,27–1,0 en Lighthouse).
-     visibility:hidden no basta porque el desplazamiento del contenedor sí cuenta; hay que sacarlos del flujo. */
+  /* critical.css/theme.css/product-card.css son <link> bloqueantes en el head, así que header y main se pintan
+     con su CSS sin esperar a ningún script. Solo quedan fuera de flujo, hasta que Swiper inicializa, las
+     partes del top bar que sin él ocupan 110 px (flechas y slides 2..n); y los drawers, que sin JS no se
+     abren. Antes estas reglas colgaban de diyvape-deferred-visual-ready (una hoja insertada por JS) y el
+     primer pintado observado variaba entre 1,4 y 2,7 s según lo ocupado que estuviera el hilo principal. */
+  #topbar .swiper:not([class*='initialized']) .swiper-action,
+  #topbar .swiper:not([class*='initialized']) .swiper-slide:not(:first-child),
   html:not(.diyvape-deferred-visual-ready) #search-form.search__type-drawer,
-  html:not(.diyvape-deferred-visual-ready) .bls__drawer,
-  html:not(.diyvape-deferred-visual-ready) #topbar .swiper-action,
-  html:not(.diyvape-deferred-visual-ready) #topbar .swiper-slide:not(:first-child) {
+  html:not(.diyvape-deferred-visual-ready) .bls__drawer {
     display: none !important;
   }
 
-  /* Barra de cookies: se renderiza visible (Speed Index) pero su geometría final depende de popup.css y
-     theme.css (diferidos); pintarla antes y verla cambiar contaba 0,08 de CLS. Oculta hasta que llegan. */
-  html:not(.diyvape-deferred-styles-ready) cookie-bar {
-    visibility: hidden !important;
+  /* Barra de cookies visible desde el primer pintado: su geometría móvil (popup.css) va inline y theme.css ya
+     es bloqueante, así que no cambia de forma después (CLS 0) ni aparece tarde (Speed Index). */
+  @media (max-width: 767.98px) {
+    cookie-bar.maxcookie {
+      left: 0;
+      right: 0;
+      max-width: 100%;
+      width: 100%;
+      bottom: 0;
+      border-radius: 15px 15px 0 0;
+    }
   }
 
   /* Scrolling text / announcement marquees: renderean en bucle si no hay
@@ -286,12 +284,6 @@
   html:not(.diyvape-deferred-visual-ready) .scrolling-text,
   html:not(.diyvape-deferred-visual-ready) scrolling-text,
   html:not(.diyvape-deferred-visual-ready) [class*="marquee"] {
-    visibility: hidden !important;
-  }
-
-  /* Main content puede tener layout broken sin theme.css. Hide hasta que
-     deferred CSS cargue. El preload-page (z:100) cubre, pero por si acaso. */
-  html:not(.diyvape-deferred-visual-ready) main {
     visibility: hidden !important;
   }
 
