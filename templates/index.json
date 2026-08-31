@@ -11,27 +11,47 @@
   "sections": {
     "hero": {
       "type": "image-with-text-overlay",
+      "blocks": {
+        "hero_offer": {
+          "type": "subheading",
+          "settings": {
+            "subheading": "Hasta 24 cuotas con Addi \u00b7 Env\u00edo gratis en pedidos superiores a $1.000.000",
+            "font_size": 16,
+            "uppercase": false,
+            "spacing_bottom": 12
+          }
+        },
+        "hero_cta": {
+          "type": "button",
+          "settings": {
+            "first_button_label": "Ver ofertas",
+            "first_button_link": "shopify://collections/producto-destacados",
+            "first_button_aria_label": "Ver ofertas en productos destacados",
+            "first_button_type": "primary"
+          }
+        }
+      },
+      "block_order": ["hero_offer", "hero_cta"],
       "settings": {
         "section_width": "full_width",
-        "color_scheme": "default",
+        "color_scheme": "scheme-homesale-navy",
         "image": "shopify://shop_images/fitness_6.png",
         "image_mobile": "shopify://shop_images/homesale-banner-movil.jpg",
-        "image_behavior": "ambient",
-        "overlay_opacity": 0,
+        "image_behavior": "none",
+        "overlay_opacity": 15,
         "image_height": "custom",
         "desktop_height": 600,
         "mobile_height": 700,
-        "image_behavior": "none",
         "product_list": [],
         "content_alignment": "center",
-        "content_position": "middle-center",
+        "content_position": "bottom-center",
         "content_width": "container",
         "content_max_width": 100,
         "content_padding_block": 15,
         "content_padding_inline": 0,
-        "show_content_background": false,
-        "content_background": "#fff",
-        "content_box_opacity": 100,
+        "show_content_background": true,
+        "content_background": "#14213d",
+        "content_box_opacity": 80,
         "content_below_image": false,
         "content_alignment_mobile": "center",
         "padding_top": 0,
