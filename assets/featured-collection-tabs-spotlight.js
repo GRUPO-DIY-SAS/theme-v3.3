@@ -57,7 +57,8 @@
       var self = this;
       var prefetch = function () {
         var idle = window.requestIdleCallback || function (cb) { setTimeout(cb, 1500); };
-        idle(function () { lazy.forEach(function (c) { self.loadPanel(c); }); }, { timeout: 8000 });
+        // Suelo de 5 s tras load: crear ~40 tarjetas en 7 paneles ocupaba el hilo justo en la ventana del LCP.
+        setTimeout(function () { idle(function () { lazy.forEach(function (c) { self.loadPanel(c); }); }, { timeout: 15000 }); }, 5000);
       };
       if (document.readyState === 'complete') prefetch();
       else window.addEventListener('load', prefetch, { once: true });

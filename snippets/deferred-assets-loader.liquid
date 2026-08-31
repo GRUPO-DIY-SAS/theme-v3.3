@@ -44,7 +44,7 @@
     // 'interaction' (MercadoPago security.js solo sirve en checkout: se carga a la primera interacción o 10 s tras load).
     // 'drop': no se inserta nunca (Superlemon: desactivado, pendiente de desinstalar la app).
     // 'chat': se retiene hasta que el usuario toca el botón de chat (window.diyvapeFlushChat) — patrón diyvape.co.
-    var delayHosts = { 'mercadopago.com': 'interaction', 'mercadolibre.com': 'interaction', 'connect.facebook.net': 'idle', 'retailcrm.tech': 'chat', 'splmn-shopify-prod': 'drop' };
+    var delayHosts = { 'mercadopago.com': 'interaction', 'mercadolibre.com': 'interaction', 'connect.facebook.net': 'idle', 'shopifycloud/shop-js': 'idle', 'retailcrm.tech': 'chat', 'splmn-shopify-prod': 'drop' };
     var delayEnabled = pageType !== 'cart' && pageType !== 'checkout';
     var delayedNodes = [];
     function delayBucket(node) {
@@ -77,8 +77,10 @@
       if (bucket === 'chat') {
         // sin autoflush: solo window.diyvapeFlushChat() (botón de chat)
       } else if (bucket === 'idle') {
-        afterLoad(function () { runWhenIdle(function () { flushDelayed('idle'); }, 4000); });
-        window.setTimeout(function () { flushDelayed('idle'); }, 8000);
+        // Suelo de 3 s tras load: con load temprano, el idle disparaba a los ~2,4 s y los píxeles
+        // caían dentro de la ventana del LCP simulado. Sin pérdida de PageView: siguen cargando solos.
+        afterLoad(function () { window.setTimeout(function () { runWhenIdle(function () { flushDelayed('idle'); }, 5000); }, 3000); });
+        window.setTimeout(function () { flushDelayed('idle'); }, 12000);
       } else {
         var onInteract = function () { flushDelayed('interaction'); };
         ['pointerdown', 'keydown', 'touchstart', 'scroll'].forEach(function (ev) {
