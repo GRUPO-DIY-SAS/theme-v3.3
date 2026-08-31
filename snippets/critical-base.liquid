@@ -266,18 +266,26 @@
     display: none !important;
   }
 
-  /* Barra de cookies visible desde el primer pintado: su geometría móvil (popup.css) va inline y theme.css ya
-     es bloqueante, así que no cambia de forma después (CLS 0) ni aparece tarde (Speed Index). */
-  @media (max-width: 767.98px) {
-    cookie-bar.maxcookie {
-      left: 0;
-      right: 0;
-      max-width: 100%;
-      width: 100%;
-      bottom: 0;
-      border-radius: 15px 15px 0 0;
-    }
+  /* Header a la mitad en móvil: la copia de escritorio del menú (~300 nodos) participaba en cada recálculo
+     aunque no se ve; y el cajón móvil cerrado no necesita layout hasta abrirse (theme.js pone nav-open en <html>). */
+  @media (max-width: 1024.98px) {
+    .navigation.horizontal:not(.mobile) { display: none !important; }
   }
+  html:not(.nav-open) .navigation.mobile { content-visibility: hidden; }
+  /* Franja de consentimiento compacta: visible desde el primer pintado con geometría final inline (CLS 0).
+     Móvil: hoja inferior de una franja (≤110 px, antes 37 % del viewport). Escritorio: tarjeta abajo-
+     izquierda para no tapar el hero ni chocar con el botón de chat (abajo-derecha). */
+  cookie-bar.cookie-strip { position: fixed; z-index: 30; left: 16px; bottom: 16px; width: 380px; max-width: calc(100vw - 32px); background: #ffffff; color: #17202a; border: 1px solid rgba(20, 33, 61, 0.14); border-radius: 10px; box-shadow: 0 8px 28px rgba(10, 20, 40, 0.16); padding: 14px 16px; display: block; text-align: left; }
+  cookie-bar.cookie-strip.hidden { display: none !important; }
+  .cookie-strip__text { margin: 0 0 8px; font-size: 12.5px; line-height: 1.35; }
+  .cookie-strip__text p { margin: 0; display: inline; }
+  .cookie-strip__text a { color: inherit; text-decoration: underline; font-weight: 600; }
+  .cookie-strip__actions { display: flex; align-items: center; gap: 14px; }
+  .cookie-strip__accept { flex: 1 1 auto; min-height: 44px; border: 0; border-radius: 999px; font-size: 14px; font-weight: 600; cursor: pointer; }
+  .cookie-strip__refuse { background: none; border: 0; padding: 10px 4px; min-height: 44px; font-size: 13.5px; text-decoration: underline; color: inherit; cursor: pointer; }
+  @media (max-width: 767.98px) {
+    cookie-bar.cookie-strip { left: 0; right: 0; bottom: 0; width: 100%; max-width: 100%; border-radius: 12px 12px 0 0; border-left: 0; border-right: 0; border-bottom: 0; padding: 12px 16px calc(12px + env(safe-area-inset-bottom)); }
+  }  }
 
   /* Scrolling text / announcement marquees: renderean en bucle si no hay
      CSS para constreñirlas. Hide hasta que theme.css cargue. */

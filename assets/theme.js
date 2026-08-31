@@ -5044,9 +5044,9 @@ class CookieBar extends HTMLElement {
           const target = e.currentTarget;
           _this.remove();
           if (target.id == "cookie-refuse") {
-            setCookie("cookie_bar", "dismiss", 7);
+            setCookie("cookie_bar", "dismiss", 180);
           } else {
-            setCookie("cookie_bar", "dismiss", 30);
+            setCookie("cookie_bar", "dismiss", 365);
           }
         },
         false

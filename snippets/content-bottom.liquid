@@ -5,18 +5,6 @@
     assign money_format = shop.money_with_currency_format | strip_html
   endif
 -%}
-{% liquid
-  assign enable_rtl = settings.rtl
-  assign iso_code = request.locale.iso_code
-  assign lis_language_rtl = settings.language_rtl
-  if lis_language_rtl != blank
-    if lis_language_rtl contains iso_code
-      assign enable_rtl = true
-    else
-      assign enable_rtl = false
-    endif
-  endif
-%}
 <link rel="stylesheet" href="{{ 'tingle.min.css' | asset_url }}" media="print" onload="this.media='all'">
 <a class="skip-to-content-link no-underline visually-hidden" href="#MainContent">
   {{ 'accessibility.skip_to_text' | t }}
@@ -47,35 +35,13 @@
   </div>
 {%- endif -%}
 {%- if theme_st.enable_cookies != blank -%}
-  <cookie-bar
-    id="cookie"
-    class="maxcookie text-center gradient fixed shadow p-30 z-10 rounded-15 bottom-30{% if enable_rtl %} left-30{% else %} right-30{% endif %}"
-  >
-    {% if theme_st.heading_cookies != blank or theme_st.content_cookies != blank %}
-      <div class="cookie-content">
-        {% if theme_st.heading_cookies != blank %}
-          <div class="cookie-heading h4 mt-0">
-            {{- theme_st.heading_cookies }}
-          </div>
-        {% endif %}
-        {% if theme_st.content_cookies != blank %}
-          <div class="cookie-message rich__text-m0 fs-small-1">
-            {{- theme_st.content_cookies }}
-          </div>
-        {% endif %}
-      </div>
-    {% endif %}
-    <div class="cookie-compliance w-full mt-20">
-      {%- if theme_st.label_allow != blank -%}
-        <button class="cookie-btn cookie-dismiss w-full btn-primary" id="cookie-dismiss">
-          {{ theme_st.label_allow }}
-        </button>
-      {%- endif -%}
-      {% if theme_st.label_refuse != blank %}
-        <button class="cookie-btn cookie-dismiss w-full btn-outline mt-15" id="cookie-refuse">
-          {{ theme_st.label_refuse }}
-        </button>
-      {% endif %}
+  <cookie-bar id="cookie" class="cookie-strip" role="region" aria-label="Aviso de cookies">
+    <div class="cookie-strip__text">
+      {%- if theme_st.content_cookies != blank -%}{{ theme_st.content_cookies }}{%- else -%}Usamos cookies para mejorar tu experiencia.{%- endif -%}
+    </div>
+    <div class="cookie-strip__actions">
+      {%- if theme_st.label_allow != blank -%}<button class="cookie-dismiss cookie-strip__accept btn-primary" id="cookie-dismiss">{{ theme_st.label_allow }}</button>{%- endif -%}
+      {%- if theme_st.label_refuse != blank -%}<button class="cookie-dismiss cookie-strip__refuse" id="cookie-refuse">{{ theme_st.label_refuse }}</button>{%- endif -%}
     </div>
   </cookie-bar>
   <script>
