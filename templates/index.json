@@ -61,8 +61,8 @@
       "settings": {
         "section_width": "full_width",
         "color_scheme": "scheme-homesale-navy",
-        "image": "shopify://shop_images/fitness_6.png",
-        "image_mobile": "shopify://shop_images/homesale-banner-movil.jpg",
+        "image": "shopify://shop_images/homesale-hero-desktop-showroom.png",
+        "image_mobile": "shopify://shop_images/homesale-hero-movil-showroom.png",
         "image_behavior": "none",
         "overlay_opacity": 15,
         "image_height": "custom",
@@ -199,8 +199,8 @@
             "tab_heading": "Equipos de ejercicio seleccionados para tu casa",
             "tab_description": "",
             "tab_hero_type": "image",
-            "tab_hero_image": "shopify://shop_images/pesa-hexagonal-40-lbs-nucleo-en-hierro-y-revestimiento-de-caucho-mancuernas-homesale-9024215.png",
-            "tab_hero_mobile_image": "shopify://shop_images/pesa-hexagonal-40-lbs-nucleo-en-hierro-y-revestimiento-de-caucho-mancuernas-homesale-6551606.png"
+            "tab_hero_image": "shopify://shop_images/homesale-spot-fitness.png",
+            "tab_hero_mobile_image": "shopify://shop_images/homesale-spot-fitness.png"
           }
         },
         "tab_emobility": {
@@ -222,8 +222,8 @@
             "tab_heading": "Movilidad Eléctrica Roadmaster: innovación y sostenibilidad en cada trayecto",
             "tab_description": "",
             "tab_hero_type": "image",
-            "tab_hero_image": "shopify://shop_images/WhatsApp_Image_2025-05-28_at_08.59.59_1.jpg",
-            "tab_hero_mobile_image": "shopify://shop_images/WhatsApp_Image_2025-05-28_at_08.59.59_1.jpg"
+            "tab_hero_image": "shopify://shop_images/homesale-spot-emovilidad.png",
+            "tab_hero_mobile_image": "shopify://shop_images/homesale-spot-emovilidad.png"
           }
         },
         "tab_tools": {
@@ -239,8 +239,8 @@
             "tab_heading": "Herramientas Max Tools para el hogar y el taller",
             "tab_description": "",
             "tab_hero_type": "image",
-            "tab_hero_image": "shopify://shop_images/21-herramientas.jpg",
-            "tab_hero_mobile_image": "shopify://shop_images/21-herramientas.jpg"
+            "tab_hero_image": "shopify://shop_images/homesale-spot-herramientas.png",
+            "tab_hero_mobile_image": "shopify://shop_images/homesale-spot-herramientas.png"
           }
         }
       },
@@ -489,8 +489,8 @@
             "color_scheme": "default",
             "content_width": "33.3333%",
             "media_type": "image",
-            "image": "shopify://shop_images/2-equipos-de-ejercicio.jpg",
-            "mobile_image": "shopify://shop_images/2-equipos-de-ejercicio.jpg",
+            "image": "shopify://shop_images/homesale-promo-fitness.png",
+            "mobile_image": "shopify://shop_images/homesale-promo-fitness.png",
             "image_link": "shopify://collections/fitness",
             "video_url": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
             "autoplay": false,
@@ -555,8 +555,8 @@
             "color_scheme": "default",
             "content_width": "33.3333%",
             "media_type": "image",
-            "image": "shopify://shop_images/8-bicicletas-mtb2.jpg",
-            "mobile_image": "shopify://shop_images/8-bicicletas-mtb2.jpg",
+            "image": "shopify://shop_images/homesale-promo-bicicletas.png",
+            "mobile_image": "shopify://shop_images/homesale-promo-bicicletas.png",
             "image_link": "shopify://collections/bicicletas",
             "video_url": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
             "autoplay": false,
@@ -621,8 +621,8 @@
             "color_scheme": "default",
             "content_width": "33.3333%",
             "media_type": "image",
-            "image": "shopify://shop_images/17-herramientas.jpg",
-            "mobile_image": "shopify://shop_images/17-herramientas.jpg",
+            "image": "shopify://shop_images/homesale-promo-herramientas.png",
+            "mobile_image": "shopify://shop_images/homesale-promo-herramientas.png",
             "image_link": "shopify://collections/max-tools",
             "video_url": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
             "autoplay": false,
@@ -1031,8 +1031,8 @@
         "hero_side_width": 30,
         "hero_side_valign": "stretch",
         "hero_mobile_placement": "above",
-        "hero_image": "shopify://shop_images/banner-bicicletas-m.jpg",
-        "hero_mobile_image": "shopify://shop_images/banner-bicicletas-m.jpg",
+        "hero_image": "shopify://shop_images/homesale-spot-bicicletas.png",
+        "hero_mobile_image": "shopify://shop_images/homesale-spot-bicicletas.png",
         "hero_aspect": "fixed",
         "hero_position": "center",
         "hero_overlay_color": "#000000",
