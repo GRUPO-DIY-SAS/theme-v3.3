@@ -210,7 +210,9 @@
           {% endif %}
           window.diyvapeDeferredAssets.push({ type: 'style', href: {{ 'component-deferred-media.css' | asset_url | json }} });
         {% endif %}
-        window.diyvapeDeferredAssets.push({ type: 'style', href: {{ 'judgeme-reviews.css' | asset_url | json }}, visual: false });
+        {% if request.page_type == 'product' %}
+          window.diyvapeDeferredAssets.push({ type: 'style', href: {{ 'judgeme-reviews.css' | asset_url | json }}, visual: false });
+        {% endif %}
         window.diyvapeDeferredAssets.push({ type: 'style', href: {{ 'popup.css' | asset_url | json }}, visual: false });
         {% if load_account_popup_assets %}
           window.diyvapeDeferredAssets.push({ type: 'style', href: {{ 'header-account-popup.css' | asset_url | json }}, visual: false });
@@ -235,7 +237,7 @@
     {% if defer_theme_assets %}
       <noscript>
         {% if load_swiper_assets %}{{ 'swiper-bundle.min.css' | asset_url | stylesheet_tag }}{% endif %}
-        {{ 'judgeme-reviews.css' | asset_url | stylesheet_tag }}
+        {% if request.page_type == 'product' %}{{ 'judgeme-reviews.css' | asset_url | stylesheet_tag }}{% endif %}
         {{ 'popup.css' | asset_url | stylesheet_tag }}
         {% if load_account_popup_assets %}{{ 'header-account-popup.css' | asset_url | stylesheet_tag }}{% endif %}
       </noscript>
