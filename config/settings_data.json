@@ -18,6 +18,7 @@
     "fluid_container_width": 1620,
     "enable_rounded": true,
     "rounded_corner": 5,
+    "open_as": "show_popup_link",
     "spacing_desktop": 80,
     "font_type_body": "shopify",
     "font_body_system": "rubik_n4",
@@ -149,7 +150,6 @@
     "addi_enable": true,
     "addi_ally_slug": "homesale-ecommerce",
     "addi_element_reference": ".product-detail__price",
-    "open_as": "show_popup_link",
     "home_lcp_image_mobile": "shopify://shop_images/homesale-banner-movil.jpg",
     "home_lcp_image": "shopify://shop_images/fitness_6.png",
     "seo_brand_name": "Homesale",
@@ -252,11 +252,6 @@
     },
     "content_for_index": [],
     "blocks": {
-      "12948015482042402483": {
-        "type": "shopify://apps/mercado-pago-antifraud-plus/blocks/embed-block/b19ea721-f94a-4308-bee5-0057c043bac5",
-        "disabled": true,
-        "settings": {}
-      },
       "2353461558643755616": {
         "type": "shopify://apps/tinyseo/blocks/breadcrumbs-json-ld-embed/0605268f-f7c4-4e95-b560-e43df7d59ae4",
         "disabled": true,
@@ -318,6 +313,11 @@
         "settings": {
           "enable_ajax_atc": true
         }
+      },
+      "12948015482042402483": {
+        "type": "shopify://apps/mercado-pago-antifraud-plus/blocks/embed-block/b19ea721-f94a-4308-bee5-0057c043bac5",
+        "disabled": false,
+        "settings": {}
       }
     },
     "color_schemes": {
