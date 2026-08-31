@@ -15,23 +15,35 @@
         "hero_offer": {
           "type": "subheading",
           "settings": {
-            "subheading": "Hasta 24 cuotas con Addi \u00b7 Env\u00edo gratis en pedidos superiores a $1.000.000",
+            "subheading": "Hasta 24 cuotas con Addi · Envío gratis en pedidos superiores a $1.000.000",
             "font_size": 16,
+            "font_weight": "subheading_weight",
             "uppercase": false,
             "spacing_bottom": 12
-          }
+          },
+          "blocks": {}
         },
         "hero_cta": {
           "type": "button",
           "settings": {
+            "show_full_width": false,
             "first_button_label": "Ver ofertas",
             "first_button_link": "shopify://collections/producto-destacados",
             "first_button_aria_label": "Ver ofertas en productos destacados",
-            "first_button_type": "primary"
-          }
+            "first_button_type": "primary",
+            "second_button_label": "",
+            "second_button_link": "",
+            "second_button_aria_label": "",
+            "second_button_type": "primary",
+            "spacing_bottom": 10
+          },
+          "blocks": {}
         }
       },
-      "block_order": ["hero_offer", "hero_cta"],
+      "block_order": [
+        "hero_offer",
+        "hero_cta"
+      ],
       "settings": {
         "section_width": "full_width",
         "color_scheme": "scheme-homesale-navy",
@@ -49,7 +61,7 @@
         "content_max_width": 100,
         "content_padding_block": 15,
         "content_padding_inline": 0,
-        "show_content_background": true,
+        "show_content_background": false,
         "content_background": "#14213d",
         "content_box_opacity": 80,
         "content_below_image": false,
@@ -289,7 +301,7 @@
         "blend_edge": "none",
         "blend_overlap": 0,
         "motion_phase": 0,
-        "background_color": "#ffffff",
+        "background_color": "#F7F7F7",
         "tab_background": "#0a2b60",
         "tab_text_color": "#ffffff",
         "tab_active_background": "#cc0033",
@@ -307,6 +319,7 @@
         "image_fit": "cover",
         "image_radius": 6,
         "product_layout": "carousel",
+        "lazy_tabs": true,
         "items_to_show": 8,
         "items_per_row": 4,
         "column_gap": 20,
@@ -778,6 +791,7 @@
         "addi_image",
         "addi_text"
       ],
+      "disabled": true,
       "settings": {
         "section_width": "fluid_container",
         "color_scheme": "scheme-homesale-navy",
@@ -1061,6 +1075,7 @@
         "image_fit": "cover",
         "image_radius": 24,
         "product_layout": "carousel",
+        "lazy_tabs": true,
         "items_to_show": 8,
         "items_per_row": 5,
         "column_gap": 20,
@@ -1238,6 +1253,7 @@
         "image_fit": "cover",
         "image_radius": 24,
         "product_layout": "carousel",
+        "lazy_tabs": true,
         "items_to_show": 8,
         "items_per_row": 5,
         "column_gap": 20,
@@ -1381,7 +1397,7 @@
       ],
       "settings": {
         "section_width": "fluid_container",
-        "color_scheme": "default",
+        "color_scheme": "scheme-homesale-gray",
         "heading": "Explora todas nuestras categorías",
         "description": "",
         "show_view_all_button": false,
