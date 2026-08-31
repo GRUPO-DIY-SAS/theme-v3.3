@@ -42,7 +42,9 @@
     // insertan tras window.load + idle. En carrito/checkout no se retrasan (MercadoPago los necesita).
     // Dos cubos: 'idle' (píxeles/analytics: se cargan tras load+idle para no perder PageViews) e
     // 'interaction' (MercadoPago security.js solo sirve en checkout: se carga a la primera interacción o 10 s tras load).
-    var delayHosts = { 'mercadopago.com': 'interaction', 'mercadolibre.com': 'interaction', 'connect.facebook.net': 'idle', 'retailcrm.tech': 'idle' };
+    // 'drop': no se inserta nunca (Superlemon: desactivado, pendiente de desinstalar la app).
+    // 'chat': se retiene hasta que el usuario toca el botón de chat (window.diyvapeFlushChat) — patrón diyvape.co.
+    var delayHosts = { 'mercadopago.com': 'interaction', 'mercadolibre.com': 'interaction', 'connect.facebook.net': 'idle', 'retailcrm.tech': 'chat', 'splmn-shopify-prod': 'drop' };
     var delayEnabled = pageType !== 'cart' && pageType !== 'checkout';
     var delayedNodes = [];
     function delayBucket(node) {
@@ -54,7 +56,7 @@
       }
       return '';
     }
-    var delayedFlushed = { idle: false, interaction: false };
+    var delayedFlushed = { idle: false, interaction: false, chat: false };
     function flushDelayed(bucket) {
       if (delayedFlushed[bucket]) return;
       delayedFlushed[bucket] = true;
@@ -64,7 +66,7 @@
         try { entry.parent.appendChild(entry.node); } catch (e) {}
       });
     }
-    var delayScheduled = { idle: false, interaction: false };
+    var delayScheduled = { idle: false, interaction: false, chat: false };
     function scheduleDelayedFlush(bucket) {
       if (delayScheduled[bucket]) return;
       delayScheduled[bucket] = true;
@@ -72,7 +74,9 @@
         if (document.readyState === 'complete') fn();
         else window.addEventListener('load', fn, { once: true });
       };
-      if (bucket === 'idle') {
+      if (bucket === 'chat') {
+        // sin autoflush: solo window.diyvapeFlushChat() (botón de chat)
+      } else if (bucket === 'idle') {
         afterLoad(function () { runWhenIdle(function () { flushDelayed('idle'); }, 4000); });
         window.setTimeout(function () { flushDelayed('idle'); }, 8000);
       } else {
@@ -99,6 +103,7 @@
       Node.prototype.appendChild = function (node) {
         if (pageType !== 'product' && isReviewWidgetAsset(node)) return node;
         var bucket = delayBucket(node);
+        if (bucket === 'drop') return node;
         if (bucket && !delayedFlushed[bucket]) { delayedNodes.push({ parent: this, node: node, bucket: bucket }); scheduleDelayedFlush(bucket); return node; }
         return originalAppendChild.call(this, node);
       };
@@ -106,6 +111,7 @@
       Node.prototype.insertBefore = function (node, referenceNode) {
         if (pageType !== 'product' && isReviewWidgetAsset(node)) return node;
         var bucket = delayBucket(node);
+        if (bucket === 'drop') return node;
         if (bucket && !delayedFlushed[bucket]) { delayedNodes.push({ parent: this, node: node, bucket: bucket }); scheduleDelayedFlush(bucket); return node; }
         return originalInsertBefore.call(this, node, referenceNode);
       };
@@ -255,6 +261,11 @@
     };
 
     window.diyvapeLoadDeferredAssets = loadDeferredAssets;
+    window.diyvapeFlushChat = function () {
+      var held = delayedNodes.filter(function (e) { return e.bucket === 'chat'; }).length;
+      flushDelayed('chat');
+      return held;
+    };
 
     // El CSS visual (critical.css, product-card.css…) arranca ya: main y header siguen ocultos hasta
     // que llega, y esperar al idle añadía ~2 s de render delay al LCP en 4G (los app embeds del head
