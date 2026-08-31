@@ -9,6 +9,11 @@
     #topbar a {
       text-decoration-line: none;
     }
+    /* Móvil: un solo mensaje estático, sin flechas (objetivos táctiles muertos) y en caja normal. */
+    @media (max-width: 767.98px) {
+      #topbar .swiper-action { display: none !important; }
+      #topbar .swiper-slide .px-15 { text-transform: none; font-size: 12.5px; letter-spacing: 0.01em; }
+    }
     #topbar .swiper-slide {
       display: flex;
     }
@@ -126,6 +131,7 @@
                   data-loop="true"
                   data-autoplay="true"
                   data-autoplay-start="interaction"
+                  data-autoplay-mobile="false"
                   data-autoplaySpeed="{{ section_st.change_every }}"
                   data-loop="true"
                   data-mobile="1"

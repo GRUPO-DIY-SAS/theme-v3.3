@@ -27,9 +27,9 @@
         "text_slider": {
           "type": "text_slider",
           "settings": {
-            "text1": "<strong>Envío gratis</strong> en pedidos superiores a $1.000.000 (<a href=\"/policies/shipping-policy\" target=\"_blank\" title=\"Política de envíos\"><strong>T&C</strong></a>)",
+            "text1": "<strong>Hasta 24 cuotas con Addi</strong> \u00b7 Env\u00edo gratis desde $1.000.000 (<a href=\"/policies/shipping-policy\" target=\"_blank\" title=\"Pol\u00edtica de env\u00edos\"><strong>T&C</strong></a>)",
             "text2": "<strong>Paga hasta en 24 cuotas</strong> con Addi — solo necesitas tu cédula y WhatsApp",
-            "text3": "<strong>Atención al público:</strong> Lun–Vie 8:00 a.m. – 5:00 p.m. · Sáb 9:00 a.m. – 12:00 p.m.",
+            "text3": "",
             "change_every": 4,
             "hidden_on_mobile": false
           }

@@ -351,6 +351,10 @@ class SlideSection extends HTMLElement {
             // data-autoplay-start="interaction": el top bar rotaba cada 3 s desde el primer render y cada cambio
             // de texto contaba como progreso visual pendiente (Speed Index). Arranca al primer gesto o a los 15 s.
             if (_this?.dataset.autoplayStart === "interaction") {
+              // data-autoplay-mobile="false": en móvil el mensaje queda estático (Speed Index y legibilidad).
+              if (_this?.dataset.autoplayMobile === "false" && window.matchMedia("(max-width: 767.98px)").matches) {
+                return;
+              }
               let started = false;
               const go = () => {
                 if (started) return;
