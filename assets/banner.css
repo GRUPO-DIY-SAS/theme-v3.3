@@ -321,3 +321,10 @@ video-section.h-full video {
   }
   [id$="__categories"] .swiper-slide { width: auto !important; margin: 0 !important; }
 }
+
+/* Hero en móvil: el bloque de texto ocupaba los 400px completos y se comía la
+   imagen. Se deja el CTA principal y dos sellos de confianza. */
+@media (max-width: 767.98px) {
+  .sec__iwto .hero-trust .only-desktop { display: none; }
+  .sec__iwto .btn-outline { display: none; }
+}
