@@ -15,21 +15,21 @@
         "hero_title": {
           "type": "heading",
           "settings": {
-            "heading": "Todo en oferta, hasta 75% menos",
-            "font_size": 26,
+            "heading": "Muévete como quieras",
+            "font_size": 30,
             "font_weight": "700",
             "uppercase": false,
-            "spacing_bottom": 6
+            "spacing_bottom": 8
           }
         },
         "hero_offer": {
           "type": "subheading",
           "settings": {
-            "subheading": "Roadmaster, fitness, movilidad eléctrica y hogar. Con Addi hasta en 24 cuotas.",
-            "font_size": 15,
+            "subheading": "Bicicletas eléctricas Roadmaster. Con Addi hasta en 24 cuotas.",
+            "font_size": 16,
             "font_weight": "subheading_weight",
             "uppercase": false,
-            "spacing_bottom": 12
+            "spacing_bottom": 16
           },
           "blocks": {}
         },
@@ -44,13 +44,13 @@
           "type": "button",
           "settings": {
             "show_full_width": false,
-            "first_button_label": "Ver ofertas",
-            "first_button_link": "shopify://collections/sale",
-            "first_button_aria_label": "Ver todos los productos en oferta",
+            "first_button_label": "Ver movilidad eléctrica",
+            "first_button_link": "shopify://collections/movilidad-electrica",
+            "first_button_aria_label": "Ver movilidad eléctrica",
             "first_button_type": "primary",
-            "second_button_label": "Bicicletas Roadmaster",
-            "second_button_link": "shopify://collections/roadmaster-bicicletas",
-            "second_button_aria_label": "Ver bicicletas Roadmaster",
+            "second_button_label": "",
+            "second_button_link": "",
+            "second_button_aria_label": "",
             "second_button_type": "outline",
             "spacing_bottom": 12
           },
@@ -69,17 +69,15 @@
         }
       },
       "block_order": [
-        "hero_eyebrow",
         "hero_title",
         "hero_offer",
-        "hero_cta",
-        "hero_chips"
+        "hero_cta"
       ],
       "settings": {
         "section_width": "full_width",
         "color_scheme": "scheme-homesale-navy",
-        "image": "shopify://shop_images/hs-hero-limpio-desktop.jpg",
-        "image_mobile": "shopify://shop_images/hs-hero-limpio-movil.jpg",
+        "image": "shopify://shop_images/hs-hero-foto-desktop.jpg",
+        "image_mobile": "shopify://shop_images/hs-hero-foto-movil.jpg",
         "image_behavior": "none",
         "overlay_opacity": 0,
         "image_height": "custom",
