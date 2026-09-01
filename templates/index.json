@@ -492,7 +492,7 @@
         "image_custom_width": false,
         "image_width": 90,
         "padding_top": 28,
-        "padding_bottom": 28,
+        "padding_bottom": 32,
         "reset_spacing": true,
         "show_price_from": true
       }
