@@ -470,7 +470,7 @@
         "items_per_row": 8,
         "column_gap": 15,
         "show_arrow": false,
-        "carousel_pagination": "show_dots_on_mobile",
+        "carousel_pagination": "disable",
         "infinite": false,
         "autoplay": false,
         "autorotate_speed": 5,
