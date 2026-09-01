@@ -66,21 +66,21 @@
       "settings": {
         "section_width": "full_width",
         "color_scheme": "scheme-homesale-navy",
-        "image": "shopify://shop_images/homesale-hero-desktop-real.jpg",
-        "image_mobile": "shopify://shop_images/homesale-hero-movil-real.jpg",
+        "image": "shopify://shop_images/hs-hero-desktop-v2.jpg",
+        "image_mobile": "shopify://shop_images/hs-hero-movil-v2.jpg",
         "image_behavior": "none",
-        "overlay_opacity": 15,
+        "overlay_opacity": 0,
         "image_height": "custom",
-        "desktop_height": 470,
-        "mobile_height": 440,
+        "desktop_height": 500,
+        "mobile_height": 400,
         "product_list": [],
-        "content_alignment": "center",
-        "content_position": "bottom-center",
+        "content_alignment": "left",
+        "content_position": "bottom-left",
         "content_width": "container",
-        "content_max_width": 100,
+        "content_max_width": 44,
         "content_padding_block": 15,
         "content_padding_inline": 0,
-        "show_content_background": true,
+        "show_content_background": false,
         "content_background": "#14213d",
         "content_box_opacity": 92,
         "content_below_image": false,
@@ -204,8 +204,8 @@
             "tab_heading": "Equipos de ejercicio seleccionados para tu casa",
             "tab_description": "",
             "tab_hero_type": "image",
-            "tab_hero_image": "shopify://shop_images/homesale-cat-fitness-real.jpg",
-            "tab_hero_mobile_image": "shopify://shop_images/homesale-cat-fitness-real.jpg"
+            "tab_hero_image": "shopify://shop_images/hs-cat-pesas-v2.jpg",
+            "tab_hero_mobile_image": "shopify://shop_images/hs-cat-pesas-v2.jpg"
           }
         },
         "tab_emobility": {
@@ -227,8 +227,8 @@
             "tab_heading": "Movilidad Eléctrica Roadmaster: innovación y sostenibilidad en cada trayecto",
             "tab_description": "",
             "tab_hero_type": "image",
-            "tab_hero_image": "shopify://shop_images/homesale-cat-movilidad-real.jpg",
-            "tab_hero_mobile_image": "shopify://shop_images/homesale-cat-movilidad-real.jpg"
+            "tab_hero_image": "shopify://shop_images/hs-cat-movilidad-v2.jpg",
+            "tab_hero_mobile_image": "shopify://shop_images/hs-cat-movilidad-v2.jpg"
           }
         },
         "tab_tools": {
@@ -244,8 +244,8 @@
             "tab_heading": "Herramientas Max Tools para el hogar y el taller",
             "tab_description": "",
             "tab_hero_type": "image",
-            "tab_hero_image": "shopify://shop_images/homesale-cat-herramientas-real.jpg",
-            "tab_hero_mobile_image": "shopify://shop_images/homesale-cat-herramientas-real.jpg"
+            "tab_hero_image": "shopify://shop_images/hs-cat-herramientas-v2.jpg",
+            "tab_hero_mobile_image": "shopify://shop_images/hs-cat-herramientas-v2.jpg"
           }
         }
       },
@@ -373,7 +373,7 @@
           "type": "collection",
           "settings": {
             "collection": "bicicletas",
-            "collection_image": "shopify://shop_images/homesale-cat-bicicletas-real.jpg",
+            "collection_image": "shopify://shop_images/hs-cat-bicicletas-v2.jpg",
             "collection_title": "Bicicletas"
           }
         },
@@ -381,7 +381,7 @@
           "type": "collection",
           "settings": {
             "collection": "fitness",
-            "collection_image": "shopify://shop_images/homesale-cat-fitness-real.jpg",
+            "collection_image": "shopify://shop_images/hs-cat-fitness-v2.jpg",
             "collection_title": "Fitness"
           }
         },
@@ -389,7 +389,7 @@
           "type": "collection",
           "settings": {
             "collection": "jugueteria",
-            "collection_image": "shopify://shop_images/homesale-cat-jugueteria-real.jpg",
+            "collection_image": "shopify://shop_images/hs-cat-jugueteria-v2.jpg",
             "collection_title": "Juguetería"
           }
         },
@@ -397,7 +397,7 @@
           "type": "collection",
           "settings": {
             "collection": "movilidad-electrica",
-            "collection_image": "shopify://shop_images/homesale-cat-movilidad-real.jpg",
+            "collection_image": "shopify://shop_images/hs-cat-movilidad-v2.jpg",
             "collection_title": "Movilidad eléctrica"
           }
         },
@@ -405,7 +405,7 @@
           "type": "collection",
           "settings": {
             "collection": "max-tools",
-            "collection_image": "shopify://shop_images/homesale-cat-herramientas-real.jpg",
+            "collection_image": "shopify://shop_images/hs-cat-herramientas-v2.jpg",
             "collection_title": "Herramientas"
           }
         },
@@ -413,7 +413,7 @@
           "type": "collection",
           "settings": {
             "collection": "bambino",
-            "collection_image": "shopify://shop_images/homesale-cat-bebes-real.jpg",
+            "collection_image": "shopify://shop_images/hs-cat-bebes-v2.jpg",
             "collection_title": "Coches para bebé"
           }
         },
@@ -421,7 +421,7 @@
           "type": "collection",
           "settings": {
             "collection": "travel-system",
-            "collection_image": "shopify://shop_images/homesale-cat-maletas-real.jpg",
+            "collection_image": "shopify://shop_images/hs-cat-maletas-v2.jpg",
             "collection_title": "Maletas de viaje"
           }
         },
@@ -429,7 +429,7 @@
           "type": "collection",
           "settings": {
             "collection": "arboles-de-navidad",
-            "collection_image": "shopify://shop_images/homesale-cat-navidad-real.jpg",
+            "collection_image": "shopify://shop_images/hs-cat-navidad-v2.jpg",
             "collection_title": "Navidad"
           }
         }
@@ -493,8 +493,8 @@
             "color_scheme": "default",
             "content_width": "33.3333%",
             "media_type": "image",
-            "image": "shopify://shop_images/homesale-cat-fitness-real.jpg",
-            "mobile_image": "shopify://shop_images/homesale-cat-fitness-real.jpg",
+            "image": "shopify://shop_images/hs-cat-fitness-v2.jpg",
+            "mobile_image": "shopify://shop_images/hs-cat-fitness-v2.jpg",
             "image_link": "shopify://collections/fitness",
             "video_url": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
             "autoplay": false,
@@ -559,8 +559,8 @@
             "color_scheme": "default",
             "content_width": "33.3333%",
             "media_type": "image",
-            "image": "shopify://shop_images/homesale-cat-bicicletas-real.jpg",
-            "mobile_image": "shopify://shop_images/homesale-cat-bicicletas-real.jpg",
+            "image": "shopify://shop_images/hs-cat-bicicletas-v2.jpg",
+            "mobile_image": "shopify://shop_images/hs-cat-bicicletas-v2.jpg",
             "image_link": "shopify://collections/bicicletas",
             "video_url": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
             "autoplay": false,
@@ -625,8 +625,8 @@
             "color_scheme": "default",
             "content_width": "33.3333%",
             "media_type": "image",
-            "image": "shopify://shop_images/homesale-cat-herramientas-real.jpg",
-            "mobile_image": "shopify://shop_images/homesale-cat-herramientas-real.jpg",
+            "image": "shopify://shop_images/hs-cat-hogar-v2.jpg",
+            "mobile_image": "shopify://shop_images/hs-cat-hogar-v2.jpg",
             "image_link": "shopify://collections/max-tools",
             "video_url": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
             "autoplay": false,
@@ -1035,8 +1035,8 @@
         "hero_side_width": 30,
         "hero_side_valign": "stretch",
         "hero_mobile_placement": "above",
-        "hero_image": "shopify://shop_images/homesale-cat-bicicletas-real.jpg",
-        "hero_mobile_image": "shopify://shop_images/homesale-cat-bicicletas-real.jpg",
+        "hero_image": "shopify://shop_images/hs-cat-bicicletas-v2.jpg",
+        "hero_mobile_image": "shopify://shop_images/hs-cat-bicicletas-v2.jpg",
         "hero_aspect": "fixed",
         "hero_position": "center",
         "hero_overlay_color": "#000000",
