@@ -304,3 +304,20 @@ video-section.h-full video {
   --btn-bg: rgba(255, 255, 255, 0.14);
   --btn-border-color: #fff;
 }
+
+/* Ancla de precio bajo el nombre de cada categoria */
+.collection-item__from { display: block; margin-top: -4px; color: var(--color-text); opacity: 0.72; line-height: 1.3; }
+
+/* Categorías del home en móvil: el swiper se carga diferido y a menudo no llega
+   a inicializarse, así que dejaba 5 de 8 categorías dentro de un overflow oculto
+   y sin flechas. Se fuerza rejilla para que las ocho sean alcanzables siempre. */
+@media (max-width: 767.98px) {
+  [id$="__categories"] .swiper { overflow: visible; }
+  [id$="__categories"] .swiper-wrapper {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px 10px;
+    transform: none !important;
+  }
+  [id$="__categories"] .swiper-slide { width: auto !important; margin: 0 !important; }
+}
