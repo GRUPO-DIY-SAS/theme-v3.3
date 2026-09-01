@@ -285,3 +285,22 @@ video-section.h-full video {
 .hero-chips { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
 .hero-chips a { display: inline-flex; align-items: center; min-height: 40px; padding: 0 16px; border: 1px solid rgba(255, 255, 255, 0.5); border-radius: 999px; color: #fff; font-size: 13.5px; font-weight: 500; letter-spacing: 0.02em; text-decoration: none; transition: background-color 0.2s ease, border-color 0.2s ease; }
 .hero-chips a:hover, .hero-chips a:focus-visible { background: rgba(255, 255, 255, 0.14); border-color: #fff; }
+
+/* Barra de confianza del hero: reseñas, garantia y cobertura */
+.hero-trust { display: flex; flex-wrap: wrap; gap: 8px 18px; margin: 0; padding: 0; list-style: none; }
+@media (max-width: 767.98px) { .hero-trust { justify-content: center; gap: 6px 14px; } }
+.hero-trust li { position: relative; display: inline-flex; align-items: center; color: rgba(255, 255, 255, 0.92); font-size: 13px; line-height: 1.3; }
+.hero-trust li + li::before { content: ""; position: absolute; left: -10px; width: 3px; height: 3px; border-radius: 50%; background: rgba(255, 255, 255, 0.55); }
+.hero-trust strong { font-weight: 700; }
+
+/* Segundo CTA del hero: contorno sobre el navy. Sin esto btn-outline pinta
+   un bloque blanco con texto blanco encima, es decir un boton ilegible. */
+.sec__iwto .btn-outline {
+  --btn-bg: transparent;
+  --btn-color: #fff;
+  --btn-border-color: rgba(255, 255, 255, 0.65);
+}
+.sec__iwto .btn-outline:hover, .sec__iwto .btn-outline:focus-visible {
+  --btn-bg: rgba(255, 255, 255, 0.14);
+  --btn-border-color: #fff;
+}

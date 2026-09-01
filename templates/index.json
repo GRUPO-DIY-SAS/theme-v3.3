@@ -15,18 +15,18 @@
         "hero_title": {
           "type": "heading",
           "settings": {
-            "heading": "Equipos de ejercicio, bicicletas y movilidad eléctrica para tu hogar",
-            "font_size": 20,
-            "font_weight": "600",
+            "heading": "Todo nuestro catálogo en oferta, hasta 75% menos",
+            "font_size": 26,
+            "font_weight": "700",
             "uppercase": false,
-            "spacing_bottom": 8
+            "spacing_bottom": 6
           }
         },
         "hero_offer": {
           "type": "subheading",
           "settings": {
-            "subheading": "Hasta 24 cuotas con Addi · Envío gratis desde $1.000.000",
-            "font_size": 16,
+            "subheading": "Bicicletas Roadmaster, fitness, movilidad eléctrica, hogar y más. Con Addi hasta en 24 cuotas.",
+            "font_size": 15,
             "font_weight": "subheading_weight",
             "uppercase": false,
             "spacing_bottom": 12
@@ -36,7 +36,7 @@
         "hero_chips": {
           "type": "custom-html",
           "settings": {
-            "html_custom": "<nav class=\"hero-chips\" aria-label=\"Categorías destacadas\"><a href=\"/collections/fitness\">Fitness</a><a href=\"/collections/bicicletas\">Bicicletas</a><a href=\"/collections/movilidad-electrica\">Movilidad eléctrica</a><a href=\"/collections/max-tools\">Herramientas</a></nav>",
+            "html_custom": "<ul class=\"hero-trust\" aria-label=\"Por qué comprar en Homesale\"><li><strong>4,7 de 5</strong></li><li>529 reseñas</li><li>Garantía en todos los productos</li><li>Envío a todo Colombia</li></ul>",
             "spacing_bottom": 0
           }
         },
@@ -45,19 +45,31 @@
           "settings": {
             "show_full_width": false,
             "first_button_label": "Ver ofertas",
-            "first_button_link": "shopify://collections/producto-destacados",
-            "first_button_aria_label": "Ver ofertas en productos destacados",
+            "first_button_link": "shopify://collections/sale",
+            "first_button_aria_label": "Ver todos los productos en oferta",
             "first_button_type": "primary",
-            "second_button_label": "",
-            "second_button_link": "",
-            "second_button_aria_label": "",
-            "second_button_type": "primary",
-            "spacing_bottom": 10
+            "second_button_label": "Bicicletas Roadmaster",
+            "second_button_link": "shopify://collections/roadmaster-bicicletas",
+            "second_button_aria_label": "Ver bicicletas Roadmaster",
+            "second_button_type": "outline",
+            "spacing_bottom": 12
           },
           "blocks": {}
+        },
+        "hero_eyebrow": {
+          "type": "highlight-text",
+          "settings": {
+            "heading": "<p>Precios directos de fábrica</p>",
+            "drawn_underline": false,
+            "font_size": 16,
+            "font_weight": "600",
+            "uppercase": true,
+            "spacing_bottom": 6
+          }
         }
       },
       "block_order": [
+        "hero_eyebrow",
         "hero_title",
         "hero_offer",
         "hero_cta",
@@ -447,11 +459,11 @@
       "settings": {
         "section_width": "fluid_container",
         "color_scheme": "default",
-        "heading": "",
+        "heading": "Compra por categoría",
         "description": "",
         "show_view_all_button": false,
         "header_size": "medium",
-        "header_alignment": "left",
+        "header_alignment": "center",
         "display_mode": "carousel",
         "image_ratio": "square",
         "custom_ratio": "",
@@ -471,16 +483,16 @@
         "show_icon": false,
         "show_description": false,
         "column_reverse_content": false,
-        "font_size": 14,
+        "font_size": 15,
         "font_weight": "heading_weight",
         "font_size_description": 14,
         "font_weight_description": "body_weight",
         "information_spacing": 10,
         "rounded_image": false,
-        "image_custom_width": true,
+        "image_custom_width": false,
         "image_width": 90,
-        "padding_top": 30,
-        "padding_bottom": 10,
+        "padding_top": 28,
+        "padding_bottom": 28,
         "reset_spacing": true
       }
     },
@@ -1456,9 +1468,9 @@
   },
   "order": [
     "hero",
+    "categories",
     "trust",
     "picks",
-    "categories",
     "promo_row",
     "addi_banner",
     "fitness_categories",
