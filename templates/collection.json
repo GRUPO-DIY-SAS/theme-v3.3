@@ -87,6 +87,7 @@
         "cat_travel_system",
         "cat_arboles_de_navidad"
       ],
+      "disabled": true,
       "settings": {
         "section_width": "fluid_container",
         "color_scheme": "scheme-3c376871-4978-462b-aa78-be06bb77863d",
@@ -238,6 +239,7 @@
         "number_products_per_page": true,
         "sorting": true,
         "grid_list": true,
+        "hide_sold_out": false,
         "items_to_show": 16,
         "items_per_row": 4,
         "column_gap": 30,
@@ -247,8 +249,7 @@
         "promotion_postion": 1,
         "items_per_row_mobile": "2",
         "padding_top": 0,
-        "padding_bottom": 50,
-        "hide_sold_out": false
+        "padding_bottom": 50
       }
     },
     "custom_liquid_JxNGBM": {
