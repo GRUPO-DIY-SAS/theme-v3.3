@@ -259,6 +259,28 @@
      partes del top bar que sin él ocupan 110 px (flechas y slides 2..n); y los drawers, que sin JS no se
      abren. Antes estas reglas colgaban de diyvape-deferred-visual-ready (una hoja insertada por JS) y el
      primer pintado observado variaba entre 1,4 y 2,7 s según lo ocupado que estuviera el hilo principal. */
+  /* Ademas de esconder los slides 2..n, hay que RESERVAR la altura: el mensaje
+     del top bar se parte en dos lineas hasta que Swiper monta, y al colapsar a
+     una empuja <main> 21 px hacia arriba. Ese unico salto valia CLS 0,958 en
+     laboratorio con red lenta. Altura medida del estado final: 28 px el slide
+     en escritorio, 30 px en movil. */
+  /* swiper-bundle.min.css es diferido y llega sobre los 600 ms. Hasta entonces
+     los slides no tienen layout horizontal y se apilan: la fila de categorias
+     mide 1656 px en vez de 323 y, al montar el carrusel, colapsa y arrastra
+     todo el documento. Ese unico salto era el CLS 0,958 del laboratorio.
+     Estas tres reglas son las minimas de Swiper y dejan la altura correcta
+     desde el primer pintado. */
+  .swiper { overflow: hidden; }
+  .swiper-wrapper { display: flex; }
+  .swiper-slide { flex-shrink: 0; }
+
+  #topbar .swiper:not([class*='initialized']) {
+    height: 28px;
+    overflow: hidden;
+  }
+  #topbar .swiper:not([class*='initialized']) .swiper-slide {
+    white-space: nowrap;
+  }
   #topbar .swiper:not([class*='initialized']) .swiper-action,
   #topbar .swiper:not([class*='initialized']) .swiper-slide:not(:first-child),
   html:not(.diyvape-deferred-visual-ready) #search-form.search__type-drawer,
@@ -268,6 +290,9 @@
 
   /* Header a la mitad en móvil: la copia de escritorio del menú (~300 nodos) participaba en cada recálculo
      aunque no se ve; y el cajón móvil cerrado no necesita layout hasta abrirse (theme.js pone nav-open en <html>). */
+  @media (max-width: 767.98px) {
+    #topbar .swiper:not([class*='initialized']) { height: 30px; }
+  }
   @media (max-width: 1024.98px) {
     .navigation.horizontal:not(.mobile) { display: none !important; }
   }
