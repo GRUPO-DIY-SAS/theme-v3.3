@@ -8,6 +8,7 @@
   Video sources are resolved here to mirror the section's lazy-video pattern.
 {%- endcomment -%}
 {%- liquid
+  assign m_sizes = hero_sizes | default: '100vw'
   assign m_image = image
   assign m_mobile_image = mobile_image | default: image
   assign m_mobile_video = mobile_video | default: video
@@ -30,9 +31,17 @@
 -%}
 {%- if media_type == 'image' and m_image != blank -%}
   <div class="featured-tabs-spotlight__hero-media" data-hero-block="{{ block_key }}"{% unless block_key == '__default__' %} hidden{% endunless %}>
-    {{ m_image | image_url: width: 2400 | image_tag: class: 'featured-tabs-spotlight__hero-desktop', widths: '750, 1100, 1500, 2000, 2400', sizes: '100vw', loading: 'lazy', alt: alt }}
-    {%- if m_mobile_image != blank -%}
-      {{ m_mobile_image | image_url: width: 1200 | image_tag: class: 'featured-tabs-spotlight__hero-mobile', widths: '375, 550, 750, 950, 1200', sizes: '100vw', loading: 'lazy', alt: alt }}
+    {%- comment -%}
+      Cuando la imagen movil es la misma que la de escritorio, emitir las dos
+      etiquetas hace que el navegador descargue el archivo dos veces (233 KB
+      cada una en la fila de bicicletas). Con una sola se marca is-single para
+      que siga visible por debajo de 768 px.
+    {%- endcomment -%}
+    {%- if m_mobile_image == blank or m_mobile_image.id == m_image.id -%}
+      {{ m_image | image_url: width: 2400 | image_tag: class: 'featured-tabs-spotlight__hero-desktop is-single', widths: '375, 550, 750, 1100, 1500, 2000', sizes: m_sizes, loading: 'lazy', alt: alt }}
+    {%- else -%}
+      {{ m_image | image_url: width: 2400 | image_tag: class: 'featured-tabs-spotlight__hero-desktop', widths: '400, 550, 750, 1100, 1500, 2000', sizes: m_sizes, loading: 'lazy', alt: alt }}
+      {{ m_mobile_image | image_url: width: 1200 | image_tag: class: 'featured-tabs-spotlight__hero-mobile', widths: '375, 550, 750, 950, 1200', sizes: '92vw', loading: 'lazy', alt: alt }}
     {%- endif -%}
   </div>
 {%- elsif media_type == 'video' and m_video_source != blank -%}

@@ -1326,3 +1326,11 @@
   }
 
   /* Per-text font-size overrides; 0 keeps the theme/class default for that text */
+
+/* Hero con una sola imagen para ambos breakpoints: la regla de arriba oculta
+   .hero-desktop bajo 768px, pero aquí no hay variante móvil que la reemplace. */
+@media (max-width: 767.98px) {
+  .featured-tabs-spotlight .featured-tabs-spotlight__hero-desktop.is-single {
+    display: block;
+  }
+}

@@ -173,6 +173,15 @@
     assign hero_is_side = true
   endif
 
+  # El hero se servia con sizes 100vw en las dos variantes: pedia 1500 px para
+  # pintar 380. Se declara el ancho real segun donde va colocado.
+  if hero_is_side
+    assign hero_side_pct = section_st.hero_side_width | default: 30
+    assign hero_sizes = '(min-width: 768px) ' | append: hero_side_pct | append: 'vw, 92vw'
+  else
+    assign hero_sizes = '(min-width: 1650px) 1620px, (min-width: 768px) 92vw, 92vw'
+  endif
+
   assign has_tab_heading = false
   assign has_tab_desc = false
   assign has_tab_eyebrow = false
@@ -443,6 +452,7 @@
           video_poster: hero_video_poster,
           mobile_video_poster: hero_mobile_video_poster,
           block_key: '__default__',
+          hero_sizes: hero_sizes,
           alt: heading
         -%}
         {%- if display_mode == 'product_tabs' -%}
@@ -457,6 +467,7 @@
                 video_poster: b.settings.tab_hero_video_poster,
                 mobile_video_poster: b.settings.tab_hero_mobile_video_poster,
                 block_key: b.id,
+                hero_sizes: hero_sizes,
                 alt: b.settings.collection_title
               -%}
             {%- endif -%}
