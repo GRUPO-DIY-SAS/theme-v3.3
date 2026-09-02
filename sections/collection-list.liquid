@@ -277,8 +277,13 @@
             </div>
           {% endfor %}
         {% endif %}
+        {%- comment -%}
+          Sin `lazy-loading-swiper-before` el carrusel solo se monta si el scroll
+          ya se movio o tras una interaccion: en el primer viewport quedaba
+          inerte. Se aplica a las dos primeras secciones, no solo a la primera.
+        {%- endcomment -%}
         <slide-section
-          class="swiper{% if reveal %} reveal_on_scroll{% endif %}  {% if section.index == 1 %} lazy-loading-swiper-before {% endif %}"
+          class="swiper{% if reveal %} reveal_on_scroll{% endif %}  {% if section.index <= 2 %} lazy-loading-swiper-before {% endif %}"
           data-section-id="{{ section.id }}"
           data-autoplay="{{ autoplay }}"
           data-effect="slide"
