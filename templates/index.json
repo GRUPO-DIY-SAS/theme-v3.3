@@ -259,7 +259,7 @@
         "icon_position": "top",
         "icon_size": 57,
         "spacing": 14,
-        "show_border": true,
+        "show_border": false,
         "enable_background": false,
         "background": "",
         "content_alignment": "center",
