@@ -799,8 +799,8 @@
   "shopify": {
     "checkout": {
       "contact": {
-        "company_label": "Identificación (CC/CE/NIT) ",
-        "optional_company_label": "Identificación (CC/CE/NIT) ",
+        "company_label": "Número de Identificación (CC/CE/NIT) ",
+        "optional_company_label": "Número de Identificación (CC/CE/NIT) ",
         "address2_label": "Localidad, Barrio, Casa, Apartamento, Urbanización, etc. ",
         "optional_address2_label": "Localidad, Barrio, Casa, Apartamento, Urbanización, etc. ",
         "phone_label": "Teléfono para actualizaciones de pedidos",
