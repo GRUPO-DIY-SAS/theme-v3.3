@@ -809,5 +809,13 @@
         }
       }
     }
+  },
+  "shopify": {
+    "checkout": {
+      "contact": {
+        "company_label": "Identification number (CC/CE/NIT/PASSPORT)",
+        "optional_company_label": "Identification number (CC/CE/NIT/PASSPORT)"
+      }
+    }
   }
 }
