@@ -199,9 +199,26 @@
       return loadedPromises[asset.src];
     }
 
+    // Se inserta en el acto para que las descargas vayan en paralelo: con async=false
+    // un script insertado por JS igual se ejecuta en orden de insercion. Antes cada uno
+    // esperaba el onload del anterior para empezar a bajar, y theme.js (carrito,
+    // buscador y menu) llegaba ultimo, tras 630 KB en serie: ~9 s en movil 4G.
+    // Los scripts del tema consultan el DOM al ejecutarse, asi que no se insertan
+    // antes de DOMContentLoaded. La espera va DENTRO de la cadena: antes se aplazaba
+    // fuera de ella y, si la carga arrancaba con el HTML aun parseando, la cadena
+    // quedaba vacia y diyvape:deferred-assets-loaded se disparaba antes que theme.js.
+    var domParsed = document.readyState === 'loading'
+      ? new Promise(function (resolve) {
+          document.addEventListener('DOMContentLoaded', resolve, { once: true });
+        })
+      : Promise.resolve();
+
     function queueScript(asset) {
-      scriptChain = scriptChain.then(function () {
+      var ready = domParsed.then(function () {
         return loadScript(asset);
+      });
+      scriptChain = scriptChain.then(function () {
+        return ready;
       });
       return scriptChain;
     }
@@ -212,12 +229,6 @@
         return loadStyle(asset);
       }
       if (asset.type === 'script') {
-        if (document.readyState === 'loading') {
-          document.addEventListener('DOMContentLoaded', function () {
-            queueScript(asset);
-          }, { once: true });
-          return Promise.resolve();
-        }
         return queueScript(asset);
       }
       return Promise.resolve();
@@ -238,7 +249,12 @@
       Promise.all(stylePromises.slice()).then(markStylesReady);
       window.setTimeout(markStylesReady, 5000);
 
-      scriptChain.then(function () {
+      // theme.js se encola al final del <body> (scripts-tag). Si la carga arranca con el
+      // HTML aun parseando, la cadena de este momento todavia no lo incluye; se toma la
+      // cadena completa ya en DOMContentLoaded, cuando todas las colas inline corrieron.
+      domParsed.then(function () {
+        return scriptChain;
+      }).then(function () {
         document.documentElement.classList.add('diyvape-deferred-assets-loaded');
         window.dispatchEvent(new CustomEvent('diyvape:deferred-assets-loaded'));
       });
@@ -261,6 +277,39 @@
       }
       return result;
     };
+
+    // Carrito, buscador y menu los enlaza theme.js (cart-components.js va importado
+    // ahi). Un toque antes de que cargue se perdia en el buscador y en el carrito
+    // navegaba a /cart en vez de abrir el panel. Se retiene el toque, la carga
+    // arranca en ese instante y el toque se repite cuando los scripts estan listos.
+    // Si theme.js fallara, el click repetido sobre el <a> del carrito navega a /cart.
+    var drawerTriggers = '#cart-icon-bubble, .top-search-toggle, .nav-toggle';
+    var pendingTrigger = null;
+
+    function onEarlyTap(event) {
+      var trigger = event.target && event.target.closest ? event.target.closest(drawerTriggers) : null;
+      if (!trigger) return;
+      loadDeferredAssets();
+      if (event.type !== 'click') return;
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      pendingTrigger = trigger;
+      trigger.setAttribute('aria-busy', 'true');
+    }
+
+    function replayEarlyTap() {
+      document.removeEventListener('pointerdown', onEarlyTap, true);
+      document.removeEventListener('click', onEarlyTap, true);
+      if (!pendingTrigger) return;
+      var trigger = pendingTrigger;
+      pendingTrigger = null;
+      trigger.removeAttribute('aria-busy');
+      trigger.click();
+    }
+
+    document.addEventListener('pointerdown', onEarlyTap, true);
+    document.addEventListener('click', onEarlyTap, true);
+    window.addEventListener('diyvape:deferred-assets-loaded', replayEarlyTap, { once: true });
 
     window.diyvapeLoadDeferredAssets = loadDeferredAssets;
     window.diyvapeFlushChat = function () {

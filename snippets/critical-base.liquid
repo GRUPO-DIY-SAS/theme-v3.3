@@ -288,6 +288,15 @@
     display: none !important;
   }
 
+  /* Toque retenido por deferred-assets-loader mientras llega theme.js: sin esta
+     señal el usuario no sabe que el carrito o la lupa registraron el toque. */
+  #cart-icon-bubble[aria-busy='true'],
+  .top-search-toggle[aria-busy='true'],
+  .nav-toggle[aria-busy='true'] {
+    opacity: 0.45;
+    transition: opacity 0.15s;
+  }
+
   /* Header a la mitad en móvil: la copia de escritorio del menú (~300 nodos) participaba en cada recálculo
      aunque no se ve; y el cajón móvil cerrado no necesita layout hasta abrirse (theme.js pone nav-open en <html>). */
   @media (max-width: 767.98px) {
