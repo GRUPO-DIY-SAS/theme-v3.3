@@ -10,10 +10,11 @@
     endif
   endif
 
-  assign load_swiper_assets = false
-  if request.page_type == 'index' or request.page_type == 'product' or request.page_type == 'collection' or request.page_type == 'search' or request.page_type == 'cart'
-    assign load_swiper_assets = true
-  endif
+  # La barra superior es un slider en TODAS las paginas, asi que Swiper hace falta
+  # en todas. Con la lista de tipos de pagina, en /pages, /blogs, 404, cuenta y
+  # /collections global.js lanzaba "Swiper is not defined" al montar esa barra y
+  # el mensaje se quedaba fijo. Se carga diferido: no bloquea el render.
+  assign load_swiper_assets = true
 
   assign load_motion_effects = false
   if settings.scroll_animation != 'none' or settings.zoom_image
