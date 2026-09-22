@@ -369,4 +369,13 @@
     transform: translateX(0);
     visibility: visible;
   }
+
+  /* Toque retenido por deferred-assets-loader mientras llega theme.js: sin esta
+     señal el usuario no sabe que el carrito o la lupa registraron el toque. */
+  #cart-icon-bubble[aria-busy='true'],
+  .top-search-toggle[aria-busy='true'],
+  .nav-toggle[aria-busy='true'] {
+    opacity: 0.45;
+    transition: opacity 0.15s;
+  }
 {% endstyle %}

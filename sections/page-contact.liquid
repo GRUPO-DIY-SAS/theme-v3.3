@@ -183,7 +183,32 @@
     </div>
   </div>
 </div>
-<script src="{{ 'contact.js' | asset_url }}" defer="defer"></script>
+{%- comment -%}
+  contact.js abre con `class ProductAddons extends PopupBase`, y PopupBase vive en
+  global.js, que va en la cola diferida. Como <script defer> se ejecutaba antes que
+  esa cola y lanzaba "PopupBase is not defined": <product-addons> nunca se registraba.
+  Sin cola (editor de temas) se espera a DOMContentLoaded, cuando los defer del
+  layout —global.js entre ellos— ya corrieron.
+{%- endcomment -%}
+<script>
+  (function () {
+    var src = {{ 'contact.js' | asset_url | json }};
+    if (window.diyvapeDeferredAssets) {
+      window.diyvapeDeferredAssets.push({ type: 'script', src: src });
+      return;
+    }
+    var insert = function () {
+      var script = document.createElement('script');
+      script.src = src;
+      document.head.appendChild(script);
+    };
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', insert, { once: true });
+    } else {
+      insert();
+    }
+  })();
+</script>
 
 {% schema %}
 {

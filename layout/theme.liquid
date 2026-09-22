@@ -10,16 +10,13 @@
     endif
   endif
 
-  assign load_swiper_assets = false
-  if request.page_type == 'index' or request.page_type == 'product' or request.page_type == 'collection' or request.page_type == 'search' or request.page_type == 'cart'
-    assign load_swiper_assets = true
-  endif
-  # Page templates con carruseles (products-carousel, collection-tab, spotlight)
-  # usan Swiper, pero page_type 'page' no lo cargaba y los slides se apilaban.
-  # Swiper debe encolarse ANTES que global.js (que hace new Swiper).
-  if template.suffix == 'vape-shop'
-    assign load_swiper_assets = true
-  endif
+  # La barra superior es un slider en TODAS las paginas, y ademas varias page
+  # templates traen carruseles (products-carousel, collection-tab, spotlight).
+  # Con la lista de tipos de pagina, en /pages, /blogs, 404 y cuenta global.js
+  # lanzaba "Swiper is not defined" y los slides se apilaban; el caso especial de
+  # 'vape-shop' solo tapaba una plantilla. Se encola siempre, antes que global.js
+  # (que hace new Swiper) y diferido, asi que no bloquea el render.
+  assign load_swiper_assets = true
 
   assign load_motion_effects = false
   if settings.scroll_animation != 'none' or settings.zoom_image
