@@ -11,3 +11,7 @@ CLAUDE.local.md
 # IDE / OS
 .vscode/
 .idea/
+
+# Agent skill installs (`npx skills add`): never part of the theme.
+.agents/
+skills-lock.json
