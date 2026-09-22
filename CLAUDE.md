@@ -42,7 +42,7 @@ node ~/lighthouse-reports/lh-with-cookie.mjs "<url>" 10 <outdir>
 - **Judge.me + Rapi restricted to product pages**: app embeds load via `content_for_header`, which can't be filtered server-side; the loader blocks them client-side on non-PDP pages.
 - **DIY PDP kept** (`assets/diyvape-pdp-*`, `snippets/diyvape-pdp-*`, `blocks/_product-metadatos.liquid`): the catalog is cloned from DIY together with its metafields.
 - **Shop Pay (`payment_button`) intact**: affects PDP UX and conversion.
-- **LeadConnector** (`snippets/chat-widget-leadconnector.liquid`) still carries DIY's widget ID. Replace it with this store's ID before publishing.
+- **LeadConnector** (`snippets/chat-widget-leadconnector.liquid`) uses the same widget ID as diyvape.co on purpose: one shared Grupo DIY account (confirmed by Juan, 22-09-2026).
 - **Kept from DIY on purpose, pending Juan's confirmation before publishing**: legal entity `GRUPO DIY S.A.S.` in the warranty text (`templates/product.json`) and cart notice; shipping-widget thresholds (80.000 Bogotá / 250.000 nacional, in `templates/product.json` delivery block and `sections/main-cart-items.liquid`); WhatsApp assumed equal to the contact phone; `templates/index.json` is still DIY's home (rebuild for VH once the catalog is cloned); `templates/page.about.json` is demo copy.
 
 ## Don'ts
