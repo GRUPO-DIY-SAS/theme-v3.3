@@ -15,7 +15,7 @@
         "heading_B3DXTc": {
           "type": "heading",
           "settings": {
-            "page_title": "Encuentra los mejores productos de vapeo y vaporizadores aquí en DIY Vape Shop",
+            "page_title": "Encuentra los mejores vaporizadores herbales aquí en VaporizadoresHerbales.com",
             "header_size": "default"
           }
         },
@@ -204,7 +204,7 @@
         "show_view_all": false,
         "header_size": "medium",
         "header_alignment": "center",
-        "blog": "diy",
+        "blog": "noticias",
         "image_ratio": "landscape",
         "custom_ratio": "",
         "show_category": true,
