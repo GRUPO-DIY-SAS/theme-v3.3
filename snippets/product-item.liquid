@@ -530,7 +530,7 @@
               >
                 {% comment %} {{- 'products.product.loading' | t -}} {% endcomment %}
                 <script type="application/json" class="product-review-json">
-                  {%- render 'review' | product: card_product -%}
+                  {%- render 'review', product: card_product -%}
                 </script>
               </review-product>
             {%- endif -%}
@@ -550,7 +550,7 @@
         {% comment %} Product item color swatches {% endcomment %}
         {% if template_enable_color_swatches == true %}
           {%- if show_variant -%}
-            {%- render 'color-swatches' | product: card_product | type: "item" -%}
+            {%- render 'color-swatches', product: card_product, type: "item" -%}
           {%- endif -%}
         {% endif %}
         {% comment %} Product item short description {% endcomment %}
@@ -976,7 +976,7 @@
           class="product-item__price mt-5 {% if type != 'list' %}justify-content-{{ settings.product_alignment }}{% endif %} fs-custom fw-custom flex"
           style="--font-size: {{ settings.price_size }};--heading-weight: {{ settings.price_font_weight }}"
         >
-          {%- render 'price' | scope: 'item', show_badges: false, class: priceclass -%}
+          {%- render 'price', scope: 'item', show_badges: false, class: priceclass -%}
         </div>
       </div>
     </div>

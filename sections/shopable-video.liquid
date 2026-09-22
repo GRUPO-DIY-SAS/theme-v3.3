@@ -357,7 +357,7 @@
                         {%- assign image_alt = poster_image.alt | default: 'poster' | escape -%}
                         {% render 'responsive-image', type: 'banner', image: poster_image, image_alt: image_alt %}
                       {% else %}
-                        {% render 'placeholder-render', class="rounded" %}
+                        {% render 'placeholder-render', class: "rounded" %}
                       {% endif %}
                     {% endif %}
                   </div>
@@ -501,7 +501,7 @@
                     class="review_sold flex flex-wrap gap-20 align-center mb-custom lh-normal mt-custom row-gap-5"
                     style="--space-top: 2;--space-bottom: 13"
                   >
-                    {%- render 'review' | product: block_st.product -%}
+                    {%- render 'review', product: block_st.product -%}
                   </div>
                   {%- render 'price',
                     scope: 'item',

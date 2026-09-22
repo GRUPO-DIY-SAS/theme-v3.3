@@ -1,6 +1,44 @@
 {{ 'banner.css' | asset_url | stylesheet_tag }}
 <link rel="stylesheet" href="{{ 'slideshow.css' | asset_url }}" media="print" onload="this.media='all'">
-<script src="{{ 'slideshow-section.js' | asset_url }}" defer="defer" type="module"></script>
+{%- comment -%}
+  slideshow-section.js hace `new Swiper` al construir <slideshow-section> y en cada
+  cambio de slide llama preInitialize()/initialize() de los <motion-element> que
+  envuelven el contenido. Como <script defer> corría antes que la cola diferida
+  (swiper-bundle, global.js) lanzaba "Swiper is not defined". Y motion-effect.js,
+  que define <motion-element>, solo lo encola el layout cuando las animaciones de
+  scroll están activas: con scroll_animation = none el contenido del slide quedaba
+  oculto para siempre y cada transición lanzaba "preInitialize is not a function".
+  Aquí se encola lo que falte, en orden, y sin cola (editor) se inserta en
+  DOMContentLoaded con async=false para conservar ese orden.
+{%- endcomment -%}
+<script>
+  (function () {
+    var srcs = [
+      {%- if settings.scroll_animation == 'none' and settings.zoom_image != true -%}
+      { src: {{ 'motion-effect.js' | asset_url | json }}, module: false },
+      {%- endif -%}
+      { src: {{ 'slideshow-section.js' | asset_url | json }}, module: true }
+    ];
+    if (window.diyvapeDeferredAssets) {
+      srcs.forEach(function (s) { window.diyvapeDeferredAssets.push({ type: 'script', src: s.src, module: s.module }); });
+      return;
+    }
+    var insert = function () {
+      srcs.forEach(function (s) {
+        var script = document.createElement('script');
+        script.src = s.src;
+        if (s.module) script.type = 'module';
+        script.async = false;
+        document.head.appendChild(script);
+      });
+    };
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', insert, { once: true });
+    } else {
+      insert();
+    }
+  })();
+</script>
 {% liquid
   assign section_st = section.settings
   assign section_width = section_st.section_width

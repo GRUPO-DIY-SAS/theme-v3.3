@@ -198,7 +198,7 @@
                                   class="menu-list"
                                   style="--row-gap: 40px; --col-desktop:{{ block_st.product_menu_column }};"
                                 >
-                                  {%- render 'submenu-list' | link: link -%}
+                                  {%- render 'submenu-list', link: link -%}
                                 </div>
                               {% endif %}
                               {%- if product_count > 0 -%}
@@ -295,7 +295,7 @@
                           </svg>
                         </close-menu>
                       </div>
-                      {%- render 'submenu-list' | link: link | menu_type: 'dropdown' | type_menu: 'mega' -%}
+                      {%- render 'submenu-list', link: link, menu_type: 'dropdown', type_menu: 'mega' -%}
                     </div>
                   {%- endif -%}
                 </li>

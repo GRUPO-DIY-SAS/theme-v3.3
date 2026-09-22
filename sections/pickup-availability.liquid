@@ -108,7 +108,7 @@
               class="product-item__price flex gap-custom lh-normal fs-custom fw-custom"
               style="--font-size: {{ settings.price_size }}; --gap: 3px;--heading-weight: {{ settings.price_font_weight }}"
             >
-              {%- render 'price' | scope: 'item' | product: product_variant.product -%}
+              {%- render 'price', scope: 'item', product: product_variant.product -%}
             </div>
           </div>
         </div>

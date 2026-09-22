@@ -363,7 +363,7 @@
                 >
                   {% comment %} {{- 'products.product.loading' | t -}} {% endcomment %}
                   <script type="application/json" class="product-review-json">
-                    {%- render 'review' | product: card_product -%}
+                    {%- render 'review', product: card_product -%}
                   </script>
                 </review-product>
               {%- endif -%}
@@ -395,7 +395,7 @@
                     </div>
                   {% endif %}
                 {%- if show_variant -%}
-                  {%- render 'color-swatches' | product: card_product | type: "bundle" -%}
+                  {%- render 'color-swatches', product: card_product, type: "bundle" -%}
                 {%- endif -%}
                 {% if show_add_cart and theme_st.enable_catalog_mode == false %}
                   <button
@@ -497,7 +497,7 @@
             class="product-item__price mt-5 justify-content-{{ settings.product_alignment }} fs-custom fw-custom flex"
             style="--font-size: {{ settings.price_size }};--heading-weight: {{ settings.price_font_weight }}"
           >
-            {%- render 'price' | scope: 'item', show_badges: false, class: priceclass -%}
+            {%- render 'price', scope: 'item', show_badges: false, class: priceclass -%}
           </div>
         </div>
       </div>
