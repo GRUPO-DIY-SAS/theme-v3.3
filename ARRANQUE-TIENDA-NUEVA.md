@@ -14,7 +14,7 @@ Una rama de este repo está conectada por la integración de GitHub a **un** tem
 |---|---|---|---|
 | DIY Vape | `pagespeed-settings-improvements` | `#158298636540` (MAIN) | diyvape.co |
 | Homesale | `homesale` | `#176684007588` (MAIN) | homesale.com.co |
-| Tienda nueva | *(por definir)* | *(por crear)* | *(por definir)* |
+| Vaporizadores Herbales | `vaporizadores-herbales` | *(por conectar, sin publicar)* | vaporizadoresherbales.com.co |
 
 Consecuencias:
 
@@ -109,7 +109,7 @@ En Homesale hay además trabajo de imágenes (971 → 570 KB sin recomprimir) y 
 
 ## 6. Trampas que cuestan horas
 
-**Rechazo silencioso de plantillas.** Un valor inválido en un `templates/*.json` hace que Shopify **rechace la plantilla entera, sin avisar, y no la reintente nunca** — los demás archivos del mismo commit sincronizan normal, así que parece que todo salió bien. Casos reales: `column_gap: 16` cuando el `step` del range es 5, y `content_max_width: 560` cuando el ajuste es un porcentaje con máximo 100. Hay un validador en `.claude/validate-template.py` (existe en local, **no está commiteado**; vale la pena subirlo). Revisa rangos min/max/step, valores de select, tipos de bloque y que el preload del LCP coincida con la imagen del hero.
+**Rechazo silencioso de plantillas.** Un valor inválido en un `templates/*.json` hace que Shopify **rechace la plantilla entera, sin avisar, y no la reintente nunca** — los demás archivos del mismo commit sincronizan normal, así que parece que todo salió bien. Casos reales: `column_gap: 16` cuando el `step` del range es 5, y `content_max_width: 560` cuando el ajuste es un porcentaje con máximo 100. Hay un validador en `.claude/validate-template.py` (commiteado con `git add -f` porque `.claude/` está en el gitignore). Revisa rangos min/max/step, valores de select, tipos de bloque y que el preload del LCP coincida con la imagen del hero.
 
 **Bloques nuevos antes que la plantilla.** Declarar el tipo de bloque en el `schema` de la sección y hacer push **antes** (o en el mismo commit, y después volver a tocar la plantilla) de la plantilla que lo usa.
 
@@ -149,7 +149,6 @@ Los scripts de prueba con Puppeteer (toque temprano, smoke por tipo de página, 
 - Dos errores JS preexistentes en DIY, iguales antes y después del trabajo de rendimiento: `this.closest(...)?.init is not a function` en el home y `Cannot read properties of null (reading 'classList')` en la página sin verificar. Sin diagnosticar.
 - `critical.css` sin minificar (~3 KiB) y ~53 KiB de JS sin usar en `theme.js`.
 - En el home de DIY se montan 3 de 10 `slide-section`; los otros son paneles de tabs que se inicializan al abrirse. Verificado que es igual en el tema vivo, no es regresión.
-- `.claude/validate-template.py` vive solo en local.
 
 ## 9. Reglas de trabajo que ya están escritas
 
