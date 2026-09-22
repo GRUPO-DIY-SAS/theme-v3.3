@@ -17,7 +17,7 @@
         "description_9AFHt4": {
           "type": "description",
           "settings": {
-            "description": "<p>Contáctate con nuestro centro de ayuda en WhatsApp al <a href=\"https://wa.me/573013552416\" target=\"_blank\" title=\"https://wa.me/573013552416\">+57 3013552416</a>. Estamos para ayudarte en todo momento. </p>"
+            "description": "<p>Contáctate con nuestro centro de ayuda en WhatsApp al <a href=\"https://wa.me/573206682351\" target=\"_blank\" title=\"https://wa.me/573206682351\">+57 320 668 2351</a>. Estamos para ayudarte en todo momento. </p>"
           }
         }
       },
@@ -141,7 +141,7 @@
               "name": "t:sections.faqs-page.blocks.question.name",
               "settings": {
                 "faq_title": "¿Cómo puedo contactar al servicio al cliente de VaporizadoresHerbales.com?",
-                "faq_content": "Puedes contactar a nuestro servicio al cliente a través de nuestro <a href=\"/pages/peticiones-quejas-y-reclamos\" target=\"_blank\" title=\"Peticiones, Quejas y Reclamos\">formulario de contacto</a> en la página web, por correo electrónico <a href=\"mailto:ventas@vaporizadoresherbales.com\" target=\"_blank\" title=\"mailto:ventas@vaporizadoresherbales.com\">ventas@vaporizadoresherbales.com</a>, o por teléfono al <a href=\"https://wa.me/573013552416\" target=\"_blank\" title=\"https://wa.me/573013552416\">+57 3013552416</a> durante nuestras horas de operación. Estamos aquí para ayudarte con cualquier pregunta o problema que puedas tener."
+                "faq_content": "Puedes contactar a nuestro servicio al cliente a través de nuestro <a href=\"/pages/peticiones-quejas-y-reclamos\" target=\"_blank\" title=\"Peticiones, Quejas y Reclamos\">formulario de contacto</a> en la página web, por correo electrónico <a href=\"mailto:ventas@vaporizadoresherbales.com\" target=\"_blank\" title=\"mailto:ventas@vaporizadoresherbales.com\">ventas@vaporizadoresherbales.com</a>, o por teléfono al <a href=\"tel:+573013552416\" target=\"_blank\" title=\"https://wa.me/573206682351\">+57 320 668 2351</a> durante nuestras horas de operación. Estamos aquí para ayudarte con cualquier pregunta o problema que puedas tener."
               },
               "blocks": {}
             }

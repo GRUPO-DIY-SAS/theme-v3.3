@@ -43,7 +43,8 @@ node ~/lighthouse-reports/lh-with-cookie.mjs "<url>" 10 <outdir>
 - **DIY PDP kept** (`assets/diyvape-pdp-*`, `snippets/diyvape-pdp-*`, `blocks/_product-metadatos.liquid`): the catalog is cloned from DIY together with its metafields.
 - **Shop Pay (`payment_button`) intact**: affects PDP UX and conversion.
 - **LeadConnector** (`snippets/chat-widget-leadconnector.liquid`) uses the same widget ID as diyvape.co on purpose: one shared Grupo DIY account (confirmed by Juan, 22-09-2026).
-- **Kept from DIY on purpose, pending Juan's confirmation before publishing**: legal entity `GRUPO DIY S.A.S.` in the warranty text (`templates/product.json`) and cart notice; shipping-widget thresholds (80.000 Bogotá / 250.000 nacional, in `templates/product.json` delivery block and `sections/main-cart-items.liquid`); WhatsApp assumed equal to the contact phone; `templates/index.json` is still DIY's home (rebuild for VH once the catalog is cloned); `templates/page.about.json` is demo copy.
+- **Same company as DIY** (confirmed by Juan, 22-09-2026): legal entity `Grupo DIY S.A.S.`, NIT 901.476.931-3 and the WhatsApp line +57 320 668 2351 are shared with diyvape.co. The contact phone +57 301 355 2416 and ventas@vaporizadoresherbales.com are VH's own.
+- **Still DIY's, pending**: shipping-widget thresholds (80.000 Bogotá / 250.000 nacional, in `templates/product.json` delivery block and `sections/main-cart-items.liquid`); `templates/index.json` is DIY's home (rebuild for VH once the catalog is cloned); `templates/page.about.json` is demo copy; the PQRS link in the warranty text points to `/pages/peticiones-quejas-y-reclamos`, which may not exist in VH.
 
 ## Don'ts
 
