@@ -10,9 +10,9 @@
 {% enddoc %}
 
 {%- if template == 'index' -%}
-  {%- assign hp_sections = 'novedades,pods-desechables,pod-system,salt-nic-ejuice,vaporizadores-herbales' | split: ',' -%}
-  {%- assign hp_names    = 'Estrenos y Lanzamientos,Vapes Desechables Más Vendidos,Equipos Recargables Favoritos,Líquidos y Sales Premium,Vaporizadores de Cannabis y Concentrados' | split: ',' -%}
-  {%- assign hp_limits   = '4,6,6,8,8' | split: ',' -%}
+  {%- assign hp_sections = 'mas-vendidos' | split: ',' -%}
+  {%- assign hp_names    = 'Los Herbales más vendidos' | split: ',' -%}
+  {%- assign hp_limits   = '8' | split: ',' -%}
 
   {%- for handle in hp_sections -%}
     {%- assign collection   = collections[handle] -%}
