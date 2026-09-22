@@ -1,11 +1,11 @@
 [
   {
     "name": "theme_info",
-    "theme_name": "DIY Vape Shop",
+    "theme_name": "Vaporizadores Herbales",
     "theme_version": "3.4.0",
-    "theme_author": "DIY Vape Shop",
-    "theme_documentation_url": "https://diyvape.co",
-    "theme_support_url": "https://diyvape.co"
+    "theme_author": "VaporizadoresHerbales.com",
+    "theme_documentation_url": "https://www.vaporizadoresherbales.com",
+    "theme_support_url": "https://www.vaporizadoresherbales.com"
   },
   {
     "name": "t:settings_schema.logo_favicon.name",

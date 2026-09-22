@@ -794,7 +794,7 @@
   "fake_order": {
     "purchased": "comprado",
     "time_minutes": "hace minutos",
-    "product_name": "DIY Vape Shop"
+    "product_name": "VaporizadoresHerbales.com"
   },
   "shopify": {
     "checkout": {
@@ -810,7 +810,7 @@
         "pick_up": "Recogida en tienda"
       },
       "shipping": {
-        "shipping_method_notice": "¡Atención antes de finalizar tu compra! Recuerda que no realizamos envíos los domingos ni en días festivos. Los horarios de corte para despacho son: Coordinadora y Servientrega, de lunes a viernes hasta la 1:00 p. m., y Quick⚡, de lunes a sábado hasta la 1:00 p. m. Si la tarifa de envío seleccionada no corresponde a tu zona de entrega en Bogotá, se ajustará automáticamente al costo correcto antes del despacho. La entrega se realizará únicamente a una persona mayor de edad, previa exhibición del documento de identidad al momento de la entrega. ¡Gracias por elegir DIY Vape Shop!"
+        "shipping_method_notice": "* Envío Express en Bogotá para pedidos recibidos de lunes a sábado (no festivos) antes de las 2:00 p.m.; los pedidos recibidos después se programan para el siguiente día hábil. Coordinadora: los pedidos recibidos de lunes a viernes antes de las 2:00 p.m. y los sábados antes de las 11:30 a.m. se despachan el mismo día."
       },
       "payment_gateway": {
         "bank_deposit_label": "Transferencia Bancaria: Bancolombia, Davivienda, Daviplata, Nequi ",

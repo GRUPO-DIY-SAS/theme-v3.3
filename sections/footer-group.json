@@ -18,8 +18,8 @@
           "type": "store_info",
           "settings": {
             "image_width": 50,
-            "store_heading": "TIENDAS DE VAPEO",
-            "store_description": "<p>Visita nuestras sedes y recibe asesoría personalizada en Vapeo. </p><p>📍<a href=\"https://maps.app.goo.gl/YgihotxpQBdcH34Q8\" target=\"_blank\" title=\"https://maps.app.goo.gl/YgihotxpQBdcH34Q8\"><strong>DIY 140</strong></a> </p><p>📍<a href=\"https://maps.app.goo.gl/akrmyuGcYpQu6or88\" target=\"_blank\" title=\"https://maps.app.goo.gl/akrmyuGcYpQu6or88\"><strong>DIY 85</strong></a></p><p>📍<a href=\"https://maps.app.goo.gl/pM2KGBtTopCELAgj8\" target=\"_blank\" title=\"https://maps.app.goo.gl/pM2KGBtTopCELAgj8\"><strong>DIY COLINA </strong></a></p><p>📍<a href=\"https://maps.app.goo.gl/SqqrBSKbaTjdETmD9\" target=\"_blank\" title=\"https://maps.app.goo.gl/SqqrBSKbaTjdETmD9\"><strong>DIY SALITRE</strong></a></p><p>Horario: Lunes a Sábado  </p><p>10:00 AM - 7:30 PM </p><p>WhatsApp: <a href=\"https://wa.me/573161616713\" target=\"_blank\" title=\"https://wa.me/573161616713\">+57 3161616713</a></p>",
+            "store_heading": "VAPORIZADORES HERBALES",
+            "store_description": "<p>En <strong>VaporizadoresHerbales.com</strong> respaldamos tu viaje herbal. Encuentra en nuestro Vape Shop vaporizadores para marihuana, wax y hierbas que ofrecen una experiencia excepcional, realzando los sabores naturales. Para una variedad aún mayor, visita también <a href=\"https://diyvape.co\" title=\"DIY Vape Shop\" target=\"_blank\">DIY Vape Shop</a>.</p><p>WhatsApp: <a href=\"https://wa.me/573013552416\" target=\"_blank\">+57 301 355 2416</a><br>Email: <a href=\"mailto:ventas@vaporizadoresherbales.com\">ventas@vaporizadoresherbales.com</a></p>",
             "store_address": false,
             "store_phone": true,
             "store_email": true,
@@ -37,7 +37,7 @@
         "link_list_x4zwRH": {
           "type": "link_list",
           "settings": {
-            "heading": "TODO EN VAPEO",
+            "heading": "VAPORIZADORES",
             "menu": "main-menu",
             "content_width": "16%"
           }
@@ -45,8 +45,8 @@
         "newsletter_Rk8BD6": {
           "type": "newsletter",
           "settings": {
-            "heading": "COMUNIDAD DE VAPEO",
-            "description": "En DIY estamos comprometidos con impulsar el vapeo en Colombia. Somos la tienda especializada de vapeo más grande en Colombia. Llevamos 11 años entregandole a nuestros clientes los mejores productos de Vapeo del mercado.",
+            "heading": "COMUNIDAD HERBAL",
+            "description": "Ingresa tu correo electrónico para ser el primero en enterarte de nuevas colecciones y lanzamientos de productos.",
             "email_placeholder": "Ingresar Correo",
             "button_label": "Suscribirse",
             "note": "<strong>🔞 CONTENIDO EXCLUSIVO PARA MAYORES DE EDAD. +18 VAPEO RESPONSABLE</strong>",
@@ -62,7 +62,7 @@
       ],
       "settings": {
         "section_width": "fluid_container",
-        "color_scheme": "scheme-4faf0e4d-27f4-4d02-bc51-617383bab1a9",
+        "color_scheme": "default",
         "enable_back_top": true,
         "separator_line": "inner_page",
         "enable_country_selector": false,
@@ -73,7 +73,7 @@
         "payment_enable": true,
         "payment_image": "shopify://shop_images/Payment_6ca1a29f-0fb4-4fbe-a624-35dfe7ae119f.png",
         "payment_width": 340,
-        "copyright_text": "© 2026 Grupo DIY S.A.S. - NIT: 901.476.931-3",
+        "copyright_text": "© 2026 VaporizadoresHerbales.com",
         "same_line_with_country_language": false,
         "footer_heading_size": 16,
         "padding_top": 0,
@@ -88,7 +88,7 @@
       ],
       "settings": {
         "section_width": "container",
-        "color_scheme": "scheme-4faf0e4d-27f4-4d02-bc51-617383bab1a9",
+        "color_scheme": "default",
         "html_custom": "<div style=\"text-align: center;\">\n  <img src=\"https://cdn.shopify.com/s/files/1/0166/9493/5652/files/sic.png?v=1663108988\" alt=\"Logo Superintendencia de Industria y Comercio\" loading=\"lazy\" style=\"display: inline-block;\">\n</div>",
         "padding_top": 0,
         "padding_bottom": 0,

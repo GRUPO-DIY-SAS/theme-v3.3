@@ -19,7 +19,7 @@
           "settings": {
             "overlay_bg_color": "{{ shop.brand.colors.primary[0].foreground }}",
             "overlay_opacity": 1,
-            "logo": "{{ shop.brand.logo }}",
+            "logo": "shopify://shop_images/Color_logo_with_background.png",
             "logo_width": 100,
             "kicker_label": "Acceso regulado",
             "heading": "<strong>Verificación de edad obligatoria</strong>",
