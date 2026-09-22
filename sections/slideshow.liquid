@@ -1,23 +1,36 @@
 {{ 'banner.css' | asset_url | stylesheet_tag }}
 <link rel="stylesheet" href="{{ 'slideshow.css' | asset_url }}" media="print" onload="this.media='all'">
 {%- comment -%}
-  slideshow-section.js hace `new Swiper` al construir <slideshow-section>. Como
-  <script defer> corría antes que la cola diferida (que trae swiper-bundle y
-  global.js) lanzaba "Swiper is not defined" y el contenido del slide nunca
-  entraba. Va por la cola; sin cola (editor de temas) se espera a DOMContentLoaded.
+  slideshow-section.js hace `new Swiper` al construir <slideshow-section> y en cada
+  cambio de slide llama preInitialize()/initialize() de los <motion-element> que
+  envuelven el contenido. Como <script defer> corría antes que la cola diferida
+  (swiper-bundle, global.js) lanzaba "Swiper is not defined". Y motion-effect.js,
+  que define <motion-element>, solo lo encola el layout cuando las animaciones de
+  scroll están activas: con scroll_animation = none el contenido del slide quedaba
+  oculto para siempre y cada transición lanzaba "preInitialize is not a function".
+  Aquí se encola lo que falte, en orden, y sin cola (editor) se inserta en
+  DOMContentLoaded con async=false para conservar ese orden.
 {%- endcomment -%}
 <script>
   (function () {
-    var src = {{ 'slideshow-section.js' | asset_url | json }};
+    var srcs = [
+      {%- if settings.scroll_animation == 'none' and settings.zoom_image != true -%}
+      { src: {{ 'motion-effect.js' | asset_url | json }}, module: false },
+      {%- endif -%}
+      { src: {{ 'slideshow-section.js' | asset_url | json }}, module: true }
+    ];
     if (window.diyvapeDeferredAssets) {
-      window.diyvapeDeferredAssets.push({ type: 'script', src: src, module: true });
+      srcs.forEach(function (s) { window.diyvapeDeferredAssets.push({ type: 'script', src: s.src, module: s.module }); });
       return;
     }
     var insert = function () {
-      var script = document.createElement('script');
-      script.src = src;
-      script.type = 'module';
-      document.head.appendChild(script);
+      srcs.forEach(function (s) {
+        var script = document.createElement('script');
+        script.src = s.src;
+        if (s.module) script.type = 'module';
+        script.async = false;
+        document.head.appendChild(script);
+      });
     };
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', insert, { once: true });
