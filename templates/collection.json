@@ -16,7 +16,7 @@
           "type": "collection",
           "settings": {
             "collection": "pods-desechables",
-            "collection_image": "{{ block.settings.collection.metafields.custom.collection_image_icon.value }}",
+            "collection_image": "",
             "collection_title": ""
           }
         },
@@ -24,7 +24,7 @@
           "type": "collection",
           "settings": {
             "collection": "pod-system",
-            "collection_image": "{{ block.settings.collection.metafields.custom.collection_image_icon.value }}",
+            "collection_image": "",
             "collection_title": "Pod Recargable"
           }
         },
@@ -32,7 +32,7 @@
           "type": "collection",
           "settings": {
             "collection": "kits-de-inicio",
-            "collection_image": "{{ block.settings.collection.metafields.custom.collection_image_icon.value }}",
+            "collection_image": "",
             "collection_title": "Kit de Vapeo"
           }
         },
@@ -40,7 +40,7 @@
           "type": "collection",
           "settings": {
             "collection": "salt-nic-ejuice",
-            "collection_image": "{{ block.settings.collection.metafields.custom.collection_image_icon.value }}",
+            "collection_image": "",
             "collection_title": ""
           }
         },
@@ -48,7 +48,7 @@
           "type": "collection",
           "settings": {
             "collection": "base-libre",
-            "collection_image": "{{ block.settings.collection.metafields.custom.collection_image_icon.value }}",
+            "collection_image": "",
             "collection_title": ""
           }
         },
@@ -56,7 +56,7 @@
           "type": "collection",
           "settings": {
             "collection": "resistencias-comerciales",
-            "collection_image": "{{ block.settings.collection.metafields.custom.collection_image_icon.value }}",
+            "collection_image": "",
             "collection_title": "Coils y Pods"
           }
         },
@@ -64,7 +64,7 @@
           "type": "collection",
           "settings": {
             "collection": "alquimia",
-            "collection_image": "{{ block.settings.collection.metafields.custom.collection_image_icon.value }}",
+            "collection_image": "",
             "collection_title": "Prepara tu Eliquid"
           }
         },
@@ -72,7 +72,7 @@
           "type": "collection",
           "settings": {
             "collection": "pouches-de-nicotina-y-cafeina",
-            "collection_image": "{{ block.settings.collection.metafields.custom.collection_image_icon.value }}",
+            "collection_image": "",
             "collection_title": "Pouches"
           }
         }
@@ -209,7 +209,7 @@
         "image_banner_UUJxtT": {
           "type": "image_banner",
           "settings": {
-            "image": "{{ collection.metafields.custom.collection_image_icon.value }}",
+            "image": "",
             "url": "shopify://collections",
             "open_link": true
           }

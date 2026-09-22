@@ -123,7 +123,7 @@
               "name": "t:sections.faqs-page.blocks.question.name",
               "settings": {
                 "faq_title": "¿Cómo puedo pagar mis compras en VaporizadoresHerbales.com?",
-                "faq_content": "<p>Aceptamos los métodos de pago disponibles en el checkout, entre ellos tarjetas de crédito y débito y MercadoPago.</p>"
+                "faq_content": "Aceptamos los métodos de pago disponibles en el checkout, entre ellos tarjetas de crédito y débito y MercadoPago."
               },
               "blocks": {}
             },
@@ -132,7 +132,7 @@
               "name": "t:sections.faqs-page.blocks.question.name",
               "settings": {
                 "faq_title": "¿Tienen garantía los productos de VaporizadoresHerbales.com?",
-                "faq_content": "<p>Sí, todos nuestros productos cuentan con garantía legal. El período puede variar según el producto, así que revisa los detalles de la garantía en la ficha antes de comprar.</p>"
+                "faq_content": "Sí, todos nuestros productos cuentan con garantía legal. El período puede variar según el producto, así que revisa los detalles de la garantía en la ficha antes de comprar."
               },
               "blocks": {}
             },
@@ -195,7 +195,7 @@
                   "type": "_faq-item",
                   "settings": {
                     "faq_title": "¿Puedo comprar vaporizadores si soy menor de edad?",
-                    "faq_content": "<p>No. La venta de vaporizadores está restringida a mayores de 18 años. Por eso verificamos tu edad al ingresar al sitio y el mensajero solo entrega el pedido a una persona mayor de edad, previa presentación del documento de identidad.</p>"
+                    "faq_content": "No. La venta de vaporizadores está restringida a mayores de 18 años. Por eso verificamos tu edad al ingresar al sitio y el mensajero solo entrega el pedido a una persona mayor de edad, previa presentación del documento de identidad."
                   },
                   "blocks": {}
                 },

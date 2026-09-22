@@ -44,6 +44,8 @@ node ~/lighthouse-reports/lh-with-cookie.mjs "<url>" 10 <outdir>
 - **Shop Pay (`payment_button`) intact**: affects PDP UX and conversion.
 - **LeadConnector** (`snippets/chat-widget-leadconnector.liquid`) uses the same widget ID as diyvape.co on purpose: one shared Grupo DIY account (confirmed by Juan, 22-09-2026).
 - **Same company as DIY** (confirmed by Juan, 22-09-2026): legal entity `Grupo DIY S.A.S.`, NIT 901.476.931-3 and the WhatsApp line +57 320 668 2351 are shared with diyvape.co. The contact phone +57 301 355 2416 and ventas@vaporizadoresherbales.com are VH's own.
+- **Blanked so Shopify accepts the templates in VH** (restore when the store has them): DIY hero videos in `templates/index.json`, and the dynamic source `collection.metafields.custom.collection_image_icon` (collection icons in `templates/collection*.json` and `index.json`) until the metafield definition exists in VH.
+- **Validation route that shows the real error**: the GitHub sync rejects files silently; `themeFilesUpsert` on a throwaway `themeDuplicate` returns `userErrors` per file. Compare `theme.files` against `git ls-files` to find rejected files.
 - **Still DIY's, pending**: shipping-widget thresholds (80.000 Bogotá / 250.000 nacional, in `templates/product.json` delivery block and `sections/main-cart-items.liquid`); `templates/index.json` is DIY's home (rebuild for VH once the catalog is cloned); `templates/page.about.json` is demo copy; the PQRS link in the warranty text points to `/pages/peticiones-quejas-y-reclamos`, which may not exist in VH.
 
 ## Don'ts
