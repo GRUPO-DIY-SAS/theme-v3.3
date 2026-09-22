@@ -205,7 +205,7 @@
                       </div>
                     {% endif %}
                   </a>
-                  {% render 'product-badges' | card_product: product, type: 'product_item', class: bage_positon %}
+                  {% render 'product-badges', card_product: product, type: 'product_item', class: bage_positon %}
                 </div>
               </div>
               <div class="product-item__information word-break text-{{ settings.product_alignment }} mt-15">
@@ -313,7 +313,7 @@
               class="compare-item-availability-{{ product.id }} compare-value flex-wrap border-inline-end px-20 py-15 border-bottom flex align-center"
               data-product-handle="{{ product.handle }}"
             >
-              {%- render 'review' | product: product -%}
+              {%- render 'review', product: product -%}
             </div>
           </div>
           <div class="compare-row-vendor">

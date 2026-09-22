@@ -106,7 +106,7 @@
             </h3>
             {% if hidden_price == false %}
               <div class="product__price price mb-15">
-                {%- render 'price' | scope: 'detail' | product: product,  class: 'flex gap-5 mt-5' -%}
+                {%- render 'price', scope: 'detail', product: product,  class: 'flex gap-5 mt-5' -%}
               </div>
             {% endif %}
             <div

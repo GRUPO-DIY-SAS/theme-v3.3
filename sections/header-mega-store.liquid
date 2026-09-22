@@ -65,7 +65,7 @@
             <div class="header-search header-search__mega color-default flex-1">
               {%- liquid
                 if top_search
-                  render 'top-search-header' | type: 'header_mega'
+                  render 'top-search-header', type: 'header_mega'
                 endif
               -%}
             </div>
@@ -113,7 +113,7 @@
                 {% render 'wishlist' %}
               {% endif %}
               {% if minicart and theme_st.enable_catalog_mode == false %}
-                {% render 'minicart_header' | type: 'header_mega' %}
+                {% render 'minicart_header', type: 'header_mega' %}
               {% endif %}
             </div>
           </div>
@@ -128,13 +128,13 @@
           <div class="header__menu flex justify-between" style="--section-pt: 0; --section-pb: 0;">
             <div class="header__menu-nav">
               {%- liquid
-                render 'horizontal-menu' | show_language : show_language
+                render 'horizontal-menu', show_language : show_language
               -%}
             </div>
             <div class="header-information relative z-1 flex justify-between align-center fs-14">
               {% liquid
                 if recently_viewed
-                  render 'recently-viewed' | type: 'header_mega'
+                  render 'recently-viewed', type: 'header_mega'
                 endif
               %}
             </div>

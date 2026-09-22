@@ -7,7 +7,7 @@
       { type: 'script', src: {{ 'tingle.js' | asset_url | json }} },
       { type: 'script', src: {{ 'theme.js' | asset_url | json }}, module: true }
       {%- case t -%}
-        {%- when 'collection' and collection.handle -%}
+        {%- when 'collection' -%}
           ,{ type: 'script', src: {{ 'collection.js' | asset_url | json }} }
         {%- when 'product' -%}
           ,{ type: 'script', src: {{ 'main-product.js' | asset_url | json }} }
@@ -32,7 +32,7 @@
   <script src="{{ 'tingle.js' | asset_url }}" defer="defer"></script>
   <script src="{{ 'theme.js' | asset_url }}"  defer="defer" type="module"></script>
   {%- case t -%}
-    {%- when 'collection' and collection.handle -%}
+    {%- when 'collection' -%}
       <script src="{{ 'collection.js' | asset_url }}" defer="defer"></script>
     {%- when 'product' -%}
       <script src="{{ 'main-product.js' | asset_url }}" defer="defer"></script>

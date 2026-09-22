@@ -48,7 +48,7 @@
         <li class="breadcrumb-item dot-between inline-flex align-center {% if next_product %}breadcrumb-truncate{% endif %}">
           <span class="breadcrumb-link no-underline heading-color" aria-current="page">{{ product.title }}</span>
         </li>
-      {%- when 'collection' and collection.handle -%}
+      {%- when 'collection' -%}
         {%- if current_tags -%}
           <li class="breadcrumb-item dot-between inline-flex align-center light-dark-grey">
             {{ collection.title | link_to: collection.url }}
