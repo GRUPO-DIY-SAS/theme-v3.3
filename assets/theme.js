@@ -3063,13 +3063,13 @@ class CarouselMobile extends SlideSection {
     this.innerHTML = wrapper;
     this.initSlide();
     this.actionPointer();
-    this.closest("motion-items-effect")?.init();
+    this.closest("motion-items-effect")?.init?.();
   }
   actionOutMobile() {
     this.classList.remove("swiper");
     this.classList.add("grid", "grid-cols");
     this.innerHTML = this.swiperSlideInnerHtml;
-    this.closest("motion-items-effect")?.init();
+    this.closest("motion-items-effect")?.init?.();
   }
   actionPointer() {
     this.addEventListener('pointerup', (e) => {
@@ -7657,7 +7657,7 @@ class Loadmore extends HTMLElement {
             return;
           }
           itemDiv.appendChild(prodNode);
-          parentDiv.querySelector("motion-items-effect")?.reloadAnimationEffect();
+          parentDiv.querySelector("motion-items-effect")?.reloadAnimationEffect?.();
         });
       })
       .finally(() => {
@@ -8257,7 +8257,7 @@ class GridCustom extends SlideSection {
   ></div> `;
     this.innerHTML = wrapper;
     this.initSlide();
-    this.closest("motion-items-effect")?.init();
+    this.closest("motion-items-effect")?.init?.();
   }
   actionOutMobile() {
     this.classList.remove("swiper");
@@ -8272,7 +8272,7 @@ class GridCustom extends SlideSection {
         button.classList.remove("hidden");
       });
     }
-    this.closest("motion-items-effect")?.init();
+    this.closest("motion-items-effect")?.init?.();
   }
 }
 customElements.define("grid-custom", GridCustom);
