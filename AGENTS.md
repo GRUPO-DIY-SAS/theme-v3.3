@@ -4,7 +4,7 @@ Tercera tienda sobre este tema. La rama sale del tema vivo de diyvape.co (commit
 
 ## Tienda
 
-- Shopify: `vaporizadoresherbales.myshopify.com`. Dominio público: vaporizadoresherbales.com.co.
+- Shopify: `vaporizadoresherbales.myshopify.com`. Dominio primario: `www.vaporizadoresherbales.com`. Tema publicado hoy: MINIMOG v4.0.0 `#130789146830` (no es este tema; de ahí salieron los datos de marca).
 - **Tema conectado: ninguno todavía.** Se conecta desde Admin → Online Store → Themes → Add theme → Connect from GitHub, y el tema resultante queda **sin publicar** hasta que la validación pase. Una vez publicado, cada push a `vaporizadores-herbales` es producción.
 - Catálogo: se clona desde DIY en otro proyecto. Ley 1480: solo productos, fotos y fichas reales; nada generado.
 - Apps: Judge.me, Rapi, MercadoPago y LeadConnector se instalan en esta tienda, así que los grupos del cargador diferido se conservan.
@@ -23,7 +23,7 @@ shopify store execute --store vaporizadoresherbales.myshopify.com --query-file <
 python3 .claude/validate-template.py . templates/index.json
 
 # Lighthouse 10-run median
-bash ~/lighthouse-reports/lh-median.sh "https://vaporizadoresherbales.com.co/products/<handle>" 10 mobile
+bash ~/lighthouse-reports/lh-median.sh "https://www.vaporizadoresherbales.com/products/<handle>" 10 mobile
 # Con cookie de edad verificada pre-seteada
 node ~/lighthouse-reports/lh-with-cookie.mjs "<url>" 10 <outdir>
 ```
@@ -43,6 +43,7 @@ node ~/lighthouse-reports/lh-with-cookie.mjs "<url>" 10 <outdir>
 - **DIY PDP kept** (`assets/diyvape-pdp-*`, `snippets/diyvape-pdp-*`, `blocks/_product-metadatos.liquid`): the catalog is cloned from DIY together with its metafields.
 - **Shop Pay (`payment_button`) intact**: affects PDP UX and conversion.
 - **LeadConnector** (`snippets/chat-widget-leadconnector.liquid`) still carries DIY's widget ID. Replace it with this store's ID before publishing.
+- **Kept from DIY on purpose, pending Juan's confirmation before publishing**: legal entity `GRUPO DIY S.A.S.` in the warranty text (`templates/product.json`) and cart notice; shipping-widget thresholds (80.000 Bogotá / 250.000 nacional, in `templates/product.json` delivery block and `sections/main-cart-items.liquid`); WhatsApp assumed equal to the contact phone; `templates/index.json` is still DIY's home (rebuild for VH once the catalog is cloned); `templates/page.about.json` is demo copy.
 
 ## Don'ts
 
