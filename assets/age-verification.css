@@ -3,7 +3,7 @@
   --age-overlay-opacity: 1;
   --age-modal-bg: #fff;
   --age-modal-border: #eaeaea;
-  --age-accent: #c8102e;
+  --age-accent: #1c7b47;
   --age-text-color: #111;
   --age-heading-size: 28px;
   --age-text-size: 15px;
@@ -505,7 +505,7 @@ html.diyvape-age-cart-sync-pending shopify-accelerated-checkout-cart {
 
 .diyvape-age-cart-sync-alert {
   margin-top: 10px;
-  color: var(--age-error-color, #c8102e);
+  color: var(--age-error-color, #d82c0d);
   font-size: 13px;
   line-height: 1.4;
 }

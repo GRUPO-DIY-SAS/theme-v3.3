@@ -65,7 +65,7 @@ html:has(.header__minicart.show_popup).open-minicart .tingle-enabled {
   position: absolute;
   inset: 0 0 auto;
   height: 3px;
-  background: #c8102e;
+  background: #1c7b47;
 }
 .cart-shipping-widget__header {
   display: flex;
@@ -79,7 +79,7 @@ html:has(.header__minicart.show_popup).open-minicart .tingle-enabled {
 .cart-shipping-widget__icon {
   display: inline-flex;
   flex: 0 0 auto;
-  color: #c8102e;
+  color: #1c7b47;
 }
 .cart-shipping-widget__title {
   margin: 0;
@@ -137,7 +137,7 @@ html:has(.header__minicart.show_popup).open-minicart .tingle-enabled {
   width: 0;
   height: 100%;
   border-radius: inherit;
-  background: #c8102e;
+  background: #1c7b47;
   transition: width 0.45s cubic-bezier(0.22, 1, 0.36, 1), background-color 0.2s ease;
 }
 .cart-shipping-widget__hint {
