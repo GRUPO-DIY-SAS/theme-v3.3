@@ -285,6 +285,7 @@
     // Si theme.js fallara, el click repetido sobre el <a> del carrito navega a /cart.
     var drawerTriggers = '#cart-icon-bubble, .top-search-toggle, .nav-toggle';
     var pendingTrigger = null;
+    var pendingTimer = null;
 
     function onEarlyTap(event) {
       var trigger = event.target && event.target.closest ? event.target.closest(drawerTriggers) : null;
@@ -295,9 +296,15 @@
       event.stopImmediatePropagation();
       pendingTrigger = trigger;
       trigger.setAttribute('aria-busy', 'true');
+      // Red de seguridad: si la cadena no resolviera (un script colgado sin onload ni
+      // onerror), el toque se libera igual y el <a> del carrito navega a /cart. Sin
+      // esto el boton quedaba atenuado para siempre y el preventDefault dejaba al
+      // usuario sin forma de llegar al carrito.
+      pendingTimer = window.setTimeout(replayEarlyTap, 8000);
     }
 
     function replayEarlyTap() {
+      window.clearTimeout(pendingTimer);
       document.removeEventListener('pointerdown', onEarlyTap, true);
       document.removeEventListener('click', onEarlyTap, true);
       if (!pendingTrigger) return;
