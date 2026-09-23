@@ -264,7 +264,7 @@
         "text_alignment": "center",
         "show_product_count": true,
         "show_icon": false,
-        "show_description": true,
+        "show_description": false,
         "column_reverse_content": false,
         "font_size": 16,
         "font_weight": "heading_weight",
