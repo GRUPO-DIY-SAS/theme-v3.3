@@ -808,6 +808,15 @@ picture {
   object-fit: cover;
 }
 
+/* critical-base.liquid inlines `img, video { height: auto }` with element
+   specificity, which beats the zero-specificity :where() rule above. With
+   zoom_image off no <motion-element> wraps the image, so these ratio boxes
+   need their own rule or the image keeps its natural height inside the box. */
+.collection-item__media--ratio > img,
+.blog-posts-image [style*='--aspect-ratio'] > img {
+  height: 100%;
+}
+
 [style*='--point'],
 [style*='--point'] :is(img, picture) {
   object-position: var(--point);
