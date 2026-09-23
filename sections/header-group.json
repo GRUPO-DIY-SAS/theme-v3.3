@@ -14,16 +14,6 @@
     "top_bar_CbXNYj": {
       "type": "top-bar",
       "blocks": {
-        "cur_lang_aPwfT9": {
-          "type": "cur_lang",
-          "settings": {
-            "menu_link": "",
-            "show_currency": false,
-            "show_language": false,
-            "show_our_store": true,
-            "hidden_on_mobile": true
-          }
-        },
         "text_slider_LFaC38": {
           "type": "text_slider",
           "settings": {
@@ -36,7 +26,6 @@
         }
       },
       "block_order": [
-        "cur_lang_aPwfT9",
         "text_slider_LFaC38"
       ],
       "settings": {
@@ -58,19 +47,19 @@
       "settings": {
         "section_width": "stretch_width",
         "color_scheme": "scheme-9cfc3af7-a794-49ce-b80d-e06b99df04ea",
-        "logo_position": "left",
+        "logo_position": "center",
         "separator_line": "unset",
         "enable_login_popup": true,
         "sticky_header_type": "on-scroll-up",
         "sticky_header_mobile": true,
         "transparent_header": true,
-        "transparent_mobile": true,
+        "transparent_mobile": false,
         "transparent_text_icon_color": "#ffffff",
-        "transparent_bg_color": "#1c7b47",
+        "transparent_bg_color": "#000000",
         "box_menu": false,
         "mega_menu": "main-menu",
         "dropdowns_animation": "down-to-up",
-        "uppercase_first": false,
+        "uppercase_first": true,
         "hot": "Hot",
         "label_color_hot": "#ffffff",
         "label_background_hot": "#59c68a",
@@ -94,7 +83,7 @@
         "show_shopping_cart": true,
         "show_currency": false,
         "show_language": false,
-        "show_recently_viewed": true,
+        "show_recently_viewed": false,
         "padding_top": 10,
         "padding_bottom": 10
       }
