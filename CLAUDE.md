@@ -49,7 +49,8 @@ node ~/lighthouse-reports/lh-with-cookie.mjs "<url>" 10 <outdir>
 - **Shipping thresholds stay** (80.000 Bogotá / 250.000 nacional, confirmed by Juan 22-09-2026). Home is VH's (slideshow, brands, launches, mas-vendidos, blog `noticias`), colours follow VH green everywhere including the gate.
 - **Home carousels init on first interaction by design** (`lazy-loading-swiper-after` in `global.js`/`slideshow-section.js` on `body.index`): a probe right after load shows them uninitialised; scroll or tap first.
 - **Slideshow needs `motion-effect.js`** even with `scroll_animation: none`: the section enqueues it itself before `slideshow-section.js` (see the comment in `sections/slideshow.liquid`).
-- **Pending before publishing**: `templates/page.about.json` is demo copy; VH has no `faqs`/`contact` pages (404); the PQRS link in the warranty text points to `/pages/peticiones-quejas-y-reclamos`, which may not exist in VH; header mega menu is empty; collection icons wait for the `custom.collection_image_icon` metafield; button contrast (white on #59c68a) mirrors VH's live theme.
+- **Pending before publishing**: `templates/page.about.json` is demo copy; VH has no `faqs`/`contact` pages (404); the PQRS link in the warranty text points to `/pages/peticiones-quejas-y-reclamos`, which may not exist in VH; header mega menu is empty; collection icons wait for the `custom.collection_image_icon` metafield; the header cart-count badge is white on #59c68a (2,13:1, header scheme left as is); top-bar arrows are 5px tap targets (24px via `--swiper-width` cut the text on desktop, reverted: needs a hit-area rule that doesn't take row space).
+- **Contrast** (01-10-2026): light-background schemes use #1c7b47 for primary, buttons and sale/new badges (white on #59c68a measured 2,13:1). Dark schemes keep #59c68a as primary. Don't bring #59c68a back as a background under white text.
 
 ## Don'ts
 
