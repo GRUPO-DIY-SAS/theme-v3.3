@@ -38,7 +38,7 @@
     "badges_rounded_corner": 15,
     "show_sale": true,
     "sale_color": "#fff",
-    "sale_background": "#59c68a",
+    "sale_background": "#1c7b47",
     "sale_badge_type": "percent",
     "sale_badge_addons": "none",
     "scrolling_color": "#1c7b47",
@@ -46,7 +46,7 @@
     "scrolling_text": "Promoción [percent_sale] OFF",
     "countdown_style": "normal",
     "show_new": true,
-    "new_background": "#59c68a",
+    "new_background": "#1c7b47",
     "new_badge_display_period": 30,
     "show_pre_order": true,
     "pre_order_background": "#6a33d8",
@@ -324,12 +324,12 @@
         "settings": {
           "background": "#ffffff",
           "background_gradient": "",
-          "primary_color": "#59c68a",
+          "primary_color": "#1c7b47",
           "text_color": "#000000",
           "heading_color": "#000000",
           "border_color": "#ebebeb",
           "btn_primary_color": "#ffffff",
-          "btn_primary_background": "#59c68a",
+          "btn_primary_background": "#1c7b47",
           "btn_primary_gradient": "",
           "btn_primary_hover_color": "#ffffff",
           "btn_primary_hover_background": "#000000",
@@ -337,7 +337,7 @@
           "btn_outline_color": "#1c7b47",
           "btn_outline_border_color": "#1c7b47",
           "button_link_color": "#1c7b47",
-          "button_link_hover_color": "#59c68a"
+          "button_link_hover_color": "#000000"
         }
       },
       "scheme-4faf0e4d-27f4-4d02-bc51-617383bab1a9": {
@@ -349,9 +349,9 @@
           "heading_color": "#ffffff",
           "border_color": "#ebebeb",
           "btn_primary_color": "#ffffff",
-          "btn_primary_background": "#59c68a",
+          "btn_primary_background": "#1c7b47",
           "btn_primary_gradient": "",
-          "btn_primary_hover_color": "#59c68a",
+          "btn_primary_hover_color": "#1c7b47",
           "btn_primary_hover_background": "#ffffff",
           "btn_primary_hover_background_gradient": "",
           "btn_outline_color": "#111111",
@@ -404,7 +404,7 @@
         "settings": {
           "background": "#ffffff",
           "background_gradient": "",
-          "primary_color": "#59c68a",
+          "primary_color": "#1c7b47",
           "text_color": "#ffffff",
           "heading_color": "#ffffff",
           "border_color": "#ebebeb",
@@ -424,7 +424,7 @@
         "settings": {
           "background": "#ffffff",
           "background_gradient": "",
-          "primary_color": "#59c68a",
+          "primary_color": "#1c7b47",
           "text_color": "#111111",
           "heading_color": "#111111",
           "border_color": "#ebebeb",
@@ -444,7 +444,7 @@
         "settings": {
           "background": "#ebebeb",
           "background_gradient": "",
-          "primary_color": "#59c68a",
+          "primary_color": "#1c7b47",
           "text_color": "#444444",
           "heading_color": "#111111",
           "border_color": "#ebebeb",
@@ -452,12 +452,12 @@
           "btn_primary_background": "#111111",
           "btn_primary_gradient": "",
           "btn_primary_hover_color": "#fff",
-          "btn_primary_hover_background": "#59c68a",
+          "btn_primary_hover_background": "#1c7b47",
           "btn_primary_hover_background_gradient": "",
           "btn_outline_color": "#111111",
           "btn_outline_border_color": "#111111",
           "button_link_color": "#111111",
-          "button_link_hover_color": "#59c68a"
+          "button_link_hover_color": "#000000"
         }
       },
       "scheme-9cfc3af7-a794-49ce-b80d-e06b99df04ea": {
@@ -504,7 +504,7 @@
         "settings": {
           "background": "#f5f5f5",
           "background_gradient": "linear-gradient(0deg, rgba(68, 68, 68, 0.53), rgba(255, 255, 255, 1), rgba(255, 255, 255, 1), rgba(255, 255, 255, 1) 0.5%, rgba(255, 255, 255, 1) 16.547%, rgba(212, 208, 208, 1) 35%, rgba(235, 235, 235, 1) 40%, rgba(212, 208, 208, 1) 45%, rgba(255, 255, 255, 1) 80%, rgba(255, 255, 255, 1) 99%)",
-          "primary_color": "#59c68a",
+          "primary_color": "#1c7b47",
           "text_color": "#444444",
           "heading_color": "#111111",
           "border_color": "#ebebeb",
