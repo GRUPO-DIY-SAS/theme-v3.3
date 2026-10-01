@@ -61,7 +61,7 @@
     "product_name_text_transform": "capitalize",
     "product_size": 15,
     "price_size": 15,
-    "show_vendor": true,
+    "show_vendor": false,
     "show_secondary_image": false,
     "product_image_ratio": "square",
     "product_hover_effect": "hover_fade",
