@@ -141,11 +141,11 @@
           </a>
         {% when 'currency' %}
           <div class="lang__currency-on-nav mobile-navigation__currency lh-normal inline-flex content-center flex-column text-center heading-color">
-            {%- render 'country-switcher' | type: 'mobile-navigation' -%}
+            {%- render 'country-switcher', type: 'mobile-navigation' -%}
           </div>
         {% when 'language' %}
           <div class="lang__currency-on-nav mobile-navigation__currency lh-normal inline-flex content-center flex-column text-center heading-color">
-            {% render 'language-switcher' | type: 'mobile-navigation' %}
+            {% render 'language-switcher', type: 'mobile-navigation' %}
           </div>
       {% endcase %}
     {% endfor %}
@@ -240,3 +240,16 @@
   ]
 }
 {% endschema %}
+{% comment %}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "{%- render 'country-switcher' | type: 'mobile-navigation' -%}"
+  to: "{%- render 'country-switcher', type: 'mobile-navigation' -%}"
+  position: 11072..11132
+- from: "{% render 'language-switcher' | type: 'mobile-navigation' %}"
+  to: "{% render 'language-switcher', type: 'mobile-navigation' %}"
+  position: 11345..11404
+{% endcomment %}

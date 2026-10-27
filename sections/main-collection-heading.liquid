@@ -32,7 +32,7 @@
             class: 'background-heading absolute inset-0 z--1 pointer-none w-full h-full object-position-center object-fit-cover'
           %}
         {%- else -%}
-          {% render 'placeholder-render' | type: "collection", class: 'background-heading absolute inset-0 z--1 pointer-none w-full h-full object-position-center object-fit-cover' %}
+          {% render 'placeholder-render', type: "collection", class: 'background-heading absolute inset-0 z--1 pointer-none w-full h-full object-position-center object-fit-cover' %}
         {% endif %}
       </div>
     {% endif %}
@@ -276,4 +276,17 @@
     }
   ]
 }
-{% endschema %}
+{% endschema %}{%- comment -%}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: '{% render ''placeholder-render'' | type: "collection", class: ''background-heading
+    absolute inset-0 z--1 pointer-none w-full h-full object-position-center object-fit-cover''
+    %}'
+  to: '{% render ''placeholder-render'', type: "collection", class: ''background-heading
+    absolute inset-0 z--1 pointer-none w-full h-full object-position-center object-fit-cover''
+    %}'
+  position: 1691..1862
+{%- endcomment -%}
