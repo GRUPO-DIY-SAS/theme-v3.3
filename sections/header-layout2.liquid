@@ -254,7 +254,7 @@
           style="--section-pt: 0; --section-pb: 0;"
         >
           {%- liquid
-            render 'horizontal-menu' | show_language : show_language
+            render 'horizontal-menu', show_language: show_language
           -%}
         </div>
       </header-inner>
@@ -1033,3 +1033,13 @@
   ]
 }
 {% endschema %}
+{% comment %}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "render 'horizontal-menu' | show_language : show_language\r"
+  to: 'render ''horizontal-menu'', show_language: show_language'
+  position: 17842..17896
+{% endcomment %}

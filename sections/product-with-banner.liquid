@@ -164,7 +164,7 @@
                     class: 'product-banner__image-element'
                   %}
                 {%- else -%}
-                  {%- render 'placeholder-render' | class: 'product-banner__image-element' -%}
+                  {%- render 'placeholder-render', class: 'product-banner__image-element' -%}
                 {% endif %}
               </div>
             {% endif %}
@@ -806,3 +806,14 @@
   ]
 }
 {% endschema %}
+{% comment %}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "{%- render 'placeholder-render' | class: 'product-banner__image-element'
+    -%}"
+  to: "{%- render 'placeholder-render', class: 'product-banner__image-element' -%}"
+  position: 6581..6656
+{% endcomment %}

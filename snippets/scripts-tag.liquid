@@ -9,7 +9,7 @@
 <script src="{{ 'tingle.js' | asset_url }}" defer="defer"></script>
 <script src="{{ 'theme.js' | asset_url }}"  defer="defer" type="module"></script>
 {%- case t -%}
-  {%- when 'collection' and collection.handle -%}
+  {%- when 'collection' -%}
     <script src="{{ 'collection.js' | asset_url }}" defer="defer"></script>
   {%- when 'product' -%}
     <script src="{{ 'main-product.js' | asset_url }}" defer="defer"></script>
@@ -41,3 +41,13 @@
   mode: '{%- if admin_vi == true -%}admin{% else %}front{%- endif -%}',
   };
 </script>
+{% comment %}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "{%- when 'collection' and collection.handle -%}"
+  to: "{%- when 'collection' -%}"
+  position: 571..596
+{% endcomment %}

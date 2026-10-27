@@ -198,7 +198,7 @@
                                   class="menu-list"
                                   style="--row-gap: 40px; --col-desktop:{{ block_st.product_menu_column }};"
                                 >
-                                  {%- render 'submenu-list' | link: link -%}
+                                  {%- render 'submenu-list', link: link -%}
                                 </div>
                               {% endif %}
                               {%- if product_count > 0 -%}
@@ -295,7 +295,7 @@
                           </svg>
                         </close-menu>
                       </div>
-                      {%- render 'submenu-list' | link: link | menu_type: 'dropdown' | type_menu: 'mega' -%}
+                      {%- render 'submenu-list', link: link, menu_type: 'dropdown', type_menu: 'mega' -%}
                     </div>
                   {%- endif -%}
                 </li>
@@ -306,4 +306,18 @@
       </div>
     </div>
   </div>
-  <div class="vertical-menu-overlay hidden block-1025"></div>
+  <div class="vertical-menu-overlay hidden block-1025"></div>{%- comment -%}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "{%- render 'submenu-list' | link: link -%}"
+  to: "{%- render 'submenu-list', link: link -%}"
+  position: 13064..13105
+- from: "{%- render 'submenu-list' | link: link | menu_type: 'dropdown' | type_menu:
+    'mega' -%}"
+  to: "{%- render 'submenu-list', link: link, menu_type: 'dropdown', type_menu: 'mega'
+    -%}"
+  position: 18515..18598
+{%- endcomment -%}
