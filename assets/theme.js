@@ -1327,6 +1327,11 @@ var BlsSearchShopify = (function () {
       }
       document.querySelectorAll(".top-search-toggle").forEach((navToggle) => {
         navToggle.onclick = (e) => {
+          // Clic real sobre la lupa: se levanta la supresion de ~0,4 s que el gate
+          // pone en cada carga mientras sincroniza el carrito; aqui se descartaba.
+          document
+            .querySelector("age-verification-gate")
+            ?.releaseSyncSuppression?.();
           if (this.isAgeGateSearchSuppressed()) {
             e.preventDefault();
             this.resetSuppressedSearchState();
