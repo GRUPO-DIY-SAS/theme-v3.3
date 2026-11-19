@@ -1,5 +1,4 @@
 "use-strict";
-import "./cart-components.js";
 
 function showMinicartAddSuccessMessage(cart) {
   if (!cart || typeof window.showMinicartMessage !== "function") return;
