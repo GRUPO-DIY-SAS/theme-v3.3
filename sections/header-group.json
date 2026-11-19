@@ -17,9 +17,9 @@
         "text_slider_LFaC38": {
           "type": "text_slider",
           "settings": {
-            "text1": "<strong>Envío Gratis</strong> a todo Colombia en vaporizadores*",
-            "text2": "<strong>Envío Express en Bogotá</strong> para pedidos antes de las 2:00 p.m. (lunes a sábado, no festivos)",
-            "text3": "<strong>Despacho nacional el mismo día</strong> con Coordinadora para pedidos antes de las 2:00 p.m.",
+            "text1": "<strong>Envíos </strong>&nbsp;a todo Colombia&nbsp;",
+            "text2": "<strong>Envío Express en Bogotá</strong> para pedidos antes de las 12:30 p.m. (lunes a sábado, no festivos)",
+            "text3": "<strong>Despacho nacional el mismo día</strong> con Coordinadora para pedidos antes de las 1:00 p.m.",
             "change_every": 3,
             "hidden_on_mobile": false
           }
@@ -42,8 +42,6 @@
     },
     "header": {
       "type": "header",
-      "blocks": {},
-      "block_order": [],
       "settings": {
         "section_width": "stretch_width",
         "color_scheme": "scheme-9cfc3af7-a794-49ce-b80d-e06b99df04ea",
