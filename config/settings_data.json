@@ -9,7 +9,7 @@
  */
 {
   "current": {
-    "favicon": "shopify://shop_images/fav_icon_dark_1.png",
+    "favicon": "shopify://shop_images/Favicon.png",
     "logo": "shopify://shop_images/White-logo---no-background.png",
     "logo_on_transparent": "shopify://shop_images/White-logo---no-background.png",
     "desktop_logo_width": 146,
@@ -389,7 +389,7 @@
           "btn_primary_color": "#ffffff",
           "btn_primary_background": "#111111",
           "btn_primary_gradient": "",
-          "btn_primary_hover_color": "#fff",
+          "btn_primary_hover_color": "#ffffff",
           "btn_primary_hover_background": "#1c7b47",
           "btn_primary_hover_background_gradient": "",
           "btn_outline_color": "#111111",
