@@ -4,8 +4,8 @@ Tercera tienda sobre este tema. La rama sale del tema vivo de diyvape.co (commit
 
 ## Tienda
 
-- Shopify: `vaporizadoresherbales.myshopify.com`. Dominio primario: `www.vaporizadoresherbales.com`. Tema publicado hoy: MINIMOG v4.0.0 `#130789146830` (no es este tema; de ahí salieron los datos de marca).
-- **Tema conectado: ninguno todavía.** Se conecta desde Admin → Online Store → Themes → Add theme → Connect from GitHub, y el tema resultante queda **sin publicar** hasta que la validación pase. Una vez publicado, cada push a `vaporizadores-herbales` es producción.
+- Shopify: `vaporizadoresherbales.myshopify.com`. Dominio primario: `www.vaporizadoresherbales.com`. Tema publicado: `theme-v3.3/vaporizadores-herbales` **#151079157966**, desde el 19-11-2026. El anterior, MINIMOG v4.0.0 `#130789146830`, sigue en la tienda sin publicar (de ahí salieron los datos de marca).
+- **Cada push a `vaporizadores-herbales` es producción.** Los cambios se preparan en una rama aparte y se validan antes en una copia sin publicar del tema (`.claude/qa/theme-copy.py`), con `?preview_theme_id=<id>`.
 - Catálogo: se clona desde DIY en otro proyecto. Ley 1480: solo productos, fotos y fichas reales; nada generado.
 - Apps: Judge.me, Rapi, MercadoPago y LeadConnector se instalan en esta tienda, así que los grupos del cargador diferido se conservan.
 
