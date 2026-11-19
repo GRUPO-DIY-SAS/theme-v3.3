@@ -239,6 +239,16 @@
           { type: 'style', href: {{ 'judgeme-reviews.css' | asset_url | json }}, visual: false },
           { type: 'style', href: {{ 'theme.css' | asset_url | json }} },
           { type: 'style', href: {{ 'popup.css' | asset_url | json }}, visual: false }
+          {% comment %}
+            minicart.css tambien se enlaza al final del <body> (snippets/minicart.liquid),
+            pero ahi el navegador lo descubre tarde: en la home de DIY (1,6 MB de HTML) la
+            cabecera ya es visible y el carrito aun no tiene estilos, asi que el toque
+            temprano se retenia ~0,4 s. Aqui llega con el resto y aquel enlace conserva
+            su lugar en la cascada.
+          {% endcomment %}
+          {% if request.page_type != 'cart' and settings.action_after_add_cart != 'go_to_cart_page' %}
+            ,{ type: 'style', href: {{ 'minicart.css' | asset_url | json }}, visual: false }
+          {% endif %}
           {% if load_account_popup_assets %}
             ,{ type: 'style', href: {{ 'header-account-popup.css' | asset_url | json }}, visual: false }
           {% endif %}
