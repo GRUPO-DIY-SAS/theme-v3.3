@@ -821,7 +821,11 @@
 
     async performCartSync(reduced, opts) {
       this.perfMark("cart_sync_start");
-      this.suppressMinicartDrawer(400, { includeNav: false });
+      /* Con el minicart ya abierto por el usuario no hay apertura involuntaria
+         que evitar, y suprimirlo aquí se lo cerraría en la cara. */
+      if (!document.documentElement.classList.contains("open-minicart")) {
+        this.suppressMinicartDrawer(400, { includeNav: false });
+      }
       this.setPendingCartSyncPayload(reduced);
 
       const attempts = Math.max(1, (parseInt(opts.retries || "0", 10) || 0) + 1);
@@ -933,7 +937,20 @@
         window.clearTimeout(window.diyvapeSuppressMinicartTimer);
       }
 
+      /* La limpieza se programa para la supresión que venza MÁS TARDE, no para
+         la de esta llamada. Al verificar se suprime 800 ms y, un frame después,
+         la sincronización del carrito suprime 400 ms: su temporizador reemplazaba
+         al primero, corría a los 480 ms con los 800 aún vigentes y no quitaba
+         nada, y ya no quedaba ningún temporizador. Las tres clases se quedaban
+         puestas y carrito, buscador y menú no abrían hasta cambiar de página. */
+      const latest = Math.max(
+        window.diyvapeSuppressMinicartUntil || 0,
+        window.diyvapeSuppressSearchUntil || 0,
+        window.diyvapeSuppressNavUntil || 0
+      );
+
       window.diyvapeSuppressMinicartTimer = window.setTimeout(() => {
+        window.diyvapeSuppressMinicartTimer = null;
         if ((window.diyvapeSuppressMinicartUntil || 0) <= Date.now()) {
           document.documentElement.classList.remove("diyvape-suppress-minicart");
         }
@@ -944,7 +961,27 @@
           document.documentElement.classList.remove("diyvape-suppress-nav");
         }
         this.resetTransientDrawers({ includeNav });
-      }, duration + 80);
+      }, Math.max(0, latest - Date.now()) + 80);
+    }
+
+    /* Un clic real sobre el carrito o la lupa no es la apertura involuntaria que
+       evita la supresión de la sincronización (la del propio /cart/update.js),
+       y esa ventana se abre en CADA carga de página: descartar el clic dejaba
+       el icono sin responder ~0,5 s justo al aparecer. Quien atiende el clic
+       llama aquí para levantarla. Mientras el menú también está suprimido es
+       la ventana del toque fantasma tras verificar, y esa se respeta. */
+    releaseSyncSuppression() {
+      const rootEl = document.documentElement;
+      if (rootEl.classList.contains("diyvape-suppress-nav") || (window.diyvapeSuppressNavUntil || 0) > Date.now()) {
+        return;
+      }
+      window.diyvapeSuppressMinicartUntil = 0;
+      window.diyvapeSuppressSearchUntil = 0;
+      rootEl.classList.remove("diyvape-suppress-minicart", "diyvape-suppress-search");
+      if (window.diyvapeSuppressMinicartTimer) {
+        window.clearTimeout(window.diyvapeSuppressMinicartTimer);
+        window.diyvapeSuppressMinicartTimer = null;
+      }
     }
 
     resetTransientDrawers(options = {}) {

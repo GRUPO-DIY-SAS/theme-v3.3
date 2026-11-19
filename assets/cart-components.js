@@ -175,6 +175,11 @@ class CartNotification extends HTMLElement {
           ) {
             this.close();
           } else {
+            // Clic real sobre el icono: se levanta la supresion de ~0,4 s que el gate
+            // pone en cada carga mientras sincroniza el carrito; open() lo descartaba.
+            document
+              .querySelector("age-verification-gate")
+              ?.releaseSyncSuppression?.();
             this.open();
           }
         },
