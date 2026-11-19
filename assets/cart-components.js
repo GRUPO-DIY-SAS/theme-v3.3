@@ -913,24 +913,26 @@ class CartNotification extends HTMLElement {
         delay = new Promise((resolve) => setTimeout(resolve, 650));
       }
       delay && (await delay);
+      // El ancho de la barra de scroll se mide ANTES de poner clases: medirlo
+      // despues obligaba a recalcular estilos y layout de toda la pagina dentro
+      // del propio clic.
+      const isDrawer =
+        !this.classList.contains("show_popup") &&
+        this.notification.classList.contains("open_drawer");
+      const scrollBarWidth = isDrawer ? getScrollBarWidth.init() : 0;
       this.notification
         .querySelector(".minicart__wrapper")
         .classList.add("open");
       this.notification.classList.add("open");
-      setTimeout(() => {
-        if (!this.classList.contains("show_popup")) {
-          document.documentElement.classList.add(
-            "open-drawer",
-            "open-minicart"
-          );
-          if (this.notification.classList.contains("open_drawer")) {
-            root.style.setProperty(
-              "padding-right",
-              getScrollBarWidth.init() + "px"
-            );
-          }
+      // Sin el setTimeout de 100 ms que habia aqui: el panel ya esta en el arbol
+      // (solo oculto y desplazado), asi que la transicion arranca igual en este
+      // mismo frame y la espera era retraso puro tras cada clic.
+      if (!this.classList.contains("show_popup")) {
+        document.documentElement.classList.add("open-drawer", "open-minicart");
+        if (isDrawer) {
+          root.style.setProperty("padding-right", scrollBarWidth + "px");
         }
-      }, 100);
+      }
 
       BlsLazyloadImg.init();
     } else {

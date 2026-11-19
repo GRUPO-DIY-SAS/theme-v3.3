@@ -790,13 +790,27 @@ class SlideLazyLoad {
       (this.delayedScriptsJs = { normal: [], async: [], defer: [] });
   }
   triggerListenerJs() {
-    this._removeUserInteractionListenerJs(this),
-      "loading" === document.readyState
-        ? document.addEventListener(
-            "DOMContentLoaded",
-            this._loadEverythingReadyNow.bind(this)
-          )
-        : this._loadEverythingReadyNow();
+    this._removeUserInteractionListenerJs(this);
+    // El primer gesto suele ser el toque sobre el carrito o el menu. Montar los
+    // carruseles dentro de ese mismo evento lo dejaba esperando detras de ~250 ms de
+    // new Swiper (home de DIY, movil de gama media): se espera a que el hilo quede
+    // libre, es decir, a que el toque ya se haya atendido y pintado.
+    const start = () => this._whenIdle(() => this._loadEverythingReadyNow());
+    "loading" === document.readyState
+      ? document.addEventListener("DOMContentLoaded", start)
+      : start();
+  }
+  _whenIdle(callback) {
+    "requestIdleCallback" in window
+      ? window.requestIdleCallback(callback, { timeout: 500 })
+      : window.setTimeout(callback, 100);
+  }
+  _yieldToMain() {
+    // scheduler.yield() retoma despues de los eventos de entrada pendientes; donde
+    // no existe (Safari) un macrotask da el mismo respiro.
+    return window.scheduler && "function" === typeof window.scheduler.yield
+      ? window.scheduler.yield()
+      : new Promise((resolve) => setTimeout(resolve, 0));
   }
   _removeUserInteractionListenerJs(e) {
     this.triggerEventsJs.forEach((t) =>
@@ -808,16 +822,24 @@ class SlideLazyLoad {
       window.addEventListener(t, e.userEventListenerJs, e.eventOptionsJs)
     );
   }
-  _preloadAllScriptsJs() {
+  async _preloadAllScriptsJs() {
     document.body.classList.add("swiper-lazy");
     document.body.classList.add("review-lazy");
-    const loadingSwiper = document.querySelectorAll(
-      ".lazy-loading-swiper-after"
-    );
-    loadingSwiper.forEach((el) => {
+    const inView = (el) => {
+      const rect = el.getBoundingClientRect();
+      return rect.bottom > 0 && rect.top < window.innerHeight;
+    };
+    // Uno por tarea y los que estan a la vista primero: todos juntos eran una sola
+    // tarea larga que congelaba la pagina justo tras el primer gesto.
+    const loadingSwiper = Array.from(
+      document.querySelectorAll(".lazy-loading-swiper-after")
+    ).sort((a, b) => inView(b) - inView(a));
+    for (const el of loadingSwiper) {
+      if (!el.classList.contains("lazy-loading-swiper-after")) continue;
       el.classList.remove("lazy-loading-swiper-after");
       this.initSlide(el);
-    });
+      await this._yieldToMain();
+    }
     const reviewProduct = document.querySelectorAll(".review-product-added");
     reviewProduct.forEach((el) => {
       el.classList.remove("review-product-added");
@@ -1047,7 +1069,7 @@ class SlideLazyLoad {
   }
 
   async _loadEverythingReadyNow() {
-    this._preloadAllScriptsJs(),
+    await this._preloadAllScriptsJs(),
       await this._loadScriptsFromListJs(this.delayedScriptsJs.normal),
       await this._loadScriptsFromListJs(this.delayedScriptsJs.defer),
       await this._loadScriptsFromListJs(this.delayedScriptsJs.async),
