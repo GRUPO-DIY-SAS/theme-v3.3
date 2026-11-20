@@ -417,47 +417,205 @@
       return result;
     };
 
-    // Carrito, buscador y menu los enlaza theme.js (cart-components.js va importado
-    // ahi). Un toque antes de que cargue se perdia en el buscador y en el carrito
-    // navegaba a /cart en vez de abrir el panel. Se retiene el toque, la carga
-    // arranca en ese instante y el toque se repite al estar listos los scripts.
+    // Carrito, buscador y menu los enlaza theme.js, que llega al final de la cola. Un
+    // toque antes de eso se perdia en el buscador y en el carrito navegaba a /cart.
+    //
+    // Carrito y menu son solo clases sobre paneles que ya vienen en el HTML, asi que
+    // se abren aqui mismo con el estado que pondria theme.js: retener el toque hasta
+    // el final de la cola costaba 0,9 s en VH y 1,8 s en DIY (4G, movil de gama media).
+    // El buscador depende de theme.js (busqueda predictiva, variantes de cabecera) y
+    // si se retiene: la carga arranca en ese instante y el toque se repite al llegar.
     //
     // Con el gate de edad activo NO se retiene nada ni se fuerza la carga: los assets
     // siguen bloqueados hasta verificar y el enlace del carrito conserva su navegacion
     // nativa a /cart, que es lo unico que funciona en ese estado.
     var drawerTriggers = '#cart-icon-bubble, .top-search-toggle, .nav-toggle';
+    var rootEl = document.documentElement;
+    var scriptsReady = false;
+    var replaying = false;
+    var earlyCartOpen = false;
     var pendingTrigger = null;
     var pendingTimer = null;
 
-    function releaseEarlyTap() {
-      window.clearTimeout(pendingTimer);
-      document.removeEventListener('pointerdown', onEarlyTap, true);
-      document.removeEventListener('click', onEarlyTap, true);
-      if (!pendingTrigger) return;
+    function gateSuppresses(panel) {
+      return rootEl.classList.contains('diyvape-suppress-' + panel.toLowerCase()) ||
+        (window['diyvapeSuppress' + panel + 'Until'] || 0) > Date.now();
+    }
+
+    // El gate suprime carrito y buscador ~0,4 s mientras sincroniza el carrito en cada
+    // carga. Un clic real sobre el icono no es la apertura involuntaria que eso evita.
+    function releaseGateSyncHold() {
+      var gate = document.querySelector('age-verification-gate');
+      if (gate && typeof gate.releaseSyncSuppression === 'function') gate.releaseSyncSuppression();
+    }
+
+    // html.open-drawer quita la barra de scroll y theme.js compensa su ancho con un
+    // padding. El ancho se lee ANTES de tocar clases: leerlo despues obligaba a
+    // recalcular estilos y layout de toda la pagina dentro del propio clic (~45 ms
+    // en un movil de gama media).
+    function scrollbarGap() {
+      return window.innerWidth - rootEl.clientWidth;
+    }
+
+    function lockScroll(lock, gap) {
+      if (lock) {
+        rootEl.classList.add('open-drawer');
+        if (gap > 0) document.body.style.setProperty('padding-right', gap + 'px');
+      } else {
+        rootEl.classList.remove('open-drawer');
+        document.body.style.removeProperty('padding-right');
+      }
+    }
+
+    function setNav(trigger, open) {
+      var gap = open ? scrollbarGap() : 0;
+      rootEl.classList.toggle('nav-open', open);
+      if (!document.querySelector('.navigation.horizontal')) rootEl.classList.toggle('nav-verticalmenu', open);
+      if (open) {
+        trigger.classList.add('open');
+      } else {
+        document.querySelectorAll('.nav-toggle.open').forEach(function (toggle) {
+          toggle.classList.remove('open');
+        });
+      }
+      lockScroll(open, gap);
+    }
+
+    function cartParts() {
+      var cart = document.getElementById('minicart_wrapper');
+      var panel = cart ? cart.querySelector('.minicart__wrapper.bls__drawer') : null;
+      return panel ? { cart: cart, panel: panel } : null;
+    }
+
+    function setCart(parts, open) {
+      var gap = open ? scrollbarGap() : 0;
+      earlyCartOpen = open;
+      parts.cart.classList.toggle('open', open);
+      parts.panel.classList.toggle('open', open);
+      rootEl.classList.toggle('open-minicart', open);
+      lockScroll(open, gap);
+    }
+
+    // Abrir un panel antes de que su hoja aplique mostraria el contenido sin estilos:
+    // el toque queda retenido y se reintenta en cuanto la hoja llega. `sheet` es null
+    // hasta que carga; las enlazadas con media="print" pasan a "all" en su onload.
+    function sheetApplied(name) {
+      var link = document.querySelector('link[rel="stylesheet"][href*="' + name + '"]');
+      if (!link || (link.sheet && link.media !== 'print')) return true;
+      link.addEventListener('load', retryPending, { once: true });
+      return false;
+    }
+
+    function toggleCart() {
+      var parts = cartParts();
+      // Sin panel lateral (modo popup) el toque sigue el camino retenido.
+      if (!parts || !sheetApplied('minicart.css')) return false;
+      var open = !parts.panel.classList.contains('open');
+      if (typeof parts.cart.open === 'function') {
+        if (open) parts.cart.open(); else parts.cart.close();
+      } else {
+        setCart(parts, open);
+      }
+      return true;
+    }
+
+    function panelOf(trigger) {
+      if (trigger.id === 'cart-icon-bubble') return 'Minicart';
+      return trigger.matches('.nav-toggle') ? 'Nav' : 'Search';
+    }
+
+    // Devuelve true cuando el toque ya tuvo su efecto (o se descarto a proposito).
+    function actOn(trigger) {
+      var panel = panelOf(trigger);
+      // Menu suprimido = ventana del toque fantasma al cerrar el gate: se descarta,
+      // igual que hace theme.js.
+      if (gateSuppresses('Nav')) return true;
+      if (gateSuppresses(panel)) releaseGateSyncHold();
+      if (scriptsReady) {
+        replaying = true;
+        try { trigger.click(); } finally { replaying = false; }
+        return true;
+      }
+      if (panel === 'Nav') {
+        if (!sheetApplied('navigation.css')) return false;
+        setNav(trigger, !rootEl.classList.contains('nav-open'));
+        return true;
+      }
+      return panel === 'Minicart' && toggleCart();
+    }
+
+    function retryPending() {
       var trigger = pendingTrigger;
+      if (!trigger || !actOn(trigger)) return;
+      window.clearTimeout(pendingTimer);
       pendingTrigger = null;
       trigger.removeAttribute('aria-busy');
-      trigger.click();
+    }
+
+    // theme.js ya atiende los tres disparadores: lo retenido se repite y esto se retira.
+    function handOver() {
+      scriptsReady = true;
+      document.removeEventListener('pointerdown', onEarlyTap, true);
+      document.removeEventListener('click', onEarlyTap, true);
+      retryPending();
     }
 
     function onEarlyTap(event) {
+      if (replaying) return;
       var trigger = event.target && event.target.closest ? event.target.closest(drawerTriggers) : null;
       if (!trigger) return;
       if (!requested && !isAgeVerified()) return;
       loadDeferredAssets();
       if (event.type !== 'click') return;
+      // Icono del carrito sin panel que abrir (pagina de carrito, "ir al carrito"):
+      // es un enlace normal a /cart y no hay nada que retener.
+      if (panelOf(trigger) === 'Minicart' && !trigger.classList.contains('minicart__action')) return;
       event.preventDefault();
       event.stopImmediatePropagation();
+      if (actOn(trigger)) return;
       pendingTrigger = trigger;
       trigger.setAttribute('aria-busy', 'true');
       // Red de seguridad: si la cadena no resolviera (un script colgado sin onload ni
       // onerror), el toque se libera igual y el <a> del carrito navega a /cart.
-      pendingTimer = window.setTimeout(releaseEarlyTap, 8000);
+      window.clearTimeout(pendingTimer);
+      pendingTimer = window.setTimeout(handOver, 8000);
+    }
+
+    // Cierres de lo abierto antes de que existan los componentes de theme.js. Queda
+    // enganchado: si su script fallara, el panel abierto aqui no tendria como cerrarse.
+    function onEarlyDismiss(event) {
+      var target = event.target;
+      if (!target || !target.closest) return;
+      if (rootEl.classList.contains('nav-open') && target.closest('close-menu') && !window.customElements.get('close-menu')) {
+        setNav(null, false);
+        return;
+      }
+      if (!earlyCartOpen) return;
+      var parts = cartParts();
+      if (!parts || typeof parts.cart.close === 'function') return;
+      var inside = target.closest('cart-notification, .header__minicart');
+      if (inside && !target.closest('.close-cart-button, .close-cart')) return;
+      setCart(parts, false);
     }
 
     document.addEventListener('pointerdown', onEarlyTap, true);
     document.addEventListener('click', onEarlyTap, true);
-    window.addEventListener('diyvape:deferred-assets-loaded', releaseEarlyTap, { once: true });
+    document.addEventListener('click', onEarlyDismiss, true);
+    window.addEventListener('diyvape:deferred-assets-loaded', handOver, { once: true });
+    // El panel del carrito se renderiza al final del <body>. Con el HTML todavia
+    // llegando (conexion lenta, estilos en cache) el icono ya se ve y el panel aun no
+    // existe: lo retenido por eso se reintenta al terminar el parseo.
+    domParsed.then(retryPending);
+
+    // Un carrito abierto antes de existir su componente: open() es idempotente y
+    // engancha lo que le falta (cierre al hacer clic fuera, imagenes diferidas).
+    if (window.customElements && window.customElements.whenDefined) {
+      window.customElements.whenDefined('cart-notification').then(function () {
+        var parts = cartParts();
+        if (earlyCartOpen && parts && typeof parts.cart.open === 'function') parts.cart.open();
+        earlyCartOpen = false;
+      });
+    }
 
     window.diyvapeLoadDeferredAssets = loadDeferredAssets;
 

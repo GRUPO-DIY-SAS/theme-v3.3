@@ -1,10 +1,18 @@
 {%- liquid
   assign t = template | split: '.' | first
 -%}
+{%- comment -%}
+  cart-components.js va como script propio, delante de theme.js y con la misma
+  semantica de modulo. Antes lo importaba theme.js con una ruta relativa, que se
+  resuelve SIN el ?v= de asset_url: el CDN lo sirve con max-age de un ano, asi que
+  un cambio en ese archivo no llegaba a quien ya lo tenia en cache. Ademas solo
+  empezaba a bajar cuando theme.js ya habia llegado (una ida y vuelta de mas).
+{%- endcomment -%}
 {%- if defer_by_age_gate -%}
   <script>
     window.diyvapeDeferredAssets.push(
       { type: 'script', src: {{ 'tingle.js' | asset_url | json }} },
+      { type: 'script', src: {{ 'cart-components.js' | asset_url | json }}, module: true },
       { type: 'script', src: {{ 'theme.js' | asset_url | json }}, module: true }
       {%- case t -%}
         {%- when 'collection' -%}
@@ -30,6 +38,7 @@
   </script>
 {%- else -%}
   <script src="{{ 'tingle.js' | asset_url }}" defer="defer"></script>
+  <script src="{{ 'cart-components.js' | asset_url }}" defer="defer" type="module"></script>
   <script src="{{ 'theme.js' | asset_url }}"  defer="defer" type="module"></script>
   {%- case t -%}
     {%- when 'collection' -%}
